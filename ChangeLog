@@ -1,4 +1,12 @@
-$Id: ChangeLog,v 1.9 2004/02/07 07:21:49 mthuurne Exp $
+$Id: ChangeLog,v 1.10 2004/02/08 16:05:05 h_oudejans Exp $
+
+2004-02-12 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* When RESOURCEDIR is defined, catapult will use this as the 
+	  basedirectory for the resources.
+	* Suppressed output when launching openMSX in hidden mode
+	* When used with openMSX 0.3.4 release, catapult will now filter
+	  excessive information from the set command reply if set is used 
+	  to query the current value.
 
 2004-02-08 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Make renderers and scalers dynamicly
