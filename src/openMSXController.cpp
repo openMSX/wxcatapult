@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.43 2004/04/21 05:55:09 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.44 2004/04/25 15:29:16 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -568,6 +568,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set master_volume","","master_volume",&openMSXController::UpdateSetting,false);
 	AddLaunchInstruction ("set *_volume","","*_volume",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set *_mode","","*_mode",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("plug cassetteport","","cassetteport",&openMSXController::EnableCassettePort,false);
 	AddLaunchInstruction ("update enable plug","","",NULL,false);
 	AddLaunchInstruction ("update enable unplug","","",NULL,false);
 	
@@ -730,6 +731,7 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 
 void openMSXController::FinishLaunch()
 {
+	m_appWindow->m_sessionPage->AutoPlugCassette();
 	wxSize tempsize = m_appWindow->GetSize();
 	tempsize.SetHeight(tempsize.GetHeight()+1);
 	tempsize.SetWidth(tempsize.GetWidth()+1);
@@ -990,5 +992,11 @@ int openMSXController::InitConnectorPanel (wxString dummy1, wxString dummy2)
 int openMSXController::EnableAutoFrameSkip (wxString data, wxString cmd)
 {
 	m_appWindow->m_miscControlPage->EnableAutoFrameSkip();
+	return 0;
+}
+
+int openMSXController::EnableCassettePort (wxString data, wxString cmd)
+{
+	m_appWindow->m_sessionPage->EnableCassettePort(data);
 	return 0;
 }

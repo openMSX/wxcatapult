@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.20 2004/04/15 18:28:22 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.21 2004/04/21 05:55:10 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -121,6 +121,8 @@ class openMSXController
 		int InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
 		int InitConnectorPanel (wxString dummy1, wxString dummy2);
 		int EnableAutoFrameSkip (wxString data, wxString cmd);
+		int EnableCassettePort (wxString data, wxString cmd);
+
 
 		list<wxString> m_commands;		
 };

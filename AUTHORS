@@ -1,4 +1,4 @@
-$Id: AUTHORS,v 1.1 2004/04/17 21:56:26 manuelbi Exp $
+$Id: AUTHORS,v 1.2 2004/04/18 12:51:00 h_oudejans Exp $
 
 Prime Developers:
 Herman Oudejans      <hn.oudejans@quicknet.nl>
@@ -17,6 +17,10 @@ used code from the following contributors:
 
 Finding a window by process ID:
 	Martin-Pierre Frenette  (www.codeproject.com)
+Openmsx XML parser:
+	Wouter Vermaelen     <wouter.vermaelen@pi.be>
+Linux build system:
+	Maarten ter Huurne   <maarten@treewalker.org>
 
 Historical note:
 

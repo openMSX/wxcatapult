@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.12 2004/04/09 19:40:52 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.13 2004/04/15 18:27:04 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -21,6 +21,10 @@
 #include "MiscControlPage.h"
 #include "VideoControlPage.h"
 #include "openMSXController.h"
+
+#ifdef __WINDOWS__
+#include <shlobj.h>
+#endif
 
 IMPLEMENT_CLASS(SessionPage, wxPanel)
 BEGIN_EVENT_TABLE(SessionPage, wxPanel)
@@ -98,6 +102,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 			buttons[i]->Enable(true);
 		}
 	RestoreHistory();
+	m_cassettePortState = "disabled";
 }
 
 SessionPage::~SessionPage()
@@ -160,7 +165,7 @@ bool SessionPage::BrowseDisk(wxComboBox *target, wxString devicename, wxString d
 {
 	wxString path;
 #ifndef __MOTIF__
-	path = _("All known disk files|*.dsk;*.xsa;*.zip;*.gz;*.di1;*.di2|Uncompressed disk files|*.dsk;*.xsa;*.di1;*.di2|Compressed files (*.zip;*.gz)|*.gz;*.zip|All files|*.*||");
+	path = _("All known disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.zip;*.ZIP;*.gz;*.GZ;*.di1;*.DI1;*.di2;*.DI2|Uncompressed disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.di1;*.DI1;*.di2;*.DI2|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
 	path = _("*.*");
 #endif
@@ -196,7 +201,7 @@ void SessionPage::BrowseCart(wxComboBox *target, wxString defaultpath)
 {
 	wxString path;
 #ifndef __MOTIF__
-	path = _("All known cartridge files|*.rom;*.ri;*.zip;*.gz|Uncompressed cartridge files|*.rom;*.ri|Compressed files (*.zip;*.gz)|*.gz;*.zip|All files|*.*||");
+	path = _("All known cartridge files|*.rom;*.ROM;*.ri;*.RI;*.zip;*.ZIP;*.gz;*.GZ|Uncompressed cartridge files|*.rom;*.ROM;*.ri;*.RI|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
 	path = _("*.*");
 #endif
@@ -213,7 +218,7 @@ void SessionPage::OnBrowseNormalTape(wxCommandEvent &event)
 	wxString defaultpath = ::wxPathOnly(m_tape1->GetValue());
 	wxString path;
 #ifndef __MOTIF__
-	path = _("All known tape (sound) files|*.zip;*.gz;*.wav|Uncompressed tape (sound) files|*.wav|Compressed files (*.zip;*.gz)|*.gz;*.zip|All files|*.*||");
+	path = _("All known tape (sound) files|*.zip;*.ZIP;*.gz;*.GZ;*.wav;*.WAV|Uncompressed tape (sound) files|*.wav;*.WAV|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
 	path = _("*.*");
 #endif
@@ -224,6 +229,10 @@ void SessionPage::OnBrowseNormalTape(wxCommandEvent &event)
 		m_tape1->SetValue (filedlg.GetPath());	
 		m_controller->WriteCommand("cassetteplayer eject");
 		if (!m_tape1->GetValue().IsEmpty()){
+			if ((m_cassettePortState != "disabled") && 
+				(m_cassettePortState != "cassetteplayer")){
+					m_controller->WriteCommand("plug cassetteport cassetteplayer");
+			}
 			m_controller->WriteCommand("cassetteplayer " + ConvertPath(m_tape1->GetValue(),true));
 			if (m_controller->IsOpenMSXRunning()){
 				AddHistory(m_tape1);
@@ -239,7 +248,7 @@ void SessionPage::OnBrowseCasPatch(wxCommandEvent &event)
 	wxString defaultpath = ::wxPathOnly(m_tape2->GetValue());
 	wxString path;
 #ifndef __MOTIF__
-	path = _("All known cassette files|*.zip;*.gz;*.cas|Uncompressed cassette files|*.cas|Compressed files (*.zip;*.gz)|*.gz;*.zip|All files|*.*||");
+	path = _("All known cassette files|*.zip;*.ZIP;*.gz;*.GZ;*.cas;*.CAS|Uncompressed cassette files|*.cas;*.CAS|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
 	path = _("*.*");
 #endif
@@ -291,10 +300,17 @@ void SessionPage::SetupHardware (bool initial)
 
 	prepareExtensions (sharepath, extensionArray);
 	prepareMachines (sharepath, machineArray);
+	wxString personalShare; 
 #ifdef __UNIX__
-	prepareExtensions (::wxGetHomeDir() + "/.openMSX/share/", extensionArray, true);
-	prepareMachines (::wxGetHomeDir() + "/.openMSX/share/", machineArray, true);
+	personalShare = ::wxGetHomeDir() + "/.openMSX/share";
+#else
+	char temp[MAX_PATH + 1];
+	SHGetSpecialFolderPath(0,temp,CSIDL_PERSONAL, 1);
+	personalShare = wxString(temp) + "/openMSX/share";
 #endif
+	prepareExtensions (personalShare, extensionArray, true);
+	prepareMachines (personalShare, machineArray, true);
+
 	extensionArray.Sort(SessionPage::CompareCaseInsensitive);
 	machineArray.Sort(SessionPage::CompareCaseInsensitive);
 	fillExtensions (extensionArray);
@@ -457,6 +473,7 @@ void SessionPage::SetControlsOnEnd()
 	m_clearCartB->Enable(true);
 	m_browseCartA->Enable(true);
 	m_browseCartB->Enable(true);
+	m_cassettePortState = _("disabled");
 }
 
 void SessionPage::getMedia(wxArrayString & parameters)
@@ -516,17 +533,18 @@ void SessionPage::AddHistory(wxComboBox *media)
 	// wxWindows 2.4 does not support insertion in a wxComboBox
 	// so this is gonna be replace as soon as 2.5 is stable
 	wxString currentItem = media->GetValue();
+	currentItem = ConvertPath(currentItem,true,false);
 	wxArrayString items;
-	unsigned int pos = media->FindString(media->GetValue());
+	unsigned int pos = media->FindString(currentItem);
 	unsigned int num = media->GetCount();		
 	unsigned int i;
 	if (num == 0) 
 	{
-		media->Append(media->GetValue());
+		media->Append(currentItem);
 	}
 	else
 	{
-		items.Add(media->GetValue());
+		items.Add(currentItem);
 		for (i=0;i<num;i++)
 		{
 			if (i != pos)
@@ -626,4 +644,19 @@ void SessionPage::SaveHistory()
 		wxMessageBox ("Error saving configuration data");
 	}
 #endif
+}
+
+void SessionPage::EnableCassettePort (wxString data)
+{
+	m_cassettePortState = data;
+}
+
+void SessionPage::AutoPlugCassette ()
+{
+	if (m_tape1->GetValue() != ""){
+		if ((m_cassettePortState != _("disabled")) &&
+			(m_cassettePortState != _("cassetteplayers"))){
+			m_controller->WriteCommand ("plug cassetteport cassetteplayer");
+		}
+	}
 }
