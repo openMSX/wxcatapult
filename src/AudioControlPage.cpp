@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.9 2004/03/26 20:02:05 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.10 2004/03/28 16:57:24 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@ AudioControlPage::AudioControlPage(wxWindow * parent, openMSXController * contro
 	m_controller=controller;
 	m_masterVolumeEnabled = true;
 	m_midiInFilename = _("");
-	m_midiOutFilename = _("");
+	m_midiOutFilename = _("klein testje");
 }
 
 AudioControlPage::~AudioControlPage()
@@ -89,7 +89,6 @@ void AudioControlPage::SetupAudioMixer()
 		wxWindow * mastervol = FindWindow(_("AudioSlider_0"));
 		mastervol->Enable(false);
 	}
-	InitAudioIO();
 }
 
 void AudioControlPage::DestroyAudioMixer()
@@ -354,7 +353,6 @@ void AudioControlPage::SetChannelMode (int number, wxString value)
 	if (value==_("right")) val = _("R");
 	if (value==_("stereo")) val = _("S");
 	wxComboBox * combo = (wxComboBox *)FindWindowById(number+FIRSTAUDIOCOMBO,this);
-	//combo->SetValue(val);
 	combo->SetSelection(combo->FindString(val));
 }
 
@@ -386,7 +384,6 @@ void AudioControlPage::InitAudioIO()
 				wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (_("MidiInFileInput"));
 				wxButton * midibutton = (wxButton *)FindWindow(_("BrowseMidiInButton"));
 				miditext->Enable(true);
-				miditext->SetValue(m_midiInFilename);
 				midibutton->Enable(true);				
 				child->Append(_("--empty--"));
 				for (j=0;j<pluggables.GetCount();j++){
@@ -411,10 +408,8 @@ void AudioControlPage::InitAudioIO()
 				wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (_("MidiOutFileInput"));
 				wxButton * midibutton = (wxButton *)FindWindow(_("BrowseMidiOutButton"));
 				miditext->Enable(true);
-				miditext->SetValue(m_midiOutFilename);
 				midibutton->Enable(true);				
 				child->Append(_("--empty--"));
-				miditext->SetValue(m_midiInFilename);
 				for (j=0;j<pluggables.GetCount();j++){
 					if (pluggables[j].Lower().Mid(0,8) == _("midi-out")){
 						if (pluggables[j] == _("midi-out-logger")){
@@ -436,7 +431,6 @@ void AudioControlPage::InitAudioIO()
 				wxTextCtrl * sampletext = (wxTextCtrl *)FindWindow (_("SampleFileInput"));
 				wxButton * samplebutton = (wxButton *)FindWindow(_("BrowseSampleInputButton"));
 				sampletext->Enable(true);
-				sampletext->SetValue(m_sampleInFilename);
 				samplebutton->Enable(true);				
 				child->Append(_("--empty--"));
 				for (j=0;j<pluggables.GetCount();j++){

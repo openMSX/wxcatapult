@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.10 2004/03/28 19:42:00 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.11 2004/03/28 20:13:57 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -81,17 +81,17 @@ VideoControlPage::~VideoControlPage()
 
 void VideoControlPage::OnChangeRenderer(wxCommandEvent &event)
 {
-	m_controller->WriteCommand(wxString(_("set renderer ") + m_rendererList->GetValue()));
+	m_controller->WriteCommand(wxString("set renderer " + m_rendererList->GetValue()));
 }
 
 void VideoControlPage::OnChangeScaler(wxCommandEvent &event)
 {
-	m_controller->WriteCommand(wxString(_("set scaler ") + m_scalerList->GetValue().Lower()));
+	m_controller->WriteCommand(wxString("set scaler " + m_scalerList->GetValue().Lower()));
 }
 
 void VideoControlPage::OnChangeAccuracy(wxCommandEvent &event)
 {
-	m_controller->WriteCommand(wxString(_("set accuracy ") + m_accuracyList->GetValue().Lower()));
+	m_controller->WriteCommand(wxString("set accuracy " + m_accuracyList->GetValue().Lower()));
 } 
 
 void VideoControlPage::OnDeInterlace(wxCommandEvent &event)
@@ -99,12 +99,12 @@ void VideoControlPage::OnDeInterlace(wxCommandEvent &event)
 	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
 	if (button->GetValue())
 	{
-		m_controller->WriteCommand (_("set deinterlace on"));
+		m_controller->WriteCommand ("set deinterlace on");
 		button->SetLabel("On");
 	}
 	else
 	{
-		m_controller->WriteCommand (_("set deinterlace off"));
+		m_controller->WriteCommand ("set deinterlace off");
 		button->SetLabel("Off");
 	}			
 }
@@ -114,12 +114,12 @@ void VideoControlPage::OnLimitSprites(wxCommandEvent &event)
 	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
 	if (button->GetValue())
 	{
-		m_controller->WriteCommand (_("set limitsprites on"));
+		m_controller->WriteCommand ("set limitsprites on");
 		button->SetLabel("On");
 	}
 	else
 	{
-		m_controller->WriteCommand (_("set limitsprites off"));
+		m_controller->WriteCommand ("set limitsprites off");
 		button->SetLabel("Off");
 	}
 }
@@ -129,7 +129,7 @@ void VideoControlPage::OnChangeBlur(wxScrollEvent &event)
 	wxString text;
 	text.sprintf("%ld", event.GetInt());
 	m_blurIndicator->SetValue(text);
-	m_controller->WriteCommand (wxString(_("set blur ")) + text);	
+	m_controller->WriteCommand (wxString("set blur ") + text);	
 }
 
 void VideoControlPage::OnChangeGlow(wxScrollEvent &event)
@@ -137,7 +137,7 @@ void VideoControlPage::OnChangeGlow(wxScrollEvent &event)
 	wxString text;
 	text.sprintf("%ld", event.GetInt());
 	m_glowIndicator->SetValue(text);
-	m_controller->WriteCommand (wxString(_("set glow ")) + text);
+	m_controller->WriteCommand (wxString("set glow ") + text);
 }
 
 void VideoControlPage::OnChangeGamma(wxScrollEvent &event)
@@ -145,7 +145,7 @@ void VideoControlPage::OnChangeGamma(wxScrollEvent &event)
 	wxString text;
 	text.sprintf("%ld.%02ld", event.GetInt() / 100, event.GetInt() % 100);
 	m_gammaIndicator->SetValue(text);
-	m_controller->WriteCommand (wxString(_("set gamma ")) + text);
+	m_controller->WriteCommand (wxString("set gamma ") + text);
 }
 
 void VideoControlPage::OnChangeScanlines(wxScrollEvent &event)
@@ -153,7 +153,7 @@ void VideoControlPage::OnChangeScanlines(wxScrollEvent &event)
 	wxString text;
 	text.sprintf("%ld", event.GetInt());
 	m_scanlineIndicator->SetValue(text);
-	m_controller->WriteCommand (wxString(_("set scanline ")) + text);
+	m_controller->WriteCommand (wxString("set scanline ") + text);
 }
 
  void VideoControlPage::OnDefaultBlur(wxCommandEvent &event)
@@ -189,7 +189,7 @@ void VideoControlPage::OnInputBlur(wxCommandEvent &event)
 			m_blurIndicator->SetValue(text);
 		}
 		if (num >= 0){
-			m_controller->WriteCommand (wxString(_("set blur ")) + text);
+			m_controller->WriteCommand (wxString("set blur ") + text);
 			m_blurSlider->SetValue(num);	
 		}
 	}
@@ -210,7 +210,7 @@ void VideoControlPage::OnInputGlow(wxCommandEvent &event)
 		}
 		if (num >= 0)
 		{
-			m_controller->WriteCommand (wxString(_("set glow ")) + text);	
+			m_controller->WriteCommand (wxString("set glow ") + text);	
 			m_glowSlider->SetValue(num);
 		}
 	}
@@ -233,7 +233,7 @@ void VideoControlPage::OnInputGamma(wxCommandEvent &event)
 		}
 		if (num >= 10)
 		{
-			m_controller->WriteCommand (wxString(_("set gamma ")) + text);
+			m_controller->WriteCommand (wxString("set gamma ") + text);
 			m_gammaSlider->SetValue(num);
 		}
 	}
@@ -254,7 +254,7 @@ void VideoControlPage::OnInputScanline(wxCommandEvent &event)
 		}
 		if (num >= 0)
 		{
-			m_controller->WriteCommand (wxString(_("set scanline ")) + text);
+			m_controller->WriteCommand (wxString("set scanline ") + text);
 			m_scanlineSlider->SetValue(num);
 		}
 	}
@@ -304,36 +304,38 @@ void VideoControlPage::SetControlsOnEnd()
 
 void VideoControlPage::FillRenderers(wxString renderers)
 {
-	FillComboBox (m_rendererList, renderers);
+	FillComboBox (_("RendererSelector"), renderers);
 }
 
 void VideoControlPage::FillScalers(wxString scalers)
 {
-	FillComboBox (m_scalerList, scalers);
+	FillComboBox (_("ScalerSelector"), scalers);
 }
 
 void VideoControlPage::FillAccuracy(wxString accuracy)
 {
-	FillComboBox (m_accuracyList, accuracy);
+	FillComboBox (_("AccuracySelector"), accuracy);
 }
 
 
-void VideoControlPage::FillComboBox (wxComboBox * control, wxString contents)
+void VideoControlPage::FillComboBox (wxString control, wxString contents)
 {	
+	wxComboBox * box = (wxComboBox *)FindWindow(control);
 	int pos;
-	control->Clear();
+	box->Clear();
 	wxString temp = contents;
 	do
 	{
-		pos = temp.Find(_("\n"));
+		pos = temp.Find("\n");
 		if (pos != -1)
 		{
-			control->Append(temp.Left(pos));
+			box->Append(temp.Left(pos));
 			temp = temp.Mid(pos + 1);					
 		}
 	}while (pos !=-1);
-	if (!temp.IsEmpty()) // not everything parsed ?
-		control->Append(temp);
+	if (!temp.IsEmpty()){ // not everything parsed ?
+		box->Append(temp);
+	}
 }
 
 void VideoControlPage::SetRenderer (wxString value)
@@ -375,34 +377,10 @@ void VideoControlPage::SetLimitSprites(wxString value)
 	}
 }
 
-void VideoControlPage::SetBlur(wxString value)
+void VideoControlPage::SetSliderDefaults()
 {
-	if (m_defaultBlur == _("")){
-		m_defaultBlur = value;
-	}
-	m_blurIndicator->SetValue(value);
-}
-
-void VideoControlPage::SetGlow(wxString value)
-{
-	if (m_defaultGlow == _("")){
-		m_defaultGlow = value;
-	}
-	m_glowIndicator->SetValue(value);
-}
-
-void VideoControlPage::SetGamma(wxString value)
-{
-	if (m_defaultGamma == _("")){
-		m_defaultGamma = value;
-	}
-	m_gammaIndicator->SetValue(value);
-}
-
-void VideoControlPage::SetScanline(wxString value)
-{
-	if (m_defaultScanline == _("")){
-		m_defaultScanline = value;
-	}
-	m_scanlineIndicator->SetValue(value);
+	m_defaultBlur = m_blurIndicator->GetValue();
+	m_defaultGlow = m_glowIndicator->GetValue();
+	m_defaultGamma = m_gammaIndicator->GetValue();
+	m_defaultScanline = m_scanlineIndicator->GetValue();
 }

@@ -32,6 +32,7 @@ openMSXController::openMSXController(wxWindow * target)
 	m_launchMode = LAUNCH_NONE;
 	m_pluggables.Clear();
 	m_connectors.Clear();
+	InitLaunchScript ();
 }
 
 openMSXController::~openMSXController()
@@ -70,10 +71,10 @@ bool openMSXController::PreLaunch()
 
 bool openMSXController::PostLaunch()
 {
-	WriteMessage (_("<openmsx-control>\n"));
+	WriteMessage ("<openmsx-control>\n");
 	switch (m_launchMode){
 		case LAUNCH_NORMAL:
-			WriteCommand (GetInfoCommand(_("renderer")));
+			executeLaunch();
 			break;
 		default:
 			assert (false);
@@ -88,7 +89,6 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 {
 	if (!m_openMsxRunning) 
 		return;
-
 	m_appWindow->StopTimers();
 	m_appWindow->SetStatusText("Ready");
 	delete m_parser;
@@ -166,43 +166,36 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					break;
 				case CatapultXMLParser::REPLY_NOK:
 					{
-						wxString command = GetPendingCommand();
-						if ((command == GetInfoCommand("fps")) ||
-							(command.Mid(0,13) == _("update enable"))){
-							// just ignore (old version)
+						if (m_launchMode == LAUNCH_NORMAL){
+							HandleNormalLaunchReply(event);
 						}
-						else if (command == _("set master_volume")) {
-							m_appWindow->m_audioControlPage->DisableMasterVolume();
-							WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(1)+("_volume")));
-						}
-						else if (command == _("plug msx-midi-in midi-in-reader")){
-							m_appWindow->m_audioControlPage->InvalidMidiInReader();
-						}
-						else if (command == _("plug msx-midi-out midi-out-logger")){
-							m_appWindow->m_audioControlPage->InvalidMidiOutLogger();
-						}
-						else if (command == _("plug pcminput wavinput")){
-							m_appWindow->m_audioControlPage->InvalidSampleFilename();
-						}
-						else if (command == GetInfoCommand(_("accuracy"))){
-							m_appWindow->m_videoControlPage->FillAccuracy(_("line\npixel\nscreen\n"));
-							WriteCommand (_("set power on"));
-						}
-						else if (command == _("set frontswitch")){
-							WriteCommand (wxString(m_unsetCommand + " renderer"));
-						}
-						else {
-							m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
-							m_appWindow->m_statusPage->m_outputtext->AppendText(_("Warning: NOK received on command: "));
-							m_appWindow->m_statusPage->m_outputtext->AppendText(command);
-							m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
-							if (!data->contents.IsEmpty()){
-								m_appWindow->m_statusPage->m_outputtext->AppendText(_("contents = "));
-								m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);
+						else{
+							wxString command = GetPendingCommand();
+							if ((command == GetInfoCommand("fps")) ||
+								(command.Mid(0,13) == _("update enable"))){
+								// just ignore (old version)
+							}
+							else if (command == _("plug msx-midi-in midi-in-reader")){
+								m_appWindow->m_audioControlPage->InvalidMidiInReader();
+							}
+							else if (command == _("plug msx-midi-out midi-out-logger")){
+								m_appWindow->m_audioControlPage->InvalidMidiOutLogger();
+							}
+							else if (command == _("plug pcminput wavinput")){
+								m_appWindow->m_audioControlPage->InvalidSampleFilename();
+							}
+							else {
+								m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
+								m_appWindow->m_statusPage->m_outputtext->AppendText(_("Warning: NOK received on command: "));
+								m_appWindow->m_statusPage->m_outputtext->AppendText(command);
 								m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+								if (!data->contents.IsEmpty()){
+									m_appWindow->m_statusPage->m_outputtext->AppendText(_("contents = "));
+									m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);
+									m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+								}
 							}
 						}
-						
 					}
 					break;
 				case CatapultXMLParser::REPLY_UNKNOWN:
@@ -235,7 +228,7 @@ bool openMSXController::WriteCommand(wxString msg)
 	if (!m_openMsxRunning) 
 		return false;
 	m_commands.push_back(msg);
-	if (!WriteMessage (wxString(_("<command>") + msg + _("</command>\n"))))
+	if (!WriteMessage (wxString("<command>" + msg + "</command>\n")))
 		return false;
 	return true;
 }
@@ -278,179 +271,7 @@ void openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 
 void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 {
-	int i;
-	unsigned int ii;
-	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
-	wxString command = GetPendingCommand();
-	if (command == GetInfoCommand(_("renderer"))){
-		WriteCommand ("update enable setting");
-		WriteCommand ("update enable led");
-		WriteCommand ("update enable plug");
-		WriteCommand ("update enable unplug");
-		WriteCommand (GetInfoCommand(_("scaler")));
-		m_appWindow->m_videoControlPage->FillRenderers(data->contents);		
-	}
-	else if (command == GetInfoCommand(_("scaler"))){
-		m_appWindow->m_videoControlPage->FillScalers(data->contents);
-		WriteCommand (GetInfoCommand(_("accuracy")));
-	}
-	else if (command == GetInfoCommand(_("accuracy"))){
-		m_appWindow->m_videoControlPage->FillAccuracy(data->contents);
-		WriteCommand (_("set power on"));				
-	}
-	else if (command == _("set power on")){
-		WriteCommand (GetExistCommand("frontswitch"));
-	}
-	else if (command == GetExistCommand("frontswitch")){
-		if ((command.Mid(0,3) == "set") || 
-			((command.Mid(0,10) == "info exist") && (data->contents == "1"))){
-				m_appWindow->m_miscControlPage->EnableFirmware();
-		}
-		WriteCommand (wxString(m_unsetCommand + " renderer"));
-	}
-	else if (command == wxString(m_unsetCommand + " renderer")){
-		WriteCommand (_("set renderer"));
-	}
-	else if (command == _("set renderer")){
-		m_appWindow->m_videoControlPage->SetRenderer(FilterCurrentValue(data->contents));
-		WriteCommand (_("set scaler"));
-	}
-	else if (command == _("set scaler")){
-		m_appWindow->m_videoControlPage->SetScaler(FilterCurrentValue(data->contents));
-		WriteCommand (_("set accuracy"));
-	}
-	else if (command == _("set accuracy")){
-		m_appWindow->m_videoControlPage->SetAccuracy(FilterCurrentValue(data->contents));
-		WriteCommand (_("set deinterlace"));
-	}
-	else if (command == _("set deinterlace")){
-		m_appWindow->m_videoControlPage->SetDeinterlace(FilterCurrentValue(data->contents));
-		WriteCommand (_("set limitsprites"));
-	}
-	else if (command == _("set limitsprites")){
-		m_appWindow->m_videoControlPage->SetLimitSprites(FilterCurrentValue(data->contents));
-		WriteCommand (_("set blur"));
-	}
-	else if (command == _("set blur")){
-		m_appWindow->m_videoControlPage->SetBlur(FilterCurrentValue(FilterCurrentValue(data->contents)));
-		WriteCommand (_("set glow"));
-	}
-	else if (command == _("set glow")){
-		m_appWindow->m_videoControlPage->SetGlow(FilterCurrentValue(FilterCurrentValue(data->contents)));
-		WriteCommand (_("set gamma"));
-	}
-	else if (command == _("set gamma")){
-		m_appWindow->m_videoControlPage->SetGamma(FilterCurrentValue(FilterCurrentValue(data->contents)));
-		WriteCommand (_("set scanline"));
-	}
-	else if (command == _("set scanline")){
-		m_appWindow->m_videoControlPage->SetScanline(FilterCurrentValue(FilterCurrentValue(data->contents)));
-		WriteCommand (_("set speed"));
-	}
-	else if (command == _("set speed")){
-		m_appWindow->m_miscControlPage->SetSpeed(FilterCurrentValue(FilterCurrentValue(data->contents)));
-		WriteCommand (_("set frameskip"));
-	}
-	else if (command == _("set frameskip")){
-		m_appWindow->m_miscControlPage->SetFrameskip(FilterCurrentValue(FilterCurrentValue(data->contents)));
-		WriteCommand (_("set throttle"));
-	}
-	else if (command == _("set throttle")){
-		m_appWindow->m_miscControlPage->SetThrottle(FilterCurrentValue(FilterCurrentValue(data->contents)));
-		WriteCommand (_("set cmdtiming"));
-	}
-	else if (command == _("set cmdtiming")){
-		m_appWindow->m_miscControlPage->SetCmdTiming(FilterCurrentValue(FilterCurrentValue(data->contents)));
-		WriteCommand (GetInfoCommand(_("connector")));
-	}
-	else if (command == GetInfoCommand(_("connector"))){
-		InitConnectors (data->contents);		
-		WriteCommand (GetInfoCommand(_("pluggable")));
-	}
-	else if (command == GetInfoCommand(_("pluggable"))){
-		InitPluggables (data->contents);
-		if (data->contents.Find(_("msx-midi-in"))){
-			WriteCommand (_("set midi-in-readfilename"));
-		}
-		if (data->contents.Find(_("msx-midi-out"))){
-			WriteCommand (_("set midi-out-logfilename"));
-		}
-		if (data->contents.Find(_("pcminput"))){
-			WriteCommand (_("set audio-inputfilename"));
-		}
-		WriteCommand (GetInfoCommand(wxString (_("pluggable ") + m_pluggables[0])));
-	}
-	else if (command == _("set midi-in-readfilename")){
-		m_appWindow->m_audioControlPage->SetMidiFilename(FilterCurrentValue(data->contents),true);
-	}
-	else if (command == _("set midi-out-logfilename")){
-		m_appWindow->m_audioControlPage->SetMidiFilename(FilterCurrentValue(data->contents),false);
-	}
-	else if (command == _("set audio-inputfilename")){
-		m_appWindow->m_audioControlPage->SetSampleFilename(FilterCurrentValue(data->contents));
-	}
-	else if (command == GetInfoCommand(_("sounddevice"))){
-		if (data->contents == _("")){
-			m_appWindow->SetControlsOnLaunch();
-			m_launchMode = LAUNCH_NONE; // interactive mode
-		}
-		else {
-			m_appWindow->m_audioControlPage->InitAudioChannels(data->contents);
-			WriteCommand (wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(1))));
-		}
-	}
-	if (m_pluggables.GetCount() > 0){
-		for (ii=0;ii<m_pluggables.GetCount()-1;ii++){	
-			if (command == GetInfoCommand(wxString (_("pluggable ") + m_pluggables[ii]))){
-				m_pluggabledescriptions.Add(data->contents);
-				WriteCommand (GetInfoCommand(wxString (_("pluggable ") + m_pluggables[ii+1])));
-			}
-		}
-		if (command == GetInfoCommand(wxString (_("pluggable ") + m_pluggables[m_pluggables.GetCount()-1]))){
-			m_pluggabledescriptions.Add(data->contents);
-			WriteCommand (GetInfoCommand(_("sounddevice")));
-		}
-	}
-	
-	if (m_appWindow->m_audioControlPage->GetNumberOfAudioChannels() >0){
-		for (i=0;i<m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1;i++){
-			if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i)+_("_volume"))){
-				m_appWindow->m_audioControlPage->SetChannelVolume(i,FilterCurrentValue(data->contents));
-				WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i+1)+("_volume")));
-			}
-			if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i)+_("_mode"))){
-				m_appWindow->m_audioControlPage->SetChannelMode(i,FilterCurrentValue(data->contents));
-				WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i+1)+("_mode")));
-			}
-			if (command == wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(i)))){
-				m_appWindow->m_audioControlPage->AddChannelType(i,FilterCurrentValue(data->contents));
-				WriteCommand (wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(i+1))));
-			}
-		}
-		if (command == wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)))){
-			m_appWindow->m_audioControlPage->AddChannelType(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
-			m_appWindow->m_audioControlPage->SetupAudioMixer();		
-			WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(0)+_("_volume")));
-		}
-		if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)+_("_volume"))){
-			m_appWindow->m_audioControlPage->SetChannelVolume(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
-			WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(1)+_("_mode")));
-		}		
-		if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)+_("_mode"))){
-			m_appWindow->m_audioControlPage->SetChannelMode(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
-			wxSize tempsize = m_appWindow->GetSize();
-			tempsize.SetHeight(tempsize.GetHeight()+1);
-			tempsize.SetWidth(tempsize.GetWidth()+1);
-			m_appWindow->SetSize(tempsize);
-#ifdef __WINDOWS__
-			tempsize.SetHeight(tempsize.GetHeight()-1);
-			tempsize.SetWidth(tempsize.GetWidth()-1);
-			m_appWindow->SetSize(tempsize);
-#endif
-			m_appWindow->SetControlsOnLaunch();
-			m_launchMode = LAUNCH_NONE; // interactive mode
-		}
-	}
+	executeLaunch(&event);
 }
 
 // if openmsx version < 0.3.5 filter the current value from the explanation
@@ -493,16 +314,16 @@ wxString openMSXController::GetExistCommand (wxString parameter)
 	}
 }	
 
-void openMSXController::InitConnectors(wxString connectors)
+bool openMSXController::InitConnectors(wxString connectors, wxString dummy)
 {
 	if (connectors.IsEmpty())
-		return;
+		return false;
 	m_connectors.Clear();
 	int pos;
 	wxString temp = connectors;
 	do
 	{
-		pos = temp.Find(_("\n"));
+		pos = temp.Find("\n");
 		if (pos != -1)
 		{
 			m_connectors.Add(temp.Left(pos));
@@ -510,7 +331,8 @@ void openMSXController::InitConnectors(wxString connectors)
 		}
 	}while (pos !=-1);
 	if (!temp.IsEmpty()) // not everything parsed ?
-		m_connectors.Add(temp);	
+		m_connectors.Add(temp);
+	return true;
 }
 
 
@@ -523,16 +345,17 @@ void openMSXController::GetConnectors (wxArrayString & connectors)
 	}
 }
 
-void openMSXController::InitPluggables(wxString pluggables)
+bool openMSXController::InitPluggables(wxString pluggables, wxString dummy)
 {
 	if (pluggables.IsEmpty())
-		return;
+		return false;
 	m_pluggables.Clear();
+	m_pluggabledescriptions.Clear();
 	int pos;
 	wxString temp = pluggables;
 	do
 	{
-		pos = temp.Find(_("\n"));
+		pos = temp.Find("\n");
 		if (pos != -1)
 		{
 			m_pluggables.Add(temp.Left(pos));
@@ -541,6 +364,7 @@ void openMSXController::InitPluggables(wxString pluggables)
 	}while (pos !=-1);
 	if (!temp.IsEmpty()) // not everything parsed ?
 		m_pluggables.Add(temp);	
+	return true;
 }
 
 
@@ -609,46 +433,51 @@ void openMSXController::InitLaunchScript ()
 {
 	m_launchScriptSize = 0;
 	m_launchScript = new LaunchInstructionType [LAUNCHSCRIPT_MAXSIZE];
-	AddLaunchInstruction ("#info renderer","","",NULL,true);
-	AddLaunchInstruction ("#info scaler","","",NULL,true);
-	AddLaunchInstruction ("#info accuracy","","",NULL,false);
 	AddLaunchInstruction ("update enable setting","","",NULL,false);
+	AddLaunchInstruction ("update enable led","","",NULL,false);
+	AddLaunchInstruction ("set power on","e","power",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("#unset renderer","e","",NULL,true);
+	AddLaunchInstruction ("#info renderer","","RendererSelector",&openMSXController::FillComboBox,true);
+	AddLaunchInstruction ("#info scaler","","ScalerSelector",&openMSXController::FillComboBox,true);
+	AddLaunchInstruction ("#info accuracy","","AccuracySelector",&openMSXController::FillComboBox,false);
 	AddLaunchInstruction ("update enable plug","","",NULL,false);
 	AddLaunchInstruction ("update enable unplug","","",NULL,false);
-	AddLaunchInstruction ("update enable led","","",NULL,false);
-	AddLaunchInstruction ("#exist frontswitch","","",NULL,false);
-	AddLaunchInstruction ("set power on","wait","end",NULL,true);
-	AddLaunchInstruction ("#check renderer","","",NULL,true);
-	AddLaunchInstruction ("#check scaler","","",NULL,true);
-	AddLaunchInstruction ("#check accuracy","","",NULL,true);
-	AddLaunchInstruction ("#check deinterlace","","",NULL,true);
-	AddLaunchInstruction ("#check limitsprites","","",NULL,true);
-	AddLaunchInstruction ("#check blur","","",NULL,true);
-	AddLaunchInstruction ("#check glow","","",NULL,true);
-	AddLaunchInstruction ("#check gamma","","",NULL,true);
-	AddLaunchInstruction ("#check scanline","","",NULL,true);
-	AddLaunchInstruction ("#check speed","","",NULL,true);
-	AddLaunchInstruction ("#check frameskip","","",NULL,true);
-	AddLaunchInstruction ("#check throttle","","",NULL,true);
-	AddLaunchInstruction ("#check cmdtiming","","",NULL,true);
-	AddLaunchInstruction ("#info connector","","skip 7",NULL,true);
-	AddLaunchInstruction ("#info pluggable","wait","skip 6",NULL,true);
-	AddLaunchInstruction ("#all #info pluggable *","","",NULL,true);
-	AddLaunchInstruction ("#checkfor msx-midi-in","","skip 1",NULL,false);
-	AddLaunchInstruction ("#check midi-in-readfilename","","",NULL,true);
-	AddLaunchInstruction ("#checkfor msx-midi-out","","skip 1",NULL,false);
-	AddLaunchInstruction ("#check midi-out-logfilename","","",NULL,true);
-	AddLaunchInstruction ("#checkfor pcminput","","skip 1",NULL,false);
-	AddLaunchInstruction ("#check audio-inputfilename","","",NULL,true);
-	AddLaunchInstruction ("#info sounddevice","","skip 3",NULL,true);
-	AddLaunchInstruction ("#all #check sounddevices *_volume","","",NULL,true);
-	AddLaunchInstruction ("#all #check sounddevices *_mode","","",NULL,true);
-	AddLaunchInstruction ("#all #info sounddevices *","","",NULL,true);
-	AddLaunchInstruction ("done","","",NULL,false);
+	AddLaunchInstruction ("#exist frontswitch","","",&openMSXController::EnableFirmware,false);
+	AddLaunchInstruction ("set renderer","","renderer",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set scaler","","scaler",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set accuracy","","accuracy",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set deinterlace","","deinterlace",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set limitsprites","","limitsprites",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set blur","","blur",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set glow","","glow",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set gamma","","gamma",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set scanline","0","scanline",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("@execute","","",&openMSXController::SetSliderDefaults,false);
+	AddLaunchInstruction ("set speed","","speed",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set frameskip","","frameskip",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set throttle","","throttle",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set cmdtiming","","cmdtiming",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("#info pluggable","10","",&openMSXController::InitPluggables,true);
+	AddLaunchInstruction ("#info_nostore pluggable *","","*",&openMSXController::AddPluggableDescription,true);
+	AddLaunchInstruction ("#info connector","7","",&openMSXController::InitConnectors,true);
+	AddLaunchInstruction ("@checkfor msx-midi-in","1","",NULL,false);
+	AddLaunchInstruction ("set midi-in-readfilename","","midi-in-readfilename",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("@checkfor msx-midi-out","1","",NULL,false);
+	AddLaunchInstruction ("set midi-out-logfilename","","midi-out-logfilename",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("@checkfor pcminput","1","",NULL,false);
+	AddLaunchInstruction ("set audio-inputfilename","","audio-inputfilename",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("@execute","","",&openMSXController::InitAudioConnectorPanel,false);
+	AddLaunchInstruction ("#info sounddevice","5","",&openMSXController::InitSoundDevices,true);
+	AddLaunchInstruction ("#info_nostore sounddevice *","","*",&openMSXController::SetChannelType,true);
+	AddLaunchInstruction ("#exist master_volume","1","",NULL,false);
+	AddLaunchInstruction ("set master_volume","","master_volume",&openMSXController::UpdateSetting,false);
+	AddLaunchInstruction ("set *_volume","","*_volume",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set *_mode","","*_mode",&openMSXController::UpdateSetting,true);
+	
 }
 
-void openMSXController::AddLaunchInstruction (wxString cmd, wxString ok, wxString nok, 
-				bool (CatapultPage::*pfunction)(wxString,wxString),
+void openMSXController::AddLaunchInstruction (wxString cmd, wxString action, wxString parameter, 
+				bool (openMSXController::*pfunction)(wxString,wxString),
 				bool showError)
 {	
 	if (m_launchScriptSize >= LAUNCHSCRIPT_MAXSIZE){
@@ -656,11 +485,364 @@ void openMSXController::AddLaunchInstruction (wxString cmd, wxString ok, wxStrin
 		return;
 	}
 	m_launchScript[m_launchScriptSize].command = cmd;
-	m_launchScript[m_launchScriptSize].ok_action = ok;
-	m_launchScript[m_launchScriptSize].nok_action = nok;
+	m_launchScript[m_launchScriptSize].scriptActions = action;
+	m_launchScript[m_launchScriptSize].parameter = parameter;
 	m_launchScript[m_launchScriptSize].p_okfunction = pfunction;
 	m_launchScript[m_launchScriptSize].showError = showError;
 	m_launchScriptSize ++;
 }
 
+void openMSXController::executeLaunch (wxCommandEvent * event)
+{	
+	CatapultXMLParser::ParseResult * data = NULL;
+	if (event != NULL){
+		data = (CatapultXMLParser::ParseResult *)event->GetClientData();
+	}
+	wxString instruction;
+	wxString cmd;
+	wxString action;
+	wxArrayString tokens;
+	static bool wait;
+	static int sendStep = 0;
+	static int recvStep = 0;
+	static int sendLoop = -1;
+	static int recvLoop = -1;
+	static wxString lastdata = "";
+	wxString command;
 
+	if (event != NULL){ // handle received command
+		command = GetPendingCommand();
+		instruction  = m_launchScript[recvStep].command;
+		while (instruction.Mid(0,1) == "@"){
+			recvStep ++;
+			instruction  = m_launchScript[recvStep].command;
+		}
+		if ((recvLoop == -1) && (instruction.Find("*") != -1)){
+			recvLoop = 0;
+		}
+		tokenize(instruction," ",tokens);
+		cmd = translate(tokens,recvLoop,lastdata);
+		if (command == cmd){
+			if (tokens[0] == "#info"){
+				lastdata = data->contents;
+			}
+			HandleLaunchReply (cmd,event,m_launchScript[recvStep],&sendStep,recvLoop,lastdata);
+			if (data->replyState == CatapultXMLParser::REPLY_NOK){
+				long displace;
+				m_launchScript[recvStep].scriptActions.ToLong(&displace);
+				recvStep += displace;	
+			}
+			if (cmd == "!done"){
+				recvStep = -2; // it is gonna be increased in a moment
+				recvLoop = -1;
+			}
+	
+			if (recvLoop != -1){
+				wxArrayString lastvalues;
+				if (recvLoop < (tokenize(lastdata,"\n",lastvalues)-1)){
+					recvLoop++;
+				}
+				else{
+					recvLoop = -1;
+					recvStep ++;
+				}
+			}
+			else{
+				recvStep++;
+			}
+		}
+	}
+	else{ // init chain of events
+		sendStep = 0;
+		recvStep = 0;
+		sendLoop = -1;
+		recvLoop = -1;
+	}
+		if (recvStep >= m_launchScriptSize){
+			recvStep = 0;
+			FinishLaunch();
+			return;
+		}
+		if (wait){
+			while (m_launchScript[recvStep].command.Mid(0,1) == "@"){
+				recvStep ++;
+			}
+			if (recvStep >= sendStep){
+			wait = false;
+			}
+		}
+
+		while ((!wait) && (sendStep < m_launchScriptSize)){
+
+				instruction  = m_launchScript[sendStep].command;
+				if ((sendLoop == -1) && (instruction.Find("*") != -1)){
+					sendLoop = 0;
+				}
+				tokenize(instruction," ",tokens);
+				cmd = translate(tokens,sendLoop,lastdata);
+				if (cmd.Mid(0,1) == "@"){
+					wxString result = "0";
+					if (tokens[0] == "@checkfor"){
+						bool contains = lastdata.Contains(tokens[1]);
+						if (contains){
+							result = "1";
+						}
+					}
+					else { // @execute
+						result = "1";
+					}
+					if (result == "0"){
+						while (m_launchScript[recvStep].command.Mid(0,1) == "@"){
+							recvStep ++;
+						}
+						long displace;
+						m_launchScript[sendStep].scriptActions.ToLong(&displace);
+						recvStep += displace;
+					}
+					HandleLaunchReply (tokens[0] + result,NULL,m_launchScript[sendStep],&sendStep,-1,"");
+					
+				}
+				else {
+					WriteCommand (cmd);
+				}
+				action = m_launchScript[sendStep].scriptActions;
+				
+				if (sendLoop != -1){
+					wxArrayString lastvalues;
+					if (sendLoop < (tokenize(lastdata,"\n",lastvalues)-1)){
+						sendLoop++;
+					}
+					else{
+						sendLoop = -1;
+						sendStep ++;
+						wait = true;
+					}
+				}
+				else {
+					sendStep++;
+				}
+
+				if ( action != ""){
+					if (recvStep < sendStep){
+						wait = true;
+					}
+				}
+		}
+}
+
+void openMSXController::FinishLaunch()
+{
+	wxSize tempsize = m_appWindow->GetSize();
+	tempsize.SetHeight(tempsize.GetHeight()+1);
+	tempsize.SetWidth(tempsize.GetWidth()+1);
+	m_appWindow->SetSize(tempsize);
+#ifdef __WINDOWS__
+	tempsize.SetHeight(tempsize.GetHeight()-1);
+	tempsize.SetWidth(tempsize.GetWidth()-1);
+	m_appWindow->SetSize(tempsize);
+#endif
+	m_appWindow->SetControlsOnLaunch();
+	m_launchMode = LAUNCH_NONE; // interactive mode
+}
+
+
+int openMSXController::tokenize (wxString text, wxString seperator, wxArrayString & result)
+{
+	int pos;
+	result.Clear();
+	wxString temp = text;
+	do{
+		pos = temp.Find(seperator);
+		if (pos != -1){
+			if (pos != 0){ // ignore multiple seperators
+				result.Add(temp.Mid(0,pos));
+				temp = temp.Mid(pos + seperator.Len());
+			}
+			else{
+				temp = temp.Mid(seperator.Len());
+			}
+		}
+	}while (pos != -1);
+	if (!temp.IsEmpty()){
+		result.Add(temp);
+	}
+	return result.GetCount();
+}
+
+wxString openMSXController::translate(wxArrayString tokens, int loop, wxString lastdata)
+{
+	unsigned int token;
+	for (token=0;token<tokens.GetCount();token++){
+		
+		if (tokens[token].Find("*") != -1){
+			if (loop != -1){
+				wxArrayString lastvalues;
+				tokenize (lastdata,"\n",lastvalues);
+				if (loop < (int)lastvalues.GetCount()){
+						tokens[token].Replace("*",lastvalues[loop],true);
+						tokens[token].Replace (" ","\\ ",true);
+				}			
+			}
+		}
+	}
+	token = 0;
+	while (token < tokens.GetCount()){
+		switch (tokens[token][(size_t)0]){
+		case '#':
+			if (tokens[token].Mid(0,5)=="#info"){
+				wxString parameter = "";
+				while (token < (tokens.GetCount()-1)){
+					parameter += tokens[token+1];
+					parameter += " ";
+					tokens.Remove(token+1);
+				}
+				parameter.Trim(true);	
+				tokens[token] = GetInfoCommand(parameter);
+			}
+			else if (tokens[token].Mid(0,6) == "#exist"){
+				tokens[token] = GetExistCommand(tokens[token+1]);
+				tokens.Remove(token+1);
+			}
+			else if (tokens[token].Mid(0,6) == "#unset"){
+				tokens[token] = m_unsetCommand;
+			}
+			else {
+				assert(false); // invalid command
+			}
+			break;
+		default:
+			break;
+		}
+		token++;
+	}
+	wxString result="";
+	for (token=0;token<tokens.GetCount();token++){
+		result += tokens[token];
+		result += " ";
+	}
+	result.Trim(true);
+	return wxString (result);
+}
+
+void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
+						LaunchInstructionType instruction ,int * sendStep, int loopcount,
+						wxString datalist)
+{
+	CatapultXMLParser::ParseResult * data = NULL;
+	if (event != NULL){
+		data = (CatapultXMLParser::ParseResult *)event->GetClientData();
+	}	
+	bool ok = false;
+	if (cmd.Mid(0,1)=="@"){
+		if (cmd.Mid(cmd.Len()-1) == "1"){
+			ok = true;
+		}
+	}
+	else{
+		if (data->replyState == CatapultXMLParser::REPLY_OK)
+			ok = true;
+	}
+	wxString actions = instruction.scriptActions;
+		
+	if (ok){
+		if (instruction.p_okfunction != NULL){
+			wxString parameter = instruction.parameter;
+			wxString contents = "";
+			if (loopcount > -1){
+				wxArrayString temp;
+				tokenize (datalist,"\n",temp);
+				parameter.Replace("*",temp[loopcount],true);
+				parameter.Replace(" ","\\ ",true);
+			}
+			if (event != NULL){
+				contents = FilterCurrentValue(data->contents);
+			}
+			(*this.*(instruction.p_okfunction))(contents,parameter);
+		}
+	}
+	else {
+		if (instruction.showError){
+			// show error
+		}
+		if (actions != ""){
+			if (actions == "e"){
+				int index = 0;
+				while (m_launchScript[index].command != "!done") index ++;
+				*sendStep = index;
+			}
+			else{
+				long displace;
+				actions.ToLong(&displace);
+				*sendStep += displace;
+			}
+		}
+	}
+}
+
+bool openMSXController::UpdateSetting (wxString data,wxString setting)
+{
+	m_appWindow->m_videoControlPage->UpdateSetting(setting,data);
+	return true;
+}
+
+bool openMSXController::FillComboBox (wxString data,wxString setting)
+{
+	m_appWindow->m_videoControlPage->FillComboBox(setting,data);
+	return true;
+}
+
+bool openMSXController::EnableFirmware (wxString data, wxString dummy)
+{
+	if (data != "0"){
+		m_appWindow->m_miscControlPage->EnableFirmware();
+	}
+	return true;
+}
+
+bool openMSXController::InitSoundDevices (wxString data, wxString dummy)
+{
+	m_appWindow->m_audioControlPage->InitAudioChannels(data);
+	return true;
+}
+
+bool openMSXController::SetChannelType (wxString data,wxString name)
+{
+	int maxchannels = m_appWindow->m_audioControlPage->GetNumberOfAudioChannels();
+	int index = 0;
+	bool found = false;
+	while ((!found) && (index < maxchannels)){
+		if (m_appWindow->m_audioControlPage->GetAudioChannelName(index) == name){
+			found = true;
+		}
+		else{
+			index++;
+		}
+	}
+	if (!found){
+		wxMessageBox ("Set Channeltype : " + name + " not found");
+		return false;
+	}
+	m_appWindow->m_audioControlPage->AddChannelType(index,data);
+	if (index == (maxchannels-1)){
+		m_appWindow->m_audioControlPage->SetupAudioMixer();
+	}
+	return true;
+}
+
+bool openMSXController::AddPluggableDescription(wxString data,wxString name)
+{
+	m_pluggabledescriptions.Add(data);
+	return true;
+}
+
+bool openMSXController::SetSliderDefaults (wxString dummy1, wxString dummy2)
+{
+	m_appWindow->m_videoControlPage->SetSliderDefaults();
+	return true;
+}
+
+bool openMSXController::InitAudioConnectorPanel (wxString dummy1, wxString dummy2)
+{
+	m_appWindow->m_audioControlPage->InitAudioIO();
+	return true;
+}

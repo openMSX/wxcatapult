@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.13 2004/03/31 14:49:51 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.14 2004/04/01 08:31:48 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -56,19 +56,26 @@ class openMSXController
 		CatapultXMLParser * m_parser;
 		LaunchMode m_launchMode;
 	private:
+		bool wait;
+		int sendStep;
+		int recvStep;
+		int sendLoop;
+		int recvLoop;
+		wxString lastdata;
+			
 		struct LaunchInstructionType{
 			wxString command;
-			wxString nok_action;
-			wxString ok_action;
-			bool (CatapultPage::*p_okfunction)(wxString,wxString); 
+			wxString scriptActions;
+			wxString parameter;
+			bool (openMSXController::*p_okfunction)(wxString,wxString); 
 			bool showError;
 		};
 		
 		LaunchInstructionType * m_launchScript;
 		int m_launchScriptSize;
 	
-		void AddLaunchInstruction (wxString cmd, wxString ok, wxString nok, 
-				bool (CatapultPage::*pfunction)(wxString,wxString),
+		void AddLaunchInstruction (wxString cmd, wxString action, wxString parameter, 
+				bool (openMSXController::*pfunction)(wxString,wxString),
 				bool showError);
 		unsigned int m_openMSXID;
 		wxArrayString m_connectors;
@@ -78,9 +85,32 @@ class openMSXController
 		wxString m_unsetCommand;
 		wxString GetPendingCommand();
 		wxString PeekPendingCommand();
-		void InitConnectors(wxString connectors);
-		void InitPluggables(wxString pluggables);		
+		
+				
 		void HandleNormalLaunchReply(wxCommandEvent &event);
+		
+		void newLaunchReply (wxCommandEvent & event);
+		void executeLaunch (wxCommandEvent * event = NULL);
+		void FinishLaunch ();
+		int tokenize (wxString text, wxString seperator, wxArrayString & result);
+		wxString translate(wxArrayString tokens, int loop, wxString lastdata);
+		void openMSXController::HandleLaunchReply (wxString cmd, wxCommandEvent * event,
+													LaunchInstructionType instruction,
+													int * sendStep, int loopcount,
+													wxString datalist);
+		bool UpdateSetting (wxString data,wxString setting);
+		bool FillComboBox (wxString data,wxString setting);
+		bool EnableFirmware (wxString dummy, wxString dummy2);
+		bool InitConnectors(wxString connectors,wxString dummy);
+		bool InitPluggables(wxString pluggables,wxString dummy);
+		bool InitSoundDevices (wxString data, wxString dummy);
+		bool SetChannelType (wxString data,wxString name);
+		bool AddPluggableDescription(wxString data,wxString name);
+		bool SetSliderDefaults (wxString dummy1, wxString dummy2);
+		bool InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
+
+
+
 		list<wxString> m_commands;		
 };
 

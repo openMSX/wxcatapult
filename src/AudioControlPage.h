@@ -1,4 +1,4 @@
-// $Id: $
+// $Id: AudioControlPage.h,v 1.7 2004/03/26 20:02:06 h_oudejans Exp $
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -48,8 +48,8 @@ class AudioControlPage : public CatapultPage
 		AudioControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller = NULL);
 		virtual ~AudioControlPage();
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
-	private:
 		void InitAudioIO();
+	private:
 		void ConvertChannelNames(wxArrayString & names);
 		void AddChannel (wxString label, int channelnumber);
 		openMSXController * m_controller;

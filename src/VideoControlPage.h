@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.6 2004/03/26 20:02:06 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.7 2004/03/28 20:13:57 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -50,15 +50,11 @@ class VideoControlPage : public CatapultPage
 		void SetAccuracy (wxString value);
 		void SetDeinterlace (wxString value);
 		void SetLimitSprites (wxString value);
-		void SetBlur (wxString value);
-		void SetGlow (wxString value);
-		void SetGamma (wxString value);
-		void SetScanline (wxString value);
+		void SetSliderDefaults();
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus){};
 		void UpdateBlurControls (int value);
+		void FillComboBox (wxString control, wxString contents);
 	private:
-		void FillComboBox (wxComboBox * control, wxString contents);
-		
 		openMSXController * m_controller;
 		
 		wxComboBox * m_accuracyList;
