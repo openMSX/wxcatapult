@@ -187,6 +187,37 @@ InputName=config
 # End Source File
 # Begin Source File
 
+SOURCE=..\dialogs\fullscreen.wxg
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Translating resource $(InputPath)
+ProjDir=.
+InputPath=..\dialogs\fullscreen.wxg
+InputName=fullscreen
+
+"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating resource $(InputPath)
+ProjDir=.
+InputPath=..\dialogs\fullscreen.wxg
+InputName=fullscreen
+
+"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\dialogs\misccontrols.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
