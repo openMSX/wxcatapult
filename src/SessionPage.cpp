@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.22 2004/09/26 09:50:01 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.23 2004/09/26 19:21:23 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -388,7 +388,9 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensio
 	while (succes)
 	{
 		if (::wxFileExists(sharepath + wxT("/extensions/") + extension + wxT("/hardwareconfig.xml"))) {
-			extensionArray.Add(extension);
+			if (extensionArray.Index(extension.c_str(),true) == wxNOT_FOUND){
+				extensionArray.Add(extension);
+			}
 		}
 		succes = sharedir.GetNext(&extension);
 	}
@@ -400,8 +402,7 @@ void SessionPage::fillExtensions (wxArrayString & extensionArray)
 	for (unsigned int i=0;i<extensionArray.GetCount();i++){
 		temp = extensionArray[i];
 		temp.Replace("_"," ",true);
-		if (m_extensionList->FindString (temp) == -1)
-			m_extensionList->Append(temp);
+		m_extensionList->Append(temp);
 	}
 
 }
@@ -422,7 +423,9 @@ void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArr
 	while (succes)
 	{
 		if (::wxFileExists(sharepath + wxT("/machines/") + machine + wxT("/hardwareconfig.xml"))) {
-			machineArray.Add(machine);
+			if (machineArray.Index(machine.c_str(),true) == wxNOT_FOUND){
+				machineArray.Add(machine);
+			}
 		}
 		succes = sharedir.GetNext(&machine);
 	}
@@ -436,8 +439,7 @@ void SessionPage::fillMachines (wxArrayString & machineArray)
 	{
 		temp = machineArray[i];
 		temp.Replace("_"," ",true);
-		if (m_machineList->FindString (temp) == -1)
-			m_machineList->Append(temp);
+		m_machineList->Append(temp);
 	}
 }
 
@@ -529,7 +531,7 @@ void SessionPage::getHardware(wxArrayString & parameters)
 	parameters.Clear();
 	int pos = m_machineList->GetSelection();
 	if (pos == 0){
-		parameters.Add(ConvertPath(m_machineList->GetValue(),true));
+		parameters.Add(m_machineList->GetValue());
 	}
 	else{
 		parameters.Add(ConvertPath(m_machineArray[m_machineList->GetSelection()-1]));
