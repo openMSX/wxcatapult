@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.18 2004/04/18 12:49:52 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.19 2004/04/18 15:45:22 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -75,10 +75,12 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_autoFrameSkipEnabled = false;
 	m_frameSkipSetting = "maxframeskip";
 
-// temperary hardcoded joystick port devices
+// temperary hardcoded joystick port devices (not for BSD)
 
+#ifndef __BSD__ 
 	wxJoystick joy(wxJOYSTICK1);
 	wxString temp;
+#endif
 
 	wxComboBox * box[2];
 	box[0] = (wxComboBox *)FindWindow (_("Joyport1Selector"));
@@ -88,9 +90,11 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 		box[i]->Append(_("--empty--"));
 		box[i]->Append(_("mouse"));
 		box[i]->Append(_("keyjoystick"));
+#ifndef __BSD__
 		for (int j=1;j<=joy.GetNumberJoysticks();j++){
 			temp.sprintf("joystick%d",j);
 			box[i]->Append(temp);
+#endif
 		}
 		box[i]->SetSelection(0);
 	}
