@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.80 2004/09/24 22:02:02 h_oudejans Exp $
+$Id: ChangeLog,v 1.81 2004/09/26 09:50:00 h_oudejans Exp $
+
+2004-10-01 Herman Oudejans <hn.oudeans@quicknet.nl>
+	* Added 'type' command support.
 
 2004-09-26 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Converter underscores to spaces in machines and extensions

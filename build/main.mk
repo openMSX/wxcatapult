@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.23 2004/05/28 12:46:44 h_oudejans Exp $
+# $Id: main.mk,v 1.24 2004/10/01 16:33:44 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -101,6 +101,7 @@ SOURCES:= \
 	wxToggleButtonXmlHandler \
 	CatapultXMLParser \
 	SessionPage \
+	InputPage \
 	StatusPage \
 	VideoControlPage \
 	AudioControlPage \
