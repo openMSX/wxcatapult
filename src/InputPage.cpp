@@ -1,4 +1,4 @@
-// $Id: $
+// $Id: InputPage.cpp,v 1.1 2004/10/01 16:49:46 h_oudejans Exp $
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -38,9 +38,13 @@ InputPage::~InputPage()
 void InputPage::OnTypeText (wxCommandEvent &event)
 {
 	wxString test = m_inputtext->GetValue();
-	test.Replace ("\n","\\r",true);
-	test.Replace ("$","\\$",true);
+	test.Replace("\n","\\r",true);
+	test.Replace("$","\\$",true);
 	test.Replace("\"","\\\"",true);
+	test.Replace("[","\\[",true);
+	test.Replace("]","\\]",true);
+	test.Replace("}","\\}",true);
+	test.Replace("{","\\{",true);
 	m_controller->WriteCommand(wxString("type \"") + test + "\"");	
 	
 }

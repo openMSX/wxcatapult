@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.56 2004/09/25 08:08:38 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.57 2004/10/01 16:33:46 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -264,9 +264,14 @@ bool openMSXController::WriteCommand(wxString msg)
 	if (!m_openMsxRunning) 
 		return false;
 	m_commands.push_back(msg);
-	if (!WriteMessage (wxString("<command>" + msg + "</command>\n")))
-		return false;
-	return true;
+	xmlChar* buffer = xmlEncodeEntitiesReentrant(NULL, (const xmlChar*)msg.c_str());
+
+	bool result = (WriteMessage (wxString("<command>" + wxString(buffer) + "</command>\n")));
+
+	if (buffer != NULL) {
+		free(buffer);
+	}
+	return result;
 }
 
 wxString openMSXController::GetPendingCommand()
