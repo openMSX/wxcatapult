@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.21 2004/04/07 16:44:47 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.22 2004/04/07 19:26:24 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -206,7 +206,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	
 	if (hardware.GetCount() > 1){
 		for (i=1;i<hardware.GetCount();i++){
-			cmd += " -ext " + hardware[1];
+			cmd += " -ext " + hardware[i];
 		}
 	}
 
