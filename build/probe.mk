@@ -1,4 +1,4 @@
-# $Id: probe.mk,v 1.4 2004/05/09 15:35:21 mthuurne Exp $
+# $Id: probe.mk,v 1.5 2004/05/09 21:31:01 mthuurne Exp $
 #
 # Replacement for "configure".
 # Performs some test compiles, to check for headers and functions.
@@ -47,7 +47,7 @@ WX_RESULT:=`wx-config --version`
 XML_LDFLAGS:=`xml2-config --libs 2>> $(LOG)`
 XML_RESULT:=`xml2-config --version`
 
-XRC_LDFLAGS:=`(wx-config --libs && (wx-config --libs | sed -e "s/-lwx_\([^-]*\)-\([^ ]*\)/\0 -lwx_\1_xrc-\2/")) 2>> $(LOG)`
+XRC_LDFLAGS:=`((wx-config --libs > /dev/null) && (wx-config --libs | sed -e "s/-lwx_\([^-]*\)-\([^ ]*\)/\0 -lwx_\1_xrc-\2/")) 2>> $(LOG)`
 XRC_RESULT:=yes
 
 
