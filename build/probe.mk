@@ -1,4 +1,4 @@
-# $Id: probe.mk,v 1.1 2004/05/09 10:27:15 mthuurne Exp $
+# $Id: probe.mk,v 1.2 2004/05/09 15:16:59 mthuurne Exp $
 #
 # Replacement for "configure".
 # Performs some test compiles, to check for headers and functions.
@@ -64,9 +64,6 @@ PRINT_LIBS:=$(addsuffix -print,$(CHECK_LIBS))
 
 # Default target.
 all: check-targets print-libs
-	@echo 'HAVE_XRC_LIB:=$$(if $$(HAVE_XRC2_LIB),$$(HAVE_XRC2_LIB),$$(HAVE_XRC1_LIB))' >> $(OUTMAKE);
-	@echo 'XRC_LDFLAGS:=$$(if $$(HAVE_XRC2_LIB),$$(XRC2_LDFLAGS),$$(XRC1_LDFLAGS))' >> $(OUTMAKE)
-
 check-targets: $(CHECK_TARGETS)
 print-libs: $(PRINT_LIBS)
 

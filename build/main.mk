@@ -1,9 +1,21 @@
-# $Id: main.mk,v 1.11 2004/05/09 10:27:15 mthuurne Exp $
+# $Id: main.mk,v 1.12 2004/05/09 15:05:01 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
 #
 # Uses a similar approach as the openMSX build system.
+
+
+# Functions
+# =========
+
+# Function to check a boolean variable has value "true" or "false".
+# Usage: $(call BOOLCHECK,VARIABLE_NAME)
+BOOLCHECK=$(strip \
+	$(call DEFCHECK,$(1)) \
+	$(if $(filter-out _true _false,_$($(1))), \
+		$(error Value of $(1) ("$($(1))") should be "true" or "false") ) \
+	)
 
 
 # Logical Targets
@@ -37,6 +49,7 @@ BUILD_BASE:=derived
 SEDSCRIPT:=$(MAKE_PATH)/wxg2xrc.sed
 CUSTOM_MAKE:=$(MAKE_PATH)/custom.mk
 PROBE_SCRIPT:=$(MAKE_PATH)/probe.mk
+COMPONENTS_MAKE:=$(MAKE_PATH)/components.mk
 
 BUILD_PATH:=$(BUILD_BASE)
 
@@ -66,9 +79,12 @@ CHANGELOG_REVISION:=\
 include $(CUSTOM_MAKE)
 
 include $(MAKE_PATH)/info2code.mk
-
 ifneq ($(filter $(DEPEND_TARGETS),$(MAKECMDGOALS)),)
 -include $(PROBE_MAKE)
+ifeq ($(PROBE_MAKE_INCLUDED),true)
+include $(COMPONENTS_MAKE)
+$(call BOOLCHECK,COMPONENT_CORE)
+endif
 endif
 
 
@@ -133,8 +149,8 @@ LDFLAGS+=$(WX_LDFLAGS) $(XRC_LDFLAGS) $(XML_LDFLAGS)
 # ===========
 
 # Do not build if core component dependencies are not met.
-CORE_LIBS:=WX XRC XML
-ifneq ($(filter x,$(foreach LIB,$(CORE_LIBS),x$(HAVE_$(LIB)_LIB))),)
+ifeq ($(COMPONENT_CORE),false)
+DUMMY:=$(shell rm -f $(PROBE_MAKE))
 $(error Cannot build Catapult because essential libraries are unavailable. \
 Please install the needed libraries and rerun (g)make)
 endif

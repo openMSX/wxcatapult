@@ -1,4 +1,4 @@
-# $Id: probe-results.mk,v 1.4 2004/05/06 00:20:11 mthuurne Exp $
+# $Id: probe-results.mk,v 1.1 2004/05/09 10:27:15 mthuurne Exp $
 #
 # Display probe results, so user can decide whether to start the build,
 # or to change system configuration and rerun "configure".
@@ -14,6 +14,7 @@ $(error Missing parameter: MAKE_PATH)
 endif
 
 include $(PROBE_MAKE)
+include $(MAKE_PATH)/components.mk
 include $(MAKE_PATH)/custom.mk
 
 # Usage: $(call FOUND,LIB_NAME)
