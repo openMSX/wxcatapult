@@ -1,8 +1,7 @@
-// $Id$
+// $Id: wxCatapultApp.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
-
 #define SETUP_EXTERNALS
 #include "wxCatapultApp.h"
 #undef SETUP_EXTERNALS
@@ -51,7 +50,6 @@ bool wxCatapultApp::OnInit()
 
 	EVT_CONTROLLER = wxNewEventType();
 
-	wxString basedir = ::wxPathOnly(argv[0]);
 	bool succes = true;
 	succes &= LoadXRC (_("config.xrc"));
 	succes &= LoadXRC (_("catapult.xrc"));
@@ -91,6 +89,16 @@ bool wxCatapultApp::OnInit()
 
 bool wxCatapultApp::LoadXRC(wxString XrcFile)
 {
-	wxString basedir = ::wxPathOnly(argv[0]);
-	return wxXmlResource::Get()->Load(basedir + _("/../resources/dialogs/") + XrcFile);
+	wxString resourceDir = GetResourceDir();
+	return wxXmlResource::Get()->Load(resourceDir + _("/dialogs/") + XrcFile);
 }
+
+wxString wxCatapultApp::GetResourceDir ()
+{
+#ifdef RESOURCEDIR
+	return wxString(RESOURCEDIR);
+#else
+	return wxString(::wxPathOnly(argv[0]) + _("/../resources"));	
+#endif
+}
+

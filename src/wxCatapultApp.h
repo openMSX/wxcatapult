@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: wxCatapultApp.h,v 1.3 2004/02/06 22:26:50 h_oudejans Exp $
 #ifndef wxCatapultApp_H
 #define wxCatapultApp_H
 
@@ -35,6 +35,7 @@ class wxCatapultApp : public wxApp
 {
 	public:
 		wxCatapultApp();
+		wxString GetResourceDir ();
 		virtual ~wxCatapultApp();
 
 		// override base class virtuals
