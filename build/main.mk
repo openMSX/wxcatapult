@@ -1,4 +1,4 @@
-# $Id$
+# $Id: Makefile,v 1.4 2004/02/07 06:47:35 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -9,7 +9,7 @@ SED:=sed
 SOURCES_PATH:=src
 DIALOGSDIR:=dialogs
 BITMAPSDIR:=resources/bitmaps
-SEDSCRIPT:=wxg2xrc.sed
+SEDSCRIPT:=build/wxg2xrc.sed
 
 BUILD_BASE:=derived
 BUILD_PATH:=$(BUILD_BASE)
