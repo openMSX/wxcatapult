@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.42 2004/10/07 18:23:50 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.43 2004/10/08 15:23:54 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -186,7 +186,11 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 	// called when help - about is picked from the menu or toolbar
 	wxString msg;
 	msg.Printf(
-		Version::FULL_VERSION + "\n\n" +
+		Version::FULL_VERSION 
+#if OPENMSX_DEMO_CD_VERSION
+		+ "(CD Version)" 	
+#endif
+		+ "\n\n" +
 		_("Created by the openMSX team\n")
 		);
 
