@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.56 2005/03/05 11:52:57 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.57 2005/03/05 12:40:28 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -417,7 +417,15 @@ void SessionPage::OnBrowseCassette(wxCommandEvent &event)
 void SessionPage::OnClickDiskACombo(wxCommandEvent & event)
 {
 	OnClickCombo(event);
-	OnChangeDiskAContents(event);	
+	OnChangeDiskAContents(event);
+	if (m_controller->IsOpenMSXRunning()) {	
+		m_controller->WriteCommand(wxT("diska eject"));
+		if (!m_diskA->contents.IsEmpty()) {
+			m_controller->WriteCommand(wxT("diska ") + ConvertPath(m_diskA->contents,true));
+			AddHistory(m_diskA);
+			SaveHistory();
+		}
+	}
 }
 
 void SessionPage::OnChangeDiskAContents(wxCommandEvent & event)
@@ -430,7 +438,15 @@ void SessionPage::OnChangeDiskAContents(wxCommandEvent & event)
 void SessionPage::OnClickDiskBCombo(wxCommandEvent & event)
 {
 	OnClickCombo(event);
-	OnChangeDiskBContents(event);	
+	OnChangeDiskBContents(event);
+	if (m_controller->IsOpenMSXRunning()) {	
+		m_controller->WriteCommand(wxT("diskb eject"));
+		if (!m_diskB->contents.IsEmpty()) {
+			m_controller->WriteCommand(wxT("diskb ") + ConvertPath(m_diskB->contents,true));
+			AddHistory(m_diskA);
+			SaveHistory();
+		}
+	}
 }
 
 void SessionPage::OnChangeDiskBContents(wxCommandEvent & event)
@@ -742,6 +758,10 @@ void SessionPage::SetControlsOnEnd()
 	m_browseCassette->Enable(true);
 	m_cassette->control->Enable(true);
 	temp = FindWindowByLabel(wxT("Cartridge Slots"));
+	if (temp){
+		temp->Enable(true);
+	}
+	temp = FindWindowByLabel(wxT("Cassette Player"));
 	if (temp){
 		temp->Enable(true);
 	}
