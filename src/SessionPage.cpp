@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.57 2005/03/05 12:40:28 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.58 2005/03/05 18:24:16 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -919,7 +919,8 @@ void SessionPage::AddHistory(mediaInfo *media)
 	for (i=0;i<media->history.GetCount();i++){
 		media->control->Append(media->history[i]);
 	}
-	media->control->SetValue(currentItem);
+//	media->control->SetValue(currentItem);
+	media->control->SetSelection(0);
 }
 
 void SessionPage::RestoreHistory()
