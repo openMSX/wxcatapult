@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.2 2004/02/04 22:01:03 manuelbi Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.3 2004/04/08 19:01:08 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,6 +27,8 @@ END_EVENT_TABLE()
 
 CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 {
+	wxString guess = "";
+	int pos;
 	wxXmlResource::Get()->LoadDialog(this, parent, _("ConfigurationDialog"));
 	m_ExecPath = (wxTextCtrl *)FindWindow(_("ConfigExecData"));
 	m_SharePath = (wxTextCtrl *)FindWindow(_("ConfigShareData"));
@@ -34,10 +36,50 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 	wxString temp;
 	ConfigurationData * config = ConfigurationData::instance();
 	OkButton->SetFocus(); // avoid strange behaviour of the execpath textctrl
-	if (config->GetParameter(ConfigurationData::CD_EXECPATH,temp))
+	if (config->GetParameter(ConfigurationData::CD_EXECPATH,temp)){
 		m_ExecPath->SetValue(temp);
+	}
+	if (temp == _("")){
+#ifdef __WINDOWS__		
+		guess = ((wxCatapultApp &)wxGetApp()).GetResourceDir();
+		guess.Replace ("/","\\",true);
+		for (int i=0;i<2;i++){
+			while (guess.Last() == '\\'){
+				guess = guess.Left(guess.Len()-1);
+			}
+			pos = guess.Find('\\',true);
+			if (pos !=-1){
+				guess = guess.Left(pos+1);
+			}
+		}
+		guess += "openmsx.exe";
+#else
+		guess = _("opt/openMSX/bin/openmsx");
+#endif
+		if (wxFileExists(guess)){
+			m_ExecPath->SetValue(guess);
+		}
+	}
 	if (config->GetParameter(ConfigurationData::CD_SHAREPATH,temp))
 		m_SharePath->SetValue(temp);
+	if (temp==_("") && (m_ExecPath->GetValue() != _(""))){
+#ifdef __WINDOWS__
+		guess = m_ExecPath->GetValue();
+		guess.Replace ("/","\\",true);
+		pos = guess.Find('\\',true);
+		if (pos != -1){
+			guess = guess.Left(pos+1) + _("share");
+		}
+		else{
+			guess = "";
+		}
+#else
+		guess = _("opt/openMSX/share");
+#endif
+	}
+	if (wxDirExists(guess)){
+		m_SharePath->SetValue(guess);
+	}
 }
 
 CatapultConfigDlg::~CatapultConfigDlg()

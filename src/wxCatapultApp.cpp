@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.8 2004/04/04 19:45:26 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.9 2004/04/17 15:49:54 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -111,7 +111,16 @@ wxString wxCatapultApp::GetResourceDir ()
 #ifdef RESOURCEDIR
 	return wxString(RESOURCEDIR);
 #else
-	return wxString(::wxPathOnly(argv[0]) + _("/../resources"));	
+	wxString temp = ::wxPathOnly(argv[0]);
+	temp.Replace ("/","\\",true);
+	while (temp.Last() == '\\'){
+			temp = temp.Left(temp.Len()-1);
+		}
+		int pos = temp.Find('\\',true);
+		if (pos !=-1){
+			temp = temp.Left(pos+1) + _("resources");
+		}
+	return wxString(temp);	
 #endif
 }
 
