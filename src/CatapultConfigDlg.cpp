@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.3 2004/04/08 19:01:08 h_oudejans Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.4 2004/04/25 15:27:50 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -28,7 +28,6 @@ END_EVENT_TABLE()
 CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 {
 	wxString guess = "";
-	int pos;
 	wxXmlResource::Get()->LoadDialog(this, parent, _("ConfigurationDialog"));
 	m_ExecPath = (wxTextCtrl *)FindWindow(_("ConfigExecData"));
 	m_SharePath = (wxTextCtrl *)FindWindow(_("ConfigShareData"));
@@ -47,7 +46,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 			while (guess.Last() == '\\'){
 				guess = guess.Left(guess.Len()-1);
 			}
-			pos = guess.Find('\\',true);
+			int pos = guess.Find('\\',true);
 			if (pos !=-1){
 				guess = guess.Left(pos+1);
 			}
@@ -66,7 +65,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 #ifdef __WINDOWS__
 		guess = m_ExecPath->GetValue();
 		guess.Replace ("/","\\",true);
-		pos = guess.Find('\\',true);
+		int pos = guess.Find('\\',true);
 		if (pos != -1){
 			guess = guess.Left(pos+1) + _("share");
 		}
