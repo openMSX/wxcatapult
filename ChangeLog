@@ -1,4 +1,9 @@
-$Id$
+$Id: ChangeLog,v 1.1 2004/02/04 21:15:37 manuelbi Exp $
+
+2004-02-05 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* the xml parser now supports the new xml structure.
+	* removed the fake xml parser from the windowsversion.
+	* fixed the win32 build process (wxg to xrc)
 
 2004-02-04 Manuel Bilderbeek <manuel@msxnet.org>
 	* openMSX Catapult: initial CVS version (Oss Release)
