@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.30 2004/05/08 20:50:44 mthuurne Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.31 2004/05/09 14:25:51 manuelbi Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ END_EVENT_TABLE()
 #endif
 
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("CatapultFrame"));
-	SetIcon (wxICON(acatapult));
+	SetIcon (wxICON(catapult));
 
 	// create menu bars
 
