@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.22 2004/10/06 19:28:23 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.23 2004/10/08 15:26:40 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -250,20 +250,20 @@ void AudioControlPage::ConvertChannelNames(wxArrayString & names)
 	wxArrayString In;
 	wxArrayString Out;
 	In.Add(wxT("master"));Out.Add(_("a master\n"));
-	In.Add(wxT("1-bit click generator"));Out.Add(_("b click\n"));
+	In.Add(wxT("1-bit click generator"));Out.Add(_("b key-\nclick"));
 	In.Add(wxT("PSG"));Out.Add(_("c PSG\n"));
 	In.Add(wxT("Turbo-R PCM"));Out.Add(_("d PCM\n"));
-	In.Add(wxT("MSX-MUSIC"));Out.Add(_("e Music\n"));
+	In.Add(wxT("MSX-MUSIC"));Out.Add(_("e MSX-\nMUSIC"));
 	In.Add(wxT("Konami SCC"));Out.Add(_("g SCC\n"));
 	In.Add(wxT("Konami SCC+"));Out.Add(_("h SCC+\n"));
-	In.Add(wxT("MSX-AUDIO"));Out.Add(_("i Audio\nFM"));
-	In.Add(wxT("MSX-AUDIO 13-bit DAC"));Out.Add(_("j Audio\nDAC"));
+	In.Add(wxT("MSX-AUDIO"));Out.Add(_("i AUDIO\nFM"));
+	In.Add(wxT("MSX-AUDIO 13-bit DAC"));Out.Add(_("j AUDIO\nDAC"));
 	In.Add(wxT("MoonSound FM-part"));Out.Add(_("l MSnd\nFM"));
 	In.Add(wxT("MoonSound wave-part"));Out.Add(_("m MSnd\nWave"));
 	In.Add(wxT("Majutsushi DAC"));Out.Add(_("o Majutsu\nDAC"));
 	In.Add(wxT("Konami Synthesizer DAC"));Out.Add(_("p Konami\nSynth"));
 	In.Add(wxT("Play samples via your printer port."));Out.Add(_("q SIMPL\n"));
-	In.Add(wxT("Cassetteplayer, use to read .cas or .wav files."));Out.Add(_("z tape\n"));
+	In.Add(wxT("Cassetteplayer, use to read .cas or .wav files."));Out.Add(_("z cas-\nsette"));
 
 	for (i=0;i<names.GetCount();i++) {
 		unsigned int InIndex = 0;

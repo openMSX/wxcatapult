@@ -69,7 +69,7 @@
                         <option>0</option>
                         <object class="wxStaticBoxSizer" name="DiskSizer" base="EditStaticBoxSizer">
                             <orient>wxVERTICAL</orient>
-                            <label>Disks</label>
+                            <label>Disk Drives</label>
                             <object class="sizeritem">
                                 <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
                                 <border>5</border>
@@ -176,7 +176,7 @@
                         <option>0</option>
                         <object class="wxStaticBoxSizer" name="CartSizer" base="EditStaticBoxSizer">
                             <orient>wxVERTICAL</orient>
-                            <label>Cartridges</label>
+                            <label>Cartridge Slots</label>
                             <object class="sizeritem">
                                 <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
                                 <border>5</border>
@@ -288,13 +288,13 @@
                                 <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
                                 <border>5</border>
                                 <option>0</option>
-                                <object class="wxBoxSizer" name="TapeSizer" base="EditBoxSizer">
+                                <object class="wxBoxSizer" name="CassetteSizer" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
                                         <border>3</border>
                                         <option>0</option>
-                                        <object class="wxStaticText" name="Tape_Label" base="EditStaticText">
+                                        <object class="wxStaticText" name="Cassette_Label" base="EditStaticText">
                                             <attribute>1</attribute>
                                             <label>Image:</label>
                                         </object>
@@ -303,9 +303,9 @@
                                         <flag>wxALIGN_CENTER_VERTICAL</flag>
                                         <border>0</border>
                                         <option>1</option>
-                                        <object class="wxComboBox" name="TapeContents" base="EditComboBox">
+                                        <object class="wxComboBox" name="CassetteContents" base="EditComboBox">
                                             <selection>0</selection>
-                                            <tooltip>Tape image (wave audio) to use in cassetteplayer</tooltip>
+                                            <tooltip>Cassette image to use in cassetteplayer</tooltip>
                                             <choices>
                                                 <choice></choice>
                                             </choices>
@@ -315,7 +315,7 @@
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
                                         <border>2</border>
                                         <option>0</option>
-                                        <object class="wxBitmapButton" name="BrowseTape" base="EditBitmapButton">
+                                        <object class="wxBitmapButton" name="BrowseCassette" base="EditBitmapButton">
                                             <tooltip>Browse</tooltip>
                                             <bitmap>../resources/bitmaps/tapeimage.bmp</bitmap>
                                             <size>23, 23</size>
@@ -325,7 +325,7 @@
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
                                         <border>2</border>
                                         <option>0</option>
-                                        <object class="wxBitmapButton" name="ClearTape" base="EditBitmapButton">
+                                        <object class="wxBitmapButton" name="ClearCassette" base="EditBitmapButton">
                                             <tooltip>Eject</tooltip>
                                             <bitmap>../resources/bitmaps/eject.bmp</bitmap>
                                             <size>23, 23</size>
@@ -349,7 +349,7 @@
                                                 <border>0</border>
                                                 <option>0</option>
                                                 <object class="wxButton" name="RewindButton" base="EditButton">
-                                                    <tooltip>Set tape to the startposition</tooltip>
+                                                    <tooltip>Rewind cassette to the start position</tooltip>
                                                     <label>Rewind</label>
                                                 </object>
                                             </object>
@@ -365,6 +365,7 @@
                                                 <border>0</border>
                                                 <option>0</option>
                                                 <object class="wxToggleButton" name="ForcePlayButton" base="EditButton">
+                                                    <tooltip>Run the cassette, even when no load command was given</tooltip>
                                                     <label>Force Play</label>
                                                 </object>
                                             </object>

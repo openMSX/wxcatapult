@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.27 2004/10/10 11:48:30 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.28 2004/11/06 11:25:05 manuelbi Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting("renshaturbo","RenshaTurboSlider",&CatapultPage::UpdateSliderSetting,0);
 	AddSetting("diska","DiskAContents",&CatapultPage::UpdateComboSetting,0);
 	AddSetting("diskb","DiskBContents",&CatapultPage::UpdateComboSetting,0);
-	AddSetting("tape1","Tape1Contents",&CatapultPage::UpdateComboSetting,0);
+	AddSetting("cassette","CassetteContents",&CatapultPage::UpdateComboSetting,0);
 	AddSetting("fullscreen","FullScreenButton",&CatapultPage::UpdateToggleSetting,S_CONVERT);
 	AddSetting("save_settings_on_exit","Save Settings On Exit",&CatapultPage::UpdateMenuSetting,0);
 	AddSetting("printerlogfilename","PrinterLogFile",&CatapultPage::UpdateIndicatorSetting,0);

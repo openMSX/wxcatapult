@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.12 2004/10/08 15:26:40 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.13 2004/11/06 11:25:05 manuelbi Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -21,14 +21,14 @@ class SessionPage : public CatapultPage
 		virtual ~SessionPage();
 
 	//	void OnClickCombo(wxCommandEvent &event);
-		void OnBrowseTape (wxCommandEvent &event);
+		void OnBrowseCassette (wxCommandEvent &event);
 		void OnBrowseDiskA (wxCommandEvent& event);
 		void OnBrowseDiskB (wxCommandEvent& event);
 
 		void OnBrowseCartA (wxCommandEvent& event);
 		void OnBrowseCartB (wxCommandEvent& event);
 
-		void OnClearTape (wxCommandEvent & event);
+		void OnClearCassette (wxCommandEvent & event);
 		void OnClearCartB (wxCommandEvent & event);
 		void OnClearCartA (wxCommandEvent & event);
 		void OnClearDiskB (wxCommandEvent & event);
@@ -56,13 +56,13 @@ class SessionPage : public CatapultPage
 
 		wxBitmapButton * m_browseDiskA;
 		wxBitmapButton * m_browseDiskB;
-		wxBitmapButton * m_browseTape1;
+		wxBitmapButton * m_browseCassette;
 		wxBitmapButton * m_clearDiskA;
 		wxBitmapButton * m_clearDiskB;
-		wxBitmapButton * m_clearTape1;
+		wxBitmapButton * m_clearCassette;
 		wxString m_lastDiskA;
 		wxString m_lastDiskB;
-		wxString m_lastTape1;
+		wxString m_lastCassette;
 		wxString m_cassettePortState;
 
 		wxStaticText * m_machineListLabel;
@@ -91,7 +91,7 @@ class SessionPage : public CatapultPage
 			wxComboBox * m_diskB;
 			wxComboBox * m_cartA;
 			wxComboBox * m_cartB;
-			wxComboBox * m_tape1;
+			wxComboBox * m_cassette;
 
 			wxBitmapButton * m_browseCartA;
 			wxBitmapButton * m_browseCartB;

@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.7 2004/10/08 15:24:39 h_oudejans Exp $
+// $Id: ConfigurationData.cpp,v 1.8 2004/11/06 11:25:05 manuelbi Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(wxT("/history/DiskB"),&m_diskbHistory);
 	ConfigData->Read(wxT("/history/CartA"),&m_cartaHistory);
 	ConfigData->Read(wxT("/history/CartB"),&m_cartbHistory);
-	ConfigData->Read(wxT("/history/Tape1"),&m_tape1History);
+	ConfigData->Read(wxT("/history/Cassette"),&m_cassetteHistory);
 	ConfigData->Read(wxT("/history/MediaInserted"),&m_mediaInserted);
 	ConfigData->Read(wxT("/history/UsedMachine"),&m_usedMachine);
 	ConfigData->Read(wxT("/history/UsedExtensions"), &m_usedExtensions);
@@ -77,8 +77,8 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 		case CD_HISTCARTB:
 			m_cartbHistory = p_data.GetString();
 			break;
-		case CD_HISTTAPE1:
-			m_tape1History = p_data.GetString();
+		case CD_HISTCASSETTE:
+			m_cassetteHistory = p_data.GetString();
 			break;
 		case CD_USEDMACHINE:
 			m_usedMachine = p_data.GetString();
@@ -137,8 +137,8 @@ bool ConfigurationData::GetParameter(int p_iId, wxString &p_data)
 		case CD_HISTCARTB:
 			p_data = m_cartbHistory;
 			break;
-		case CD_HISTTAPE1:
-			p_data = m_tape1History;
+		case CD_HISTCASSETTE:
+			p_data = m_cassetteHistory;
 			break;
 		case CD_USEDMACHINE:
 			p_data = m_usedMachine;
@@ -204,7 +204,7 @@ bool ConfigurationData::SaveData()
 	retVal &= ConfigData->Write(wxT("/history/DiskB"),m_diskbHistory);
 	retVal &= ConfigData->Write(wxT("/history/CartA"),m_cartaHistory);
 	retVal &= ConfigData->Write(wxT("/history/CartB"),m_cartbHistory);
-	retVal &= ConfigData->Write(wxT("/history/Tape1"),m_tape1History);
+	retVal &= ConfigData->Write(wxT("/history/Cassette"),m_cassetteHistory);
 	retVal &= ConfigData->Write(wxT("/history/MediaInserted"),m_mediaInserted);
 	retVal &= ConfigData->Write(wxT("/history/UsedMachine"),m_usedMachine);
 	retVal &= ConfigData->Write(wxT("/history/UsedExtensions"),m_usedExtensions);
