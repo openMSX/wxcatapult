@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.2 2004/02/04 22:01:04 manuelbi Exp $
+// $Id: CatapultXMLParser.cpp,v 1.3 2004/02/05 20:02:34 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,6 +24,7 @@ CatapultXMLParser::CatapultXMLParser(wxWindow * target)
 {
 	m_target = target;
 	parseResult.parseState	= STATE_START;
+	parseResult.unknownLevel = 0;
 	parseResult.contents.Clear();
 	memset (&handler,0,sizeof(handler));
 	handler.startElement = (startElementSAXFunc) cb_start_element;
@@ -38,51 +39,49 @@ CatapultXMLParser::~CatapultXMLParser()
 
 void CatapultXMLParser::cb_start_element(CatapultXMLParser * parser, const xmlChar *name, const xmlChar **attrs)
 {
-	switch (parser->parseResult.parseState)
-	{
+	if (parser->parseResult.unknownLevel) {
+		++(parser->parseResult.unknownLevel);
+		return;
+	}
+	switch (parser->parseResult.parseState) {
 		case STATE_START:
-			if (!strcmp((const char *)name, _("openmsx-output")))
+			if (!strcmp((const char *)name, _("openmsx-output"))) {
 				parser->parseResult.parseState = TAG_OPENMSX;
+			} else {
+				++(parser->parseResult.unknownLevel);
+			}
 			break;
 		case TAG_OPENMSX:
 			if (!strcmp((const char *)name, _("reply"))) {
-				parser->parseResult.parseState = TAG_REPLY;			
+				parser->parseResult.parseState = TAG_REPLY;
 				parser->parseReply((const char**)attrs);
-			}
-			
-			if (!strcmp((const char *)name, _("log"))) {
+			} else if (!strcmp((const char *)name, _("log"))) {
 				parser->parseResult.parseState = TAG_LOG;
 				parser->parseLog((const char**)attrs);
-			}
-			
-			if (!strcmp((const char *)name, _("update"))) {
+			} else if (!strcmp((const char *)name, _("update"))) {
 				parser->parseResult.parseState = TAG_UPDATE;
 				parser->parseUpdate((const char**)attrs);
-			}
-
-// about to be depreciated tags
-
+			} else 
+			
+			// about to be depreciated tags
 			if (!strcmp((const char *)name, _("info"))) {
 				parser->parseResult.parseState = TAG_INFO;
 				parser->parseResult.logLevel = LOG_INFO;
-			}
-
-			if (!strcmp((const char *)name, _("ok"))) {
+			} else if (!strcmp((const char *)name, _("ok"))) {
 				parser->parseResult.parseState = TAG_OK;
 				parser->parseResult.replyState = REPLY_OK;
-			}
-
-			if (!strcmp((const char *)name, _("nok"))) {
+			} else if (!strcmp((const char *)name, _("nok"))) {
 				parser->parseResult.parseState = TAG_NOK;
 				parser->parseResult.replyState = REPLY_NOK;
-			}
-
-			if (!strcmp((const char *)name, _("warning"))) {
+			} else if (!strcmp((const char *)name, _("warning"))) {
 				parser->parseResult.parseState = TAG_WARNING;
 				parser->parseResult.logLevel = LOG_WARNING;
+			} else {
+				++(parser->parseResult.unknownLevel);
 			}
 			break;
 		default:
+			++(parser->parseResult.unknownLevel);
 			break;
 	}
 	parser->parseResult.contents.Clear();
@@ -90,8 +89,11 @@ void CatapultXMLParser::cb_start_element(CatapultXMLParser * parser, const xmlCh
 
 void CatapultXMLParser::cb_end_element (CatapultXMLParser * parser,  const xmlChar * name)
 {
-	switch (parser->parseResult.parseState)
-	{
+	if (parser->parseResult.unknownLevel) {
+		--(parser->parseResult.unknownLevel);
+		return;
+	}
+	switch (parser->parseResult.parseState) {
 		case TAG_OPENMSX:		
 			parser->parseResult.parseState = STATE_START;
 			break;
@@ -220,8 +222,7 @@ void CatapultXMLParser::parseUpdate(const char** attrs)
 				parseResult.name = attrs[1];
 			}
 		}
-	}
-	else {
+	} else {
 		parseResult.updateType = UPDATE_OLD;
 	}
 } 

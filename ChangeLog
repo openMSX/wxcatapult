@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.1 2004/02/04 21:15:37 manuelbi Exp $
+$Id: ChangeLog,v 1.2 2004/02/05 20:03:24 h_oudejans Exp $
+
+2004-02-05 Wouter Vermaelen <wouter.vermaelen@pi.be>
+	* handle unknown XML tags better
 
 2004-02-05 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* the xml parser now supports the new xml structure.
