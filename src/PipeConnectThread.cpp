@@ -1,4 +1,4 @@
-// $Id$
+// $Id: PipeConnectThread.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // PipeConnectThread.cpp: implementation of the PipeConnectThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -8,7 +8,7 @@
 #include "wxCatapultApp.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #include "PipeConnectThread.h"

@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.9 2004/04/17 15:49:54 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.10 2004/04/25 15:27:50 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -53,21 +53,21 @@ bool wxCatapultApp::OnInit()
 	EVT_CONTROLLER = wxNewEventType();
 
 	bool succes = true;
-	succes &= LoadXRC (_("config.xrc"));
-	succes &= LoadXRC (_("fullscreen.xrc"));
-	succes &= LoadXRC (_("catapult.xrc"));
-	succes &= LoadXRC (_("session.xrc"));
-	succes &= LoadXRC (_("status.xrc"));
-	succes &= LoadXRC (_("misccontrols.xrc"));
-	succes &= LoadXRC (_("videocontrols.xrc"));
-	succes &= LoadXRC (_("audiocontrols.xrc"));
+	succes &= LoadXRC (wxT("config.xrc"));
+	succes &= LoadXRC (wxT("fullscreen.xrc"));
+	succes &= LoadXRC (wxT("catapult.xrc"));
+	succes &= LoadXRC (wxT("session.xrc"));
+	succes &= LoadXRC (wxT("status.xrc"));
+	succes &= LoadXRC (wxT("misccontrols.xrc"));
+	succes &= LoadXRC (wxT("videocontrols.xrc"));
+	succes &= LoadXRC (wxT("audiocontrols.xrc"));
 
 	if (succes)
 	{	
 		// We'll set the appication and vendorname before the first call to 'Get'
 
-		SetVendorName(_("openMSX team"));
-		SetAppName(_("Catapult"));
+		SetVendorName(wxT("openMSX team"));
+		SetAppName(wxT("Catapult"));
 
 		// Now, let's find out if we have a path to openMSX
 		ConfigurationData * config = ConfigurationData::instance();
@@ -97,8 +97,8 @@ bool wxCatapultApp::OnInit()
 bool wxCatapultApp::LoadXRC(wxString XrcFile)
 {
 	wxString resourceDir = GetResourceDir();
-	if (::wxFileExists(resourceDir + _("/dialogs/") + XrcFile)){
-		wxXmlResource::Get()->Load(resourceDir + _("/dialogs/") + XrcFile);
+	if (::wxFileExists(resourceDir + wxT("/dialogs/") + XrcFile)){
+		wxXmlResource::Get()->Load(resourceDir + wxT("/dialogs/") + XrcFile);
 		return true;
 	}
 	else{
@@ -118,7 +118,7 @@ wxString wxCatapultApp::GetResourceDir ()
 		}
 		int pos = temp.Find('\\',true);
 		if (pos !=-1){
-			temp = temp.Left(pos+1) + _("resources");
+			temp = temp.Left(pos+1) + wxT("resources");
 		}
 	return wxString(temp);	
 #endif

@@ -5,7 +5,7 @@
 #include "wx/xrc/xmlres.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #include "ConfigurationData.h"
@@ -24,7 +24,7 @@ END_EVENT_TABLE()
 
 FullScreenDlg::FullScreenDlg(wxWindow * parent)
 {
-	wxXmlResource::Get()->LoadDialog(this, parent, _("FullScreenDialog"));
+	wxXmlResource::Get()->LoadDialog(this, parent, wxT("FullScreenDialog"));
 }
 
 FullScreenDlg::~FullScreenDlg()
@@ -40,7 +40,7 @@ void FullScreenDlg::OnCancel(wxCommandEvent &event)
 void FullScreenDlg::OnOk(wxCommandEvent &event)
 {
 	ConfigurationData * config = ConfigurationData::instance();
-	wxCheckBox * box = (wxCheckBox *)FindWindow(_("DoNotShow"));
+	wxCheckBox * box = (wxCheckBox *)FindWindow(wxT("DoNotShow"));
 	long notwarn = 0;
 	if (box->IsChecked()){
 		notwarn = 1;

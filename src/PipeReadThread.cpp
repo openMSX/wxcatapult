@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.cpp,v 1.7 2004/04/17 11:15:14 h_oudejans Exp $
+// $Id: PipeReadThread.cpp,v 1.8 2004/04/17 18:50:51 h_oudejans Exp $
 // PipeReadThread.cpp: implementation of the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -6,7 +6,7 @@
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #include "wxCatapultApp.h"

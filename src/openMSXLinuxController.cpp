@@ -1,11 +1,11 @@
-// $Id: openMSXLinuxController.cpp,v 1.9 2004/04/16 21:24:26 m9710797 Exp $
+// $Id: openMSXLinuxController.cpp,v 1.10 2004/04/17 18:50:51 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #include <wx/process.h>
@@ -40,7 +40,7 @@ openMSXLinuxController::~openMSXLinuxController()
 bool openMSXLinuxController::Launch(wxString cmdline)
 {
 	PreLaunch();
-	cmdline += _(" -control stdio");
+	cmdline += wxT(" -control stdio");
 	if (!execute(cmdline.c_str(), m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)){
 		return false;
 	}
@@ -124,7 +124,7 @@ wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
 	wxString version = "";
 	system (wxString (openmsxCmd + " -v > /tmp/catapult.tmp").c_str());
-	wxTextFile tempfile (_("/tmp/catapult.tmp"));
+	wxTextFile tempfile (wxT("/tmp/catapult.tmp"));
 	if (tempfile.Open()){
 		version = tempfile.GetFirstLine();
 		tempfile.Close();

@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.h,v 1.5 2004/04/08 19:01:08 h_oudejans Exp $
+// $Id: wxCatapultApp.h,v 1.6 2004/05/08 15:38:01 h_oudejans Exp $
 #ifndef wxCatapultApp_H
 #define wxCatapultApp_H
 
@@ -8,7 +8,7 @@
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #ifdef SETUP_EXTERNALS

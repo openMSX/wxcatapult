@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.45 2004/04/27 17:01:21 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.46 2004/04/30 09:51:21 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -6,7 +6,7 @@
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #include "wxCatapultFrm.h"
@@ -90,7 +90,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 {
 	if (!m_openMsxRunning) 
 		return;
-	wxString led[6]={_("power"),_("caps"),_("kana"),_("pause"),_("turbo"),_("fdd")};
+	wxString led[6]={wxT("power"),wxT("caps"),wxT("kana"),wxT("pause"),wxT("turbo"),wxT("fdd")};
 	for (int i=0;i<6;i++){	
 		m_appWindow->UpdateLed(led[i],"off");
 	}
@@ -102,7 +102,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	m_openMsxRunning = false;
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_appWindow->SetControlsOnEnd();
-	m_appWindow->m_launch_AbortButton->SetLabel(_("Start"));
+	m_appWindow->m_launch_AbortButton->SetLabel(wxT("Start"));
 	HandleNativeEndProcess ();
 	m_commands.clear();
 }
@@ -123,7 +123,7 @@ void openMSXController::HandleStdErr(wxCommandEvent &event)
 	}
 	int i;
 	for (i=0;i<m_appWindow->m_tabControl->GetPageCount();i++){
-		if (m_appWindow->m_tabControl->GetPageText(i) == _("Status Info")){
+		if (m_appWindow->m_tabControl->GetPageText(i) == wxT("Status Info")){
 			m_appWindow->m_tabControl->SetSelection(i);	
 		}
 	}
@@ -172,7 +172,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA){
 				wxString lastcmd = PeekPendingCommand();
-				if ((lastcmd.Mid(0,data->name.Len()+1) != wxString(data->name + _(" "))) || 
+				if ((lastcmd.Mid(0,data->name.Len()+1) != wxString(data->name + wxT(" "))) || 
 					(lastcmd.Find(' ',true) == (int)data->name.Len())){
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
 						m_appWindow->m_sessionPage->UpdateSessionData();
@@ -201,27 +201,27 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 						else{
 							wxString command = GetPendingCommand();
 							if ((command == GetInfoCommand("fps")) ||
-								(command.Mid(0,13) == _("update enable"))){
+								(command.Mid(0,13) == wxT("update enable"))){
 								// just ignore (old version)
 							}
-							else if (command == _("plug msx-midi-in midi-in-reader")){
+							else if (command == wxT("plug msx-midi-in midi-in-reader")){
 								m_appWindow->m_audioControlPage->InvalidMidiInReader();
 							}
-							else if (command == _("plug msx-midi-out midi-out-logger")){
+							else if (command == wxT("plug msx-midi-out midi-out-logger")){
 								m_appWindow->m_audioControlPage->InvalidMidiOutLogger();
 							}
-							else if (command == _("plug pcminput wavinput")){
+							else if (command == wxT("plug pcminput wavinput")){
 								m_appWindow->m_audioControlPage->InvalidSampleFilename();
 							}
 							else {
 								m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
-								m_appWindow->m_statusPage->m_outputtext->AppendText(_("Warning: NOK received on command: "));
+								m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: NOK received on command: "));
 								m_appWindow->m_statusPage->m_outputtext->AppendText(command);
-								m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+								m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
 								if (!data->contents.IsEmpty()){
-									m_appWindow->m_statusPage->m_outputtext->AppendText(_("contents = "));
+									m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("contents = "));
 									m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);
-									m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+									m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
 								}
 							}
 						}
@@ -229,7 +229,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					break;
 				case CatapultXMLParser::REPLY_UNKNOWN:
 					m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
-					m_appWindow->m_statusPage->m_outputtext->AppendText(_("Warning: Unknown reply received!\n"));
+					m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: Unknown reply received!\n"));
 					break;
 			}
 			break; 
@@ -244,7 +244,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					break;
 			}	
 			m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);		
-			m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+			m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
 			break;
 		default:
 			break;
@@ -308,7 +308,7 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 wxString openMSXController::FilterCurrentValue(wxString value)
 {
 	wxString temp = value;
-	int pos = temp.Find(_("current value   : "));
+	int pos = temp.Find(wxT("current value   : "));
 	if (pos != -1){
 		wxString temp2;
 		temp = temp.Mid(pos+18);
@@ -325,21 +325,21 @@ wxString openMSXController::GetInfoCommand (wxString parameter)
 	wxString infoCommand;
 	wxString tempCmd = m_infoCommand;
 	wxString endCmd = "";
-	if (m_infoCommand == _("openmsx_info_tcl")){
-		tempCmd = _("join [openmsx_info");
-		endCmd = _("] \\n");
+	if (m_infoCommand == wxT("openmsx_info_tcl")){
+		tempCmd = wxT("join [openmsx_info");
+		endCmd = wxT("] \\n");
 	}
-	infoCommand = tempCmd + _(" ") + parameter + endCmd;
+	infoCommand = tempCmd + wxT(" ") + parameter + endCmd;
 	return wxString (infoCommand);
 }
 
 wxString openMSXController::GetExistCommand (wxString parameter)
 {
-	if (m_infoCommand.Find(_("openmsx")) != -1){
-		return wxString (_("info exist ") + parameter);
+	if (m_infoCommand.Find(wxT("openmsx")) != -1){
+		return wxString (wxT("info exist ") + parameter);
 	}
 	else{
-		return wxString (_("set ") + parameter);
+		return wxString (wxT("set ") + parameter);
 	}
 }	
 
@@ -378,7 +378,7 @@ void openMSXController::GetConnectors (wxArrayString & connectors)
 
 wxString openMSXController::GetConnectorClass (wxString name)
 {
-	if (m_connectorclasses.IsEmpty()) return wxString (_(""));
+	if (m_connectorclasses.IsEmpty()) return wxString (wxT(""));
 	unsigned index = 0;
 	bool found = false;
 	while ((!found) && (index < m_connectors.GetCount())){
@@ -391,14 +391,14 @@ wxString openMSXController::GetConnectorClass (wxString name)
 	}
 	if (!found){
 		wxMessageBox ("Get Connector class, connector: " + name + " not found");
-		return wxString(_(""));
+		return wxString(wxT(""));
 	}
 	return wxString (m_connectorclasses[index]);
 }
 
 wxString openMSXController::GetConnectorContents (wxString name)
 {
-	if (m_connectorcontents.IsEmpty()) return wxString (_(""));
+	if (m_connectorcontents.IsEmpty()) return wxString (wxT(""));
 	unsigned index = 0;
 	bool found = false;
 	while ((!found) && (index < m_connectors.GetCount())){
@@ -411,7 +411,7 @@ wxString openMSXController::GetConnectorContents (wxString name)
 	}
 	if (!found){
 		wxMessageBox ("Get Connector contents, connector: " + name + " not found");
-		return wxString(_(""));
+		return wxString(wxT(""));
 	}
 	return wxString (m_connectorcontents[index]);
 }
@@ -478,7 +478,7 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 	long minver;
 	long subver;
 	wxString temp = version;
-	if (version.Mid(0,8) == _("openMSX ")){
+	if (version.Mid(0,8) == wxT("openMSX ")){
 		int pos = version.Find('.');
 		if (pos != -1){
 			temp.Mid(8,pos-8).ToLong(&majver);
@@ -499,17 +499,17 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 		wxMessageBox ("The openMSX version you are using is too old!\nPlease upgrade to 0.3.4 or higher.","Error");
 		return false;
 	}
-	if ((version.Find(_("-dev")) != -1) || (ver > 304)){
-		m_infoCommand = _("openmsx_info_tcl");
+	if ((version.Find(wxT("-dev")) != -1) || (ver > 304)){
+		m_infoCommand = wxT("openmsx_info_tcl");
 		m_appWindow->m_audioControlPage->EnableMasterVolume();
-		m_unsetCommand = _("unset");
+		m_unsetCommand = wxT("unset");
 		m_appWindow->m_miscControlPage->DisableAutoFrameSkip();
 		m_oldVersion = false;
 	}
 	else{   // release (less possibilities)
-		m_infoCommand = _("info");
+		m_infoCommand = wxT("info");
 		m_appWindow->m_audioControlPage->DisableMasterVolume();
-		m_unsetCommand = _("restoredefault");
+		m_unsetCommand = wxT("restoredefault");
 		m_appWindow->m_miscControlPage->EnableAutoFrameSkip(false);
 		m_oldVersion = true;
 	}
@@ -626,7 +626,7 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 			}
 			HandleLaunchReply (cmd,event,m_launchScript[recvStep],&sendStep,recvLoop,lastdata);
 			if ((data->replyState == CatapultXMLParser::REPLY_NOK) ||
-				((cmd.Mid(0,10) == _("info exist")) && (data->contents == "0"))){
+				((cmd.Mid(0,10) == wxT("info exist")) && (data->contents == "0"))){
 				long displace;
 				m_launchScript[recvStep].scriptActions.ToLong(&displace);
 				recvStep += displace;	
@@ -839,8 +839,8 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 		}
 	}
 	else{
-		if (cmd.Mid(0,10) == _("info exist")){
-			if (data->contents == _("1")){
+		if (cmd.Mid(0,10) == wxT("info exist")){
+			if (data->contents == wxT("1")){
 				ok = true;
 			}
 		}
@@ -876,7 +876,7 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 	}
 	else {
 		if (instruction.showError){
-			m_appWindow->m_statusPage->m_outputtext->AppendText(wxString(_("Error received on command: ") + cmd + _("\n")));
+			m_appWindow->m_statusPage->m_outputtext->AppendText(wxString(wxT("Error received on command: ") + cmd + wxT("\n")));
 		}
 		if (actions != ""){
 			if (actions == "e"){
@@ -905,7 +905,7 @@ int openMSXController::FillComboBox (wxString data,wxString setting)
 
 int openMSXController::EnableFirmware (wxString data, wxString cmd)
 {
-	if ((data != "0") || (cmd.Mid(0,4) == _("set "))){
+	if ((data != "0") || (cmd.Mid(0,4) == wxT("set "))){
 		m_appWindow->m_miscControlPage->EnableFirmware();
 	}
 	return 0;

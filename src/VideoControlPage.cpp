@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.17 2004/04/18 12:27:21 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.18 2004/04/21 05:55:10 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -7,7 +7,7 @@
 #include "wx/xrc/xmlres.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #ifdef __WINDOWS__
@@ -54,30 +54,30 @@ END_EVENT_TABLE()
 VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * controller)
 :CatapultPage(parent)
 {
-	wxXmlResource::Get()->LoadPanel(this, parent, _("VideoControlPage"));
+	wxXmlResource::Get()->LoadPanel(this, parent, wxT("VideoControlPage"));
 	m_controller = controller;
-	m_rendererList = (wxComboBox *)FindWindow(_("RendererSelector"));;
-	m_scalerList = (wxComboBox *)FindWindow(_("ScalerSelector"));
-	m_accuracyList = (wxComboBox*)FindWindow(_("AccuracySelector"));
-	m_deinterlaceButton = (wxToggleButton*)FindWindow(_("DeInterlaceButton"));
-	m_limitSpritesButton = (wxToggleButton*)FindWindow(_("LimitSpriteButton"));
-	m_fullscreenButton = (wxToggleButton*)FindWindow(_("FullScreenButton"));
-	m_blurSlider = (wxSlider*)FindWindow(_("BlurSlider"));
+	m_rendererList = (wxComboBox *)FindWindow(wxT("RendererSelector"));;
+	m_scalerList = (wxComboBox *)FindWindow(wxT("ScalerSelector"));
+	m_accuracyList = (wxComboBox*)FindWindow(wxT("AccuracySelector"));
+	m_deinterlaceButton = (wxToggleButton*)FindWindow(wxT("DeInterlaceButton"));
+	m_limitSpritesButton = (wxToggleButton*)FindWindow(wxT("LimitSpriteButton"));
+	m_fullscreenButton = (wxToggleButton*)FindWindow(wxT("FullScreenButton"));
+	m_blurSlider = (wxSlider*)FindWindow(wxT("BlurSlider"));
 	m_blurSlider->SetTickFreq(5,1);
-	m_glowSlider = (wxSlider*)FindWindow(_("GlowSlider"));
+	m_glowSlider = (wxSlider*)FindWindow(wxT("GlowSlider"));
 	m_glowSlider->SetTickFreq(5,1);
-	m_gammaSlider = (wxSlider*)FindWindow(_("GammaSlider"));
+	m_gammaSlider = (wxSlider*)FindWindow(wxT("GammaSlider"));
 	m_gammaSlider->SetTickFreq(25,1);
-	m_scanlineSlider = (wxSlider*)FindWindow(_("ScanLineSlider"));
+	m_scanlineSlider = (wxSlider*)FindWindow(wxT("ScanLineSlider"));
 	m_scanlineSlider->SetTickFreq(5,1);
-	m_blurIndicator = (wxTextCtrl*)FindWindow(_("BlurIndicator"));
-	m_glowIndicator = (wxTextCtrl*)FindWindow(_("GlowIndicator"));
-	m_gammaIndicator = (wxTextCtrl*)FindWindow(_("GammaIndicator"));
-	m_scanlineIndicator =(wxTextCtrl*)FindWindow(_("ScanlineIndicator"));
-	m_defaultBlurButton = (wxButton*)FindWindow(_("ZeroBlurButton"));
-	m_defaultGlowButton = (wxButton*)FindWindow(_("ZeroGlowButton"));
-	m_defaultGammaButton = (wxButton*)FindWindow(_("DefaultGammaButton"));
-	m_defaultScanlineButton = (wxButton*)FindWindow(_("ZeroScanlineButton"));
+	m_blurIndicator = (wxTextCtrl*)FindWindow(wxT("BlurIndicator"));
+	m_glowIndicator = (wxTextCtrl*)FindWindow(wxT("GlowIndicator"));
+	m_gammaIndicator = (wxTextCtrl*)FindWindow(wxT("GammaIndicator"));
+	m_scanlineIndicator =(wxTextCtrl*)FindWindow(wxT("ScanlineIndicator"));
+	m_defaultBlurButton = (wxButton*)FindWindow(wxT("ZeroBlurButton"));
+	m_defaultGlowButton = (wxButton*)FindWindow(wxT("ZeroGlowButton"));
+	m_defaultGammaButton = (wxButton*)FindWindow(wxT("DefaultGammaButton"));
+	m_defaultScanlineButton = (wxButton*)FindWindow(wxT("ZeroScanlineButton"));
 	m_defaultBlur = "";
 	m_defaultGlow = "";
 	m_defaultGamma = "";
@@ -238,7 +238,7 @@ void VideoControlPage::OnInputBlur(wxCommandEvent &event)
 		text.ToULong(&num);
 		if (num > 100){
 			num = 100;
-			text = _("100");
+			text = wxT("100");
 			m_blurIndicator->SetValue(text);
 		}
 		if (num >= 0){
@@ -258,7 +258,7 @@ void VideoControlPage::OnInputGlow(wxCommandEvent &event)
 		if (num > 100)
 		{
 			num = 100;
-			text = _("100");
+			text = wxT("100");
 			m_glowIndicator->SetValue(text);
 		}
 		if (num >= 0)
@@ -281,7 +281,7 @@ void VideoControlPage::OnInputGamma(wxCommandEvent &event)
 		if (num > 500)
 		{
 			num = 500;
-			text = _("5.00");
+			text = wxT("5.00");
 			m_gammaIndicator->SetValue(text);
 		}
 		if (num >= 10)
@@ -302,7 +302,7 @@ void VideoControlPage::OnInputScanline(wxCommandEvent &event)
 		if (num > 100)
 		{
 			num = 100;
-			text = _("100");
+			text = wxT("100");
 			m_scanlineIndicator->SetValue(text);
 		}
 		if (num >= 0)
@@ -359,17 +359,17 @@ void VideoControlPage::SetControlsOnEnd()
 
 void VideoControlPage::FillRenderers(wxString renderers)
 {
-	FillComboBox (_("RendererSelector"), renderers);
+	FillComboBox (wxT("RendererSelector"), renderers);
 }
 
 void VideoControlPage::FillScalers(wxString scalers)
 {
-	FillComboBox (_("ScalerSelector"), scalers);
+	FillComboBox (wxT("ScalerSelector"), scalers);
 }
 
 void VideoControlPage::FillAccuracy(wxString accuracy)
 {
-	FillComboBox (_("AccuracySelector"), accuracy);
+	FillComboBox (wxT("AccuracySelector"), accuracy);
 }
 
 
@@ -410,25 +410,25 @@ void VideoControlPage::SetAccuracy(wxString value)
 
 void VideoControlPage::SetDeinterlace(wxString value)
 {
-	if (value == _("on")){
+	if (value == wxT("on")){
 		m_deinterlaceButton->SetValue(true);
-		m_deinterlaceButton->SetLabel(_("On"));
+		m_deinterlaceButton->SetLabel(wxT("On"));
 	}
 	else {
 		m_deinterlaceButton->SetValue(false);
-		m_deinterlaceButton->SetLabel(_("Off"));
+		m_deinterlaceButton->SetLabel(wxT("Off"));
 	}
 }
 
 void VideoControlPage::SetLimitSprites(wxString value)
 {
-	if (value == _("on")){
+	if (value == wxT("on")){
 		m_limitSpritesButton->SetValue(true);
-		m_limitSpritesButton->SetLabel(_("On"));
+		m_limitSpritesButton->SetLabel(wxT("On"));
 	}
 	else {
 		m_limitSpritesButton->SetValue(false);
-		m_limitSpritesButton->SetLabel(_("Off"));
+		m_limitSpritesButton->SetLabel(wxT("Off"));
 	}
 }
 

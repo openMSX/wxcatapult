@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.16 2004/04/27 17:01:20 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.17 2004/04/27 19:52:17 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -6,7 +6,7 @@
 #include "wx/xrc/xmlres.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #include "CatapultPage.h"
@@ -31,10 +31,10 @@ CatapultPage::~CatapultPage()
 
 wxString CatapultPage::ConvertPath(wxString path, bool ConvertSlash)
 {
-	path.Prepend(_("\""));
-	path.Append(_("\""));
+	path.Prepend(wxT("\""));
+	path.Append(wxT("\""));
 	if (ConvertSlash)
-		path.Replace(_("\\"),_("/"),true);
+		path.Replace(wxT("\\"),wxT("/"),true);
 	return path;
 }
 
@@ -127,11 +127,11 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 	wxNotebook * notebook = (wxNotebook *) m_parent;
 	VideoControlPage * videopage = NULL;
 	for (int i=0;i<notebook->GetPageCount();i++){
-		if (notebook->GetPageText(i) == _("Video Controls")){
+		if (notebook->GetPageText(i) == wxT("Video Controls")){
 			videopage = (VideoControlPage *)notebook->GetPage(i);
 		}
 	}
-	if ((setting == _("fullscreen")) && (data == _("off"))){
+	if ((setting == wxT("fullscreen")) && (data == wxT("off"))){
 		videopage->RestoreNormalScreen();
 	}
 #endif
@@ -190,13 +190,13 @@ bool CatapultPage::UpdateAudioSetting (wxString setting, wxString data, wxString
 	wxNotebook * notebook = (wxNotebook *) m_parent;
 	AudioControlPage * audiopage = NULL;
 	for (i=0;i<notebook->GetPageCount();i++){
-		if (notebook->GetPageText(i) == _("Audio Controls")){
+		if (notebook->GetPageText(i) == wxT("Audio Controls")){
 			audiopage = (AudioControlPage *)notebook->GetPage(i);
 		}
 	}
 	for (i=0;i<audiopage->GetNumberOfAudioChannels();i++){
-		if ((audiopage->GetAudioChannelName(i) + _("_") + selection) == setting){
-			if (selection == _("volume")){
+		if ((audiopage->GetAudioChannelName(i) + wxT("_") + selection) == setting){
+			if (selection == wxT("volume")){
 				audiopage->SetChannelVolume(i,data);
 			}
 			else{
@@ -213,7 +213,7 @@ bool CatapultPage::UpdateMidiPlug (wxString connector, wxString data, wxString c
 	wxNotebook * notebook = (wxNotebook *) m_parent;
 	AudioControlPage * audiopage = NULL;
 	for (int i=0;i<notebook->GetPageCount();i++){
-		if (notebook->GetPageText(i) == _("Audio Controls")){
+		if (notebook->GetPageText(i) == wxT("Audio Controls")){
 			audiopage = (AudioControlPage *)notebook->GetPage(i);
 		}
 	}
@@ -224,8 +224,8 @@ bool CatapultPage::UpdateMidiPlug (wxString connector, wxString data, wxString c
 bool CatapultPage::UpdatePluggable (wxString connector, wxString data, wxString control, bool dummy)
 {
 	wxString valuetext = data;
-	if (data == _("")){
-		valuetext = _("--empty--");
+	if (data == wxT("")){
+		valuetext = wxT("--empty--");
 	}
 	wxComboBox * box = (wxComboBox *)m_parent->FindWindow(control);
 	if (box != NULL){

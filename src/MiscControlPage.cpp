@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.21 2004/04/25 08:05:33 manuelbi Exp $
+// $Id: MiscControlPage.cpp,v 1.22 2004/05/08 14:43:24 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -7,7 +7,7 @@
 #include "wx/xrc/xmlres.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #include "SessionPage.h"
@@ -50,25 +50,25 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 #ifdef __UNIX__
 	m_joystick_update_timer.SetOwner(this,-1);
 #endif
-	wxXmlResource::Get()->LoadPanel(this, parent, _("MiscControlPage"));
+	wxXmlResource::Get()->LoadPanel(this, parent, wxT("MiscControlPage"));
 	m_controller = controller;
-	m_powerButton = (wxToggleButton *)FindWindow(_("PowerButton"));
-	m_pauseButton = (wxToggleButton *)FindWindow(_("PauseButton"));	
-	m_resetButton = (wxButton *)FindWindow(_("ResetButton"));
-	m_firmwareButton = (wxToggleButton *)FindWindow(_("FirmwareButton"));
-	m_speedIndicator = (wxTextCtrl *)FindWindow(_("SpeedIndicator"));
-	m_speedSlider = (wxSlider *)FindWindow(_("SpeedSlider"));
+	m_powerButton = (wxToggleButton *)FindWindow(wxT("PowerButton"));
+	m_pauseButton = (wxToggleButton *)FindWindow(wxT("PauseButton"));	
+	m_resetButton = (wxButton *)FindWindow(wxT("ResetButton"));
+	m_firmwareButton = (wxToggleButton *)FindWindow(wxT("FirmwareButton"));
+	m_speedIndicator = (wxTextCtrl *)FindWindow(wxT("SpeedIndicator"));
+	m_speedSlider = (wxSlider *)FindWindow(wxT("SpeedSlider"));
 
-	m_speedNormalButton = (wxButton *)FindWindow (_("NormalSpeedButton"));
-	m_speedMaxButton = (wxButton *)FindWindow (_("MaxSpeedButton"));
-	m_frameSkipIndicator = (wxTextCtrl *)FindWindow(_("FrameSkipIndicator"));
-	m_frameSkipSlider = (wxSlider *)FindWindow(_("FrameSkipSlider"));
+	m_speedNormalButton = (wxButton *)FindWindow (wxT("NormalSpeedButton"));
+	m_speedMaxButton = (wxButton *)FindWindow (wxT("MaxSpeedButton"));
+	m_frameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("FrameSkipIndicator"));
+	m_frameSkipSlider = (wxSlider *)FindWindow(wxT("FrameSkipSlider"));
 
-	m_frameSkipZeroButton = (wxButton *)FindWindow (_("ZeroFrameSkipButton"));
-	m_frameSkipAutoButton = (wxToggleButton *)FindWindow (_("AutoFrameSkipButton"));
+	m_frameSkipZeroButton = (wxButton *)FindWindow (wxT("ZeroFrameSkipButton"));
+	m_frameSkipAutoButton = (wxToggleButton *)FindWindow (wxT("AutoFrameSkipButton"));
 	m_frameSkipAutoButton->Show(false);
-	m_throttleButton = (wxToggleButton *)FindWindow (_("ThrottleButton"));
-	m_cmdTimingButton = (wxToggleButton *)FindWindow (_("CmdTimingButton"));
+	m_throttleButton = (wxToggleButton *)FindWindow (wxT("ThrottleButton"));
+	m_cmdTimingButton = (wxToggleButton *)FindWindow (wxT("CmdTimingButton"));
 
 	m_speedSlider->SetTickFreq (25,1);
 	m_frameSkipSlider->SetTickFreq (5,1);
@@ -83,13 +83,13 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 #endif
 
 	wxComboBox * box[2];
-	box[0] = (wxComboBox *)FindWindow (_("Joyport1Selector"));
-	box[1] = (wxComboBox *)FindWindow (_("Joyport2Selector"));
+	box[0] = (wxComboBox *)FindWindow (wxT("Joyport1Selector"));
+	box[1] = (wxComboBox *)FindWindow (wxT("Joyport2Selector"));
 	for (int i=0;i<2;i++){
 		box[i]->Clear();
-		box[i]->Append(_("--empty--"));
-		box[i]->Append(_("mouse"));
-		box[i]->Append(_("keyjoystick"));
+		box[i]->Append(wxT("--empty--"));
+		box[i]->Append(wxT("mouse"));
+		box[i]->Append(wxT("keyjoystick"));
 #ifndef __BSD__
 		for (int j=1;j<=joy.GetNumberJoysticks();j++){
 			temp.sprintf("joystick%d",j);
@@ -98,8 +98,8 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 #endif
 		box[i]->SetSelection(0);
 	}
-	m_oldJoy1 = _("--empty--");
-	m_oldJoy2 = _("--empty--");
+	m_oldJoy1 = wxT("--empty--");
+	m_oldJoy2 = wxT("--empty--");
 }
 
 MiscControlPage::~MiscControlPage()
@@ -138,27 +138,27 @@ void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
 	m_speedIndicator->SetValue(speedText);
 	m_controller->WriteCommand (wxString("set speed ") + speedText);
 	m_throttleButton->SetValue(true);
-	m_throttleButton->SetLabel(_("On"));
+	m_throttleButton->SetLabel(wxT("On"));
 	m_controller->WriteCommand ("set throttle on");
 }
 
 void MiscControlPage::OnSetNormalSpeed(wxCommandEvent &event)
 {
 	m_controller->WriteCommand ("set speed 100");
-	m_speedIndicator->SetValue(_("100"));
+	m_speedIndicator->SetValue(wxT("100"));
 	m_speedSlider->SetValue (100);
 	m_throttleButton->SetValue(true);
-	m_throttleButton->SetLabel(_("On"));
+	m_throttleButton->SetLabel(wxT("On"));
 	m_controller->WriteCommand ("set throttle on");
 }
 
 void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
 {
 	m_controller->WriteCommand ("set speed 500");
-	m_speedIndicator->SetValue(_("500"));
+	m_speedIndicator->SetValue(wxT("500"));
 	m_speedSlider->SetValue (500);
 	m_throttleButton->SetValue(false);
-	m_throttleButton->SetLabel(_("Off"));
+	m_throttleButton->SetLabel(wxT("Off"));
 	m_controller->WriteCommand ("set throttle off");
 }
 
@@ -174,7 +174,7 @@ void MiscControlPage::OnSetZeroFrameSkip(wxCommandEvent &event)
 {
 	m_controller->WriteCommand ("set " + m_frameSkipSetting + " 0");
 	m_frameSkipIndicator->Enable();
-	m_frameSkipIndicator->SetValue(_("0"));
+	m_frameSkipIndicator->SetValue(wxT("0"));
 	m_frameSkipSlider->Enable();
 	m_frameSkipSlider->SetValue (0);
 	m_frameSkipAutoButton->SetValue(false);
@@ -184,7 +184,7 @@ void MiscControlPage::OnSetAutoFrameSkip(wxCommandEvent &event)
 {
 	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
 	if (button->GetValue()){
-		m_frameSkipIndicator->SetValue(_("auto"));
+		m_frameSkipIndicator->SetValue(wxT("auto"));
 	}
 	else{
 		int val = m_frameSkipSlider->GetValue();
@@ -281,7 +281,7 @@ void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
 		if (num >500) 
 		{
 			num = 500;
-			text = _("500");
+			text = wxT("500");
 			m_speedIndicator->SetValue(text);
 		}
 		if (num >= 1)
@@ -302,7 +302,7 @@ void MiscControlPage::OnInputFrameskip(wxCommandEvent &event)
 		if (num > 100)
 		{
 			num = 100;
-			text = _("100");
+			text = wxT("100");
 			m_frameSkipIndicator->SetValue(text);
 		}
 		if (num >= 0)
@@ -312,7 +312,7 @@ void MiscControlPage::OnInputFrameskip(wxCommandEvent &event)
 			m_frameSkipAutoButton->SetValue(false);
 		}
 	}	
-	if (!text.CmpNoCase(_("auto")) && m_autoFrameSkipEnabled)
+	if (!text.CmpNoCase(wxT("auto")) && m_autoFrameSkipEnabled)
 	{
 		m_controller->WriteCommand ("set frameskip auto");
 		m_frameSkipAutoButton->SetValue(true);
@@ -331,32 +331,32 @@ void MiscControlPage::SetFrameskip (wxString value)
 
 void MiscControlPage::SetThrottle (wxString value)
 {
-	if (value == _("on")){
+	if (value == wxT("on")){
 		m_throttleButton->SetValue(true);
-		m_throttleButton->SetLabel(_("On"));
+		m_throttleButton->SetLabel(wxT("On"));
 	}
 	else {
 		m_throttleButton->SetValue(false);
-		m_throttleButton->SetLabel(_("Off"));
+		m_throttleButton->SetLabel(wxT("Off"));
 	}
 }
 
 void MiscControlPage::SetCmdTiming (wxString value)
 {
-	if (value == _("broken")){
+	if (value == wxT("broken")){
 		m_cmdTimingButton->SetValue(true);
-		m_cmdTimingButton->SetLabel(_("Broken"));
+		m_cmdTimingButton->SetLabel(wxT("Broken"));
 	}
 	else {
 		m_cmdTimingButton->SetValue(false);
-		m_cmdTimingButton->SetLabel(_("Real"));
+		m_cmdTimingButton->SetLabel(wxT("Real"));
 	}
 }
 
 void MiscControlPage::EnableAutoFrameSkip(bool enableButton)
 {
 	wxStaticText * text = (wxStaticText *)FindWindow("FrameSkipLabel");
-	text->SetLabel(_("Skip frames:"));
+	text->SetLabel(wxT("Skip frames:"));
 	m_frameSkipAutoButton->Show(true);
 	m_frameSkipAutoButton->Enable(enableButton);
 	m_frameSkipAutoButton->SetValue(false);
@@ -368,7 +368,7 @@ void MiscControlPage::EnableAutoFrameSkip(bool enableButton)
 void MiscControlPage::DisableAutoFrameSkip()
 {
 	wxStaticText * text = (wxStaticText *)FindWindow("FrameSkipLabel");
-	text->SetLabel(_("Max frameskip:"));
+	text->SetLabel(wxT("Max frameskip:"));
 	m_frameSkipAutoButton->Show(false);
 	m_frameSkipAutoButton->Enable(false);
 	m_frameSkipAutoButton->SetValue(false);
@@ -385,9 +385,9 @@ void MiscControlPage::InitConnectorPanel ()
 	if (connectors.GetCount() > 0){
 		for (unsigned i=0;i<connectors.GetCount();i++){
 			currentClass = m_controller->GetConnectorClass(connectors[i]);
-			if (connectors[i] == _("joyporta")){
+			if (connectors[i] == wxT("joyporta")){
 				InitJoystickPort (connectors[i], "Joyport1Selector", currentClass);
-			} else if (connectors[i] == _("joyportb")){
+			} else if (connectors[i] == wxT("joyportb")){
 				InitJoystickPort (connectors[i], "Joyport2Selector", currentClass);
 			}
 		}
@@ -403,7 +403,7 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 	wxComboBox * box = (wxComboBox *)FindWindow (control);
 	wxString currentval = box->GetValue();
 	box->Clear();
-	box->Append(_("--empty--"));
+	box->Append(wxT("--empty--"));
 	wxString currentClass;
 	m_controller->GetPluggables(pluggables);
 	if (pluggables.GetCount() > 0){
@@ -415,7 +415,7 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 	}
 	box->SetValue(currentval);
 	wxString cmd = "plug";
-	if (currentval == _("--empty--")){
+	if (currentval == wxT("--empty--")){
 		cmd = "unplug";
 		currentval = "";
 	}
@@ -451,19 +451,19 @@ void MiscControlPage::OnJoystickChanged()
 	if (box->GetName() == "Joyport1Selector"){
 		connector = "joyporta ";
 		connector2 = "joyportb";
-		box2 = (wxComboBox *)FindWindow (_("Joyport2Selector"));
+		box2 = (wxComboBox *)FindWindow (wxT("Joyport2Selector"));
 		oldValue1 = &m_oldJoy1;
 		oldValue2 = &m_oldJoy2;
 	} 
 	else if (box->GetName() == "Joyport2Selector"){
 		connector = "joyportb ";
 		connector2 = "joyporta";
-		box2 = (wxComboBox *)FindWindow (_("Joyport1Selector"));
+		box2 = (wxComboBox *)FindWindow (wxT("Joyport1Selector"));
 		oldValue1 = &m_oldJoy2;
 		oldValue2 = &m_oldJoy1;
 	}
 	
-	if (box->GetValue() != _("--empty--")){
+	if (box->GetValue() != wxT("--empty--")){
 		value = box->GetValue();
 		cmd = "plug ";
 	}
@@ -476,7 +476,7 @@ This device will be removed from any other port(s)","Warning",wxOK | wxCANCEL);
 		MessageActive = false;
 		if (result == wxOK){
 			box2->SetSelection(0);
-			*oldValue2 = _("--empty--");
+			*oldValue2 = wxT("--empty--");
 			*oldValue1 = box->GetValue();
 			m_controller->WriteCommand(wxString("unplug " + connector2));
 			m_controller->WriteCommand(wxString(cmd + connector + value));

@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.8 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.9 2004/04/10 21:24:05 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -6,7 +6,7 @@
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 #include "wxCatapultApp.h"
 #include "CatapultXMLParser.h"

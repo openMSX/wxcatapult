@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.14 2004/04/27 17:01:21 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.15 2004/04/27 19:52:17 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -7,7 +7,7 @@
 #include "wx/xrc/xmlres.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 
 #include <wx/dir.h>
@@ -56,29 +56,29 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 :CatapultPage(parent)
 {
 	m_controller = controller;
-	wxXmlResource::Get()->LoadPanel(this, parent, _("SessionPage"));
+	wxXmlResource::Get()->LoadPanel(this, parent, wxT("SessionPage"));
 
 	m_parent = (wxCatapultFrame *)parent->GetParent()->GetParent();
-	m_diskA = (wxComboBox *)FindWindow(_("DiskAContents"));
-	m_diskB = (wxComboBox *)FindWindow(_("DiskBContents"));
-	m_cartA = (wxComboBox *)FindWindow(_("CartAContents"));
-	m_cartB = (wxComboBox *)FindWindow(_("CartBContents"));
-	m_tape1 = (wxComboBox *)FindWindow(_("NormalTapeContents"));
-	m_tape2 = (wxComboBox *)FindWindow(_("CasPatchContents"));
-	m_extensionList = (wxListBox *)FindWindow(_("ExtensionList"));
-	m_machineList = (wxComboBox *)FindWindow(_("MachineList"));
-	m_browseDiskA = (wxBitmapButton *)FindWindow(_("BrowseDiskA"));
-	m_browseDiskB = (wxBitmapButton *)FindWindow(_("BrowseDiskB"));
-	m_browseCartA = (wxBitmapButton *)FindWindow(_("BrowseCartA"));
-	m_browseCartB = (wxBitmapButton *)FindWindow(_("BrowseCartB"));
-	m_browseTape1 = (wxBitmapButton *)FindWindow(_("BrowseNormalTape"));
-	m_browseTape2 = (wxBitmapButton *)FindWindow(_("BrowseCasPatch"));
-	m_clearDiskA = (wxBitmapButton *)FindWindow(_("ClearDiskA"));
-	m_clearDiskB = (wxBitmapButton *)FindWindow(_("ClearDiskB"));
-	m_clearCartA = (wxBitmapButton *)FindWindow(_("ClearCartA"));
-	m_clearCartB = (wxBitmapButton *)FindWindow(_("ClearCartB"));
-	m_clearTape1 = (wxBitmapButton *)FindWindow(_("ClearNormalTape"));
-	m_clearTape2 = (wxBitmapButton *)FindWindow(_("ClearCasPatch"));
+	m_diskA = (wxComboBox *)FindWindow(wxT("DiskAContents"));
+	m_diskB = (wxComboBox *)FindWindow(wxT("DiskBContents"));
+	m_cartA = (wxComboBox *)FindWindow(wxT("CartAContents"));
+	m_cartB = (wxComboBox *)FindWindow(wxT("CartBContents"));
+	m_tape1 = (wxComboBox *)FindWindow(wxT("NormalTapeContents"));
+	m_tape2 = (wxComboBox *)FindWindow(wxT("CasPatchContents"));
+	m_extensionList = (wxListBox *)FindWindow(wxT("ExtensionList"));
+	m_machineList = (wxComboBox *)FindWindow(wxT("MachineList"));
+	m_browseDiskA = (wxBitmapButton *)FindWindow(wxT("BrowseDiskA"));
+	m_browseDiskB = (wxBitmapButton *)FindWindow(wxT("BrowseDiskB"));
+	m_browseCartA = (wxBitmapButton *)FindWindow(wxT("BrowseCartA"));
+	m_browseCartB = (wxBitmapButton *)FindWindow(wxT("BrowseCartB"));
+	m_browseTape1 = (wxBitmapButton *)FindWindow(wxT("BrowseNormalTape"));
+	m_browseTape2 = (wxBitmapButton *)FindWindow(wxT("BrowseCasPatch"));
+	m_clearDiskA = (wxBitmapButton *)FindWindow(wxT("ClearDiskA"));
+	m_clearDiskB = (wxBitmapButton *)FindWindow(wxT("ClearDiskB"));
+	m_clearCartA = (wxBitmapButton *)FindWindow(wxT("ClearCartA"));
+	m_clearCartB = (wxBitmapButton *)FindWindow(wxT("ClearCartB"));
+	m_clearTape1 = (wxBitmapButton *)FindWindow(wxT("ClearNormalTape"));
+	m_clearTape2 = (wxBitmapButton *)FindWindow(wxT("ClearCasPatch"));
 
 	m_lastDiskA = "";
 	m_lastDiskB = "";
@@ -111,52 +111,52 @@ SessionPage::~SessionPage()
 
 void SessionPage::OnClearDiskA(wxCommandEvent &event)
 {
-	m_diskA->SetValue(_(""));
-	m_lastDiskA = _("");
+	m_diskA->SetValue(wxT(""));
+	m_lastDiskA = wxT("");
 	m_controller->WriteCommand("diska eject");
 }
 
 void SessionPage::OnClearDiskB(wxCommandEvent &event)
 {
-	m_diskB->SetValue(_(""));
-	m_lastDiskB = _("");
+	m_diskB->SetValue(wxT(""));
+	m_lastDiskB = wxT("");
 	m_controller->WriteCommand("diskb eject");
 }
 
 void SessionPage::OnClearCartA(wxCommandEvent &event)
 {
-	m_cartA->SetValue(_(""));
+	m_cartA->SetValue(wxT(""));
 }
 
 void SessionPage::OnClearCartB(wxCommandEvent &event)
 {
-	m_cartB->SetValue(_(""));
+	m_cartB->SetValue(wxT(""));
 }
 
 void SessionPage::OnClearNormalTape(wxCommandEvent &event)
 {
-	m_tape1->SetValue(_(""));
-	m_lastTape1 = _("");
+	m_tape1->SetValue(wxT(""));
+	m_lastTape1 = wxT("");
 	m_controller->WriteCommand("cassetteplayer eject");
 }
 
 void SessionPage::OnClearCasPatch(wxCommandEvent &event)
 {
-	m_tape2->SetValue(_(""));
-	m_lastTape2 = _("");
+	m_tape2->SetValue(wxT(""));
+	m_lastTape2 = wxT("");
 	m_controller->WriteCommand("cas eject");
 }
 
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
 {
-	if (BrowseDisk (m_diskA, _("diska"), ::wxPathOnly(m_diskA->GetValue()))){
+	if (BrowseDisk (m_diskA, wxT("diska"), ::wxPathOnly(m_diskA->GetValue()))){
 		m_lastDiskA = m_diskA->GetValue();
 	}
 }
 
 void SessionPage::OnBrowseDiskB(wxCommandEvent &event)
 {
-	if (BrowseDisk (m_diskB, _("diskb"), ::wxPathOnly(m_diskA->GetValue()))){
+	if (BrowseDisk (m_diskB, wxT("diskb"), ::wxPathOnly(m_diskA->GetValue()))){
 		m_lastDiskB = m_diskB->GetValue();
 	}
 }
@@ -165,12 +165,12 @@ bool SessionPage::BrowseDisk(wxComboBox *target, wxString devicename, wxString d
 {
 	wxString path;
 #ifndef __MOTIF__
-	path = _("All known disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.zip;*.ZIP;*.gz;*.GZ;*.di1;*.DI1;*.di2;*.DI2|Uncompressed disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.di1;*.DI1;*.di2;*.DI2|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
+	path = wxT("All known disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.zip;*.ZIP;*.gz;*.GZ;*.di1;*.DI1;*.di2;*.DI2|Uncompressed disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.di1;*.DI1;*.di2;*.DI2|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
-	path = _("*.*");
+	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,_("Select Diskimage"), defaultpath, _(""), path ,wxOPEN);
+	wxFileDialog filedlg(this,wxT("Select Diskimage"), defaultpath, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		target->SetValue (filedlg.GetPath());
@@ -201,12 +201,12 @@ void SessionPage::BrowseCart(wxComboBox *target, wxString defaultpath)
 {
 	wxString path;
 #ifndef __MOTIF__
-	path = _("All known cartridge files|*.rom;*.ROM;*.ri;*.RI;*.zip;*.ZIP;*.gz;*.GZ|Uncompressed cartridge files|*.rom;*.ROM;*.ri;*.RI|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
+	path = wxT("All known cartridge files|*.rom;*.ROM;*.ri;*.RI;*.zip;*.ZIP;*.gz;*.GZ|Uncompressed cartridge files|*.rom;*.ROM;*.ri;*.RI|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
-	path = _("*.*");
+	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,_("Select Rom-image"), defaultpath, _(""), path ,wxOPEN);
+	wxFileDialog filedlg(this,wxT("Select Rom-image"), defaultpath, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		target->SetValue (filedlg.GetPath());	
@@ -218,12 +218,12 @@ void SessionPage::OnBrowseNormalTape(wxCommandEvent &event)
 	wxString defaultpath = ::wxPathOnly(m_tape1->GetValue());
 	wxString path;
 #ifndef __MOTIF__
-	path = _("All known tape (sound) files|*.zip;*.ZIP;*.gz;*.GZ;*.wav;*.WAV|Uncompressed tape (sound) files|*.wav;*.WAV|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
+	path = wxT("All known tape (sound) files|*.zip;*.ZIP;*.gz;*.GZ;*.wav;*.WAV|Uncompressed tape (sound) files|*.wav;*.WAV|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
-	path = _("*.*");
+	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,_("Select Tape-soundimage"), defaultpath, _(""), path ,wxOPEN);
+	wxFileDialog filedlg(this,wxT("Select Tape-soundimage"), defaultpath, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		m_tape1->SetValue (filedlg.GetPath());	
@@ -248,12 +248,12 @@ void SessionPage::OnBrowseCasPatch(wxCommandEvent &event)
 	wxString defaultpath = ::wxPathOnly(m_tape2->GetValue());
 	wxString path;
 #ifndef __MOTIF__
-	path = _("All known cassette files|*.zip;*.ZIP;*.gz;*.GZ;*.cas;*.CAS|Uncompressed cassette files|*.cas;*.CAS|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
+	path = wxT("All known cassette files|*.zip;*.ZIP;*.gz;*.GZ;*.cas;*.CAS|Uncompressed cassette files|*.cas;*.CAS|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
-	path = _("*.*");
+	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,_("Select Tape-image"), defaultpath, _(""), path ,wxOPEN);
+	wxFileDialog filedlg(this,wxT("Select Tape-image"), defaultpath, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		m_tape2->SetValue (filedlg.GetPath());
@@ -290,7 +290,7 @@ void SessionPage::SetupHardware (bool initial)
 	wxString sharepath;
 	config->GetParameter(ConfigurationData::CD_SHAREPATH,sharepath);
 	m_machineList->Clear();
-	m_machineList->Append(_(" <default> "));
+	m_machineList->Append(wxT(" <default> "));
 	m_extensionList->Clear();
 
 	wxArrayString machineArray;
@@ -343,20 +343,20 @@ int SessionPage::CompareCaseInsensitive(const wxString& first, const wxString& s
 
 void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensionArray, bool optional)
 {
-	if (!::wxDirExists(sharepath + _("/extensions"))) {
+	if (!::wxDirExists(sharepath + wxT("/extensions"))) {
 		if (!optional) {
 			wxString msg;
-			msg.sprintf("Directory: %s does not exist", wxString(sharepath + _("/extensions")).c_str());
+			msg.sprintf("Directory: %s does not exist", wxString(sharepath + wxT("/extensions")).c_str());
 			wxMessageBox (msg);
 		}
 		return;
 	}
-	wxDir sharedir (sharepath + _("/extensions"));
+	wxDir sharedir (sharepath + wxT("/extensions"));
 	wxString extension;
 	bool succes = sharedir.GetFirst(&extension);
 	while (succes)
 	{
-		if (::wxFileExists(sharepath + _("/extensions/") + extension + _("/hardwareconfig.xml"))){
+		if (::wxFileExists(sharepath + wxT("/extensions/") + extension + wxT("/hardwareconfig.xml"))){
 			extensionArray.Add(extension);
 		}
 		succes = sharedir.GetNext(&extension);
@@ -375,20 +375,20 @@ void SessionPage::fillExtensions (wxArrayString & extensionArray)
 
 void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArray, bool optional)
 {
-	if (!::wxDirExists(sharepath + _("/machines"))) {
+	if (!::wxDirExists(sharepath + wxT("/machines"))) {
 		if (!optional) {
 			wxString msg;
-			msg.sprintf("Directory: %s does not exist", wxString(sharepath + _("/machines")).c_str());
+			msg.sprintf("Directory: %s does not exist", wxString(sharepath + wxT("/machines")).c_str());
 			wxMessageBox (msg);
 		}
 		return;
 	}
-	wxDir sharedir (sharepath + _("/machines"));
+	wxDir sharedir (sharepath + wxT("/machines"));
 	wxString machine;
 	bool succes = sharedir.GetFirst(&machine);
 	while (succes)
 	{
-		if (::wxFileExists(sharepath + _("/machines/") + machine + _("/hardwareconfig.xml"))){
+		if (::wxFileExists(sharepath + wxT("/machines/") + machine + wxT("/hardwareconfig.xml"))){
 			machineArray.Add(machine);
 		}
 		succes = sharedir.GetNext(&machine);
@@ -473,7 +473,7 @@ void SessionPage::SetControlsOnEnd()
 	m_clearCartB->Enable(true);
 	m_browseCartA->Enable(true);
 	m_browseCartB->Enable(true);
-	m_cassettePortState = _("disabled");
+	m_cassettePortState = wxT("disabled");
 }
 
 void SessionPage::getMedia(wxArrayString & parameters)
@@ -481,7 +481,7 @@ void SessionPage::getMedia(wxArrayString & parameters)
 	wxComboBox * box [6] = {m_diskA,m_diskB,m_cartA,m_cartB,m_tape1,m_tape2};
 	parameters.Clear();
 	for (int i=0;i<6;i++){
-		parameters.Add(_(""));
+		parameters.Add(wxT(""));
 		if (!box[i]->GetValue().IsEmpty()){
 			parameters[i] = box[i]->GetValue();
 		}
@@ -522,7 +522,7 @@ void SessionPage::UpdateSessionData()
 	if (hardware.GetCount()>1)
 	{
 		for (i=1;i<hardware.GetCount();i++){
-			m_usedExtensions += hardware[i] + _("::");
+			m_usedExtensions += hardware[i] + wxT("::");
 		}
 	}
 	SaveHistory();
@@ -580,7 +580,7 @@ void SessionPage::RestoreHistory()
 				config->GetParameter(id[i],value);
 				do
 				{
-					pos = value.Find(_("::"));
+					pos = value.Find(wxT("::"));
 					if (pos != -1)
 					{
 						field[i]->Append(value.Left(pos));
@@ -591,7 +591,7 @@ void SessionPage::RestoreHistory()
 					field[i]->SetSelection(0);
 				}
 				else {
-					field[i]->SetValue(_(""));
+					field[i]->SetValue(wxT(""));
 				}
 			}
 
@@ -606,7 +606,7 @@ void SessionPage::RestoreHistory()
 			config->GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);
 			do
 			{
-				pos = value.Find(_("::"));
+				pos = value.Find(wxT("::"));
 				if (pos != -1)
 				{
 					m_extensionList->SetStringSelection (value.Left(pos));
@@ -628,11 +628,11 @@ void SessionPage::SaveHistory()
 	for (int i=0;i<6;i++){
 		temp.Clear();
 		current = field[i]->GetValue();
-		field[i]->SetValue(_(""));
+		field[i]->SetValue(wxT(""));
 		for (int j=0;j<field[i]->GetCount();j++){
 			temp += field[i]->GetString (j);
 			if (!field[i]->GetString(j).IsEmpty()){
-				temp += _("::");
+				temp += wxT("::");
 			}
 		}
 		field[i]->SetValue(current);
@@ -658,8 +658,8 @@ void SessionPage::EnableCassettePort (wxString data)
 void SessionPage::AutoPlugCassette ()
 {
 	if (m_tape1->GetValue() != ""){
-		if ((m_cassettePortState != _("disabled")) &&
-			(m_cassettePortState != _("cassetteplayers"))){
+		if ((m_cassettePortState != wxT("disabled")) &&
+			(m_cassettePortState != wxT("cassetteplayers"))){
 			m_controller->WriteCommand ("plug cassetteport cassetteplayer");
 		}
 	}

@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.2 2004/02/04 22:01:04 manuelbi Exp $
+// $Id: ConfigurationData.cpp,v 1.3 2004/04/17 15:49:54 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -16,22 +16,22 @@ ConfigurationData::ConfigurationData()
 {
 #if OPENMSX_DEMO_CD_VERSION
 	ConfigData = new wxFileConfig (wxGetApp().GetAppName(), wxGetApp().GetVendorName(),
-			_("catapult.dat"), _(""), wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH );
+			wxT("catapult.dat"), wxT(""), wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH );
 #else
 	ConfigData = wxConfigBase::Create();
 #endif
-	ConfigData->Read(_("/openMSXpaths/ExecPath"),&m_openMSXExecPath);
-	ConfigData->Read(_("/openMSXpaths/SharePath"),&m_openMSXSharePath);
-	ConfigData->Read(_("/history/DiskA"),&m_diskaHistory);
-	ConfigData->Read(_("/history/DiskB"),&m_diskbHistory);
-	ConfigData->Read(_("/history/CartA"),&m_cartaHistory);
-	ConfigData->Read(_("/history/CartB"),&m_cartbHistory);
-	ConfigData->Read(_("/history/Tape1"),&m_tape1History);
-	ConfigData->Read(_("/history/Tape2"),&m_tape2History);
-	ConfigData->Read(_("/history/MediaInserted"),&m_mediaInserted);
-	ConfigData->Read(_("/history/UsedMachine"),&m_usedMachine);
-	ConfigData->Read(_("/history/UsedExtensions"), &m_usedExtensions);
-	ConfigData->Read(_("/preferences/ShowFullScreenWarning"),&m_showFullScreenWarning);
+	ConfigData->Read(wxT("/openMSXpaths/ExecPath"),&m_openMSXExecPath);
+	ConfigData->Read(wxT("/openMSXpaths/SharePath"),&m_openMSXSharePath);
+	ConfigData->Read(wxT("/history/DiskA"),&m_diskaHistory);
+	ConfigData->Read(wxT("/history/DiskB"),&m_diskbHistory);
+	ConfigData->Read(wxT("/history/CartA"),&m_cartaHistory);
+	ConfigData->Read(wxT("/history/CartB"),&m_cartbHistory);
+	ConfigData->Read(wxT("/history/Tape1"),&m_tape1History);
+	ConfigData->Read(wxT("/history/Tape2"),&m_tape2History);
+	ConfigData->Read(wxT("/history/MediaInserted"),&m_mediaInserted);
+	ConfigData->Read(wxT("/history/UsedMachine"),&m_usedMachine);
+	ConfigData->Read(wxT("/history/UsedExtensions"), &m_usedExtensions);
+	ConfigData->Read(wxT("/preferences/ShowFullScreenWarning"),&m_showFullScreenWarning);
 }
 
 ConfigurationData::~ConfigurationData()
@@ -169,19 +169,19 @@ bool ConfigurationData::SaveData()
 {
 	bool retVal;
 	// retVal is created as an n-parameter AND function.
-	retVal =  ConfigData->Write(_("/openMSXpaths/ExecPath"),m_openMSXExecPath);
-	retVal &= ConfigData->Write(_("/openMSXpaths/SharePath"),m_openMSXSharePath);
+	retVal =  ConfigData->Write(wxT("/openMSXpaths/ExecPath"),m_openMSXExecPath);
+	retVal &= ConfigData->Write(wxT("/openMSXpaths/SharePath"),m_openMSXSharePath);
 
-	retVal &= ConfigData->Write(_("/history/DiskA"),m_diskaHistory);
-	retVal &= ConfigData->Write(_("/history/DiskB"),m_diskbHistory);
-	retVal &= ConfigData->Write(_("/history/CartA"),m_cartaHistory);
-	retVal &= ConfigData->Write(_("/history/CartB"),m_cartbHistory);
-	retVal &= ConfigData->Write(_("/history/Tape1"),m_tape1History);
-	retVal &= ConfigData->Write(_("/history/Tape2"),m_tape2History);
-	retVal &= ConfigData->Write(_("/history/MediaInserted"),m_mediaInserted);
-	retVal &= ConfigData->Write(_("/history/UsedMachine"),m_usedMachine);
-	retVal &= ConfigData->Write(_("/history/UsedExtensions"),m_usedExtensions);
-	retVal &= ConfigData->Write(_("/preferences/ShowFullScreenWarning"),m_showFullScreenWarning);
+	retVal &= ConfigData->Write(wxT("/history/DiskA"),m_diskaHistory);
+	retVal &= ConfigData->Write(wxT("/history/DiskB"),m_diskbHistory);
+	retVal &= ConfigData->Write(wxT("/history/CartA"),m_cartaHistory);
+	retVal &= ConfigData->Write(wxT("/history/CartB"),m_cartbHistory);
+	retVal &= ConfigData->Write(wxT("/history/Tape1"),m_tape1History);
+	retVal &= ConfigData->Write(wxT("/history/Tape2"),m_tape2History);
+	retVal &= ConfigData->Write(wxT("/history/MediaInserted"),m_mediaInserted);
+	retVal &= ConfigData->Write(wxT("/history/UsedMachine"),m_usedMachine);
+	retVal &= ConfigData->Write(wxT("/history/UsedExtensions"),m_usedExtensions);
+	retVal &= ConfigData->Write(wxT("/preferences/ShowFullScreenWarning"),m_showFullScreenWarning);
 	return retVal;
 }
 

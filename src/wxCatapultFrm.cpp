@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.26 2004/04/15 18:35:00 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.27 2004/04/17 20:56:19 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -6,7 +6,7 @@
 #include "wx/xrc/xmlres.h"
 
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+#include <wx/wx.h>
 #endif
 #include <wx/image.h>
 #include "wxCatapultApp.h"
@@ -88,7 +88,7 @@ END_EVENT_TABLE()
 	m_controller = new openMSXLinuxController(this);
 #endif
 
-	wxXmlResource::Get()->LoadFrame(this, parent, _("CatapultFrame"));
+	wxXmlResource::Get()->LoadFrame(this, parent, wxT("CatapultFrame"));
 	SetIcon (wxICON(acatapult));
 
 	// create menu bars				jdayeshdfsg
@@ -97,15 +97,15 @@ END_EVENT_TABLE()
 	wxMenu *editMenu = new wxMenu("", wxMENU_TEAROFF);
 	wxMenu *helpMenu = new wxMenu("", wxMENU_TEAROFF);
 
-	fileMenu->Append(Catapult_Quit, _("&Quit\tCtrl-Q"), _("Quit this program"));
-	editMenu->Append(Catapult_Edit_Config, _("&Edit Configuration\tCtrl-E"), _("Adjust Catapult Configuration"));
-	helpMenu->Append(Catapult_About, _("&About Catapult...\tCtrl-A"), _("Show about dialog"));
+	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), wxT("Quit this program"));
+	editMenu->Append(Catapult_Edit_Config, wxT("&Edit Configuration\tCtrl-E"), wxT("Adjust Catapult Configuration"));
+	helpMenu->Append(Catapult_About, wxT("&About Catapult...\tCtrl-A"), wxT("Show about dialog"));
 
 	// now append the freshly created menu to the menu bar...
 	wxMenuBar *menuBar = new wxMenuBar();
-	menuBar->Append(fileMenu, _("&File"));
-	menuBar->Append(editMenu, _("&Edit"));
-	menuBar->Append(helpMenu, _("&Help"));
+	menuBar->Append(fileMenu, wxT("&File"));
+	menuBar->Append(editMenu, wxT("&Edit"));
+	menuBar->Append(helpMenu, wxT("&Help"));
 
 	SetMenuBar(menuBar);
 
@@ -113,33 +113,33 @@ END_EVENT_TABLE()
 
 	// Fill the membervariables with control pointer for easy access
 
-	m_powerLed = (wxStaticBitmap *)FindWindow(_("PowerLed"));
-	m_capsLed = (wxStaticBitmap *)FindWindow(_("CapsLockLed"));
-	m_kanaLed = (wxStaticBitmap *)FindWindow(_("KanaLed"));
-	m_pauseLed = (wxStaticBitmap *)FindWindow(_("PauseLed"));
-	m_turboLed = (wxStaticBitmap *)FindWindow(_("TurboLed"));
-	m_fddLed = (wxStaticBitmap *)FindWindow(_("FDDLed"));
+	m_powerLed = (wxStaticBitmap *)FindWindow(wxT("PowerLed"));
+	m_capsLed = (wxStaticBitmap *)FindWindow(wxT("CapsLockLed"));
+	m_kanaLed = (wxStaticBitmap *)FindWindow(wxT("KanaLed"));
+	m_pauseLed = (wxStaticBitmap *)FindWindow(wxT("PauseLed"));
+	m_turboLed = (wxStaticBitmap *)FindWindow(wxT("TurboLed"));
+	m_fddLed = (wxStaticBitmap *)FindWindow(wxT("FDDLed"));
 
-	m_tabControl = (wxNotebook *)FindWindow(_("GlobalTabControl"));
+	m_tabControl = (wxNotebook *)FindWindow(wxT("GlobalTabControl"));
 	m_sessionPage = new SessionPage(m_tabControl,m_controller);
 	m_statusPage = new StatusPage(m_tabControl);
 	m_miscControlPage = new MiscControlPage(m_tabControl,m_controller);
 	m_videoControlPage = new VideoControlPage(m_tabControl,m_controller);
 	m_audioControlPage = new AudioControlPage(m_tabControl,m_controller);
 
-	m_tabControl->AddPage(m_sessionPage,_("Session"),true);
-	m_tabControl->AddPage(m_miscControlPage,_("Misc Controls"),false);
-	m_tabControl->AddPage(m_videoControlPage,_("Video Controls"),false);
-	m_tabControl->AddPage(m_audioControlPage,_("Audio Controls"),false);
-	m_tabControl->AddPage(m_statusPage,_("Status Info"),false);
+	m_tabControl->AddPage(m_sessionPage,wxT("Session"),true);
+	m_tabControl->AddPage(m_miscControlPage,wxT("Misc Controls"),false);
+	m_tabControl->AddPage(m_videoControlPage,wxT("Video Controls"),false);
+	m_tabControl->AddPage(m_audioControlPage,wxT("Audio Controls"),false);
+	m_tabControl->AddPage(m_statusPage,wxT("Status Info"),false);
 	
-	wxWindow * tempwindow = FindWindow(_("MainWindowPanel"));
+	wxWindow * tempwindow = FindWindow(wxT("MainWindowPanel"));
 	wxSize size = tempwindow->GetSizer()->Fit(tempwindow);
 	this->GetSizer()->SetMinSize(size);
 	this->GetSizer()->Fit(this);
 	this->GetSizer()->SetSizeHints(this);
 
-	m_launch_AbortButton = (wxButton *)FindWindow(_("Launch_AbortButton"));
+	m_launch_AbortButton = (wxButton *)FindWindow(wxT("Launch_AbortButton"));
 
 	SetControlsOnEnd();
 	m_launch_AbortButton->Enable(false);
@@ -165,10 +165,10 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 {
 	// called when help - about is picked from the menu or toolbar
 	wxString msg;
-	msg.Printf(_("openMSX Catapult Neo " VERSION "\n\n"
+	msg.Printf(wxT("openMSX Catapult Neo " VERSION "\n\n"
 				"Created by the openMSX team\n\nBuilt on "__DATE__"\n"));
 
-	wxMessageBox(msg, _("About wxCatapult"), wxOK | wxICON_INFORMATION, this);
+	wxMessageBox(msg, wxT("About wxCatapult"), wxOK | wxICON_INFORMATION, this);
 }
 
 void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
@@ -193,11 +193,11 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
 	unsigned int i;
-	if (m_launch_AbortButton->GetLabel().IsSameAs(_("Stop"))){
+	if (m_launch_AbortButton->GetLabel().IsSameAs(wxT("Stop"))){
 		m_controller->WriteCommand("quit");
 		return;
 	}
-	m_launch_AbortButton->SetLabel(_("Stop"));
+	m_launch_AbortButton->SetLabel(wxT("Stop"));
 	m_launch_AbortButton->Enable(false);
 	wxArrayString hardware;
 	wxArrayString media;
@@ -205,7 +205,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_sessionPage->getMedia(media);
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-	if (hardware[0] != _(" <default> "))
+	if (hardware[0] != wxT(" <default> "))
 	{
 		cmd += " -machine " + hardware[0];
 	}
@@ -216,10 +216,10 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		}
 	}
 
-	wxString parmname [6]={_("diska"),_("diskb"),_("carta"),_("cartb"),_("cassetteplayer"),_("cas")};
+	wxString parmname [6]={wxT("diska"),wxT("diskb"),wxT("carta"),wxT("cartb"),wxT("cassetteplayer"),wxT("cas")};
 	for (i=0;i<6;i++){
 		if (!media[i].IsEmpty()){
-			cmd += " -" + parmname[i] + " \"" + media[i] + _("\"");
+			cmd += " -" + parmname[i] + " \"" + media[i] + wxT("\"");
 		}
 	}
 
@@ -258,14 +258,14 @@ void wxCatapultFrame::StopTimers()
 {
 	m_fpsTimer.Stop();
 	m_focusTimer.Stop();
-	SetStatusText(_(""),1);
+	SetStatusText(wxT(""),1);
 }
 
 void wxCatapultFrame::SetFPSdisplay(wxString val)
 {
 	double valfl = strtod(val.c_str(),NULL);
 	val.sprintf("%2.1f",valfl);	
-	SetStatusText(_(val + " fps"),1);
+	SetStatusText(val + " fps",1);
 }
 
 void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
@@ -324,8 +324,8 @@ void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 	if (ledname == "turbo") led = m_turboLed;
 	if (ledname == "fdd") led = m_fddLed;
 
-	if (ledstate == "off") led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
-	if (ledstate == "on") led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
+	if (ledstate == "off") led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
+	if (ledstate == "on") led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
 }
 
 
