@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.41 2004/10/07 18:22:03 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.42 2004/10/07 18:23:50 manuelbi Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -44,7 +44,8 @@ enum
 	Catapult_Edit_Config,
 	Catapult_Load_OpenMSX_Settings,
 	Catapult_Save_OpenMSX_Settings,
-	Catapult_Save_OpenMSX_Settings_As
+	Catapult_Save_OpenMSX_Settings_As,
+	Catapult_Save_On_Exit
 	
 };
 
@@ -66,6 +67,7 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Save_OpenMSX_Settings, wxCatapultFrame::OnMenuSaveSettings)
 	EVT_MENU(Catapult_Save_OpenMSX_Settings_As,wxCatapultFrame::OnMenuSaveSettingsAs)
 	EVT_MENU(Catapult_Load_OpenMSX_Settings,wxCatapultFrame::OnMenuLoadSettings)
+	EVT_MENU(Catapult_Save_On_Exit,wxCatapultFrame::OnMenuSaveOnExit)
 	EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
 	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
 	EVT_TIMER(FPS_TIMER, wxCatapultFrame::OnUpdateFPS)
@@ -103,15 +105,16 @@ END_EVENT_TABLE()
 
 	// create menu bars
 
-	wxMenu *fileMenu = new wxMenu("", wxMENU_TEAROFF);
-	settingsMenu = new wxMenu("", wxMENU_TEAROFF);
-	wxMenu *helpMenu = new wxMenu("", wxMENU_TEAROFF);
+	wxMenu *fileMenu = new wxMenu("", 0);
+	settingsMenu = new wxMenu("", 0);
+	wxMenu *helpMenu = new wxMenu("", 0);
 
 	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), _("Quit this program"));
-	settingsMenu->Append(Catapult_Edit_Config, wxT("&Edit Configuration\tCtrl-E"), _("Adjust Catapult Configuration"));
+	settingsMenu->Append(Catapult_Edit_Config, wxT("Edit &Configuration\tCtrl-E"), _("Adjust Catapult Configuration"));
 	settingsMenu->Append(Catapult_Load_OpenMSX_Settings, wxT("&Load openMSX Settings..."), _("Load specified settings into openMSX"));
 	settingsMenu->Append(Catapult_Save_OpenMSX_Settings, wxT("&Save openMSX Settings"), _("Save All openMSX settings"));
-	settingsMenu->Append(Catapult_Save_OpenMSX_Settings_As, wxT("Save openMSX Settings As..."), _("Save All openMSX settings to a specified file"));
+	settingsMenu->Append(Catapult_Save_OpenMSX_Settings_As, wxT("Save openMSX Settings &As..."), _("Save All openMSX settings to a specified file"));
+	settingsMenu->AppendCheckItem(Catapult_Save_On_Exit, wxT("Save openMSX Settings On &Exit"), _("Save All openMSX settings as soon as openMSX is closed"));
 	helpMenu->Append(Catapult_About, wxT("&About Catapult...\tCtrl-A"), _("Show about dialog"));
 
 	// now append the freshly created menu to the menu bar...
@@ -255,6 +258,17 @@ void wxCatapultFrame::OnMenuSaveSettingsAs (wxCommandEvent & event)
 		m_controller->WriteCommand(wxString("save_settings ") + m_sessionPage->ConvertPath(settingsfile,true));
 	}	
 }
+
+void wxCatapultFrame::OnMenuSaveOnExit(wxCommandEvent &event)
+{
+	if (GetMenuBar()->IsChecked(Catapult_Save_On_Exit)){
+		m_controller->WriteCommand("set save_settings_on_exit true");
+	}
+	else {
+		m_controller->WriteCommand("set save_settings_on_exit false");
+	}
+}
+
 
 void wxCatapultFrame::EnableSaveSettings(bool enabled)
 {

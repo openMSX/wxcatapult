@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.15 2004/09/24 22:03:24 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.16 2004/10/01 16:33:46 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -32,6 +32,7 @@ class wxCatapultFrame : public wxFrame
 		void OnMenuLoadSettings(wxCommandEvent &event);
 		void OnMenuSaveSettings(wxCommandEvent &event);
 		void OnMenuSaveSettingsAs(wxCommandEvent &event);
+		void OnMenuSaveOnExit(wxCommandEvent &event);
 		void OnMenuClose (wxMenuEvent &event);
 		void OnMenuOpen (wxMenuEvent &event);
 		void OnMenuHighlight(wxMenuEvent &event);
