@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.10 2004/04/06 14:59:21 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.11 2004/04/07 16:44:47 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -466,7 +466,7 @@ void SessionPage::getMedia(wxArrayString & parameters)
 	for (int i=0;i<6;i++){
 		parameters.Add(_(""));
 		if (!box[i]->GetValue().IsEmpty()){
-			parameters[i] = m_diskA->GetValue();
+			parameters[i] = box[i]->GetValue();
 		}
 	}
 }
