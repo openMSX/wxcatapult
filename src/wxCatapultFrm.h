@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.11 2004/04/07 16:44:47 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.12 2004/08/26 14:29:46 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -28,6 +28,8 @@ class wxCatapultFrame : public wxFrame
 		void OnMenuQuit(wxCommandEvent& event);
 		void OnMenuAbout(wxCommandEvent& event);
 		void OnMenuEditConfig(wxCommandEvent& event);
+		void OnMenuClose (wxMenuEvent &event);
+		void OnMenuOpen (wxMenuEvent &event);
 		void OnLaunch(wxCommandEvent& event);
 		void SetControlsOnEnd();
 		void SetControlsOnLaunch();
@@ -62,7 +64,7 @@ class wxCatapultFrame : public wxFrame
 		wxTimer m_fpsTimer;
 		wxTimer m_focusTimer;
 		wxWindow * m_currentFocus;
-
+		wxString m_tempStatus;
 		bool WriteMessage (wxString msg);
 
 		DECLARE_CLASS(wxCatapultFrame)

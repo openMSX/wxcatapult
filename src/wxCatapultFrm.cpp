@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.33 2004/08/26 14:29:46 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.34 2004/08/26 15:06:14 m9710797 Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -64,6 +64,8 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_TIMER(FOCUS_TIMER, wxCatapultFrame::OnCheckFocus)
 	EVT_NOTEBOOK_PAGE_CHANGED(XRCID("GlobalTabControl"), wxCatapultFrame::OnChangePage)
 	EVT_ACTIVATE (wxCatapultFrame::OnDeselectCatapult)
+	EVT_MENU_OPEN(wxCatapultFrame::OnMenuOpen)
+	EVT_MENU_CLOSE(wxCatapultFrame::OnMenuClose)
 END_EVENT_TABLE()
 
 	// include icon for any non-unix version
@@ -191,6 +193,17 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 		m_controller->StartOpenMSX(cmd,true);
 	}
 }
+
+void wxCatapultFrame::OnMenuOpen(wxMenuEvent &event)
+{
+	m_tempStatus = GetStatusBar()->GetStatusText(0);	
+}
+
+void wxCatapultFrame::OnMenuClose(wxMenuEvent &event)
+{
+	SetStatusText(m_tempStatus,0);	
+}
+
 
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
