@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.74 2004/05/30 14:47:14 manuelbi Exp $
+$Id: ChangeLog,v 1.75 2004/06/06 18:25:41 h_oudejans Exp $
+
+2004-08-26 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Added pause status in statusbar
+	* Fixed width of machine/extension lists
 
 2004-06-06 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Removed all openMSX 0.3.4 support

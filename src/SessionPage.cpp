@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.18 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.19 2004/06/06 18:25:42 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -87,6 +87,39 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 
 	SetupHardware(true);
 	
+	// Adjust the minimum size of the extension and listbox
+	
+	wxFont myFont = m_machineList->GetFont();
+	wxMemoryDC * tempDC= new wxMemoryDC();
+	tempDC->SetFont(myFont);
+	int dx,dy,index;
+	m_machineList->GetSize(&dx,&dy); //default size
+	int w,h,wMax=dx;
+	int items = m_machineList->GetCount();
+		for (index=0;index<items;index++){
+			tempDC->GetTextExtent(m_machineList->GetString(index),&w,&h);
+			if (w > wMax){
+				wMax = w;
+			}
+		}
+	m_machineList->SetSizeHints(wMax,-1);
+
+	myFont = m_extensionList->GetFont();
+	tempDC->SetFont(myFont);
+	m_extensionList->GetSize(&dx,&dy); //default size
+	wMax = dx;
+	items = m_extensionList->GetCount();
+		for (index=0;index<items;index++){
+			tempDC->GetTextExtent(wxString(m_extensionList->GetString(index) + "W"),&w,&h);
+			if (w > wMax){
+				wMax = w;
+			}
+		}
+		m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),-1);
+//	delete tempDC;
+
+
+
 	// let's put a mask on all the bitmapbuttons
 
 	wxBitmapButton * buttons[] = {m_browseDiskA, m_browseDiskB,
