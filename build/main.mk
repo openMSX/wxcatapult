@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.15 2004/05/09 20:07:20 mthuurne Exp $
+# $Id: main.mk,v 1.16 2004/05/09 21:42:55 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -210,6 +210,8 @@ clean:
 # Installation
 # ============
 
+INSTALL_DOCS:=release-notes.txt release-history.txt
+
 install: all
 	@echo "Installing to $(INSTALL_BASE):"
 	@echo "  Executable..."
@@ -217,6 +219,19 @@ install: all
 	@cp $(BINARY_FULL) $(INSTALL_BASE)/bin/$(BINARY_FILE)
 	@echo "  Data files..."
 	@cp -r $(RESOURCES_PATH) $(INSTALL_BASE)/
+	@echo "  Documentation..."
+	@mkdir -p $(INSTALL_BASE)/doc
+	@cp $(addprefix doc/,$(INSTALL_DOCS)) $(INSTALL_BASE)/doc
+	@mkdir -p $(INSTALL_BASE)/doc/manual
+	@cp $(addprefix doc/manual/,*.html *.css) $(INSTALL_BASE)/doc/manual
+	@echo "  Desktop hooks..."
+	@mkdir -p $(INSTALL_BASE)/resources/icons
+	@cp -r src/catapult.xpm $(INSTALL_BASE)/resources/icons
+	@if [ -d /usr/share/applications ]; \
+		then sed -e "s|%INSTALL_BASE%|$(INSTALL_BASE)|" \
+			desktop/openMSX-Catapult.desktop \
+			> /usr/share/applications/openMSX-Catapult.desktop; \
+		fi
 	@echo "  Creating symlink..."
 	@if [ `id -u` -eq 0 ]; \
 		then ln -sf $(INSTALL_BASE)/bin/$(BINARY_FILE) \
@@ -252,6 +267,9 @@ DIST_FULL+=$(addprefix doc/, \
 	$(addprefix manual/, \
 		*.html *.css *.png \
 		) \
+	)
+DIST_FULL+=$(addprefix desktop/, \
+	openMSX-Catapult.desktop \
 	)
 
 dist: $(DETECTSYS_SCRIPT)
