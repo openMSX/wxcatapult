@@ -1,4 +1,4 @@
-// $Id$
+// $Id: MiscControlPage.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,7 +18,6 @@ class openMSXController;
 class MiscControlPage : public wxPanel  
 {
 	public:
-		void SetLaunchDefaults();
 		void DisableControls();
 		void EnableControls ();
 		MiscControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
@@ -38,6 +37,12 @@ class MiscControlPage : public wxPanel
 		void OnInputFrameskip (wxCommandEvent & event);
 		void OnInputSpeed (wxCommandEvent & event);
 		void OnMute (wxCommandEvent & event);
+		void SetSpeed (wxString value);
+		void SetFrameskip (wxString value);
+		void SetThrottle (wxString value);
+		void SetCmdTiming (wxString value);		
+		
+		
 		wxToggleButton * m_powerButton;
 
 	private:

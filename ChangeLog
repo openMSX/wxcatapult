@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.8 2004/02/07 06:47:35 mthuurne Exp $
+$Id: ChangeLog,v 1.9 2004/02/07 07:21:49 mthuurne Exp $
+
+2004-02-08 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Make renderers and scalers dynamicly
+	* Catapult now asks all needed settings from openMSX
 
 2004-02-07 Maarten ter Huurne <maarten@treewalker.org>
 	* Integrated dependency checking from openMSX alternative.mk.

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.3 2004/02/05 20:02:35 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.4 2004/02/07 07:21:49 mthuurne Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,10 +10,15 @@
 #endif
 
 #include "wxCatapultFrm.h"
+#include "ConfigurationData.h"
 #include "CatapultXMLParser.h"
 #include "openMSXController.h"
 #include "StatusPage.h"
+#include "VideoControlPage.h"
+#include "MiscControlPage.h"
 #include "wxCatapultApp.h"
+#include <cassert>
+
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -23,6 +28,7 @@ openMSXController::openMSXController(wxWindow * target)
 {
 	m_appWindow = (wxCatapultFrame *)target;
 	m_openMsxRunning = false;
+	m_launchMode = LAUNCH_NONE;
 }
 
 openMSXController::~openMSXController()
@@ -61,8 +67,17 @@ bool openMSXController::PreLaunch()
 bool openMSXController::PostLaunch()
 {
 	WriteMessage (_("<openmsx-control>\n"));
-	WriteCommand (_("set power on"));
-	WriteCommand (_("restoredefault renderer"));
+	switch (m_launchMode){
+	case LAUNCH_HIDDEN:
+		WriteCommand (_("openmsx_info"));
+		break;
+	case LAUNCH_NORMAL:
+		WriteCommand (m_infoCommand + _(" renderer"));
+		break;
+	default:
+		assert (false);
+		break;
+	}
 	return true;
 }
 
@@ -109,7 +124,40 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				m_appWindow->m_statusPage->UpdateLed (data->name, data->contents);
 			break;
 		case CatapultXMLParser::TAG_REPLY:
-			break; // ignore for now
+			switch (m_launchMode){
+				case LAUNCH_HIDDEN:
+					HandleHiddenLaunchReply(event);
+					break;
+				default:
+					switch (data->replyState) {			
+						case CatapultXMLParser::REPLY_OK:
+							if (m_launchMode == LAUNCH_NORMAL){
+								HandleNormalLaunchReply(event);
+							}
+							else{
+								GetPendingCommand();
+							}
+							break;
+						case CatapultXMLParser::REPLY_NOK:
+							m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
+							m_appWindow->m_statusPage->m_outputtext->AppendText(_("Warning: NOK received on command: "));
+							m_appWindow->m_statusPage->m_outputtext->AppendText(GetPendingCommand());
+							m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+							if (!data->contents.IsEmpty()){
+								m_appWindow->m_statusPage->m_outputtext->AppendText(_("contents = "));
+								m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);
+								m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+							}
+							break;
+						case CatapultXMLParser::REPLY_UNKNOWN:
+							m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
+							m_appWindow->m_statusPage->m_outputtext->AppendText(_("Warning: Unknown reply received!\n"));
+							break;
+					}
+					break;				
+			}
+			
+			break; 
 		case CatapultXMLParser::TAG_LOG:
 			switch (data->logLevel) {
 			case CatapultXMLParser::LOG_WARNING:
@@ -131,5 +179,148 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 
 bool openMSXController::WriteCommand(wxString msg)
 {
-	return WriteMessage (wxString(_("<command>") + msg + _("</command>\n")));
+	if (!m_openMsxRunning) 
+		return false;
+	m_commands.push_back(msg);
+	if (!WriteMessage (wxString(_("<command>") + msg + _("</command>\n"))))
+		return false;
+	return true;
+}
+
+wxString openMSXController::GetPendingCommand()
+{
+	assert (!m_commands.empty()); 
+	wxString pending = m_commands.front();
+	m_commands.pop_front();
+	return wxString(pending);
+}
+
+void openMSXController::StartOpenMSX(wxString cmd, bool hidden)
+{
+	
+	if (hidden){
+		m_launchMode = LAUNCH_HIDDEN;
+	}
+	else {
+		m_launchMode = LAUNCH_NORMAL;
+	}
+	Launch(cmd);			
+	
+}
+
+void openMSXController::HandleHiddenLaunchReply(wxCommandEvent &event)
+{
+	
+	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
+	if (data->replyState == CatapultXMLParser::REPLY_UNKNOWN){
+		wxMessageBox (_("Unable to determen openMSX capacities"));
+		m_launchMode = LAUNCH_NONE;
+		return;
+	}
+	wxString command = GetPendingCommand();
+	if (command == _("openmsx_info")){
+		switch (data->replyState){
+		case CatapultXMLParser::REPLY_OK:
+			m_infoCommand = _("openmsx_info");
+			WriteCommand(_("quit"));
+			break;
+		case CatapultXMLParser::REPLY_NOK:
+			WriteCommand("info");
+			return;
+		default:
+			break;
+		}
+	} 
+	else if (command == _("info")) {
+		switch (data->replyState) {
+		case CatapultXMLParser::REPLY_OK:
+			m_infoCommand = _("info");
+			WriteCommand(_("quit"));
+			break;
+		case CatapultXMLParser::REPLY_NOK:
+			wxMessageBox (_("Please update openMSX to 0.3.3 or higher"));
+			m_launchMode = LAUNCH_NONE;
+			return;
+		default:
+			break;
+		}
+	}
+	else if (command == _("quit")){
+		m_launchMode = LAUNCH_NONE;
+		m_appWindow->m_launch_AbortButton->Enable(true);
+	}
+
+}
+
+void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
+{
+	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
+	wxString command = GetPendingCommand();
+	if (command == (m_infoCommand + _(" renderer"))){
+		WriteCommand (m_infoCommand + _(" scaler"));
+		m_appWindow->m_videoControlPage->FillRenderers(data->contents);		
+	}
+	else if (command == (m_infoCommand + _(" scaler"))){
+		WriteCommand (_("set power on"));
+		m_appWindow->m_videoControlPage->FillScalers(data->contents);		
+	}
+	else if (command == _("set power on")){
+		WriteCommand (_("restoredefault renderer"));		
+	}
+	else if (command == _("restoredefault renderer")){
+		WriteCommand (_("set renderer"));
+	}
+	else if (command == _("set renderer")){
+		m_appWindow->m_videoControlPage->SetRenderer(data->contents);
+		WriteCommand (_("set scaler"));
+	}
+	else if (command == _("set scaler")){
+		m_appWindow->m_videoControlPage->SetScaler(data->contents);
+		WriteCommand (_("set accuracy"));
+	}
+	else if (command == _("set accuracy")){
+		m_appWindow->m_videoControlPage->SetAccuracy(data->contents);
+		WriteCommand (_("set deinterlace"));
+	}
+	else if (command == _("set deinterlace")){
+		m_appWindow->m_videoControlPage->SetDeinterlace(data->contents);
+		WriteCommand (_("set limitsprites"));
+	}
+	else if (command == _("set limitsprites")){
+		m_appWindow->m_videoControlPage->SetLimitSprites(data->contents);
+		WriteCommand (_("set blur"));
+	}
+	else if (command == _("set blur")){
+		m_appWindow->m_videoControlPage->SetBlur(data->contents);
+		WriteCommand (_("set glow"));
+		}
+	else if (command == _("set glow")){
+		m_appWindow->m_videoControlPage->SetGlow(data->contents);
+		WriteCommand (_("set gamma"));
+	}
+	else if (command == _("set gamma")){
+		m_appWindow->m_videoControlPage->SetGamma(data->contents);
+		WriteCommand (_("set scanline"));
+	}
+	else if (command == _("set scanline")){
+		m_appWindow->m_videoControlPage->SetScanline(data->contents);
+		WriteCommand (_("set speed"));
+	}
+	else if (command == _("set speed")){
+		m_appWindow->m_miscControlPage->SetSpeed(data->contents);
+		WriteCommand (_("set frameskip"));
+	}
+	else if (command == _("set frameskip")){
+		m_appWindow->m_miscControlPage->SetFrameskip(data->contents);
+		WriteCommand (_("set throttle"));
+	}
+	else if (command == _("set throttle")){
+		m_appWindow->m_miscControlPage->SetThrottle(data->contents);
+		WriteCommand (_("set cmdtiming"));
+	}
+	else if (command == _("set cmdtiming")){
+		m_appWindow->m_miscControlPage->SetCmdTiming(data->contents);
+		m_appWindow->EnableControls();
+		m_launchMode = LAUNCH_NONE; // interactive mode
+	}
 }

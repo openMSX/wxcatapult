@@ -1,4 +1,4 @@
-// $Id$
+// $Id: VideoControlPage.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -40,14 +40,27 @@ class VideoControlPage : public wxPanel
 		void OnChangeAccuracy (wxCommandEvent &event);
 		void OnChangeScaler (wxCommandEvent &event);
 		void OnChangeRenderer(wxCommandEvent &event);
-		void SetLaunchDefaults();
+		void FillRenderers (wxString renderers);
+		void FillScalers (wxString scalers);
+		void SetRenderer (wxString value);
+		void SetScaler (wxString value);
+		void SetAccuracy (wxString value);
+		void SetDeinterlace (wxString value);
+		void SetLimitSprites (wxString value);
+		void SetBlur (wxString value);
+		void SetGlow (wxString value);
+		void SetGamma (wxString value);
+		void SetScanline (wxString value);
 
 	private:
+		void FillComboBox (wxComboBox * control, wxString contents);
+		
 		openMSXController * m_controller;
+		
+		wxComboBox * m_accuracyList;
 		wxComboBox * m_rendererList;
 		wxComboBox * m_scalerList;
-		wxComboBox * m_accuracyList;
-
+		
 		wxButton * m_defaultGammaButton;
 		wxButton * m_defaultBlurButton;
 		wxButton * m_defaultGlowButton;
@@ -68,7 +81,7 @@ class VideoControlPage : public wxPanel
 
 		DECLARE_CLASS(VideoControlPage)
 			// any class wishing to process wxWindows events must use this macro
-			DECLARE_EVENT_TABLE()
+		DECLARE_EVENT_TABLE()
 };
 
 #endif // !defined(AFX_VIDEOCONTROLPAGE_H__268A514C_6305_4E87_BB95_5D2F5458DF92__INCLUDED_)

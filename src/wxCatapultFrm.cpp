@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.3 2004/02/06 20:54:52 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.4 2004/02/06 21:31:15 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -125,9 +125,11 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 	m_applyButton = (wxButton *)FindWindow(_("ApplyButton"));
 
 	RestoreHistory();
-	SetLaunchDefaults();
 	DisableControls();
-	m_lastQuery = QIDLE;
+	m_launch_AbortButton->Enable(false);
+	wxString cmd;
+	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+	m_controller->StartOpenMSX(cmd,true);
 }
 
 // frame destructor
@@ -183,7 +185,6 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_launch_AbortButton->SetLabel(_("Abort"));
 	m_launch_AbortButton->Enable(false);
 
-	SetLaunchDefaults();
 	m_miscControlPage->m_powerButton->SetValue(true);
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
@@ -240,7 +241,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		m_lastTape2 = m_sessionPage->m_tape2->GetValue();
 	}
 
-	m_controller->Launch(cmd);
+	m_controller->StartOpenMSX(cmd);
 	EnableControls();
 
 	m_statusPage->m_outputtext->Clear();
@@ -423,19 +424,6 @@ wxString wxCatapultFrame::ConvertPath(wxString path, bool ConvertSlash)
 		path.Replace(_("\\"),_("/"),true);
 	return path;
 }
-
-void wxCatapultFrame::WriteQuery(wxString query, QueryState type)
-{
-	m_lastQuery = type;
-	m_controller->WriteCommand (_("info ") + query);
-}
-
-void wxCatapultFrame::SetLaunchDefaults()
-{
-	m_miscControlPage->SetLaunchDefaults();
-	m_videoControlPage->SetLaunchDefaults();
-}
-
 
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
 {

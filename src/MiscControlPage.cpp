@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.2 2004/02/04 22:01:04 manuelbi Exp $
+// $Id: MiscControlPage.cpp,v 1.3 2004/02/07 07:21:49 mthuurne Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -98,12 +98,7 @@ void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
 	wxString speedText;
 	speedText.sprintf("%ld", event.GetInt());
 	m_speedIndicator->SetValue(speedText);
-#ifdef __WINDOWS__	
-	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
-#endif
-	{
-		m_controller->WriteCommand (wxString(_("set speed ")) + speedText);
-	}
+	m_controller->WriteCommand (wxString(_("set speed ")) + speedText);
 	m_throttleButton->SetValue(true);
 	m_throttleButton->SetLabel(_("On"));
 	m_controller->WriteCommand (_("set throttle on"));
@@ -134,12 +129,7 @@ void MiscControlPage::OnFrameSkipChange(wxScrollEvent &event)
 	wxString skipText;
 	skipText.sprintf("%ld", event.GetInt());
 	m_frameSkipIndicator->SetValue(skipText);
-#ifdef __WINDOWS__	
-	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
-#endif
-	{
-		m_controller->WriteCommand (wxString(_("set frameskip ")) + skipText);
-	}
+	m_controller->WriteCommand (wxString(_("set frameskip ")) + skipText);
 }
 
 void MiscControlPage::OnSetZeroFrameSkip(wxCommandEvent &event)
@@ -243,22 +233,6 @@ void MiscControlPage::DisableControls()
 	m_muteButton->Enable(false);
 }
 
-void MiscControlPage::SetLaunchDefaults()
-{
-	m_speedSlider->SetValue(100);
-	m_speedIndicator->SetValue(_("100"));
-	m_frameSkipSlider->SetValue(0);
-	m_frameSkipIndicator->SetValue("0");
-	m_frameSkipAutoButton->SetValue(false);
-	m_throttleButton->SetValue(true);
-	m_throttleButton->SetLabel(_("On"));
-	m_cmdTimingButton->SetValue(false);
-	m_cmdTimingButton->SetLabel(_("Real"));
-	m_pauseButton->SetValue(false);
-	m_firmwareButton->SetValue(false);
-	m_muteButton->SetValue(false);
-}
-
 void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
 {
 	wxString text = m_speedIndicator->GetValue ();
@@ -312,4 +286,38 @@ void MiscControlPage::OnInputFrameskip(wxCommandEvent &event)
 void MiscControlPage::OnMute(wxCommandEvent &event)
 {
 	m_controller->WriteCommand ("toggle mute");
+}
+
+void MiscControlPage::SetSpeed (wxString value)
+{
+	m_speedIndicator->SetValue(value);
+}
+
+void MiscControlPage::SetFrameskip (wxString value)
+{
+	m_frameSkipIndicator->SetValue(value);
+}
+
+void MiscControlPage::SetThrottle (wxString value)
+{
+	if (value == _("on")){
+		m_throttleButton->SetValue(true);
+		m_throttleButton->SetLabel(_("On"));
+	}
+	else {
+		m_throttleButton->SetValue(false);
+		m_throttleButton->SetLabel(_("Off"));
+	}
+}
+
+void MiscControlPage::SetCmdTiming (wxString value)
+{
+	if (value == _("broken")){
+		m_cmdTimingButton->SetValue(true);
+		m_cmdTimingButton->SetLabel(_("Broken"));
+	}
+	else {
+		m_cmdTimingButton->SetValue(false);
+		m_cmdTimingButton->SetLabel(_("Real"));
+	}
 }

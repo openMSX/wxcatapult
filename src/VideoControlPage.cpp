@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: VideoControlPage.cpp,v 1.3 2004/02/07 07:21:49 mthuurne Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -121,12 +121,7 @@ void VideoControlPage::OnChangeBlur(wxScrollEvent &event)
 	wxString text;
 	text.sprintf("%ld", event.GetInt());
 	m_blurIndicator->SetValue(text);
-#ifdef __WINDOWS__	
-	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
-#endif
-	{
-		m_controller->WriteCommand (wxString(_("set blur ")) + text);
-	}
+	m_controller->WriteCommand (wxString(_("set blur ")) + text);
 }
 
 void VideoControlPage::OnChangeGlow(wxScrollEvent &event)
@@ -134,13 +129,7 @@ void VideoControlPage::OnChangeGlow(wxScrollEvent &event)
 	wxString text;
 	text.sprintf("%ld", event.GetInt());
 	m_glowIndicator->SetValue(text);
-
-#ifdef __WINDOWS__
-	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
-#endif
-	{
-		m_controller->WriteCommand (wxString(_("set glow ")) + text);
-	}
+	m_controller->WriteCommand (wxString(_("set glow ")) + text);
 }
 
 void VideoControlPage::OnChangeGamma(wxScrollEvent &event)
@@ -148,12 +137,7 @@ void VideoControlPage::OnChangeGamma(wxScrollEvent &event)
 	wxString text;
 	text.sprintf("%ld.%02ld", event.GetInt() / 100, event.GetInt() % 100);
 	m_gammaIndicator->SetValue(text);
-#ifdef __WINDOWS__
-	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
-#endif
-	{
-		m_controller->WriteCommand (wxString(_("set gamma ")) + text);
-	}
+	m_controller->WriteCommand (wxString(_("set gamma ")) + text);
 }
 
 void VideoControlPage::OnChangeScanlines(wxScrollEvent &event)
@@ -161,12 +145,7 @@ void VideoControlPage::OnChangeScanlines(wxScrollEvent &event)
 	wxString text;
 	text.sprintf("%ld", event.GetInt());
 	m_scanlineIndicator->SetValue(text);
-#ifdef __WINDOWS__	
-	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
-#endif
-	{
-		m_controller->WriteCommand (wxString(_("set scanline ")) + text);
-	}
+	m_controller->WriteCommand (wxString(_("set scanline ")) + text);
 }
 
 void VideoControlPage::OnDefaultBlur(wxCommandEvent &event)
@@ -325,18 +304,90 @@ void VideoControlPage::DisableControls()
 	m_limitSpritesButton->Enable(false);
 }
 
-void VideoControlPage::SetLaunchDefaults()
+void VideoControlPage::FillRenderers(wxString renderers)
 {
-	m_blurSlider->SetValue(50);
-	m_blurIndicator->SetValue(_("50"));
-	m_glowSlider->SetValue(0);
-	m_glowIndicator->SetValue(_("0"));
-	m_gammaSlider->SetValue(110);
-	m_gammaIndicator->SetValue(_("1.10"));
-	m_scanlineSlider->SetValue(20);
-	m_scanlineIndicator->SetValue(_("20"));
-	m_deinterlaceButton->SetValue(true);
-	m_deinterlaceButton->SetLabel(_("On"));
-	m_limitSpritesButton->SetValue(true);
-	m_limitSpritesButton->SetLabel(_("On"));
+	FillComboBox (m_rendererList, renderers);
+}
+
+void VideoControlPage::FillScalers(wxString scalers)
+{
+	FillComboBox (m_scalerList, scalers);
+}
+
+
+void VideoControlPage::FillComboBox (wxComboBox * control, wxString contents)
+{	
+	int pos;
+	control->Clear();
+	wxString temp = contents;
+	do
+	{
+		pos = temp.Find(_("\n"));
+		if (pos != -1)
+		{
+			control->Append(temp.Left(pos));
+			temp = temp.Mid(pos + 1);					
+		}
+	}while (pos !=-1);
+	if (!temp.IsEmpty()) // not everything parsed ?
+		control->Append(temp);
+}
+
+void VideoControlPage::SetRenderer (wxString value)
+{
+	m_rendererList->SetValue(value);
+}
+
+void VideoControlPage::SetScaler (wxString value)
+{
+	m_scalerList->SetValue(value);
+}
+
+void VideoControlPage::SetAccuracy(wxString value)
+{
+	m_accuracyList->SetValue(value);
+}
+
+void VideoControlPage::SetDeinterlace(wxString value)
+{
+	if (value == _("on")){
+		m_deinterlaceButton->SetValue(true);
+		m_deinterlaceButton->SetLabel(_("On"));
+	}
+	else {
+		m_deinterlaceButton->SetValue(false);
+		m_deinterlaceButton->SetLabel(_("Off"));
+	}
+}
+
+void VideoControlPage::SetLimitSprites(wxString value)
+{
+	if (value == _("on")){
+		m_limitSpritesButton->SetValue(true);
+		m_limitSpritesButton->SetLabel(_("On"));
+	}
+	else {
+		m_limitSpritesButton->SetValue(false);
+		m_limitSpritesButton->SetLabel(_("Off"));
+	}
+}
+
+void VideoControlPage::SetBlur(wxString value)
+{
+	m_blurIndicator->SetValue(value);
+}
+
+void VideoControlPage::SetGlow(wxString value)
+{
+	m_glowIndicator->SetValue(value);
+}
+
+void VideoControlPage::SetGamma(wxString value)
+{
+	m_gammaIndicator->SetValue(value);
+}
+
+void VideoControlPage::SetScanline(wxString value)
+{
+	m_scanlineIndicator->SetValue(value);
 }

@@ -1,4 +1,4 @@
-// $Id$
+// $Id: wxCatapultFrm.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -30,6 +30,7 @@ class wxCatapultFrame : public wxFrame
 		void OnMenuEditConfig(wxCommandEvent& event);
 		void OnLaunch(wxCommandEvent& event);
 		void DisableControls();
+		void EnableControls();
 
 		SessionPage * m_sessionPage;
 		StatusPage * m_statusPage;
@@ -45,12 +46,10 @@ class wxCatapultFrame : public wxFrame
 		wxNotebook * m_tabControl;
 		wxButton * m_launch_AbortButton;
 	private:
-		enum QueryState {QIDLE, QSOUND, QRENDERER, QSCALER};
-
-		void SetLaunchDefaults();
+		
 		wxString ConvertPath (wxString path, bool ConvertSlash=false);
 
-		void EnableControls();
+		
 		CatapultXMLParser * m_parser;
 
 		int m_InsertedMedia;
@@ -63,14 +62,11 @@ class wxCatapultFrame : public wxFrame
 		bool WriteMessage (wxString msg);
 
 		wxPanel * m_audioPanel;
-		QueryState m_lastQuery;
 		wxArrayString m_audioChannels;
-
-		void WriteQuery (wxString query, QueryState type);
-
+		
 		DECLARE_CLASS(wxCatapultFrame)
 			// any class wishing to process wxWindows events must use this macro
-			DECLARE_EVENT_TABLE()
+		DECLARE_EVENT_TABLE()
 };
 
 #endif // wxCatapultFrame_H
