@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.25 2004/09/24 22:03:24 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.26 2004/10/10 11:48:30 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,7 +10,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#ifdef __WINDOWS__
 #pragma warning( disable : 4786) // we don't want 39 warnings about browse info names getting too long
+#endif
 
 #include <list>
 #include "CatapultPage.h"
