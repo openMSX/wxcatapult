@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.23 2004/03/31 14:49:51 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.24 2004/03/31 18:23:04 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,7 +20,6 @@
 #include "wxCatapultApp.h"
 #include <cassert>
 
-
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -37,6 +36,7 @@ openMSXController::openMSXController(wxWindow * target)
 
 openMSXController::~openMSXController()
 {
+	delete [] m_launchScript;
 }
 
 bool openMSXController::HandleMessage(wxCommandEvent &event)
@@ -98,6 +98,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_appWindow->SetControlsOnEnd();
 	m_appWindow->m_launch_AbortButton->SetLabel(_("Launch"));
+	HandleNativeEndProcess ();
 }
 
 void openMSXController::HandleStdOut(wxCommandEvent &event)
@@ -110,8 +111,10 @@ void openMSXController::HandleStdOut(wxCommandEvent &event)
 void openMSXController::HandleStdErr(wxCommandEvent &event)
 {
 	wxString * data = (wxString *)event.GetClientData();
-	if (*data == "\n")
+	if (*data == "\n"){
+		delete data;
 		return;
+	}
 	int i;
 	for (i=0;i<m_appWindow->m_tabControl->GetPageCount();i++){
 		if (m_appWindow->m_tabControl->GetPageText(i) == _("Status Info")){
@@ -124,13 +127,16 @@ void openMSXController::HandleStdErr(wxCommandEvent &event)
 #ifdef __UNIX__
 	m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
 #endif
+	delete data;
 }
 
 void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 {
 	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
-	if (data->openMSXID != m_openMSXID)
+	if (data->openMSXID != m_openMSXID){
+		delete data;
 		return; // another instance is allready started, ignore this message
+	}
 	switch (data->parseState)
 	{
 		case CatapultXMLParser::TAG_UPDATE:
@@ -597,6 +603,62 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 	return true;
 }
 
+void openMSXController::InitLaunchScript ()
+{
+	m_launchScriptSize = 0;
+	m_launchScript = new LaunchInstructionType [LAUNCHSCRIPT_MAXSIZE];
+	AddLaunchInstruction ("#info renderer","","",NULL,true);
+	AddLaunchInstruction ("#info scaler","","",NULL,true);
+	AddLaunchInstruction ("#info accuracy","","",NULL,false);
+	AddLaunchInstruction ("update enable setting","","",NULL,false);
+	AddLaunchInstruction ("update enable plug","","",NULL,false);
+	AddLaunchInstruction ("update enable unplug","","",NULL,false);
+	AddLaunchInstruction ("update enable led","","",NULL,false);
+	AddLaunchInstruction ("#exist frontswitch","","",NULL,false);
+	AddLaunchInstruction ("set power on","wait","end",NULL,true);
+	AddLaunchInstruction ("#check renderer","","",NULL,true);
+	AddLaunchInstruction ("#check scaler","","",NULL,true);
+	AddLaunchInstruction ("#check accuracy","","",NULL,true);
+	AddLaunchInstruction ("#check deinterlace","","",NULL,true);
+	AddLaunchInstruction ("#check limitsprites","","",NULL,true);
+	AddLaunchInstruction ("#check blur","","",NULL,true);
+	AddLaunchInstruction ("#check glow","","",NULL,true);
+	AddLaunchInstruction ("#check gamma","","",NULL,true);
+	AddLaunchInstruction ("#check scanline","","",NULL,true);
+	AddLaunchInstruction ("#check speed","","",NULL,true);
+	AddLaunchInstruction ("#check frameskip","","",NULL,true);
+	AddLaunchInstruction ("#check throttle","","",NULL,true);
+	AddLaunchInstruction ("#check cmdtiming","","",NULL,true);
+	AddLaunchInstruction ("#info connector","","skip 7",NULL,true);
+	AddLaunchInstruction ("#info pluggable","wait","skip 6",NULL,true);
+	AddLaunchInstruction ("#all #info pluggable *","","",NULL,true);
+	AddLaunchInstruction ("#checkfor msx-midi-in","","skip 1",NULL,false);
+	AddLaunchInstruction ("#check midi-in-readfilename","","",NULL,true);
+	AddLaunchInstruction ("#checkfor msx-midi-out","","skip 1",NULL,false);
+	AddLaunchInstruction ("#check midi-out-logfilename","","",NULL,true);
+	AddLaunchInstruction ("#checkfor pcminput","","skip 1",NULL,false);
+	AddLaunchInstruction ("#check audio-inputfilename","","",NULL,true);
+	AddLaunchInstruction ("#info sounddevice","","skip 3",NULL,true);
+	AddLaunchInstruction ("#all #check sounddevices *_volume","","",NULL,true);
+	AddLaunchInstruction ("#all #check sounddevices *_mode","","",NULL,true);
+	AddLaunchInstruction ("#all #info sounddevices *","","",NULL,true);
+	AddLaunchInstruction ("done","","",NULL,false);
+}
 
+void openMSXController::AddLaunchInstruction (wxString cmd, wxString ok, wxString nok, 
+				bool (CatapultPage::*pfunction)(wxString,wxString),
+				bool showError)
+{	
+	if (m_launchScriptSize >= LAUNCHSCRIPT_MAXSIZE){
+		wxMessageBox ("Not enough space to store the Launchscript","Internal Catapult Error");
+		return;
+	}
+	m_launchScript[m_launchScriptSize].command = cmd;
+	m_launchScript[m_launchScriptSize].ok_action = ok;
+	m_launchScript[m_launchScriptSize].nok_action = nok;
+	m_launchScript[m_launchScriptSize].p_okfunction = pfunction;
+	m_launchScript[m_launchScriptSize].showError = showError;
+	m_launchScriptSize ++;
+}
 
 

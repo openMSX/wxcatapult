@@ -1,4 +1,4 @@
-// $Id$
+// $Id: PipeReadThread.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // PipeReadThread.cpp: implementation of the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -74,5 +74,6 @@ wxThread::ExitCode PipeReadThread::Entry()
 	wxCommandEvent endEvent(EVT_CONTROLLER);
 	endEvent.SetId(MSGID_ENDPROCESS);
 	wxPostEvent (m_target, endEvent);
+	delete m_inputstream;
 	return 0;
 }

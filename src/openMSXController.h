@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.12 2004/03/27 20:37:15 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.13 2004/03/31 14:49:51 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,6 +12,8 @@
 
 #include <list>
 #include "CatapultPage.h"
+
+#define LAUNCHSCRIPT_MAXSIZE 100
 
 using std::list;
 
@@ -33,6 +35,7 @@ class openMSXController
 		bool SetupOpenMSXParameters (wxString version);
 		virtual bool WriteMessage (wxString msg)=0;
 		virtual bool Launch (wxString cmdline)=0;
+		virtual void HandleNativeEndProcess ()=0;
 		virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd)=0;
 		virtual bool HandleMessage (wxCommandEvent &event);
 		openMSXController(wxWindow * target);
@@ -40,6 +43,7 @@ class openMSXController
 		bool m_openMsxRunning;
 		wxString GetInfoCommand (wxString parameter);
 		wxString GetExistCommand (wxString parameter);
+		void InitLaunchScript ();
 		
 	protected:
 		wxCatapultFrame * m_appWindow;
@@ -52,6 +56,20 @@ class openMSXController
 		CatapultXMLParser * m_parser;
 		LaunchMode m_launchMode;
 	private:
+		struct LaunchInstructionType{
+			wxString command;
+			wxString nok_action;
+			wxString ok_action;
+			bool (CatapultPage::*p_okfunction)(wxString,wxString); 
+			bool showError;
+		};
+		
+		LaunchInstructionType * m_launchScript;
+		int m_launchScriptSize;
+	
+		void AddLaunchInstruction (wxString cmd, wxString ok, wxString nok, 
+				bool (CatapultPage::*pfunction)(wxString,wxString),
+				bool showError);
 		unsigned int m_openMSXID;
 		wxArrayString m_connectors;
 		wxArrayString m_pluggables;

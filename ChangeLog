@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.31 2004/03/28 20:13:57 h_oudejans Exp $
+$Id: ChangeLog,v 1.32 2004/03/31 14:49:51 h_oudejans Exp $
+
+2004-04-01 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* fixed memory leaks
 
 2004-03-31 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* openmsx -v is now used to find out openmsx' possibilities

@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.5 2004/03/26 20:02:06 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.6 2004/03/28 16:57:24 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ CatapultPage::CatapultPage(wxWindow * parent)
 
 CatapultPage::~CatapultPage()
 {
-
+	delete [] m_settingTable;
 }
 
 wxString CatapultPage::ConvertPath(wxString path, bool ConvertSlash)
@@ -49,8 +49,6 @@ void CatapultPage::OnClickCombo (wxCommandEvent &event)
 
 void CatapultPage::InitSettingsTable ()
 {
-	// this is an unshielded array, please add elements if the
-	// number of settings increase
 	m_settingTableSize = 0;
 	m_settingTable = new SettingTableElementType [SETTINGTABLE_MAXSIZE];
 	AddSetting("renderer","RendererSelector",&CatapultPage::UpdateComboSetting,false);

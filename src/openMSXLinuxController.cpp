@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.3 2004/02/27 18:40:02 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.4 2004/03/31 14:49:51 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -70,4 +70,9 @@ bool openMSXLinuxController::WriteMessage(wxString msg)
 		return false;
 	m_outputstream->WriteString(msg);
 	return true;
+}
+
+void openMSXLinuxController::HandleNativeEndProcess ()
+{
+	delete m_outputstream;
 }
