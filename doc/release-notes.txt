@@ -1,30 +1,26 @@
-Release Notes for openMSX Catapult 0.4.0-R1 (2004-05-28)
+Release Notes for openMSX Catapult 0.5.0-R1 (2004-10-13)
 ========================================================
 
-This is the first official release, so everything is new. There have been some
-versions in the past, but we decided to ignore those in these notes. Unlike
-these old versions, openMSX Catapult is not only a front-end, but a
-full-fledged GUI for openMSX.
+This new release brings you the following improvements:
 
-Features:
-- Select machine and multiple extensions
-- Select media to put in the MSX (disk/tape/carts)
-- Disks and tapes can be changed when openMSX is running
-- Various controls to vary the openMSX speed (speed, max frameskip, throttle)
-- Ability to plug devices into the joystick ports (before and at run time)
-- openMSX render control (renderer, scalers, accuracy, blur, glow, gamma and
-  scanlines)
-- Complete audio mixer (consisting of all available sounddevices)
-- MIDI in/out pluggable support (for TurboR GT)
-- PCM Wave input selection (for TurboR)
-- openMSX errors and warnings display
-- MSX LEDs visualisation
-- Frame rate indicator
-- Full communication with openMSX (back and forth)
+Fixed: Loading and saving of used hardware, media and configuration
+Fixed: Disabled controls are much clearer now
+
+Added: Individual sound channels can now be muted
+Added: Minimum and Maximum Frameskip support
+Added: Saving openMSX Settings
+Added: openMSX type support (typing remotely into the MSX)
+Added: Screenshot support
+Added: Printerport connector
+Added: Saving of Joystick settings.
+
+Changed: Throttle into Max Speed
+Changed: underscores in machine and extension names are now showed as spaces
+Changed: Removed tear-off menu style in gtk
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
-- far from complete
+- still not complete
 
 openMSX Home Page:
   http://openmsx.sourceforge.net/
