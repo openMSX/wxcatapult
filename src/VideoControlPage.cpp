@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.24 2004/10/04 16:41:46 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.25 2004/10/08 15:26:40 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -498,7 +498,7 @@ void VideoControlPage::OnBrowseScreenShot(wxCommandEvent &event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,_("Choose file to save screenshot to"), "", wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
+	wxFileDialog filedlg(this,_("Choose file to save screenshot to"), "", wxT(""), path ,wxSAVE);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		screenshotpath = filedlg.GetPath();
