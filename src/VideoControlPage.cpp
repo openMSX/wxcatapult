@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.5 2004/03/22 17:31:43 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,8 +18,8 @@
 IMPLEMENT_CLASS(VideoControlPage, wxPanel)
 BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_TEXT(XRCID("RendererSelector"),VideoControlPage::OnChangeRenderer)
-	EVT_COMBOBOX(XRCID("ScalerSelector"),VideoControlPage::OnChangeScaler)
-	EVT_COMBOBOX(XRCID("AccuracySelector"),VideoControlPage::OnChangeAccuracy)
+	EVT_TEXT(XRCID("ScalerSelector"),VideoControlPage::OnChangeScaler)
+	EVT_TEXT(XRCID("AccuracySelector"),VideoControlPage::OnChangeAccuracy)
 	EVT_TOGGLEBUTTON(XRCID("DeInterlaceButton"),VideoControlPage::OnDeInterlace)
 	EVT_TOGGLEBUTTON(XRCID("LimitSpriteButton"),VideoControlPage::OnLimitSprites)
 	EVT_COMMAND_SCROLL(XRCID("BlurSlider"),VideoControlPage::OnChangeBlur)
