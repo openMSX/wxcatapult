@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.15 2004/04/27 19:52:17 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.16 2004/05/08 19:08:31 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -170,7 +170,7 @@ bool SessionPage::BrowseDisk(wxComboBox *target, wxString devicename, wxString d
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,wxT("Select Diskimage"), defaultpath, wxT(""), path ,wxOPEN);
+	wxFileDialog filedlg(this,_("Select Diskimage"), defaultpath, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		target->SetValue (filedlg.GetPath());
@@ -206,7 +206,7 @@ void SessionPage::BrowseCart(wxComboBox *target, wxString defaultpath)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,wxT("Select Rom-image"), defaultpath, wxT(""), path ,wxOPEN);
+	wxFileDialog filedlg(this,_("Select Rom-image"), defaultpath, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		target->SetValue (filedlg.GetPath());	
@@ -253,7 +253,7 @@ void SessionPage::OnBrowseCasPatch(wxCommandEvent &event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,wxT("Select Tape-image"), defaultpath, wxT(""), path ,wxOPEN);
+	wxFileDialog filedlg(this,_("Select Tape-image"), defaultpath, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		m_tape2->SetValue (filedlg.GetPath());
@@ -346,7 +346,7 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensio
 	if (!::wxDirExists(sharepath + wxT("/extensions"))) {
 		if (!optional) {
 			wxString msg;
-			msg.sprintf("Directory: %s does not exist", wxString(sharepath + wxT("/extensions")).c_str());
+			msg.sprintf(_("Directory: %s does not exist"), wxString(sharepath + wxT("/extensions")).c_str());
 			wxMessageBox (msg);
 		}
 		return;
@@ -378,7 +378,7 @@ void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArr
 	if (!::wxDirExists(sharepath + wxT("/machines"))) {
 		if (!optional) {
 			wxString msg;
-			msg.sprintf("Directory: %s does not exist", wxString(sharepath + wxT("/machines")).c_str());
+			msg.sprintf(_("Directory: %s does not exist"), wxString(sharepath + wxT("/machines")).c_str());
 			wxMessageBox (msg);
 		}
 		return;

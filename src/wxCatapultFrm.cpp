@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.27 2004/04/17 20:56:19 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.28 2004/05/08 19:08:32 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -97,9 +97,9 @@ END_EVENT_TABLE()
 	wxMenu *editMenu = new wxMenu("", wxMENU_TEAROFF);
 	wxMenu *helpMenu = new wxMenu("", wxMENU_TEAROFF);
 
-	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), wxT("Quit this program"));
-	editMenu->Append(Catapult_Edit_Config, wxT("&Edit Configuration\tCtrl-E"), wxT("Adjust Catapult Configuration"));
-	helpMenu->Append(Catapult_About, wxT("&About Catapult...\tCtrl-A"), wxT("Show about dialog"));
+	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), _("Quit this program"));
+	editMenu->Append(Catapult_Edit_Config, wxT("&Edit Configuration\tCtrl-E"), _("Adjust Catapult Configuration"));
+	helpMenu->Append(Catapult_About, wxT("&About Catapult...\tCtrl-A"), _("Show about dialog"));
 
 	// now append the freshly created menu to the menu bar...
 	wxMenuBar *menuBar = new wxMenuBar();
@@ -165,10 +165,10 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 {
 	// called when help - about is picked from the menu or toolbar
 	wxString msg;
-	msg.Printf(wxT("openMSX Catapult Neo " VERSION "\n\n"
+	msg.Printf(_("openMSX Catapult Neo " VERSION "\n\n"
 				"Created by the openMSX team\n\nBuilt on "__DATE__"\n"));
 
-	wxMessageBox(msg, wxT("About wxCatapult"), wxOK | wxICON_INFORMATION, this);
+	wxMessageBox(msg, _("About wxCatapult"), wxOK | wxICON_INFORMATION, this);
 }
 
 void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)

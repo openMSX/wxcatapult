@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.9 2004/04/25 15:26:09 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.10 2004/05/08 19:08:32 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -191,21 +191,21 @@ bool openMSXWindowsController::CreatePipes(bool useNamedPipes,HANDLE * input,
 	{
 		if (!CreatePipe(&hInputRead, &hInputWriteTmp,&sa,0))
 		{
-			ShowError(wxT("Error creating pipe for stdin"));
+			ShowError(_("Error creating pipe for stdin"));
 			return false;
 		}
 
 		if (!DuplicateHandle(GetCurrentProcess(),hInputWriteTmp,
 					GetCurrentProcess(), &hInputWrite, 0,FALSE, DUPLICATE_SAME_ACCESS))
 		{
-			ShowError(wxT("Error Duplicating InputWriteTmp Handle"));
+			ShowError(_("Error Duplicating InputWriteTmp Handle"));
 			return false;
 
 		}
 
 		if (!CloseHandle(hInputWriteTmp))
 		{
-			ShowError(wxT("Error Closing Input Temp Handle"));
+			ShowError(_("Error Closing Input Temp Handle"));
 			return false;
 		}
 		m_outputHandle = hInputWrite;
@@ -214,13 +214,13 @@ bool openMSXWindowsController::CreatePipes(bool useNamedPipes,HANDLE * input,
 
 	if (!CreatePipe(&hOutputReadTmp,&hOutputWrite,&sa,0))
 	{
-		ShowError(wxT("Error creating pipe for stdout"));
+		ShowError(_("Error creating pipe for stdout"));
 		return false;
 	}
 
 	if (!CreatePipe(&hErrorReadTmp,&hErrorWrite,&sa,0))
 	{
-		ShowError(wxT("Error creating pipe for stderr"));
+		ShowError(_("Error creating pipe for stderr"));
 		return false;
 	}
 	*input = hInputHandle;
@@ -235,7 +235,7 @@ void openMSXWindowsController::ShowError(wxString msg)
 {
 	wxString error;
 	error.sprintf ("%d",GetLastError());
-	wxMessageBox (msg + wxString(wxT(": error ")) + error);	
+	wxMessageBox (msg + wxString(_(": error ")) + error);	
 }
 
 void openMSXWindowsController::CloseHandles(bool useNamedPipes, HANDLE hThread,

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.46 2004/04/30 09:51:21 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.47 2004/05/08 19:08:31 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -215,11 +215,11 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 							}
 							else {
 								m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
-								m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: NOK received on command: "));
+								m_appWindow->m_statusPage->m_outputtext->AppendText(_("Warning: NOK received on command: "));
 								m_appWindow->m_statusPage->m_outputtext->AppendText(command);
 								m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
 								if (!data->contents.IsEmpty()){
-									m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("contents = "));
+									m_appWindow->m_statusPage->m_outputtext->AppendText(_("contents = "));
 									m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);
 									m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
 								}
@@ -229,7 +229,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					break;
 				case CatapultXMLParser::REPLY_UNKNOWN:
 					m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
-					m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: Unknown reply received!\n"));
+					m_appWindow->m_statusPage->m_outputtext->AppendText(_("Warning: Unknown reply received!\n"));
 					break;
 			}
 			break; 
@@ -876,7 +876,7 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 	}
 	else {
 		if (instruction.showError){
-			m_appWindow->m_statusPage->m_outputtext->AppendText(wxString(wxT("Error received on command: ") + cmd + wxT("\n")));
+			m_appWindow->m_statusPage->m_outputtext->AppendText(wxString(_("Error received on command: ") + cmd + wxT("\n")));
 		}
 		if (actions != ""){
 			if (actions == "e"){

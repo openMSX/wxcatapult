@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.5 2004/04/27 02:07:35 mthuurne Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.6 2004/05/08 19:08:31 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent &event)
 	executable = wxT(".exe");
 #endif
 
-	wxFileDialog filedlg(this,wxT("Select openMSX executable"),
+	wxFileDialog filedlg(this,_("Select openMSX executable"),
 			defaultpath, wxT("openmsx") + executable, 
 			wxT("*") + executable,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
@@ -147,7 +147,7 @@ void CatapultConfigDlg::OnBrowseShare(wxCommandEvent &event)
 		defaultpath = ::wxPathOnly(wxString(m_ExecPath->GetValue())+wxT("/"));
 	}
 
-	wxDirDialog dirdlg(this, wxT("Select openMSX share directory"),defaultpath);
+	wxDirDialog dirdlg(this, _("Select openMSX share directory"),defaultpath);
 	if (dirdlg.ShowModal() == wxID_OK)
 	{
 		m_SharePath->SetValue (dirdlg.GetPath());
