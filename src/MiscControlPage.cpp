@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.39 2005/01/06 16:27:21 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.40 2005/02/05 09:50:54 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -307,7 +307,14 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_frameskipMaxLabel->Enable(true);
 	m_frameskipMinLabel->Enable(true);
 	m_emulationSpeedLabel->Enable(true);	
-
+	wxWindow * temp = FindWindowByLabel(wxT("Performance Controls"));
+	if (temp){
+		temp->Enable(true);
+	}
+	temp = FindWindowByLabel(wxT("Action Controls"));
+	if (temp){
+		temp->Enable(true);
+	}
 
 }
 
@@ -351,7 +358,15 @@ void MiscControlPage::SetControlsOnEnd()
 	m_frameskipLabel->Enable(false);
 	m_frameskipMaxLabel->Enable(false);
 	m_frameskipMinLabel->Enable(false);
-	m_emulationSpeedLabel->Enable(false);	
+	m_emulationSpeedLabel->Enable(false);
+	wxWindow * temp = FindWindowByLabel(wxT("Performance Controls"));
+	if (temp){
+		temp->Enable(false);
+	}
+	temp = FindWindowByLabel(wxT("Action Controls"));
+	if (temp){
+		temp->Enable(false);
+	}
 }
 
 void MiscControlPage::OnInputSpeed(wxCommandEvent &event)

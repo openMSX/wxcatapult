@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.29 2005/01/06 16:27:21 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.30 2005/01/08 12:17:10 manuelbi Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -49,6 +49,14 @@ AudioControlPage::AudioControlPage(wxWindow * parent, openMSXController * contro
 	m_controller=controller;
 	m_midiInFilename = wxT("");
 	m_midiOutFilename = wxT("");
+	wxWindow * temp = FindWindowByLabel(wxT("Mixer"));
+	if (temp){
+		temp->Enable(false);
+	}
+	temp = FindWindowByLabel(wxT("Sound I/O"));
+	if (temp){
+		temp->Enable(false);
+	}
 
 	wxBitmapButton * buttons[3] = {m_browseMidiInButton,m_browseMidiOutButton,
 		m_browseSampleInputButton};
@@ -93,6 +101,10 @@ void AudioControlPage::AddChannelType(int channel,wxString type)
 
 void AudioControlPage::SetupAudioMixer()
 {
+	wxWindow * temp = FindWindowByLabel(wxT("Mixer"));
+	if (temp){
+		temp->Enable(true);
+	}
 	wxSizer * AudioSizer = m_audioPanel->GetSizer();
 	wxStaticText * noAudio = (wxStaticText *) FindWindowByName(wxT("NoAudioText"));
 	AudioSizer->Remove(0);
@@ -106,6 +118,10 @@ void AudioControlPage::SetupAudioMixer()
 
 void AudioControlPage::DestroyAudioMixer()
 {
+	wxWindow * temp = FindWindowByLabel(wxT("Mixer"));
+	if (temp){
+		temp->Enable(false);
+	}
 	wxSizer * AudioSizer = m_audioPanel->GetSizer();
 	wxWindow * child; 
 	if (m_audioChannels.GetCount() > 0)
@@ -167,6 +183,10 @@ void AudioControlPage::DisableAudioPanel ()
 	m_midiInFileLabel->Enable(false);
 	m_midiOutFileLabel->Enable(false);
 	m_sampleInFileLabel->Enable(false);
+	wxWindow * temp = FindWindowByLabel(wxT("Sound I/O"));
+	if (temp){
+		temp->Enable(false);
+	}
 }
 
 void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
@@ -388,6 +408,7 @@ void AudioControlPage::SetChannelMode (int number, wxString value)
 
 void AudioControlPage::InitAudioIO()
 {
+	bool available = false;
 	wxComboBox * child;
 	unsigned int i;
 	unsigned int j;
@@ -402,6 +423,7 @@ void AudioControlPage::InitAudioIO()
 	}
 	for  (i=0;i<connectors.GetCount();i++) {
 		if (connectors[i] == wxT("msx-midi-in")) {
+			available = true;
 			child = (wxComboBox *)FindWindowByName (wxT("MidiInSelector"));
 			if (child) {
 				child->Enable(true);
@@ -428,6 +450,7 @@ void AudioControlPage::InitAudioIO()
 			}
 		}
 		if (connectors[i] == wxT("msx-midi-out")) {
+			available = true;
 			child = (wxComboBox *)FindWindowByName (wxT("MidiOutSelector"));
 			if (child) {
 				child->Enable(true);
@@ -453,6 +476,7 @@ void AudioControlPage::InitAudioIO()
 			}
 		}
 		if (connectors[i] == wxT("pcminput")) {
+			available = true;
 			child = (wxComboBox *)FindWindowByName (wxT("SampleInSelector"));
 			if (child) {
 				child->Enable(true);
@@ -471,6 +495,12 @@ void AudioControlPage::InitAudioIO()
 				}
 				child->SetValue(wxT("--empty--"));				
 			}
+		}
+	}
+	if (available){
+		wxWindow * temp = FindWindowByLabel(wxT("Sound I/O"));
+		if (temp){
+			temp->Enable(true);
 		}
 	}
 }

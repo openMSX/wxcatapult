@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.29 2004/12/03 18:38:20 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.30 2005/01/06 16:27:22 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -339,6 +339,7 @@ void VideoControlPage::OnInputScanline(wxCommandEvent &event)
 
 void VideoControlPage::SetControlsOnLaunch()
 {
+	wxWindow * temp;
 	m_blurSlider->Enable(true);
 	m_blurIndicator->Enable(true);
 	m_defaultBlurButton->Enable(true);
@@ -368,10 +369,19 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_blurLabel->Enable(true);
 	m_glowLabel->Enable(true);
 	m_gammaLabel->Enable(true);
+	temp = FindWindowByLabel(wxT("Switches"));
+	if (temp){
+		temp->Enable(true);
+	}
+	temp = FindWindowByLabel(wxT("Monitor Simulation Controls"));
+	if (temp){
+		temp->Enable(true);
+	}
 }
 
 void VideoControlPage::SetControlsOnEnd()
 {
+	wxWindow * temp;
 	m_blurSlider->Enable(false);
 	m_blurIndicator->Enable(false);
 	m_defaultBlurButton->Enable(false);
@@ -401,6 +411,14 @@ void VideoControlPage::SetControlsOnEnd()
 	m_blurLabel->Enable(false);
 	m_glowLabel->Enable(false);
 	m_gammaLabel->Enable(false);
+	temp = FindWindowByLabel(wxT("Switches"));
+	if (temp){
+		temp->Enable(false);
+	}
+	temp = FindWindowByLabel(wxT("Monitor Simulation Controls"));
+	if (temp){
+		temp->Enable(false);
+	}
 }
 
 void VideoControlPage::FillRenderers(wxString renderers)

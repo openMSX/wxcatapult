@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.116 2005/02/09 19:29:35 h_oudejans Exp $
+$Id: ChangeLog,v 1.117 2005/03/01 15:54:53 h_oudejans Exp $
+
+2005-03-05 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Control groups are now disabled if all controls in that group are.
+	* Cassette is no longer first disabled and then enabled.
 
 2005-03-01 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Romtypes are now saved/restored for all roms in the history

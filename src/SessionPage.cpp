@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.54 2005/02/08 20:08:24 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.55 2005/03/01 15:54:53 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -700,6 +700,7 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 
 void SessionPage::SetControlsOnLaunch()
 {
+	wxWindow * temp;
 	m_machineList->Enable(false);
 	m_extensionList->Enable(false);
 	m_cartA->control->Enable(false);
@@ -712,29 +713,15 @@ void SessionPage::SetControlsOnLaunch()
 	m_machineListLabel->Enable(false);
 	m_cartAButton->Enable(false);
 	m_cartBButton->Enable(false);
-	if ((m_cassettePortState != wxT("disabled")) &&
-		(m_cassettePortState != wxT("cassetteplayers"))) {
-		if (m_cassette->contents != wxT("")) {
-			m_rewindButton->Enable(true);
-			m_forcePlayButton->Enable(true);
-		}
-		m_cassetteButton->Enable(true);
-		m_clearCassette->Enable(true);
-		m_browseCassette->Enable(true);
-		m_cassette->control->Enable(true);
-	}
-	else {
-		m_rewindButton->Enable(false);
-		m_forcePlayButton->Enable(false);
-		m_cassetteButton->Enable(false);
-		m_clearCassette->Enable(false);
-		m_browseCassette->Enable(false);
-		m_cassette->control->Enable(false);
+	temp = FindWindowByLabel(wxT("Cartridge Slots"));
+	if (temp){
+		temp->Enable(true);
 	}
 }
 
 void SessionPage::SetControlsOnEnd()
 {
+	wxWindow * temp;
 	m_machineList->Enable(true);
 	m_extensionList->Enable(true);
 	m_cartA->control->Enable(true);
@@ -754,6 +741,43 @@ void SessionPage::SetControlsOnEnd()
 	m_clearCassette->Enable(true);
 	m_browseCassette->Enable(true);
 	m_cassette->control->Enable(true);
+	temp = FindWindowByLabel(wxT("Cartridge Slots"));
+	if (temp){
+		temp->Enable(true);
+	}
+}
+
+void SessionPage::SetCassetteControl()
+{
+	bool state;
+	if ((m_cassettePortState != wxT("disabled")) &&
+		(m_cassettePortState != wxT("cassetteplayers"))) {
+		if (m_cassette->contents != wxT("")) {
+			m_rewindButton->Enable(true);
+			m_forcePlayButton->Enable(true);
+		}
+		else{
+			m_rewindButton->Enable(false);
+			m_forcePlayButton->Enable(false);
+		}
+		state = true;
+	}
+	else {
+		state = false;
+		m_rewindButton->Enable(false);
+		m_forcePlayButton->Enable(false);
+	}
+	m_cassetteButton->Enable(state);
+	m_clearCassette->Enable(state);
+	m_browseCassette->Enable(state);
+	m_cassette->control->Enable(state);
+	wxWindow * temp;
+	temp = FindWindowByLabel(wxT("Cassette Player"));
+	if (temp){
+		temp->Enable(state);
+	}
+
+
 }
 
 void SessionPage::getMedia(wxArrayString & parameters)

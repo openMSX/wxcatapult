@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.24 2005/02/05 09:50:54 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.25 2005/03/01 15:54:53 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -77,6 +77,7 @@ class SessionPage : public CatapultPage
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 		void SetControlsOnLaunch();
 		void SetControlsOnEnd();
+		void SetCassetteControl();
 		void getMedia(wxArrayString & parameters);
 		void getTypes(wxArrayString & parameters);
 		void getPatches(wxArrayString * parameters);

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.79 2005/02/08 19:50:26 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.80 2005/02/09 19:29:37 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -760,6 +760,7 @@ void openMSXController::FinishLaunch()
 	m_appWindow->SetSize(tempsize);
 #endif
 	m_appWindow->SetControlsOnLaunch();
+	m_appWindow->m_sessionPage->SetCassetteControl();
 }
 
 
