@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.7 2004/05/08 19:52:53 h_oudejans Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.8 2004/05/09 14:25:51 manuelbi Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -107,6 +107,7 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 			ConfigurationData * config = ConfigurationData::instance();
 			config->SetParameter(ConfigurationData::CD_EXECPATH,tempExec);
 			config->SetParameter(ConfigurationData::CD_SHAREPATH,tempShare);
+			config->SaveData();
 			EndModal (wxID_OK);
 		}
 	}

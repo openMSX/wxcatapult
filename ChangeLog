@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.89 2004/10/08 15:26:40 h_oudejans Exp $
+$Id: ChangeLog,v 1.90 2004/10/10 11:48:29 h_oudejans Exp $
+
+2004-10-11 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Paths are now saved as soon as the openMSX config dialog
+	   is closed.
 
 2004-10-10 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed printerport plugin mechanism.
