@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.27 2004/10/11 20:35:00 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.28 2004/11/11 17:15:00 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -11,7 +11,9 @@
 #endif // _MSC_VER > 1000
 
 #ifdef __WXMSW__
+#ifdef _MSC_VER // we don't want gcc to warn about pragma's
 #pragma warning( disable : 4786) // we don't want 39 warnings about browse info names getting too long
+#endif
 #endif
 
 #include <list>
