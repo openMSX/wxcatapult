@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.26 2004/10/08 15:26:40 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.27 2004/10/16 09:28:16 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -232,7 +232,7 @@ void SessionPage::OnBrowseCartA(wxCommandEvent &event)
 
 void SessionPage::OnBrowseCartB(wxCommandEvent &event)
 {
-	BrowseCart (m_cartB,::wxPathOnly(m_cartA->GetValue()));
+	BrowseCart (m_cartB,::wxPathOnly(m_cartB->GetValue()));
 }
 
 void SessionPage::BrowseCart(wxComboBox *target, wxString defaultpath)
