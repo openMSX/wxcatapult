@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.29 2004/11/10 21:16:24 andete Exp $
+# $Id: main.mk,v 1.30 2004/11/14 18:34:26 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -148,9 +148,6 @@ PROBE_SCRIPT:=$(MAKE_PATH)/probe.mk
 COMPONENTS_MAKE:=$(MAKE_PATH)/components.mk
 
 BUILD_PATH:=$(BUILD_BASE)/$(PLATFORM)-$(CATAPULT_FLAVOUR)
-ifeq ($(OPENMSX_PROFILE),true)
-  BUILD_PATH:=$(BUILD_PATH)-profile
-endif
 
 OBJECTS_PATH:=$(BUILD_PATH)/obj
 
