@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.40 2004/04/17 20:56:19 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.41 2004/04/18 14:20:31 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -159,7 +159,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					(lastcmd.Mid(5,lastcmd.Find(' ',true)-5)!= data->name)){
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
 						m_launchMode = LAUNCH_NORMAL;
-						executeLaunch(NULL,43);
+						executeLaunch(NULL,41);
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG){
@@ -167,7 +167,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				if ((lastcmd.Mid(0,7) != "unplug ") || (lastcmd.Find(' ',true) == 6)){
 					m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
 					m_launchMode = LAUNCH_NORMAL;
-					executeLaunch(NULL,43);
+					executeLaunch(NULL,41);
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA){
@@ -521,8 +521,6 @@ void openMSXController::InitLaunchScript ()
 	m_launchScript = new LaunchInstructionType [LAUNCHSCRIPT_MAXSIZE];
 	AddLaunchInstruction ("update enable setting","","",NULL,false);
 	AddLaunchInstruction ("update enable led","","",NULL,false);
-	AddLaunchInstruction ("update enable plug","","",NULL,false);
-	AddLaunchInstruction ("update enable unplug","","",NULL,false);
 	AddLaunchInstruction ("set power on","e","power",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("#unset renderer","e","",NULL,true);
 	AddLaunchInstruction ("#info renderer","","RendererSelector",&openMSXController::FillComboBox,true);
@@ -568,7 +566,8 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set master_volume","","master_volume",&openMSXController::UpdateSetting,false);
 	AddLaunchInstruction ("set *_volume","","*_volume",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set *_mode","","*_mode",&openMSXController::UpdateSetting,true);
-	
+	AddLaunchInstruction ("update enable plug","","",NULL,false);
+	AddLaunchInstruction ("update enable unplug","","",NULL,false);
 	
 }
 
