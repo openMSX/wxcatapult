@@ -350,6 +350,7 @@ SOURCE=.\version.mk
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
+# PROP Ignore_Default_Tool 1
 USERDEP__VERSI="$(InputDir)\..\ChangeLog"	
 # Begin Custom Build - Creating Version Information
 InputDir=.
@@ -366,6 +367,7 @@ InputPath=.\version.mk
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
+# PROP Ignore_Default_Tool 1
 USERDEP__VERSI="$(InputDir)\..\ChangeLog"	
 # Begin Custom Build - Creating Version Information
 InputDir=.
