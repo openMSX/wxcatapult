@@ -207,9 +207,7 @@ void AudioControlPage::ConvertChannelNames(wxArrayString & names)
 void AudioControlPage::OnChangeVolume(wxScrollEvent &event)
 {
 	int ID=event.GetId();
-	wxString channel = m_audioChannels[ID-FIRSTAUDIOSLIDER];
-	int pos = channel.Find(_("::"));
-	wxString channelname = m_audioChannels[event.GetId()-FIRSTAUDIOSLIDER].Mid(pos+2);
+	wxString channelname = GetAudioChannelName(ID-FIRSTAUDIOSLIDER);
 	int scrollpos = 100-event.GetPosition();
 	wxString cmd;
 	cmd.sprintf("set %s_volume %d",channelname.c_str(),scrollpos);
@@ -222,7 +220,7 @@ void AudioControlPage::OnChangeMode(wxCommandEvent & event)
 	wxString channelname = GetAudioChannelName(ID-FIRSTAUDIOCOMBO);
 	wxString tempval = ((wxComboBox *)event.GetEventObject())->GetValue();
 	wxString value;
-	switch (tempval[0])
+	switch (tempval[(size_t)0])
 	{
 	case 'M':
 		value = _("mono");
