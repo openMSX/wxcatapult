@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.8 2004/03/26 20:02:06 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.9 2004/03/28 16:57:24 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -333,17 +333,17 @@ void VideoControlPage::FillComboBox (wxComboBox * control, wxString contents)
 
 void VideoControlPage::SetRenderer (wxString value)
 {
-	m_rendererList->SetValue(value);
+	m_rendererList->SetSelection(m_rendererList->FindString(value));
 }
 
 void VideoControlPage::SetScaler (wxString value)
 {
-	m_scalerList->SetValue(value);
+	m_scalerList->SetSelection(m_scalerList->FindString(value));	
 }
 
 void VideoControlPage::SetAccuracy(wxString value)
 {
-	m_accuracyList->SetValue(value);
+	m_accuracyList->SetSelection(m_accuracyList->FindString(value));
 }
 
 void VideoControlPage::SetDeinterlace(wxString value)
