@@ -1,0 +1,33 @@
+----------------------------------------------------------------------------
+openMSX Catapult - the GUI for openMSX
+----------------------------------------------------------------------------
+
+openMSX Catapult is an optional part (a subproject) of openMSX, the MSX
+emulator that aims for perfection. With Catapult you can control openMSX via
+a graphical user interface.
+
+Since the program is not very complicated, we expect that it doesn't need a
+manual. To understand what all options mean and to get a better feeling of
+what openMSX is, we recommend to read the documentation of openMSX.
+
+You can read what has changed in this and the previous releases in the
+release notes. You can find the release notes of this release in the file
+'release-notes.txt' in the directory 'doc'. Highlights of previous releases
+can be found in 'release-history.txt'.
+
+All source code and other works that are part of, or distributed with
+Catapult are copyrighted by their respective authors. The file 'AUTHORS'
+contains a list of people who made works for Catapult or contributed works to
+Catapult.
+
+Some source files may contain a license notice; all other source files are
+licensed under the GNU Public License (GPL), of which you can find a copy in
+the file 'GPL'. If you got a binary release of openMSX Catapult and are
+interested in the sources, please visit our home page:
+    http://openmsx.sourceforge.net/
+
+Happy MSX-ing!
+                        the openMSX developers
+
+----------------------------------------------------------------------------
+$Id$

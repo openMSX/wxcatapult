@@ -1,0 +1,17 @@
+Release Notes for openMSX Catapult for openMSX 0.4.0 (2004-04-24)
+=================================================================
+
+[TODO: fill this in at release time!]
+
+openMSX Home Page:
+  http://openmsx.sourceforge.net/
+Project page on SourceForge:
+  http://sourceforge.net/projects/openmsx/
+Contact options:
+- Send a message to the openmsx-user mailing list.
+  Go to the SourceForge project page and look under "Lists".
+- Talk to us on #openmsx on irc.freenode.net.
+- Use the "Support" tab on the project page.
+
+Have fun with your emulated MSX!
+                                        the openMSX developers

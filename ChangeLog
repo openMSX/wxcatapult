@@ -1,9 +1,14 @@
-$Id: ChangeLog,v 1.58 2004/04/17 18:50:51 h_oudejans Exp $
+$Id: ChangeLog,v 1.59 2004/04/17 20:56:19 h_oudejans Exp $
 
 2004-04-17 Manuel Bilderbeek <manuel@msxnet.org>
 	* added loads of tooltips to the wxg files and changed some texts
 	* in the mixer, the audio channels have also tooltips with their full
 	  name and type now
+	* added preliminary documentation files, license file (GPL), AUTHORS
+	  and README. Also added doc directory with release notes and other
+	  stuff, which still need to be filled in! It's mostly copied from
+	  openMSX and adjusted for Catapult. But remember: TODO: fill all that
+	  stuff in!
 
 2004-04-17 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed: openmsx fatal errors were sometimes repeated over and

@@ -1,0 +1,22 @@
+$Id$
+
+Prime Developers:
+Herman Oudejans      <hn.oudejans@quicknet.nl>
+Manuel Bilderbeek    <manuel@msxnet.org>
+
+The other openMSX developers also contribute to openMSX Catapult every now and
+then :)
+
+With many thanks to:
+Michael Goettsche    <mail@tuxipuxi.de>
+Patrick van Arkel    <vampier@vampier.net>
+Albert Beevendorp    <bifi@msxnet.org>
+
+Historical note:
+
+openMSX Catapult was originally developed by Manuel Bilderbeek in Qt 3 (for
+Linux), with the help of Michael Goettsche. Soon Herman Oudejans made a Windows
+version in Visual Studio with MFC. However, we wanted to make a common program
+that is portable to different operating systems, so we started a total rewrite
+based on wxWidgets and added it as a subproject to openMSX CVS. This is the
+result!

@@ -1,0 +1,7 @@
+Release History
+===============
+
+This is an overview of the changes that were incorporated into past
+releases.
+
+[TODO: fill this in for the first release!]
