@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.62 2004/04/18 12:49:52 h_oudejans Exp $
+$Id: ChangeLog,v 1.63 2004/04/18 14:20:31 h_oudejans Exp $
+
+2004-04-20 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Move screen after returning from full screen is now ONLY done
+	   with an old openmsx.	
 
 2004-04-18 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fullscreen button in windows works.

@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.19 2004/04/12 19:28:08 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.20 2004/04/15 18:28:22 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ class openMSXController
 		wxString GetExistCommand (wxString parameter);
 		bool IsOpenMSXRunning(){return m_openMsxRunning;};
 		void InitLaunchScript ();
-		
+		bool m_oldVersion;
 	protected:
 		wxCatapultFrame * m_appWindow;
 		bool m_openMsxRunning;

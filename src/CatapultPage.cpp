@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.13 2004/04/18 11:57:41 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.14 2004/04/18 15:44:44 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -127,7 +127,7 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 	wxNotebook * notebook = (wxNotebook *) m_parent;
 	VideoControlPage * videopage = NULL;
 	for (int i=0;i<notebook->GetPageCount();i++){
-		if (notebook->GetPageText(i) == _("Audio Controls")){
+		if (notebook->GetPageText(i) == _("Video Controls")){
 			videopage = (VideoControlPage *)notebook->GetPage(i);
 		}
 	}

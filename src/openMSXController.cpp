@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.41 2004/04/18 14:20:31 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.42 2004/04/18 15:57:22 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -504,12 +504,14 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 		m_appWindow->m_audioControlPage->EnableMasterVolume();
 		m_unsetCommand = _("unset");
 		m_appWindow->m_miscControlPage->DisableAutoFrameSkip();
+		m_oldVersion = false;
 	}
 	else{   // release (less possibilities)
 		m_infoCommand = _("info");
 		m_appWindow->m_audioControlPage->DisableMasterVolume();
 		m_unsetCommand = _("restoredefault");
 		m_appWindow->m_miscControlPage->EnableAutoFrameSkip(false);
+		m_oldVersion = true;
 	}
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	return true;

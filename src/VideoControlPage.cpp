@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.16 2004/04/18 12:25:22 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.17 2004/04/18 12:27:21 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -443,6 +443,8 @@ void VideoControlPage::SetSliderDefaults()
 #ifdef __WINDOWS__
 void VideoControlPage::RestoreNormalScreen()
 {
-	((openMSXWindowsController *)m_controller)->RestoreOpenMSX();	
+	if (m_controller->m_oldVersion){
+		((openMSXWindowsController *)m_controller)->RestoreOpenMSX();
+	}
 }
 #endif
