@@ -1,4 +1,4 @@
-// $Id$
+// $Id: wxCatapultFrm.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -60,6 +60,10 @@ EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
 
 END_EVENT_TABLE()
 
+// include icon for any non-unix version
+#if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
+    #include "catapult.xpm"
+#endif
 
 	// ----------------------------------------------------------------------------
 	// main frame
@@ -74,11 +78,10 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 	m_controller = new openMSXLinuxController(this);
 #endif
 
-	// set the frame icon
-	//#ifdef __WINDOWS__  // TODO find out how this works in linux
-	//	SetIcon(wxICON(wxCatapult));
-	//#endif
-	// create menu bars
+	wxXmlResource::Get()->LoadFrame(this, parent, _("CatapultFrame"));
+	SetIcon (wxICON(acatapult));
+	
+	// create menu bars				jdayeshdfsg
 
 	wxMenu *fileMenu = new wxMenu("", wxMENU_TEAROFF);
 	wxMenu *editMenu = new wxMenu("", wxMENU_TEAROFF);
@@ -93,19 +96,6 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 	menuBar->Append(fileMenu, _("&File"));
 	menuBar->Append(editMenu, _("&Edit"));
 	menuBar->Append(helpMenu, _("&Help"));
-
-	// ... and attach this menu bar to the frame
-
-	// load the image wanted on the toolbar
-	///    wxBitmap aboutImage("resource/help.bmp", wxBITMAP_TYPE_BMP);
-	// create the toolbar and add our 1 tool to it
-	///    wxToolBar* toolbar = CreateToolBar();
-	///    toolbar->AddTool(Minimal_About, _("About"), aboutImage, _("About this program"));
-	///    toolbar->Realize();
-
-	// create a status bar just for fun (by default with 1 pane only)
-	wxXmlResource::Get()->LoadFrame(this, parent, _("CatapultFrame"));
-	//	new SessionPage (FindWindow(_("SessionPage")));
 
 	SetMenuBar(menuBar);
 
@@ -130,14 +120,6 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 	this->GetSizer()->SetMinSize(size);
 	this->GetSizer()->Fit(this);
 	this->GetSizer()->SetSizeHints(this);
-
-	// Audio page
-
-	m_audioPanel = (wxPanel *)FindWindow (_("AudioChannelPanel"));
-
-	// Video page
-
-	// Global controls
 
 	m_launch_AbortButton = (wxButton *)FindWindow(_("Launch_AbortButton"));
 	m_applyButton = (wxButton *)FindWindow(_("ApplyButton"));
@@ -172,7 +154,7 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 {
 	// called when help - about is picked from the menu or toolbar
 	wxString msg;
-	msg.Printf(_("openMSX Catapult Neo 0.0.1\nCD Release Oss 2004\n\nCreated by the openMSX team\n\nJanuary 16, 2004"));
+	msg.Printf(_("openMSX Catapult Neo 0.0.1\nCVS Version\nCreated by the openMSX team\n"));
 
 	wxMessageBox(msg, _("About wxCatapult"), wxOK | wxICON_INFORMATION, this);
 }
@@ -182,6 +164,7 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 	CatapultConfigDlg dlg;
 	dlg.Center();
 	dlg.ShowModal();
+	m_sessionPage->SetupHardware();
 }
 
 
