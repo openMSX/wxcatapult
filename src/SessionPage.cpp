@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.23 2004/09/26 19:21:23 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.24 2004/09/27 17:14:06 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -445,48 +445,49 @@ void SessionPage::fillMachines (wxArrayString & machineArray)
 
 void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 {
-	if (oldFocus == m_diskA) {
-		if (m_diskA->GetValue() != m_lastDiskA) {
-			m_controller->WriteCommand("diska eject");
-			if (!m_diskA->GetValue().IsEmpty()) {
-				m_controller->WriteCommand("diska " + ConvertPath(m_diskA->GetValue(),true));
-				AddHistory(m_diskA);
-			}
-			m_lastDiskA = m_diskA->GetValue();
-
-		}	
-	}
-	else if (oldFocus == m_diskB) {
-		if (m_diskB->GetValue() != m_lastDiskB) {
-			m_controller->WriteCommand("diskb eject");
-			if (!m_diskA->GetValue().IsEmpty()) {
-				m_controller->WriteCommand("diskb " + ConvertPath(m_diskB->GetValue(),true));
-				AddHistory(m_diskB);
-			}
-			m_lastDiskB = m_diskB->GetValue();
+	if (m_controller->IsOpenMSXRunning()){
+		if (oldFocus == m_diskA) {
+			if (m_diskA->GetValue() != m_lastDiskA) {
+				m_controller->WriteCommand("diska eject");
+				if (!m_diskA->GetValue().IsEmpty()) {
+					m_controller->WriteCommand("diska " + ConvertPath(m_diskA->GetValue(),true));
+					AddHistory(m_diskA);
+				}
+				m_lastDiskA = m_diskA->GetValue();
+			}	
 		}
-	}
-	else if (oldFocus == m_tape1) {
-		if (m_tape1->GetValue() != m_lastTape1) {
-			m_controller->WriteCommand("cassetteplayer eject");
-			if (!m_tape1->GetValue().IsEmpty()) {
-				m_controller->WriteCommand("cassetteplayer " + ConvertPath(m_tape1->GetValue(),true));
-				AddHistory(m_tape1);
+		else if (oldFocus == m_diskB) {
+			if (m_diskB->GetValue() != m_lastDiskB) {
+				m_controller->WriteCommand("diskb eject");
+				if (!m_diskA->GetValue().IsEmpty()) {
+					m_controller->WriteCommand("diskb " + ConvertPath(m_diskB->GetValue(),true));
+					AddHistory(m_diskB);
+				}
+				m_lastDiskB = m_diskB->GetValue();
 			}
-			m_lastTape1 = m_tape1->GetValue();
 		}
-	}
-	else if (oldFocus == m_tape2) {
-		if (m_tape2->GetValue() != m_lastTape2) {
-			m_controller->WriteCommand("cas eject");
-			if (!m_tape2->GetValue().IsEmpty()) {
-				m_controller->WriteCommand("cas " + ConvertPath(m_tape2->GetValue(),true));
-				AddHistory(m_tape1);
+		else if (oldFocus == m_tape1) {
+			if (m_tape1->GetValue() != m_lastTape1) {
+				m_controller->WriteCommand("cassetteplayer eject");
+				if (!m_tape1->GetValue().IsEmpty()) {
+					m_controller->WriteCommand("cassetteplayer " + ConvertPath(m_tape1->GetValue(),true));
+					AddHistory(m_tape1);
+				}
+				m_lastTape1 = m_tape1->GetValue();
 			}
-			m_lastTape2 = m_tape2->GetValue();
 		}
+		else if (oldFocus == m_tape2) {
+			if (m_tape2->GetValue() != m_lastTape2) {
+				m_controller->WriteCommand("cas eject");
+				if (!m_tape2->GetValue().IsEmpty()) {
+					m_controller->WriteCommand("cas " + ConvertPath(m_tape2->GetValue(),true));
+					AddHistory(m_tape1);
+				}
+				m_lastTape2 = m_tape2->GetValue();
+			}
+		}
+		SaveHistory();
 	}
-	SaveHistory();
 }
 
 void SessionPage::SetControlsOnLaunch()

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.28 2004/09/24 22:03:24 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.29 2004/09/25 08:08:38 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,6 +14,7 @@
 #include "MiscControlPage.h"
 #include "wxCatapultFrm.h"
 #include "openMSXController.h"
+#include "ConfigurationData.h"
 
 #include <wx/joystick.h>
 
@@ -79,12 +80,13 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_oldSpeed="";
 
 // temporary hardcoded joystick port devices (not for BSD)
+	
 
 #ifndef __BSD__ 
 	wxJoystick joy(wxJOYSTICK1);
 	wxString temp;
 #endif
-
+	int JoySaveID[]={ConfigurationData::CD_JOYPORT1, ConfigurationData::CD_JOYPORT2};
 	wxComboBox * box[2];
 	box[0] = (wxComboBox *)FindWindow (wxT("Joyport1Selector"));
 	box[1] = (wxComboBox *)FindWindow (wxT("Joyport2Selector"));
@@ -99,10 +101,19 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 			box[i]->Append(temp);
 		}
 #endif
-		box[i]->SetSelection(0);
+		wxString currentJoy;
+		int pos;
+		ConfigurationData::instance()->GetParameter(JoySaveID[i],currentJoy);
+		pos = box[i]->FindString(currentJoy);
+		if (pos != -1){
+			box[i]->SetSelection(pos);
+		}		
+		else{	
+			box[i]->SetSelection(0);
+		}	
 	}
-	m_oldJoy1 = wxT("--empty--");
-	m_oldJoy2 = wxT("--empty--");
+	m_oldJoy1 = box[0]->GetValue();
+	m_oldJoy2 = box[1]->GetValue();
 }
 
 MiscControlPage::~MiscControlPage()
@@ -477,7 +488,12 @@ This device will then be removed from any other port(s).","Warning",wxOK | wxCAN
 	else{ // no collision
 		m_controller->WriteCommand(wxString(cmd + connector + value));
 		*oldValue1 = box->GetValue();
-	}	
+	}
+	wxComboBox * joy1 = (wxComboBox *)FindWindow (wxT("Joyport1Selector"));
+	wxComboBox * joy2 = (wxComboBox *)FindWindow (wxT("Joyport2Selector"));	
+	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_JOYPORT1,joy1->GetValue());
+	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_JOYPORT2,joy2->GetValue());
+	ConfigurationData::instance()->SaveData();
 
 }
 

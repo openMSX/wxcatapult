@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.25 2004/10/01 16:50:13 h_oudejans Exp $
+# $Id: main.mk,v 1.26 2004/10/01 17:13:26 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -109,6 +109,7 @@ SOURCES:= \
 	openMSXController \
 	openMSXLinuxController \
 	FullScreenDlg \
+	ScreenShotDlg \
 	Version
 
 OBJECTS_FULL:=$(addprefix $(OBJECTS_PATH)/, $(addsuffix .o,$(SOURCES)))
@@ -123,6 +124,7 @@ XRC_FULL:=$(addprefix $(XRC_PATH)/, \
 	status.xrc \
 	input.xrc \
 	fullscreen.xrc \
+	screenshot.xrc \
 	)
 
 BITMAPS:=$(addprefix $(BUILD_PATH)/,$(wildcard $(BITMAPS_PATH)/*.bmp))

@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.3 2004/04/17 15:49:54 h_oudejans Exp $
+// $Id: ConfigurationData.cpp,v 1.4 2004/05/08 19:08:31 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -32,6 +32,9 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(wxT("/history/UsedMachine"),&m_usedMachine);
 	ConfigData->Read(wxT("/history/UsedExtensions"), &m_usedExtensions);
 	ConfigData->Read(wxT("/preferences/ShowFullScreenWarning"),&m_showFullScreenWarning);
+	ConfigData->Read(wxT("/preferences/ShowScreenshotInfo"),&m_showScreenshotInfo);
+	ConfigData->Read(wxT("/connectors/UsedJoyport1"),&m_usedJoyport1);
+	ConfigData->Read(wxT("/connectors/UsedJoyport2"),&m_usedjoyport2);
 }
 
 ConfigurationData::~ConfigurationData()
@@ -91,6 +94,15 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 		case CD_FULLSCREENWARN:
 			m_showFullScreenWarning = p_data.GetLong();
 			break;
+		case CD_SCREENSHOTINFO:
+			m_showScreenshotInfo = p_data.GetLong();
+			break;
+		case CD_JOYPORT1:
+			m_usedJoyport1 = p_data.GetString();
+			break;
+		case CD_JOYPORT2:
+			m_usedjoyport2 = p_data.GetString();
+			break;
 		default:
 			retVal = false; // unknown ID
 			break;
@@ -133,6 +145,12 @@ bool ConfigurationData::GetParameter(int p_iId, wxString &p_data)
 		case CD_USEDEXTENSIONS:
 			p_data = m_usedExtensions;
 			break;
+		case CD_JOYPORT1:
+			p_data = m_usedJoyport1;
+			break;
+		case CD_JOYPORT2:
+			p_data = m_usedjoyport2;
+			break;
 		default:
 			retVal = false; // unknown ID
 			break;
@@ -150,6 +168,9 @@ bool ConfigurationData::GetParameter (int p_iId, int * p_data)
 			break;
 		case CD_FULLSCREENWARN:
 			*p_data = m_showFullScreenWarning;
+			break;
+		case CD_SCREENSHOTINFO:
+			*p_data = m_showScreenshotInfo;
 			break;
 		default:
 			retVal = false;
@@ -182,6 +203,9 @@ bool ConfigurationData::SaveData()
 	retVal &= ConfigData->Write(wxT("/history/UsedMachine"),m_usedMachine);
 	retVal &= ConfigData->Write(wxT("/history/UsedExtensions"),m_usedExtensions);
 	retVal &= ConfigData->Write(wxT("/preferences/ShowFullScreenWarning"),m_showFullScreenWarning);
+	retVal &= ConfigData->Write(wxT("/preferences/ShowScreenshotInfo"),m_showScreenshotInfo);
+	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport1"),m_usedJoyport1);
+	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport2"),m_usedjoyport2);
 	return retVal;
 }
 

@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.14 2004/05/09 14:25:51 manuelbi Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.15 2004/10/01 17:21:01 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -57,6 +57,7 @@ bool wxCatapultApp::OnInit()
 	bool succes = true;
 	succes &= LoadXRC (wxT("config.xrc"));
 	succes &= LoadXRC (wxT("fullscreen.xrc"));
+	succes &= LoadXRC (wxT("screenshot.xrc"));
 	succes &= LoadXRC (wxT("catapult.xrc"));
 	succes &= LoadXRC (wxT("session.xrc"));
 	succes &= LoadXRC (wxT("status.xrc"));

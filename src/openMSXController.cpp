@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.60 2004/10/02 17:18:42 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.61 2004/10/02 20:50:46 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,6 +19,7 @@
 #include "AudioControlPage.h"
 #include "SessionPage.h"
 #include "wxCatapultApp.h"
+#include "ScreenshotDlg.h"
 #include <cassert>
 
 //////////////////////////////////////////////////////////////////////
@@ -255,6 +256,14 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 			}	
 			m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);		
 			m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
+			if (data->contents.Left(15) == "Screen saved to"){
+				int inhibit;
+				ConfigurationData::instance()->GetParameter(ConfigurationData::CD_SCREENSHOTINFO,&inhibit);
+				if (inhibit == 0){
+					ScreenshotDlg dlg(m_appWindow);
+					dlg.ShowModal();
+				}
+			}
 			break;
 		default:
 			break;

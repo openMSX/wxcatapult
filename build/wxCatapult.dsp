@@ -280,6 +280,37 @@ InputName=misccontrols
 # End Source File
 # Begin Source File
 
+SOURCE=..\dialogs\screenshot.wxg
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\screenshot.wxg
+InputName=screenshot
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\screenshot.wxg
+InputName=screenshot
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\dialogs\session.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
@@ -678,6 +709,10 @@ SOURCE=..\src\PipeReadThread.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\ScreenShotDlg.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\SessionPage.cpp
 # End Source File
 # Begin Source File
@@ -759,6 +794,10 @@ SOURCE=..\src\PipeConnectThread.h
 # Begin Source File
 
 SOURCE=..\src\PipeReadThread.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ScreenshotDlg.h
 # End Source File
 # Begin Source File
 

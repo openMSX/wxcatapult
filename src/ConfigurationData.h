@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.h,v 1.2 2004/02/04 22:01:04 manuelbi Exp $
+// $Id: ConfigurationData.h,v 1.3 2004/04/17 15:49:54 h_oudejans Exp $
 // onfigurationData.h: interface for the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ class ConfigurationData
 		bool GetParameter (int p_iId, int * p_data);
 		enum ID {CD_EXECPATH, CD_SHAREPATH,CD_HISTDISKA, CD_HISTDISKB, CD_HISTCARTA, CD_HISTCARTB,
 			CD_HISTTAPE1, CD_HISTTAPE2, CD_MEDIAINSERTED, CD_USEDMACHINE,CD_USEDEXTENSIONS,
-			CD_FULLSCREENWARN};
+			CD_FULLSCREENWARN,CD_SCREENSHOTINFO,CD_JOYPORT1,CD_JOYPORT2};
 			enum MediaBits {MB_DISKA=1, MB_DISKB=2, MB_CARTA=4, MB_CARTB=8, MB_TAPE1=16, MB_TAPE2=32};
 			bool SetParameter (int p_iId, wxVariant p_data);
 			bool HaveRequiredSettings ();
@@ -37,6 +37,7 @@ class ConfigurationData
 	private:
 			int m_mediaInserted;
 			int m_showFullScreenWarning;
+			int m_showScreenshotInfo;
 			ConfigurationData();
 			wxString m_openMSXSharePath;
 			wxString m_openMSXExecPath;
@@ -48,6 +49,8 @@ class ConfigurationData
 			wxString m_tape2History;
 			wxString m_usedMachine;
 			wxString m_usedExtensions;
+			wxString m_usedJoyport1;
+			wxString m_usedjoyport2;
 
 #if OPENMSX_DEMO_CD_VERSION
 			wxFileConfig * ConfigData;
