@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.7 2004/04/18 11:57:41 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.8 2004/04/18 15:50:55 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -29,7 +29,6 @@ openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 	m_pipeActive = false;
 	m_openMsxRunning = false;
 	m_namedPipeHandle = INVALID_HANDLE_VALUE;
-	m_catapultWindow = GetActiveWindow();
 }
 
 openMSXWindowsController::~openMSXWindowsController()
@@ -61,6 +60,7 @@ bool openMSXWindowsController::HandleMessage(wxCommandEvent &event)
 
 bool openMSXWindowsController::Launch(wxString cmdLine)
 {
+	m_catapultWindow = GetActiveWindow();
 	HANDLE hInputRead, hOutputWrite, hErrorWrite, hErrorRead, hOutputRead;
 	PreLaunch();
 	bool useNamedPipes = DetermenNamedPipeUsage();
@@ -312,6 +312,7 @@ void openMSXWindowsController::RaiseOpenMSX()
 	if (openmsxWindow != NULL){
 		SetParent (openmsxWindow,m_catapultWindow);
 		SetActiveWindow(openmsxWindow);
+		SetForegroundWindow(openmsxWindow);
 		SetParent (openmsxWindow,NULL);
 	}
 }
