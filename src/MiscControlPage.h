@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.12 2004/04/15 18:26:26 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.13 2004/04/15 18:35:00 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -70,8 +70,10 @@ class MiscControlPage : public CatapultPage
 		wxString m_frameSkipSetting;
 		wxString m_oldJoy1;
 		wxString m_oldJoy2;
+		wxComboBox * m_lastUpdatedCombo;
+
 #ifdef __UNIX__		
-		wxTimer m_joystick_update_timer; // bad solution for a worse bug in (wx?)gtk
+			wxTimer m_joystick_update_timer; // bad solution for a worse bug in (wx?)gtk
 #endif
 		bool m_autoFrameSkipEnabled;
 		DECLARE_CLASS(MiscControlPage)

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.16 2004/04/15 18:35:00 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.17 2004/04/16 22:21:09 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -422,6 +422,7 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 
 void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
 {
+	m_lastUpdatedCombo = (wxComboBox *)event.GetEventObject();
 #ifdef __UNIX__
 	if (!m_joystick_update_timer.IsRunning()){
 		m_joystick_update_timer.Start(200,true);
@@ -434,7 +435,7 @@ void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
 void MiscControlPage::OnJoystickChanged()
 {
 	static bool MessageActive = false;
-	wxComboBox * box = (wxComboBox *)FindFocus();
+	wxComboBox * box = m_lastUpdatedCombo;
 	if ((box == NULL) || MessageActive){
 		return;
 	}
