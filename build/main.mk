@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.8 2004/05/08 20:50:44 mthuurne Exp $
+# $Id: main.mk,v 1.9 2004/05/08 22:30:41 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -35,7 +35,7 @@ BUILD_BASE:=derived
 # =====
 
 SEDSCRIPT:=$(MAKE_PATH)/wxg2xrc.sed
-CONFIG_MAKEFILE:=$(MAKE_PATH)/config.mk
+CUSTOM_MAKE:=$(MAKE_PATH)/custom.mk
 
 BUILD_PATH:=$(BUILD_BASE)
 
@@ -61,7 +61,7 @@ PACKAGE_FULL:=$(PACKAGE_NAME)-$(PACKAGE_VERSION)
 CHANGELOG_REVISION:=\
 	$(shell sed -ne "s/\$$Id: ChangeLog,v \([^ ]*\).*/\1/p" ChangeLog)
 
-include $(CONFIG_MAKEFILE)
+include $(CUSTOM_MAKE)
 
 include $(MAKE_PATH)/info2code.mk
 
