@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.5 2004/04/05 18:29:39 h_oudejans Exp $
+// $Id: CatapultPage.h,v 1.6 2004/04/10 21:24:05 h_oudejans Exp $
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -11,7 +11,7 @@
 #endif // _MSC_VER > 1000
 
 #include <wx/tglbtn.h>
-#define SETTINGTABLE_MAXSIZE 33
+#define SETTINGTABLE_MAXSIZE 34
 
 class CatapultPage : public wxPanel 
 {

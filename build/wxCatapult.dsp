@@ -384,6 +384,10 @@ SOURCE=..\src\ConfigurationData.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\FullScreenDlg.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\MiscControlPage.cpp
 # End Source File
 # Begin Source File
@@ -454,6 +458,10 @@ SOURCE=..\src\CatapultXMLParser.h
 # Begin Source File
 
 SOURCE=..\src\ConfigurationData.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\FullScreenDlg.h
 # End Source File
 # Begin Source File
 

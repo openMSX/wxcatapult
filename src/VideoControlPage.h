@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.7 2004/03/28 20:13:57 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.8 2004/04/04 19:47:15 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -37,7 +37,8 @@ class VideoControlPage : public CatapultPage
 		void OnChangeGamma (wxScrollEvent & event);
 		void OnChangeGlow (wxScrollEvent &event);
 		void OnChangeBlur (wxScrollEvent &event);
-		void OnLimitSprites( wxCommandEvent &event);
+		void OnLimitSprites(wxCommandEvent &event);
+		void OnFullScreen (wxCommandEvent &event);
 		void OnDeInterlace (wxCommandEvent &event);
 		void OnChangeAccuracy (wxCommandEvent &event);
 		void OnChangeScaler (wxCommandEvent &event);
@@ -68,6 +69,7 @@ class VideoControlPage : public CatapultPage
 
 		wxToggleButton * m_limitSpritesButton;
 		wxToggleButton * m_deinterlaceButton;
+		wxToggleButton * m_fullscreenButton;
 
 		wxSlider * m_blurSlider;
 		wxSlider * m_glowSlider;

@@ -1,4 +1,4 @@
-// $Id$
+// $Id: ConfigurationData.cpp,v 1.2 2004/02/04 22:01:04 manuelbi Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -31,6 +31,7 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(_("/history/MediaInserted"),&m_mediaInserted);
 	ConfigData->Read(_("/history/UsedMachine"),&m_usedMachine);
 	ConfigData->Read(_("/history/UsedExtensions"), &m_usedExtensions);
+	ConfigData->Read(_("/preferences/ShowFullScreenWarning"),&m_showFullScreenWarning);
 }
 
 ConfigurationData::~ConfigurationData()
@@ -86,6 +87,9 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 			break;
 		case CD_MEDIAINSERTED:
 			m_mediaInserted =p_data.GetLong();
+			break;
+		case CD_FULLSCREENWARN:
+			m_showFullScreenWarning = p_data.GetLong();
 			break;
 		default:
 			retVal = false; // unknown ID
@@ -144,6 +148,9 @@ bool ConfigurationData::GetParameter (int p_iId, int * p_data)
 		case CD_MEDIAINSERTED:
 			*p_data = m_mediaInserted;
 			break;
+		case CD_FULLSCREENWARN:
+			*p_data = m_showFullScreenWarning;
+			break;
 		default:
 			retVal = false;
 			break;
@@ -174,6 +181,7 @@ bool ConfigurationData::SaveData()
 	retVal &= ConfigData->Write(_("/history/MediaInserted"),m_mediaInserted);
 	retVal &= ConfigData->Write(_("/history/UsedMachine"),m_usedMachine);
 	retVal &= ConfigData->Write(_("/history/UsedExtensions"),m_usedExtensions);
+	retVal &= ConfigData->Write(_("/preferences/ShowFullScreenWarning"),m_showFullScreenWarning);
 	return retVal;
 }
 

@@ -1,4 +1,4 @@
-// $Id$
+// $Id: ConfigurationData.h,v 1.2 2004/02/04 22:01:04 manuelbi Exp $
 // onfigurationData.h: interface for the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -26,7 +26,8 @@ class ConfigurationData
 		bool GetParameter (int p_iId, wxString & p_data);
 		bool GetParameter (int p_iId, int * p_data);
 		enum ID {CD_EXECPATH, CD_SHAREPATH,CD_HISTDISKA, CD_HISTDISKB, CD_HISTCARTA, CD_HISTCARTB,
-			CD_HISTTAPE1, CD_HISTTAPE2, CD_MEDIAINSERTED, CD_USEDMACHINE,CD_USEDEXTENSIONS};
+			CD_HISTTAPE1, CD_HISTTAPE2, CD_MEDIAINSERTED, CD_USEDMACHINE,CD_USEDEXTENSIONS,
+			CD_FULLSCREENWARN};
 			enum MediaBits {MB_DISKA=1, MB_DISKB=2, MB_CARTA=4, MB_CARTB=8, MB_TAPE1=16, MB_TAPE2=32};
 			bool SetParameter (int p_iId, wxVariant p_data);
 			bool HaveRequiredSettings ();
@@ -35,6 +36,7 @@ class ConfigurationData
 
 	private:
 			int m_mediaInserted;
+			int m_showFullScreenWarning;
 			ConfigurationData();
 			wxString m_openMSXSharePath;
 			wxString m_openMSXExecPath;

@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.5 2004/04/01 16:17:00 mthuurne Exp $
+# $Id: main.mk,v 1.6 2004/04/05 20:04:01 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -47,7 +47,8 @@ SOURCES:= \
 	AudioControlPage \
 	MiscControlPage \
 	openMSXController \
-	openMSXLinuxController
+	openMSXLinuxController \
+	FullScreenDlg
 
 OBJECTS_FULL:=$(addprefix $(OBJECTS_PATH)/, $(addsuffix .o,$(SOURCES)))
 
@@ -59,6 +60,7 @@ XRC_FULL:=$(addprefix $(XRC_PATH)/, \
 	videocontrols.xrc \
 	audiocontrols.xrc \
 	status.xrc \
+	fullscreen.xrc \
 	)
 
 BITMAPS:=$(addprefix $(BUILD_PATH)/,$(wildcard $(BITMAPS_PATH)/*.bmp))

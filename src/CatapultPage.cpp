@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.9 2004/04/10 21:24:05 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.10 2004/04/11 20:18:23 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting("diskb","DiskBContents",&CatapultPage::UpdateComboSetting,false);
 	AddSetting("tape1","Tape1Contents",&CatapultPage::UpdateComboSetting,false);
 	AddSetting("tape2","Tape2Contents",&CatapultPage::UpdateComboSetting,false);
-
+	AddSetting("fullscreen","FullScreenButton",&CatapultPage::UpdateToggleSetting,true);
 }
 
 void CatapultPage::AddSetting (wxString setting, wxString controlname,

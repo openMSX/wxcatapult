@@ -1,9 +1,14 @@
-$Id: ChangeLog,v 1.55 2004/04/17 13:15:40 manuelbi Exp $
+$Id: ChangeLog,v 1.56 2004/04/17 14:41:17 manuelbi Exp $
 
-2004-04-18 Manuel Bilderbeek <manuel@msxnet.org>
+2004-04-17 Manuel Bilderbeek <manuel@msxnet.org>
 	* added loads of tooltips to the wxg files and changed some texts
 	* in the mixer, the audio channels have also tooltips with their full
 	  name and type now
+
+2004-04-17 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed: openmsx fatal errors were sometimes repeated over and
+	   over again.
+	* Added: Full screen button (disabled in windows for now).
 
 2004-04-16 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Restructured the videocontrolpage.

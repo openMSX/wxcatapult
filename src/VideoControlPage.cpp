@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.11 2004/03/28 20:13:57 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.12 2004/04/04 19:47:15 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,6 +14,8 @@
 #include "StatusPage.h"
 #include "VideoControlPage.h"
 #include "wxCatapultFrm.h"
+#include "FullScreenDlg.h"
+#include "ConfigurationData.h"
 
 IMPLEMENT_CLASS(VideoControlPage, wxPanel)
 BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
@@ -25,6 +27,7 @@ BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_TEXT(XRCID("AccuracySelector"),VideoControlPage::OnChangeAccuracy)
 	EVT_TOGGLEBUTTON(XRCID("DeInterlaceButton"),VideoControlPage::OnDeInterlace)
 	EVT_TOGGLEBUTTON(XRCID("LimitSpriteButton"),VideoControlPage::OnLimitSprites)
+	EVT_TOGGLEBUTTON(XRCID("FullScreenButton"),VideoControlPage::OnFullScreen)
 	EVT_COMMAND_SCROLL(XRCID("BlurSlider"),VideoControlPage::OnChangeBlur)
 	EVT_COMMAND_SCROLL(XRCID("GlowSlider"), VideoControlPage::OnChangeGlow)
 	EVT_COMMAND_SCROLL(XRCID("GammaSlider"), VideoControlPage::OnChangeGamma)
@@ -53,6 +56,7 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_accuracyList = (wxComboBox*)FindWindow(_("AccuracySelector"));
 	m_deinterlaceButton = (wxToggleButton*)FindWindow(_("DeInterlaceButton"));
 	m_limitSpritesButton = (wxToggleButton*)FindWindow(_("LimitSpriteButton"));
+	m_fullscreenButton = (wxToggleButton*)FindWindow(_("FullScreenButton"));
 	m_blurSlider = (wxSlider*)FindWindow(_("BlurSlider"));
 	m_blurSlider->SetTickFreq(5,1);
 	m_glowSlider = (wxSlider*)FindWindow(_("GlowSlider"));
@@ -73,6 +77,11 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_defaultGlow = "";
 	m_defaultGamma = "";
 	m_defaultScanline = "";
+#ifdef __WINDOWS__
+	m_fullscreenButton->Show(false);
+	wxStaticText * text = (wxStaticText *)FindWindow(_("FullScreenLabel"));
+	text->Show(false);
+#endif
 }
 
 VideoControlPage::~VideoControlPage()
@@ -120,6 +129,42 @@ void VideoControlPage::OnLimitSprites(wxCommandEvent &event)
 	else
 	{
 		m_controller->WriteCommand ("set limitsprites off");
+		button->SetLabel("Off");
+	}
+}
+
+void VideoControlPage::OnFullScreen(wxCommandEvent &event)
+{
+	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
+	FullScreenDlg dlg;
+	dlg.Center();
+	ConfigurationData * config = ConfigurationData::instance();
+	int notwarn;
+	config->GetParameter(ConfigurationData::CD_FULLSCREENWARN,&notwarn);
+	bool doIt = false;
+	if (!notwarn){
+		if (dlg.ShowModal() == wxID_OK){
+			doIt = true;
+		}
+	}
+	else{
+		doIt = true;
+	}
+	
+	if (doIt){
+		if (button->GetValue())
+		{
+			m_controller->WriteCommand ("set fullscreen on");
+			button->SetLabel("On");
+		}
+		else
+		{
+			m_controller->WriteCommand ("set fullscreen off");
+			button->SetLabel("Off");
+		}
+	}
+	else{
+		button->SetValue(0);
 		button->SetLabel("Off");
 	}
 }
@@ -279,6 +324,7 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_accuracyList->Enable(true);
 	m_deinterlaceButton->Enable(true);
 	m_limitSpritesButton->Enable(true);
+	m_fullscreenButton->Enable(true);
 }
 
 void VideoControlPage::SetControlsOnEnd()
@@ -300,6 +346,7 @@ void VideoControlPage::SetControlsOnEnd()
 	m_accuracyList->Enable(false);
 	m_deinterlaceButton->Enable(false);
 	m_limitSpritesButton->Enable(false);
+	m_fullscreenButton->Enable(false);
 }
 
 void VideoControlPage::FillRenderers(wxString renderers)
