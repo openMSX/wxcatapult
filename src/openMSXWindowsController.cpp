@@ -1,4 +1,4 @@
-// $Id$
+// $Id: openMSXWindowsController.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,8 +19,8 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-	openMSXWindowsController::openMSXWindowsController(wxWindow * target)
-:openMSXController(target)
+openMSXWindowsController::openMSXWindowsController(wxWindow * target)
+	:openMSXController(target)
 {
 	m_launchCounter = 0;
 	m_connectThread = NULL;
@@ -31,6 +31,8 @@
 
 openMSXWindowsController::~openMSXWindowsController()
 {
+	if (m_openMsxRunning) 
+		WriteCommand(_("quit"));
 }
 
 bool openMSXWindowsController::HandleMessage(wxCommandEvent &event)
@@ -142,8 +144,9 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 
 	if (useNamedPipes)
 	{
-		if (m_connectThread == NULL)
+		if (m_connectThread == NULL){
 			m_launchCounter++;
+		}
 		wxString pipeName;
 		pipeName.sprintf ("\\\\.\\pipe\\Catapult-%u-%u", _getpid(), m_launchCounter);
 		parameter += _(" pipe:") + (pipeName.Mid(9));
@@ -159,8 +162,9 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 				wxMessageBox (text);
 			}
 		}
-		else
+		else{
 			m_namedPipeHandle = m_outputHandle;
+		}
 	}
 	else 
 		parameter += _(" stdio:");
@@ -265,7 +269,9 @@ void openMSXWindowsController::CloseHandles(bool useNamedPipes, HANDLE hThread,
 
 void openMSXWindowsController::HandlePipeCreated()
 {
-	m_appWindow->m_launch_AbortButton->Enable(true);
+	if (m_launchMode != LAUNCH_HIDDEN){
+		m_appWindow->m_launch_AbortButton->Enable(true);
+	}
 	m_pipeActive = false;
 	PostLaunch();
 }

@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.10 2004/02/08 16:05:05 h_oudejans Exp $
+$Id: ChangeLog,v 1.11 2004/02/12 18:51:12 h_oudejans Exp $
+
+2004-02-27 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* fixed a sync error when querying the settings
 
 2004-02-12 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* When RESOURCEDIR is defined, catapult will use this as the 

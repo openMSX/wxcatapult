@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.3 2004/02/08 16:05:05 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.4 2004/02/12 18:49:26 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -33,24 +33,23 @@ class openMSXController
 		virtual ~openMSXController();
 		bool m_openMsxRunning;
 	protected:
-
-		bool PostLaunch ();
-		bool PreLaunch();
-		CatapultXMLParser * m_parser;
-		wxCatapultFrame * m_appWindow;
-	private:
-		wxString m_infoCommand;
 		enum LaunchMode{
 			LAUNCH_NONE,
 			LAUNCH_HIDDEN,
 			LAUNCH_NORMAL
 		};
-		
+		bool PostLaunch ();
+		bool PreLaunch();
+		CatapultXMLParser * m_parser;
+		wxCatapultFrame * m_appWindow;
+		LaunchMode m_launchMode;
+	private:
+		unsigned int m_openMSXID;
+		wxString m_infoCommand;
 		wxString GetPendingCommand();
 		void HandleHiddenLaunchReply(wxCommandEvent &event);
 		void HandleNormalLaunchReply(wxCommandEvent &event);
-		list<wxString> m_commands;
-		LaunchMode m_launchMode;
+		list<wxString> m_commands;		
 };
 
 #endif // !defined(AFX_OPENMSXCONTROLLER_H__B093351A_1D73_4989_87F1_59EC5C871497__INCLUDED_)

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.5 2004/02/08 16:05:05 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.6 2004/02/12 18:48:16 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -26,6 +26,7 @@
 
 openMSXController::openMSXController(wxWindow * target)
 {
+	m_openMSXID = 0;
 	m_appWindow = (wxCatapultFrame *)target;
 	m_openMsxRunning = false;
 	m_launchMode = LAUNCH_NONE;
@@ -86,6 +87,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	if (!m_openMsxRunning) 
 		return;
 	delete m_parser;
+	m_commands.clear();
 	m_openMsxRunning = false;
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_appWindow->DisableControls();
@@ -96,7 +98,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 void openMSXController::HandleStdOut(wxCommandEvent &event)
 {
 	wxString * data = (wxString *)event.GetClientData();
-	m_parser->ParseXmlInput(*data);
+	m_parser->ParseXmlInput(*data,m_openMSXID);
 	delete data;
 }
 
@@ -117,6 +119,8 @@ void openMSXController::HandleStdErr(wxCommandEvent &event)
 void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 {
 	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
+	if (data->openMSXID != m_openMSXID)
+		return; // another instance is allready started, ignore this message
 	switch (data->parseState)
 	{
 		case CatapultXMLParser::TAG_UPDATE:
@@ -201,7 +205,7 @@ wxString openMSXController::GetPendingCommand()
 
 void openMSXController::StartOpenMSX(wxString cmd, bool hidden)
 {
-	
+	m_openMSXID++;
 	if (hidden){
 		m_launchMode = LAUNCH_HIDDEN;
 	}
@@ -214,7 +218,6 @@ void openMSXController::StartOpenMSX(wxString cmd, bool hidden)
 
 void openMSXController::HandleHiddenLaunchReply(wxCommandEvent &event)
 {
-	
 	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
 	if (data->replyState == CatapultXMLParser::REPLY_UNKNOWN){
 		wxMessageBox (_("Unable to determen openMSX capacities"));

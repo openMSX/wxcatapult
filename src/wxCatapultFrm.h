@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: wxCatapultFrm.h,v 1.3 2004/02/08 16:05:05 h_oudejans Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -36,7 +36,7 @@ class wxCatapultFrame : public wxFrame
 		StatusPage * m_statusPage;
 		VideoControlPage * m_videoControlPage;
 		MiscControlPage * m_miscControlPage;
-
+		
 		wxString m_lastDiskA;
 		wxString m_lastDiskB;
 		wxString m_lastTape1;
@@ -61,9 +61,6 @@ class wxCatapultFrame : public wxFrame
 
 		bool WriteMessage (wxString msg);
 
-		wxPanel * m_audioPanel;
-		wxArrayString m_audioChannels;
-		
 		DECLARE_CLASS(wxCatapultFrame)
 			// any class wishing to process wxWindows events must use this macro
 		DECLARE_EVENT_TABLE()

@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.5 2004/02/06 21:45:00 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.6 2004/02/07 07:21:49 mthuurne Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -140,7 +140,7 @@ void CatapultXMLParser::SendParsedData()
 	wxCommandEvent parseEvent(EVT_CONTROLLER);
 	ParseResult * result = new ParseResult;
 	result->contents = parseResult.contents;
-
+	result->openMSXID = parseResult.openMSXID;
 	// handle both new and depreciated messages
 	switch (parseResult.parseState)	{
 	case STATE_START:
@@ -181,8 +181,9 @@ void CatapultXMLParser::SendParsedData()
 	wxPostEvent (m_target, parseEvent);
 }
 
-void CatapultXMLParser::ParseXmlInput(wxString input)
+void CatapultXMLParser::ParseXmlInput(wxString input,unsigned int ID)
 {
+	parseResult.openMSXID = ID;
 	xmlParseChunk (context, input.c_str(), input.Len(),0);
 }
 

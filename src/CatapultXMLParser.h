@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.h,v 1.3 2004/02/05 20:02:35 h_oudejans Exp $
+// $Id: CatapultXMLParser.h,v 1.4 2004/02/05 20:28:35 m9710797 Exp $
 // CatapultXMLParser.h: interface for the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@
 class CatapultXMLParser  
 {
 	public:
-		void ParseXmlInput (wxString input);
+		void ParseXmlInput (wxString input, unsigned int ID);
 		CatapultXMLParser(wxWindow * target);
 		virtual ~CatapultXMLParser();
 
@@ -59,10 +59,11 @@ class CatapultXMLParser
 			UpdateType updateType;
 			wxString contents;
 			wxString name;
+			unsigned int openMSXID;
 		};
 
 	private:
-
+			unsigned int m_openMSXID;
 			static wxWindow * m_target;
 			static xmlSAXHandler handler;
 			static xmlParserCtxt * context;

@@ -1,4 +1,4 @@
-// $Id$
+// $Id: openMSXLinuxController.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -25,6 +25,8 @@
 
 openMSXLinuxController::~openMSXLinuxController()
 {
+	if (m_openMsxRunning) 
+		WriteCommand(_("quit"));
 }
 
 bool openMSXLinuxController::Launch(wxString cmdline)

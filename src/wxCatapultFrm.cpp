@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.4 2004/02/06 21:31:15 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.5 2004/02/08 16:05:05 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -109,12 +109,11 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 	m_statusPage = new StatusPage(m_tabControl);
 	m_miscControlPage = new MiscControlPage(m_tabControl,m_controller);
 	m_videoControlPage = new VideoControlPage(m_tabControl,m_controller);
-
+	
 	m_tabControl->AddPage(m_sessionPage,_("Session"),true);
 	m_tabControl->AddPage(m_statusPage,_("Status Info"),false);
 	m_tabControl->AddPage(m_miscControlPage,_("Misc Controls"),false);
 	m_tabControl->AddPage(m_videoControlPage,_("Video Controls"),false);
-
 	wxWindow * tempwindow = FindWindow(_("MainWindowPanel"));
 	wxSize size = tempwindow->GetSizer()->Fit(tempwindow);
 	this->GetSizer()->SetMinSize(size);
@@ -135,6 +134,7 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 // frame destructor
 wxCatapultFrame::~wxCatapultFrame()
 {
+	delete m_controller;
 	SaveHistory();
 	bool result;
 	result = ConfigurationData::instance()->SaveData();
@@ -243,7 +243,6 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 
 	m_controller->StartOpenMSX(cmd);
 	EnableControls();
-
 	m_statusPage->m_outputtext->Clear();
 }
 
