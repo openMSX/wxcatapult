@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.h,v 1.11 2004/04/12 19:28:08 h_oudejans Exp $
+// $Id: AudioControlPage.h,v 1.12 2004/06/06 18:25:42 h_oudejans Exp $
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -60,6 +60,10 @@ class AudioControlPage : public CatapultPage
 		wxString m_midiInFilename;
 		wxString m_midiOutFilename;
 		wxString m_sampleInFilename;
+
+		wxBitmapButton * m_browseMidiInButton;
+		wxBitmapButton * m_browseMidiOutButton;
+		wxBitmapButton * m_browseSampleInputButton;
 
 		DECLARE_CLASS(AudioControlPage)
 		// any class wishing to process wxWindows events must use this macro
