@@ -99,7 +99,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="BrowseDiskA" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/diskimage.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/diskimage.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -108,7 +108,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="ClearDiskA" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/eject.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/eject.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -145,7 +145,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="BrowseDiskB" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/diskimage.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/diskimage.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -154,7 +154,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="ClearDiskB" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/eject.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/eject.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -200,7 +200,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="BrowseCartA" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/romimage.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/romimage.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -209,7 +209,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="ClearCartA" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/eject.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/eject.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -246,7 +246,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="BrowseCartB" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/romimage.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/romimage.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -255,7 +255,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="ClearCartB" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/eject.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/eject.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -301,7 +301,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="BrowseNormalTape" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/tapeimage.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/tapeimage.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -310,7 +310,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="ClearNormalTape" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/eject.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/eject.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -347,7 +347,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="BrowseCasPatch" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/tapeimage.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/tapeimage.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>
@@ -356,7 +356,7 @@
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxBitmapButton" name="ClearCasPatch" base="EditBitmapButton">
-                                                <bitmap>../bitmaps/eject.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/eject.bmp</bitmap>
                                                 <size>23, 23</size>
                                             </object>
                                         </object>

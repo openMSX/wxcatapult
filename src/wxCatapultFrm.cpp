@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.12 2004/03/22 20:46:52 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.13 2004/03/23 16:31:19 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -62,8 +62,6 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Edit_Config, wxCatapultFrame::OnMenuEditConfig)
 	EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
 	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
-	EVT_BUTTON(XRCID("ApplyButton"),wxCatapultFrame::OnApplyChanges)
-	EVT_BUTTON(XRCID("QuitButton"),wxCatapultFrame::OnMenuQuit)
 	EVT_TIMER(FPS_TIMER, wxCatapultFrame::OnUpdateFPS)
 	EVT_TIMER(FOCUS_TIMER, wxCatapultFrame::OnCheckFocus)
 	EVT_NOTEBOOK_PAGE_CHANGED(XRCID("GlobalTabControl"), wxCatapultFrame::OnChangePage)
@@ -116,6 +114,13 @@ END_EVENT_TABLE()
 	SetStatusText(_("Ready"));
 
 	// Fill the membervariables with control pointer for easy access
+
+	m_powerLed = (wxStaticBitmap *)FindWindow(_("PowerLed"));
+	m_capsLed = (wxStaticBitmap *)FindWindow(_("CapsLockLed"));
+	m_kanaLed = (wxStaticBitmap *)FindWindow(_("KanaLed"));
+	m_pauseLed = (wxStaticBitmap *)FindWindow(_("PauseLed"));
+	m_turboLed = (wxStaticBitmap *)FindWindow(_("TurboLed"));
+	m_fddLed = (wxStaticBitmap *)FindWindow(_("FDDLed"));
 
 	m_tabControl = (wxNotebook *)FindWindow(_("GlobalTabControl"));
 	m_sessionPage = new SessionPage(m_tabControl,m_controller);
@@ -254,7 +259,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 void wxCatapultFrame::AddHistory(wxComboBox *media)
 {
 	// wxWindows 2.4 does not support insertion in a wxComboBox
-	// so this is gonna be replace as soon as 2.5 stable is
+	// so this is gonna be replace as soon as 2.5 is stable
 
 	wxArrayString items;
 	unsigned int pos = media->FindString(media->GetValue());
@@ -389,35 +394,6 @@ void wxCatapultFrame::DisableControls()
 	m_sessionPage->m_browseCartB->Enable(true);
 }
 
-void wxCatapultFrame::OnApplyChanges(wxCommandEvent &event)
-{
-//	if (m_lastDiskA != m_sessionPage->m_diskA->GetValue()){
-//		m_controller->WriteCommand(_("diska eject"));
-//		if (!m_sessionPage->m_diskA->GetValue().IsEmpty())
-//			m_controller->WriteCommand(_("diska ") + ConvertPath(m_sessionPage->m_diskA->GetValue(),true));
-//	}
-//	if (m_lastDiskB != m_sessionPage->m_diskB->GetValue()){
-//		m_controller->WriteCommand(_("diska eject"));
-//		if (!m_sessionPage->m_diskB->GetValue().IsEmpty())
-//			m_controller->WriteCommand(_("diskb ") + ConvertPath(m_sessionPage->m_diskB->GetValue(),true));
-//	}
-//	if (m_lastTape1 != m_sessionPage->m_tape1->GetValue()){
-//		m_controller->WriteCommand(_("cassetteplayer eject"));
-//		if (!m_sessionPage->m_tape1->GetValue().IsEmpty())
-//			m_controller->WriteCommand(_("cassetteplayer ") + ConvertPath(m_sessionPage->m_tape1->GetValue(),true));
-//	}
-//	if (m_lastTape2 != m_sessionPage->m_tape2->GetValue()){
-//		m_controller->WriteCommand(_("cas eject"));
-//		if (!m_sessionPage->m_tape2->GetValue().IsEmpty())
-//			m_controller->WriteCommand(_("cas ") + ConvertPath(m_sessionPage->m_tape2->GetValue(),true));
-//	}
-//	m_lastDiskA = m_sessionPage->m_diskA->GetValue();
-//	m_lastDiskB = m_sessionPage->m_diskB->GetValue();
-//	m_lastTape1 = m_sessionPage->m_tape1->GetValue();
-//	m_lastTape2 = m_sessionPage->m_tape2->GetValue();
-//	m_applyButton->Enable(false);
-}
-
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
 {
 	m_controller->HandleMessage(event);	
@@ -486,6 +462,21 @@ void wxCatapultFrame::OnDeselectCatapult(wxActivateEvent & event)
 		page->HandleFocusChange(m_currentFocus,NULL);
 	}
 	m_currentFocus = NULL;
+}
+
+void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
+{
+	wxString resourceDir = ((wxCatapultApp &)wxGetApp()).GetResourceDir();
+	wxStaticBitmap * led = NULL;
+	if (ledname == _("power")) led = m_powerLed;
+	if (ledname == _("caps")) led = m_capsLed;
+	if (ledname == _("kana")) led = m_kanaLed;
+	if (ledname == _("pause")) led = m_pauseLed;
+	if (ledname == _("turbo")) led = m_turboLed;
+	if (ledname == _("fdd")) led = m_fddLed;
+
+	if (ledstate == _("off")) led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
+	if (ledstate == _("on")) led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
 }
 
 

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.7 2004/03/21 13:50:14 manuelbi Exp $ 
+// $Id: wxCatapultFrm.h,v 1.8 2004/03/23 16:31:19 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -20,8 +20,6 @@ class wxCatapultFrame : public wxFrame
 {
 	public:
 		void OnControllerEvent (wxCommandEvent & event);
-		void OnApplyChanges (wxCommandEvent & event);
-
 		// ctor(s)
 		wxCatapultFrame(wxWindow * parent=(wxWindow *)NULL);
 		virtual ~wxCatapultFrame();
@@ -40,6 +38,7 @@ class wxCatapultFrame : public wxFrame
 		void OnChangePage(wxNotebookEvent & event);
 		void OnDeselectCatapult(wxActivateEvent & event);
 		void SetFPSdisplay(wxString val);
+		void UpdateLed(wxString ledname, wxString ledstate);
 		SessionPage * m_sessionPage;
 		StatusPage * m_statusPage;
 		VideoControlPage * m_videoControlPage;
@@ -50,6 +49,13 @@ class wxCatapultFrame : public wxFrame
 		wxNotebook * m_tabControl;
 		wxButton * m_launch_AbortButton;
 	private:
+		wxStaticBitmap * m_powerLed;
+		wxStaticBitmap * m_capsLed;
+		wxStaticBitmap * m_kanaLed;
+		wxStaticBitmap * m_pauseLed;
+		wxStaticBitmap * m_turboLed;
+		wxStaticBitmap * m_fddLed;
+		
 		CatapultXMLParser * m_parser;
 		
 		int m_InsertedMedia;

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.15 2004/03/22 17:31:43 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.16 2004/03/23 16:31:19 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -136,7 +136,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 		case CatapultXMLParser::TAG_UPDATE:
 			if (m_launchMode != LAUNCH_HIDDEN){
 				if (data->updateType == CatapultXMLParser::UPDATE_LED)
-					m_appWindow->m_statusPage->UpdateLed (data->name, data->contents);
+					m_appWindow->UpdateLed (data->name, data->contents);
 			}
 			break;
 		case CatapultXMLParser::TAG_REPLY:
