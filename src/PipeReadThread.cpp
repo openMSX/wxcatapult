@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.cpp,v 1.3 2004/04/01 08:31:48 h_oudejans Exp $
+// $Id: PipeReadThread.cpp,v 1.4 2004/04/12 13:33:10 h_oudejans Exp $
 // PipeReadThread.cpp: implementation of the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,11 +12,15 @@
 #include "wxCatapultApp.h"
 #include "PipeReadThread.h"
 
+#ifdef __UNIX__
+#include <unistd.h>
+#endif
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-	PipeReadThread::PipeReadThread(wxWindow * target, int id, wxThreadKind kind)
+PipeReadThread::PipeReadThread(wxWindow * target, int id, wxThreadKind kind)
 :wxThread(kind)
 {
 	m_target = target;
@@ -45,7 +49,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 		}
 	}while (bytesRead > 0);
 
-#else	
+#else
 
 	DWORD dwBytesRead;
 	BOOL bResult;
@@ -66,7 +70,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 		}
 	} while (bResult);
 	
-#endif	
+#endif
 	wxCommandEvent endEvent(EVT_CONTROLLER);
 	endEvent.SetId(MSGID_ENDPROCESS);
 	wxPostEvent (m_target, endEvent);
