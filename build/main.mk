@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.20 2004/05/24 17:04:16 h_oudejans Exp $
+# $Id: main.mk,v 1.21 2004/05/24 20:38:03 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -217,7 +217,7 @@ INSTALL_DOCS:=release-notes.txt release-history.txt
 CATAPULT_INSTALL?=$(INSTALL_BASE)
 
 ifeq ($(CATAPULT_PREBUILT),true)
-# TODO: Prebuilt is used only on win32, but using this not clean.
+# TODO: Prebuilt is used only on win32, but using this is not clean.
 BINARY_FILE:=Catapult.exe
 RESOURCES_PATH:=resources
 FILES_ONLY:=true
@@ -241,7 +241,8 @@ endif
 	@cp -f README GPL AUTHORS $(CATAPULT_INSTALL)/doc
 	@cp -f $(addprefix doc/,$(INSTALL_DOCS)) $(CATAPULT_INSTALL)/doc
 	@mkdir -p $(CATAPULT_INSTALL)/doc/manual
-	@cp -f $(addprefix doc/manual/,*.html *.css) $(CATAPULT_INSTALL)/doc/manual
+	@cp -f $(addprefix doc/manual/,*.html *.css *.png) \
+		$(CATAPULT_INSTALL)/doc/manual
 ifeq ($(CATAPULT_PREBUILT),false)
 	@echo "  Desktop hooks..."
 	@mkdir -p $(CATAPULT_INSTALL)/resources/icons
