@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.27 2004/09/11 15:09:08 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.28 2004/09/24 22:03:24 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -484,8 +484,9 @@ This device will then be removed from any other port(s).","Warning",wxOK | wxCAN
 void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent & event)
 {
 	wxString value;
-	value.sprintf ("%d",event.GetInt());
+	value.sprintf ("%ld",event.GetInt());
 	
 	
 	m_controller->WriteCommand(wxString ("set renshaturbo ") + value);
 }
+

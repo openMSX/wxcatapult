@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.54 2004/08/29 08:15:00 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.55 2004/09/24 22:03:24 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -218,10 +218,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 								m_appWindow->m_audioControlPage->InvalidSampleFilename();
 							}
 							else if (command == wxT("save_settings")){
-								wxString temp;
-								temp.sprintf ("Error saving openMSX settings\n%s",data->contents);								
-								wxMessageBox (temp);
-
+								wxMessageBox (wxString ("Error saving openMSX settings\n")+data->contents);
 							}
 							else {
 								m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
