@@ -1,7 +1,30 @@
-Release Notes for openMSX Catapult for openMSX 0.4.0 (2004-04-24)
+Release Notes for openMSX Catapult for openMSX 0.4.0 (2004-05-??)
 =================================================================
 
-[TODO: fill this in at release time!]
+This is the first official release, so everything is new. There have been some
+versions in the past, but we decided to ignore those in these notes. Unlike
+these old versions, openMSX Catapult is not only a front-end, but a
+full-fledged GUI for openMSX.
+
+Features:
+- Select machine and multiple extensions
+- Select media to put in the MSX (disk/tape/carts)
+- Disks and tapes can be changed when openMSX is running
+- Various controls to vary the openMSX speed (speed, max frameskip, throttle)
+- Ability to plug devices into the joystick ports (before and at run time)
+- openMSX render control (renderer, scalers, accuracy, blur, glow, gamma and
+  scanlines)
+- Complete audio mixer (consisting of all available sounddevices)
+- MIDI in/out pluggable support (for TurboR GT)
+- PCM Wave input selection (for TurboR)
+- openMSX errors and warnings display
+- MSX LEDs visualisation
+- Frame rate indicator
+- Full communication with openMSX (back and forth)
+
+Known issues / caveats:
+- comboboxes behave a bit strangely sometimes on non-Windows systems
+- far from complete
 
 openMSX Home Page:
   http://openmsx.sourceforge.net/
@@ -10,8 +33,10 @@ Project page on SourceForge:
 Contact options:
 - Send a message to the openmsx-user mailing list.
   Go to the SourceForge project page and look under "Lists".
-- Talk to us on #openmsx on irc.freenode.net.
+- Talk to us on #openMSX on irc.freenode.net.
 - Use the "Support" tab on the project page.
 
 Have fun with your emulated MSX!
                                         the openMSX developers
+
+$Id: $
