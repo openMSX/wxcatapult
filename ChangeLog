@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.53 2004/04/16 21:58:14 h_oudejans Exp $
+$Id: ChangeLog,v 1.54 2004/04/16 22:21:09 h_oudejans Exp $
+
+2004-04-18 Manuel Bilderbeek <manuel@msxnet.org>
+	* added loads of tooltips to the wxg files and changed some texts
 
 2004-04-16 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Restructured the videocontrolpage.
