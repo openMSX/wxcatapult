@@ -1,6 +1,12 @@
-openmsx-catapult (0.5.0R1-5) unstable; urgency=low
+openmsx-catapult (0.5.0R1-6) unstable; urgency=low
 
   * Close ITP. (Closes: #286949)
+  * fix W: openmsx-catapult: unquoted-string-in-menu-item /usr/lib/menu/openmsx-catapult needs:1
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Sun,  6 Feb 2005 13:34:17 +0100
+
+openmsx-catapult (0.5.0R1-5) unstable; urgency=low
+
   * change architecture to any
 
  -- Joost Yervante Damad <joost@lumatec.be>  Tue, 25 Jan 2005 19:05:02 +0100
