@@ -1,7 +1,4 @@
-- create a 'dist' target for the Makefile!
-- use alternative names for XRC library if it can't be found, or some other way
-  to make this more robust
-- add documentation, like a manual, if necessary (?)
+- extend probing system to be more compatible with other distros/OS's
 - define a release procedure and document it in the dummy release files in doc/
 - fix bugs?
 - add icon that is clearer?
