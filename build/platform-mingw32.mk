@@ -1,4 +1,4 @@
-# $Id: platform-mingw32.mk,v 1.1 2004/07/10 15:25:01 mthuurne Exp $
+# $Id: platform-mingw32.mk,v 1.1 2004/11/14 18:34:26 h_oudejans Exp $
 #
 # Configuration for MinGW on x86 machines.
 
@@ -9,7 +9,7 @@ USE_SYMLINK:=false
 EXEEXT:=.exe
 
 # The next lines are needed to determen the name of the XRC library from wx-config
-WX2XRC_DYNAMIC:=s/-lwx\\([^0-9]*\\)\\([0-9]\\)\\([0-9]\\)./& -lwx_\\1_xrc-\\2\\.\\3/
+WX2XRC_DYNAMIC:=s/-lwx\\([^0-9]*\\)\\([0-9]\\)\\([0-9]\\)./ -lwx_\\1_xrc-\\2\\.\\3 & /
 WX2XRC_STATIC:=s/\\(\\/[^ ]*\\/\\)libwx\\([^0-9]*\\)\\([0-9]\\)\\([0-9]\\).\\.a/ \\1libwx_\\2_xrc-\\3\\.\\4\\.a & /
 
 # Compiler flags.
