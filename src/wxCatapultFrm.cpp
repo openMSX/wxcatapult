@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.34 2004/08/26 15:06:14 m9710797 Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.35 2004/08/26 16:51:39 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -66,6 +66,7 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_ACTIVATE (wxCatapultFrame::OnDeselectCatapult)
 	EVT_MENU_OPEN(wxCatapultFrame::OnMenuOpen)
 	EVT_MENU_CLOSE(wxCatapultFrame::OnMenuClose)
+	EVT_MENU_HIGHLIGHT_ALL(wxCatapultFrame::OnMenuHighlight)
 END_EVENT_TABLE()
 
 	// include icon for any non-unix version
@@ -204,6 +205,15 @@ void wxCatapultFrame::OnMenuClose(wxMenuEvent &event)
 	SetStatusText(m_tempStatus,0);	
 }
 
+void wxCatapultFrame::OnMenuHighlight(wxMenuEvent &event)
+{
+	if (event.GetMenuId() != -1){
+		wxFrame::OnMenuHighlight(event);
+	}
+	else{
+		SetStatusText(m_tempStatus,0);	
+	}
+}
 
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
