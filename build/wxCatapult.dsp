@@ -37,8 +37,8 @@ RSC=rc.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "..\bin"
-# PROP Intermediate_Dir "..\bin\Release"
+# PROP Output_Dir "..\derived\bin"
+# PROP Intermediate_Dir "..\derived\bin\Release"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
@@ -51,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib wsock32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib zlib.lib regex.lib png.lib jpeg.lib tiff.lib wxmsw.lib wxxrcs.lib libxml2.lib winmm.lib shell32.lib /nologo /version:0.1 /subsystem:windows /machine:I386 /nodefaultlib:"wsock32.dll" /out:"..\bin/Catapult.exe" /libpath:"c:\windows\system32" /WARN:1
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib wsock32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib zlib.lib regex.lib png.lib jpeg.lib tiff.lib wxmsw.lib wxxrcs.lib libxml2.lib winmm.lib shell32.lib /nologo /version:0.1 /subsystem:windows /machine:I386 /nodefaultlib:"wsock32.dll" /out:"..\derived\bin\catapult.exe" /libpath:"c:\windows\system32" /WARN:1
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
@@ -63,8 +63,8 @@ LINK32=link.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "..\Bin"
-# PROP Intermediate_Dir "..\Bin\Debug"
+# PROP Output_Dir "..\derived\bin"
+# PROP Intermediate_Dir "..\derived\bin\Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
@@ -77,7 +77,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlibd.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib wxxrcds.lib libxml2.lib winmm.lib shell32.lib /nologo /subsystem:windows /incremental:no /debug /machine:I386 /out:"../Bin/Catapultd.exe" /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlibd.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib wxxrcds.lib libxml2.lib winmm.lib shell32.lib /nologo /subsystem:windows /incremental:no /debug /machine:I386 /out:"..\derived\bin\catapultd.exe" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -103,8 +103,8 @@ ProjDir=.
 InputPath=..\dialogs\audiocontrols.wxg
 InputName=audiocontrols
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -115,8 +115,8 @@ ProjDir=.
 InputPath=..\dialogs\audiocontrols.wxg
 InputName=audiocontrols
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -134,8 +134,8 @@ ProjDir=.
 InputPath=..\dialogs\catapult.wxg
 InputName=catapult
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -146,8 +146,8 @@ ProjDir=.
 InputPath=..\dialogs\catapult.wxg
 InputName=catapult
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -165,8 +165,8 @@ ProjDir=.
 InputPath=..\dialogs\config.wxg
 InputName=config
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -177,8 +177,8 @@ ProjDir=.
 InputPath=..\dialogs\config.wxg
 InputName=config
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -196,8 +196,8 @@ ProjDir=.
 InputPath=..\dialogs\fullscreen.wxg
 InputName=fullscreen
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -208,8 +208,8 @@ ProjDir=.
 InputPath=..\dialogs\fullscreen.wxg
 InputName=fullscreen
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -227,8 +227,8 @@ ProjDir=.
 InputPath=..\dialogs\misccontrols.wxg
 InputName=misccontrols
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -239,8 +239,8 @@ ProjDir=.
 InputPath=..\dialogs\misccontrols.wxg
 InputName=misccontrols
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -258,8 +258,8 @@ ProjDir=.
 InputPath=..\dialogs\session.wxg
 InputName=session
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -270,8 +270,8 @@ ProjDir=.
 InputPath=..\dialogs\session.wxg
 InputName=session
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -289,8 +289,8 @@ ProjDir=.
 InputPath=..\dialogs\status.wxg
 InputName=status
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -301,8 +301,8 @@ ProjDir=.
 InputPath=..\dialogs\status.wxg
 InputName=status
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -320,8 +320,8 @@ ProjDir=.
 InputPath=..\dialogs\videocontrols.wxg
 InputName=videocontrols
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -332,8 +332,8 @@ ProjDir=.
 InputPath=..\dialogs\videocontrols.wxg
 InputName=videocontrols
 
-"$(ProjDir)\..\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\resources\dialogs\$(InputName).xrc
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
 
 # End Custom Build
 
@@ -380,6 +380,196 @@ InputPath=.\version.mk
 	sed -ne "s/RELEASE_FLAG:= *\([^ ]*\).*/const bool Version::RELEASE = \1;/p" $(InputDir)/version.mk >> $(InputDir)\..\derived\config\version.ii 
 	sed -ne "s/PACKAGE_VERSION:= *\([^ ]*\).*/const wxString Version::VERSION =  \"\1\";/p" $(InputDir)\version.mk >> $(InputDir)\..\derived\config\version.ii 
 	
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# End Group
+# Begin Group "Bitmaps"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\resources\bitmaps\diskimage.bmp
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Copying Bitmap $(InputPath)
+ProjDir=.
+InputPath=..\resources\bitmaps\diskimage.bmp
+InputName=diskimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build
+ProjDir=.
+InputPath=..\resources\bitmaps\diskimage.bmp
+InputName=diskimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\resources\bitmaps\eject.bmp
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Copying Bitmap $(InputPath)
+ProjDir=.
+InputPath=..\resources\bitmaps\eject.bmp
+InputName=eject
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build
+ProjDir=.
+InputPath=..\resources\bitmaps\eject.bmp
+InputName=eject
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\resources\bitmaps\ledoff.bmp
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Copying Bitmap $(InputPath)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledoff.bmp
+InputName=ledoff
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build
+ProjDir=.
+InputPath=..\resources\bitmaps\ledoff.bmp
+InputName=ledoff
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\resources\bitmaps\ledon.bmp
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Copying Bitmap $(InputPath)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledon.bmp
+InputName=ledon
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build
+ProjDir=.
+InputPath=..\resources\bitmaps\ledon.bmp
+InputName=ledon
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\resources\bitmaps\romimage.bmp
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Copying Bitmap $(InputPath)
+ProjDir=.
+InputPath=..\resources\bitmaps\romimage.bmp
+InputName=romimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build
+ProjDir=.
+InputPath=..\resources\bitmaps\romimage.bmp
+InputName=romimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\resources\bitmaps\tapeimage.bmp
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Copying Bitmap $(InputPath)
+ProjDir=.
+InputPath=..\resources\bitmaps\tapeimage.bmp
+InputName=tapeimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build
+ProjDir=.
+InputPath=..\resources\bitmaps\tapeimage.bmp
+InputName=tapeimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
+
 # End Custom Build
 
 !ENDIF 
