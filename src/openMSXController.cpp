@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.3 2004/02/05 20:02:35 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -116,6 +116,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
 				break;
 			case CatapultXMLParser::LOG_INFO:
+			case CatapultXMLParser::LOG_UNKNOWN:
 				m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(0,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
 				break;
 			}	

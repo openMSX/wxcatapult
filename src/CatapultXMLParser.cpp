@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.4 2004/02/05 20:28:35 m9710797 Exp $
+// $Id: CatapultXMLParser.cpp,v 1.5 2004/02/06 21:45:00 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,6 +10,8 @@
 #endif
 #include "wxCatapultApp.h"
 #include "CatapultXMLParser.h"
+
+#include <cassert>
 
 CatapultXMLParser::ParseResult CatapultXMLParser::parseResult;
 xmlSAXHandler CatapultXMLParser::handler;
@@ -94,7 +96,10 @@ void CatapultXMLParser::cb_end_element (CatapultXMLParser * parser,  const xmlCh
 		return;
 	}
 	switch (parser->parseResult.parseState) {
-		case TAG_OPENMSX:		
+		case STATE_START:
+			assert(false);
+			break;
+		case TAG_OPENMSX:
 			parser->parseResult.parseState = STATE_START;
 			break;
 		case TAG_INFO:
@@ -138,6 +143,10 @@ void CatapultXMLParser::SendParsedData()
 
 	// handle both new and depreciated messages
 	switch (parseResult.parseState)	{
+	case STATE_START:
+	case TAG_OPENMSX:
+		assert(false);
+		break;
 	case TAG_INFO:
 	case TAG_WARNING:
 	case TAG_LOG:

@@ -1,4 +1,4 @@
-// $Id$
+// $Id: MiscControlPage.cpp,v 1.2 2004/02/04 22:01:04 manuelbi Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -95,12 +95,11 @@ void MiscControlPage::OnFirmware(wxCommandEvent &event)
 
 void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
 {
-	wxEventType eventType = event.GetEventType();
 	wxString speedText;
-	speedText.sprintf ("%d", event.GetInt());
+	speedText.sprintf("%ld", event.GetInt());
 	m_speedIndicator->SetValue(speedText);
 #ifdef __WINDOWS__	
-	if (eventType != wxEVT_SCROLL_THUMBTRACK)
+	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
 #endif
 	{
 		m_controller->WriteCommand (wxString(_("set speed ")) + speedText);
@@ -132,12 +131,11 @@ void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
 
 void MiscControlPage::OnFrameSkipChange(wxScrollEvent &event)
 {
-	wxEventType eventType = event.GetEventType();
 	wxString skipText;
-	skipText.sprintf ("%d", event.GetInt());
+	skipText.sprintf("%ld", event.GetInt());
 	m_frameSkipIndicator->SetValue(skipText);
 #ifdef __WINDOWS__	
-	if (eventType != wxEVT_SCROLL_THUMBTRACK)
+	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
 #endif
 	{
 		m_controller->WriteCommand (wxString(_("set frameskip ")) + skipText);

@@ -1,4 +1,4 @@
-// $Id$
+// $Id: VideoControlPage.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -118,12 +118,11 @@ void VideoControlPage::OnLimitSprites(wxCommandEvent &event)
 
 void VideoControlPage::OnChangeBlur(wxScrollEvent &event)
 {
-	wxEventType eventType = event.GetEventType();
 	wxString text;
-	text.sprintf ("%u", event.GetInt());
+	text.sprintf("%ld", event.GetInt());
 	m_blurIndicator->SetValue(text);
 #ifdef __WINDOWS__	
-	if (eventType != wxEVT_SCROLL_THUMBTRACK)
+	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
 #endif
 	{
 		m_controller->WriteCommand (wxString(_("set blur ")) + text);
@@ -132,13 +131,12 @@ void VideoControlPage::OnChangeBlur(wxScrollEvent &event)
 
 void VideoControlPage::OnChangeGlow(wxScrollEvent &event)
 {
-	wxEventType eventType = event.GetEventType();
 	wxString text;
-	text.sprintf ("%u", event.GetInt());
+	text.sprintf("%ld", event.GetInt());
 	m_glowIndicator->SetValue(text);
 
 #ifdef __WINDOWS__
-	if (eventType != wxEVT_SCROLL_THUMBTRACK)
+	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
 #endif
 	{
 		m_controller->WriteCommand (wxString(_("set glow ")) + text);
@@ -147,12 +145,11 @@ void VideoControlPage::OnChangeGlow(wxScrollEvent &event)
 
 void VideoControlPage::OnChangeGamma(wxScrollEvent &event)
 {
-	wxEventType eventType = event.GetEventType();
 	wxString text;
-	text.sprintf ("%u.%02u", event.GetInt()/100,event.GetInt() % 100);
+	text.sprintf("%ld.%02ld", event.GetInt() / 100, event.GetInt() % 100);
 	m_gammaIndicator->SetValue(text);
 #ifdef __WINDOWS__
-	if (eventType != wxEVT_SCROLL_THUMBTRACK)
+	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
 #endif
 	{
 		m_controller->WriteCommand (wxString(_("set gamma ")) + text);
@@ -161,12 +158,11 @@ void VideoControlPage::OnChangeGamma(wxScrollEvent &event)
 
 void VideoControlPage::OnChangeScanlines(wxScrollEvent &event)
 {
-	wxEventType eventType = event.GetEventType();
 	wxString text;
-	text.sprintf ("%u", event.GetInt());
+	text.sprintf("%ld", event.GetInt());
 	m_scanlineIndicator->SetValue(text);
 #ifdef __WINDOWS__	
-	if (eventType != wxEVT_SCROLL_THUMBTRACK)
+	if (event.GetEventType() != wxEVT_SCROLL_THUMBTRACK)
 #endif
 	{
 		m_controller->WriteCommand (wxString(_("set scanline ")) + text);
