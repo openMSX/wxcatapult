@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.7 2004/04/17 15:49:54 h_oudejans Exp $
+# $Id: main.mk,v 1.8 2004/05/08 20:50:44 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -189,14 +189,23 @@ install: all
 DIST_BASE:=$(BUILD_BASE)/dist
 DIST_PATH:=$(DIST_BASE)/$(PACKAGE_FULL)
 
+DIST_FULL:= \
+	GNUmakefile ChangeLog AUTHORS GPL README
+DIST_FULL+=$(addprefix $(SOURCES_PATH)/, \
+	*.h *.cpp *.rc *.ico *.xpm \
+	)
+DIST_FULL+=$(addprefix $(MAKE_PATH)/, \
+	*.mk *.sed *.dsp *.dsw \
+	)
+DIST_FULL+=$(DIALOGS_PATH)/*.wxg
+DIST_FULL+=$(BITMAPS_PATH)/*.bmp
+
 dist: $(DETECTSYS_SCRIPT)
 	@echo "Removing any old distribution files..."
 	@rm -rf $(DIST_PATH)
 	@echo "Gathering files for distribution..."
 	@mkdir -p $(DIST_PATH)
-	@cp -pr --parents $(DIST_FULL) $(DIST_PATH)
-	@cp -p --parents $(HEADERS_FULL) $(DIST_PATH)
-	@cp -p --parents $(SOURCES_FULL) $(DIST_PATH)
+	@cp -p --parents $(DIST_FULL) $(DIST_PATH)
 	@echo "Creating tarball..."
 	@cd $(DIST_BASE) ; GZIP=--best tar zcf $(PACKAGE_FULL).tar.gz $(PACKAGE_FULL)
 
