@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: openMSXController.h,v 1.3 2004/02/08 16:05:05 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,6 +19,7 @@ class CatapultXMLParser;
 class openMSXController  
 {
 	public:
+		wxString FilterCurrentValue(wxString);
 		void StartOpenMSX (wxString cmd, bool hidden=false);
 		bool WriteCommand(wxString msg);
 		void HandleParsedOutput (wxCommandEvent &event);
