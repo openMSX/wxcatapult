@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.65 2004/10/08 15:25:28 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.66 2004/10/10 11:48:30 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -168,13 +168,17 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA) {
 				wxString lastcmd = PeekPendingCommand();
+				bool eject = false;
+				int space = lastcmd.Find(' ',false);
+				if ((space != -1) && (space != (int)lastcmd.Len()-1)){
+					eject = true;
+				}
 				if ((lastcmd.Mid(0,data->name.Len()+1) != wxString(data->name + wxT(" "))) || 
-					(lastcmd.Find(' ',true) == (int)data->name.Len())) {
+					(!eject && (lastcmd.Mid(space+1) != (wxString ("\"") + data->contents + wxString("\""))))){
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
 						m_appWindow->m_sessionPage->UpdateSessionData();
 				}
 			}
-
 			break;
 		case CatapultXMLParser::TAG_REPLY:
 			switch (data->replyState) {			
