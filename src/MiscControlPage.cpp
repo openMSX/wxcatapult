@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.12 2004/04/11 20:18:23 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.13 2004/04/12 09:03:25 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -417,8 +417,9 @@ void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
 
 void MiscControlPage::OnJoystickChanged()
 {
+	static bool MessageActive = false;
 	wxComboBox * box = (wxComboBox *)FindFocus();
-	if (box == NULL){
+	if ((box == NULL) || MessageActive){
 		return;
 	}
 	wxComboBox * box2 = NULL;
@@ -449,9 +450,11 @@ void MiscControlPage::OnJoystickChanged()
 	}
 
 	if ((box->GetValue() != ("--empty--")) && (box->GetValue() == box2->GetValue())){
+		MessageActive = true;
 		int result = wxMessageBox ("Unable to plug a device in more than one port\n\n\
 Do you still want to plug it into this port?\n\
 This device will be removed from any other port(s)","Warning",wxOK | wxCANCEL);
+		MessageActive = false;
 		if (result == wxOK){
 			box2->SetSelection(0);
 			*oldValue2 = _("--empty--");
