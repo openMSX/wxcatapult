@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.78 2004/08/29 08:14:59 manuelbi Exp $
+$Id: ChangeLog,v 1.79 2004/09/11 15:08:55 h_oudejans Exp $
+
+2004-09-24 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed some sizers in the video and misc pages
+	* Added rensha turbo support
+	* Added Load/Save/Save As OpenMSX settings.
 
 2004-09-11 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Changed the Misc Controls page layout
