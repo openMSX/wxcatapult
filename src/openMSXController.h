@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.4 2004/02/12 18:49:26 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.5 2004/02/27 18:40:02 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -49,6 +49,7 @@ class openMSXController
 		wxString GetPendingCommand();
 		void HandleHiddenLaunchReply(wxCommandEvent &event);
 		void HandleNormalLaunchReply(wxCommandEvent &event);
+		wxString GetInfoCommand (wxString parameter); 
 		list<wxString> m_commands;		
 };
 

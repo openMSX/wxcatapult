@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.6 2004/02/12 18:48:16 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.7 2004/02/27 18:40:02 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ bool openMSXController::PostLaunch()
 		WriteCommand (_("openmsx_info"));
 		break;
 	case LAUNCH_NORMAL:
-		WriteCommand (m_infoCommand + _(" renderer"));
+		WriteCommand (GetInfoCommand(_("renderer")));
 		break;
 	default:
 		assert (false);
@@ -229,6 +229,9 @@ void openMSXController::HandleHiddenLaunchReply(wxCommandEvent &event)
 		switch (data->replyState){
 		case CatapultXMLParser::REPLY_OK:
 			m_infoCommand = _("openmsx_info");
+			if (data->contents.Find("\n") == -1){
+				m_infoCommand = _("openmsx_info_tcl");	
+			}
 			WriteCommand(_("quit"));
 			break;
 		case CatapultXMLParser::REPLY_NOK:
@@ -263,11 +266,11 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 {
 	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
 	wxString command = GetPendingCommand();
-	if (command == (m_infoCommand + _(" renderer"))){
-		WriteCommand (m_infoCommand + _(" scaler"));
+	if (command == GetInfoCommand(_("renderer"))){
+		WriteCommand (GetInfoCommand(_("scaler")));
 		m_appWindow->m_videoControlPage->FillRenderers(data->contents);		
 	}
-	else if (command == (m_infoCommand + _(" scaler"))){
+	else if (command == GetInfoCommand(_("scaler"))){
 		WriteCommand (_("set power on"));
 		m_appWindow->m_videoControlPage->FillScalers(data->contents);		
 	}
@@ -347,4 +350,17 @@ wxString openMSXController::FilterCurrentValue(wxString value)
 		}
 	}
 	return value; // can't find it, just return the input
+}
+
+wxString openMSXController::GetInfoCommand (wxString parameter)
+{
+	wxString infoCommand;
+	wxString tempCmd = m_infoCommand;
+	wxString endCmd = "";
+	if (m_infoCommand == _("openmsx_info_tcl")){
+		tempCmd = _("join [openmsx_info");
+		endCmd = _("] \\n");
+	}
+	infoCommand = tempCmd + _(" ") + parameter + endCmd;
+	return wxString (infoCommand);
 }
