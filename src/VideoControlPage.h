@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.14 2004/10/02 17:18:42 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.15 2004/10/02 20:50:46 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -68,6 +68,7 @@ class VideoControlPage : public CatapultPage
 		wxComboBox * m_rendererList;
 		wxComboBox * m_scalerList;
 		
+		wxBitmapButton * m_browseScreenshotButton;
 		wxButton * m_defaultGammaButton;
 		wxButton * m_defaultBlurButton;
 		wxButton * m_defaultGlowButton;

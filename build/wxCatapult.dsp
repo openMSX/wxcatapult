@@ -519,6 +519,39 @@ InputName=eject
 # End Source File
 # Begin Source File
 
+SOURCE=..\resources\bitmaps\file.bmp
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\file.bmp
+InputName=file
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\file.bmp
+InputName=file
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\resources\bitmaps\ledoff.bmp
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.30 2004/10/03 17:02:12 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.31 2004/10/03 20:08:26 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -72,6 +72,9 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_maxFrameSkipSlider = (wxSlider *)FindWindow(wxT("MaxFrameSkipSlider"));
 	m_minFrameSkipSlider = (wxSlider *)FindWindow(wxT("MinFrameSkipSlider"));
 	m_renshaTurboSlider = (wxSlider *)FindWindow(wxT("RenshaTurboSlider"));
+	m_browsePrinterLog = (wxBitmapButton*) FindWindow(wxT("BrowsePrinterLog"));
+	m_printerLogFile = (wxTextCtrl *)FindWindow(wxT("PrinterLogFile"));
+	m_printerportSelector = (wxComboBox*)FindWindow(wxT("PrinterportSelector"));
 
 	m_defaultMaxFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMaxFrameSkipButton"));
 	m_defaultMinFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMinFrameSkipButton"));
@@ -82,6 +85,11 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_renshaTurboSlider->SetTickFreq (5,1);
 	m_oldSpeed="";
 
+	wxBitmap & tempBmp = m_browsePrinterLog->GetBitmapLabel();
+	tempBmp.SetMask(new wxMask(tempBmp,wxColour(255,0,255)));
+	m_browsePrinterLog->Enable(false);
+	m_browsePrinterLog->Enable(true);
+	
 // temporary hardcoded joystick port devices (not for BSD)
 	wxString current;
 	int pos;
@@ -542,22 +550,20 @@ void MiscControlPage::OnChangePrinterPort(wxCommandEvent & event)
 
 void MiscControlPage::OnPrinterportChanged(bool save)
 {
-	wxTextCtrl * text = (wxTextCtrl *)FindWindow (wxT("PrinterLogFile"));
-	wxButton * button = (wxButton *)FindWindow (wxT("BrowsePrinterLog"));
-	wxComboBox * prt = (wxComboBox *)FindWindow (wxT("PrinterportSelector"));
-	wxString current = prt->GetValue();
+	wxString current = m_printerportSelector->GetValue();
 	if (current == "logger"){
-		text->Enable(true);
-		button->Enable(true);
+		m_printerLogFile->Enable(true);
+		m_browsePrinterLog->Enable(true);
 	}
 	else{
-		text->Enable(false);
-		button->Enable(false);
+		m_printerLogFile->Enable(false);
+		m_browsePrinterLog->Enable(false);
 	}
 	if (save){
 		ConfigurationData::instance()->SetParameter(ConfigurationData::CD_PRINTERPORT,current);
 		ConfigurationData::instance()->SaveData();
 	}
+	m_controller->WriteCommand("unplug printerport");
 	m_controller->WriteCommand(wxString("plug printerport ") + current);	
 }
 
@@ -580,7 +586,6 @@ void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent &event)
 
 	wxFileDialog filedlg(this,_("Choose file to save printer log to"), "", wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK){
-		wxTextCtrl * text = (wxTextCtrl *)FindWindow("PrinterLogFile");
-		text->SetValue(filedlg.GetPath());
+		m_printerLogFile->SetValue(filedlg.GetPath());
 	}
 }

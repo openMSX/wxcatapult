@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.19 2004/09/24 22:03:24 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.20 2004/10/03 20:08:26 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -58,11 +58,14 @@ class MiscControlPage : public CatapultPage
 		void InitJoystickPort (wxString connector, wxString control, wxString connectorClass);
 
 		openMSXController * m_controller;
+		wxBitmapButton * m_browsePrinterLog;
+				
 		wxButton * m_resetButton;
 		wxButton * m_speedNormalButton;
 		wxToggleButton * m_speedMaxButton;
 		wxButton * m_defaultMinFrameSkipButton;
 		wxButton * m_defaultMaxFrameSkipButton;
+		
 
 		wxToggleButton * m_pauseButton;
 		wxToggleButton * m_firmwareButton;
@@ -73,10 +76,12 @@ class MiscControlPage : public CatapultPage
 		wxTextCtrl * m_speedIndicator;
 		wxTextCtrl * m_minFrameSkipIndicator;
 		wxTextCtrl * m_maxFrameSkipIndicator;
+		wxTextCtrl * m_printerLogFile;
 		wxString m_oldJoy1;
 		wxString m_oldJoy2;
 		wxString m_oldSpeed;
 		wxComboBox * m_lastUpdatedCombo;
+		wxComboBox * m_printerportSelector;
 
 #ifdef __UNIX__		
 		wxTimer m_joystick_update_timer; // bad solution for a worse bug in (wx?)gtk

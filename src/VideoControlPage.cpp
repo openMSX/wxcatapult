@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.22 2004/10/02 17:18:42 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.23 2004/10/02 20:50:45 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -84,10 +84,17 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_screenShotFile = (wxTextCtrl*)FindWindow(wxT("ScreenShotFilename"));
 	m_screenShotCounter = (wxTextCtrl*)FindWindow(wxT("ScreenShotCounter"));
 	m_screenShotButton = (wxButton*)FindWindow(wxT("ScreenShotButton"));
+	m_browseScreenshotButton = (wxBitmapButton *)FindWindow(wxT("BrowseScreenShotButton"));
 	m_defaultBlur = "";
 	m_defaultGlow = "";
 	m_defaultGamma = "";
 	m_defaultScanline = "";
+	
+	wxBitmap & tempBmp = m_browseScreenshotButton->GetBitmapLabel();
+	tempBmp.SetMask(new wxMask(tempBmp,wxColour(255,0,255)));
+	m_browseScreenshotButton->Enable(false);
+	m_browseScreenshotButton->Enable(true);
+
 }
 
 VideoControlPage::~VideoControlPage()
