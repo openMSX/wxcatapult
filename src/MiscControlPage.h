@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.10 2004/04/11 10:46:14 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.11 2004/04/11 20:18:23 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -43,7 +43,8 @@ class MiscControlPage : public CatapultPage
 		void SetFrameskip (wxString value);
 		void SetThrottle (wxString value);
 		void SetCmdTiming (wxString value);		
-		void EnableAutoFrameSkip();
+		void EnableAutoFrameSkip(bool enableButton = true);
+		void DisableAutoFrameSkip();
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus){};
 		void InitConnectorPanel ();
 		wxToggleButton * m_powerButton;

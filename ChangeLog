@@ -1,9 +1,14 @@
-$Id: ChangeLog,v 1.50 2004/04/12 19:28:07 h_oudejans Exp $
+$Id: ChangeLog,v 1.51 2004/04/15 16:03:51 h_oudejans Exp $
 
 2004-04-15 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* fixed gtk segfault when catapult closes and openmsx still runs
 	* fixed gtk segfault when mouse is being hold while selecting the
 	   same joystickdevice in both joystick ports
+	* Openmsx executable and share path are now saved when
+	   closing the configuration dialog with Ok.
+	* Auto Frame Skip is now hidden if not used
+	* When (un)plugging devices, the mixer is only re-initiated if
+	   the number of sounddevices has changed.
 
 2004-04-12 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* fixed gtk segfault when starting openmsx.

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.13 2004/04/12 09:03:25 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.14 2004/04/15 16:03:51 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -66,6 +66,7 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 
 	m_frameSkipZeroButton = (wxButton *)FindWindow (_("ZeroFrameSkipButton"));
 	m_frameSkipAutoButton = (wxToggleButton *)FindWindow (_("AutoFrameSkipButton"));
+	m_frameSkipAutoButton->Show(false);
 	m_throttleButton = (wxToggleButton *)FindWindow (_("ThrottleButton"));
 	m_cmdTimingButton = (wxToggleButton *)FindWindow (_("CmdTimingButton"));
 
@@ -348,12 +349,23 @@ void MiscControlPage::SetCmdTiming (wxString value)
 	}
 }
 
-void MiscControlPage::EnableAutoFrameSkip()
+void MiscControlPage::EnableAutoFrameSkip(bool enableButton)
 {
-	m_frameSkipAutoButton->Enable(true);
+	m_frameSkipAutoButton->Show(true);
+	m_frameSkipAutoButton->Enable(enableButton);
 	m_frameSkipAutoButton->SetValue(false);
 	m_autoFrameSkipEnabled = true;
 	m_frameSkipSetting = "frameskip";
+
+}
+
+void MiscControlPage::DisableAutoFrameSkip()
+{
+	m_frameSkipAutoButton->Show(false);
+	m_frameSkipAutoButton->Enable(false);
+	m_frameSkipAutoButton->SetValue(false);
+	m_autoFrameSkipEnabled = false;
+	m_frameSkipSetting = "maxframeskip";
 
 }
 
