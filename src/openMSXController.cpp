@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.22 2004/03/28 20:13:57 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.23 2004/03/31 14:49:51 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -74,7 +74,6 @@ bool openMSXController::PostLaunch()
 	switch (m_launchMode){
 		case LAUNCH_NORMAL:
 			WriteCommand (GetInfoCommand(_("renderer")));
-			m_appWindow->SetStatusText("Running emulator");
 			break;
 		default:
 			assert (false);
@@ -262,9 +261,11 @@ void openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 		m_appWindow->SetStatusText("Initializing...");
 		wxString versioninfo = GetOpenMSXVersionInfo(cmd);
 		SetupOpenMSXParameters(versioninfo);
+		m_appWindow->SetStatusText("Ready");
 	}
 	else {
 		m_launchMode = LAUNCH_NORMAL;
+		m_appWindow->SetStatusText("Running emulator");
 		Launch(cmd);
 	}
 }
@@ -575,11 +576,11 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 		}
 	}
 	if (ver == -1){
-		wxMessageBox ("Unable to determen openMSX version\nplease upgrade to 0.3.4 or higher","Error");
+		wxMessageBox ("Unable to determine openMSX version!\nPlease upgrade to 0.3.4 or higher.","Error");
 		return false;	
 	}
 	if (ver < 304){
-		wxMessageBox ("The openMSX version you are using is to old\nplease upgrade to 0.3.4 or higher","Error");
+		wxMessageBox ("The openMSX version you are using is too old!\nPlease upgrade to 0.3.4 or higher.","Error");
 		return false;
 	}
 	if (version.Find(_("CVS")) != -1){

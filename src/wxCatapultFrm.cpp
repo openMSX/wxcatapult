@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.16 2004/03/28 15:11:51 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.17 2004/03/31 14:49:51 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -111,7 +111,6 @@ END_EVENT_TABLE()
 	SetMenuBar(menuBar);
 
 	CreateStatusBar(2);
-	SetStatusText(_("Ready"));
 
 	// Fill the membervariables with control pointer for easy access
 
