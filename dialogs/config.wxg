@@ -114,7 +114,7 @@
                         <border>5</border>
                         <option>0</option>
                         <object class="wxButton" name="ConfigOk" base="EditButton">
-                            <label>Ok</label>
+                            <label>OK</label>
                         </object>
                     </object>
                     <object class="sizeritem">

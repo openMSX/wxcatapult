@@ -44,7 +44,7 @@
                         <border>3</border>
                         <option>0</option>
                         <object class="wxButton" name="OkButton" base="EditButton">
-                            <label>Ok</label>
+                            <label>OK</label>
                         </object>
                     </object>
                     <object class="sizeritem">
