@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.24 2004/10/06 19:28:23 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.25 2004/10/08 15:26:03 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -218,7 +218,7 @@ bool CatapultPage::UpdateMenuSetting (wxString setting, wxString data, wxString 
 	long savedvalue = 0;
 	wxFrame * appwnd = (wxFrame *)GetParent()->GetGrandParent();
 	int menusetting = appwnd->GetMenuBar()->FindMenuItem("&Settings","Save openMSX Settings On &Exit");
-	if (menusetting != NULL) {
+	if (menusetting != wxNOT_FOUND) {
 		if ((data == "on") || (data == "true") || (data == "1") || (data== "yes")) {
 			sendvalue = true;
 			savedvalue = 1;
