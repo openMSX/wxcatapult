@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.4 2004/03/21 13:50:14 manuelbi Exp $
+// $Id: MiscControlPage.h,v 1.5 2004/03/23 16:31:19 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -11,7 +11,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include <wx/tglbtn.h>
 #include <wx/slider.h>
 
 class wxCatapultFrame;

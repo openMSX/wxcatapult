@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.4 2004/02/06 21:28:53 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.5 2004/03/23 16:31:19 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -43,6 +43,7 @@ END_EVENT_TABLE()
 	//////////////////////////////////////////////////////////////////////
 
 SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
+:CatapultPage(parent)
 {
 	m_controller = controller;
 	wxXmlResource::Get()->LoadPanel(this, parent, _("SessionPage"));

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.4 2004/02/08 16:05:05 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.5 2004/03/21 13:50:14 manuelbi Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -38,6 +38,7 @@ END_EVENT_TABLE()
 	//////////////////////////////////////////////////////////////////////
 
 MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controller)
+:CatapultPage(parent)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, _("MiscControlPage"));
 	m_controller = controller;
@@ -267,6 +268,9 @@ void MiscControlPage::OnInputFrameskip(wxCommandEvent &event)
 		{
 			m_controller->WriteCommand (wxString(_("set frameskip ")) + text);
 			m_frameSkipSlider->SetValue(num);
+			m_frameSkipIndicator->Enable();
+			m_frameSkipSlider->Enable();
+			m_frameSkipAutoButton->SetValue(false);
 		}
 	}	
 	if (!text.CmpNoCase(_("auto")))

@@ -1,4 +1,4 @@
-// $Id: StatusPage.h,v 1.4 2004/03/23 16:31:19 h_oudejans Exp $
+// $Id: StatusPage.h,v 1.5 2004/03/23 19:09:16 h_oudejans Exp $
 // StatusPage.h: interface for the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.3 2004/02/08 16:05:05 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.4 2004/03/23 16:31:19 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ class VideoControlPage : public CatapultPage
 		void SetGamma (wxString value);
 		void SetScanline (wxString value);
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus){};
-
+		void UpdateBlurControls (int value);
 	private:
 		void FillComboBox (wxComboBox * control, wxString contents);
 		
@@ -81,6 +81,8 @@ class VideoControlPage : public CatapultPage
 		wxTextCtrl * m_glowIndicator;
 		wxTextCtrl * m_gammaIndicator;
 		wxTextCtrl * m_scanlineIndicator;
+		
+		int lastBlur;
 
 		DECLARE_CLASS(VideoControlPage)
 			// any class wishing to process wxWindows events must use this macro

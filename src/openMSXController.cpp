@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.16 2004/03/23 16:31:19 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.17 2004/03/23 19:09:16 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -135,8 +135,16 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 	{
 		case CatapultXMLParser::TAG_UPDATE:
 			if (m_launchMode != LAUNCH_HIDDEN){
-				if (data->updateType == CatapultXMLParser::UPDATE_LED)
+				if (data->updateType == CatapultXMLParser::UPDATE_LED){
 					m_appWindow->UpdateLed (data->name, data->contents);
+				}
+				if (data->updateType == CatapultXMLParser::UPDATE_SETTING){
+					wxString lastcmd = PeekPendingCommand();
+					if ((lastcmd.Mid(0,4) != "set ") || (lastcmd.Find(' ',true) ==3) || 
+						(lastcmd.Mid(4,lastcmd.Find(' ',true)-4)!= data->name)){
+						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
+					}
+				}
 			}
 			break;
 		case CatapultXMLParser::TAG_REPLY:
@@ -231,9 +239,21 @@ bool openMSXController::WriteCommand(wxString msg)
 
 wxString openMSXController::GetPendingCommand()
 {
-	assert (!m_commands.empty()); 
+	assert (!m_commands.empty());
 	wxString pending = m_commands.front();
 	m_commands.pop_front();
+	return wxString(pending);
+}
+
+wxString openMSXController::PeekPendingCommand()
+{
+	wxString pending;
+	if (m_commands.empty()){
+		pending = "";
+	}
+	else {
+		pending = m_commands.front();
+	}
 	return wxString(pending);
 }
 
@@ -600,5 +620,6 @@ void openMSXController::GetPluggableDescriptions (wxArrayString & descriptions)
 		descriptions.Add(m_pluggabledescriptions[i]);				
 	}
 }
+
 
 

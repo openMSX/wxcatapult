@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.4 2004/02/08 16:05:05 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.5 2004/03/22 17:31:43 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -41,6 +41,7 @@ END_EVENT_TABLE()
 	//////////////////////////////////////////////////////////////////////
 
 VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * controller)
+:CatapultPage(parent)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, _("VideoControlPage"));
 	m_controller = controller;
@@ -65,6 +66,8 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_defaultGlowButton = (wxButton*)FindWindow(_("ZeroGlowButton"));
 	m_defaultGammaButton = (wxButton*)FindWindow(_("DefaultGammaButton"));
 	m_defaultScanlineButton = (wxButton*)FindWindow(_("ZeroScanlineButton"));
+	lastBlur = -1;
+
 }
 
 VideoControlPage::~VideoControlPage()
@@ -121,7 +124,7 @@ void VideoControlPage::OnChangeBlur(wxScrollEvent &event)
 	wxString text;
 	text.sprintf("%ld", event.GetInt());
 	m_blurIndicator->SetValue(text);
-	m_controller->WriteCommand (wxString(_("set blur ")) + text);
+	m_controller->WriteCommand (wxString(_("set blur ")) + text);	
 }
 
 void VideoControlPage::OnChangeGlow(wxScrollEvent &event)
@@ -183,16 +186,14 @@ void VideoControlPage::OnInputBlur(wxCommandEvent &event)
 	{
 		unsigned long num;
 		text.ToULong(&num);
-		if (num > 100)
-		{
+		if (num > 100){
 			num = 100;
 			text = _("100");
 			m_blurIndicator->SetValue(text);
 		}
-		if (num >= 0)
-		{
-			m_controller->WriteCommand (wxString(_("set blur ")) + text);	
-			m_blurSlider->SetValue(num);
+		if (num >= 0){
+			m_controller->WriteCommand (wxString(_("set blur ")) + text);
+			m_blurSlider->SetValue(num);	
 		}
 	}
 }

@@ -1,7 +1,15 @@
-$Id: ChangeLog,v 1.22 2004/03/22 17:31:42 h_oudejans Exp $
+$Id: ChangeLog,v 1.23 2004/03/23 16:31:18 h_oudejans Exp $
+
+2004-03-25 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* updates from openmsx result now in update to the controls
+	   (all but the dynamic audio controls)
+	* Added the layout of the launchbutton / Leds a bit
 
 2004-03-23 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Implemented autoappy for textcontrols
+	* Removed apply en quit buttons
+	* Move leds from statuspage to global
+	* Finished the midi/sample sound I/O part
 
 2004-03-22 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added midi in/out and sample input plugins
