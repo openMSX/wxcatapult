@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.15 2004/12/03 18:38:20 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.16 2005/01/06 16:27:23 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ bool openMSXLinuxController::Launch(wxString cmdline)
 {
 	PreLaunch();
 	cmdline += wxT(" -control stdio");
-	if (!execute((char *)cmdline.c_str(), m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
+	if (!execute((const char*) (wxConvUTF8.cWX2MB((cmdline))), m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
 		return false;
 	}
 	m_stdOutThread = new PipeReadThread(m_appWindow, MSGID_STDOUT,wxTHREAD_JOINABLE);
