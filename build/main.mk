@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.4 2004/03/23 16:31:19 h_oudejans Exp $
+# $Id: main.mk,v 1.5 2004/04/01 16:17:00 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -13,16 +13,21 @@ CXX:=$(shell wx-config --cxx)
 SED:=sed
 
 SOURCES_PATH:=src
-DIALOGSDIR:=dialogs
-BITMAPSDIR:=resources/bitmaps
+DIALOGS_PATH:=dialogs
+BITMAPS_PATH:=resources/bitmaps
 SEDSCRIPT:=build/wxg2xrc.sed
 
 BUILD_BASE:=derived
 BUILD_PATH:=$(BUILD_BASE)
+
 OBJECTS_PATH:=$(BUILD_PATH)/obj
-BINDIR:=$(BUILD_PATH)/bin
-PROGRAM:=$(BINDIR)/catapult
-XRCDIR:=$(BUILD_PATH)/resources/dialogs
+
+BINARY_PATH:=$(BUILD_PATH)/bin
+BINARY_FILE:=catapult
+BINARY_FULL:=$(BINARY_PATH)/$(BINARY_FILE)
+
+RESOURCES_PATH:=$(BUILD_PATH)/resources
+XRC_PATH:=$(RESOURCES_PATH)/dialogs
 
 CONFIG_PATH:=$(BUILD_BASE)/config
 CONFIG_HEADER:=$(CONFIG_PATH)/config.h
@@ -46,7 +51,7 @@ SOURCES:= \
 
 OBJECTS_FULL:=$(addprefix $(OBJECTS_PATH)/, $(addsuffix .o,$(SOURCES)))
 
-DIALOGS:=$(addprefix $(XRCDIR)/, \
+XRC_FULL:=$(addprefix $(XRC_PATH)/, \
 	catapult.xrc \
 	config.xrc \
 	session.xrc \
@@ -56,7 +61,7 @@ DIALOGS:=$(addprefix $(XRCDIR)/, \
 	status.xrc \
 	)
 
-BITMAPS:=$(addprefix $(BUILD_PATH)/,$(wildcard $(BITMAPSDIR)/*.bmp))
+BITMAPS:=$(addprefix $(BUILD_PATH)/,$(wildcard $(BITMAPS_PATH)/*.bmp))
 
 DEPEND_PATH:=$(BUILD_PATH)/dep
 DEPEND_FULL:=$(addprefix $(DEPEND_PATH)/,$(addsuffix .d, $(SOURCES)))
@@ -73,7 +78,7 @@ CXXFLAGS+=$(shell xml2-config --cflags) $(shell wx-config --cxxflags)
 # ===============
 
 # Logical targets which require dependency files.
-DEPEND_TARGETS:=all default
+DEPEND_TARGETS:=all default install
 # Logical targets which do not require dependency files.
 NODEPEND_TARGETS:=clean
 # Mark all logical targets as such.
@@ -87,12 +92,12 @@ default: all
 # Build Rules
 # ===========
 
-# TODO: Relying on CONFIG_HEADER being built before PROGRAM, this might break
-#       parallelized builds.
-all: $(CONFIG_HEADER) $(PROGRAM) $(DIALOGS) $(BITMAPS)
+# TODO: Relying on CONFIG_HEADER being built before BINARY_FULL,
+#       this might break parallelized builds.
+all: $(CONFIG_HEADER) $(BINARY_FULL) $(XRC_FULL) $(BITMAPS)
 
-$(PROGRAM): $(OBJECTS_FULL)
-	@echo "Linking $(@:$(BINDIR)/%=%)..."
+$(BINARY_FULL): $(OBJECTS_FULL)
+	@echo "Linking $(BINARY_FILE)..."
 	@mkdir -p $(@D)
 	@$(CXX) -g -o $@ $(OBJECTS_FULL) \
 		`wx-config --libs` -lwx_gtk_xrc-2.4 `xml2-config --libs`
@@ -117,19 +122,43 @@ $(CONFIG_HEADER): $(CONFIG_MAKEFILE)
 	@echo "#define RESOURCEDIR \"$(INSTALL_BASE)/resources\"" >> $@
 	@echo "#endif" >> $@
 
-$(DIALOGS): $(XRCDIR)/%.xrc: $(DIALOGSDIR)/%.wxg $(SEDSCRIPT)
-	@echo "Converting $(@:$(XRCDIR)/%=%)..."
+$(XRC_FULL): $(XRC_PATH)/%.xrc: $(DIALOGS_PATH)/%.wxg $(SEDSCRIPT)
+	@echo "Converting $(@:$(XRC_PATH)/%=%)..."
 	@mkdir -p $(@D)
 	@$(SED) -f $(SEDSCRIPT) $< > $@
 
 $(BITMAPS): $(BUILD_PATH)/%: %
-	@echo "Copying $(<:$(BITMAPSDIR)/%=%)..."
+	@echo "Copying $(<:$(BITMAPS_PATH)/%=%)..."
 	@mkdir -p $(@D)
 	@cp $< $@
 
 clean:
 	@echo "Cleaning up..."
 	@rm -rf $(BUILD_PATH)
+
+
+# Installation
+# ============
+
+install: all
+	@echo "Installing to $(INSTALL_BASE):"
+	@echo "  Executable..."
+	@mkdir -p $(INSTALL_BASE)/bin
+	@cp $(BINARY_FULL) $(INSTALL_BASE)/bin/$(BINARY_FILE)
+	@echo "  Data files..."
+	@cp -r $(RESOURCES_PATH) $(INSTALL_BASE)/
+	@echo "  Creating symlink..."
+	@if [ `id -u` -eq 0 ]; \
+		then ln -sf $(INSTALL_BASE)/bin/$(BINARY_FILE) \
+			/usr/local/bin/$(BINARY_FILE); \
+		else if test -d ~/bin; \
+			then ln -sf $(INSTALL_BASE)/bin/$(BINARY_FILE) \
+				~/bin/$(BINARY_FILE); \
+			fi; \
+		fi
+	@echo "  Setting permissions..."
+	@chmod -R a+rX $(INSTALL_BASE)
+	@echo "Installation complete... have fun!"
 
 
 # Dependencies

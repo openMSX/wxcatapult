@@ -1,6 +1,9 @@
-$Id: ChangeLog,v 1.35 2004/04/04 19:47:14 h_oudejans Exp $
+$Id: ChangeLog,v 1.36 2004/04/05 18:29:39 h_oudejans Exp $
 
-2004-05-04 Herman Oudejans <hn.oudejans@quicknet.nl>
+2004-04-05 Maarten ter Huurne <maarten@treewalker.org>
+	* Added "make install".
+
+2004-04-05 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Frameskip works now for openmsx 1198 and higher
 	* Minor fixes in the launch script interpreter.
 
@@ -33,8 +36,8 @@ $Id: ChangeLog,v 1.35 2004/04/04 19:47:14 h_oudejans Exp $
 	   the audiomixer in catapult.
 	* Videocontrols with reset button now reset to the first value
 	   taken from openmsx.
-	*  Moved statusinfo to the last tab
-	*  Firmware should now only be enabled if a machine has it	
+	* Moved statusinfo to the last tab
+	* Firmware should now only be enabled if a machine has it
 
 2004-03-25 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* updates from openmsx result now in update to the controls
