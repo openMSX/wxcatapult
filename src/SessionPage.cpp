@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.30 2004/11/06 13:51:33 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.31 2004/11/06 15:06:42 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -45,6 +45,7 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_BUTTON(XRCID("ClearCassette"),SessionPage::OnClearCassette)
 	EVT_BUTTON(XRCID("RewindButton"),SessionPage::OnRewind)
 	EVT_TOGGLEBUTTON(XRCID("ForcePlayButton"),SessionPage::OnForcePlay)
+	EVT_TEXT(XRCID("CassetteContents"),SessionPage::OnChangeCassetteContents)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -82,6 +83,9 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_extensionListLabel = (wxStaticText *)FindWindow(wxT("ExtensionLabel"));
 	m_cartALabel = (wxStaticText *)FindWindow(wxT("CartA_Label"));
 	m_cartBLabel = (wxStaticText *)FindWindow(wxT("CartB_Label"));
+
+	m_cassettePlayerSizer = (wxStaticBoxSizer *)FindWindow(wxT("CassettePlayerSizer"));
+	m_cassetteLabel = (wxStaticText *)FindWindow(wxT("Cassette_Label"));
 
 	m_lastDiskA = "";
 	m_lastDiskB = "";
@@ -284,6 +288,22 @@ void SessionPage::OnBrowseCassette(wxCommandEvent &event)
 	}
 }
 
+void SessionPage::OnChangeCassetteContents(wxCommandEvent &event)
+{
+	if ((m_cassettePortState != wxT("disabled")) &&
+		(m_cassettePortState != wxT("cassetteplayers")) &&
+		(m_cassette->GetValue() != wxT("")))
+	{
+		m_rewindButton->Enable(true);
+		m_forcePlayButton->Enable(true);
+	}
+	else
+	{
+		m_rewindButton->Enable(false);
+		m_forcePlayButton->Enable(false);
+	}
+}
+
 void SessionPage::SetupHardware (bool initial)
 {
 	wxString currentMachine;
@@ -479,10 +499,23 @@ void SessionPage::SetControlsOnLaunch()
 	m_machineListLabel->Enable(false);
 	m_cartALabel->Enable(false);
 	m_cartBLabel->Enable(false);
+	printf ("state: %s\n", m_cassettePortState.c_str());
 	if ((m_cassettePortState != wxT("disabled")) &&
 		(m_cassettePortState != wxT("cassetteplayers"))) {
 		m_rewindButton->Enable(true);
 		m_forcePlayButton->Enable(true);
+		m_cassetteLabel->Enable(true);
+		m_clearCassette->Enable(true);
+		m_browseCassette->Enable(true);
+		m_cassette->Enable(true);
+	}
+	else {
+		m_rewindButton->Enable(false);
+		m_forcePlayButton->Enable(false);
+		m_cassetteLabel->Enable(false);
+		m_clearCassette->Enable(false);
+		m_browseCassette->Enable(false);
+		m_cassette->Enable(false);
 	}
 }
 
@@ -501,10 +534,12 @@ void SessionPage::SetControlsOnEnd()
 	m_machineListLabel->Enable(true);
 	m_cartALabel->Enable(true);
 	m_cartBLabel->Enable(true);
-	m_rewindButton->Enable(true);
-	m_forcePlayButton->Enable(true);
 	m_rewindButton->Enable(false);
 	m_forcePlayButton->Enable(false);
+	m_cassetteLabel->Enable(true);
+	m_clearCassette->Enable(true);
+	m_browseCassette->Enable(true);
+	m_cassette->Enable(true);
 }
 
 void SessionPage::getMedia(wxArrayString & parameters)

@@ -1,4 +1,4 @@
-$Id: ChangeLog,v 1.95 2004/11/06 13:51:33 manuelbi Exp $
+$Id: ChangeLog,v 1.96 2004/11/06 15:06:41 manuelbi Exp $
 
 2004-11-06 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Removed all hard loopends used in combination with static arrays to
@@ -12,6 +12,10 @@ $Id: ChangeLog,v 1.95 2004/11/06 13:51:33 manuelbi Exp $
 	* Internally renamed all Tape(1) stuff to Cassette
 	* Some layout tweaks (mainly esthetical) and added tool tip
 	* Made Rewind and Force Play buttons functional
+	* Disable Cassette stuff when there's no cassette port in the running
+	  machine; disable buttons when there's no cassette selected
+	  TODO: the controls get disabled briefly (during silent launch) and
+	  then get enabled again if the port is found... Fix it if you can! ;)
 
 2004-10-16 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed a problem with inserting a disk while openMSX is running.
