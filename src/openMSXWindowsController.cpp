@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.4 2004/03/31 14:49:51 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.5 2004/04/12 13:33:10 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -116,23 +116,6 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	}
 	m_openMsxRunning = true;
 	CloseHandles (useNamedPipes,pi.hThread, hInputRead, hOutputWrite, hErrorWrite );
-	
-#if 1
-#ifdef _DEBUG //gdb mode	
-	::wxRemoveFile (_("c:/script2.gdb"));
-	wxTextFile tempfile (_("c:/script2.gdb"));
-	if (tempfile.Create()){
-		wxString line;
-		line.sprintf ("attach %i",pi.dwProcessId);
-		tempfile.AddLine(line);
-		tempfile.AddLine("continue");
-		tempfile.Write();
-		tempfile.Close();
-	}
-	
-	gdb_pid = wxExecute("gdb --command=c:/script2.gdb");
-#endif
-#endif
 	
 	return true;
 }
