@@ -1,11 +1,14 @@
-$Id: ChangeLog,v 1.68 2004/05/09 08:45:52 mthuurne Exp $
+$Id: ChangeLog,v 1.69 2004/05/09 11:32:17 h_oudejans Exp $
+
+2004-05-09 Maarten ter Huurne <maarten@treewalker.org>
+	* Ported system probe from openMSX to Catapult.
 
 2004-05-09 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* made the windows build system work with the version info
 	* updated the README to point out the manuals	
 
 2004-05-08 Maarten ter Huurne <maarten@treewalker.org>
-	* Migrated build system stuff from openMSX to Catapult.
+	* Ported build system stuff from openMSX to Catapult.
 	  Includes handling of version info.
 	* Implemented "make dist".
 
