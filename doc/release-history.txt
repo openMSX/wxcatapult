@@ -1,13 +1,10 @@
 Release History
 ===============
 
-This is an overview of the changes that were incorporated into past
-releases.
+This is an overview of the changes that were incorporated into past releases.
 
-openMSX Catapult 0.5.0-R1 (2004-10-13)
-========================================================
-
-This new release brings you the following improvements:
+openMSX Catapult 0.5.0-R1 (2004-10-15)
+--------------------------------------
 
 - Fixed: Loading and saving of used hardware, media and configuration
 - Fixed: Disabled controls are much clearer now
@@ -17,7 +14,7 @@ This new release brings you the following improvements:
 - Added: openMSX type support (typing remotely into the MSX)
 - Added: Screenshot support
 - Added: Printerport connector
-- Added: Saving of Joystick settings.
+- Added: Saving of Joystick settings
 - Added: Ren Sha Turbo support (turboR only)
 - Changed: Throttle into Max Speed
 - Changed: underscores in machine and extension names are now showed as spaces
