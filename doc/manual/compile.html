@@ -52,7 +52,7 @@
 The latest version of the openMSX Catapult manual can be found on the openMSX home page:
 </p>
 <p>
-<a class="external" href="http://openmsx.sourceforge.net/manual-catapult/">http://openmsx.sourceforge.net/manual-catapult/</a>
+<a class="external" href="http://openmsx.sourceforge.net/catapult-manual/">http://openmsx.sourceforge.net/catapult-manual/</a>
 </p>
 <p>
 The latest version of the openMSX manual can also be found there:
@@ -105,7 +105,7 @@ Catapult was compiled successfully on FreeBSD 4 and 5. FreeBSD is not a platform
 </dd>
 <dt>Mac OS X</dt>
 <dd>
-There is a port of wxWidgets for Mac OS X, but no-one has tried to compile Catapult with it yet. If you try, please let us know.
+Unfortunately, Catapult hasn't been succesfully compiled on Mac OS X. There is a port of wxWidgets (the base of Catapult), but version 2.4 doesn't support toggle button yet and version 2.5 doesn't react on most event (even button clicks). If you can get it (even partialy) working, please let us know. 
 </dd>
 <dt>other operating systems</dt>
 <dd>
@@ -157,6 +157,8 @@ only the big picture.
 Schaap and Maarten ter Huurne.</dd>
 <dt>2004-10-04 Herman Oudejans</dt>
 <dd>Added touch.exe to the compilation packages</dd>
+<dt>2005-02-06 Herman Oudejans</dt>
+<dd>Updated this manual for compilation with wxWidgets 2.5 and for compilation with mingw32.</dd>
 
 </dl>
 
@@ -168,7 +170,9 @@ class="external" href="http://www.sourceforge.net/">SourceForge.net</a> freely
 offers to open source projects. The code is stored in CVS, an open source
 version management system.
 Catapult is released at every openMSX release.
-It can be released in between openMSX releases as well, if there is a lot of development that we want to share with the users without waiting for the next openMSX release.
+It can be released in between openMSX releases as well, if there is a lot 
+of development that we want to share with the users without waiting for the
+next openMSX release.
 </p>
 
 <p>
@@ -373,12 +377,22 @@ Catapult.</dd>
 </dl>
 
 <p>
-For compilation in Windows you will need Microsoft Visual Studio. Catapult 
-was written with version 6.0. Whether it also compiles on higher versions is unknown at this point. You also need to download <code>sed.exe</code> from
-<a class="external" href="http://www.gnu.org/">GNU Home</a> and <code>touch.exe</code> 
-from <a class="external" href="http://unxutils.sourceforge.net/">UnxUtils</a>
+For compilation in Windows you will need one of the following:
 </p>
+<dl>
 
+<dt>Microsoft Visual C++</dt>
+<dd>Catapult was written with version 6.0. Whether it also compiles on higher 
+versions is unknown at this point. You also need to download <code>sed.exe</code> from
+<a class="external" href="http://www.gnu.org/">GNU Home</a> and <code>touch.exe</code> 
+from <a class="external" href="http://unxutils.sourceforge.net/">UnxUtils</a></dd>
+
+<dt>The combination of Minimal System (msys) and Minimalist GNU for windows (mingw32)</dt>
+<dd>This is the same combination that is needed to compile openMSX on windows.
+Although compilation works, the executable made from it will be larger as the
+binary released version and will also need to mingw runtime dll.
+</dd>
+</dl>
 
 <h3><a id="libs">3.2. Libraries</a></h3>
 
@@ -398,36 +412,43 @@ Compiling in Windows means that you also need the lib-files
 </p>
 
 <p>
-If there are no binary versions of the required libraries available for your system or you rather compile them yourself, please see the next section for a few hints about compiling them from their sources.
+If there are no binary versions of the required libraries available for 
+your system or you rather compile them yourself, please see the next section 
+for a few hints about compiling them from their sources.
 </p>
 
 <p>
-First of all, you need some wxWidgets (formerly known as wxWindows) packages or libraries.
+First of all, you need some wxWidgets (formerly known as wxWindows) packages
+ or libraries.
 On a Debian testing system, the packages are called:
 </p>
 
 <dl>
-<dt>libwxgtk-2.4</dt>
-<dd>wxWindows Cross-platform C++ GUI toolkit (GTK+ runtime). This is the main runtime wxWidgets library</dd>
+<dt>libwxgtk-2.4 or libwxgtk2.5.3</dt>
+<dd>wxWindows Cross-platform C++ GUI toolkit (GTK+ runtime). This is the 
+main runtime wxWidgets library</dd>
 
-<dt>libwxgtk-2.4-dev</dt>
+<dt>libwxgtk-2.4-dev or libwxgtk2.5-dev</dt>
 <dd>This package contains the necessary headers to compile.</dd>
 
 <dt>libwxgtk-2.4-contrib</dt>
-<dd>Needed to be able to use the resources of Catapult.</dd>
+<dd>Needed to be able to use the resources of Catapult.This package is only needed when compiling with wxWidgets 2.4</dd>
 
 <dt>libwxgtk-2.4-contrib-dev</dt>
-<dd>And the accompanied headers</dd>
+<dd>And the accompanied headers. This package is only needed when compiling with wxWidgets 2.4</dd>
 </dl>
 
 <p>
-Some Linux distributions do not package the 'contrib' part of wxWindows, if that is the case for your distribution, you will have to compile both the wxWindows core and contrib from source.
+Some Linux distributions do not package the 'contrib' part of wxWidgets 2.4, 
+if that is the case for your distribution, you will either have to compile both 
+the wxWindows core and contrib from source or switch to version 2.5 (if it's available).
 Also for Windows there are no binary releases available.
 Please read the next section for instructions for compiling wxWidgets from source.
 </p>
 
 <p>
-Furthermore, you need the XML library that is also used in openMSX itself. In Debian its packages are called:</p>
+Furthermore, you need the XML library that is also used in openMSX itself. 
+In Debian its packages are called:</p>
 
 <dl>
 <dt>libxml2 and libxml2-dev</dt>
@@ -445,16 +466,26 @@ wxWidgets Home</a> and the libxml2 sources are available at
 <a class="external" href="http://www.xmlsoft.org">Libxml2 Home</a>.
 </p>
 
+<p>Building the libxml2 library should be easy enough with the docs available.
+</p>
+
+<p>Compilation of wxWidgets 2.5 couldn't be more straightforward. The docs provided
+are easy to follow and it takes only a few steps. There is no need to give 
+any pointers here about this library. Don't worry if a few libraries called 
+<code>wxmswuniv253*</code> give errors during compilation, you won't need them.
+</p>
+
 <p>
-In Linux, the compilation of wxWidgets is quite straightforward. Just follow the
+In Linux, the compilation of wxWidgets 2.4 is quite straightforward. Just follow the
 docs provided with the library and the wxgtk library should be created. 
-Don't forget to change to the directory <code>/wxGTK-2.4.2/contrib</code> and build those libraries too. You'll need the XRC library for Catapult.
+Don't forget to change to the directory <code>/wxGTK-2.4.2/contrib</code> and 
+build those libraries too. You'll need the XRC library for Catapult.
 Compilation of libxml2 is also easy. The libxml2 documentation should give more
 than enough information to build it.
 </p>
 
 <p>
-wxWidgets uses a configuration file to be able to select which features should
+wxWidgets 2.4 uses a configuration file to be able to select which features should
 be compiled into the library. If these settings are wrong it won't be possible
 to use the Catapult resources, which are essential for running Catapult. 
 This configuration file is called <code>setup.h</code> and can be found in
@@ -496,14 +527,11 @@ After the link targets are changed you can compile the library and make it
 available for Visual C++.
 </p>
 
-<p>Building the libxml2 library should be easy enough with the docs available.
-</p>
-
 <h3><a id="compilenow">3.4. Compilation Itself</a></h3>
 
 <p>
 We have made compilation of Catapult itself as easy as possible. In most cases
-Linux users only have to open a shell, go to the top of the source tree and
+Linux (or msys) users only have to open a shell, go to the top of the source tree and
 type:
 </p>
 
@@ -512,7 +540,27 @@ make
 </div>
 
 <p>
-In Windows, just open <code>build\wxCatapult.dsw</code> and compile it.
+You can build different flavours by setting the <code>CATAPULT_FLAVOUR</code> environment variable.
+The following values are supported:
+</p>
+<dl>
+<dt>debug</dt>
+<dd>No optimization and full debug symbols</dd>
+<dt>devel</dt>
+<dd>Some optimization but still full debug symbols available (this is the recommended flavour for testing)</dd>
+<dt>i686</dt>
+<dd>Fully optimized and no debug symbols(this is the default flavour)</dd>
+<dt>opt</dt>
+<dd>Basicaly the same as i686, but also for non intel targets</dd>
+<dt>ppc</dt>
+<dd>Specificaly for the sun power pc</dd>
+<dt>win32</dt>
+<dd>Optimized for PIII but runnable with PI MMX and higher</dd>
+</dl>
+
+<p>
+In Visual Studio, just open <code>build\wxCatapult.dsw</code>, choose a target 
+and build it.
 </p>
 
 <p>
@@ -632,7 +680,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.12 2004/10/04 19:49:06 h_oudejans Exp $
+$Id: compile.html,v 1.13 2004/10/05 21:46:32 manuelbi Exp $
 </p>
 
 </body>
