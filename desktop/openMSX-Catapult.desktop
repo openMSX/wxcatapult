@@ -7,4 +7,4 @@ Exec=%INSTALL_BASE%/bin/catapult
 Icon=%INSTALL_BASE%/resources/icons/catapult.xpm
 DocPath=%INSTALL_BASE%/doc/manual/index.html
 Terminal=false
-Categories=Emulator;Game;
+Categories=Application;Emulator;Game;
