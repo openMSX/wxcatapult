@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.6 2004/03/31 14:49:51 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.7 2004/04/04 18:32:17 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -88,6 +88,7 @@ bool wxCatapultApp::OnInit()
 	}
 	else{
 		wxMessageBox ("Unable to load resources\n","Error");
+		return FALSE;
 	}
 	return TRUE;
 }
