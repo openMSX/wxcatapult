@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.9 2004/05/08 22:30:41 mthuurne Exp $
+# $Id: main.mk,v 1.10 2004/05/09 09:27:58 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -36,6 +36,7 @@ BUILD_BASE:=derived
 
 SEDSCRIPT:=$(MAKE_PATH)/wxg2xrc.sed
 CUSTOM_MAKE:=$(MAKE_PATH)/custom.mk
+PROBE_SCRIPT:=$(MAKE_PATH)/probe.mk
 
 BUILD_PATH:=$(BUILD_BASE)
 
@@ -49,6 +50,7 @@ RESOURCES_PATH:=$(BUILD_PATH)/resources
 XRC_PATH:=$(RESOURCES_PATH)/dialogs
 
 CONFIG_PATH:=$(BUILD_BASE)/config
+PROBE_MAKE:=$(CONFIG_PATH)/probed_defs.mk
 CONFIG_HEADER:=$(CONFIG_PATH)/config.h
 VERSION_HEADER:=$(CONFIG_PATH)/Version.ii
 
@@ -64,6 +66,10 @@ CHANGELOG_REVISION:=\
 include $(CUSTOM_MAKE)
 
 include $(MAKE_PATH)/info2code.mk
+
+ifneq ($(filter $(DEPEND_TARGETS),$(MAKECMDGOALS)),)
+-include $(PROBE_MAKE)
+endif
 
 
 # Filesets
@@ -117,13 +123,29 @@ CXX:=$(shell wx-config --cxx)
 
 CXXFLAGS:=-g -pipe -Wall
 CXXFLAGS+=-I$(CONFIG_PATH)
-CXXFLAGS+=$(shell xml2-config --cflags) $(shell wx-config --cxxflags)
+CXXFLAGS+=$(WX_CFLAGS) $(XRC_CFLAGS) $(XML_CFLAGS)
 
-LDFLAGS:=-g `wx-config --libs` -lwx_gtk_xrc-2.4 `xml2-config --libs`
+LDFLAGS:=-g
+LDFLAGS+=$(WX_LDFLAGS) $(XRC_LDFLAGS) $(XML_LDFLAGS)
 
 
 # Build Rules
 # ===========
+
+# Force a probe if "probe" target is passed explicitly.
+ifneq ($(filter probe,$(MAKECMDGOALS)),)
+probe: $(PROBE_MAKE)
+.PHONY: $(PROBE_MAKE)
+endif
+
+# Probe for libraries.
+# TODO: It would be cleaner to include probe.mk and probe-results.mk,
+#       instead of executing them in a sub-make.
+$(PROBE_MAKE): $(PROBE_SCRIPT)
+	@OUTDIR=$(@D) COMPILE="$(CXX)" \
+		$(MAKE) --no-print-directory -f $<
+	@PROBE_MAKE=$(PROBE_MAKE) MAKE_PATH=$(MAKE_PATH) \
+		$(MAKE) --no-print-directory -f $(MAKE_PATH)/probe-results.mk
 
 # TODO: Relying on CONFIG_HEADER being built before BINARY_FULL,
 #       this might break parallelized builds.
