@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.4 2004/05/08 19:08:31 h_oudejans Exp $
+// $Id: ConfigurationData.cpp,v 1.5 2004/10/03 17:02:12 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -35,6 +35,8 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(wxT("/preferences/ShowScreenshotInfo"),&m_showScreenshotInfo);
 	ConfigData->Read(wxT("/connectors/UsedJoyport1"),&m_usedJoyport1);
 	ConfigData->Read(wxT("/connectors/UsedJoyport2"),&m_usedjoyport2);
+	ConfigData->Read(wxT("/connectors/UsedPrinterport"),&m_usedPrinterport);
+	ConfigData->Read(wxT("/connectors/UsedPrinterfile"),&m_usedPrinterfile);
 }
 
 ConfigurationData::~ConfigurationData()
@@ -103,6 +105,12 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 		case CD_JOYPORT2:
 			m_usedjoyport2 = p_data.GetString();
 			break;
+		case CD_PRINTERPORT:
+			m_usedPrinterport = p_data.GetString();
+			break;
+		case CD_PRINTERFILE:
+			m_usedPrinterfile = p_data.GetString();
+			break;
 		default:
 			retVal = false; // unknown ID
 			break;
@@ -150,6 +158,12 @@ bool ConfigurationData::GetParameter(int p_iId, wxString &p_data)
 			break;
 		case CD_JOYPORT2:
 			p_data = m_usedjoyport2;
+			break;
+		case CD_PRINTERPORT:
+			p_data = m_usedPrinterport;
+			break;
+		case CD_PRINTERFILE:
+			p_data = m_usedPrinterfile;
 			break;
 		default:
 			retVal = false; // unknown ID
@@ -206,6 +220,8 @@ bool ConfigurationData::SaveData()
 	retVal &= ConfigData->Write(wxT("/preferences/ShowScreenshotInfo"),m_showScreenshotInfo);
 	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport1"),m_usedJoyport1);
 	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport2"),m_usedjoyport2);
+	retVal &= ConfigData->Write(wxT("/connectors/UsedPrinterport"),m_usedPrinterport);
+	retVal &= ConfigData->Write(wxT("/connectors/UsedPrinterfile"),m_usedPrinterfile);
 	return retVal;
 }
 

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.29 2004/09/25 08:08:38 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.30 2004/10/03 17:02:12 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -38,6 +38,9 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_TEXT(XRCID("SpeedIndicator"),MiscControlPage::OnInputSpeed)
 	EVT_TEXT(XRCID("Joyport1Selector"),MiscControlPage::OnChangeJoystick)
 	EVT_TEXT(XRCID("Joyport2Selector"),MiscControlPage::OnChangeJoystick)
+	EVT_TEXT(XRCID("PrinterportSelector"),MiscControlPage::OnChangePrinterPort)
+	EVT_TEXT(XRCID("PrinterLogFile"),MiscControlPage::OnChangePrinterLogFile)
+	EVT_BUTTON(XRCID("BrowsePrinterLog"),MiscControlPage::OnBrowsePrinterLogFile)
 	EVT_COMMAND_SCROLL (XRCID("RenshaTurboSlider"),MiscControlPage::OnChangeRenShaTurbo)
 #ifdef __UNIX__
 	EVT_TIMER(-1,MiscControlPage::OnJoystickChanged)
@@ -80,7 +83,8 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_oldSpeed="";
 
 // temporary hardcoded joystick port devices (not for BSD)
-	
+	wxString current;
+	int pos;
 
 #ifndef __BSD__ 
 	wxJoystick joy(wxJOYSTICK1);
@@ -101,10 +105,8 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 			box[i]->Append(temp);
 		}
 #endif
-		wxString currentJoy;
-		int pos;
-		ConfigurationData::instance()->GetParameter(JoySaveID[i],currentJoy);
-		pos = box[i]->FindString(currentJoy);
+		ConfigurationData::instance()->GetParameter(JoySaveID[i],current);
+		pos = box[i]->FindString(current);
 		if (pos != -1){
 			box[i]->SetSelection(pos);
 		}		
@@ -114,6 +116,29 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	}
 	m_oldJoy1 = box[0]->GetValue();
 	m_oldJoy2 = box[1]->GetValue();
+
+	
+	
+	box[0] = (wxComboBox *)FindWindow (wxT("PrinterportSelector"));
+	box[0]->Clear();
+	box[0]->Append(wxT("--empty--"));
+	box[0]->Append(wxT("logger"));
+	box[0]->Append(wxT("simpl"));	
+
+	wxString filename;
+	wxTextCtrl * text = (wxTextCtrl *)FindWindow("PrinterLogFile");
+	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_PRINTERPORT,current);
+	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_PRINTERFILE,filename);
+	text->SetValue(filename);
+		
+	pos = box[0]->FindString(current);
+	if (pos != -1){
+			box[0]->SetSelection(pos);
+		}		
+		else{	
+			box[0]->SetSelection(0);
+		}
+	OnPrinterportChanged(false);
 }
 
 MiscControlPage::~MiscControlPage()
@@ -389,9 +414,13 @@ void MiscControlPage::InitConnectorPanel ()
 				InitJoystickPort (connectors[i], "Joyport1Selector", currentClass);
 			} else if (connectors[i] == wxT("joyportb")) {
 				InitJoystickPort (connectors[i], "Joyport2Selector", currentClass);
+			} else if (connectors[i] == wxT("printerport")){
+				InitJoystickPort (connectors[i], "PrinterportSelector", currentClass);
 			}
 		}
 	}
+	wxTextCtrl * text = (wxTextCtrl *)FindWindow("PrinterLogFile");
+	m_controller->WriteCommand(wxString("set printerlogfilename ") + ConvertPath(text->GetValue()));
 }
 
 void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wxString connectorClass)
@@ -506,3 +535,52 @@ void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent & event)
 	m_controller->WriteCommand(wxString ("set renshaturbo ") + value);
 }
 
+void MiscControlPage::OnChangePrinterPort(wxCommandEvent & event)
+{
+	OnPrinterportChanged(true);
+}
+
+void MiscControlPage::OnPrinterportChanged(bool save)
+{
+	wxTextCtrl * text = (wxTextCtrl *)FindWindow (wxT("PrinterLogFile"));
+	wxButton * button = (wxButton *)FindWindow (wxT("BrowsePrinterLog"));
+	wxComboBox * prt = (wxComboBox *)FindWindow (wxT("PrinterportSelector"));
+	wxString current = prt->GetValue();
+	if (current == "logger"){
+		text->Enable(true);
+		button->Enable(true);
+	}
+	else{
+		text->Enable(false);
+		button->Enable(false);
+	}
+	if (save){
+		ConfigurationData::instance()->SetParameter(ConfigurationData::CD_PRINTERPORT,current);
+		ConfigurationData::instance()->SaveData();
+	}
+	m_controller->WriteCommand(wxString("plug printerport ") + current);	
+}
+
+void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent &event)
+{
+	wxString current = ((wxTextCtrl *)event.GetEventObject())->GetValue();
+	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_PRINTERFILE,current);
+	ConfigurationData::instance()->SaveData();
+	m_controller->WriteCommand(wxString("set printerlogfilename ") + ConvertPath(current));
+}
+
+void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent &event)
+{
+	wxString path;
+#ifndef __MOTIF__
+	path = wxT("All files|*.*||");
+#else
+	path = wxT("*.*");
+#endif
+
+	wxFileDialog filedlg(this,_("Choose file to save printer log to"), "", wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
+	if (filedlg.ShowModal() == wxID_OK){
+		wxTextCtrl * text = (wxTextCtrl *)FindWindow("PrinterLogFile");
+		text->SetValue(filedlg.GetPath());
+	}
+}

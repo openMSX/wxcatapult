@@ -1,8 +1,9 @@
-$Id: ChangeLog,v 1.84 2004/10/02 20:50:45 h_oudejans Exp $
+$Id: ChangeLog,v 1.85 2004/10/03 17:02:11 h_oudejans Exp $
 
 2004-10-03 Herman Oudejans
 	* Joystick settings are now saved.
 	* Provided user feedback for screenshot without parameters
+	* Added printerport functionality	
 
 2004-10-02 Herman Oudejans
 	* Added Screenshot support
