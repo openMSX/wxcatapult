@@ -3,7 +3,8 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
-openMSX Catapult 0.5.1-R1 (2005-03-02)
+openMSX Catapult 0.5.1-R1 (2005-03-05)
+--------------------------------------
 
 Fixed: Some wrong behaviour with speed/throttle settings.
 Added: Popup menus for diskA, diskB, cartA, cartB and cassette
@@ -13,7 +14,7 @@ Changed: There are no longer two cassette types.
 Changed: History is now limited to 25 items
 Changed: The input page is no longer capable of displaying formatted text.
 Added: Mingw compilation support. (Although it works fine it produces a larger
-	   executable and it needs the mingw runtime dll).
+       executable and it needs the mingw runtime dll).
 Added: wxWidgets 2.5 unicode compile support (Not perfect yet).
 
 openMSX Catapult 0.5.0-R1 (2004-10-18)
@@ -32,7 +33,7 @@ openMSX Catapult 0.5.0-R1 (2004-10-18)
 - Changed: Throttle into Max Speed
 - Changed: underscores in machine and extension names are now showed as spaces
 - Changed: Removed tear-off menu style in gtk
- 
+
 openMSX Catapult 0.4.0-R1 (2004-05-28)
 --------------------------------------
 

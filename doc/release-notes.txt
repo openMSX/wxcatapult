@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.5.1-R1 (2005-03-02)
+Release Notes for openMSX Catapult 0.5.1-R1 (2005-03-05)
 ========================================================
 
 This new release brings you the following improvements:
@@ -16,7 +16,7 @@ Changed: The input page is no longer capable of displaying formatted text.
 Compilation:
 
 Added: Mingw compilation support. (Although it works fine it produces a larger
-	   executable and it needs the mingw runtime dll).
+       executable and it needs the mingw runtime dll).
 Added: wxWidgets 2.5 unicode compile support (Not perfect yet).
 
 
