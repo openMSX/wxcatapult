@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.26 2004/10/01 17:13:26 h_oudejans Exp $
+# $Id: main.mk,v 1.27 2004/10/03 17:02:11 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -259,6 +259,7 @@ ifeq ($(CATAPULT_PREBUILT),false)
 			desktop/openMSX-Catapult.desktop \
 			> ~/.local/share/applications/openMSX-Catapult.desktop; \
 		fi
+ifeq ($(SYMLINK_FOR_BINARY),true)
 	@echo "  Creating symlink..."
 	@if [ -d /usr/local/bin -a -w /usr/local/bin ]; \
 		then ln -sf $(CATAPULT_INSTALL)/bin/$(BINARY_FILE) \
@@ -268,6 +269,7 @@ ifeq ($(CATAPULT_PREBUILT),false)
 				~/bin/$(BINARY_FILE); \
 			fi; \
 		fi
+endif
 	@echo "  Setting permissions..."
 	@chmod -R a+rX $(INSTALL_BASE)
 endif # CATAPULT_PREBUILT
