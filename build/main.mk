@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.16 2004/05/09 21:42:55 mthuurne Exp $
+# $Id: main.mk,v 1.17 2004/05/13 01:10:55 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -227,16 +227,20 @@ install: all
 	@echo "  Desktop hooks..."
 	@mkdir -p $(INSTALL_BASE)/resources/icons
 	@cp -r src/catapult.xpm $(INSTALL_BASE)/resources/icons
-	@if [ -d /usr/share/applications ]; \
+	@if [ -d /usr/share/applications -a -w /usr/share/applications ]; \
 		then sed -e "s|%INSTALL_BASE%|$(INSTALL_BASE)|" \
 			desktop/openMSX-Catapult.desktop \
 			> /usr/share/applications/openMSX-Catapult.desktop; \
+		else mkdir -p ~/.local/share/applications; \
+			sed -e "s|%INSTALL_BASE%|$(INSTALL_BASE)|" \
+			desktop/openMSX-Catapult.desktop \
+			> ~/.local/share/applications/openMSX-Catapult.desktop; \
 		fi
 	@echo "  Creating symlink..."
-	@if [ `id -u` -eq 0 ]; \
+	@if [ -d /usr/local/bin -a -w /usr/local/bin ]; \
 		then ln -sf $(INSTALL_BASE)/bin/$(BINARY_FILE) \
 			/usr/local/bin/$(BINARY_FILE); \
-		else if test -d ~/bin; \
+		else if [ -d ~/bin ]; \
 			then ln -sf $(INSTALL_BASE)/bin/$(BINARY_FILE) \
 				~/bin/$(BINARY_FILE); \
 			fi; \
