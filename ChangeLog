@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.115 2005/02/08 19:50:18 h_oudejans Exp $
+$Id: ChangeLog,v 1.116 2005/02/09 19:29:35 h_oudejans Exp $
+
+2005-03-01 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Romtypes are now saved/restored for all roms in the history
+	* Doubleclick in the RomTypeDialog works now
 
 2005-02-09 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed a crash in the 'type' command.

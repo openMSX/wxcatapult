@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.23 2005/02/03 17:47:28 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.24 2005/02/05 09:50:54 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -98,8 +98,10 @@ class SessionPage : public CatapultPage
 				type = wxT("");
 				control = NULL;
 				history.Clear();
+				typehistory.Clear();
 				mmenu = menu;
 				ipsdir = wxT("");
+				avoid_evt = false;
 			};
 			wxString contents;
 			wxString ipsdir;
@@ -107,11 +109,14 @@ class SessionPage : public CatapultPage
 			wxString type; // only for carts at the moment
 			wxComboBox * control;
 			wxArrayString history;
+			wxArrayString typehistory;
 			wxMenu * mmenu;
+			bool avoid_evt;
 		};
 		mediaInfo * GetLastMenuTarget();
 		static int CompareCaseInsensitive(const wxString& first, const wxString& second);
 		void GetRomTypes ();
+		void UpdateMenuMapperLabel(mediaInfo * target);
 		wxString ConvertRomType (wxString source, bool backwards);
 		bool BrowseDisk (mediaInfo * target, wxString devicename, wxString defaultpath);
 		void BrowseCart (mediaInfo * target, wxString defaultpath);

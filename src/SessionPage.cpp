@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.53 2005/02/08 19:50:26 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.54 2005/02/08 20:08:24 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -440,32 +440,60 @@ void SessionPage::OnChangeDiskBContents(wxCommandEvent & event)
 	m_diskB->mmenu->SetLabel(Disk_Browse_Ips,wxT("Select IPS Patches (None selected)"));
 }
 
+void SessionPage::UpdateMenuMapperLabel(mediaInfo * target)
+{
+	wxString item = wxT("Select cartridge type (AUTO)"); 
+	if ((target->type != wxT("")) && (target->type.Upper() != wxT("AUTO"))){
+		item = wxT("Select cartridge type (") + target->type + wxT(")");
+	}
+	target->mmenu->SetLabel(Cart_Select_Mapper,item);
+}
+
 void SessionPage::OnClickCartACombo(wxCommandEvent & event)
 {
 	OnClickCombo(event);
-	OnChangeCartAContents(event);	
+	m_cartA->ips.Clear();
+	m_cartA->contents = m_cartA->control->GetValue();
+	m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
+	m_cartA->type = m_cartA->typehistory[event.GetInt()];
+	UpdateMenuMapperLabel(m_cartA);
+	m_cartA->avoid_evt = true;
 }
 
 void SessionPage::OnChangeCartAContents(wxCommandEvent & event)
 {
-	m_cartA->ips.Clear();
-	m_cartA->contents = m_cartA->control->GetValue();
-	m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	m_cartA->mmenu->SetLabel(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"));
+	if (!m_cartA->avoid_evt){
+		;
+		m_cartA->ips.Clear();
+		m_cartA->type = wxT("");
+		m_cartA->contents = m_cartA->control->GetValue();
+		m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
+		UpdateMenuMapperLabel(m_cartA);		
+	}
+	m_cartA->avoid_evt = false;
 }
 
 void SessionPage::OnClickCartBCombo(wxCommandEvent & event)
 {
 	OnClickCombo(event);
-	OnChangeCartBContents(event);	
+	m_cartB->ips.Clear();
+	m_cartB->contents = m_cartB->control->GetValue();
+	m_cartB->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
+	m_cartB->type = m_cartB->typehistory[event.GetInt()];	
+	UpdateMenuMapperLabel(m_cartB);
+	m_cartB->avoid_evt = true;	
 }
 
 void SessionPage::OnChangeCartBContents(wxCommandEvent & event)
 {
-	m_cartB->ips.Clear();
-	m_cartB->contents = m_cartB->control->GetValue();
-	m_cartB->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	m_cartB->mmenu->SetLabel(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"));
+	if (!m_cartB->avoid_evt){
+		m_cartB->ips.Clear();
+		m_cartB->type=wxT("");
+		m_cartB->contents = m_cartB->control->GetValue();
+		m_cartB->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
+		UpdateMenuMapperLabel(m_cartA);
+	}
+	m_cartB->avoid_evt = false;
 }
 
 void SessionPage::OnClickCassetteCombo(wxCommandEvent & event)
@@ -817,6 +845,8 @@ void SessionPage::AddHistory(mediaInfo *media)
 	// so this is gonna be replaced as soon as 2.6 is stable
 	unsigned int i;
 	wxString currentItem = media->contents;
+	wxString currentType = media->type;
+	bool isCart = ((media == m_cartA) || (media == m_cartB));
 #ifdef __WXMSW__
 	currentItem.Replace(wxT("/"),wxT("\\"),true);
 #else
@@ -826,105 +856,150 @@ void SessionPage::AddHistory(mediaInfo *media)
 	if (pos != wxNOT_FOUND)
 	{
 		media->history.RemoveAt(pos);
+		if (isCart){
+			media->typehistory.RemoveAt(pos);
+		}
 	}
-	media->history.Insert(currentItem,0);	
+	media->history.Insert(currentItem,0);
+	if (isCart){
+		media->typehistory.Insert(currentType,0);
+	}
 	while (media->history.GetCount() > HISTORY_SIZE)
 	{
 		media->history.RemoveAt(HISTORY_SIZE);
+		if (isCart){
+			media->history.RemoveAt(HISTORY_SIZE);
+		}
 	}
 	media->control->Clear();
 	for (i=0;i<media->history.GetCount();i++){
 		media->control->Append(media->history[i]);
 	}
 	media->control->SetValue(currentItem);
-
-
-
-
 }
 
 void SessionPage::RestoreHistory()
 {
 	wxString temp;
 	mediaInfo * media[5] = {m_diskA, m_diskB, m_cartA, m_cartB, m_cassette};
-		ConfigurationData::ID id[5] = {ConfigurationData::CD_HISTDISKA,
-			ConfigurationData::CD_HISTDISKB,
-			ConfigurationData::CD_HISTCARTA,
-			ConfigurationData::CD_HISTCARTB,
-			ConfigurationData::CD_HISTCASSETTE};
-			ConfigurationData * config = ConfigurationData::instance();
-			config->GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
-			wxString value;
-			int pos;
-			unsigned int i=0;
-			FOREACH(i,media){
-				media[i]->control->Clear();
-				config->GetParameter(id[i],value);
-				do
-				{
-					pos = value.Find(wxT("::"));
-					if (pos != -1)
-					{
-						media[i]->history.Add(value.Left(pos));
-						media[i]->control->Append(value.Left(pos));
-						value = value.Mid(pos + 2);	
-					}
-				}while (pos !=-1);
-				if (m_InsertedMedia & (1 << i)) {
-					media[i]->control->SetSelection(0);
-					media[i]->contents=media[i]->history[0];
-				}
-				else {
-					media[i]->control->SetValue(wxT(""));
-					media[i]->contents=wxT("");
-				}
-			}
-
-			config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
-			if (!m_usedMachine.IsEmpty())
+	ConfigurationData::ID id[5] = {ConfigurationData::CD_HISTDISKA,
+		ConfigurationData::CD_HISTDISKB,
+		ConfigurationData::CD_HISTCARTA,
+		ConfigurationData::CD_HISTCARTB,
+		ConfigurationData::CD_HISTCASSETTE};
+	ConfigurationData::ID typeID[2] = {ConfigurationData::CD_TYPEHISTCARTA, ConfigurationData::CD_TYPEHISTCARTB};
+	ConfigurationData * config = ConfigurationData::instance();
+	config->GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
+	wxString value;
+	wxString types;
+	int pos;
+	unsigned int i=0;
+	int hist=-1;
+	FOREACH(i,media){
+		media[i]->control->Clear();
+		config->GetParameter(id[i],value);
+		do
+		{
+			pos = value.Find(wxT("::"));
+			if (pos != -1)
 			{
-				temp = m_usedMachine;
-				temp.Replace(wxT("_"),wxT(" "),true);
-				temp.Replace(wxT("\""),wxT(""),true);
-				int pos = m_machineList->FindString(temp);
-				
-				if (pos != -1)
-					m_machineList->SetSelection (pos);
+				media[i]->history.Add(value.Left(pos));
+				media[i]->control->Append(value.Left(pos));
+				value = value.Mid(pos + 2);	
 			}
-
-			config->GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);
-			m_usedExtensions = value;
+		}while (pos !=-1);
+		if ((media[i]==m_cartA) || (media[i]==m_cartB)){
+			hist++;
+			config->GetParameter(typeID[hist],types);	
 			do
 			{
-				pos = value.Find(wxT("::"));
+				pos = types.Find(wxT("::"));
 				if (pos != -1)
 				{
-					temp = value.Left(pos);
-					temp.Replace(wxT("_"),wxT(" "),true);
-					m_extensionList->SetStringSelection (temp);
-					value = value.Mid(pos + 2);	
+					media[i]->typehistory.Add(types.Left(pos));
+					types = types.Mid(pos + 2);	
 				}
-			} while (pos !=-1);
+			}while (pos !=-1);
+			while (media[i]->typehistory.GetCount() < media[i]->history.GetCount()){
+				media[i]->typehistory.Add(wxT("auto"));
+			}
+		}
+		if (m_InsertedMedia & (1 << i)) {
+			media[i]->control->SetSelection(0);
+			media[i]->contents=media[i]->history[0];
+			if ((media[i]==m_cartA) || (media[i]==m_cartB)){
+				media[i]->type=media[i]->typehistory[0];
+				UpdateMenuMapperLabel(media[i]);
+			}
+		}
+		else {
+			media[i]->control->SetValue(wxT(""));
+			media[i]->contents=wxT("");
+		}
+	}
+		config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
+	if (!m_usedMachine.IsEmpty()){
+		temp = m_usedMachine;
+		temp.Replace(wxT("_"),wxT(" "),true);
+		temp.Replace(wxT("\""),wxT(""),true);
+		int pos = m_machineList->FindString(temp);
+		
+		if (pos != -1){
+			m_machineList->SetSelection (pos);
+		}
+	}
+	config->GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);
+	m_usedExtensions = value;
+	do
+	{
+		pos = value.Find(wxT("::"));
+		if (pos != -1){
+			temp = value.Left(pos);
+			temp.Replace(wxT("_"),wxT(" "),true);
+			m_extensionList->SetStringSelection (temp);
+			value = value.Mid(pos + 2);	
+		}
+	} while (pos !=-1);
 }
-
+	
 void SessionPage::SaveHistory()
 {
 	mediaInfo * media[5] = {m_diskA, m_diskB, m_cartA, m_cartB, m_cassette};
 	ConfigurationData::ID id[5] = {ConfigurationData::CD_HISTDISKA,
 			ConfigurationData::CD_HISTDISKB, ConfigurationData::CD_HISTCARTA,
-			ConfigurationData::CD_HISTCARTB, ConfigurationData::CD_HISTCASSETTE};
-			ConfigurationData * config = ConfigurationData::instance();
+			ConfigurationData::CD_HISTCARTB, ConfigurationData::CD_HISTCASSETTE
+	};
+	ConfigurationData::ID typeID[2] = {ConfigurationData::CD_TYPEHISTCARTA,
+									   ConfigurationData::CD_TYPEHISTCARTB
+	};
+	ConfigurationData * config = ConfigurationData::instance();
 	wxString temp;
-	wxString current;
 	unsigned int i=0;
+	unsigned int j;
+	int hist=-1;
 	FOREACH(i,media){
 		temp.Clear();
-		current = media[i]->contents;
-		for (unsigned int j=0;j<media[i]->history.GetCount();j++) {
+		for (j=0;j<media[i]->history.GetCount();j++) {
 			temp += media[i]->history[j];
 			temp += wxT("::");
 		}
 		config->SetParameter(id[i],temp);
+		if ((media[i] == m_cartA) || (media[i] == m_cartB)){
+			hist++;
+			temp.Clear();
+			for (j=0;j<media[i]->typehistory.GetCount();j++) {
+				if (media[i]->typehistory[j] == wxT("")){
+					temp += wxT("auto");
+				}
+				else{
+					temp += media[i]->typehistory[j];
+				}
+				temp += wxT("::");
+			}
+			config->SetParameter(typeID[hist],temp);
+		}
+		
+		
 	}
 	config->SetParameter(ConfigurationData::CD_MEDIAINSERTED,(long) m_InsertedMedia);
 	config->SetParameter(ConfigurationData::CD_USEDMACHINE,m_usedMachine);
@@ -1105,16 +1180,12 @@ void SessionPage::OnEjectCartByMenu (wxCommandEvent & event)
 
 void SessionPage::OnSelectMapper(wxCommandEvent & event)
 {
-	wxString item = wxT("Select cartridge type (AUTO)"); 
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
 		wxString value = target->type;
 		if (m_romTypeDialog->ShowModal(value) == wxID_OK){	
 			target->type = m_romTypeDialog->GetSelectedType();
-			if ((target->type != wxT("")) && (target->type.Upper() != wxT("AUTO"))){
-				item = wxT("Select cartridge type (") + target->type + wxT(")");
-			}
-			target->mmenu->SetLabel(Cart_Select_Mapper,item);
+			UpdateMenuMapperLabel(target);
 		}
 	}
 }

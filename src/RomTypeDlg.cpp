@@ -13,6 +13,7 @@
 IMPLEMENT_CLASS(RomTypeDlg, wxDialog)
 BEGIN_EVENT_TABLE(RomTypeDlg, wxDialog)
 	EVT_BUTTON(XRCID("RomTypeOkButton"),RomTypeDlg::OnOk)
+	EVT_LISTBOX_DCLICK(XRCID("RomTypeList"),RomTypeDlg::OnOk)
 	EVT_BUTTON(XRCID("RomTypeCancelButton"),RomTypeDlg::OnCancel)
 END_EVENT_TABLE()
 
