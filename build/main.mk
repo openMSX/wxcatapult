@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.31 2004/11/14 19:05:33 h_oudejans Exp $
+# $Id: main.mk,v 1.32 2004/12/25 22:29:20 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -214,6 +214,7 @@ XRC_FULL:=$(addprefix $(XRC_PATH)/, \
 	input.xrc \
 	fullscreen.xrc \
 	screenshot.xrc \
+	romtype.xrc
 	)
 
 BITMAPS:=$(addprefix $(BUILD_PATH)/,$(wildcard $(BITMAPS_PATH)/*.bmp))
