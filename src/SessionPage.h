@@ -1,4 +1,4 @@
-// $Id$
+// $Id: SessionPage.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -32,14 +32,15 @@ class SessionPage : public wxPanel
 		void OnClearDiskB (wxCommandEvent & event);
 		void OnClearDiskA (wxCommandEvent & event);
 		void OnChangeMedia (wxCommandEvent & event);
+		void SetupHardware ();
 
 	private:
 		static int CompareCaseInsensitive(const wxString& first, const wxString& second);
 		void BrowseDisk (wxComboBox * target, wxString defaultpath);
 		void BrowseCart (wxComboBox * target, wxString defaultpath);
-		void prepareMachines(wxString sharepath, wxArrayString & machineArray);
+		void prepareMachines(wxString sharepath, wxArrayString & machineArray, bool optional=false);
 		void fillMachines (wxArrayString & machineArray);
-		void prepareExtensions (wxString sharepath, wxArrayString & extensionArray);
+		void prepareExtensions (wxString sharepath, wxArrayString & extensionArray, bool optional=false);
 		void fillExtensions (wxArrayString & extensionArray);
 		void CheckMedia();
 
