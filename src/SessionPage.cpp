@@ -260,7 +260,7 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensio
 	if (!::wxDirExists(sharepath + _("/extensions"))) {
 		if (!optional) {
 			wxString msg;
-			msg.sprintf("Directory: %s does not exist", sharepath + _("/extensions"));
+			msg.sprintf("Directory: %s does not exist", wxString(sharepath + _("/extensions")).c_str());
 			wxMessageBox (msg);
 		}
 		return;
@@ -292,7 +292,7 @@ void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArr
 	if (!::wxDirExists(sharepath + _("/machines"))) {
 		if (!optional) {
 			wxString msg;
-			msg.sprintf("Directory: %s does not exist", sharepath + _("/machines"));
+			msg.sprintf("Directory: %s does not exist", wxString(sharepath + _("/machines")).c_str());
 			wxMessageBox (msg);
 		}
 		return;
