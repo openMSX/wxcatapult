@@ -26,7 +26,7 @@
 		</ol>
 	</li>
 	<li><a class="internal" href="#starting">2. Starting Catapult</a></li>
-	<li><a class="internal" href="#tour">3. A quick tour</a>
+	<li><a class="internal" href="#tour">3. A Quick Tour</a>
 		<ol class="toc">
 			<li><a class="internal" href="#tour_session">3.1. Session Page</a></li>
 			<li><a class="internal" href="#tour_misc">3.2. Miscellaneous Control Page</a></li>
@@ -38,16 +38,16 @@
 	</li>
 	<li><a class="internal" href="#session">4. Using the Session Page</a>
 		<ol class="toc">
-			<li><a class="internal" href="#hardware">4.1. Selecting hardware</a></li>
+			<li><a class="internal" href="#hardware">4.1. Selecting Hardware</a></li>
 			<li><a class="internal" href="#software">4.2. Selecting Software</a></li>
-			<li><a class="internal" href="#updating">4.3. openMSX and updating media</a></li>
+			<li><a class="internal" href="#updating">4.3. Updating Media</a></li>
 		</ol>
 	</li>
 	<li><a class="internal" href="#control">5. Using the Control Pages</a>
 		<ol class="toc">
-			<li><a class="internal" href="#misc">5.1. The Misc Control Page</a></li>
-			<li><a class="internal" href="#video">5.2. The Video Control Page</a></li>
-			<li><a class="internal" href="#audio">5.3. The Audio Control Page</a></li>
+			<li><a class="internal" href="#misc">5.1. Miscellaneous Control Page</a></li>
+			<li><a class="internal" href="#video">5.2. Video Control Page</a></li>
+			<li><a class="internal" href="#audio">5.3. Audio Control Page</a></li>
 		</ol>
 	</li>
 	<li><a class="internal" href="#status">6. Status Display</a></li>
@@ -77,7 +77,7 @@ if you printed out this manual.
 
 <h3><a id="purpose">1.2. Purpose</a></h3>
 <p>
-This manual is about Catapult, the (optional) GUI for openMSX.  You can 
+This manual is about Catapult, the (optional) GUI for openMSX. You can 
 find more information about openMSX on the
 <a class="external" href="http://openmsx.sourceforge.net/">openMSX home page</a>.
 You can also download Catapult and the emulator itself from there.
@@ -144,9 +144,11 @@ Initial version.
 <h2><a id="starting">2. Starting Catapult</a></h2>
 
 <p>
-Linux users can start Catapult by simply typing:
+On a Unix-like system, if you use a recent KDE or GNOME,
+you can find Catapult in the menu, under Emulators or under Games.
+If this does not work for you, you can start Catapult from the command line
+by simply typing:
 </p>
-
 <div class="commandline">
     catapult
 </div>
@@ -169,14 +171,14 @@ share (default: <code>/opt/openMSX/share</code> in Linux and the
 in Windows) and the personal share (default: <code> ~/.openMSX/share</code> 
 in Linux and <code>My Documents\openMSX\share</code> in Windows). 
 You'll need to fill in the system share directory, because the personal share directory is 
-scanned anyway. After you press the OK button, Catapult's main screen appears, showed in the picture below.
+scanned anyway. After you press the OK button, Catapult's main screen appears, as shown in the picture below.
 </p>
 
 <p class="image">
 <img src="mainscreen.png" width="609" height="428" alt="Main Screen"></img>
 </p>
 
-<h2><a id="tour">3 A quick tour</a></h2>
+<h2><a id="tour">3. A Quick Tour</a></h2>
 
 <p>
 The main screen of Catapult consists of 5 pages to separate different kinds 
@@ -185,33 +187,44 @@ everything on one page. This Section introduces the different pages and how they
 can be used. It also tells about the global section of Catapult.
 </p>
 
+<p>
+The next chapters discuss Catapult's functionality in detail.
+You will find links in this chapter to those detailed explanations.
+</p>
+
 <h3><a id="tour_session">3.1. Session Page</a></h3>
 
 <p>
 This page lets you select which MSX machine you want to use, what extra 
 functionality that machine should have and what kind of media (disks, cassettes 
 and cartridges) you insert. This is the most used page of Catapult.
+[<a class="internal" href="#session">details</a>]
 </p>
 
 <h3><a id="tour_misc">3.2. Miscellaneous Control Page</a></h3>
 
 <p>
-The Miscellaneous Control Page (also called Misc Control Page). contains the 
-controls that can't easily be put in one category. This page contains three types 
-of controls:
+The Miscellaneous Control Page ("Misc Controls") contains the 
+controls that can't easily be put in one category.
+This page contains three types of controls:
 </p>
 
 <ul>
-<li>to set the speed and frame skip of openMSX.</li>
-<li>to push special buttons on the MSX within openMSX like power and reset.</li>
-<li>to plug devices into the joystick ports of the MSX.</li>
+<li>controls to set the speed and frame skip of openMSX.</li>
+<li>controls to push special buttons on the MSX within openMSX like power and reset.</li>
+<li>controls to plug devices into the joystick ports of the MSX.</li>
 </ul>
+
+<p>
+[<a class="internal" href="#misc">details</a>]
+</p>
 
 <h3><a id="tour_video">3.3. Video Control Page</a></h3>
 
 <p>
 This page contains all controls to select how openMSX should display the MSX 
 screen. Some of this controls can cause openMSX to slow down.
+[<a class="internal" href="#video">details</a>]
 </p>
 
 <h3><a id="tour_audio">3.4. Audio Control Page</a></h3>
@@ -222,6 +235,7 @@ started, this page contains a mixer of each sound device available in the MSX.
 This page also contains some controls specific to the MSXturboR machines 
 concerning MIDI and PCM wave input. These are grayed out when a different 
 MSX computer is emulated.
+[<a class="internal" href="#audio">details</a>]
 </p>
 
 <h3><a id="tour_status">3.5. Status Page</a></h3>
@@ -231,6 +245,7 @@ This page contains the messages Catapult gets from openMSX. This can be informat
 like what cartridge has been found or which machine is used, but it can also 
 show warnings or errors that occur. In case of an error, Catapult automatically 
 selects this page.
+[<a class="internal" href="#status">status</a>]
 </p>
 
 <h3><a id="tour_global">3.6. Global Section</a></h3>
@@ -240,8 +255,8 @@ The global section can be found in the bottom of the Catapult screen. It
 contains the Start/Stop button to start or stop openMSX. It also contains a 
 representation of the LEDs of the MSX. Not all MSX machines have these LEDs, so 
 don't be alarmed if some LEDs don't appear to be working. At the bottom of this 
-section, you can find the status bar. It displays information about whether or not 
-openMSX is running and the number of frames openMSX displays every second (fps).
+section, you can find the status bar. It displays information about whether or not openMSX is running and the number of frames openMSX displayed per second
+(fps).
 </p>
 
 <h2><a id="session">4. Using the Session Page</a></h2>
@@ -258,7 +273,7 @@ still be easily recognisable.
 <img src="session.png" width="596" height="296" alt="Session Page"></img>
 </p>
 
-<h3><a id="hardware">4.1. Selecting hardware</a></h3>
+<h3><a id="hardware">4.1. Selecting Hardware</a></h3>
 
 <p>
 In the top-left corner, you can select which machine openMSX should emulate. 
@@ -280,11 +295,11 @@ but openMSX might make a problem. Some problems that can occur are:
 </p>
 
 <ul>
-<li> too many extensions need a cartridge slot. There are a limited amount of
-such slots available (most machines have only two of them) </li>
-<li> two or more selected extensions are basically the same. This can easily
+<li>too many extensions need a cartridge slot. There are a limited amount of
+such slots available (most machines have only two of them).</li>
+<li>two or more selected extensions are basically the same. This can easily
 lead to duplicate ID errors.</li> 
-<li> one of more extensions were already available in the chosen machine. This
+<li>one of more extensions were already available in the chosen machine. This
 may also lead to duplicate ID errors.</li> 
 </ul>
 
@@ -293,7 +308,7 @@ Note that with Catapult it is not possible to select one extension multiple
 times. We don't expect this to be a problem however.
 </p>
 
-<h3><a id="software">4.2. Selecting software</a></h3>
+<h3><a id="software">4.2. Selecting Software</a></h3>
 
 <p>
 The rest of this page is used for inserting media into your MSX. There are three 
@@ -330,9 +345,9 @@ href="http://openmsx.sourceforge.net/manual/user.html#tape">openMSX User's Manua
 </dl>
 
 <p>
-Every media input box is equipped with a history. Just click on the arrow down to 
-open the history. With this you can easily select the most recently chosen
-files.
+Every media input box is equipped with a history.
+Just click on the down arrow to open the history.
+This way you can easily select the most recently used files.
 </p>
 
 <p>
@@ -342,22 +357,22 @@ in which you can select which media file should be used. The buttons on the
 right are to eject media. No conformation is asked for this.
 </p>
 
-<h3><a id="updating">4.3. openMSX and updating media</a></h3>
+<h3><a id="updating">4.3. Updating Media</a></h3>
 
 <p>
 Catapult uses two different kinds of updating schemes. When openMSX is not 
 running and you change some of the media input boxes, nothing really happens until 
 you actually start openMSX. At that moment, the used values are added to the 
-history and the history is  saved. Of course, these values are then used in openMSX. 
+history and the history is saved. Of course, these values are then used in openMSX. 
 If openMSX is already running and you change a disk or tape, this will 
 be updated according to the following criteria:
 </p>
 
 <ul>
-<li> when you select a disk or tape using history or the browse facility,
-openMSX updates immediately. </li>
-<li> when you type in the filename of a disk or tape, openMSX updates as soon as
-the cursor leaves the media input box. </li> 
+<li>when you select a disk or tape using history or the browse facility,
+openMSX updates immediately.</li>
+<li>when you type in the filename of a disk or tape, openMSX updates as soon as
+the cursor leaves the media input box.</li> 
 </ul>
 
 <p>
@@ -375,15 +390,15 @@ parameter has been changed and if requested commands have been processed without
 problems.
 </p>
 
-<h3><a id="misc">5.1. The Misc Control Page</a></h3>
+<h3><a id="misc">5.1. Miscellaneous Control Page</a></h3>
 
 <p>
-Below you see a picture of the Misc Control Page while openMSX is running. If 
+Below you see a picture of the Miscellaneous Control Page while openMSX is running. If 
 openMSX is not running, all controls will be disabled.
 </p>
 
 <p class="image">
-<img src="misc.png" width="590" height="259" alt="Misc Controls Page"></img>
+<img src="misc.png" width="590" height="259" alt="Miscellaneous Controls Page"></img>
 </p>
 
 <p>
@@ -421,7 +436,7 @@ selected device should be in. These are the only controls that can be modified
 before openMSX is started.
 </p>
 
-<h3><a id="video">5.2. The Video Control Page</a></h3>
+<h3><a id="video">5.2. Video Control Page</a></h3>
 
 <p>
 Below you see a picture of the Video Control Page while openMSX is running. 
@@ -478,12 +493,12 @@ to Catapult (using ALT-TAB) and simply deselecting full screen again.
 <p>
 The lower half of this page allows you to modify the openMSX screen. All of 
 these settings can be controlled by using the slider, typing the value directly 
-into the edit field or using the reset button to refer to the default state. 
+into the edit field or using the reset button to revert to the default state. 
 These settings are pretty much self-explanatory. Blur and Glow are only 
 supported in the SDLGL renderer.
 </p>
 
-<h3><a id="audio">5.3. The Audio Control Page</a></h3>
+<h3><a id="audio">5.3. Audio Control Page</a></h3>
 
 <p>
 Below you see a picture of the audio control page while openMSX is running. 
@@ -631,7 +646,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: user.html,v 1.3 2004/05/09 22:13:01 mthuurne Exp $
+$Id: user.html,v 1.4 2004/05/13 17:57:25 h_oudejans Exp $
 </p>
 
 </body>
