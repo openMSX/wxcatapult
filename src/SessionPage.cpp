@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.50 2005/02/03 17:47:28 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.51 2005/02/03 21:32:29 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -1124,13 +1124,14 @@ void SessionPage::OnSelectIPS(wxCommandEvent & event)
 	wxString item = wxT("Select IPS Patches (None selected)"); 
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
-		if (m_ipsDialog->ShowModal(target->ips) == wxID_OK){
+		if (m_ipsDialog->ShowModal(target->ips,target->ipsdir) == wxID_OK){
 			m_ipsDialog->GetIPSList(target->ips);
 			int count = target->ips.GetCount();
 			if (count > 0){
 				item.sprintf(wxT("Select IPS Patches (%d selected)"),count);
 			}
 			target->mmenu->SetLabel(Cart_Browse_Ips,item);
+			target->ipsdir = m_ipsDialog->GetLastBrowseLocation();
 		}
 	}
 }
@@ -1140,13 +1141,30 @@ void SessionPage::OnBrowseDiskIps(wxCommandEvent & event)
 	wxString item = wxT("Select IPS Patches (None selected)"); 
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
-		if (m_ipsDialog->ShowModal(target->ips) == wxID_OK){
+		if (m_ipsDialog->ShowModal(target->ips,target->ipsdir) == wxID_OK){
 			m_ipsDialog->GetIPSList(target->ips);
 			int count = target->ips.GetCount();
 			if (count > 0){
 				item.sprintf(wxT("Select IPS Patches (%d selected)"),count);
 			}
 			target->mmenu->SetLabel(Disk_Browse_Ips,item);
+			if (m_controller->IsOpenMSXRunning())
+			{
+				wxString devicename;
+				if (m_lastUsedPopup == m_diskAButton){
+					devicename = wxT("diska ");
+				}
+				else if (m_lastUsedPopup == m_diskBButton){
+					devicename = wxT("diskb ");
+				}		
+				wxString command = devicename +wxT(" ") + ConvertPath(target->contents,true) + wxT(" ");
+				for (unsigned int i=0;i<target->ips.GetCount();i++)
+				{
+					command += ConvertPath(target->ips[i],true);
+				}
+				m_controller->WriteCommand(command);
+			}
+			target->ipsdir = m_ipsDialog->GetLastBrowseLocation();
 		}
 	}
 }

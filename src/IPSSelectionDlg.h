@@ -22,7 +22,8 @@ public:
 	void OnMoveDown(wxCommandEvent & event);
 	virtual ~IPSSelectionDlg();
 	void GetIPSList(wxArrayString & ipsList);
-	int ShowModal(wxArrayString & patches);
+	wxString GetLastBrowseLocation ();
+	int ShowModal(wxArrayString & patches,wxString targetDir);
 	void CheckSelections();
 
 private:

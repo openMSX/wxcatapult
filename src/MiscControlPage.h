@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.23 2004/10/08 15:26:40 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.24 2005/01/06 16:27:22 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -88,7 +88,6 @@ class MiscControlPage : public CatapultPage
 		wxTextCtrl * m_printerLogFile;
 		wxString m_oldJoy1;
 		wxString m_oldJoy2;
-		wxString m_oldSpeed;
 		wxString m_firmwareSetting;
 		wxComboBox * m_lastUpdatedCombo;
 		wxComboBox * m_printerportSelector;

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.38 2004/12/03 18:38:20 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.39 2005/01/06 16:27:21 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -83,7 +83,6 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_maxFrameSkipSlider->SetTickFreq (5,1);
 	m_minFrameSkipSlider->SetTickFreq (5,1);
 	m_renshaTurboSlider->SetTickFreq (5,1);
-	m_oldSpeed= wxT("");
 
 	m_printerportFileLabel = (wxStaticText *)FindWindowByName (wxT("PrinterLogFileLabel"));
 	m_printerportLabel = (wxStaticText *)FindWindowByName(wxT("PrinterLabel"));
@@ -207,25 +206,17 @@ void MiscControlPage::OnSetNormalSpeed(wxCommandEvent &event)
 void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
 {
 	if (m_speedMaxButton->GetValue()){
-		m_oldSpeed = m_speedIndicator->GetValue();
-		m_controller->WriteCommand (wxT("set speed 500"));
 		m_speedSlider->Disable();
 		m_speedIndicator->Disable();
 		m_speedNormalButton->Disable();
-		m_speedIndicator->SetValue(wxT("500"));
 		m_controller->WriteCommand (wxT("set throttle off"));
 	}
 	else{
-		if (m_oldSpeed != wxT("")){
-			m_controller->WriteCommand (wxString(wxT("set speed ")) + m_oldSpeed);
 			m_speedSlider->Enable();
 			m_speedIndicator->Enable();
 			m_speedNormalButton->Enable();
-			m_speedIndicator->SetValue(m_oldSpeed);
 			m_controller->WriteCommand (wxT("set throttle on"));
-			m_oldSpeed = wxT("");
 		}
-	}
 }
 
 void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent &event)
@@ -361,9 +352,6 @@ void MiscControlPage::SetControlsOnEnd()
 	m_frameskipMaxLabel->Enable(false);
 	m_frameskipMinLabel->Enable(false);
 	m_emulationSpeedLabel->Enable(false);	
-
-
-
 }
 
 void MiscControlPage::OnInputSpeed(wxCommandEvent &event)

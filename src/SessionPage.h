@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.22 2005/02/01 18:30:43 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.23 2005/02/03 17:47:28 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -98,9 +98,11 @@ class SessionPage : public CatapultPage
 				type = wxT("");
 				control = NULL;
 				history.Clear();
-				mmenu = menu; 
+				mmenu = menu;
+				ipsdir = wxT("");
 			};
 			wxString contents;
+			wxString ipsdir;
 			wxArrayString ips;
 			wxString type; // only for carts at the moment
 			wxComboBox * control;

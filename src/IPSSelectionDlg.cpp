@@ -45,8 +45,9 @@ IPSSelectionDlg::~IPSSelectionDlg()
 	
 }
 
-int IPSSelectionDlg::ShowModal(wxArrayString & patches)
+int IPSSelectionDlg::ShowModal(wxArrayString & patches, wxString targetDir)
 {
+	m_lastBrowseLocation = targetDir;
 	m_ipsDisplay->Clear();
 	int count = patches.GetCount();
 	if (count != 0)
@@ -86,6 +87,7 @@ void IPSSelectionDlg::OnOk(wxCommandEvent &event)
 void IPSSelectionDlg::OnAddIPS(wxCommandEvent &event)
 {
 	wxString path;
+	wxString result;
 #ifndef __MOTIF__
 	path = wxT("All known patchfiles|*.ips;*.IPS;*.gz;*.GZ;*.zip;*.ZIP|Uncompressed patchfiles (*.ips)|*.ips;*.IPS|Compressed patchfiles|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
@@ -93,7 +95,9 @@ void IPSSelectionDlg::OnAddIPS(wxCommandEvent &event)
 #endif	
 	wxFileDialog filedlg(this,wxT("Select ips patchfile"), m_lastBrowseLocation, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK){
-		m_ipsDisplay->Append(filedlg.GetPath());
+		result = filedlg.GetPath();
+		m_ipsDisplay->Append(result);
+		m_lastBrowseLocation = ::wxPathOnly(result);
 		CheckSelections();
 	}	
 }
@@ -163,6 +167,11 @@ void IPSSelectionDlg::GetIPSList(wxArrayString & ipsList)
 			ipsList.Add(m_ipsDisplay->GetString(i));
 		}
 	}
+}
+
+wxString IPSSelectionDlg::GetLastBrowseLocation()
+{
+	return m_lastBrowseLocation;
 }
 
 void IPSSelectionDlg::CheckSelections()

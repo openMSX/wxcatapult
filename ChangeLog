@@ -1,4 +1,10 @@
-$Id: ChangeLog,v 1.112 2005/01/31 21:00:19 h_oudejans Exp $
+$Id: ChangeLog,v 1.113 2005/02/03 17:47:27 h_oudejans Exp $
+
+2004-02-05 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* When selecting Disk IPS while openMSX is running, it's now applied
+	* Last used IPS path is now remembered
+	* Max Speed doesn't set speed to 500 anymore. This gave too much 
+	  problems
 
 2004-02-03 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed updating the popup menu's for mapper and ips
