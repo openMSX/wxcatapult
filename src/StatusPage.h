@@ -1,4 +1,4 @@
-// $Id: StatusPage.h,v 1.5 2004/03/23 19:09:16 h_oudejans Exp $
+// $Id: StatusPage.h,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
 // StatusPage.h: interface for the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -17,7 +17,6 @@ class StatusPage : public CatapultPage
 	public:
 		StatusPage(wxWindow * parent = (wxWindow *)NULL);
 		virtual ~StatusPage();
-		void UpdateLed (wxString ledname, wxString ledstate);
 		wxTextCtrl * m_outputtext;
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus){};
 
