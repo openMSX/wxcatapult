@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.3 2004/03/20 14:30:55 h_oudejans Exp $
+# $Id: main.mk,v 1.4 2004/03/23 16:31:19 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -117,7 +117,7 @@ $(CONFIG_HEADER): $(CONFIG_MAKEFILE)
 	@echo "#define RESOURCEDIR \"$(INSTALL_BASE)/resources\"" >> $@
 	@echo "#endif" >> $@
 
-$(DIALOGS): $(XRCDIR)/%.xrc: $(DIALOGSDIR)/%.wxg
+$(DIALOGS): $(XRCDIR)/%.xrc: $(DIALOGSDIR)/%.wxg $(SEDSCRIPT)
 	@echo "Converting $(@:$(XRCDIR)/%=%)..."
 	@mkdir -p $(@D)
 	@$(SED) -f $(SEDSCRIPT) $< > $@
