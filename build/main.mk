@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.10 2004/05/09 09:27:58 mthuurne Exp $
+# $Id: main.mk,v 1.11 2004/05/09 10:27:15 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -131,6 +131,13 @@ LDFLAGS+=$(WX_LDFLAGS) $(XRC_LDFLAGS) $(XML_LDFLAGS)
 
 # Build Rules
 # ===========
+
+# Do not build if core component dependencies are not met.
+CORE_LIBS:=WX XRC XML
+ifneq ($(filter x,$(foreach LIB,$(CORE_LIBS),x$(HAVE_$(LIB)_LIB))),)
+$(error Cannot build Catapult because essential libraries are unavailable. \
+Please install the needed libraries and rerun (g)make)
+endif
 
 # Force a probe if "probe" target is passed explicitly.
 ifneq ($(filter probe,$(MAKECMDGOALS)),)
