@@ -280,6 +280,10 @@ InputName=videocontrols
 # End Group
 # Begin Source File
 
+SOURCE=.\src\catapult.rc
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\CatapultConfigDlg.cpp
 # End Source File
 # Begin Source File
@@ -406,6 +410,14 @@ SOURCE=.\src\wxToggleButtonXmlHandler.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=.\src\catapult.ico
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\test.ico
+# End Source File
 # End Group
 # End Target
 # End Project
