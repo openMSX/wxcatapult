@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.51 2004/04/15 16:03:51 h_oudejans Exp $
+$Id: ChangeLog,v 1.52 2004/04/15 18:26:25 h_oudejans Exp $
+
+2004-04-16 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Restructured the videocontrolpage.
 
 2004-04-15 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* fixed gtk segfault when catapult closes and openmsx still runs
