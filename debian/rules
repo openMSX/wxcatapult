@@ -78,7 +78,8 @@ install: build
 		SYMLINK_FOR_BINARY=false \
 		CATAPULT_INSTALL=$(CURDIR)/debian/tmp/usr \
 		CATAPULT_NO_DESKTOP_HOOKS=true
-	@mv debian/tmp/usr/bin/catapult debian/tmp/usr/bin/openmsx-catapult
+	@mv $(CURDIR)/debian/tmp/usr/bin/catapult $(CURDIR)/debian/tmp/usr/bin/openmsx-catapult
+	@rm $(CURDIR)/debian/tmp/usr/share/doc/openmsx-catapult/GPL
 	#@echo "  Removing CVS directories from .../share"
 	#@find $(CURDIR)/debian/openmsx/usr/share -name CVS | xargs rm -rf
 
