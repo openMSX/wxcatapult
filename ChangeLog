@@ -1,30 +1,33 @@
-$Id: ChangeLog,v 1.113 2005/02/03 17:47:27 h_oudejans Exp $
+$Id: ChangeLog,v 1.114 2005/02/05 09:50:53 h_oudejans Exp $
 
-2004-02-05 Herman Oudejans <hn.oudejans@quicknet.nl>
+2005-02-08 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed the 'type' command.
+
+2005-02-05 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* When selecting Disk IPS while openMSX is running, it's now applied
 	* Last used IPS path is now remembered
 	* Max Speed doesn't set speed to 500 anymore. This gave too much 
 	  problems
 
-2004-02-03 Herman Oudejans <hn.oudejans@quicknet.nl>
+2005-02-03 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed updating the popup menu's for mapper and ips
 	* Restricted the history to 25 items (hardcoded for now)
 
-2004-01-31 Herman Oudejans <hn.oudejans@quicknet.nl>
+2005-01-31 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fix IPS and mapper support
 	* Added multiple IPS and disk IPS.	
 
-2004-01-26 Herman Oudejans <hn.oudejans@quicknet.nl>
+2005-01-26 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed problems with non-lowercase settings in the audiopage
 	* Made some more adjustments for wxmsw 2.5 with unicode
 
-2004-01-09 Manuel Bilderbeek <manuel@msxnet.org>
+2005-01-09 Manuel Bilderbeek <manuel@msxnet.org>
 	* Fixed fps counter on wx unicode.
 
-2004-01-08 Manuel Bilderbeek <manuel@msxnet.org>
+2005-01-08 Manuel Bilderbeek <manuel@msxnet.org>
 	* Added tool tips for new menus. Fixed some typos.
 
-2004-01-06 Herman Oudejans <hn.oudejans@quicknet.nl>
+2005-01-06 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Catapult now works with wxWidgets 2.5.3, however the main screen
 	  appears to be too wide.
 	* Catapult is now 100% unicode compatible.

@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.51 2005/02/03 21:32:29 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.52 2005/02/05 09:50:54 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -111,22 +111,22 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	{
 		m_diskMenu[j] = new wxMenu(wxT(""),0);
 //		m_diskMenu[j]->Append(Disk_Insert_New,wxT("Insert empty disk"),wxT(""),wxITEM_NORMAL);
-		m_diskMenu[j]->Append(Disk_Browse_File,wxT("Browse for disk file"),wxT(""),wxITEM_NORMAL);
+		m_diskMenu[j]->Append(Disk_Browse_File,wxT("Browse for disk image"),wxT(""),wxITEM_NORMAL);
 		m_diskMenu[j]->Append(Disk_Browse_Dir,wxT("Browse for disk folder (DirAsDisk)"),wxT(""),wxITEM_NORMAL);
 		m_diskMenu[j]->Append(Disk_Eject,wxT("Eject disk"),wxT(""),wxITEM_NORMAL);
 		m_diskMenu[j]->Append(Disk_Browse_Ips,wxT("Select IPS Patches (None selected)"),wxT(""),wxITEM_NORMAL);
 
 		m_cartMenu[j] = new wxMenu(wxT(""),0);
-		m_cartMenu[j]->Append(Cart_Browse_File,wxT("Browse cartridge"),wxT(""),wxITEM_NORMAL);
-		m_cartMenu[j]->Append(Cart_Eject,wxT("Eject cartridge"),wxT(""),wxITEM_NORMAL);
-		m_cartMenu[j]->Append(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"),wxT(""),wxITEM_NORMAL);
+		m_cartMenu[j]->Append(Cart_Browse_File,wxT("Browse ROM image"),wxT(""),wxITEM_NORMAL);
+		m_cartMenu[j]->Append(Cart_Eject,wxT("Eject Rom"),wxT(""),wxITEM_NORMAL);
+		m_cartMenu[j]->Append(Cart_Select_Mapper,wxT("Select ROM type (AUTO)"),wxT(""),wxITEM_NORMAL);
 		m_cartMenu[j]->Append(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"),wxT(""),wxITEM_NORMAL);
 	}
 	m_casMenu = new wxMenu(wxT(""),0);
-	m_casMenu->Append(Cas_Browse_File,wxT("Browse cassette"),wxT(""),wxITEM_NORMAL);
+	m_casMenu->Append(Cas_Browse_File,wxT("Browse cassette image"),wxT(""),wxITEM_NORMAL);
 	m_casMenu->Append(Cas_Eject,wxT("Eject cassette"),wxT(""),wxITEM_NORMAL);
 	m_casMenu->Append(Cas_Rewind,wxT("Rewind cassette"),wxT(""),wxITEM_NORMAL);
-	m_casMenu->Append(Cas_ForcePlay,wxT("Forced play"),wxT(""),wxITEM_CHECK);
+	m_casMenu->Append(Cas_ForcePlay,wxT("Force play"),wxT(""),wxITEM_CHECK);
 
 
 	m_diskA = new mediaInfo(m_diskMenu[0]);

@@ -1,4 +1,4 @@
-// $Id: InputPage.cpp,v 1.8 2004/12/13 22:11:47 manuelbi Exp $
+// $Id: InputPage.cpp,v 1.9 2005/01/06 16:27:21 h_oudejans Exp $
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -49,6 +49,7 @@ void InputPage::OnTypeText (wxCommandEvent &event)
 	test.Replace(wxT("\\"),wxT("\\\\"),true);
 	test.Replace(wxT("\n"),wxT("\\r"),true);
 	test.Replace(wxT("$"),wxT("\\$"),true);
+//	test.Replace(wxT("&"),wxT("\\&"),true);
 	test.Replace(wxT("\""),wxT("\\\""),true);
 	test.Replace(wxT("["),wxT("\\["),true);
 	test.Replace(wxT("]"),wxT("\\]"),true);
