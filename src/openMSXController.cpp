@@ -1,4 +1,4 @@
-// $Id$
+// $Id: openMSXController.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -101,26 +101,28 @@ void openMSXController::HandleStdErr(wxCommandEvent &event)
 
 void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 {
-	CatapultXMLParser::ParseState * data = (CatapultXMLParser::ParseState *)event.GetClientData();
-	switch (data->state)
+	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
+	switch (data->parseState)
 	{
 		case CatapultXMLParser::TAG_UPDATE:
-			if (data->contents.Find(_(" LED O")) != -1)
-				m_appWindow->m_statusPage->UpdateLed (data->contents);
+			if (data->updateType == CatapultXMLParser::UPDATE_LED)
+				m_appWindow->m_statusPage->UpdateLed (data->name, data->contents);
 			break;
-		case CatapultXMLParser::TAG_OK:
+		case CatapultXMLParser::TAG_REPLY:
 			break; // ignore for now
-		case CatapultXMLParser::TAG_NOK:
-			break; // ignore for now
-		case CatapultXMLParser::TAG_WARNING:
-			m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
+		case CatapultXMLParser::TAG_LOG:
+			switch (data->logLevel) {
+			case CatapultXMLParser::LOG_WARNING:
+				m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
+				break;
+			case CatapultXMLParser::LOG_INFO:
+				m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(0,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
+				break;
+			}	
 			m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);		
 			m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
 			break;
-		case CatapultXMLParser::TAG_INFO:
-			m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(0,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
-			m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);		
-			m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+		default:
 			break;
 	}
 	delete data;

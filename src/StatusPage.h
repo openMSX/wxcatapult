@@ -1,4 +1,4 @@
-// $Id$
+// $Id: StatusPage.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // StatusPage.h: interface for the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@ class StatusPage : public wxPanel
 	public:
 		StatusPage(wxWindow * parent = (wxWindow *)NULL);
 		virtual ~StatusPage();
-		void UpdateLed (wxString msg);
+		void UpdateLed (wxString ledname, wxString ledstate);
 		wxTextCtrl * m_outputtext;
 
 	private:

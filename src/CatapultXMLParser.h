@@ -1,4 +1,4 @@
-// $Id$
+// $Id: CatapultXMLParser.h,v 1.2 2004/02/04 22:01:04 manuelbi Exp $
 // CatapultXMLParser.h: interface for the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,37 +19,64 @@ class CatapultXMLParser
 		CatapultXMLParser(wxWindow * target);
 		virtual ~CatapultXMLParser();
 
-		enum State {STATE_START, 
+		enum ParseState {
+			STATE_START, 
 			TAG_OPENMSX, 
-			TAG_OK, 
-			TAG_NOK, 
-			TAG_INFO, 
-			TAG_WARNING, 
+			TAG_REPLY,
+			TAG_LOG,
 			TAG_UPDATE,
-			TAG_ERROR};
+			
+			TAG_OK,			// depreciated
+			TAG_NOK,		// depreciated
+			TAG_INFO,		// depreciated
+			TAG_WARNING,	// depreciated
+		};		
 
-			struct ParseState
-			{
-				State state;
-				wxString contents;
-			};
+		enum ReplyStatus {
+			REPLY_UNKNOWN,
+			REPLY_OK,
+			REPLY_NOK
+		};
+
+		enum LogLevel {
+			LOG_UNKNOWN,
+			LOG_INFO,
+			LOG_WARNING
+		};
+
+		enum UpdateType {
+			UPDATE_OLD,
+			UPDATE_UNKNOWN,
+			UPDATE_LED			
+		};
+
+		struct ParseResult
+		{
+			ParseState parseState;
+			ReplyStatus replyState;
+			LogLevel logLevel;
+			UpdateType updateType;
+			wxString contents;
+			wxString name;
+		};
 
 	private:
 
-#ifdef __WINDOWS__		
-			void xmlFakeParse (wxString msg);
-			void xmlFakeProcessLine (wxString line);
-#endif
 			static wxWindow * m_target;
-			static ParseState user_data;
 			static xmlSAXHandler handler;
 			static xmlParserCtxt * context;
+			static ParseResult parseResult;
+
+			static void cb_start_element (CatapultXMLParser * parser,  const xmlChar * name, const xmlChar ** attrs);
+			static void cb_end_element (CatapultXMLParser * parser,  const xmlChar * name);
+			static void cb_text (CatapultXMLParser * parser, const xmlChar * chars, int len);
+			static void SendParsedData ();
+			void parseReply(const char** attrs);
+			void parseLog(const char** attrs);
+			void parseUpdate(const char** attrs);
 
 
-			static void cb_start_element (ParseState * user_data,  const xmlChar * name, const xmlChar ** attrs);
-			static void cb_end_element (ParseState * user_data,  const xmlChar * name);
-			static void cb_text (ParseState * user_data, const xmlChar * chars, int len);
-			static void SendParsedData (ParseState data);
+
 };
 
 #endif // !defined(AFX_CATAPULTXMLPARSER_H__B9E4A2C4_8E3B_492A_988F_83EA19370DEF__INCLUDED_)

@@ -1,4 +1,4 @@
-// $Id$
+// $Id: StatusPage.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // StatusPage.cpp: implementation of the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -39,17 +39,17 @@ StatusPage::~StatusPage()
 {
 }
 
-void StatusPage::UpdateLed(wxString msg)
+void StatusPage::UpdateLed(wxString ledname, wxString ledstate)
 {
 	wxString baseDir = ::wxPathOnly(::wxGetApp().argv[0]);
 	wxStaticBitmap * led = NULL;
-	if (msg.Find(_("Power ")) != -1) led = m_powerLed;
-	if (msg.Find(_("Caps ")) != -1) led = m_capsLed;
-	if (msg.Find(_("Kana ")) != -1) led = m_kanaLed;
-	if (msg.Find(_("Pause ")) != -1) led = m_pauseLed;
-	if (msg.Find(_("Turbo ")) != -1) led = m_turboLed;
-	if (msg.Find(_("FDD ")) != -1) led = m_fddLed;
+	if (ledname == _("power")) led = m_powerLed;
+	if (ledname == _("caps")) led = m_capsLed;
+	if (ledname == _("kana")) led = m_kanaLed;
+	if (ledname == _("pause")) led = m_pauseLed;
+	if (ledname == _("turbo")) led = m_turboLed;
+	if (ledname == _("fdd")) led = m_fddLed;
 
-	if (msg.Find(_(" LED OFF")) != -1) led->SetBitmap(wxBitmap(baseDir + _("/../resources/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
-	if (msg.Find(_(" LED ON")) != -1) led->SetBitmap(wxBitmap(baseDir + _("/../resources/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
+	if (ledstate == _("off")) led->SetBitmap(wxBitmap(baseDir + _("/../resources/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
+	if (ledstate == _("on")) led->SetBitmap(wxBitmap(baseDir + _("/../resources/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
 }
