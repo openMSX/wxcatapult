@@ -87,18 +87,37 @@ sources and compile them.
 </p>
 
 <p>
-This guide describes how you can get the Catapult sources and compile them on a
-Linux or Windows machine. Most users will probably never compile it on a Windows
-system (Windows users generally like binaries), but for those who do want to
-compile, this manual gives a few pointers in the right direction. Linux users
-don't have a choice most of the time. Every distribution is different and
-binaries are hardly exchangeable. Compilation on *BSD works more or less the
-same as on Linux and differences are noted in the appropriate sections. Other
-systems that are supported by wxWidgets (formerly known as wxWindows) should
-work, but for those cases it might take some extra attention to get it compiled.
-If you are compiling on such a platform, please share your experiences (see
-below for <a class="internal" href="#contact">contact info</a>), so we can make
-Catapult more portable.
+This guide describes how you can get the openMSX sources and compile them.
+The level of support for compilation depends on the operating system:
+</p>
+<dl>
+<dt>Linux</dt>
+<dd>
+Most openMSX developers run some form of Linux, so this is the platform on which compilation is supported best. Compilation instructions for Linux are mostly also valid for other UNIX-like operating systems.
+</dd>
+<dt>Windows</dt>
+<dd>
+Windows is also a supported platform for openMSX (Catapult). Most Windows users will just download the binary release. But if you want to follow the latest developments or like to play with the code a bit, it is possible to compile openMSX on Windows yourself. This manual gives a few pointers in the right direction for that. The main Catapult developer uses mainly Windows, so compilation is very well supported on this platform as well.
+</dd>
+<dt>FreeBSD</dt>
+<dd>
+openMSX Catapult was compiled successfully on FreeBSD 4 and 5. FreeBSD is not a platform we support officially, but whenever a user finds compilation problems on FreeBSD, we fix them, so usually FreeBSD compilation should work.
+</dd>
+<dt>Mac OS X</dt>
+<dd>
+If you install the development tools, you can compile openMSX on Mac OS X. Support for Mac OS X is similar to that for FreeBSD: we fix bugs when reported, but none of the core developers run Mac OS X.
+</dd>
+<dt>other operating systems</dt>
+<dd>
+openMSX (Catapult) theoretically can compile on every system where you have g++ (the C++ compiler of GCC) and the required libraries are available. However, in practice every system is slightly different and a new operation system will not work out-of-the-box. Still, it shouldn't take much effort to make openMSX (Catapult) build on a new OS.
+</dd>
+</dl>
+<p>
+If you need help compiling openMSX (Catapult), please
+<a class="internal" href="#contact">contact us</a>.
+If you needed any modifications to make openMSX (Catapult) compile,
+please send those modifications to us,
+so we can make openMSX ever more portable.
 </p>
 
 <p>
@@ -619,7 +638,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.6 2004/05/08 15:17:57 h_oudejans Exp $
+$Id: compile.html,v 1.7 2004/05/08 15:27:43 manuelbi Exp $
 </p>
 
 </body>
