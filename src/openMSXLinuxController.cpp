@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.7 2004/04/12 19:03:58 m9710797 Exp $
+// $Id: openMSXLinuxController.cpp,v 1.8 2004/04/15 16:04:36 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 		close(pipeStderr[PIPE_READ]);
 		dup2(pipeStdin[PIPE_READ], STDIN_FILENO);
 		dup2(pipeStdout[PIPE_WRITE], STDOUT_FILENO);
-		dup2(pipeStdout[PIPE_WRITE], STDERR_FILENO);
+		dup2(pipeStderr[PIPE_WRITE], STDERR_FILENO);
 
 		// prepare cmdline
 		// HACK: use sh to handle quoting
