@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.53 2004/12/25 22:29:34 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.54 2004/12/27 11:37:11 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -377,8 +377,8 @@ void wxCatapultFrame::StopTimers()
 
 void wxCatapultFrame::SetFPSdisplay(wxString val)
 {
-	double valfl = strtod((char *)val.c_str(),NULL);
-	val.sprintf((wxChar *)"%2.1f",valfl);	
+	double valfl = strtod((const char*) (wxConvUTF8.cWX2MB(val)),NULL);
+	val.sprintf(wxT("%2.1f"),valfl);	
 	SetStatusText(val +wxT(" fps"),1);
 }
 
