@@ -218,6 +218,37 @@ InputName=fullscreen
 # End Source File
 # Begin Source File
 
+SOURCE=..\dialogs\input.wxg
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\input.wxg
+InputName=input
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\input.wxg
+InputName=input
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\dialogs\misccontrols.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
@@ -618,6 +649,10 @@ SOURCE=..\src\FullScreenDlg.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\InputPage.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\MiscControlPage.cpp
 # End Source File
 # Begin Source File
@@ -696,6 +731,10 @@ SOURCE=..\src\ConfigurationData.h
 # Begin Source File
 
 SOURCE=..\src\FullScreenDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\InputPage.h
 # End Source File
 # Begin Source File
 

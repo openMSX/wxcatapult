@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.37 2004/08/26 21:15:38 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.38 2004/09/24 22:03:24 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -20,6 +20,7 @@
 #include "VideoControlPage.h"
 #include "AudioControlPage.h"
 #include "MiscControlPage.h"
+#include "InputPage.h"
 #include "Version.h"
 #ifdef __WINDOWS__
 #include "openMSXWindowsController.h"
@@ -139,11 +140,13 @@ END_EVENT_TABLE()
 	m_miscControlPage = new MiscControlPage(m_tabControl,m_controller);
 	m_videoControlPage = new VideoControlPage(m_tabControl,m_controller);
 	m_audioControlPage = new AudioControlPage(m_tabControl,m_controller);
-
+	m_inputPage = new InputPage(m_tabControl,m_controller);
+	
 	m_tabControl->AddPage(m_sessionPage,wxT("Session"),true);
 	m_tabControl->AddPage(m_miscControlPage,wxT("Misc Controls"),false);
 	m_tabControl->AddPage(m_videoControlPage,wxT("Video Controls"),false);
 	m_tabControl->AddPage(m_audioControlPage,wxT("Audio Controls"),false);
+	m_tabControl->AddPage(m_inputPage,wxT("Input Text"),false);
 	m_tabControl->AddPage(m_statusPage,wxT("Status Info"),false);
 	
 	wxWindow * tempwindow = FindWindow(wxT("MainWindowPanel"));

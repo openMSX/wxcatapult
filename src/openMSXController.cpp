@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.55 2004/09/24 22:03:24 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.56 2004/09/25 08:08:38 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -504,7 +504,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set glow","","glow",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set gamma","","gamma",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set scanline","0","scanline",&openMSXController::UpdateSetting,true);
-	AddLaunchInstruction ("info exist renshaturbo","1","#",&openMSXController::EnableRenShaTurbo,true);
+	AddLaunchInstruction ("info exist renshaturbo","1","#",&openMSXController::EnableRenShaTurbo,false);
 	AddLaunchInstruction ("set renshaturbo","0","renshaturbo",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("@execute","","",&openMSXController::SetSliderDefaults,false);
 	AddLaunchInstruction ("set speed","","speed",&openMSXController::UpdateSetting,true);
@@ -535,6 +535,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("update enable plug","","",NULL,false);
 	AddLaunchInstruction ("update enable unplug","","",NULL,false);
 	AddLaunchInstruction ("update enable status","","",NULL,false);
+	
 }
 
 void openMSXController::AddLaunchInstruction (wxString cmd, wxString action,

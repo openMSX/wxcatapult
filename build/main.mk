@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.22 2004/05/24 21:24:46 mthuurne Exp $
+# $Id: main.mk,v 1.23 2004/05/28 12:46:44 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -120,6 +120,7 @@ XRC_FULL:=$(addprefix $(XRC_PATH)/, \
 	videocontrols.xrc \
 	audiocontrols.xrc \
 	status.xrc \
+	intput.xrc \
 	fullscreen.xrc \
 	)
 
