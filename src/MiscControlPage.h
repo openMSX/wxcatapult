@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.7 2004/03/26 20:02:06 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -41,6 +41,7 @@ class MiscControlPage : public CatapultPage
 		void SetFrameskip (wxString value);
 		void SetThrottle (wxString value);
 		void SetCmdTiming (wxString value);		
+		void EnableAutoFrameSkip();
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus){};
 		wxToggleButton * m_powerButton;
 
@@ -60,7 +61,8 @@ class MiscControlPage : public CatapultPage
 		wxSlider * m_frameSkipSlider;
 		wxTextCtrl * m_speedIndicator;
 		wxTextCtrl * m_frameSkipIndicator;
-
+		wxString m_frameSkipSetting;
+		bool m_autoFrameSkipEnabled;
 		DECLARE_CLASS(MiscControlPage)
 		// any class wishing to process wxWindows events must use this macro
 		DECLARE_EVENT_TABLE()

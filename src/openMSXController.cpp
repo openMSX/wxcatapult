@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.25 2004/04/01 08:31:48 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.27 2004/04/04 19:47:15 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -442,7 +442,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("#info accuracy","","AccuracySelector",&openMSXController::FillComboBox,false);
 	AddLaunchInstruction ("update enable plug","","",NULL,false);
 	AddLaunchInstruction ("update enable unplug","","",NULL,false);
-	AddLaunchInstruction ("#exist frontswitch","","",&openMSXController::EnableFirmware,false);
+	AddLaunchInstruction ("#exist frontswitch","","#",&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction ("set renderer","","renderer",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set scaler","","scaler",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set accuracy","","accuracy",&openMSXController::UpdateSetting,true);
@@ -454,7 +454,10 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set scanline","0","scanline",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("@execute","","",&openMSXController::SetSliderDefaults,false);
 	AddLaunchInstruction ("set speed","","speed",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("#exist frameskip","1","#",&openMSXController::EnableAutoFrameSkip,false);
 	AddLaunchInstruction ("set frameskip","","frameskip",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("#exist maxframeskip","1","#",NULL,false);
+	AddLaunchInstruction ("set maxframeskip","","maxframeskip",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set throttle","","throttle",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set cmdtiming","","cmdtiming",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("#info pluggable","10","",&openMSXController::InitPluggables,true);
@@ -754,6 +757,9 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 				parameter.Replace("*",temp[loopcount],true);
 				parameter.Replace(" ","\\ ",true);
 			}
+			if (parameter == "#"){
+				parameter = cmd;
+			}
 			if (event != NULL){
 				contents = FilterCurrentValue(data->contents);
 			}
@@ -791,9 +797,9 @@ bool openMSXController::FillComboBox (wxString data,wxString setting)
 	return true;
 }
 
-bool openMSXController::EnableFirmware (wxString data, wxString dummy)
+bool openMSXController::EnableFirmware (wxString data, wxString cmd)
 {
-	if (data != "0"){
+	if ((data != "0") || (cmd.Mid(0,4) == _("set "))){
 		m_appWindow->m_miscControlPage->EnableFirmware();
 	}
 	return true;
@@ -844,5 +850,13 @@ bool openMSXController::SetSliderDefaults (wxString dummy1, wxString dummy2)
 bool openMSXController::InitAudioConnectorPanel (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_audioControlPage->InitAudioIO();
+	return true;
+}
+
+bool openMSXController::EnableAutoFrameSkip (wxString data, wxString cmd)
+{
+	if ((data != "0") || (cmd.Mid(0,4) == _("set "))){
+		m_appWindow->m_miscControlPage->EnableAutoFrameSkip();
+	}
 	return true;
 }

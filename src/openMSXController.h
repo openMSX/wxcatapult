@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.14 2004/04/01 08:31:48 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.15 2004/04/04 19:47:15 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -100,7 +100,7 @@ class openMSXController
 													wxString datalist);
 		bool UpdateSetting (wxString data,wxString setting);
 		bool FillComboBox (wxString data,wxString setting);
-		bool EnableFirmware (wxString dummy, wxString dummy2);
+		bool EnableFirmware (wxString dummy, wxString cmd);
 		bool InitConnectors(wxString connectors,wxString dummy);
 		bool InitPluggables(wxString pluggables,wxString dummy);
 		bool InitSoundDevices (wxString data, wxString dummy);
@@ -108,8 +108,7 @@ class openMSXController
 		bool AddPluggableDescription(wxString data,wxString name);
 		bool SetSliderDefaults (wxString dummy1, wxString dummy2);
 		bool InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
-
-
+		bool EnableAutoFrameSkip (wxString data, wxString cmd);
 
 		list<wxString> m_commands;		
 };

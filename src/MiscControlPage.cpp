@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.7 2004/03/26 20:02:06 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -61,6 +61,8 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 
 	m_speedSlider->SetTickFreq (25,1);
 	m_frameSkipSlider->SetTickFreq (5,1);
+	m_autoFrameSkipEnabled = false;
+	m_frameSkipSetting = "maxframeskip";
 }
 
 MiscControlPage::~MiscControlPage()
@@ -97,10 +99,10 @@ void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
 	wxString speedText;
 	speedText.sprintf("%ld", event.GetInt());
 	m_speedIndicator->SetValue(speedText);
-	m_controller->WriteCommand (wxString(_("set speed ")) + speedText);
+	m_controller->WriteCommand (wxString("set speed ") + speedText);
 	m_throttleButton->SetValue(true);
 	m_throttleButton->SetLabel(_("On"));
-	m_controller->WriteCommand (_("set throttle on"));
+	m_controller->WriteCommand ("set throttle on");
 }
 
 void MiscControlPage::OnSetNormalSpeed(wxCommandEvent &event)
@@ -110,7 +112,7 @@ void MiscControlPage::OnSetNormalSpeed(wxCommandEvent &event)
 	m_speedSlider->SetValue (100);
 	m_throttleButton->SetValue(true);
 	m_throttleButton->SetLabel(_("On"));
-	m_controller->WriteCommand (_("set throttle on"));
+	m_controller->WriteCommand ("set throttle on");
 }
 
 void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
@@ -120,7 +122,7 @@ void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
 	m_speedSlider->SetValue (500);
 	m_throttleButton->SetValue(false);
 	m_throttleButton->SetLabel(_("Off"));
-	m_controller->WriteCommand (_("set throttle off"));
+	m_controller->WriteCommand ("set throttle off");
 }
 
 void MiscControlPage::OnFrameSkipChange(wxScrollEvent &event)
@@ -128,12 +130,12 @@ void MiscControlPage::OnFrameSkipChange(wxScrollEvent &event)
 	wxString skipText;
 	skipText.sprintf("%ld", event.GetInt());
 	m_frameSkipIndicator->SetValue(skipText);
-	m_controller->WriteCommand (wxString(_("set frameskip ")) + skipText);
+	m_controller->WriteCommand (wxString("set " + m_frameSkipSetting + " ") + skipText);
 }
 
 void MiscControlPage::OnSetZeroFrameSkip(wxCommandEvent &event)
 {
-	m_controller->WriteCommand ("set frameskip 0");
+	m_controller->WriteCommand ("set " + m_frameSkipSetting + " 0");
 	m_frameSkipIndicator->Enable();
 	m_frameSkipIndicator->SetValue(_("0"));
 	m_frameSkipSlider->Enable();
@@ -144,17 +146,14 @@ void MiscControlPage::OnSetZeroFrameSkip(wxCommandEvent &event)
 void MiscControlPage::OnSetAutoFrameSkip(wxCommandEvent &event)
 {
 	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
-	if (button->GetValue())
-	{
-		m_controller->WriteCommand (_("set frameskip auto"));
-		m_frameSkipIndicator->Disable();
-		m_frameSkipSlider->Disable();
+	if (button->GetValue()){
+		m_frameSkipIndicator->SetValue(_("auto"));
 	}
-	else
-	{
-		m_frameSkipIndicator->Enable();
-		m_controller->WriteCommand (wxString(_("set frameskip ")) + m_frameSkipIndicator->GetValue());
-		m_frameSkipSlider->Enable();
+	else{
+		int val = m_frameSkipSlider->GetValue();
+		wxString strval;
+		strval.sprintf ("%d",val);
+		m_frameSkipIndicator->SetValue(strval);
 	}
 }
 
@@ -163,12 +162,12 @@ void MiscControlPage::OnSetThrottle(wxCommandEvent &event)
 	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
 	if (button->GetValue())
 	{
-		m_controller->WriteCommand (_("set throttle on"));
+		m_controller->WriteCommand ("set throttle on");
 		button->SetLabel("On");
 	}
 	else
 	{
-		m_controller->WriteCommand (_("set throttle off"));
+		m_controller->WriteCommand ("set throttle off");
 		button->SetLabel("Off");
 	}	
 }
@@ -178,12 +177,12 @@ void MiscControlPage::OnSetCmdTiming(wxCommandEvent &event)
 	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
 	if (button->GetValue())
 	{
-		m_controller->WriteCommand (_("set cmdtiming broken"));
+		m_controller->WriteCommand ("set cmdtiming broken");
 		button->SetLabel("Broken");
 	}
 	else
 	{
-		m_controller->WriteCommand (_("set cmdtiming real"));
+		m_controller->WriteCommand ("set cmdtiming real");
 		button->SetLabel("Real");
 	}
 }
@@ -197,7 +196,6 @@ void MiscControlPage::SetControlsOnLaunch()
 
 	m_frameSkipSlider->Enable(true);
 	m_frameSkipIndicator->Enable(true);
-	m_frameSkipAutoButton->Enable(true);
 	m_frameSkipZeroButton->Enable(true);
 
 	m_powerButton->Enable(true);
@@ -208,7 +206,6 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_cmdTimingButton->Enable(true);
 	m_pauseButton->SetValue(false);
 	m_firmwareButton->SetValue(false);
-	m_frameSkipAutoButton->SetValue(false);
 }
 
 void MiscControlPage::EnableFirmware()
@@ -252,7 +249,7 @@ void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
 		}
 		if (num >= 1)
 		{
-			m_controller->WriteCommand (wxString(_("set speed ")) + text);
+			m_controller->WriteCommand (wxString("set speed ") + text);
 			m_speedSlider->SetValue(num);
 		}
 	}
@@ -273,18 +270,14 @@ void MiscControlPage::OnInputFrameskip(wxCommandEvent &event)
 		}
 		if (num >= 0)
 		{
-			m_controller->WriteCommand (wxString(_("set frameskip ")) + text);
+			m_controller->WriteCommand (wxString("set " + m_frameSkipSetting + " ") + text);
 			m_frameSkipSlider->SetValue(num);
-			m_frameSkipIndicator->Enable();
-			m_frameSkipSlider->Enable();
 			m_frameSkipAutoButton->SetValue(false);
 		}
 	}	
-	if (!text.CmpNoCase(_("auto")))
+	if (!text.CmpNoCase(_("auto")) && m_autoFrameSkipEnabled)
 	{
-		m_controller->WriteCommand (_("set frameskip auto"));
-		m_frameSkipIndicator->Disable();
-		m_frameSkipSlider->Disable();
+		m_controller->WriteCommand ("set frameskip auto");
 		m_frameSkipAutoButton->SetValue(true);
 	}
 }
@@ -321,4 +314,13 @@ void MiscControlPage::SetCmdTiming (wxString value)
 		m_cmdTimingButton->SetValue(false);
 		m_cmdTimingButton->SetLabel(_("Real"));
 	}
+}
+
+void MiscControlPage::EnableAutoFrameSkip()
+{
+	m_frameSkipAutoButton->Enable(true);
+	m_frameSkipAutoButton->SetValue(false);
+	m_autoFrameSkipEnabled = true;
+	m_frameSkipSetting = "frameskip";
+
 }
