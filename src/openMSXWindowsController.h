@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.h,v 1.4 2004/04/01 08:31:48 h_oudejans Exp $
+// $Id: openMSXWindowsController.h,v 1.5 2004/04/18 11:57:41 h_oudejans Exp $
 // openMSXWindowsController.h: interface for the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////

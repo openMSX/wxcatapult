@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: PipeReadThread.h,v 1.3 2004/04/12 13:33:10 h_oudejans Exp $
 // PipeReadThread.h: interface for the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////

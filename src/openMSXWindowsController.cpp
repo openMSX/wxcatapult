@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.6 2004/04/12 19:30:43 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.7 2004/04/18 11:57:41 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
