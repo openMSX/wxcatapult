@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.8 2004/04/05 18:29:39 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.9 2004/04/10 21:24:05 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -147,7 +147,12 @@ bool CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString 
 	}
 	wxComboBox * box = (wxComboBox *)m_parent->FindWindow(control);
 	if (box != NULL){
-		box->SetValue(valuetext);
+		if (box->GetWindowStyle() & wxCB_READONLY){
+			box->SetSelection(box->FindString(valuetext));
+		}
+		else{
+			box->SetValue(valuetext);
+		}
 		return true;
 	}
 	return false;

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.10 2004/04/10 21:24:05 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.11 2004/04/11 10:45:59 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -35,6 +35,9 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_TEXT(XRCID("SpeedIndicator"),MiscControlPage::OnInputSpeed)
 	EVT_TEXT(XRCID("Joyport1Selector"),MiscControlPage::OnChangeJoystick)
 	EVT_TEXT(XRCID("Joyport2Selector"),MiscControlPage::OnChangeJoystick)
+#ifdef __UNIX__
+	EVT_TIMER(-1,MiscControlPage::OnJoystickChanged)
+#endif
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -44,6 +47,9 @@ END_EVENT_TABLE()
 MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controller)
 :CatapultPage(parent)
 {
+#ifdef __UNIX__
+	m_joystick_update_timer.SetOwner(this,-1);
+#endif
 	wxXmlResource::Get()->LoadPanel(this, parent, _("MiscControlPage"));
 	m_controller = controller;
 	m_powerButton = (wxToggleButton *)FindWindow(_("PowerButton"));
@@ -400,7 +406,18 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 
 void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
 {
-	wxComboBox * box = (wxComboBox *)event.GetEventObject();
+#ifdef __UNIX__
+	if (!m_joystick_update_timer.IsRunning()){
+		m_joystick_update_timer.Start(200);
+	}
+#else
+	OnJoystickChanged();
+#endif
+}
+
+void MiscControlPage::OnJoystickChanged()
+{
+	wxComboBox * box = (wxComboBox *)FindFocus();
 	wxComboBox * box2 = NULL;
 	wxString * oldValue1 = NULL; // this port
 	wxString * oldValue2 = NULL; // the other port
@@ -429,7 +446,9 @@ void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
 	}
 
 	if ((box->GetValue() != ("--empty--")) && (box->GetValue() == box2->GetValue())){
-		int result = wxMessageBox ("Unable to plug a device in more than one port\n\nDo you still want to plug it into this port?\nThis device will be removed from any other port(s)","Warning",wxOK | wxCANCEL);
+		int result = wxMessageBox ("Unable to plug a device in more than one port\n\n\
+Do you still want to plug it into this port?\n\
+This device will be removed from any other port(s)","Warning",wxOK | wxCANCEL);
 		if (result == wxOK){
 			box2->SetSelection(0);
 			*oldValue2 = _("--empty--");
@@ -444,5 +463,6 @@ void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
 	else{ // no collision
 		m_controller->WriteCommand(wxString(cmd + connector + value));
 		*oldValue1 = box->GetValue();
-	}
+	}	
+
 }

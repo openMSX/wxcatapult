@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.9 2004/04/08 18:57:23 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.10 2004/04/11 10:46:14 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -37,6 +37,7 @@ class MiscControlPage : public CatapultPage
 		void OnReset (wxCommandEvent &event);
 		void OnInputFrameskip (wxCommandEvent & event);
 		void OnChangeJoystick (wxCommandEvent & event);
+		void OnJoystickChanged ();
 		void OnInputSpeed (wxCommandEvent & event);
 		void SetSpeed (wxString value);
 		void SetFrameskip (wxString value);
@@ -46,7 +47,7 @@ class MiscControlPage : public CatapultPage
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus){};
 		void InitConnectorPanel ();
 		wxToggleButton * m_powerButton;
-
+		
 	private:
 		void InitJoystickPort (wxString connector, wxString control, wxString connectorClass);
 
@@ -68,6 +69,9 @@ class MiscControlPage : public CatapultPage
 		wxString m_frameSkipSetting;
 		wxString m_oldJoy1;
 		wxString m_oldJoy2;
+#ifdef __UNIX__		
+		wxTimer m_joystick_update_timer; // bad solution for a worse bug in (wx?)gtk
+#endif
 		bool m_autoFrameSkipEnabled;
 		DECLARE_CLASS(MiscControlPage)
 		// any class wishing to process wxWindows events must use this macro
