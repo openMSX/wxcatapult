@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.14 2004/05/09 17:57:52 mthuurne Exp $
+# $Id: main.mk,v 1.15 2004/05/09 20:07:20 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -24,7 +24,7 @@ BOOLCHECK=$(strip \
 # Logical targets which require dependency files.
 DEPEND_TARGETS:=all default install
 # Logical targets which do not require dependency files.
-NODEPEND_TARGETS:=clean
+NODEPEND_TARGETS:=clean probe
 # Mark all logical targets as such.
 .PHONY: $(DEPEND_TARGETS) $(NODEPEND_TARGETS)
 
