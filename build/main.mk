@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.12 2004/05/09 15:05:01 mthuurne Exp $
+# $Id: main.mk,v 1.13 2004/05/09 15:26:55 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -244,6 +244,12 @@ DIST_FULL+=$(addprefix $(MAKE_PATH)/, \
 	)
 DIST_FULL+=$(DIALOGS_PATH)/*.wxg
 DIST_FULL+=$(BITMAPS_PATH)/*.bmp
+DIST_FULL+=$(addprefix doc/, \
+	*.txt \
+	$(addprefix manual/, \
+		*.html *.css *.png \
+		) \
+	)
 
 dist: $(DETECTSYS_SCRIPT)
 	@echo "Removing any old distribution files..."
