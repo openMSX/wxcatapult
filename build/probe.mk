@@ -1,4 +1,4 @@
-# $Id: probe.mk,v 1.6 2004/05/09 21:52:15 mthuurne Exp $
+# $Id: probe.mk,v 1.7 2004/05/10 21:26:45 mthuurne Exp $
 #
 # Replacement for "configure".
 # Performs some test compiles, to check for headers and functions.
@@ -14,6 +14,19 @@ endif
 ifeq ($(COMPILE),)
 $(error Missing parameter: COMPILE)
 endif
+
+# - platform specific makefiles directory
+ifeq ($(MAKE_LOCATION),)
+$(error Missing parameter: MAKE_LOCATION)
+endif
+
+# - used platform
+ifeq ($(CURRENT_OS),)
+$(error Missing parameter: CURRENT_OS)
+endif
+
+# include platform specific options
+include $(MAKE_LOCATION)/platform-$(CURRENT_OS).mk
 
 # Result files.
 LOG:=$(OUTDIR)/probe.log
@@ -47,7 +60,16 @@ WX_RESULT:=`wx-config --version`
 XML_LDFLAGS:=`xml2-config --libs 2>> $(LOG)`
 XML_RESULT:=`xml2-config --version`
 
-XRC_LDFLAGS:=`((wx-config --libs > /dev/null) && (wx-config --libs | sed -e "s/-lwx_\([^-]*\)-\([^ ]*\)/& -lwx_\1_xrc-\2/")) 2>> $(LOG)`
+WX_LD_RESULT:=$(shell wx-config --ld)
+ifeq ($(WX_LD_RESULT),)
+WX2XRC:=$(WX2XRC_STATIC)
+else
+WX2XRC:=$(WX2XRC_DYNAMIC)
+endif
+
+
+
+XRC_LDFLAGS:=`((wx-config --libs > /dev/null) && (wx-config --libs | sed -e "$(WX2XRC)")) 2>> $(LOG)`
 XRC_RESULT:=yes
 
 

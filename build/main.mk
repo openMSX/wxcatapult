@@ -1,13 +1,19 @@
-# $Id: main.mk,v 1.28 2004/11/06 16:05:15 andete Exp $
+# $Id: main.mk,v 1.29 2004/11/10 21:16:24 andete Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
 #
 # Uses a similar approach as the openMSX build system.
 
-
 # Functions
 # =========
+
+# Function to check a variable has been defined and has a non-empty value.
+# Usage: $(call DEFCHECK,VARIABLE_NAME)
+DEFCHECK=$(strip \
+	$(if $(filter _undefined,_$(origin $(1))), \
+		$(error Variable $(1) is undefined) ) \
+	)
 
 # Function to check a boolean variable has value "true" or "false".
 # Usage: $(call BOOLCHECK,VARIABLE_NAME)
@@ -17,7 +23,15 @@ BOOLCHECK=$(strip \
 		$(error Value of $(1) ("$($(1))") should be "true" or "false") ) \
 	)
 
-
+# Will be added to by platform specific Makefile, by flavour specific Makefile
+# and by this Makefile.
+# Note: LDFLAGS are passed to the linker itself, LINK_FLAGS are passed to the
+#       compiler in the link phase.
+CXXFLAGS:=
+LDFLAGS:=
+LINK_FLAGS:=
+SOURCES:=	
+	
 # Logical Targets
 # ===============
 
@@ -42,6 +56,88 @@ BITMAPS_PATH:=resources/bitmaps
 MAKE_PATH:=build
 BUILD_BASE:=derived
 
+# Customisation
+# =============
+
+include $(MAKE_PATH)/custom.mk
+$(call DEFCHECK,INSTALL_BASE)
+
+# Version
+# =======
+
+include $(MAKE_PATH)/version.mk
+PACKAGE_FULL:=$(PACKAGE_NAME)-$(PACKAGE_VERSION)
+CHANGELOG_REVISION:=\
+	$(shell sed -ne "s/\$$Id: ChangeLog,v \([^ ]*\).*/\1/p" ChangeLog)
+
+# Platforms
+# =========
+
+# Note:
+# A platform currently specifies both the host platform (performing the build)
+# and the target platform (running the created binary). When we have real
+# experience with cross-compilation, a more sophisticated system can be
+# designed.
+
+ifeq ($(origin CATAPULT_TARGET_CPU),environment)
+ifeq ($(origin CATAPULT_TARGET_OS),environment)
+# Do not perform autodetection if platform was specified by the user.
+else # CATAPULT_TARGET_OS not from environment
+$(error You have specified CATAPULT_TARGET_CPU but not CATAPULT_TARGET_OS)
+endif # CATAPULT_TARGET_OS
+else # CATAPULT_TARGET_CPU not from environment
+ifeq ($(origin CATAPULT_TARGET_OS),environment)
+$(error You have specified CATAPULT_TARGET_OS but not CATAPULT_TARGET_CPU)
+else # CATAPULT_TARGET_OS not from environment
+
+DETECTSYS_PATH:=$(BUILD_BASE)/detectsys
+DETECTSYS_MAKE:=$(DETECTSYS_PATH)/detectsys.mk
+DETECTSYS_SCRIPT:=$(MAKE_PATH)/detectsys.sh
+
+-include $(DETECTSYS_MAKE)
+
+$(DETECTSYS_MAKE): $(DETECTSYS_SCRIPT)
+	@echo "Autodetecting native system:"
+	@mkdir -p $(@D)
+	@sh $< > $@
+
+endif # CATAPULT_TARGET_OS
+endif # CATAPULT_TARGET_CPU	
+	
+PLATFORM:=
+ifneq ($(origin CATAPULT_TARGET_OS),undefined)
+ifneq ($(origin CATAPULT_TARGET_CPU),undefined)
+PLATFORM:=$(CATAPULT_TARGET_CPU)-$(CATAPULT_TARGET_OS)
+endif
+endif
+
+# Ignore rest of Makefile if autodetection was not performed yet.
+# Note that the include above will force a reload of the Makefile.
+ifneq ($(PLATFORM),)
+
+# Load CPU specific settings.
+$(call DEFCHECK,CATAPULT_TARGET_CPU)
+include $(MAKE_PATH)/cpu-$(CATAPULT_TARGET_CPU).mk
+# Check that all expected variables were defined by OS specific Makefile:
+# - endianess
+$(call BOOLCHECK,BIG_ENDIAN)
+# - flavour (user selectable; platform specific default)
+$(call DEFCHECK,CATAPULT_FLAVOUR)
+
+# Load OS specific settings.
+$(call DEFCHECK,CATAPULT_TARGET_OS)
+include $(MAKE_PATH)/platform-$(CATAPULT_TARGET_OS).mk
+# Check that all expected variables were defined by OS specific Makefile:
+# - executable file name extension
+#$(call DEFCHECK,EXEEXT)
+# - platform supports symlinks?
+#$(call BOOLCHECK,USE_SYMLINK)	
+	
+# Flavours
+# ========
+
+# Load flavour specific settings.
+include $(MAKE_PATH)/flavour-$(CATAPULT_FLAVOUR).mk
 
 # Paths
 # =====
@@ -51,33 +147,29 @@ CUSTOM_MAKE:=$(MAKE_PATH)/custom.mk
 PROBE_SCRIPT:=$(MAKE_PATH)/probe.mk
 COMPONENTS_MAKE:=$(MAKE_PATH)/components.mk
 
-BUILD_PATH:=$(BUILD_BASE)
+BUILD_PATH:=$(BUILD_BASE)/$(PLATFORM)-$(CATAPULT_FLAVOUR)
+ifeq ($(OPENMSX_PROFILE),true)
+  BUILD_PATH:=$(BUILD_PATH)-profile
+endif
 
 OBJECTS_PATH:=$(BUILD_PATH)/obj
 
 BINARY_PATH:=$(BUILD_PATH)/bin
-BINARY_FILE:=catapult
+BINARY_FILE:=catapult$(EXEEXT)
 BINARY_FULL=$(BINARY_PATH)/$(BINARY_FILE) # allow override
 
+LOG_PATH:=$(BUILD_PATH)/log
 RESOURCES_PATH:=$(BUILD_PATH)/resources
 XRC_PATH:=$(RESOURCES_PATH)/dialogs
 
-CONFIG_PATH:=$(BUILD_BASE)/config
+CONFIG_PATH:=$(BUILD_PATH)/config
 PROBE_MAKE:=$(CONFIG_PATH)/probed_defs.mk
 CONFIG_HEADER:=$(CONFIG_PATH)/config.h
 VERSION_HEADER:=$(CONFIG_PATH)/Version.ii
-
-
+	
 # Configuration
-# =============
-
-include $(MAKE_PATH)/version.mk
-PACKAGE_FULL:=$(PACKAGE_NAME)-$(PACKAGE_VERSION)
-CHANGELOG_REVISION:=\
-	$(shell sed -ne "s/\$$Id: ChangeLog,v \([^ ]*\).*/\1/p" ChangeLog)
-
-include $(CUSTOM_MAKE)
-
+# =============	
+		
 include $(MAKE_PATH)/info2code.mk
 ifneq ($(filter $(DEPEND_TARGETS),$(MAKECMDGOALS)),)
 -include $(PROBE_MAKE)
@@ -91,7 +183,7 @@ endif
 # Filesets
 # ========
 
-SOURCES:= \
+SOURCES+= \
 	CatapultPage \
 	wxCatapultApp \
 	wxCatapultFrm \
@@ -107,7 +199,6 @@ SOURCES:= \
 	AudioControlPage \
 	MiscControlPage \
 	openMSXController \
-	openMSXLinuxController \
 	FullScreenDlg \
 	ScreenShotDlg \
 	Version
@@ -136,16 +227,20 @@ DEPEND_FLAGS:=
 DEPEND_FLAGS+=-MP
 
 
-# Compiler and Flags
-# ==================
+# Compiler flags
+# ==============
 
-CXXFLAGS:=-g -pipe -Wall
+CXXFLAGS+=-pipe -Wall
 CXXFLAGS+=-I$(CONFIG_PATH)
-CXXFLAGS+=$(WX_CFLAGS) $(XRC_CFLAGS) $(XML_CFLAGS)
+CXXFLAGS+= $(XRC_CFLAGS) $(XML_CFLAGS)
+LDFLAGS+= $(XRC_LDFLAGS) $(XML_LDFLAGS)
 
-LDFLAGS:=-g
-LDFLAGS+=$(WX_LDFLAGS) $(XRC_LDFLAGS) $(XML_LDFLAGS)
-
+# Strip binary?
+CATAPULT_STRIP?=false
+$(call BOOLCHECK,CATAPULT_STRIP)
+ifeq ($(CATAPULT_STRIP),true)
+  LDFLAGS+=--strip-all
+endif
 
 # Build Rules
 # ===========
@@ -172,19 +267,24 @@ endif
 # TODO: It would be cleaner to include probe.mk and probe-results.mk,
 #       instead of executing them in a sub-make.
 $(PROBE_MAKE): $(PROBE_SCRIPT)
-	@OUTDIR=$(@D) COMPILE=g++ \
+	@OUTDIR=$(@D) COMPILE=g++ MAKE_LOCATION=$(MAKE_PATH) CURRENT_OS=$(CATAPULT_TARGET_OS)\
 		$(MAKE) --no-print-directory -f $<
 	@PROBE_MAKE=$(PROBE_MAKE) MAKE_PATH=$(MAKE_PATH) \
 		$(MAKE) --no-print-directory -f $(MAKE_PATH)/probe-results.mk
 
 # TODO: Relying on CONFIG_HEADER being built before BINARY_FULL,
 #       this might break parallelized builds.
-all: $(CONFIG_HEADER) $(VERSION_HEADER) $(BINARY_FULL) $(XRC_FULL) $(BITMAPS)
+all: $(CONFIG_HEADER) $(VERSION_HEADER) config $(BINARY_FULL) $(XRC_FULL) $(BITMAPS)
+
+config:
+	@echo "Build configuration"
+	@echo "  Platform: $(PLATFORM)"
+	@echo "  Flavour:  $(CATAPULT_FLAVOUR)"
 
 $(BINARY_FULL): $(OBJECTS_FULL)
 	@echo "Linking $(BINARY_FILE)..."
 	@mkdir -p $(@D)
-	@$(CXX) $(LDFLAGS) -o $@ $(OBJECTS_FULL)
+	@$(CXX) -o $@ $(OBJECTS_FULL) $(LDFLAGS) 
 
 # Compile and generate dependency files in one go.
 DEPEND_SUBST=$(patsubst $(SOURCES_PATH)/%.cpp,$(DEPEND_PATH)/%.d,$<)
@@ -338,3 +438,5 @@ endif
 # This is only in case some .d files have been deleted;
 # in normal operation this rule is never triggered.
 $(DEPEND_FULL):
+
+endif # PLATFORM

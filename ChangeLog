@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.102 2004/11/10 21:35:25 h_oudejans Exp $
+$Id: ChangeLog,v 1.103 2004/11/11 17:14:45 h_oudejans Exp $
+
+2004-11-14 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* catapult can be compiled in mingw without any alteration of wx-config.
+	  The result is still far bigger than using vc++, so it's not perfect yet.
 
 2004-11-11 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed gcc compiler warning (signed/unsigned mismatch) in FOREACH code
