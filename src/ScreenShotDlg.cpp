@@ -1,4 +1,4 @@
-// $Id: $
+// $Id: ScreenShotDlg.cpp,v 1.1 2004/10/03 17:02:12 h_oudejans Exp $
 // ScreenshotDlg.cpp: implementation of the FullScreenDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,7 +10,7 @@
 #endif
 
 #include "ConfigurationData.h"
-#include "ScreenshotDlg.h"
+#include "ScreenShotDlg.h"
 
 IMPLEMENT_CLASS(ScreenshotDlg, wxDialog)
 BEGIN_EVENT_TABLE(ScreenshotDlg, wxDialog)

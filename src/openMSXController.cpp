@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.61 2004/10/02 20:50:46 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.62 2004/10/03 17:02:12 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,7 +19,7 @@
 #include "AudioControlPage.h"
 #include "SessionPage.h"
 #include "wxCatapultApp.h"
-#include "ScreenshotDlg.h"
+#include "ScreenShotDlg.h"
 #include <cassert>
 
 //////////////////////////////////////////////////////////////////////
