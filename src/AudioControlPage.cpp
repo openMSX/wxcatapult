@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.30 2005/01/08 12:17:10 manuelbi Exp $
+// $Id: AudioControlPage.cpp,v 1.31 2005/03/05 11:52:57 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
