@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.35 2005/01/26 02:31:51 mthuurne Exp $
+# $Id: main.mk,v 1.36 2005/01/31 21:00:31 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -405,7 +405,7 @@ DIST_FULL+=$(addprefix $(SOURCES_PATH)/, \
 	*.h *.cpp *.rc *.ico *.xpm \
 	)
 DIST_FULL+=$(addprefix $(MAKE_PATH)/, \
-	*.mk *.sed *.dsp *.dsw \
+	*.mk *.sed *.dsp *.dsw config.guess detectsys.sh \
 	)
 DIST_FULL+=$(DIALOGS_PATH)/*.wxg
 DIST_FULL+=$(BITMAPS_PATH)/*.bmp
