@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.17 2004/04/16 22:21:09 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.18 2004/04/18 12:49:52 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -416,8 +416,6 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 		currentval == "";
 	}
 	m_controller->WriteCommand(wxString(cmd + " " + connector + " " + currentval));
-//	wxString plugged = m_controller->GetConnectorContents(connector);
-//	box->SetSelection(box->FindString(plugged.Mid(connector.Len()+2,plugged.Len()-connector.Len()-3)));
 }
 
 void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
