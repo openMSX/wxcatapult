@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.43 2004/04/09 19:40:52 h_oudejans Exp $
+$Id: ChangeLog,v 1.44 2004/04/10 21:24:05 h_oudejans Exp $
+
+2004-04-11 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* joystickport devices are now prepluggable.
 
 2004-04-10 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* catapult displays pluggables being plugged in on openmsx.

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.9 2004/04/08 18:57:23 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.10 2004/04/10 21:24:05 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,6 +14,8 @@
 #include "MiscControlPage.h"
 #include "wxCatapultFrm.h"
 #include "openMSXController.h"
+
+#include <wx/joystick.h>
 
 	IMPLEMENT_CLASS(MiscControlPage, wxPanel)
 BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
@@ -65,6 +67,28 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_frameSkipSlider->SetTickFreq (5,1);
 	m_autoFrameSkipEnabled = false;
 	m_frameSkipSetting = "maxframeskip";
+
+// temperary hardcoded joystick port devices
+
+	wxJoystick joy(wxJOYSTICK1);
+	wxString temp;
+
+	wxComboBox * box[2];
+	box[0] = (wxComboBox *)FindWindow (_("Joyport1Selector"));
+	box[1] = (wxComboBox *)FindWindow (_("Joyport2Selector"));
+	for (int i=0;i<2;i++){
+		box[i]->Clear();
+		box[i]->Append(_("--empty--"));
+		box[i]->Append(_("mouse"));
+		box[i]->Append(_("keyjoystick"));
+		for (int j=1;j<=joy.GetNumberJoysticks();j++){
+			temp.sprintf("joystick%d",j);
+			box[i]->Append(temp);
+		}
+		box[i]->SetSelection(0);
+	}
+	m_oldJoy1 = _("--empty--");
+	m_oldJoy2 = _("--empty--");
 }
 
 MiscControlPage::~MiscControlPage()
@@ -234,13 +258,6 @@ void MiscControlPage::SetControlsOnEnd()
 
 	m_throttleButton->Enable(false);
 	m_cmdTimingButton->Enable(false);
-	wxComboBox * box;
-	box = (wxComboBox *)FindWindow (_("Joyport1Selector"));
-	box->Clear();
-	box->Enable(false);
-	box = (wxComboBox *)FindWindow (_("Joyport2Selector"));
-	box->Clear();
-	box->Enable(false);
 }
 
 void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
@@ -358,7 +375,7 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 	m_controller->GetPluggableClasses(classes);
 	if (classes.GetCount() ==0) return;
 	wxComboBox * box = (wxComboBox *)FindWindow (control);
-	box->Enable(true);
+	wxString currentval = box->GetValue();
 	box->Clear();
 	box->Append(_("--empty--"));
 	wxString currentClass;
@@ -370,21 +387,40 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 			}
 		}
 	}
-	wxString plugged = m_controller->GetConnectorContents(connector);
-	box->SetSelection(box->FindString(plugged.Mid(connector.Len()+2,plugged.Len()-connector.Len()-3)));
+	box->SetValue(currentval);
+	wxString cmd = "plug";
+	if (currentval == _("--empty")){
+		cmd = "unplug";
+		currentval == "";
+	}
+	m_controller->WriteCommand(wxString(cmd + " " + connector + " " + currentval));
+//	wxString plugged = m_controller->GetConnectorContents(connector);
+//	box->SetSelection(box->FindString(plugged.Mid(connector.Len()+2,plugged.Len()-connector.Len()-3)));
 }
 
 void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
 {
 	wxComboBox * box = (wxComboBox *)event.GetEventObject();
+	wxComboBox * box2 = NULL;
+	wxString * oldValue1 = NULL; // this port
+	wxString * oldValue2 = NULL; // the other port
 	wxString cmd = "unplug ";
 	wxString connector;
+	wxString connector2;
 	wxString value = "";
 	if (box->GetName() == "Joyport1Selector"){
 		connector = "joyporta ";
+		connector2 = "joyportb";
+		box2 = (wxComboBox *)FindWindow (_("Joyport2Selector"));
+		oldValue1 = &m_oldJoy1;
+		oldValue2 = &m_oldJoy2;
 	} 
 	else if (box->GetName() == "Joyport2Selector"){
 		connector = "joyportb ";
+		connector2 = "joyporta";
+		box2 = (wxComboBox *)FindWindow (_("Joyport1Selector"));
+		oldValue1 = &m_oldJoy2;
+		oldValue2 = &m_oldJoy1;
 	}
 	
 	if (box->GetValue() != _("--empty--")){
@@ -392,5 +428,21 @@ void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
 		cmd = "plug ";
 	}
 
-	m_controller->WriteCommand(wxString(cmd + connector + value));
+	if ((box->GetValue() != ("--empty--")) && (box->GetValue() == box2->GetValue())){
+		int result = wxMessageBox ("Unable to plug a device in more than one port\n\nDo you still want to plug it into this port?\nThis device will be removed from any other port(s)","Warning",wxOK | wxCANCEL);
+		if (result == wxOK){
+			box2->SetSelection(0);
+			*oldValue2 = _("--empty--");
+			*oldValue1 = box->GetValue();
+			m_controller->WriteCommand(wxString("unplug " + connector2));
+			m_controller->WriteCommand(wxString(cmd + connector + value));
+		}
+		else{ // cancel
+			box->SetSelection(box->FindString(*oldValue1));
+		}
+	}
+	else{ // no collision
+		m_controller->WriteCommand(wxString(cmd + connector + value));
+		*oldValue1 = box->GetValue();
+	}
 }

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.8 2004/04/05 18:29:39 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.9 2004/04/08 18:57:23 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -66,6 +66,8 @@ class MiscControlPage : public CatapultPage
 		wxTextCtrl * m_speedIndicator;
 		wxTextCtrl * m_frameSkipIndicator;
 		wxString m_frameSkipSetting;
+		wxString m_oldJoy1;
+		wxString m_oldJoy2;
 		bool m_autoFrameSkipEnabled;
 		DECLARE_CLASS(MiscControlPage)
 		// any class wishing to process wxWindows events must use this macro
