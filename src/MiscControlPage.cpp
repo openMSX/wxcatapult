@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.15 2004/04/15 18:26:26 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.16 2004/04/15 18:35:00 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -351,6 +351,8 @@ void MiscControlPage::SetCmdTiming (wxString value)
 
 void MiscControlPage::EnableAutoFrameSkip(bool enableButton)
 {
+	wxStaticText * text = (wxStaticText *)FindWindow("FrameSkipLabel");
+	text->SetLabel(_("Skip frames:"));
 	m_frameSkipAutoButton->Show(true);
 	m_frameSkipAutoButton->Enable(enableButton);
 	m_frameSkipAutoButton->SetValue(false);
@@ -361,6 +363,8 @@ void MiscControlPage::EnableAutoFrameSkip(bool enableButton)
 
 void MiscControlPage::DisableAutoFrameSkip()
 {
+	wxStaticText * text = (wxStaticText *)FindWindow("FrameSkipLabel");
+	text->SetLabel(_("Max frameskip:"));
 	m_frameSkipAutoButton->Show(false);
 	m_frameSkipAutoButton->Enable(false);
 	m_frameSkipAutoButton->SetValue(false);

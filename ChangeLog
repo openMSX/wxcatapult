@@ -1,7 +1,9 @@
-$Id: ChangeLog,v 1.52 2004/04/15 18:26:25 h_oudejans Exp $
+$Id: ChangeLog,v 1.53 2004/04/16 21:58:14 h_oudejans Exp $
 
 2004-04-16 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Restructured the videocontrolpage.
+	* Made 'Skip frames' / 'Max Frameskip' autochanging depending 
+	   on openmsx version.
 
 2004-04-15 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* fixed gtk segfault when catapult closes and openmsx still runs
