@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.47 2005/01/31 21:14:36 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.48 2005/02/01 16:33:26 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -53,11 +53,11 @@ enum
 
 IMPLEMENT_CLASS(SessionPage, wxPanel)
 BEGIN_EVENT_TABLE(SessionPage, wxPanel)
-	EVT_COMBOBOX(XRCID("DiskAContents"),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("DiskBContents"),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("CartAContents"),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("CartBContents"),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("CassetteContents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("DiskAContents"),SessionPage::OnClickDiskACombo)
+	EVT_COMBOBOX(XRCID("DiskBContents"),SessionPage::OnClickDiskBCombo)
+	EVT_COMBOBOX(XRCID("CartAContents"),SessionPage::OnClickCartACombo)
+	EVT_COMBOBOX(XRCID("CartBContents"),SessionPage::OnClickCartBCombo)
+	EVT_COMBOBOX(XRCID("CassetteContents"),SessionPage::OnClickCassetteCombo)
 	EVT_BUTTON(XRCID("DiskA_Button"),SessionPage::OnClickDiskMenu)
 	EVT_BUTTON(XRCID("DiskB_Button"),SessionPage::OnClickDiskMenu)
 	EVT_BUTTON(XRCID("CartA_Button"),SessionPage::OnClickCartMenu)
@@ -414,11 +414,23 @@ void SessionPage::OnBrowseCassette(wxCommandEvent &event)
 	UpdateTooltip(m_cassette);
 }
 
+void SessionPage::OnClickDiskACombo(wxCommandEvent & event)
+{
+	OnClickCombo(event);
+	OnChangeDiskAContents(event);	
+}
+
 void SessionPage::OnChangeDiskAContents(wxCommandEvent & event)
 {
 	m_diskA->ips.Clear();
 	m_diskA->contents = m_diskA->control->GetValue();
 	UpdateTooltip(m_diskA);
+}
+
+void SessionPage::OnClickDiskBCombo(wxCommandEvent & event)
+{
+	OnClickCombo(event);
+	OnChangeDiskBContents(event);	
 }
 
 void SessionPage::OnChangeDiskBContents(wxCommandEvent & event)
@@ -428,6 +440,12 @@ void SessionPage::OnChangeDiskBContents(wxCommandEvent & event)
 	UpdateTooltip(m_diskB);
 }
 
+void SessionPage::OnClickCartACombo(wxCommandEvent & event)
+{
+	OnClickCombo(event);
+	OnChangeCartAContents(event);	
+}
+
 void SessionPage::OnChangeCartAContents(wxCommandEvent & event)
 {
 	m_cartA->ips.Clear();
@@ -435,11 +453,23 @@ void SessionPage::OnChangeCartAContents(wxCommandEvent & event)
 	UpdateTooltip(m_cartA);
 }
 
+void SessionPage::OnClickCartBCombo(wxCommandEvent & event)
+{
+	OnClickCombo(event);
+	OnChangeCartBContents(event);	
+}
+
 void SessionPage::OnChangeCartBContents(wxCommandEvent & event)
 {
 	m_cartB->ips.Clear();
 	m_cartB->contents = m_cartB->control->GetValue();
 	UpdateTooltip(m_cartB);
+}
+
+void SessionPage::OnClickCassetteCombo(wxCommandEvent & event)
+{
+	OnClickCombo(event);
+	OnChangeCassetteContents(event);	
 }
 
 void SessionPage::OnChangeCassetteContents(wxCommandEvent &event)

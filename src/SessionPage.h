@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.20 2005/01/06 16:27:22 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.21 2005/01/31 21:00:54 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -50,6 +50,11 @@ class SessionPage : public CatapultPage
 		void OnRewind (wxCommandEvent & event);
 		void OnForcePlay (wxCommandEvent & event);
 		void OnForcePlayByMenu (wxCommandEvent & event);
+		void OnClickDiskACombo (wxCommandEvent & event);
+		void OnClickDiskBCombo (wxCommandEvent & event);
+		void OnClickCartACombo (wxCommandEvent & event);
+		void OnClickCartBCombo (wxCommandEvent & event);
+		void OnClickCassetteCombo (wxCommandEvent & event);		
 		void OnChangeDiskAContents (wxCommandEvent & event);
 		void OnChangeDiskBContents (wxCommandEvent & event);
 		void OnChangeCartAContents (wxCommandEvent & event);
