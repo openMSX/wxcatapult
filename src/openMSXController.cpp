@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.12 2004/03/21 13:50:14 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.13 2004/03/21 20:49:36 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -479,3 +479,4 @@ void openMSXController::TrackAsserts (wxString command, wxString result)
 	m_appWindow->m_statusPage->m_outputtext->AppendText("\n");
 #endif
 }
+
