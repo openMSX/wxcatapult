@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.25 2004/03/26 20:02:04 h_oudejans Exp $
+$Id: ChangeLog,v 1.26 2004/03/27 20:37:14 h_oudejans Exp $
+
+2004-03-28 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed linux disk/cart/tape combobox problems
 
 2004-03-27 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Catapult now sends update enable commands to openmsx

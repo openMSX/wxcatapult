@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.14 2004/03/23 19:09:16 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.15 2004/03/26 20:02:06 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -313,8 +313,12 @@ void wxCatapultFrame::RestoreHistory()
 						value = value.Mid(pos + 2);	
 					}
 				}while (pos !=-1);
-				if (m_InsertedMedia & (1 << i))
+				if (m_InsertedMedia & (1 << i)){
 					field[i]->SetSelection(0);
+				}
+				else {
+					field[i]->SetValue(_(""));
+				}
 			}
 
 			config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);

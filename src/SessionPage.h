@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.4 2004/03/23 16:31:19 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.5 2004/03/26 20:02:06 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,6 +20,7 @@ class SessionPage : public CatapultPage
 		SessionPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
 		virtual ~SessionPage();
 
+		void OnClickCombo(wxCommandEvent &event);
 		void OnBrowseCasPatch(wxCommandEvent &event);
 		void OnBrowseNormalTape (wxCommandEvent &event);
 		void OnBrowseDiskA (wxCommandEvent& event);

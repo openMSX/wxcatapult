@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.7 2004/03/26 20:02:06 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,6 +24,12 @@
 
 IMPLEMENT_CLASS(SessionPage, wxPanel)
 BEGIN_EVENT_TABLE(SessionPage, wxPanel)
+	EVT_COMBOBOX(XRCID("DiskAContents"),SessionPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("DiskBContents"),SessionPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("CartAContents"),SessionPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("CartBContents"),SessionPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("Tape1Contents"),SessionPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("Tape2Contents"),SessionPage::OnClickCombo)
 	EVT_BUTTON(XRCID("BrowseDiskA"),SessionPage::OnBrowseDiskA)
 	EVT_BUTTON(XRCID("BrowseDiskB"),SessionPage::OnBrowseDiskB)
 	EVT_BUTTON(XRCID("BrowseCartA"),SessionPage::OnBrowseCartA)
@@ -134,6 +140,17 @@ void SessionPage::OnClearCasPatch(wxCommandEvent &event)
 	m_lastTape2 = _("");
 	m_controller->WriteCommand(_("cas eject"));
 }
+
+void SessionPage::OnClickCombo (wxCommandEvent &event)
+{
+	wxComboBox * box = (wxComboBox *)event.GetEventObject();
+	wxString sel = box->GetString(box->GetSelection());
+	wxString cursel = box->GetValue();
+	if (sel != cursel){
+		box->SetValue(sel);
+	}
+}
+
 
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
 {
