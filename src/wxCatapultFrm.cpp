@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.28 2004/05/08 19:08:32 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.29 2004/05/08 19:52:53 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -20,6 +20,7 @@
 #include "VideoControlPage.h"
 #include "AudioControlPage.h"
 #include "MiscControlPage.h"
+#include "Version.h"
 #ifdef __WINDOWS__
 #include "openMSXWindowsController.h"
 #else
@@ -29,7 +30,6 @@
 
 #define unisprintf sprintf
 
-#include "config.h"
 
 // ----------------------------------------------------------------------------
 // constants
@@ -165,10 +165,13 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 {
 	// called when help - about is picked from the menu or toolbar
 	wxString msg;
-	msg.Printf(_("openMSX Catapult Neo " VERSION "\n\n"
-				"Created by the openMSX team\n\nBuilt on "__DATE__"\n"));
+	msg.Printf(
+		Version::FULL_VERSION + "\n\n" +
+		_("Created by the openMSX team\n")
+		);
 
-	wxMessageBox(msg, _("About wxCatapult"), wxOK | wxICON_INFORMATION, this);
+	wxMessageBox(msg, _("About openMSX Catapult"),
+		wxOK | wxICON_INFORMATION, this );
 }
 
 void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
@@ -179,9 +182,9 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 	if (dlg.ShowModal() == wxID_OK){
 		bool result = ConfigurationData::instance()->SaveData();
 #if !OPENMSX_DEMO_CD_VERSION
-			if (!result){
-				wxMessageBox ("Error saving configuration data");
-			}
+		if (!result){
+			wxMessageBox ("Error saving configuration data");
+		}
 #endif
 		m_sessionPage->SetupHardware(false);
 		ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
