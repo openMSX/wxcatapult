@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /W4 /GX /Od /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /FR /FD /c
+# ADD CPP /nologo /MD /W4 /GX /Od /I "..\derived\config" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /FR /FD /c
 # SUBTRACT CPP /X /YX
 # ADD BASE RSC /l 0x3009 /d "NDEBUG"
 # ADD RSC /l 0x3009 /d "NDEBUG"
@@ -51,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib wsock32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib zlib.lib regex.lib png.lib jpeg.lib tiff.lib wxmsw.lib wxxrcs.lib libxml2.lib winmm.lib  shell32.lib /nologo /version:0.1 /subsystem:windows /machine:I386 /nodefaultlib:"wsock32.dll" /out:"..\bin/Catapult.exe" /libpath:"c:\windows\system32" /WARN:1
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib wsock32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib zlib.lib regex.lib png.lib jpeg.lib tiff.lib wxmsw.lib wxxrcs.lib libxml2.lib winmm.lib shell32.lib /nologo /version:0.1 /subsystem:windows /machine:I386 /nodefaultlib:"wsock32.dll" /out:"..\bin/Catapult.exe" /libpath:"c:\windows\system32" /WARN:1
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
@@ -68,7 +68,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W4 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /D "__WXDEBUG__" /D WXDEBUG=1 /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W4 /Gm /GX /Zi /Od /I "..\derived\config" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /D "__WXDEBUG__" /D WXDEBUG=1 /FR /YX /FD /GZ /c
 # SUBTRACT CPP /X
 # ADD BASE RSC /l 0x3009 /d "_DEBUG"
 # ADD RSC /l 0x3009 /d "_DEBUG"
@@ -77,7 +77,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlibd.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib wxxrcds.lib libxml2.lib winmm.lib  shell32.lib /nologo /subsystem:windows /incremental:no /debug /machine:I386 /out:"../Bin/Catapultd.exe" /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlibd.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib wxxrcds.lib libxml2.lib winmm.lib shell32.lib /nologo /subsystem:windows /incremental:no /debug /machine:I386 /out:"../Bin/Catapultd.exe" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -341,47 +341,42 @@ InputName=videocontrols
 
 # End Source File
 # End Group
-# Begin Group "Configuration"
+# Begin Group "Version"
 
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\main.mk
+SOURCE=.\version.mk
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - Creating config.h
+USERDEP__VERSI="$(InputDir)\..\ChangeLog"	
+# Begin Custom Build - Creating Version Information
 InputDir=.
-InputPath=.\main.mk
+InputPath=.\version.mk
 
-"$(InputDir)\..\src\config.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -e "/VERSION:=/s/\(VERSION\):=\ *\([0-9]*\.[0-9]*\.[0-9]*C*V*S*\)/#define \1 \"\2\"/w version.tmp" main.mk > nul 
-	echo #ifndef __CONFIG_H_INCLUDED > $(InputDir)\..\src\config.h 
-	echo #define __CONFIG_H_INCLUDED >> $(InputDir)\..\src\config.h 
-	echo. >> $(InputDir)\..\src\config.h 
-	copy $(InputDir)\..\src\config.h+version.tmp $(InputDir)\..\src\config.h > nul 
-	echo. >> $(InputDir)\..\src\config.h 
-	echo #endif >> $(InputDir)\..\src\config.h 
-	del version.tmp 
+"$(InputDir)\..\derived\config\version.ii" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	mkdir ..\derived 2> nul 
+	mkdir ..\derived\config 2> nul 
+	sed -ne "s/\$Id: ChangeLog,v \([^ ]*\).*/const wxString Version::CHANGELOG_REVISION = \"\1\";/p" $(InputDir)\..\ChangeLog > $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/RELEASE_FLAG:= *\([^ ]*\).*/const bool Version::RELEASE = \1;/p" $(InputDir)/version.mk >> $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/PACKAGE_VERSION:= *\([^ ]*\).*/const wxString Version::VERSION =  \"\1\";/p" $(InputDir)\version.mk >> $(InputDir)\..\derived\config\version.ii 
 	
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build - Creating config.h
+USERDEP__VERSI="$(InputDir)\..\ChangeLog"	
+# Begin Custom Build - Creating Version Information
 InputDir=.
-InputPath=.\main.mk
+InputPath=.\version.mk
 
-"$(InputDir)\..\src\config.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	sed -e "/VERSION:=/s/\(VERSION\):=\ *\([0-9]*\.[0-9]*\.[0-9]*C*V*S*\)/#define \1 \"\2\"/w version.tmp" main.mk > nul 
-	echo #ifndef __CONFIG_H_INCLUDED > $(InputDir)\..\src\config.h 
-	echo #define __CONFIG_H_INCLUDED >> $(InputDir)\..\src\config.h 
-	echo. >> $(InputDir)\..\src\config.h 
-	copy $(InputDir)\..\src\config.h+version.tmp $(InputDir)\..\src\config.h > nul 
-	echo. >> $(InputDir)\..\src\config.h 
-	echo #endif >> $(InputDir)\..\src\config.h 
-	del version.tmp 
+"$(InputDir)\..\derived\config\version.ii" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	mkdir ..\derived 2> nul 
+	mkdir ..\derived\config 2> nul 
+	sed -ne "s/\$Id: ChangeLog,v \([^ ]*\).*/const wxString Version::CHANGELOG_REVISION = \"\1\";/p" $(InputDir)\..\ChangeLog > $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/RELEASE_FLAG:= *\([^ ]*\).*/const bool Version::RELEASE = \1;/p" $(InputDir)/version.mk >> $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/PACKAGE_VERSION:= *\([^ ]*\).*/const wxString Version::VERSION =  \"\1\";/p" $(InputDir)\version.mk >> $(InputDir)\..\derived\config\version.ii 
 	
 # End Custom Build
 
@@ -449,6 +444,10 @@ SOURCE=..\src\SessionPage.cpp
 # Begin Source File
 
 SOURCE=..\src\StatusPage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Version.cpp
 # End Source File
 # Begin Source File
 
@@ -525,6 +524,10 @@ SOURCE=..\src\SessionPage.h
 # Begin Source File
 
 SOURCE=..\src\StatusPage.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Version.h
 # End Source File
 # Begin Source File
 

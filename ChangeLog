@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.67 2004/05/06 19:33:07 h_oudejans Exp $
+$Id: ChangeLog,v 1.68 2004/05/09 08:45:52 mthuurne Exp $
+
+2004-05-09 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* made the windows build system work with the version info
+	* updated the README to point out the manuals	
 
 2004-05-08 Maarten ter Huurne <maarten@treewalker.org>
 	* Migrated build system stuff from openMSX to Catapult.

@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.11 2004/05/08 19:08:32 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.12 2004/05/08 20:50:44 mthuurne Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -16,7 +16,9 @@
 #include "CatapultConfigDlg.h"
 #include "wxToggleButtonXmlHandler.h"
 
+#ifdef __UNIX__
 #include "config.h"
+#endif
 
 // Create a new application object: this macro will allow wxWindows to create
 // the application object during program execution (it's better than using a
