@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.17 2004/05/13 01:10:55 mthuurne Exp $
+# $Id: main.mk,v 1.18 2004/05/13 01:37:47 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -207,50 +207,68 @@ clean:
 	@rm -rf $(BUILD_PATH)
 
 
-# Installation
-# ============
+# Installation and Binary Packaging
+# ========================
 
 INSTALL_DOCS:=release-notes.txt release-history.txt
+CATAPULT_INSTALL?=$(INSTALL_BASE)
 
+ifeq ($(DONOTBUILD),)
 install: all
-	@echo "Installing to $(INSTALL_BASE):"
+else
+BINARY_FILE=Catapult.exe
+BINARY_FULL:=bin/catapult.exe
+RESOURCES_PATH:=resources
+FILES_ONLY:=yes
+install: check_build
+endif
+	@echo "Installing to $(CATAPULT_INSTALL):"
 	@echo "  Executable..."
-	@mkdir -p $(INSTALL_BASE)/bin
-	@cp $(BINARY_FULL) $(INSTALL_BASE)/bin/$(BINARY_FILE)
+	@mkdir -p $(CATAPULT_INSTALL)/bin
+	@cp $(BINARY_FULL) $(CATAPULT_INSTALL)/bin/$(BINARY_FILE)
 	@echo "  Data files..."
-	@cp -r $(RESOURCES_PATH) $(INSTALL_BASE)/
+	@cp -r $(RESOURCES_PATH) $(CATAPULT_INSTALL)/
 	@echo "  Documentation..."
-	@mkdir -p $(INSTALL_BASE)/doc
-	@cp $(addprefix doc/,$(INSTALL_DOCS)) $(INSTALL_BASE)/doc
-	@mkdir -p $(INSTALL_BASE)/doc/manual
-	@cp $(addprefix doc/manual/,*.html *.css) $(INSTALL_BASE)/doc/manual
+	@mkdir -p $(CATAPULT_INSTALL)/doc
+	@cp $(addprefix doc/,$(INSTALL_DOCS)) $(CATAPULT_INSTALL)/doc
+	@mkdir -p $(CATAPULT_INSTALL)/doc/manual
+	@cp $(addprefix doc/manual/,*.html *.css) $(CATAPULT_INSTALL)/doc/manual
+ifneq ($(FILES_ONLY),yes)	
 	@echo "  Desktop hooks..."
-	@mkdir -p $(INSTALL_BASE)/resources/icons
-	@cp -r src/catapult.xpm $(INSTALL_BASE)/resources/icons
+	@mkdir -p $(CATAPULT_INSTALL)/resources/icons
+	@cp -r src/catapult.xpm $(CATAPULT_INSTALL)/resources/icons
+
 	@if [ -d /usr/share/applications -a -w /usr/share/applications ]; \
-		then sed -e "s|%INSTALL_BASE%|$(INSTALL_BASE)|" \
+		then sed -e "s|%CATAPULT_INSTALL%|$(CATAPULT_INSTALL)|" \
 			desktop/openMSX-Catapult.desktop \
 			> /usr/share/applications/openMSX-Catapult.desktop; \
 		else mkdir -p ~/.local/share/applications; \
-			sed -e "s|%INSTALL_BASE%|$(INSTALL_BASE)|" \
+			sed -e "s|%CATAPULT_INSTALL%|$(CATAPULT_INSTALL)|" \
 			desktop/openMSX-Catapult.desktop \
 			> ~/.local/share/applications/openMSX-Catapult.desktop; \
 		fi
 	@echo "  Creating symlink..."
 	@if [ -d /usr/local/bin -a -w /usr/local/bin ]; \
-		then ln -sf $(INSTALL_BASE)/bin/$(BINARY_FILE) \
+		then ln -sf $(CATAPULT_INSTALL)/bin/$(BINARY_FILE) \
 			/usr/local/bin/$(BINARY_FILE); \
 		else if [ -d ~/bin ]; \
-			then ln -sf $(INSTALL_BASE)/bin/$(BINARY_FILE) \
+			then ln -sf $(CATAPULT_INSTALL)/bin/$(BINARY_FILE) \
 				~/bin/$(BINARY_FILE); \
 			fi; \
 		fi
 	@echo "  Setting permissions..."
 	@chmod -R a+rX $(INSTALL_BASE)
+endif # FILES_ONLY
 	@echo "Installation complete... have fun!"
 
+TARGET_CATAPULT:=$(wildcard bin/Catapult.exe)
 
-# Packaging
+check_build:
+ifeq ($(TARGET_CATAPULT),)
+	$(error Create Catapult first)
+endif 
+
+# Source Packaging
 # =========
 
 DIST_BASE:=$(BUILD_BASE)/dist
