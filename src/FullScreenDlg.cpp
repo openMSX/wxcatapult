@@ -13,8 +13,8 @@
 
 IMPLEMENT_CLASS(FullScreenDlg, wxDialog)
 BEGIN_EVENT_TABLE(FullScreenDlg, wxDialog)
-	EVT_BUTTON(XRCID(wxT("OkButton")),FullScreenDlg::OnOk)
-	EVT_BUTTON(XRCID(wxT("CancelButton")),FullScreenDlg::OnCancel)
+	EVT_BUTTON(XRCID("OkButton"),FullScreenDlg::OnOk)
+	EVT_BUTTON(XRCID("CancelButton"),FullScreenDlg::OnCancel)
 END_EVENT_TABLE()
 
 

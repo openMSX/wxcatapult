@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.11 2004/11/11 17:14:59 h_oudejans Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.12 2004/12/01 20:05:58 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,10 +19,10 @@
 
 	IMPLEMENT_CLASS(CatapultConfigDlg, wxDialog)
 BEGIN_EVENT_TABLE(CatapultConfigDlg, wxDialog)
-	EVT_BUTTON(XRCID(wxT("ConfigOk")),CatapultConfigDlg::OnOk)
-	EVT_BUTTON(XRCID(wxT("ConfigCancel")),CatapultConfigDlg::OnCancel)
-	EVT_BUTTON(XRCID(wxT("ConfigBrowseExec")),CatapultConfigDlg::OnBrowseExec)
-	EVT_BUTTON(XRCID(wxT("ConfigBrowseShare")),CatapultConfigDlg::OnBrowseShare)
+	EVT_BUTTON(XRCID("ConfigOk"),CatapultConfigDlg::OnOk)
+	EVT_BUTTON(XRCID("ConfigCancel"),CatapultConfigDlg::OnCancel)
+	EVT_BUTTON(XRCID("ConfigBrowseExec"),CatapultConfigDlg::OnBrowseExec)
+	EVT_BUTTON(XRCID("ConfigBrowseShare"),CatapultConfigDlg::OnBrowseShare)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////

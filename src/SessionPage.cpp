@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.38 2004/11/14 18:33:41 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.39 2004/12/01 20:05:59 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -23,30 +23,32 @@
 #include "openMSXController.h"
 
 #ifdef __WXMSW__
+#ifndef __VISUALC__ 
 #define _WIN32_IE 0x400	// to be able to use shell objects
+#endif
 #include <shlobj.h>
 #endif
 
 IMPLEMENT_CLASS(SessionPage, wxPanel)
 BEGIN_EVENT_TABLE(SessionPage, wxPanel)
-	EVT_COMBOBOX(XRCID(wxT("DiskAContents")),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID(wxT("DiskBContents")),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID(wxT("CartAContents")),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID(wxT("CartBContents")),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID(wxT("CassetteContents")),CatapultPage::OnClickCombo)
-	EVT_BUTTON(XRCID(wxT("BrowseDiskA")),SessionPage::OnBrowseDiskA)
-	EVT_BUTTON(XRCID(wxT("BrowseDiskB")),SessionPage::OnBrowseDiskB)
-	EVT_BUTTON(XRCID(wxT("BrowseCartA")),SessionPage::OnBrowseCartA)
-	EVT_BUTTON(XRCID(wxT("BrowseCartB")),SessionPage::OnBrowseCartB)
-	EVT_BUTTON(XRCID(wxT("BrowseCassette")),SessionPage::OnBrowseCassette)
-	EVT_BUTTON(XRCID(wxT("ClearDiskA")),SessionPage::OnClearDiskA)
-	EVT_BUTTON(XRCID(wxT("ClearDiskB")),SessionPage::OnClearDiskB)
-	EVT_BUTTON(XRCID(wxT("ClearCartA")),SessionPage::OnClearCartA)
-	EVT_BUTTON(XRCID(wxT("ClearCartB")),SessionPage::OnClearCartB)
-	EVT_BUTTON(XRCID(wxT("ClearCassette")),SessionPage::OnClearCassette)
-	EVT_BUTTON(XRCID(wxT("RewindButton")),SessionPage::OnRewind)
-	EVT_TOGGLEBUTTON(XRCID(wxT("ForcePlayButton")),SessionPage::OnForcePlay)
-	EVT_TEXT(XRCID(wxT("CassetteContents")),SessionPage::OnChangeCassetteContents)
+	EVT_COMBOBOX(XRCID("DiskAContents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("DiskBContents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("CartAContents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("CartBContents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("CassetteContents"),CatapultPage::OnClickCombo)
+	EVT_BUTTON(XRCID("BrowseDiskA"),SessionPage::OnBrowseDiskA)
+	EVT_BUTTON(XRCID("BrowseDiskB"),SessionPage::OnBrowseDiskB)
+	EVT_BUTTON(XRCID("BrowseCartA"),SessionPage::OnBrowseCartA)
+	EVT_BUTTON(XRCID("BrowseCartB"),SessionPage::OnBrowseCartB)
+	EVT_BUTTON(XRCID("BrowseCassette"),SessionPage::OnBrowseCassette)
+	EVT_BUTTON(XRCID("ClearDiskA"),SessionPage::OnClearDiskA)
+	EVT_BUTTON(XRCID("ClearDiskB"),SessionPage::OnClearDiskB)
+	EVT_BUTTON(XRCID("ClearCartA"),SessionPage::OnClearCartA)
+	EVT_BUTTON(XRCID("ClearCartB"),SessionPage::OnClearCartB)
+	EVT_BUTTON(XRCID("ClearCassette"),SessionPage::OnClearCassette)
+	EVT_BUTTON(XRCID("RewindButton"),SessionPage::OnRewind)
+	EVT_TOGGLEBUTTON(XRCID("ForcePlayButton"),SessionPage::OnForcePlay)
+	EVT_TEXT(XRCID("CassetteContents"),SessionPage::OnChangeCassetteContents)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -370,10 +372,10 @@ void SessionPage::SetupHardware (bool initial)
 
 int SessionPage::CompareCaseInsensitive(const wxString& first, const wxString& second)
 {
-	int result = first.CmpNoCase(second.c_str());
+	int result = first.CmpNoCase((char *)second.c_str());
 	if (result != 0) return result;
 
-	return first.Cmp(second.c_str());
+	return first.Cmp((char *)second.c_str());
 }
 
 void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensionArray, bool optional)
@@ -381,7 +383,7 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensio
 	if (!::wxDirExists(sharepath + wxT("/extensions"))) {
 		if (!optional) {
 			wxString msg;
-			msg.sprintf(wxT("Directory: %s does not exist"), wxString(sharepath + wxT("/extensions")).c_str());
+			msg.sprintf(wxT("Directory: %s does not exist"), (char *)wxString(sharepath + wxT("/extensions")).c_str());
 			wxMessageBox (msg);
 		}
 		return;
@@ -392,7 +394,7 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensio
 	while (succes)
 	{
 		if (::wxFileExists(sharepath + wxT("/extensions/") + extension + wxT("/hardwareconfig.xml"))) {
-			if (extensionArray.Index(extension.c_str(),true) == wxNOT_FOUND){
+			if (extensionArray.Index((char *)extension.c_str(),true) == wxNOT_FOUND){
 				extensionArray.Add(extension);
 			}
 		}
@@ -416,7 +418,7 @@ void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArr
 	if (!::wxDirExists(sharepath + wxT("/machines"))) {
 		if (!optional) {
 			wxString msg;
-			msg.sprintf(wxT("Directory: %s does not exist"), wxString(sharepath + wxT("/machines")).c_str());
+			msg.sprintf(wxT("Directory: %s does not exist"), (char *)wxString(sharepath + wxT("/machines")).c_str());
 			wxMessageBox (msg);
 		}
 		return;
@@ -427,7 +429,7 @@ void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArr
 	while (succes)
 	{
 		if (::wxFileExists(sharepath + wxT("/machines/") + machine + wxT("/hardwareconfig.xml"))) {
-			if (machineArray.Index(machine.c_str(),true) == wxNOT_FOUND){
+			if (machineArray.Index((char *)machine.c_str(),true) == wxNOT_FOUND){
 				machineArray.Add(machine);
 			}
 		}

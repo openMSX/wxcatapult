@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.13 2004/08/26 14:29:46 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.14 2004/11/06 11:58:09 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -147,7 +147,7 @@ void CatapultXMLParser::SendParsedData()
 void CatapultXMLParser::ParseXmlInput(wxString input,unsigned int ID)
 {
 	parseResult.openMSXID = ID;
-	xmlParseChunk (context, input.c_str(), input.Len(),0);
+	xmlParseChunk (context, (char *)input.c_str(), input.Len(),0);
 }
 
 void CatapultXMLParser::parseReply(const char** attrs)

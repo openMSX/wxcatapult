@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.26 2004/11/11 17:14:46 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.27 2004/12/01 20:05:57 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -17,15 +17,15 @@
 
 IMPLEMENT_CLASS(AudioControlPage, wxPanel)
 BEGIN_EVENT_TABLE(AudioControlPage, wxPanel)
-	EVT_COMBOBOX(XRCID(wxT("MidiInSelector")),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID(wxT("MidiOutSelector")),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID(wxT("SampleInSelector")),CatapultPage::OnClickCombo)
-	EVT_TEXT(XRCID(wxT("MidiInSelector")),AudioControlPage::OnChangeMidiInPlug)
-	EVT_TEXT(XRCID(wxT("MidiOutSelector")),AudioControlPage::OnChangeMidiOutPlug)
-	EVT_TEXT(XRCID(wxT("SampleInSelector")),AudioControlPage::OnChangeSampleInPlug)
-	EVT_BUTTON(XRCID(wxT("BrowseMidiInButton")),AudioControlPage::OnBrowseMidiInFile)
-	EVT_BUTTON(XRCID(wxT("BrowseMidiOutButton")),AudioControlPage::OnBrowseMidiOutFile)
-	EVT_BUTTON(XRCID(wxT("BrowseSampleInputButton")),AudioControlPage::OnBrowseSampleInFile)
+	EVT_COMBOBOX(XRCID("MidiInSelector"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("MidiOutSelector"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("SampleInSelector"),CatapultPage::OnClickCombo)
+	EVT_TEXT(XRCID("MidiInSelector"),AudioControlPage::OnChangeMidiInPlug)
+	EVT_TEXT(XRCID("MidiOutSelector"),AudioControlPage::OnChangeMidiOutPlug)
+	EVT_TEXT(XRCID("SampleInSelector"),AudioControlPage::OnChangeSampleInPlug)
+	EVT_BUTTON(XRCID("BrowseMidiInButton"),AudioControlPage::OnBrowseMidiInFile)
+	EVT_BUTTON(XRCID("BrowseMidiOutButton"),AudioControlPage::OnBrowseMidiOutFile)
+	EVT_BUTTON(XRCID("BrowseSampleInputButton"),AudioControlPage::OnBrowseSampleInFile)
 END_EVENT_TABLE()
 
 //////////////////////////////////////////////////////////////////////
@@ -288,7 +288,7 @@ void AudioControlPage::OnChangeVolume(wxScrollEvent& event)
 	wxString channelname = GetAudioChannelName(ID-FIRSTAUDIOSLIDER);
 	int scrollpos = 100-event.GetPosition();
 	wxString cmd;
-	cmd.sprintf("set %s_volume %d",channelname.c_str(),scrollpos);
+	cmd.sprintf("set %s_volume %d",(char *)channelname.c_str(),scrollpos);
 	m_controller->WriteCommand(cmd);
 }
 
@@ -319,7 +319,7 @@ void AudioControlPage::OnChangeMode(wxCommandEvent& event)
 			break;
 	}
 	wxString cmd;
-	cmd.sprintf("set %s_mode %s",channelname.c_str(),value.c_str());
+	cmd.sprintf("set %s_mode %s",(char *)channelname.c_str(),(char *)value.c_str());
 	m_controller->WriteCommand(cmd);
 }
 

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.50 2004/11/15 21:18:07 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.51 2004/12/01 20:06:00 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -69,10 +69,10 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Load_OpenMSX_Settings,wxCatapultFrame::OnMenuLoadSettings)
 	EVT_MENU(Catapult_Save_On_Exit,wxCatapultFrame::OnMenuSaveOnExit)
 	EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
-	EVT_BUTTON(XRCID(wxT("Launch_AbortButton")),wxCatapultFrame::OnLaunch)
+	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
 	EVT_TIMER(FPS_TIMER, wxCatapultFrame::OnUpdateFPS)
 	EVT_TIMER(FOCUS_TIMER, wxCatapultFrame::OnCheckFocus)
-	EVT_NOTEBOOK_PAGE_CHANGED(XRCID(wxT("GlobalTabControl")), wxCatapultFrame::OnChangePage)
+	EVT_NOTEBOOK_PAGE_CHANGED(XRCID("GlobalTabControl"), wxCatapultFrame::OnChangePage)
 	EVT_ACTIVATE (wxCatapultFrame::OnDeselectCatapult)
 	EVT_MENU_OPEN(wxCatapultFrame::OnMenuOpen)
 	EVT_MENU_CLOSE(wxCatapultFrame::OnMenuClose)
@@ -377,7 +377,7 @@ void wxCatapultFrame::StopTimers()
 
 void wxCatapultFrame::SetFPSdisplay(wxString val)
 {
-	double valfl = strtod(val.c_str(),NULL);
+	double valfl = strtod((char *)val.c_str(),NULL);
 	val.sprintf("%2.1f",valfl);	
 	SetStatusText(val +wxT(" fps"),1);
 }

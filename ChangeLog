@@ -1,17 +1,30 @@
-$Id: ChangeLog,v 1.103 2004/11/11 17:14:45 h_oudejans Exp $
+$Id: ChangeLog,v 1.104 2004/11/14 18:34:25 h_oudejans Exp $
+
+2004-12-03 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* fixed info2code.mk so config.h and version.ii are created with
+	  wxT macro's
+	* removed wxT macro where used in combination with XRCID since
+	  this also includes the wxT macro.
+	* added (char *) cast to all functions using wxString.c_str()
+	* fixed a redefinition warning in vc++
+
+2004-12-01 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* added wxT macro's for compilation with unicode
 
 2004-11-14 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* catapult can be compiled in mingw without any alteration of wx-config.
-	  The result is still far bigger than using vc++, so it's not perfect yet.
+	* catapult can be compiled in mingw without any alteration of 
+	  wx-config. The result is still far bigger than using vc++, so it's 
+	  not perfect yet.
 
 2004-11-11 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* Fixed gcc compiler warning (signed/unsigned mismatch) in FOREACH code
+	* Fixed gcc compiler warning (signed/unsigned mismatch) in FOREACH 
+	  code
 	* First step for compiling using mingw:
 		- Included <windows.h> where HANDLE is needed
-		- Replaced FindWindow() by FindWindowByName() because mingw gets confused
-		  about the FindWindow defined in winbase.h (included in windows.h)
-		- Replaced __WINDOWS__ by __WXMSW__ (wx-config gives only -D__WXMSW__)
-		- Fixed vc++ compiler error in CatapultConfigDlg (config.h is POSIX only).
+		- Replaced FindWindow() by FindWindowByName() because mingw gets 
+		  confused about the FindWindow defined in winbase.h (windows.h)
+		- Replaced __WINDOWS__ by __WXMSW__ (wx-config has only -D__WXMSW__)
+		- Fixed vc++ compiler error in CatapultConfigDlg.
 
 2004-11-10 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* All static arrays that used to be looped through by for-loops, are

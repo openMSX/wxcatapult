@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.13 2004/10/02 11:01:56 m9710797 Exp $
+// $Id: openMSXLinuxController.cpp,v 1.14 2004/12/01 20:05:59 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@ bool openMSXLinuxController::Launch(wxString cmdline)
 {
 	PreLaunch();
 	cmdline += wxT(" -control stdio");
-	if (!execute(cmdline.c_str(), m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
+	if (!execute((char *)cmdline.c_str(), m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
 		return false;
 	}
 	m_stdOutThread = new PipeReadThread(m_appWindow, MSGID_STDOUT,wxTHREAD_JOINABLE);
@@ -97,7 +97,7 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 		unsigned len = command.length();
 		char* cmd = static_cast<char*>(
 		                alloca((len + 1) * sizeof(char)));
-		memcpy(cmd, command.c_str(), len + 1);
+		memcpy(cmd, (char *)command.c_str(), len + 1);
 		char* argv[4];
 		argv[0] = "sh";
 		argv[1] = "-c";
@@ -124,7 +124,7 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
 	wxString version = wxT("");
-	system (wxString (openmsxCmd +wxT(" -v > /tmp/catapult.tmp")).c_str());
+	system ((char *)wxString (openmsxCmd +wxT(" -v > /tmp/catapult.tmp")).c_str());
 	wxTextFile tempfile (wxT("/tmp/catapult.tmp"));
 	if (tempfile.Open()) {
 		version = tempfile.GetFirstLine();
@@ -137,7 +137,7 @@ bool openMSXLinuxController::WriteMessage(wxString msg)
 {
 	if (!m_openMsxRunning) 
 		return false;
-	write(m_openMSXstdin, msg.c_str(), msg.Len());
+	write(m_openMSXstdin, (char *)msg.c_str(), msg.Len());
 	return true;
 }
 
