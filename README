@@ -6,9 +6,11 @@ openMSX Catapult is an optional part (a subproject) of openMSX, the MSX
 emulator that aims for perfection. With Catapult you can control openMSX via
 a graphical user interface.
 
-Since the program is not very complicated, we expect that it doesn't need a
-manual. To understand what all options mean and to get a better feeling of
-what openMSX is, we recommend to read the documentation of openMSX.
+Although the program should be self explanatory, we included a set of HTML
+manuals, that tell how you can compile the program (if you want or need to)
+and how to use Catapult with openMSX. To understand what all options mean
+and to get a better feeling of what openMSX is, we also recommend to read the 
+documentation of openMSX.
 
 You can read what has changed in this and the previous releases in the
 release notes. You can find the release notes of this release in the file
@@ -30,4 +32,4 @@ Happy MSX-ing!
                         the openMSX developers
 
 ----------------------------------------------------------------------------
-$Id$
+$Id: README,v 1.1 2004/04/17 21:56:26 manuelbi Exp $
