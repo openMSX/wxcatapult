@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.24 2004/03/31 18:23:04 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.25 2004/04/01 08:31:48 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -442,9 +442,11 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 			tempsize.SetHeight(tempsize.GetHeight()+1);
 			tempsize.SetWidth(tempsize.GetWidth()+1);
 			m_appWindow->SetSize(tempsize);
+#ifdef __WINDOWS__
 			tempsize.SetHeight(tempsize.GetHeight()-1);
 			tempsize.SetWidth(tempsize.GetWidth()-1);
 			m_appWindow->SetSize(tempsize);
+#endif
 			m_appWindow->SetControlsOnLaunch();
 			m_launchMode = LAUNCH_NONE; // interactive mode
 		}
