@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.7 2004/04/01 08:31:48 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.8 2004/04/05 18:29:39 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -74,6 +74,16 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting("audio-inputfilename","SampleFileInput",&CatapultPage::UpdateIndicatorSetting,false);
 	AddSetting("*_volume","volume",&CatapultPage::UpdateAudioSetting,false);
 	AddSetting("*_mode","mode",&CatapultPage::UpdateAudioSetting,false);
+	AddSetting("msx-midi-in","MidiInSelector",&CatapultPage::UpdateMidiPlug,false);
+	AddSetting("msx-midi-out","MidiOutSelector",&CatapultPage::UpdateMidiPlug,false);
+	AddSetting("pcminput","SampleInSelector",&CatapultPage::UpdatePluggable,false);
+	AddSetting("joyporta","Joyport1Selector",&CatapultPage::UpdatePluggable,false);
+	AddSetting("joyportb","Joyport2Selector",&CatapultPage::UpdatePluggable,false);
+	AddSetting("diska","DiskAContents",&CatapultPage::UpdateComboSetting,false);
+	AddSetting("diskb","DiskBContents",&CatapultPage::UpdateComboSetting,false);
+	AddSetting("tape1","Tape1Contents",&CatapultPage::UpdateComboSetting,false);
+	AddSetting("tape2","Tape2Contents",&CatapultPage::UpdateComboSetting,false);
+
 }
 
 void CatapultPage::AddSetting (wxString setting, wxString controlname,
@@ -179,3 +189,28 @@ bool CatapultPage::UpdateAudioSetting (wxString setting, wxString data, wxString
 	return false;
 }
 
+bool CatapultPage::UpdateMidiPlug (wxString connector, wxString data, wxString control, bool dummy)
+{
+	wxNotebook * notebook = (wxNotebook *) m_parent;
+	AudioControlPage * audiopage = NULL;
+	for (int i=0;i<notebook->GetPageCount();i++){
+		if (notebook->GetPageText(i) == _("Audio Controls")){
+			audiopage = (AudioControlPage *)notebook->GetPage(i);
+		}
+	}
+	audiopage->UpdateMidiPlug (control, data);
+	return true;
+}
+
+bool CatapultPage::UpdatePluggable (wxString connector, wxString data, wxString control, bool dummy)
+{
+	wxString valuetext = data;
+	if (data == _("")){
+		valuetext = _("--empty--");
+	}
+	wxComboBox * box = (wxComboBox *)m_parent->FindWindow(control);
+	if (box != NULL){
+		box->SetValue(valuetext);
+	}
+	return true;
+}

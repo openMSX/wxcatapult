@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.4 2004/03/28 16:57:24 h_oudejans Exp $
+// $Id: CatapultPage.h,v 1.5 2004/04/05 18:29:39 h_oudejans Exp $
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -11,7 +11,7 @@
 #endif // _MSC_VER > 1000
 
 #include <wx/tglbtn.h>
-#define SETTINGTABLE_MAXSIZE 23
+#define SETTINGTABLE_MAXSIZE 33
 
 class CatapultPage : public wxPanel 
 {
@@ -43,7 +43,8 @@ private:
 	bool UpdateComboSetting(wxString setting, wxString data, wxString control, bool convert);
 	bool UpdateIndicatorSetting(wxString setting, wxString data, wxString control, bool dummy);
 	bool UpdateAudioSetting (wxString setting, wxString data, wxString selection, bool dummy2);
-	
+	bool UpdateMidiPlug (wxString connector, wxString data, wxString control, bool dummy);
+	bool UpdatePluggable (wxString connector, wxString data, wxString control, bool dummy);
 };
 
 #endif 

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.29 2004/04/06 15:05:31 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.30 2004/04/08 18:57:23 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -17,6 +17,7 @@
 #include "VideoControlPage.h"
 #include "MiscControlPage.h"
 #include "AudioControlPage.h"
+#include "SessionPage.h"
 #include "wxCatapultApp.h"
 #include <cassert>
 
@@ -147,9 +148,31 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				wxString lastcmd = PeekPendingCommand();
 				if ((lastcmd.Mid(0,4) != "set ") || (lastcmd.Find(' ',true) ==3) || 
 					(lastcmd.Mid(4,lastcmd.Find(' ',true)-4)!= data->name)){
+						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
+				}
+			}
+			else if (data->updateType == CatapultXMLParser::UPDATE_PLUG){
+				wxString lastcmd = PeekPendingCommand();
+				if ((lastcmd.Mid(0,5) != "plug ") || (lastcmd.Find(' ',true) == 4) ||
+					(lastcmd.Mid(5,lastcmd.Find(' ',true)-5)!= data->name)){
+						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
+				}
+			}
+			else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG){
+				wxString lastcmd = PeekPendingCommand();
+				if ((lastcmd.Mid(0,7) != "unplug ") || (lastcmd.Find(' ',true) == 6)){
 					m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
 				}
 			}
+			else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA){
+				wxString lastcmd = PeekPendingCommand();
+				if ((lastcmd.Mid(0,data->name.Len()+1) != wxString(data->name + _(" "))) || 
+					(lastcmd.Find(' ',true) == (int)data->name.Len())){
+						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
+						m_appWindow->m_sessionPage->UpdateSessionData();
+				}
+			}
+
 			break;
 		case CatapultXMLParser::TAG_REPLY:
 			switch (data->replyState) {			
@@ -498,6 +521,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("#info accuracy","","AccuracySelector",&openMSXController::FillComboBox,false);
 	AddLaunchInstruction ("update enable plug","","",NULL,false);
 	AddLaunchInstruction ("update enable unplug","","",NULL,false);
+	AddLaunchInstruction ("update enable media","","",NULL,false);
 	AddLaunchInstruction ("#exist frontswitch","","#",&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction ("set renderer","","renderer",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set scaler","","scaler",&openMSXController::UpdateSetting,true);

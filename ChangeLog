@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.42 2004/04/08 19:01:08 h_oudejans Exp $
+$Id: ChangeLog,v 1.43 2004/04/09 19:40:52 h_oudejans Exp $
+
+2004-04-10 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* catapult displays pluggables being plugged in on openmsx.
+	* catapult displays media changed in openmsx.
 
 2004-04-09 Herman Oudejnas <hn.oudejans@quicknet.nl>
 	* fixed bug: not able to use disk b, roms or tapes.

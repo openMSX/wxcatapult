@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.11 2004/04/04 19:47:15 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.12 2004/04/06 15:05:31 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -586,3 +586,46 @@ void AudioControlPage::OnBrowseSampleInFile (wxCommandEvent & event)
 	}
 }
 
+void AudioControlPage::UpdateMidiPlug (wxString connector, wxString data)
+{
+	wxString value = _("");
+	wxArrayString pluggables;
+	wxArrayString descriptions;
+	m_controller->GetPluggables(pluggables);
+	m_controller->GetPluggableDescriptions(descriptions);	
+	if (pluggables.GetCount() ==0){
+		return;
+	}
+	if (data.Lower().Mid(0,7) == _("midi-in")){
+		if (data == _("midi-in-reader")){
+			value = data;
+		}
+	}
+	else if (data.Lower().Mid(0,8) == _("midi-out")){
+		if (data == _("midi-out-logger")){
+			value = data;
+		}
+	}
+	else {
+		value = data;
+	}
+
+	if (value == _("")){
+		if (descriptions.GetCount() < pluggables.GetCount()){
+			return;
+		}
+		for (unsigned i = 0;i<pluggables.GetCount();i++){
+			if (pluggables[i] == data){
+				value = descriptions[i];
+			}
+		}
+	}
+	if (data == _("")){
+		value = _("--empty--");
+	}
+
+	wxComboBox * box = (wxComboBox *)FindWindow(connector);
+	if (box != NULL){
+		box->SetValue(value);
+	}
+}

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.8 2004/04/05 18:29:39 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.9 2004/04/08 18:57:23 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -235,10 +235,10 @@ void MiscControlPage::SetControlsOnEnd()
 	m_throttleButton->Enable(false);
 	m_cmdTimingButton->Enable(false);
 	wxComboBox * box;
-	box = (wxComboBox *)FindWindow ("Joyport1Selector");
+	box = (wxComboBox *)FindWindow (_("Joyport1Selector"));
 	box->Clear();
 	box->Enable(false);
-	box = (wxComboBox *)FindWindow ("Joyport2Selector");
+	box = (wxComboBox *)FindWindow (_("Joyport2Selector"));
 	box->Clear();
 	box->Enable(false);
 }
@@ -357,7 +357,6 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 	wxArrayString classes;
 	m_controller->GetPluggableClasses(classes);
 	if (classes.GetCount() ==0) return;
-	
 	wxComboBox * box = (wxComboBox *)FindWindow (control);
 	box->Enable(true);
 	box->Clear();

@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.h,v 1.5 2004/02/27 18:40:02 h_oudejans Exp $
+// $Id: CatapultXMLParser.h,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
 // CatapultXMLParser.h: interface for the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -49,7 +49,10 @@ class CatapultXMLParser
 			UPDATE_UNKNOWN,
 			UPDATE_LED,
 			UPDATE_SETTING,
-			UPDATE_PLUG
+			UPDATE_PLUG,
+			UPDATE_UNPLUG,
+			UPDATE_MEDIA
+
 		};
 
 		struct ParseResult

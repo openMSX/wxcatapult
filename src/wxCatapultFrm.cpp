@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.22 2004/04/07 19:26:24 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.23 2004/04/07 19:40:31 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -218,9 +218,9 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	}
 
 	m_sessionPage->UpdateSessionData();
+	m_statusPage->m_outputtext->Clear();
 	m_controller->StartOpenMSX(cmd);
 	SetControlsOnLaunch();
-	m_statusPage->m_outputtext->Clear();
 }
 
 void wxCatapultFrame::SetControlsOnLaunch()
