@@ -328,11 +328,13 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		}
 	}
 
-	wxString parmname [5]={wxT("diska"),wxT("diskb"),wxT("carta"),wxT("cartb"),wxT("cassetteplayer")};
-	for (i=0;i<5;i++) {
+	wxString parmname [6]={wxT("diska"),wxT("diskb"),wxT("carta"),wxT("cartb"),wxT("cassetteplayer"),wxT("")};
+	i=0;
+	while (!parmname[i].IsEmpty()) {
 		if (!media[i].IsEmpty()) {
 			cmd += " -" + parmname[i] + " \"" + media[i] + wxT("\"");
 		}
+		i++;
 	}
 
 	m_sessionPage->UpdateSessionData();

@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.92 2004/10/16 09:28:16 h_oudejans Exp $
+$Id: ChangeLog,v 1.93 2004/11/06 11:25:05 manuelbi Exp $
+
+2004-11-06 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Removed all hard loopends used in combination with static arrays to avoid
+        problem with adding or removing elements in those arrays (e.g. the media types).
 
 2004-11-06 Manuel Bilderbeek <manuel@msxnet.org>
 	* Removed all .Cas stuff, and replaced it by two cassetteplayer
