@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.28 2004/12/03 18:38:19 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.29 2005/01/06 16:27:21 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -175,7 +175,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 #ifdef __WXMSW__
 	defaultsize = wxDefaultSize;
 #else
-	defaultsize = wxSize(40,18);
+	defaultsize = wxSize(45,18); // was 40 for wx 2.4 TODO make conditional
 #endif
 	int maxvol = 100;
 	int i;

@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.107 2004/12/27 11:37:10 h_oudejans Exp $
+$Id: ChangeLog,v 1.108 2005/01/06 16:27:20 h_oudejans Exp $
+
+2004-01-08 Manuel Bilderbeek <manuel@msxnet.org>
+	* Added tool tips for new menus. Fixed some typos.
 
 2004-01-06 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Catapult now works with wxWidgets 2.5.3, however the main screen
@@ -8,7 +11,7 @@ $Id: ChangeLog,v 1.107 2004/12/27 11:37:10 h_oudejans Exp $
 	  work in wxmsw because of (yet another) bug in wxWidgets.
 	* Added compile targets in vc++ to compile in 2.5.3 with or without
 	  unicode. wx2.4 targets are also still available.
-	  
+
 2004-12-26 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Removed some non-game romtypes
 	* Made the romtype dialog autosizing by contents

@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.42 2004/12/27 11:37:11 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.43 2005/01/06 16:27:22 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -178,12 +178,12 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 
 	m_diskMenu = new wxMenu(wxT(""),0);
 	m_diskMenu->Append(Disk_Insert_New,wxT("Insert empty disk"),wxT(""),wxITEM_NORMAL);
-	m_diskMenu->Append(Disk_Browse_File,wxT("Browse for diskfile"),wxT(""),wxITEM_NORMAL);
-	m_diskMenu->Append(Disk_Browse_Dir,wxT("Browse for diskfolder (dirasdisk)"),wxT(""),wxITEM_NORMAL);
+	m_diskMenu->Append(Disk_Browse_File,wxT("Browse for disk file"),wxT(""),wxITEM_NORMAL);
+	m_diskMenu->Append(Disk_Browse_Dir,wxT("Browse for disk folder (DirAsDisk)"),wxT(""),wxITEM_NORMAL);
 	m_diskMenu->Append(Disk_Eject,wxT("Eject disk"),wxT(""),wxITEM_NORMAL);
 
 	m_cartMenu = new wxMenu(wxT(""),0);
-	m_cartMenu->Append(Cart_Browse_File,wxT("Browse cartrdige"),wxT(""),wxITEM_NORMAL);
+	m_cartMenu->Append(Cart_Browse_File,wxT("Browse cartridge"),wxT(""),wxITEM_NORMAL);
 	m_cartMenu->Append(Cart_Select_Mapper,wxT("Select cartridge type"),wxT(""),wxITEM_NORMAL);
 	m_cartMenu->Append(Cart_Browse_Ips,wxT("Browse IPS patch"),wxT(""),wxITEM_NORMAL);
 
