@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: openMSXWindowsController.cpp,v 1.3 2004/02/27 18:40:02 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -269,9 +269,7 @@ void openMSXWindowsController::CloseHandles(bool useNamedPipes, HANDLE hThread,
 
 void openMSXWindowsController::HandlePipeCreated()
 {
-	if (m_launchMode != LAUNCH_HIDDEN){
-		m_appWindow->m_launch_AbortButton->Enable(true);
-	}
+	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_pipeActive = false;
 	PostLaunch();
 }
@@ -293,4 +291,15 @@ void openMSXWindowsController::HandleEndProcess(wxCommandEvent &event)
 	{
 		m_connectThread = NULL;
 	}
+}
+
+wxString openMSXWindowsController::GetOpenMSXVersionInfo(wxString openmsxCmd)
+{
+	wxString version = "";
+	wxArrayString output;
+	int code = wxExecute(openmsxCmd + _(" -v"), output);
+	if ((code != -1) && (output.GetCount()>0)){
+		version = output[0];
+	}
+	return wxString (version);
 }

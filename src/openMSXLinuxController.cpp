@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: openMSXLinuxController.cpp,v 1.3 2004/02/27 18:40:02 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -9,6 +9,7 @@
 #endif
 
 #include <wx/process.h>
+#include <wx/textfile.h>
 #include "openMSXLinuxController.h"
 #include "PipeReadThread.h"
 #include "wxCatapultFrm.h"
@@ -49,6 +50,18 @@ bool openMSXLinuxController::Launch(wxString cmdline)
 	PostLaunch();
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	return true;
+}
+
+wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
+{
+	wxString version = "";
+	system (wxString (openmsxCmd + " -v > /tmp/catapult.tmp").c_str());
+	wxTextFile tempfile (_("/tmp/catapult.tmp"));
+	if (tempfile.Open()){
+		version = tempfile.GetFirstLine();
+		tempfile.Close();
+	}
+	return wxString (version);
 }
 
 bool openMSXLinuxController::WriteMessage(wxString msg)

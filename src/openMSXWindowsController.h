@@ -1,4 +1,4 @@
-// $Id$
+// $Id: openMSXWindowsController.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // openMSXWindowsController.h: interface for the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -21,6 +21,7 @@ class openMSXWindowsController : public openMSXController
 		void HandlePipeCreated();
 		virtual bool Launch (wxString cmdLine);
 		virtual bool HandleMessage (wxCommandEvent & event);
+		virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
 		openMSXWindowsController(wxWindow * target);
 		virtual ~openMSXWindowsController();
 

@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.11 2004/03/26 20:02:06 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.12 2004/03/27 20:37:15 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,14 +24,16 @@ class openMSXController
 		void GetConnectors (wxArrayString & connectors);
 		void GetPluggables (wxArrayString & pluggables);
 		void GetPluggableDescriptions (wxArrayString & descriptions);
-		void StartOpenMSX (wxString cmd, bool hidden=false);
+		void StartOpenMSX (wxString cmd, bool getversion=false);
 		bool WriteCommand(wxString msg);
 		void HandleParsedOutput (wxCommandEvent &event);
 		void HandleStdErr (wxCommandEvent & event);
 		void HandleStdOut (wxCommandEvent &event);
 		void HandleEndProcess (wxCommandEvent & event);
+		bool SetupOpenMSXParameters (wxString version);
 		virtual bool WriteMessage (wxString msg)=0;
 		virtual bool Launch (wxString cmdline)=0;
+		virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd)=0;
 		virtual bool HandleMessage (wxCommandEvent &event);
 		openMSXController(wxWindow * target);
 		virtual ~openMSXController();
@@ -43,7 +45,6 @@ class openMSXController
 		wxCatapultFrame * m_appWindow;
 		enum LaunchMode{
 			LAUNCH_NONE,
-			LAUNCH_HIDDEN,
 			LAUNCH_NORMAL
 		};
 		bool PostLaunch ();
@@ -51,7 +52,6 @@ class openMSXController
 		CatapultXMLParser * m_parser;
 		LaunchMode m_launchMode;
 	private:
-		
 		unsigned int m_openMSXID;
 		wxArrayString m_connectors;
 		wxArrayString m_pluggables;
@@ -62,9 +62,7 @@ class openMSXController
 		wxString PeekPendingCommand();
 		void InitConnectors(wxString connectors);
 		void InitPluggables(wxString pluggables);		
-		void HandleHiddenLaunchReply(wxCommandEvent &event);
 		void HandleNormalLaunchReply(wxCommandEvent &event);
-		void TrackAsserts(wxString cmd, wxString result);
 		list<wxString> m_commands;		
 };
 

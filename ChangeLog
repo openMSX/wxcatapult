@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.30 2004/03/28 19:42:00 h_oudejans Exp $
+$Id: ChangeLog,v 1.31 2004/03/28 20:13:57 h_oudejans Exp $
+
+2004-03-31 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* openmsx -v is now used to find out openmsx' possibilities
+	* fixed a bug when there is not soundhardware available	
 
 2004-03-28 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed linux disk/cart/tape combobox problems

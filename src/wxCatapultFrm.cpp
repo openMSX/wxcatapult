@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.15 2004/03/26 20:02:06 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.16 2004/03/28 15:11:51 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -469,6 +469,5 @@ void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 	if (ledstate == _("off")) led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
 	if (ledstate == _("on")) led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
 }
-
 
 
