@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
+$Id: ChangeLog,v 1.119 2005/03/05 18:26:35 h_oudejans Exp $
+
+2005-03-05 Maarten ter Huurne <maarten@treewalker.org>
+	* Released openmsx-catapult-0.5.1-R1.
 
 2005-03-05 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Control groups are now disabled if all controls in that group are.
@@ -19,7 +22,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 2005-02-05 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* When selecting Disk IPS while openMSX is running, it's now applied
 	* Last used IPS path is now remembered
-	* Max Speed doesn't set speed to 500 anymore. This gave too much 
+	* Max Speed doesn't set speed to 500 anymore. This gave too much
 	  problems
 
 2005-02-03 Herman Oudejans <hn.oudejans@quicknet.nl>
@@ -28,7 +31,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 
 2005-01-31 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fix IPS and mapper support
-	* Added multiple IPS and disk IPS.	
+	* Added multiple IPS and disk IPS.
 
 2005-01-26 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed problems with non-lowercase settings in the audiopage
@@ -78,16 +81,16 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 	* added wxT macro's for compilation with unicode
 
 2004-11-14 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* catapult can be compiled in mingw without any alteration of 
-	  wx-config. The result is still far bigger than using vc++, so it's 
+	* catapult can be compiled in mingw without any alteration of
+	  wx-config. The result is still far bigger than using vc++, so it's
 	  not perfect yet.
 
 2004-11-11 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* Fixed gcc compiler warning (signed/unsigned mismatch) in FOREACH 
+	* Fixed gcc compiler warning (signed/unsigned mismatch) in FOREACH
 	  code
 	* First step for compiling using mingw:
 		- Included <windows.h> where HANDLE is needed
-		- Replaced FindWindow() by FindWindowByName() because mingw gets 
+		- Replaced FindWindow() by FindWindowByName() because mingw gets
 		  confused about the FindWindow defined in winbase.h (windows.h)
 		- Replaced __WINDOWS__ by __WXMSW__ (wx-config has only -D__WXMSW__)
 		- Fixed vc++ compiler error in CatapultConfigDlg.
@@ -161,7 +164,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 2004-10-03 Herman Oudejans <hn.oudeans@quicknet.nl>
 	* Joystick settings are now saved.
 	* Provided user feedback for screenshot without parameters
-	* Added printerport functionality	
+	* Added printerport functionality
 
 2004-10-02 Herman Oudejans <hn.oudeans@quicknet.nl>
 	* Added Screenshot support
@@ -215,7 +218,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 	* Released openmsx-catapult-0.4.0-R1.
 
 2004-05-28 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* Windows executable is now created in derived/bin, which is 
+	* Windows executable is now created in derived/bin, which is
 	   better for package creation.
 	* Windows build defaults now to the Release version.
 	* Disabled the m_commands assert. When no commands are
@@ -228,7 +231,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 
 2004-05-09 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* made the windows build system work with the version info
-	* updated the README to point out the manuals	
+	* updated the README to point out the manuals
 
 2004-05-08 Maarten ter Huurne <maarten@treewalker.org>
 	* Ported build system stuff from openMSX to Catapult.
@@ -239,7 +242,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 	* Added manuals (thx to Manuel).
 
 2004-04-30 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* the m_command != NULL assert should be fixed now. I tried 
+	* the m_command != NULL assert should be fixed now. I tried
 	   to reproduce the assert but just couldn't.
 
 2004-04-27 Herman Oudejans <hn.oudejans@quicknet.nl>
@@ -256,14 +259,14 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 	   for it. If users maintain default values, those values should be good
 	   from the start.
 	* Fixed a bug in returning from fullscreen in Windows.
-	* Cataputl should now accept non-dev openmsx versions higher than 
+	* Cataputl should now accept non-dev openmsx versions higher than
 	   0.3.4. This should cause the soon to release 0.4.0 to be accepted as
 	   a new version instead of an old.
 	* Fixed the layout of the midi/sample panel a bit.
 
 2004-04-20 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Move screen after returning from full screen is now ONLY done
-	   with an old openmsx.	
+	   with an old openmsx.
 
 2004-04-18 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fullscreen button in windows works.
@@ -290,7 +293,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 
 2004-04-16 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Restructured the videocontrolpage.
-	* Made 'Skip frames' / 'Max Frameskip' autochanging depending 
+	* Made 'Skip frames' / 'Max Frameskip' autochanging depending
 	   on openmsx version.
 
 2004-04-15 Herman Oudejans <hn.oudejans@quicknet.nl>
@@ -307,10 +310,10 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 	* fixed gtk segfault when starting openmsx.
 	* in case of openmsx crashing, leds are now turned off
 	* Made the linux openmsx launch procedure in linux native code
-	   (thanks to wouter). Removing wxProcess and wxExecute seems 
+	   (thanks to wouter). Removing wxProcess and wxExecute seems
 	   to get rid of the segfault when closing openmsx.
 	* fixed wxCatapult.dsp (added winmm library for joystick checking).
-	* openmsx 1211 has a new versionstring (openmsx -v). adapted 
+	* openmsx 1211 has a new versionstring (openmsx -v). adapted
 	   catapult for it.
 	* (un)plugging sounds devices now updates the mixer.
 
@@ -335,13 +338,13 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 	     and libs need to be added to: tools->options->directories in vc++).
 	     There's no way to automate this, sorry :(
 	* Devices can now be plugged in the joystick ports
-	* Changed default directory behaviour while browsing for openmsx 
+	* Changed default directory behaviour while browsing for openmsx
 	   share directory
 
 2004-04-07 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* History is updated when a new disk or tape is inserted while
 	   openMSX is running.
-	* History and used hardware is saved before openMSX is started and 
+	* History and used hardware is saved before openMSX is started and
 	   when a disk or tape is changed when openMSX is running.
 	* Fixed: Media comboboxes were cleared on launch.
 
@@ -349,7 +352,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 	* When the configuration dialog is closed with Ok, catapult will
 	   now run openmsx -v to make sure all parameter are set properly.
 	* If the openmsx executable and/or share directory is changed,
-	   catapult tries to restore the previous machine and extensions.	
+	   catapult tries to restore the previous machine and extensions.
 
 2004-04-05 Maarten ter Huurne <maarten@treewalker.org>
 	* Added "make install".
@@ -368,7 +371,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 
 2004-03-31 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* openmsx -v is now used to find out openmsx' possibilities
-	* fixed a bug when there is not soundhardware available	
+	* fixed a bug when there is not soundhardware available
 
 2004-03-28 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed linux disk/cart/tape combobox problems
@@ -379,7 +382,7 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 
 2004-03-27 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Catapult now sends update enable commands to openmsx
-	* Firmware button only available if firmware available on the 
+	* Firmware button only available if firmware available on the
 	   current machine
 
 2004-03-26 Herman Oudejans <hn.oudejans@quicknet.nl>
@@ -435,18 +438,18 @@ $Id: ChangeLog,v 1.118 2005/03/05 11:52:57 h_oudejans Exp $
 	  INSTALL_BASE to "<catapult_dir>/derived".
 
 2004-03-03 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* adapted for openmsx cvs Changelog version 1.1156 (openmsx_info 
+	* adapted for openmsx cvs Changelog version 1.1156 (openmsx_info
 	  command output is now a tcl-list).
 
 2004-02-27 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* fixed a sync error when querying the settings
 
 2004-02-12 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* When RESOURCEDIR is defined, catapult will use this as the 
+	* When RESOURCEDIR is defined, catapult will use this as the
 	  basedirectory for the resources.
 	* Suppressed output when launching openMSX in hidden mode
 	* When used with openMSX 0.3.4 release, catapult will now filter
-	  excessive information from the set command reply if set is used 
+	  excessive information from the set command reply if set is used
 	  to query the current value.
 
 2004-02-08 Herman Oudejans <hn.oudejans@quicknet.nl>
