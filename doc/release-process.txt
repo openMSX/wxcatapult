@@ -15,8 +15,11 @@ Preparing for a release
   Currently most documentation is in "doc".
 - Write release notes in "doc/release-notes.txt".
 - Add the change list to "doc/release-history.txt".
-- Edit the version number in build/main.mk:
+- Edit the version number in build/version.mk:
     VERSION=1.2.3
+  The version should be the version of openMSX for which this Catapult
+  release was intended. [TODO: finalise this, for cases of additional
+  Catapult releases.]
 
 Creating a release candidate
 ----------------------------
@@ -24,7 +27,7 @@ Creating a release candidate
 - Tag the CVS archive:
     cvs rtag RELEASE_1_2_3 Catapult
 - Export the tagged code:
-    cvs -d :ext:user@cvs.openmsx.sourceforge.net:/cvsroot/openmsx \
+    cvs -d :ext:user@cvs.sourceforge.net:/cvsroot/openmsx \
     export -r RELEASE_1_2_3 Catapult
   This step makes sure that exactly the tagged code will be released.
   Export instead of checkout gets rid of the CVS admin directories.
@@ -46,7 +49,7 @@ This is a small check to be performed by the release coordinator.
       su
       make install
 - Start openMSX Catapult with the supported openMSX releases.
-- Verify the version number in the title bar.
+- Verify the version number in the About dialog.
 
 If the sanity check is passed, distribute tar.gz to fellow developers and
 testers.
@@ -93,5 +96,5 @@ Announce:
 
 Finally:
 - Put "Released openmsx-catapult-1.2.3." entry in the ChangeLog in CVS.
-- Change version number in build/main.mk in CVS:
+- Change version number in build/version.mk in CVS:
     VERSION=1.2.3[CVS]
