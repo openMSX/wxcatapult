@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.35 2004/04/15 18:28:22 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.36 2004/04/15 18:35:00 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -162,7 +162,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					(lastcmd.Mid(5,lastcmd.Find(' ',true)-5)!= data->name)){
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
 						m_launchMode = LAUNCH_NORMAL;
-						executeLaunch(NULL,41);
+						executeLaunch(NULL,40);
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG){
@@ -170,7 +170,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				if ((lastcmd.Mid(0,7) != "unplug ") || (lastcmd.Find(' ',true) == 6)){
 					m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
 					m_launchMode = LAUNCH_NORMAL;
-					executeLaunch(NULL,41);
+					executeLaunch(NULL,40);
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA){
