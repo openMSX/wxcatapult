@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.23 2004/04/07 19:40:31 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.24 2004/04/10 21:24:05 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -9,7 +9,6 @@
 #include "wx/wx.h"
 #endif
 #include <wx/image.h>
-
 #include "wxCatapultApp.h"
 #include "wxCatapultFrm.h"
 #include "ConfigurationData.h"
@@ -178,8 +177,15 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 	CatapultConfigDlg dlg;
 	dlg.Center();
 	if (dlg.ShowModal() == wxID_OK){
+		bool result = ConfigurationData::instance()->SaveData();
+#if !OPENMSX_DEMO_CD_VERSION
+			if (!result){
+				wxMessageBox ("Error saving configuration data");
+			}
+#endif
 		m_sessionPage->SetupHardware(false);
 		ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+		
 		m_controller->StartOpenMSX(cmd,true);
 	}
 }
