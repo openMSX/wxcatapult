@@ -54,7 +54,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-ACATAPULT               ICON    DISCARDABLE     "catapult.ico"
+CATAPULT                ICON    DISCARDABLE     "catapult.ico"
 #endif    // English (U.S.) (unknown sub-lang: 0xC) resources
 /////////////////////////////////////////////////////////////////////////////
 
