@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.39 2004/04/17 15:49:54 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.40 2004/04/17 20:56:19 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -550,9 +550,9 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set cmdtiming","","cmdtiming",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("#info pluggable","14","",&openMSXController::InitPluggables,true);
 	AddLaunchInstruction ("#info_nostore pluggable *","","*",&openMSXController::AddPluggableDescription,true);
-	AddLaunchInstruction ("#info_nostore connectionclass *","","*",&openMSXController::AddPluggableClass,true);
+	AddLaunchInstruction ("#info_nostore connectionclass *","","*",&openMSXController::AddPluggableClass,false);
 	AddLaunchInstruction ("#info connector","10","",&openMSXController::InitConnectors,true);
-	AddLaunchInstruction ("#info_nostore connectionclass *","","*",&openMSXController::AddConnectorClass,true);
+	AddLaunchInstruction ("#info_nostore connectionclass *","","*",&openMSXController::AddConnectorClass,false);
 	AddLaunchInstruction ("plug *","","*",&openMSXController::AddConnectorContents,true);
 	AddLaunchInstruction ("@checkfor msx-midi-in","1","",NULL,false);
 	AddLaunchInstruction ("set midi-in-readfilename","","midi-in-readfilename",&openMSXController::UpdateSetting,true);
@@ -623,7 +623,8 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 				lastdata = data->contents;
 			}
 			HandleLaunchReply (cmd,event,m_launchScript[recvStep],&sendStep,recvLoop,lastdata);
-			if (data->replyState == CatapultXMLParser::REPLY_NOK){
+			if ((data->replyState == CatapultXMLParser::REPLY_NOK) ||
+				((cmd.Mid(0,10) == _("info exist")) && (data->contents == "0"))){
 				long displace;
 				m_launchScript[recvStep].scriptActions.ToLong(&displace);
 				recvStep += displace;	
@@ -835,8 +836,16 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 		}
 	}
 	else{
-		if (data->replyState == CatapultXMLParser::REPLY_OK)
-			ok = true;
+		if (cmd.Mid(0,10) == _("info exist")){
+			if (data->contents == _("1")){
+				ok = true;
+			}
+		}
+		else{
+			if (data->replyState == CatapultXMLParser::REPLY_OK){
+				ok = true;
+			}
+		}
 	}
 	wxString actions = instruction.scriptActions;
 		
@@ -864,7 +873,7 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 	}
 	else {
 		if (instruction.showError){
-			// show error
+			m_appWindow->m_statusPage->m_outputtext->AppendText(wxString(_("Error received on command: ") + cmd + _("\n")));
 		}
 		if (actions != ""){
 			if (actions == "e"){
@@ -979,8 +988,6 @@ int openMSXController::InitConnectorPanel (wxString dummy1, wxString dummy2)
 
 int openMSXController::EnableAutoFrameSkip (wxString data, wxString cmd)
 {
-	if ((data != "0") || (cmd.Mid(0,4) == _("set "))){
-		m_appWindow->m_miscControlPage->EnableAutoFrameSkip();
-	}
+	m_appWindow->m_miscControlPage->EnableAutoFrameSkip();
 	return 0;
 }

@@ -1,8 +1,9 @@
-$Id: ChangeLog,v 1.61 2004/04/18 11:57:41 h_oudejans Exp $
+$Id: ChangeLog,v 1.62 2004/04/18 12:49:52 h_oudejans Exp $
 
 2004-04-18 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fullscreen button in windows works.
-	* removed segfault in ChangeJoystickport
+	* removed segfault in ChangeJoystickport.
+	* fixed a bug with frameskip in the launchscript interpreter.
 
 2004-04-17 Manuel Bilderbeek <manuel@msxnet.org>
 	* added loads of tooltips to the wxg files and changed some texts
