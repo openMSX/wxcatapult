@@ -1,4 +1,4 @@
-// $Id$
+// $Id: SessionPage.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@
 #include "MiscControlPage.h"
 #include "VideoControlPage.h"
 
-	IMPLEMENT_CLASS(SessionPage, wxPanel)
+IMPLEMENT_CLASS(SessionPage, wxPanel)
 BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_COMBOBOX(XRCID("DiskAContents"),SessionPage::OnChangeMedia)
 	EVT_TEXT(XRCID("DiskAContents"),SessionPage::OnChangeMedia)
@@ -79,29 +79,8 @@ SessionPage::SessionPage(wxWindow * parent)
 	m_clearTape1 = (wxBitmapButton *)FindWindow(_("ClearNormalTape"));
 	m_clearTape2 = (wxBitmapButton *)FindWindow(_("ClearCasPatch"));
 
-	ConfigurationData * config = ConfigurationData::instance();
-	wxString sharepath;
-	config->GetParameter(ConfigurationData::CD_SHAREPATH,sharepath);
-	m_machineList->Clear();
-	m_machineList->Append(_(" <default> "));
-	m_extensionList->Clear();
-
-	wxArrayString machineArray;
-	wxArrayString extensionArray;
-	machineArray.Clear();
-	extensionArray.Clear();
-
-	prepareExtensions (sharepath, extensionArray);
-	prepareMachines (sharepath, machineArray);
-#ifdef __UNIX__
-	prepareExtensions (::wxGetHomeDir() + "/.openMSX/share/", extensionArray);
-	prepareMachines (::wxGetHomeDir() + "/.openMSX/share/", machineArray);
-#endif
-	extensionArray.Sort(SessionPage::CompareCaseInsensitive);
-	machineArray.Sort(SessionPage::CompareCaseInsensitive);
-	fillExtensions (extensionArray);
-	fillMachines (machineArray);
-
+	SetupHardware();
+	
 	// let's put a mask on all the bitmapbuttons
 
 	wxBitmapButton * buttons[] = {m_browseDiskA, m_browseDiskB,	m_browseCartA,
@@ -241,6 +220,33 @@ void SessionPage::OnBrowseCasPatch(wxCommandEvent &event)
 	CheckMedia();
 }
 
+void SessionPage::SetupHardware ()
+{
+	ConfigurationData * config = ConfigurationData::instance();
+	wxString sharepath;
+	config->GetParameter(ConfigurationData::CD_SHAREPATH,sharepath);
+	m_machineList->Clear();
+	m_machineList->Append(_(" <default> "));
+	m_extensionList->Clear();
+
+	wxArrayString machineArray;
+	wxArrayString extensionArray;
+	machineArray.Clear();
+	extensionArray.Clear();
+
+	prepareExtensions (sharepath, extensionArray);
+	prepareMachines (sharepath, machineArray);
+#ifdef __UNIX__
+	prepareExtensions (::wxGetHomeDir() + "/.openMSX/share/", extensionArray, true);
+	prepareMachines (::wxGetHomeDir() + "/.openMSX/share/", machineArray, true);
+#endif
+	extensionArray.Sort(SessionPage::CompareCaseInsensitive);
+	machineArray.Sort(SessionPage::CompareCaseInsensitive);
+	fillExtensions (extensionArray);
+	fillMachines (machineArray);
+}
+
+
 int SessionPage::CompareCaseInsensitive(const wxString& first, const wxString& second)
 {
 	int result = first.CmpNoCase(second.c_str());
@@ -249,8 +255,16 @@ int SessionPage::CompareCaseInsensitive(const wxString& first, const wxString& s
 	return first.Cmp(second.c_str());
 }
 
-void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensionArray)
+void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensionArray, bool optional)
 {
+	if (!::wxDirExists(sharepath + _("/extensions"))) {
+		if (!optional) {
+			wxString msg;
+			msg.sprintf("Directory: %s does not exist", sharepath + _("/extensions"));
+			wxMessageBox (msg);
+		}
+		return;
+	}
 	wxDir sharedir (sharepath + _("/extensions"));
 	wxString extension;
 	bool succes = sharedir.GetFirst(&extension);
@@ -273,8 +287,16 @@ void SessionPage::fillExtensions (wxArrayString & extensionArray)
 
 }
 
-void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArray)
+void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArray, bool optional)
 {
+	if (!::wxDirExists(sharepath + _("/machines"))) {
+		if (!optional) {
+			wxString msg;
+			msg.sprintf("Directory: %s does not exist", sharepath + _("/machines"));
+			wxMessageBox (msg);
+		}
+		return;
+	}
 	wxDir sharedir (sharepath + _("/machines"));
 	wxString machine;
 	bool succes = sharedir.GetFirst(&machine);
