@@ -1,20 +1,23 @@
-// $Id: SessionPage.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: SessionPage.h,v 1.3 2004/02/06 21:08:01 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_SESSIONPAGE_H__93FE8492_93A5_411A_B50C_22F14696B5FC__INCLUDED_)
-#define AFX_SESSIONPAGE_H__93FE8492_93A5_411A_B50C_22F14696B5FC__INCLUDED_
+#ifndef SESSIONPAGE_H
+#define SESSIONPAGE_H
+
+#include "CatapultPage.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
+class openMSXController;
 class wxCatapultFrame;
-class SessionPage : public wxPanel  
+class SessionPage : public CatapultPage  
 {
 	public:
-		SessionPage(wxWindow * parent = (wxWindow *)NULL);
+		SessionPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
 		virtual ~SessionPage();
 
 		void OnBrowseCasPatch(wxCommandEvent &event);
@@ -31,19 +34,17 @@ class SessionPage : public wxPanel
 		void OnClearCartA (wxCommandEvent & event);
 		void OnClearDiskB (wxCommandEvent & event);
 		void OnClearDiskA (wxCommandEvent & event);
-		void OnChangeMedia (wxCommandEvent & event);
 		void SetupHardware ();
+		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 
 	private:
 		static int CompareCaseInsensitive(const wxString& first, const wxString& second);
-		void BrowseDisk (wxComboBox * target, wxString defaultpath);
+		bool BrowseDisk (wxComboBox * target, wxString devicename, wxString defaultpath);
 		void BrowseCart (wxComboBox * target, wxString defaultpath);
 		void prepareMachines(wxString sharepath, wxArrayString & machineArray, bool optional=false);
 		void fillMachines (wxArrayString & machineArray);
 		void prepareExtensions (wxString sharepath, wxArrayString & extensionArray, bool optional=false);
 		void fillExtensions (wxArrayString & extensionArray);
-		void CheckMedia();
-
 		wxBitmapButton * m_browseDiskA;
 		wxBitmapButton * m_browseDiskB;
 		wxBitmapButton * m_browseTape1;
@@ -52,7 +53,12 @@ class SessionPage : public wxPanel
 		wxBitmapButton * m_clearDiskB;
 		wxBitmapButton * m_clearTape1;
 		wxBitmapButton * m_clearTape2;
-
+		wxString m_lastDiskA;
+		wxString m_lastDiskB;
+		wxString m_lastTape1;
+		wxString m_lastTape2;		
+		
+		openMSXController * m_controller;
 		wxCatapultFrame * m_parent;
 
 		DECLARE_CLASS(SessionPage)
@@ -76,4 +82,4 @@ class SessionPage : public wxPanel
 			wxBitmapButton * m_clearCartB;
 };
 
-#endif // !defined(AFX_SESSIONPAGE_H__93FE8492_93A5_411A_B50C_22F14696B5FC__INCLUDED_)
+#endif 

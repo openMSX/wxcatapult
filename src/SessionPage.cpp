@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.4 2004/02/06 21:28:53 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,21 +20,10 @@
 #include "StatusPage.h"
 #include "MiscControlPage.h"
 #include "VideoControlPage.h"
+#include "openMSXController.h"
 
 IMPLEMENT_CLASS(SessionPage, wxPanel)
 BEGIN_EVENT_TABLE(SessionPage, wxPanel)
-	EVT_COMBOBOX(XRCID("DiskAContents"),SessionPage::OnChangeMedia)
-	EVT_TEXT(XRCID("DiskAContents"),SessionPage::OnChangeMedia)
-	EVT_COMBOBOX(XRCID("DiskBContents"),SessionPage::OnChangeMedia)
-	EVT_TEXT(XRCID("DiskBContents"),SessionPage::OnChangeMedia)
-	EVT_COMBOBOX(XRCID("CartAContents"),SessionPage::OnChangeMedia)
-	EVT_TEXT(XRCID("CartAContents"),SessionPage::OnChangeMedia)
-	EVT_COMBOBOX(XRCID("CartBContents"),SessionPage::OnChangeMedia)
-	EVT_TEXT(XRCID("CartBContents"),SessionPage::OnChangeMedia)
-	EVT_COMBOBOX(XRCID("Tape1Contents"),SessionPage::OnChangeMedia)
-	EVT_TEXT(XRCID("Tape1Contents"),SessionPage::OnChangeMedia)
-	EVT_COMBOBOX(XRCID("Tape2Contents"),SessionPage::OnChangeMedia)
-	EVT_TEXT(XRCID("Tape2Contents"),SessionPage::OnChangeMedia)
 	EVT_BUTTON(XRCID("BrowseDiskA"),SessionPage::OnBrowseDiskA)
 	EVT_BUTTON(XRCID("BrowseDiskB"),SessionPage::OnBrowseDiskB)
 	EVT_BUTTON(XRCID("BrowseCartA"),SessionPage::OnBrowseCartA)
@@ -53,8 +42,9 @@ END_EVENT_TABLE()
 	// Construction/Destruction
 	//////////////////////////////////////////////////////////////////////
 
-SessionPage::SessionPage(wxWindow * parent)
+SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 {
+	m_controller = controller;
 	wxXmlResource::Get()->LoadPanel(this, parent, _("SessionPage"));
 
 	m_parent = (wxCatapultFrame *)parent->GetParent()->GetParent();
@@ -78,6 +68,11 @@ SessionPage::SessionPage(wxWindow * parent)
 	m_clearCartB = (wxBitmapButton *)FindWindow(_("ClearCartB"));
 	m_clearTape1 = (wxBitmapButton *)FindWindow(_("ClearNormalTape"));
 	m_clearTape2 = (wxBitmapButton *)FindWindow(_("ClearCasPatch"));
+
+	m_lastDiskA = "";
+	m_lastDiskB = "";
+	m_lastTape1 = "";
+	m_lastTape2 = "";
 
 	SetupHardware();
 	
@@ -104,11 +99,15 @@ SessionPage::~SessionPage()
 void SessionPage::OnClearDiskA(wxCommandEvent &event)
 {
 	m_diskA->SetValue(_(""));
+	m_lastDiskA = _("");
+	m_controller->WriteCommand(_("diska eject"));
 }
 
 void SessionPage::OnClearDiskB(wxCommandEvent &event)
 {
 	m_diskB->SetValue(_(""));
+	m_lastDiskB = _("");
+	m_controller->WriteCommand(_("diskb eject"));
 }
 
 void SessionPage::OnClearCartA(wxCommandEvent &event)
@@ -124,24 +123,32 @@ void SessionPage::OnClearCartB(wxCommandEvent &event)
 void SessionPage::OnClearNormalTape(wxCommandEvent &event)
 {
 	m_tape1->SetValue(_(""));
+	m_lastTape1 = _("");
+	m_controller->WriteCommand(_("cassetteplayer eject"));
 }
 
 void SessionPage::OnClearCasPatch(wxCommandEvent &event)
 {
 	m_tape2->SetValue(_(""));
+	m_lastTape2 = _("");
+	m_controller->WriteCommand(_("cas eject"));
 }
 
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
 {
-	BrowseDisk (m_diskA,::wxPathOnly(m_diskA->GetValue()));	
+	if (BrowseDisk (m_diskA, _("diska"), ::wxPathOnly(m_diskA->GetValue()))){
+		m_lastDiskA = m_diskA->GetValue();
+	}
 }
 
 void SessionPage::OnBrowseDiskB(wxCommandEvent &event)
 {
-	BrowseDisk (m_diskB,::wxPathOnly(m_diskA->GetValue()));
+	if (BrowseDisk (m_diskB, _("diskb"), ::wxPathOnly(m_diskA->GetValue()))){
+		m_lastDiskB = m_diskB->GetValue();
+	}
 }
 
-void SessionPage::BrowseDisk(wxComboBox *target, wxString defaultpath)
+bool SessionPage::BrowseDisk(wxComboBox *target, wxString devicename, wxString defaultpath)
 {
 	wxString path;
 #ifndef __MOTIF__
@@ -153,9 +160,14 @@ void SessionPage::BrowseDisk(wxComboBox *target, wxString defaultpath)
 	wxFileDialog filedlg(this,_("Select Diskimage"), defaultpath, _(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
-		target->SetValue (filedlg.GetPath());	
+		target->SetValue (filedlg.GetPath());
+		m_controller->WriteCommand(wxString(devicename + _(" eject")));
+		if (!target->GetValue().IsEmpty()){
+			m_controller->WriteCommand(devicename + _(" ") + ConvertPath(target->GetValue(),true));
+		}
+		return true;
 	}
-	CheckMedia();
+	return false;
 }
 
 void SessionPage::OnBrowseCartA(wxCommandEvent &event)
@@ -198,8 +210,12 @@ void SessionPage::OnBrowseNormalTape(wxCommandEvent &event)
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		m_tape1->SetValue (filedlg.GetPath());	
+		m_controller->WriteCommand(_("cassetteplayer eject"));
+		if (!m_tape1->GetValue().IsEmpty()){
+			m_controller->WriteCommand(_("cassetteplayer ") + ConvertPath(m_tape1->GetValue(),true));
+		}
+		m_lastTape1 = m_tape1->GetValue();
 	}
-	CheckMedia();
 }
 
 void SessionPage::OnBrowseCasPatch(wxCommandEvent &event)
@@ -215,9 +231,14 @@ void SessionPage::OnBrowseCasPatch(wxCommandEvent &event)
 	wxFileDialog filedlg(this,_("Select Tape-image"), defaultpath, _(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
-		m_tape2->SetValue (filedlg.GetPath());	
-	}		
-	CheckMedia();
+		m_tape2->SetValue (filedlg.GetPath());
+		m_controller->WriteCommand(_("cas eject"));
+		if (!m_tape2->GetValue().IsEmpty()){
+			m_controller->WriteCommand(_("cas ") + ConvertPath(m_tape2->GetValue(),true));
+		}
+		m_lastTape2 = m_tape2->GetValue();
+	}
+	
 }
 
 void SessionPage::SetupHardware ()
@@ -319,17 +340,44 @@ void SessionPage::fillMachines (wxArrayString & machineArray)
 	}
 }
 
-void SessionPage::OnChangeMedia(wxCommandEvent &event)
+void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 {
-	CheckMedia();
+	if (oldFocus == m_diskA){
+		if (m_diskA->GetValue() != m_lastDiskA){
+			m_controller->WriteCommand(_("diska eject"));
+			if (!m_diskA->GetValue().IsEmpty()){
+				m_controller->WriteCommand(_("diska ") + ConvertPath(m_diskA->GetValue(),true));
+			}
+			m_lastDiskA = m_diskA->GetValue();
+		}	
+	}
+	else if (oldFocus == m_diskB){
+		if (m_diskB->GetValue() != m_lastDiskB){
+			m_controller->WriteCommand(_("diskb eject"));
+			if (!m_diskA->GetValue().IsEmpty()){
+				m_controller->WriteCommand(_("diskb ") + ConvertPath(m_diskB->GetValue(),true));
+			}
+			m_lastDiskB = m_diskB->GetValue();
+		}
+	}
+	else if (oldFocus == m_tape1){
+		if (m_tape1->GetValue() != m_lastTape1){
+			m_controller->WriteCommand(_("cassetteplayer eject"));
+			if (!m_tape1->GetValue().IsEmpty()){
+				m_controller->WriteCommand(_("cassetteplayer ") + ConvertPath(m_tape1->GetValue(),true));
+			}
+			m_lastTape1 = m_tape1->GetValue();
+		}
+	}
+	else if (oldFocus == m_tape2){
+		if (m_tape2->GetValue() != m_lastTape2){
+			m_controller->WriteCommand(_("cas eject"));
+			if (!m_tape2->GetValue().IsEmpty()){
+				m_controller->WriteCommand(_("cas ") + ConvertPath(m_tape2->GetValue(),true));
+			}
+			m_lastTape2 = m_tape2->GetValue();
+		}
+	}
 }
 
-void SessionPage::CheckMedia()
-{
-	bool enabled = false;
-	if (m_parent->m_lastDiskA != m_diskA->GetValue()) enabled = true;
-	if (m_parent->m_lastDiskB != m_diskB->GetValue()) enabled = true;
-	if (m_parent->m_lastTape1 != m_tape1->GetValue()) enabled = true;
-	if (m_parent->m_lastTape2 != m_tape2->GetValue()) enabled = true;
-	m_parent->m_applyButton->Enable (enabled);
-}
+

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.11 2004/03/21 13:50:14 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.12 2004/03/22 20:46:52 manuelbi Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -45,7 +45,8 @@ enum
 	Catapult_Edit_Config
 };
 
-#define TIMER_ID -1
+#define FPS_TIMER 1
+#define FOCUS_TIMER 2
 
 // ----------------------------------------------------------------------------
 // event tables and other macros for wxWindows
@@ -54,7 +55,7 @@ enum
 // the event tables connect the wxWindows events with the functions (event
 // handlers) which process them. It can be also done at run-time, but for the
 // simple menu events like this the static method is much simpler.
-	IMPLEMENT_CLASS(wxCatapultFrame, wxFrame)
+IMPLEMENT_CLASS(wxCatapultFrame, wxFrame)
 BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Quit,  wxCatapultFrame::OnMenuQuit)
 	EVT_MENU(Catapult_About, wxCatapultFrame::OnMenuAbout)
@@ -63,7 +64,10 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
 	EVT_BUTTON(XRCID("ApplyButton"),wxCatapultFrame::OnApplyChanges)
 	EVT_BUTTON(XRCID("QuitButton"),wxCatapultFrame::OnMenuQuit)
-	EVT_TIMER(TIMER_ID, wxCatapultFrame::OnTimer)
+	EVT_TIMER(FPS_TIMER, wxCatapultFrame::OnUpdateFPS)
+	EVT_TIMER(FOCUS_TIMER, wxCatapultFrame::OnCheckFocus)
+	EVT_NOTEBOOK_PAGE_CHANGED(XRCID("GlobalTabControl"), wxCatapultFrame::OnChangePage)
+	EVT_ACTIVATE (wxCatapultFrame::OnDeselectCatapult)
 END_EVENT_TABLE()
 
 	// include icon for any non-unix version
@@ -77,8 +81,10 @@ END_EVENT_TABLE()
 
 	// frame constructor
 	wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
-: m_timer(this, TIMER_ID)
 {
+	m_fpsTimer.SetOwner(this,FPS_TIMER);
+	m_focusTimer.SetOwner(this,FOCUS_TIMER);
+
 #ifdef __WINDOWS__	
 	m_controller = new openMSXWindowsController(this);
 #else
@@ -112,7 +118,7 @@ END_EVENT_TABLE()
 	// Fill the membervariables with control pointer for easy access
 
 	m_tabControl = (wxNotebook *)FindWindow(_("GlobalTabControl"));
-	m_sessionPage = new SessionPage(m_tabControl);
+	m_sessionPage = new SessionPage(m_tabControl,m_controller);
 	m_statusPage = new StatusPage(m_tabControl);
 	m_miscControlPage = new MiscControlPage(m_tabControl,m_controller);
 	m_videoControlPage = new VideoControlPage(m_tabControl,m_controller);
@@ -130,7 +136,6 @@ END_EVENT_TABLE()
 	this->GetSizer()->SetSizeHints(this);
 
 	m_launch_AbortButton = (wxButton *)FindWindow(_("Launch_AbortButton"));
-	m_applyButton = (wxButton *)FindWindow(_("ApplyButton"));
 
 	RestoreHistory();
 	DisableControls();
@@ -186,11 +191,6 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		return;
 	}
 
-	m_lastDiskA = _("");
-	m_lastDiskB = _("");
-	m_lastTape1 = _("");
-	m_lastTape2 = _("");
-
 	m_launch_AbortButton->SetLabel(_("Abort"));
 	m_launch_AbortButton->Enable(false);
 
@@ -219,13 +219,11 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		cmd += " -diska \"" + m_sessionPage->m_diskA->GetValue() + _("\"");
 		AddHistory (m_sessionPage->m_diskA);
 		m_InsertedMedia |= ConfigurationData::MB_DISKA;
-		m_lastDiskA = m_sessionPage->m_diskA->GetValue();
 	}
 	if (!m_sessionPage->m_diskB->GetValue().IsEmpty()){
 		cmd += " -diskb \"" + m_sessionPage->m_diskB->GetValue() + _("\"");
 		AddHistory (m_sessionPage->m_diskB);
 		m_InsertedMedia |= ConfigurationData::MB_DISKB;
-		m_lastDiskB = m_sessionPage->m_diskB->GetValue();
 	}
 	if (!m_sessionPage->m_cartA->GetValue().IsEmpty()){
 		cmd += " -carta \"" + m_sessionPage->m_cartA->GetValue() + _("\"");
@@ -241,13 +239,11 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		cmd += " -cassetteplayer \"" + m_sessionPage->m_tape1->GetValue() + _("\"");
 		AddHistory (m_sessionPage->m_tape1);
 		m_InsertedMedia |= ConfigurationData::MB_TAPE1;
-		m_lastTape1 = m_sessionPage->m_tape1->GetValue();
 	}
 	if (!m_sessionPage->m_tape2->GetValue().IsEmpty()){
 		cmd += " -cas \"" + m_sessionPage->m_tape2->GetValue() +  _("\"");
 		AddHistory (m_sessionPage->m_tape2);
 		m_InsertedMedia |= ConfigurationData::MB_TAPE2;
-		m_lastTape2 = m_sessionPage->m_tape2->GetValue();
 	}
 
 	m_controller->StartOpenMSX(cmd);
@@ -395,40 +391,31 @@ void wxCatapultFrame::DisableControls()
 
 void wxCatapultFrame::OnApplyChanges(wxCommandEvent &event)
 {
-	if (m_lastDiskA != m_sessionPage->m_diskA->GetValue()){
-		m_controller->WriteCommand(_("diska eject"));
-		if (!m_sessionPage->m_diskA->GetValue().IsEmpty())
-			m_controller->WriteCommand(_("diska ") + ConvertPath(m_sessionPage->m_diskA->GetValue(),true));
-	}
-	if (m_lastDiskB != m_sessionPage->m_diskB->GetValue()){
-		m_controller->WriteCommand(_("diska eject"));
-		if (!m_sessionPage->m_diskB->GetValue().IsEmpty())
-			m_controller->WriteCommand(_("diskb ") + ConvertPath(m_sessionPage->m_diskB->GetValue(),true));
-	}
-	if (m_lastTape1 != m_sessionPage->m_tape1->GetValue()){
-		m_controller->WriteCommand(_("cassetteplayer eject"));
-		if (!m_sessionPage->m_tape1->GetValue().IsEmpty())
-			m_controller->WriteCommand(_("cassetteplayer ") + ConvertPath(m_sessionPage->m_tape1->GetValue(),true));
-	}
-	if (m_lastTape2 != m_sessionPage->m_tape2->GetValue()){
-		m_controller->WriteCommand(_("cas eject"));
-		if (!m_sessionPage->m_tape2->GetValue().IsEmpty())
-			m_controller->WriteCommand(_("cas ") + ConvertPath(m_sessionPage->m_tape2->GetValue(),true));
-	}
-	m_lastDiskA = m_sessionPage->m_diskA->GetValue();
-	m_lastDiskB = m_sessionPage->m_diskB->GetValue();
-	m_lastTape1 = m_sessionPage->m_tape1->GetValue();
-	m_lastTape2 = m_sessionPage->m_tape2->GetValue();
-	m_applyButton->Enable(false);
-}
-
-wxString wxCatapultFrame::ConvertPath(wxString path, bool ConvertSlash)
-{
-	path.Prepend(_("\""));
-	path.Append(_("\""));
-	if (ConvertSlash)
-		path.Replace(_("\\"),_("/"),true);
-	return path;
+//	if (m_lastDiskA != m_sessionPage->m_diskA->GetValue()){
+//		m_controller->WriteCommand(_("diska eject"));
+//		if (!m_sessionPage->m_diskA->GetValue().IsEmpty())
+//			m_controller->WriteCommand(_("diska ") + ConvertPath(m_sessionPage->m_diskA->GetValue(),true));
+//	}
+//	if (m_lastDiskB != m_sessionPage->m_diskB->GetValue()){
+//		m_controller->WriteCommand(_("diska eject"));
+//		if (!m_sessionPage->m_diskB->GetValue().IsEmpty())
+//			m_controller->WriteCommand(_("diskb ") + ConvertPath(m_sessionPage->m_diskB->GetValue(),true));
+//	}
+//	if (m_lastTape1 != m_sessionPage->m_tape1->GetValue()){
+//		m_controller->WriteCommand(_("cassetteplayer eject"));
+//		if (!m_sessionPage->m_tape1->GetValue().IsEmpty())
+//			m_controller->WriteCommand(_("cassetteplayer ") + ConvertPath(m_sessionPage->m_tape1->GetValue(),true));
+//	}
+//	if (m_lastTape2 != m_sessionPage->m_tape2->GetValue()){
+//		m_controller->WriteCommand(_("cas eject"));
+//		if (!m_sessionPage->m_tape2->GetValue().IsEmpty())
+//			m_controller->WriteCommand(_("cas ") + ConvertPath(m_sessionPage->m_tape2->GetValue(),true));
+//	}
+//	m_lastDiskA = m_sessionPage->m_diskA->GetValue();
+//	m_lastDiskB = m_sessionPage->m_diskB->GetValue();
+//	m_lastTape1 = m_sessionPage->m_tape1->GetValue();
+//	m_lastTape2 = m_sessionPage->m_tape2->GetValue();
+//	m_applyButton->Enable(false);
 }
 
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
@@ -436,14 +423,16 @@ void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
 	m_controller->HandleMessage(event);	
 }
 
-void wxCatapultFrame::StartTimer()
+void wxCatapultFrame::StartTimers()
 {
-	m_timer.Start(1000);
+	m_fpsTimer.Start(1000);
+	m_focusTimer.Start(250);
 }
 
-void wxCatapultFrame::StopTimer()
+void wxCatapultFrame::StopTimers()
 {
-	m_timer.Stop();
+	m_fpsTimer.Stop();
+	m_focusTimer.Stop();
 	SetStatusText(_(""),1);
 }
 
@@ -454,7 +443,50 @@ void wxCatapultFrame::SetFPSdisplay(wxString val)
 	SetStatusText(_(val + " fps"),1);
 }
 
-void wxCatapultFrame::OnTimer(wxTimerEvent& event)
+void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 {
 	m_controller->WriteCommand(m_controller->GetInfoCommand(_("fps")));
 }
+
+void wxCatapultFrame::OnCheckFocus(wxTimerEvent& event)
+{
+	int selectedPage = m_tabControl->GetSelection();
+	if (selectedPage != -1){
+		CatapultPage * page = (CatapultPage *)m_tabControl->GetPage(selectedPage);
+		wxWindow * newfocus = page->FindFocus();
+		if (m_currentFocus != newfocus){
+			page->HandleFocusChange(m_currentFocus,newfocus);
+			m_currentFocus = newfocus;
+		}
+	}
+}
+
+void wxCatapultFrame::OnChangePage(wxNotebookEvent &event)
+{
+	CatapultPage * page;
+	int oldPageNr = event.GetOldSelection();
+	int newPageNr = event.GetSelection();
+	if (oldPageNr != -1){
+		page = (CatapultPage *)m_tabControl->GetPage(oldPageNr);
+		page->HandleFocusChange(m_currentFocus,NULL);	
+	}
+	if (newPageNr != -1){
+		page = (CatapultPage *)m_tabControl->GetPage(newPageNr);	
+		wxWindow * newfocus = page->FindFocus();
+		page->HandleFocusChange(NULL,newfocus);
+		m_currentFocus = newfocus;
+	}
+}
+
+void wxCatapultFrame::OnDeselectCatapult(wxActivateEvent & event)
+{
+	int selectedPage = m_tabControl->GetSelection();
+	if (selectedPage != -1){
+		CatapultPage * page = (CatapultPage *)m_tabControl->GetPage(selectedPage);	
+		page->HandleFocusChange(m_currentFocus,NULL);
+	}
+	m_currentFocus = NULL;
+}
+
+
+

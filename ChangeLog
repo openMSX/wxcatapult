@@ -1,6 +1,9 @@
-$Id: ChangeLog,v 1.21 2004/03/21 20:49:36 h_oudejans Exp $
+$Id: ChangeLog,v 1.22 2004/03/22 17:31:42 h_oudejans Exp $
 
-2004-03-22 Herman Oudejand <hn.oudejans@quicknet.nl>
+2004-03-23 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Implemented autoappy for textcontrols
+
+2004-03-22 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added midi in/out and sample input plugins
 	* Filenames still need to be done
 	

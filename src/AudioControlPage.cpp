@@ -1,3 +1,4 @@
+// $id: $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,6 +20,9 @@ BEGIN_EVENT_TABLE(AudioControlPage, wxPanel)
 	EVT_COMBOBOX(XRCID("MidiInSelector"),AudioControlPage::OnChangeMidiInPlug)
 	EVT_COMBOBOX(XRCID("MidiOutSelector"),AudioControlPage::OnChangeMidiOutPlug)
 	EVT_COMBOBOX(XRCID("SampleInSelector"),AudioControlPage::OnChangeSampleInPlug)
+	EVT_BUTTON(XRCID("BrowseMidiInButton"),AudioControlPage::OnBrowseMidiInFile)
+	EVT_BUTTON(XRCID("BrowseMidiOutButton"),AudioControlPage::OnBrowseMidiOutFile)
+	EVT_BUTTON(XRCID("BrowseSampleInputButton"),AudioControlPage::OnBrowseSampleInFile)
 END_EVENT_TABLE()
 
 //////////////////////////////////////////////////////////////////////
@@ -529,3 +533,50 @@ void AudioControlPage::SetSampleFilename (wxString value)
 {
 	m_sampleInFilename = value;
 }
+
+void AudioControlPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
+{
+}
+
+void AudioControlPage::OnBrowseMidiInFile (wxCommandEvent & event)
+{
+	wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (_("MidiInFileInput"));
+	wxString defaultpath = ::wxPathOnly(miditext->GetValue());
+	wxFileDialog filedlg(this,_("Select Midi Inputfile"), defaultpath, _(""), _("*.*") ,wxOPEN);
+	if (filedlg.ShowModal() == wxID_OK)
+	{
+		miditext->SetValue (filedlg.GetPath());
+		if (!miditext->GetValue().IsEmpty()){
+			m_controller->WriteCommand(_("set midi-in-readfilename ") + ConvertPath(miditext->GetValue(),true));
+		}		
+	}
+}
+
+void AudioControlPage::OnBrowseMidiOutFile (wxCommandEvent & event)
+{
+	wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (_("MidiOutFileInput"));
+	wxString defaultpath = ::wxPathOnly(miditext->GetValue());
+	wxFileDialog filedlg(this,_("Select Midi Outputfile"), defaultpath, _(""), _("*.*") ,wxSAVE|wxOVERWRITE_PROMPT);
+	if (filedlg.ShowModal() == wxID_OK)
+	{
+		miditext->SetValue (filedlg.GetPath());
+		if (!miditext->GetValue().IsEmpty()){
+			m_controller->WriteCommand(_("set midi-out-logfilename ") + ConvertPath(miditext->GetValue(),true));
+		}		
+	}
+}
+
+void AudioControlPage::OnBrowseSampleInFile (wxCommandEvent & event)
+{
+	wxTextCtrl * sampletext = (wxTextCtrl *)FindWindow (_("SampleFileInput"));
+	wxString defaultpath = ::wxPathOnly(sampletext->GetValue());
+	wxFileDialog filedlg(this,_("Select PCM Sample Inputfile"), defaultpath, _(""), _("*.*") ,wxOPEN);
+	if (filedlg.ShowModal() == wxID_OK)
+	{
+		sampletext->SetValue (filedlg.GetPath());
+		if (!sampletext->GetValue().IsEmpty()){
+			m_controller->WriteCommand(_("set audio-inputfilename ") + ConvertPath(sampletext->GetValue(),true));
+		}		
+	}
+}
+

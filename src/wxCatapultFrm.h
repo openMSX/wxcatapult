@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.6 2004/03/20 19:53:32 manuelbi Exp $ 
+// $Id: wxCatapultFrm.h,v 1.7 2004/03/21 13:50:14 manuelbi Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -33,36 +33,33 @@ class wxCatapultFrame : public wxFrame
 		void OnLaunch(wxCommandEvent& event);
 		void DisableControls();
 		void EnableControls();
-		void StartTimer();
-		void StopTimer();
-		void OnTimer(wxTimerEvent& event);
+		void StartTimers();
+		void StopTimers();
+		void OnUpdateFPS(wxTimerEvent& event);
+		void OnCheckFocus(wxTimerEvent& event);
+		void OnChangePage(wxNotebookEvent & event);
+		void OnDeselectCatapult(wxActivateEvent & event);
 		void SetFPSdisplay(wxString val);
-
 		SessionPage * m_sessionPage;
 		StatusPage * m_statusPage;
 		VideoControlPage * m_videoControlPage;
 		MiscControlPage * m_miscControlPage;
 		AudioControlPage * m_audioControlPage;
 
-		wxString m_lastDiskA;
-		wxString m_lastDiskB;
-		wxString m_lastTape1;
-		wxString m_lastTape2;
-		wxButton * m_applyButton;
 		openMSXController * m_controller;
 		wxNotebook * m_tabControl;
 		wxButton * m_launch_AbortButton;
 	private:
-		wxString ConvertPath (wxString path, bool ConvertSlash=false);
-		
 		CatapultXMLParser * m_parser;
 		
 		int m_InsertedMedia;
 		wxString m_usedMachine;
 		wxString m_usedExtensions;
 		
-		wxTimer m_timer;
-		
+		wxTimer m_fpsTimer;
+		wxTimer m_focusTimer;
+		wxWindow * m_currentFocus;
+
 		void SaveHistory();
 		void RestoreHistory();
 		void AddHistory (wxComboBox * media);

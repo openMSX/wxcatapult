@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.14 2004/03/21 20:56:18 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.15 2004/03/22 17:31:43 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ bool openMSXController::PostLaunch()
 			break;
 	}
 
-	m_appWindow->StartTimer();
+	m_appWindow->StartTimers();
 	return true;
 }
 
@@ -94,7 +94,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	if (!m_openMsxRunning) 
 		return;
 
-	m_appWindow->StopTimer();
+	m_appWindow->StopTimers();
 	m_appWindow->SetStatusText("Ready");
 	delete m_parser;
 	m_commands.clear();

@@ -1,10 +1,12 @@
-// $Id: VideoControlPage.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: VideoControlPage.h,v 1.3 2004/02/08 16:05:05 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_VIDEOCONTROLPAGE_H__268A514C_6305_4E87_BB95_5D2F5458DF92__INCLUDED_)
-#define AFX_VIDEOCONTROLPAGE_H__268A514C_6305_4E87_BB95_5D2F5458DF92__INCLUDED_
+#ifndef VIDEOCONTROLPAGE_H
+#define VIDEOCONTROLPAGE_H
+
+#include "CatapultPage.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -15,7 +17,7 @@
 
 class wxCatapultFrame;
 class openMSXController;
-class VideoControlPage : public wxPanel  
+class VideoControlPage : public CatapultPage 
 {
 	public:
 		void DisableControls();
@@ -51,6 +53,7 @@ class VideoControlPage : public wxPanel
 		void SetGlow (wxString value);
 		void SetGamma (wxString value);
 		void SetScanline (wxString value);
+		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus){};
 
 	private:
 		void FillComboBox (wxComboBox * control, wxString contents);

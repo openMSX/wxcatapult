@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.2 2004/03/06 15:08:11 mthuurne Exp $
+# $Id: main.mk,v 1.3 2004/03/20 14:30:55 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -28,6 +28,7 @@ CONFIG_PATH:=$(BUILD_BASE)/config
 CONFIG_HEADER:=$(CONFIG_PATH)/config.h
 
 SOURCES:= \
+	CatapultPage \
 	wxCatapultApp \
 	wxCatapultFrm \
 	CatapultConfigDlg \

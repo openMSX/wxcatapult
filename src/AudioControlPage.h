@@ -1,9 +1,12 @@
+// $id: $
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
 
 #ifndef AUDIOCONTROLPAGE_H
 #define AUDIOCONTROLPAGE_H
+
+#include "CatapultPage.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -15,7 +18,7 @@
 
 class openMSXController;
 
-class AudioControlPage : public wxPanel  
+class AudioControlPage : public CatapultPage  
 {
 	public:
 		void SetMidiFilename (wxString value, bool midiIn);
@@ -35,12 +38,16 @@ class AudioControlPage : public wxPanel
 		void OnChangeMidiInPlug(wxCommandEvent & event);
 		void OnChangeMidiOutPlug(wxCommandEvent & event);
 		void OnChangeSampleInPlug(wxCommandEvent & event);
+		void OnBrowseMidiInFile(wxCommandEvent & event);
+		void OnBrowseMidiOutFile(wxCommandEvent & event);
+		void OnBrowseSampleInFile(wxCommandEvent & event);		
 		void InitAudioChannels(wxString channels);
 		void AddChannelType(int channel,wxString type);
 		void SetupAudioMixer ();
 		void DestroyAudioMixer ();
 		AudioControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller = NULL);
 		virtual ~AudioControlPage();
+		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 	private:
 		void InitAudioIO();
 		void ConvertChannelNames(wxArrayString & names);

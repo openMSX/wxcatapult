@@ -1,10 +1,11 @@
-// $Id: MiscControlPage.h,v 1.3 2004/02/08 16:05:05 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.4 2004/03/21 13:50:14 manuelbi Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
+#ifndef MISCCONTROLPAGE_H
+#define MISCCONTROLPAGE_H
 
-#if !defined(AFX_MISCCONTROLPAGE_H__268AE890_7734_45CE_8C8C_55AD2ADB2157__INCLUDED_)
-#define AFX_MISCCONTROLPAGE_H__268AE890_7734_45CE_8C8C_55AD2ADB2157__INCLUDED_
+#include "CatapultPage.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -15,7 +16,7 @@
 
 class wxCatapultFrame;
 class openMSXController;
-class MiscControlPage : public wxPanel  
+class MiscControlPage : public CatapultPage  
 {
 	public:
 		void DisableControls();
@@ -40,7 +41,7 @@ class MiscControlPage : public wxPanel
 		void SetFrameskip (wxString value);
 		void SetThrottle (wxString value);
 		void SetCmdTiming (wxString value);		
-
+		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus){};
 		wxToggleButton * m_powerButton;
 
 	private:
@@ -65,4 +66,5 @@ class MiscControlPage : public wxPanel
 		DECLARE_EVENT_TABLE()
 };
 
-#endif // !defined(AFX_MISCCONTROLPAGE_H__268AE890_7734_45CE_8C8C_55AD2ADB2157__INCLUDED_)
+#endif
+
