@@ -1,7 +1,9 @@
-$Id: ChangeLog,v 1.82 2004/10/01 16:49:46 h_oudejans Exp $
+$Id: ChangeLog,v 1.83 2004/10/02 17:18:42 h_oudejans Exp $
 
 2004-10-02 Herman Oudejans
 	* Added Screenshot support
+	* 'Grab' and 'Type' buttons are now disabled until openMSX runs
+	* fixed initial state of the mute button
 
 2004-10-02 Manuel Bilderbeek <manuel@msxnet.org>
 	* Changed the order of video controls

@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.21 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.22 2004/10/02 17:18:42 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -83,6 +83,7 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_defaultScanlineButton = (wxButton*)FindWindow(wxT("ZeroScanlineButton"));
 	m_screenShotFile = (wxTextCtrl*)FindWindow(wxT("ScreenShotFilename"));
 	m_screenShotCounter = (wxTextCtrl*)FindWindow(wxT("ScreenShotCounter"));
+	m_screenShotButton = (wxButton*)FindWindow(wxT("ScreenShotButton"));
 	m_defaultBlur = "";
 	m_defaultGlow = "";
 	m_defaultGamma = "";
@@ -338,6 +339,7 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_deinterlaceButton->Enable(true);
 	m_limitSpritesButton->Enable(true);
 	m_fullscreenButton->Enable(true);
+	m_screenShotButton->Enable(true);
 }
 
 void VideoControlPage::SetControlsOnEnd()
@@ -360,6 +362,7 @@ void VideoControlPage::SetControlsOnEnd()
 	m_deinterlaceButton->Enable(false);
 	m_limitSpritesButton->Enable(false);
 	m_fullscreenButton->Enable(false);
+	m_screenShotButton->Enable(false);
 }
 
 void VideoControlPage::FillRenderers(wxString renderers)
@@ -482,8 +485,12 @@ void VideoControlPage::OnTakeScreenShot(wxCommandEvent &event)
 {
 	wxString screenshotfile = m_screenShotFile->GetValue();
 	wxString counter = m_screenShotCounter->GetValue();
-	m_controller->WriteCommand(wxString("screenshot ") + ConvertPath(screenshotfile + counter + ".png",true));
-
+	if ((screenshotfile == "") && (counter == "")){
+		m_controller->WriteCommand("screenshot");
+	}
+	else{
+		m_controller->WriteCommand(wxString("screenshot ") + ConvertPath(screenshotfile + counter + ".png",true));
+	}
 }
 
 
@@ -516,8 +523,10 @@ void VideoControlPage::OnChangeScreenshotFilename(wxCommandEvent & event)
 void VideoControlPage::UpdateScreenshotCounter()
 {
 	wxString prefix = m_screenShotFile->GetValue();
-	wxString countString;
-	countString.sprintf("0000%d",FindFirstFreeScreenshotFile(prefix));
-	countString = countString.Right(4);
-	m_screenShotCounter->SetValue(countString);				
+	if (prefix != ""){
+		wxString countString;
+		countString.sprintf("0000%d",FindFirstFreeScreenshotFile(prefix));
+		countString = countString.Right(4);
+		m_screenShotCounter->SetValue(countString);
+	}
 }

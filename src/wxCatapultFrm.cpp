@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.38 2004/09/24 22:03:24 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.39 2004/10/01 16:33:46 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -328,6 +328,7 @@ void wxCatapultFrame::SetControlsOnLaunch()
 	m_miscControlPage->SetControlsOnLaunch();
 	m_videoControlPage->SetControlsOnLaunch();
 	m_sessionPage->SetControlsOnLaunch();
+	m_inputPage->SetControlsOnLaunch();
 }
 
 void wxCatapultFrame::SetControlsOnEnd()
@@ -335,6 +336,7 @@ void wxCatapultFrame::SetControlsOnEnd()
 	m_miscControlPage->SetControlsOnEnd();
 	m_videoControlPage->SetControlsOnEnd();
 	m_sessionPage->SetControlsOnEnd();
+	m_inputPage->SetControlsOnEnd();
 }
 
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)

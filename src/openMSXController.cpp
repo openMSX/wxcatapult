@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.59 2004/10/01 21:36:03 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.60 2004/10/02 17:18:42 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -200,7 +200,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 							wxMessageBox ("OpenMSX settings saved succesfully");
 						}
 						else if (command.Left(10) == "screenshot"){
-								m_appWindow->m_videoControlPage->UpdateScreenshotCounter();
+							m_appWindow->m_videoControlPage->UpdateScreenshotCounter();
 						}
 					}
 					break;
@@ -520,7 +520,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set minframeskip","","minframeskip",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set throttle","","throttle",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set cmdtiming","","cmdtiming",&openMSXController::UpdateSetting,true);
-	AddLaunchInstruction ("#info pluggable","14","",&openMSXController::InitPluggables,true);
+	AddLaunchInstruction ("#info pluggable","13","",&openMSXController::InitPluggables,true);
 	AddLaunchInstruction ("#info_nostore pluggable *","","*",&openMSXController::AddPluggableDescription,true);
 	AddLaunchInstruction ("#info_nostore connectionclass *","","*",&openMSXController::AddPluggableClass,false);
 	AddLaunchInstruction ("#info connector","10","",&openMSXController::InitConnectors,true);
@@ -539,6 +539,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set master_volume","","master_volume",&openMSXController::UpdateSetting,false);
 	AddLaunchInstruction ("set *_volume","","*_volume",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set *_mode","","*_mode",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set mute","","mute",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("plug cassetteport","","cassetteport",&openMSXController::EnableCassettePort,false);
 	AddLaunchInstruction ("update enable plug","","",NULL,false);
 	AddLaunchInstruction ("update enable unplug","","",NULL,false);

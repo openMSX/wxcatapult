@@ -1,4 +1,4 @@
-// $Id: $
+// $Id: InputPage.h,v 1.1 2004/10/01 16:49:46 h_oudejans Exp $
 // InputPage.h: interface for the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -17,6 +17,8 @@ class openMSXController;
 class InputPage : public CatapultPage  
 {
 	public:
+		void SetControlsOnEnd();
+		void SetControlsOnLaunch();
 		InputPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
 		virtual ~InputPage();
 		wxTextCtrl * m_inputtext;
@@ -25,6 +27,9 @@ class InputPage : public CatapultPage
 		void OnClearText (wxCommandEvent &event);
 	private:
 		openMSXController * m_controller;
+		wxButton * m_typeTextButton;
+
+
 
 		DECLARE_CLASS(InputPage)
 			// any class wishing to process wxWindows events must use this macro
