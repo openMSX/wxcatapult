@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.58 2004/10/01 19:04:26 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.59 2004/10/01 21:36:03 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -198,6 +198,9 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 						}
 						else if (command == wxT("save_settings")){
 							wxMessageBox ("OpenMSX settings saved succesfully");
+						}
+						else if (command.Left(10) == "screenshot"){
+								m_appWindow->m_videoControlPage->UpdateScreenshotCounter();
 						}
 					}
 					break;

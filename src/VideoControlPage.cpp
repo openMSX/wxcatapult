@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.20 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: VideoControlPage.cpp,v 1.21 2004/06/06 18:25:42 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -45,6 +45,9 @@ BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_TEXT(XRCID("BlurIndicator"),VideoControlPage::OnInputBlur)
 	EVT_TEXT(XRCID("GlowIndicator"),VideoControlPage::OnInputGlow)
 	EVT_TEXT(XRCID("ScanlineIndicator"),VideoControlPage::OnInputScanline)
+	EVT_BUTTON(XRCID("BrowseScreenShotButton"),VideoControlPage::OnBrowseScreenShot)
+	EVT_BUTTON(XRCID("ScreenShotButton"),VideoControlPage::OnTakeScreenShot)
+	EVT_TEXT(XRCID("ScreenShotFilename"),VideoControlPage::OnChangeScreenshotFilename)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -78,6 +81,8 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_defaultGlowButton = (wxButton*)FindWindow(wxT("ZeroGlowButton"));
 	m_defaultGammaButton = (wxButton*)FindWindow(wxT("DefaultGammaButton"));
 	m_defaultScanlineButton = (wxButton*)FindWindow(wxT("ZeroScanlineButton"));
+	m_screenShotFile = (wxTextCtrl*)FindWindow(wxT("ScreenShotFilename"));
+	m_screenShotCounter = (wxTextCtrl*)FindWindow(wxT("ScreenShotCounter"));
 	m_defaultBlur = "";
 	m_defaultGlow = "";
 	m_defaultGamma = "";
@@ -440,3 +445,79 @@ void VideoControlPage::SetSliderDefaults()
 	m_defaultScanline = m_scanlineIndicator->GetValue();
 }
 
+void VideoControlPage::OnBrowseScreenShot(wxCommandEvent &event)
+{
+	wxString screenshotpath;
+	wxString screenshotfile;
+	int countersize = 0;
+	wxString path;
+#ifndef __MOTIF__
+	path = wxT("Screenshot Files(*.png)|*.png;*.PNG|All files|*.*||");
+#else
+	path = wxT("*.*");
+#endif
+
+	wxFileDialog filedlg(this,_("Choose file to save screenshot to"), "", wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
+	if (filedlg.ShowModal() == wxID_OK)
+	{
+		screenshotpath = filedlg.GetPath();
+		screenshotpath = screenshotpath.Left(screenshotpath.Length()-4); // remove extension
+		screenshotfile = filedlg.GetFilename();
+		screenshotfile = screenshotfile.Left(screenshotfile.Length()-4); // idem
+	
+		while ((screenshotfile.Right(countersize+1).IsNumber()) && (countersize <4)){
+			countersize++;			
+		}
+		wxString currentcounter = screenshotpath.Right(countersize);
+		currentcounter.Prepend("0000");
+		currentcounter = currentcounter.Right(4);		
+		
+		m_screenShotFile->SetValue(screenshotpath.Left(screenshotpath.Length()-countersize));
+//		m_screenShotCounter->SetValue(currentcounter);
+
+	}	
+}
+
+void VideoControlPage::OnTakeScreenShot(wxCommandEvent &event)
+{
+	wxString screenshotfile = m_screenShotFile->GetValue();
+	wxString counter = m_screenShotCounter->GetValue();
+	m_controller->WriteCommand(wxString("screenshot ") + ConvertPath(screenshotfile + counter + ".png",true));
+
+}
+
+
+int VideoControlPage::FindFirstFreeScreenshotFile(wxString prefix)
+{
+	int counter = 0;
+	wxString countString;
+	bool found = false;
+	do{
+		counter++;
+		countString.sprintf("0000%d",counter);
+		countString = countString.Right(4);
+		if (!wxFileExists(prefix + countString + ".png")){
+			found = true;			
+		}
+	}while ((counter<9999) && (!found));
+	return counter;
+}
+
+void VideoControlPage::OnChangeScreenshotFilename(wxCommandEvent & event)
+{
+	if (m_screenShotFile->GetValue() == ""){
+		m_screenShotCounter->Clear();
+	}
+	else{
+		UpdateScreenshotCounter();
+	}
+}
+
+void VideoControlPage::UpdateScreenshotCounter()
+{
+	wxString prefix = m_screenShotFile->GetValue();
+	wxString countString;
+	countString.sprintf("0000%d",FindFirstFreeScreenshotFile(prefix));
+	countString = countString.Right(4);
+	m_screenShotCounter->SetValue(countString);				
+}

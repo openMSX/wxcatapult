@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.12 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: VideoControlPage.h,v 1.13 2004/06/06 18:25:42 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,6 +14,7 @@
 
 #include <wx/tglbtn.h>
 #include <wx/slider.h>
+#include <wx/spinctrl.h>
 
 class wxCatapultFrame;
 class openMSXController;
@@ -42,6 +43,10 @@ class VideoControlPage : public CatapultPage
 		void OnChangeAccuracy (wxCommandEvent &event);
 		void OnChangeScaler (wxCommandEvent &event);
 		void OnChangeRenderer(wxCommandEvent &event);
+		void OnBrowseScreenShot(wxCommandEvent &event);
+		void OnTakeScreenShot(wxCommandEvent &event);
+		void OnChangeScreenshotFilename(wxCommandEvent & event);
+		void UpdateScreenshotCounter();
 		void FillRenderers (wxString renderers);
 		void FillScalers (wxString scalers);
 		void FillAccuracy(wxString accuracy);
@@ -54,7 +59,9 @@ class VideoControlPage : public CatapultPage
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
 		void UpdateBlurControls (int value);
 		void FillComboBox (wxString control, wxString contents);
+		
 	private:
+		int FindFirstFreeScreenshotFile (wxString prefix);
 		openMSXController * m_controller;
 		
 		wxComboBox * m_accuracyList;
@@ -65,7 +72,7 @@ class VideoControlPage : public CatapultPage
 		wxButton * m_defaultBlurButton;
 		wxButton * m_defaultGlowButton;
 		wxButton * m_defaultScanlineButton;
-
+		
 		wxToggleButton * m_limitSpritesButton;
 		wxToggleButton * m_deinterlaceButton;
 		wxToggleButton * m_fullscreenButton;
@@ -79,6 +86,8 @@ class VideoControlPage : public CatapultPage
 		wxTextCtrl * m_glowIndicator;
 		wxTextCtrl * m_gammaIndicator;
 		wxTextCtrl * m_scanlineIndicator;
+		wxTextCtrl * m_screenShotFile;
+		wxTextCtrl * m_screenShotCounter;
 		
 		wxString m_defaultBlur;
 		wxString m_defaultGlow;
