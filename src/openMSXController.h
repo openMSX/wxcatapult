@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.23 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: openMSXController.h,v 1.24 2004/06/06 18:25:42 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -64,7 +64,6 @@ class openMSXController
 		int sendLoop;
 		int recvLoop;
 		wxString lastdata;
-			
 		struct LaunchInstructionType{
 			wxString command;
 			wxString scriptActions;
@@ -104,6 +103,7 @@ class openMSXController
 		int UpdateSetting (wxString data,wxString setting);
 		int FillComboBox (wxString data,wxString setting);
 		int EnableFirmware (wxString dummy, wxString cmd);
+		int EnableRenShaTurbo (wxString data, wxString cmd);
 		int InitConnectors(wxString connectors,wxString dummy);
 		int InitPluggables(wxString pluggables,wxString dummy);
 		int InitSoundDevices (wxString data, wxString dummy);

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.26 2004/08/29 08:15:00 manuelbi Exp $
+// $Id: MiscControlPage.cpp,v 1.27 2004/09/11 15:09:08 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -37,6 +37,7 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_TEXT(XRCID("SpeedIndicator"),MiscControlPage::OnInputSpeed)
 	EVT_TEXT(XRCID("Joyport1Selector"),MiscControlPage::OnChangeJoystick)
 	EVT_TEXT(XRCID("Joyport2Selector"),MiscControlPage::OnChangeJoystick)
+	EVT_COMMAND_SCROLL (XRCID("RenshaTurboSlider"),MiscControlPage::OnChangeRenShaTurbo)
 #ifdef __UNIX__
 	EVT_TIMER(-1,MiscControlPage::OnJoystickChanged)
 #endif
@@ -60,13 +61,13 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_firmwareButton = (wxToggleButton *)FindWindow(wxT("FirmwareButton"));
 	m_speedIndicator = (wxTextCtrl *)FindWindow(wxT("SpeedIndicator"));
 	m_speedSlider = (wxSlider *)FindWindow(wxT("SpeedSlider"));
-
 	m_speedNormalButton = (wxButton *)FindWindow (wxT("NormalSpeedButton"));
 	m_speedMaxButton = (wxToggleButton *)FindWindow (wxT("MaxSpeedButton"));
 	m_minFrameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("MinFrameSkipIndicator"));
 	m_maxFrameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("MaxFrameSkipIndicator"));
 	m_maxFrameSkipSlider = (wxSlider *)FindWindow(wxT("MaxFrameSkipSlider"));
 	m_minFrameSkipSlider = (wxSlider *)FindWindow(wxT("MinFrameSkipSlider"));
+	m_renshaTurboSlider = (wxSlider *)FindWindow(wxT("RenshaTurboSlider"));
 
 	m_defaultMaxFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMaxFrameSkipButton"));
 	m_defaultMinFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMinFrameSkipButton"));
@@ -74,6 +75,7 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_speedSlider->SetTickFreq (25,1);
 	m_maxFrameSkipSlider->SetTickFreq (5,1);
 	m_minFrameSkipSlider->SetTickFreq (5,1);
+	m_renshaTurboSlider->SetTickFreq (5,1);
 	m_oldSpeed="";
 
 // temporary hardcoded joystick port devices (not for BSD)
@@ -260,6 +262,11 @@ void MiscControlPage::EnableFirmware()
 	m_firmwareButton->Enable(true);
 }
 
+void MiscControlPage::EnableRenShaTurbo()
+{
+	m_renshaTurboSlider->Enable(true);
+}
+
 void MiscControlPage::SetControlsOnEnd()
 {
 	m_speedSlider->Enable(false);
@@ -278,7 +285,7 @@ void MiscControlPage::SetControlsOnEnd()
 	m_resetButton->Enable(false);
 	m_firmwareButton->Enable(false);
 	m_pauseButton->Enable(false);
-
+	m_renshaTurboSlider->Enable(false);
 }
 
 void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
@@ -472,4 +479,13 @@ This device will then be removed from any other port(s).","Warning",wxOK | wxCAN
 		*oldValue1 = box->GetValue();
 	}	
 
+}
+
+void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent & event)
+{
+	wxString value;
+	value.sprintf ("%d",event.GetInt());
+	
+	
+	m_controller->WriteCommand(wxString ("set renshaturbo ") + value);
 }

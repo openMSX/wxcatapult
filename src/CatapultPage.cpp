@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.21 2004/08/29 08:15:00 manuelbi Exp $
+// $Id: CatapultPage.cpp,v 1.22 2004/09/11 15:09:08 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -79,6 +79,7 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting("pcminput","SampleInSelector",&CatapultPage::UpdatePluggable,0);
 	AddSetting("joyporta","Joyport1Selector",&CatapultPage::UpdatePluggable,0);
 	AddSetting("joyportb","Joyport2Selector",&CatapultPage::UpdatePluggable,0);
+	AddSetting("renshaturbo","RenshaTurboSlider",&CatapultPage::UpdateSliderSetting,0);
 	AddSetting("diska","DiskAContents",&CatapultPage::UpdateComboSetting,0);
 	AddSetting("diskb","DiskBContents",&CatapultPage::UpdateComboSetting,0);
 	AddSetting("tape1","Tape1Contents",&CatapultPage::UpdateComboSetting,0);
@@ -189,6 +190,19 @@ bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxStr
 	if (indicator != NULL) {
 		if (indicator->GetValue() != data)
 			indicator->SetValue(data);
+		return true;
+	}
+	return false;
+}
+
+bool CatapultPage::UpdateSliderSetting(wxString setting, wxString data, wxString control, int flags)
+{
+	long value;
+	data.ToLong(&value,10);
+	wxSlider * slider = (wxSlider *)m_parent->FindWindow(control);
+	if (slider != NULL) {
+		if (slider->GetValue() != value)
+			slider->SetValue(value);
 		return true;
 	}
 	return false;

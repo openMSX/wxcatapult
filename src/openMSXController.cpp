@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.53 2004/08/26 21:15:25 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.54 2004/08/29 08:15:00 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -97,6 +97,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	}
 	m_appWindow->StopTimers();
 	m_appWindow->SetStatusText("Ready");
+	m_appWindow->EnableSaveSettings(false);
 	delete m_parser;
 	m_appWindow->m_audioControlPage->DestroyAudioMixer();
 	m_appWindow->m_audioControlPage->DisableAudioPanel();
@@ -195,6 +196,9 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 						if (command == GetInfoCommand("fps")) {
 							m_appWindow->SetFPSdisplay(data->contents);
 						}
+						else if (command == wxT("save_settings")){
+							wxMessageBox ("OpenMSX settings saved succesfully");
+						}
 					}
 					break;
 				case CatapultXMLParser::REPLY_NOK:
@@ -212,6 +216,12 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 							}
 							else if (command == wxT("plug pcminput wavinput")) {
 								m_appWindow->m_audioControlPage->InvalidSampleFilename();
+							}
+							else if (command == wxT("save_settings")){
+								wxString temp;
+								temp.sprintf ("Error saving openMSX settings\n%s",data->contents);								
+								wxMessageBox (temp);
+
 							}
 							else {
 								m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxBOLD)));
@@ -300,6 +310,7 @@ void openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 	else {
 		m_launchMode = LAUNCH_NORMAL;
 		m_appWindow->SetStatusText("Running");
+		m_appWindow->EnableSaveSettings(true);
 		Launch(cmd);
 	}
 }
@@ -496,6 +507,8 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set glow","","glow",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set gamma","","gamma",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set scanline","0","scanline",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("info exist renshaturbo","1","#",&openMSXController::EnableRenShaTurbo,true);
+	AddLaunchInstruction ("set renshaturbo","0","renshaturbo",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("@execute","","",&openMSXController::SetSliderDefaults,false);
 	AddLaunchInstruction ("set speed","","speed",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set maxframeskip","","maxframeskip",&openMSXController::UpdateSetting,true);
@@ -857,6 +870,15 @@ int openMSXController::EnableFirmware (wxString data, wxString cmd)
 	}
 	return 0;
 }
+
+int openMSXController::EnableRenShaTurbo (wxString data, wxString cmd)
+{
+	if ((data != "0") || (cmd.Mid(0,4) == wxT("set "))) {
+		m_appWindow->m_miscControlPage->EnableRenShaTurbo();
+	}
+	return 0;
+}
+
 
 int openMSXController::InitSoundDevices (wxString data, wxString dummy)
 {

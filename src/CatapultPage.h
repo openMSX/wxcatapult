@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.10 2004/08/29 08:15:00 manuelbi Exp $
+// $Id: CatapultPage.h,v 1.11 2004/09/11 15:09:08 h_oudejans Exp $
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -11,7 +11,7 @@
 #endif // _MSC_VER > 1000
 
 #include <wx/tglbtn.h>
-#define SETTINGTABLE_MAXSIZE 35
+#define SETTINGTABLE_MAXSIZE 36
 
 #define S_CONVERT 1
 #define S_EVENT 2
@@ -25,8 +25,9 @@ public:
 	void UpdateSetting(wxString name, wxString data);
 	void OnClickCombo (wxCommandEvent &event);
 	virtual void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)=0;
+	wxString ConvertPath (wxString path, bool ConvertSlash=false); // need to move somewhere else
 protected:
-	wxString ConvertPath (wxString path, bool ConvertSlash=false);
+	
 
 private:
 	struct SettingTableElementType{
@@ -46,6 +47,7 @@ private:
 	bool UpdateToggleSetting(wxString setting, wxString data, wxString control, int flags);
 	bool UpdateComboSetting(wxString setting, wxString data, wxString control, int flags);
 	bool UpdateIndicatorSetting(wxString setting, wxString data, wxString control, int flags);
+	bool UpdateSliderSetting (wxString setting, wxString data, wxString control, int flags);
 	bool UpdateAudioSetting (wxString setting, wxString data, wxString selection, int flags);
 	bool UpdateMidiPlug (wxString connector, wxString data, wxString control, int flags);
 	bool UpdatePluggable (wxString connector, wxString data, wxString control, int flags);

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.13 2004/08/26 16:51:39 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.14 2004/08/26 20:17:57 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -28,6 +28,9 @@ class wxCatapultFrame : public wxFrame
 		void OnMenuQuit(wxCommandEvent& event);
 		void OnMenuAbout(wxCommandEvent& event);
 		void OnMenuEditConfig(wxCommandEvent& event);
+		void OnMenuLoadSettings(wxCommandEvent &event);
+		void OnMenuSaveSettings(wxCommandEvent &event);
+		void OnMenuSaveSettingsAs(wxCommandEvent &event);
 		void OnMenuClose (wxMenuEvent &event);
 		void OnMenuOpen (wxMenuEvent &event);
 		void OnMenuHighlight(wxMenuEvent &event);
@@ -43,6 +46,7 @@ class wxCatapultFrame : public wxFrame
 		void SetFPSdisplay(wxString val);
 		void UpdateLed(wxString ledname, wxString ledstate);
 		void UpdateState (wxString statename, wxString state);
+		void EnableSaveSettings(bool enabled);
 		SessionPage * m_sessionPage;
 		StatusPage * m_statusPage;
 		VideoControlPage * m_videoControlPage;
@@ -60,12 +64,15 @@ class wxCatapultFrame : public wxFrame
 		wxStaticBitmap * m_turboLed;
 		wxStaticBitmap * m_fddLed;
 		
+		wxMenu * settingsMenu;
+		
 		CatapultXMLParser * m_parser;
 		
 		wxTimer m_fpsTimer;
 		wxTimer m_focusTimer;
 		wxWindow * m_currentFocus;
 		wxString m_tempStatus;
+		wxString m_settingsfile;
 		bool WriteMessage (wxString msg);
 
 		DECLARE_CLASS(wxCatapultFrame)

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.17 2004/08/29 08:15:00 manuelbi Exp $
+// $Id: MiscControlPage.h,v 1.18 2004/09/11 15:09:08 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -21,6 +21,7 @@ class MiscControlPage : public CatapultPage
 		void SetControlsOnEnd();
 		void SetControlsOnLaunch();
 		void EnableFirmware();
+		void EnableRenShaTurbo();
 		MiscControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
 		virtual ~MiscControlPage();
 		void OnSetThrottle (wxCommandEvent &event);
@@ -39,6 +40,7 @@ class MiscControlPage : public CatapultPage
 		void OnInputMinFrameskip (wxCommandEvent & event);
 		void OnInputMaxFrameskip (wxCommandEvent & event);
 		void OnChangeJoystick (wxCommandEvent & event);
+		void OnChangeRenShaTurbo (wxScrollEvent & event);
 		void OnJoystickChanged ();
 		void OnInputSpeed (wxCommandEvent & event);
 		void SetSpeed (wxString value);
@@ -63,6 +65,7 @@ class MiscControlPage : public CatapultPage
 		wxSlider * m_speedSlider;
 		wxSlider * m_maxFrameSkipSlider;
 		wxSlider * m_minFrameSkipSlider;
+		wxSlider * m_renshaTurboSlider;
 		wxTextCtrl * m_speedIndicator;
 		wxTextCtrl * m_minFrameSkipIndicator;
 		wxTextCtrl * m_maxFrameSkipIndicator;

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.36 2004/08/26 20:17:57 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.37 2004/08/26 21:15:38 manuelbi Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -40,7 +40,11 @@ enum
 	// menu items
 	Catapult_Quit = 1,
 	Catapult_About,
-	Catapult_Edit_Config
+	Catapult_Edit_Config,
+	Catapult_Load_OpenMSX_Settings,
+	Catapult_Save_OpenMSX_Settings,
+	Catapult_Save_OpenMSX_Settings_As
+	
 };
 
 #define FPS_TIMER 1
@@ -58,6 +62,9 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Quit,  wxCatapultFrame::OnMenuQuit)
 	EVT_MENU(Catapult_About, wxCatapultFrame::OnMenuAbout)
 	EVT_MENU(Catapult_Edit_Config, wxCatapultFrame::OnMenuEditConfig)
+	EVT_MENU(Catapult_Save_OpenMSX_Settings, wxCatapultFrame::OnMenuSaveSettings)
+	EVT_MENU(Catapult_Save_OpenMSX_Settings_As,wxCatapultFrame::OnMenuSaveSettingsAs)
+	EVT_MENU(Catapult_Load_OpenMSX_Settings,wxCatapultFrame::OnMenuLoadSettings)
 	EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
 	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
 	EVT_TIMER(FPS_TIMER, wxCatapultFrame::OnUpdateFPS)
@@ -96,17 +103,21 @@ END_EVENT_TABLE()
 	// create menu bars
 
 	wxMenu *fileMenu = new wxMenu("", wxMENU_TEAROFF);
-	wxMenu *editMenu = new wxMenu("", wxMENU_TEAROFF);
+	settingsMenu = new wxMenu("", wxMENU_TEAROFF);
 	wxMenu *helpMenu = new wxMenu("", wxMENU_TEAROFF);
 
 	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), _("Quit this program"));
-	editMenu->Append(Catapult_Edit_Config, wxT("&Edit Configuration\tCtrl-E"), _("Adjust Catapult Configuration"));
+	settingsMenu->Append(Catapult_Edit_Config, wxT("&Edit Configuration\tCtrl-E"), _("Adjust Catapult Configuration"));
+	settingsMenu->Append(Catapult_Load_OpenMSX_Settings, wxT("&Load OpenMSX Settings"), _("Load specified settings into openMSX"));
+	settingsMenu->Append(Catapult_Save_OpenMSX_Settings, wxT("&Save OpenMSX Settings"), _("Save All openMSX settings"));
+	settingsMenu->Append(Catapult_Save_OpenMSX_Settings_As, wxT("Save OpenMSX Settings As ..."), _("Save All openMSX settings to a specified file"));
 	helpMenu->Append(Catapult_About, wxT("&About Catapult...\tCtrl-A"), _("Show about dialog"));
 
 	// now append the freshly created menu to the menu bar...
 	wxMenuBar *menuBar = new wxMenuBar();
 	menuBar->Append(fileMenu, wxT("&File"));
-	menuBar->Append(editMenu, wxT("&Edit"));
+	menuBar->Append(settingsMenu, wxT("&Settings"));
+	EnableSaveSettings(false);
 	menuBar->Append(helpMenu, wxT("&Help"));
 
 	SetMenuBar(menuBar);
@@ -148,6 +159,7 @@ END_EVENT_TABLE()
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	m_controller->StartOpenMSX(cmd,true);
+	m_settingsfile = "";
 }
 
 // frame destructor
@@ -195,6 +207,58 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 	}
 }
 
+void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent &event)
+{
+	wxString settingsfile;
+	wxString path;
+#ifndef __MOTIF__
+	path = wxT("Configuration Files(*.xml)|*.xml;*.XML|All files|*.*||");
+#else
+	path = wxT("*.*");
+#endif
+
+	wxFileDialog filedlg(this,_("Select configuration file"), "", wxT(""), path ,wxOPEN);
+	if (filedlg.ShowModal() == wxID_OK)
+	{
+		settingsfile = filedlg.GetPath();
+		if (m_controller->IsOpenMSXRunning()){
+			m_controller->WriteCommand(wxString("load_settings ") + m_sessionPage->ConvertPath(settingsfile,true));
+		}		
+		else{
+			m_settingsfile = settingsfile;
+		}
+	}
+}
+
+void wxCatapultFrame::OnMenuSaveSettings(wxCommandEvent & event)
+{
+	m_controller->WriteCommand("save_settings");
+}
+
+void wxCatapultFrame::OnMenuSaveSettingsAs (wxCommandEvent & event)
+{
+	wxString settingsfile;
+	wxString path;
+#ifndef __MOTIF__
+	path = wxT("Configuration Files(*.xml)|*.xml;*.XML|All files|*.*||");
+#else
+	path = wxT("*.*");
+#endif
+
+	wxFileDialog filedlg(this,_("Select file to save to"), "", wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
+	if (filedlg.ShowModal() == wxID_OK)
+	{
+		settingsfile = filedlg.GetPath();
+		m_controller->WriteCommand(wxString("save_settings ") + m_sessionPage->ConvertPath(settingsfile,true));
+	}	
+}
+
+void wxCatapultFrame::EnableSaveSettings(bool enabled)
+{
+	settingsMenu->Enable(Catapult_Save_OpenMSX_Settings,enabled);
+	settingsMenu->Enable(Catapult_Save_OpenMSX_Settings_As,enabled);
+}
+
 void wxCatapultFrame::OnMenuOpen(wxMenuEvent &event)
 {
 	m_tempStatus = GetStatusBar()->GetStatusText(0);	
@@ -234,7 +298,9 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	{
 		cmd += " -machine " + hardware[0];
 	}
-	
+	if (m_settingsfile != ""){
+		cmd += " -setting " + m_sessionPage->ConvertPath(m_settingsfile,true);
+	}
 	if (hardware.GetCount() > 1) {
 		for (i=1;i<hardware.GetCount();i++) {
 			cmd += " -ext " + hardware[i];
