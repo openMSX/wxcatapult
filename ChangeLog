@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.69 2004/05/09 11:32:17 h_oudejans Exp $
+$Id: ChangeLog,v 1.70 2004/05/09 15:51:16 mthuurne Exp $
+
+2004-05-28 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Windows executable is now created in derived/bin, which is 
+	   better for package creation.
+	* Windows build defaults now to the Release version.
 
 2004-05-09 Maarten ter Huurne <maarten@treewalker.org>
 	* Ported system probe from openMSX to Catapult.

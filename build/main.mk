@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.21 2004/05/24 20:38:03 mthuurne Exp $
+# $Id: main.mk,v 1.22 2004/05/24 21:24:46 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -218,8 +218,7 @@ CATAPULT_INSTALL?=$(INSTALL_BASE)
 
 ifeq ($(CATAPULT_PREBUILT),true)
 # TODO: Prebuilt is used only on win32, but using this is not clean.
-BINARY_FILE:=Catapult.exe
-RESOURCES_PATH:=resources
+BINARY_FILE:=catapult.exe
 FILES_ONLY:=true
 install: check_build
 else
@@ -270,7 +269,7 @@ ifeq ($(CATAPULT_PREBUILT),false)
 endif # CATAPULT_PREBUILT
 	@echo "Installation complete... have fun!"
 
-TARGET_CATAPULT:=$(wildcard bin/Catapult.exe)
+TARGET_CATAPULT:=$(wildcard $(BINARY_PATH)/$(BINARY_FILE))
 
 check_build:
 ifeq ($(TARGET_CATAPULT),)
