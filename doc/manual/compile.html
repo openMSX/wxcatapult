@@ -49,28 +49,37 @@
 
 <h3><a id="newver">1.1. New Versions of this Document</a></h3>
 <p>
-The latest version of the openMSX manual can be found on the openMSX home page:
+The latest version of the openMSX Catapult manual can be found on the openMSX home page:
+</p>
+<p>
+<a class="external" href="http://openmsx.sf.net/manual-catapult/">http://openmsx.sf.net/manual-catapult/</a>
+</p>
+<p>
+The latest version of the openMSX manual can also be found there:
 </p>
 <p>
 <a class="external" href="http://openmsx.sf.net/manual/">http://openmsx.sf.net/manual/</a>
 </p>
 <p>
-You can also use this URL to get up-to-date versions of the hyperlinks
+You can also use these URLs to get up-to-date versions of the hyperlinks
 if you printed out this manual.
 </p>
 
 <h3><a id="purpose">1.2. Purpose</a></h3>
 <p>
-This guide is about Catapult, the (optional) GUI for openMSX.</p>
+This guide is about Catapult, the (optional) GUI for openMSX. You can find more information about openMSX on the
+<a class="external" href="http://openmsx.sf.net/">openMSX home page</a>.
+You can also download the emulator itself from there.
+</p>
 
 <p>
 openMSX is in alpha state, which means that some things work but not all
 features are implemented yet.
 Many emulation features are implemented, but in terms of user interface
 it is rather bare bones.
-That's why we decided to create a GUI for it, so most users could use 
-it without too much problems.
-For people who want (or have to) to compile Catapult themselves, we have written this guide.
+That's why we decided to create a GUI for it, so most users can use 
+it a little bit more comfortably.
+For people who want to (or have to) compile Catapult themselves, we have written this guide.
 It explains how you can get it running on your system,
 i.e. how to get the sources and compile them.
 </p>
@@ -134,7 +143,7 @@ Schaap and Maarten ter Huurne.</dd>
 Catapult is a sub-project of openMSX, developed using the tools
 <a class="external" href="http://www.sourceforge.net/">SourceForge.net</a> 
 freely offers to open source projects. The code is stored in CVS, an open source 
-version management system. Once in a while a Catapult release is made.</p>
+version management system. Once in a while a Catapult release is made. At this point in time, we do not know yet how we will organise the release of Catapult: either together with openMSX or seperate releases in some form.</p>
 
 <p>
 There are several options for getting the source code:
@@ -227,7 +236,7 @@ There are graphical front-ends for CVS,
 but this guide will tell you how to use CVS from the command line.
 More information about CVS can be found on the
 <a class="external" href="http://www.cvshome.org/">CVS Home</a> site. On this 
-site you can also find a CVS windows command-line tool.</p>
+site you can also find a CVS command line tool for Windows.</p>
 
 <p>
 With the following line you can login to the openMSX CVS server:
@@ -241,7 +250,7 @@ In this line you specified where you want to retrieve the files from
 as who you want to retrieve the stuff
 (since you're not a developer, <code>anonymous</code> will do),
 and what project you want to retrieve (openmsx in this case, since Catapult is a 
-sub-project of openmsx).
+sub-project of openMSX).
 </p>
 
 <p>
@@ -313,7 +322,7 @@ is called the <em>top of the source tree</em>.
 <p>
 Before you can start compiling Catapult, you have to make sure your system
 has all the necessary build tools installed, as well as the libraries
-openMSX depends upon.
+Catapults depends upon. The former you have probably already done if you have compiled openMSX itself before Catapult.
 The following sections list the packages you need.
 </p>
 
@@ -321,7 +330,7 @@ The following sections list the packages you need.
 
 <p>
 For compilation in Linux, you need Make and a C++ compiler.
-If you have compiled packages from source before,
+If you have compiled packages from source before (like openMSX),
 you probably have these installed already.
 </p>
 
@@ -334,14 +343,14 @@ Make interprets rules that define how a project should be built.</dd>
 <dt>g++</dt>
 <dd>The GNU C++ compiler.
 Version 3.2 or 3.3 is recommended;
-2.95 is not supported.</dd>
+2.95 is not supported for openMSX, so we also don't support it for Catapult.</dd>
 
 </dl>
 
 
 <p>For compilation in Windows you will need Microsoft Visual Studio. Catapult 
 was written with version 6.0. If it also compiles on higher versions is unknown 
-at this point. You also need to download sed.exe from
+at this point. You also need to download <code>sed.exe</code> from
 <a class="external" href="http://www.gnu.org/">GNU Home</a>.</p>
 
 
@@ -357,8 +366,8 @@ Also, for compiling Catapult you need the development packages of these
 libraries installed as well.
 Development packages are typically named
 <code>libfoo-dev</code> or <code>libfoo-devel</code>. Windows users need to have 
-the proper dll's installed (foo.dll) to be able to run Catapult. Compiling in 
-Windows means that you also need the lib-files (foo.lib).</p>
+the proper dll's installed (<code>foo.dll</code>) to be able to run Catapult. Compiling in 
+Windows means that you also need the lib-files (<code>foo.lib</code>).</p>
 
 <p>
 First of all, you need some wxWidgets packages or libraries. Not every 
@@ -382,7 +391,7 @@ On a Debian testing system, the packages are called:</p>
 </dl>
 
 <p>
-Furthermore, you need the XML library. In Windows there is a binary available 
+Furthermore, you need the XML library that is also used in openMSX itself. In Windows there is a binary available 
 but it lacks SAX support. In Debian they are called:</p>
 
 <dl>
@@ -405,9 +414,9 @@ wxWidgets Home</a> and the libxml2 sources are available at
 <p>In Linux, the compilation of wxWidgets is quite straightforward. Just follow 
 the docs provided with the library and the wxgtk library should be created. 
 Don't forget to change to the directory <em>top of the source tree</em><code>/wxGTK-2.4.2/contrib</code>
-and build those libraries to. You'll need the XRC library for Catapult. 
-Compilation of libxml2 is also easy. The libxml2 documentation should be more 
-than enough to build it.</p>
+and build those libraries too. You'll need the XRC library for Catapult. 
+Compilation of libxml2 is also easy. The libxml2 documentation should give more 
+than enough information to build it.</p>
 
 <p>wxWidgets uses a configuration file to be able to select which features 
 should be compiled into the library. If these settings are wrong it won't be 
@@ -424,12 +433,13 @@ Make sure you adjust the following settings:</p>
 <p>
 Without these adjustments the XRC library won't compile. Also, because of the 
 <code>PROLOGIO</code> setting, you won't be able to build a unicode library. After changing 
-these settings compilation should be easy (using the <code>wxWindows.dsw</code> file in 
+these settings, compilation should be easy (using the <code>wxWindows.dsw</code> file in 
 Visual C++). After compilation you should make these libraries available to 
 Visual C++.</p>
+
 <p>After compiling the wxWidgets library it's time for the XRC extension. 
-Sources for this are found in <em>top of the source tree</em><code>/wxWindows-2.4.2/contrib/src/xrc</code>. 
-Open the workspace file (<code>XrcVC.dsw</code>) and go to Project Settings-&gt;Library. Make 
+Its sources can be found in <em>top of the source tree</em><code>/wxWindows-2.4.2/contrib/src/xrc</code>. 
+In Visual C++, open the workspace file (<code>XrcVC.dsw</code>) and go to Project Settings-&gt;Library. Make 
 sure the dll-linked version and the statically linked version don't point to the 
 same file. Catapult uses the statically linked version and expects it to be 
 called:</p>
@@ -466,7 +476,7 @@ build-directory) and compile it.</p>
 
 <p>
 Depending on how fast your system is,
-this may take several minutes to half an hour.
+this may take several seconds to several minutes.
 </p>
 
 <p>
@@ -502,7 +512,7 @@ to make sure it should work:</p>
 <ul>
 <li><code>Catapult.exe</code> and <code>libxml2.dll</code> should be in the same directory
 or <code>libxml2.dll</code> should be somewhere in your path</li>
-<li>the resources (XRC) should be in the directory (relative from 
+<li>The resources (XRC) should be in the directory (relative from 
 <code>Catapult.exe</code>) <code>..\resources\dialogs</code></li>
 <li>The bitmaps (bmp) should be in the directory (also relative 
 from <code>Catapult.exe</code>) <code>..\resources\bitmaps</code></li>
@@ -520,8 +530,8 @@ catapult
 <p>or double click the icon in Windows, e.g.</p>
 
 <p>
-Using Catapult should be intuitive, but if it's not, please read the Catapult 
-User Manual. This should give a complete description on how to use 
+Using Catapult should be intuitive, but if it's not, please read the <a class="external" href="user.html">Catapult 
+User Manual</a>. This should give a complete description on how to use 
 Catapult.</p>
 
 <p>
@@ -542,7 +552,7 @@ If you encounter problems, you have several options:
 
 <ol>
 <li>
-If you're a regular user and want to discuss openMSX &amp; Catapult&nbsp; and possible problems,
+If you're a regular user and want to discuss openMSX and Catapult and possible problems,
 join our <code>openmsx-user</code> mailing list.
 More info on the
 <a class="external" href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing lists</a>,
@@ -579,7 +589,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.2 2004/05/07 16:56:29 h_oudejans Exp $
+$Id: compile.html,v 1.3 2004/05/08 08:52:44 h_oudejans Exp $
 </p>
 
 </body>
