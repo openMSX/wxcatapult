@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.33 2004/11/06 16:07:41 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.34 2004/11/06 16:50:33 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -174,6 +174,10 @@ void SessionPage::OnClearCassette(wxCommandEvent &event)
 	m_cassette->SetValue(wxT(""));
 	m_lastCassette = wxT("");
 	m_controller->WriteCommand("cassetteplayer eject");
+#ifdef __WINDOWS__
+	// Bug in wxMSW? On wxGTK this is not necessary
+	OnChangeCassetteContents(event);
+#endif
 }
 
 void SessionPage::OnRewind(wxCommandEvent &event)
