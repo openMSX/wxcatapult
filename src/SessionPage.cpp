@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.55 2005/03/01 15:54:53 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.56 2005/03/05 11:52:57 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -715,7 +715,7 @@ void SessionPage::SetControlsOnLaunch()
 	m_cartBButton->Enable(false);
 	temp = FindWindowByLabel(wxT("Cartridge Slots"));
 	if (temp){
-		temp->Enable(true);
+		temp->Enable(false);
 	}
 }
 
