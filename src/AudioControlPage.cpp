@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.13 2004/04/10 21:24:05 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.14 2004/04/12 19:28:08 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -150,8 +150,6 @@ void AudioControlPage::DisableAudioPanel ()
 	button->Enable(false);
 }
 
-
-
 void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 {
 	wxSize defaultsize;
@@ -176,14 +174,23 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	wxSlider * slider = new wxSlider(m_audioPanel,FIRSTAUDIOSLIDER+channelnumber,0,0,maxvol,wxDefaultPosition,
 			wxDefaultSize,wxSL_VERTICAL,wxDefaultValidator,
 			wxString(_("AudioSlider_")+number));
+	wxString chanName =  GetAudioChannelName(channelnumber);
+	wxString chanType =  GetAudioChannelType(channelnumber);
+	wxString chanDesc = chanName;
+	if (chanType !=  chanName) { 
+		chanDesc += " (" +chanType + ")";
+	}
+	chanDesc.Replace ("\\ "," ",true);
+	slider->SetToolTip(wxString(chanDesc + " volume"));
 	wxComboBox * combo = NULL;
 	wxToggleButton * button = NULL;
-	if (GetAudioChannelType(channelnumber).Mid(0,9) == _("MoonSound")){
+	if (chanType.Mid(0,9) == _("MoonSound")){
 		combo = new wxComboBox(m_audioPanel,FIRSTAUDIOCOMBO+channelnumber,
 				_("S"), wxDefaultPosition,defaultsize,1,choices2,wxCB_READONLY,
 				wxDefaultValidator,wxString(_("AudioMode_")+number));
+		combo->SetToolTip("Channel Mode");
 	}
-	else if (GetAudioChannelType(channelnumber) == _("master")){	
+	else if (chanType == _("master")){	
 		button = new wxToggleButton(m_audioPanel,MUTEBUTTONID,_("Mute"), wxDefaultPosition,
 				wxDefaultSize,0,wxDefaultValidator,wxString(_("MuteButton")));
 	}
@@ -191,6 +198,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 		combo = new wxComboBox(m_audioPanel,FIRSTAUDIOCOMBO+channelnumber,
 				_("M"), wxDefaultPosition,defaultsize,3,choices1,wxCB_READONLY,
 				wxDefaultValidator,wxString(_("AudioMode_")+number));
+		combo->SetToolTip("Channel Mode");
 	}
 
 	wxBoxSizer * sizer = new wxBoxSizer(wxVERTICAL);
@@ -237,7 +245,7 @@ void AudioControlPage::ConvertChannelNames(wxArrayString & names)
 	In.Add(_("MoonSound wave-part"));Out.Add(_("m MSnd\nWave"));
 	In.Add(_("Majutsushi DAC"));Out.Add(_("o Majutsu\nDAC"));
 	In.Add(_("Konami Synthesizer DAC"));Out.Add(_("p Konami\nSynth"));
-	In.Add(_("Play samples via your printer port."));Out.Add(_("q Simple"));
+	In.Add(_("Play samples via your printer port."));Out.Add(_("q SIMPL"));
 	In.Add(_("Cassetteplayer, use to read .cas or .wav files."));Out.Add(_("z tape\n"));
 
 	for (i=0;i<names.GetCount();i++){
