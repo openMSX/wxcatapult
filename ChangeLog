@@ -1,9 +1,13 @@
-$Id: ChangeLog,v 1.70 2004/05/09 15:51:16 mthuurne Exp $
+$Id: ChangeLog,v 1.71 2004/05/28 12:46:43 h_oudejans Exp $
 
 2004-05-28 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Windows executable is now created in derived/bin, which is 
 	   better for package creation.
 	* Windows build defaults now to the Release version.
+	* Disabled the m_commands assert. When no commands are
+	   available, the GetPendingCommand function will return an empty
+	   string. Effectively, this means that the reception of a reply without
+	   a sent command will simply be ignored.
 
 2004-05-09 Maarten ter Huurne <maarten@treewalker.org>
 	* Ported system probe from openMSX to Catapult.

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.48 2004/05/08 19:52:53 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.49 2004/05/09 14:25:51 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -265,8 +265,14 @@ bool openMSXController::WriteCommand(wxString msg)
 
 wxString openMSXController::GetPendingCommand()
 {
-	assert (!m_commands.empty());
-	wxString pending = m_commands.front();
+//	assert (!m_commands.empty());
+	wxString pending;
+	if (m_commands.empty()){
+		pending = "";
+	}
+	else{
+		pending = m_commands.front();
+	}
 	m_commands.pop_front();
 	return wxString(pending);
 }
