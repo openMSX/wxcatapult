@@ -1,35 +1,39 @@
+# $Id$
 #
-# File:		Makefile for openMSX catapult
+# Makefile for openMSX Catapult
+# =============================
 
 CXX:=$(shell wx-config --cxx)
 SED:=sed
 
-SRCDIR:=src
+SOURCES_PATH:=src
 DIALOGSDIR:=dialogs
 BITMAPSDIR:=resources/bitmaps
 SEDSCRIPT:=wxg2xrc.sed
 
 BUILD_BASE:=derived
-OBJDIR:=$(BUILD_BASE)/obj
-BINDIR:=$(BUILD_BASE)/bin
+BUILD_PATH:=$(BUILD_BASE)
+OBJECTS_PATH:=$(BUILD_PATH)/obj
+BINDIR:=$(BUILD_PATH)/bin
 PROGRAM:=$(BINDIR)/catapult
-XRCDIR:=$(BUILD_BASE)/resources/dialogs
+XRCDIR:=$(BUILD_PATH)/resources/dialogs
 
-OBJECTS:=$(addprefix $(OBJDIR)/, \
-	wxCatapultApp.o \
-	wxCatapultFrm.o \
-	CatapultConfigDlg.o \
-	ConfigurationData.o \
-	PipeReadThread.o \
-	wxToggleButtonXmlHandler.o \
-	CatapultXMLParser.o \
-	SessionPage.o \
-	StatusPage.o \
-	VideoControlPage.o \
-	MiscControlPage.o \
-	openMSXController.o \
-	openMSXLinuxController.o \
-	)
+SOURCES:= \
+	wxCatapultApp \
+	wxCatapultFrm \
+	CatapultConfigDlg \
+	ConfigurationData \
+	PipeReadThread \
+	wxToggleButtonXmlHandler \
+	CatapultXMLParser \
+	SessionPage \
+	StatusPage \
+	VideoControlPage \
+	MiscControlPage \
+	openMSXController \
+	openMSXLinuxController
+
+OBJECTS_FULL:=$(addprefix $(OBJECTS_PATH)/, $(addsuffix .o,$(SOURCES)))
 
 DIALOGS:=$(addprefix $(XRCDIR)/, \
 	catapult.xrc \
@@ -40,37 +44,78 @@ DIALOGS:=$(addprefix $(XRCDIR)/, \
 	status.xrc \
 	)
 
-BITMAPS:=$(addprefix $(BUILD_BASE)/,$(wildcard $(BITMAPSDIR)/*.bmp))
+BITMAPS:=$(addprefix $(BUILD_PATH)/,$(wildcard $(BITMAPSDIR)/*.bmp))
 
-CXXFLAGS:=-c -g
+DEPEND_PATH:=$(BUILD_PATH)/dep
+DEPEND_FULL:=$(addprefix $(DEPEND_PATH)/,$(addsuffix .d, $(SOURCES)))
+DEPEND_FLAGS:=
+# Empty definition of used headers, so header removal doesn't break things.
+DEPEND_FLAGS+=-MP
+
+CXXFLAGS:=-g -pipe -Wall
 CXXFLAGS+=$(shell xml2-config --cflags) $(shell wx-config --cxxflags)
 
-# implementation
 
-.PHONY: all clean
+# Logical Targets
+# ===============
+
+# Logical targets which require dependency files.
+DEPEND_TARGETS:=all default
+# Logical targets which do not require dependency files.
+NODEPEND_TARGETS:=clean
+# Mark all logical targets as such.
+.PHONY: $(DEPEND_TARGETS) $(NODEPEND_TARGETS)
+
+# Default target; make sure this is always the first target in this Makefile.
+MAKECMDGOALS?=default
+default: all
+
+
+# Build Rules
+# ===========
 
 all: $(PROGRAM) $(DIALOGS) $(BITMAPS)
 
-$(PROGRAM): $(OBJECTS)
+$(PROGRAM): $(OBJECTS_FULL)
 	@echo "Linking $(@:$(BINDIR)/%=%)..."
 	@mkdir -p $(@D)
-	@$(CXX) -g -o $@ $(OBJECTS) `wx-config --libs` -lwx_gtk_xrc-2.4 `xml2-config --libs`
+	@$(CXX) -g -o $@ $(OBJECTS_FULL) \
+		`wx-config --libs` -lwx_gtk_xrc-2.4 `xml2-config --libs`
 
-$(OBJECTS): $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	@echo "Compiling $(<:$(SRCDIR)/%=%)..."
+# Compile and generate dependency files in one go.
+DEPEND_SUBST=$(patsubst $(SOURCES_PATH)/%.cpp,$(DEPEND_PATH)/%.d,$<)
+$(OBJECTS_FULL): $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.cpp $(DEPEND_PATH)/%.d
+	@echo "Compiling $(<:$(SOURCES_PATH)/%.cpp=%)..."
 	@mkdir -p $(@D)
-	@$(CXX) $(CXXFLAGS) -o $@ $<
+	@mkdir -p $(patsubst $(OBJECTS_PATH)%,$(DEPEND_PATH)%,$(@D))
+	@$(CXX) $(DEPEND_FLAGS) -MMD -MF $(DEPEND_SUBST) \
+		-o $@ $(CXXFLAGS) -c $<
+	@touch $@ # Force .o file to be newer than .d file.
 
 $(DIALOGS): $(XRCDIR)/%.xrc: $(DIALOGSDIR)/%.wxg
 	@echo "Converting $(@:$(XRCDIR)/%=%)..."
 	@mkdir -p $(@D)
 	@$(SED) -f $(SEDSCRIPT) $< > $@
 
-$(BITMAPS): $(BUILD_BASE)/%: %
+$(BITMAPS): $(BUILD_PATH)/%: %
 	@echo "Copying $(<:$(BITMAPSDIR)/%=%)..."
 	@mkdir -p $(@D)
 	@cp $< $@
 
 clean:
 	@echo "Cleaning up..."
-	@rm -rf $(BUILD_BASE)
+	@rm -rf $(BUILD_PATH)
+
+
+# Dependencies
+# ============
+
+# Include dependency files.
+ifneq ($(filter $(DEPEND_TARGETS),$(MAKECMDGOALS)),)
+  -include $(DEPEND_FULL)
+endif
+
+# Generate dependencies that do not exist yet.
+# This is only in case some .d files have been deleted;
+# in normal operation this rule is never triggered.
+$(DEPEND_FULL):

@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.6 2004/02/06 21:47:50 h_oudejans Exp $
+$Id: ChangeLog,v 1.7 2004/02/06 22:26:50 h_oudejans Exp $
+
+2004-02-07 Maarten ter Huurne <maarten@treewalker.org>
+	* Integrated dependency checking from openMSX alternative.mk.
 
 2004-02-06 Manuel Bilderbeek <manuel@msxnet.org>
 	* added version variable in Makefile (maybe add config.h?)
