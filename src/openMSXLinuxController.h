@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.h,v 1.4 2004/04/01 08:31:48 h_oudejans Exp $
+// $Id: openMSXLinuxController.h,v 1.5 2004/04/12 13:33:10 h_oudejans Exp $
 // openMSXLinuxController.h: interface for the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,6 +27,7 @@ class openMSXLinuxController : public openMSXController
 		virtual ~openMSXLinuxController();
 	private:
 		bool execute(const string& command, int& fdIn, int& fdOut, int& fdErr);
+		void ClosePipes();
 		int m_openMSXstdin;
 		int m_openMSXstdout;
 		int m_openMSXstderr;

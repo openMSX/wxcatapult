@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.6 2004/04/12 13:33:10 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.7 2004/04/12 19:03:58 m9710797 Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -29,6 +29,7 @@ openMSXLinuxController::~openMSXLinuxController()
 {
 	if (m_openMsxRunning) 
 		WriteCommand("quit");
+	ClosePipes();
 }
 
 bool openMSXLinuxController::Launch(wxString cmdline)
@@ -135,6 +136,11 @@ bool openMSXLinuxController::WriteMessage(wxString msg)
 }
 
 void openMSXLinuxController::HandleNativeEndProcess ()
+{
+	ClosePipes();
+}
+
+void openMSXLinuxController::ClosePipes ()
 {
 	if (m_openMSXstdin != -1){
 		close (m_openMSXstdin);
