@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.5 2004/10/03 17:02:12 h_oudejans Exp $
+// $Id: ConfigurationData.cpp,v 1.6 2004/10/03 20:08:26 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -35,8 +35,8 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(wxT("/preferences/ShowScreenshotInfo"),&m_showScreenshotInfo);
 	ConfigData->Read(wxT("/connectors/UsedJoyport1"),&m_usedJoyport1);
 	ConfigData->Read(wxT("/connectors/UsedJoyport2"),&m_usedjoyport2);
-	ConfigData->Read(wxT("/connectors/UsedPrinterport"),&m_usedPrinterport);
-	ConfigData->Read(wxT("/connectors/UsedPrinterfile"),&m_usedPrinterfile);
+//	ConfigData->Read(wxT("/connectors/UsedPrinterport"),&m_usedPrinterport); // saving disabled
+//	ConfigData->Read(wxT("/connectors/UsedPrinterfile"),&m_usedPrinterfile);
 }
 
 ConfigurationData::~ConfigurationData()
@@ -220,8 +220,8 @@ bool ConfigurationData::SaveData()
 	retVal &= ConfigData->Write(wxT("/preferences/ShowScreenshotInfo"),m_showScreenshotInfo);
 	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport1"),m_usedJoyport1);
 	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport2"),m_usedjoyport2);
-	retVal &= ConfigData->Write(wxT("/connectors/UsedPrinterport"),m_usedPrinterport);
-	retVal &= ConfigData->Write(wxT("/connectors/UsedPrinterfile"),m_usedPrinterfile);
+//	retVal &= ConfigData->Write(wxT("/connectors/UsedPrinterport"),m_usedPrinterport); //saving disabled
+//	retVal &= ConfigData->Write(wxT("/connectors/UsedPrinterfile"),m_usedPrinterfile);
 	return retVal;
 }
 

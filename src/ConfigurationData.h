@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.h,v 1.4 2004/10/03 17:02:12 h_oudejans Exp $
+// $Id: ConfigurationData.h,v 1.5 2004/10/03 20:08:26 h_oudejans Exp $
 // onfigurationData.h: interface for the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,7 +27,8 @@ class ConfigurationData
 		bool GetParameter (int p_iId, int * p_data);
 		enum ID {CD_EXECPATH, CD_SHAREPATH,CD_HISTDISKA, CD_HISTDISKB, CD_HISTCARTA, CD_HISTCARTB,
 			CD_HISTTAPE1, CD_HISTTAPE2, CD_MEDIAINSERTED, CD_USEDMACHINE,CD_USEDEXTENSIONS,
-			CD_FULLSCREENWARN,CD_SCREENSHOTINFO,CD_JOYPORT1,CD_JOYPORT2,CD_PRINTERPORT,CD_PRINTERFILE};
+			CD_FULLSCREENWARN,CD_SCREENSHOTINFO,CD_JOYPORT1,CD_JOYPORT2,CD_PRINTERPORT,CD_PRINTERFILE,
+			};
 			enum MediaBits {MB_DISKA=1, MB_DISKB=2, MB_CARTA=4, MB_CARTB=8, MB_TAPE1=16, MB_TAPE2=32};
 			bool SetParameter (int p_iId, wxVariant p_data);
 			bool HaveRequiredSettings ();
