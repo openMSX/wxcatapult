@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.19 2004/04/03 18:53:27 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.20 2004/04/06 14:59:21 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -142,7 +142,6 @@ END_EVENT_TABLE()
 
 	m_launch_AbortButton = (wxButton *)FindWindow(_("Launch_AbortButton"));
 
-	RestoreHistory();
 	SetControlsOnEnd();
 	m_launch_AbortButton->Enable(false);
 	wxString cmd;
@@ -154,14 +153,6 @@ END_EVENT_TABLE()
 wxCatapultFrame::~wxCatapultFrame()
 {
 	delete m_controller;
-	SaveHistory();
-	bool result;
-	result = ConfigurationData::instance()->SaveData();
-#ifdef OPENMSX_DEMO_CD_VERSION
-	if (!result){
-		wxMessageBox ("Error saving configuration data");
-	}
-#endif
 }
 
 // event handlers
@@ -195,183 +186,35 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
+	unsigned int i;
 	if (m_launch_AbortButton->GetLabel().IsSameAs(_("Abort"))){
 		m_controller->WriteCommand("quit");
 		return;
 	}
-
 	m_launch_AbortButton->SetLabel(_("Abort"));
 	m_launch_AbortButton->Enable(false);
-
-//	m_miscControlPage->m_powerButton->SetValue(true);
+	wxArrayString hardware;
+	wxArrayString media;
+	m_sessionPage->getHardware(hardware);
+	m_sessionPage->getMedia(media);
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-
-	if (m_sessionPage->m_machineList->GetValue() != _(" <default> "))
+	if (hardware[0] != _(" <default> "))
 	{
-		cmd += " -machine " + m_sessionPage->m_machineList->GetValue();
+		cmd += " -machine " + hardware[0];
 	}
-	m_usedMachine = m_sessionPage->m_machineList->GetValue();
-
-	wxArrayInt sel;
-	m_usedExtensions.Clear();
-	if (m_sessionPage->m_extensionList->GetSelections(sel) >0)
-	{
-		for (unsigned int i=0;i<sel.GetCount();i++){
-			cmd += _(" -ext ") + m_sessionPage->m_extensionList->GetString(sel[i]);
-			m_usedExtensions += m_sessionPage->m_extensionList->GetString(sel[i]);
-			m_usedExtensions += _("::");
+		
+	wxString parmname [6]={_("diska"),_("diskb"),_("carta"),_("cartb"),_("cassetteplayer"),_("cas")};
+	for (i=0;i<6;i++){
+		if (!media[i].IsEmpty()){
+			cmd += " -" + parmname[i] + " \"" + media[i] + _("\"");
 		}
 	}
-	m_InsertedMedia = 0;
-	if (!m_sessionPage->m_diskA->GetValue().IsEmpty()){
-		cmd += " -diska \"" + m_sessionPage->m_diskA->GetValue() + _("\"");
-		AddHistory (m_sessionPage->m_diskA);
-		m_InsertedMedia |= ConfigurationData::MB_DISKA;
-	}
-	if (!m_sessionPage->m_diskB->GetValue().IsEmpty()){
-		cmd += " -diskb \"" + m_sessionPage->m_diskB->GetValue() + _("\"");
-		AddHistory (m_sessionPage->m_diskB);
-		m_InsertedMedia |= ConfigurationData::MB_DISKB;
-	}
-	if (!m_sessionPage->m_cartA->GetValue().IsEmpty()){
-		cmd += " -carta \"" + m_sessionPage->m_cartA->GetValue() + _("\"");
-		AddHistory (m_sessionPage->m_cartA);
-		m_InsertedMedia |= ConfigurationData::MB_CARTA;
-	}
-	if (!m_sessionPage->m_cartB->GetValue().IsEmpty()){
-		cmd += " -cartb \"" + m_sessionPage->m_cartB->GetValue() + _("\"");
-		AddHistory (m_sessionPage->m_cartB);
-		m_InsertedMedia |= ConfigurationData::MB_CARTB;
-	}
-	if (!m_sessionPage->m_tape1->GetValue().IsEmpty()){
-		cmd += " -cassetteplayer \"" + m_sessionPage->m_tape1->GetValue() + _("\"");
-		AddHistory (m_sessionPage->m_tape1);
-		m_InsertedMedia |= ConfigurationData::MB_TAPE1;
-	}
-	if (!m_sessionPage->m_tape2->GetValue().IsEmpty()){
-		cmd += " -cas \"" + m_sessionPage->m_tape2->GetValue() +  _("\"");
-		AddHistory (m_sessionPage->m_tape2);
-		m_InsertedMedia |= ConfigurationData::MB_TAPE2;
-	}
 
+	m_sessionPage->UpdateSessionData();
 	m_controller->StartOpenMSX(cmd);
 	SetControlsOnLaunch();
 	m_statusPage->m_outputtext->Clear();
-}
-
-void wxCatapultFrame::AddHistory(wxComboBox *media)
-{
-	// wxWindows 2.4 does not support insertion in a wxComboBox
-	// so this is gonna be replace as soon as 2.5 is stable
-
-	wxArrayString items;
-	unsigned int pos = media->FindString(media->GetValue());
-	unsigned int num = media->GetCount();		
-	unsigned int i;
-	if (num == 0) 
-	{
-		media->Append(media->GetValue());
-	}
-	else
-	{
-		items.Add(media->GetValue());
-		for (i=0;i<num;i++)
-		{
-			if (i != pos)
-				items.Add(media->GetString(i));
-		}
-		media->Clear();
-		for (i=0;i<items.GetCount();i++)
-			media->Append(items[i]);
-	}
-	media->SetSelection(0);
-}
-
-void wxCatapultFrame::RestoreHistory()
-{
-	wxComboBox * field[6] = {m_sessionPage->m_diskA, m_sessionPage->m_diskB,
-		m_sessionPage->m_cartA, m_sessionPage->m_cartB, 
-		m_sessionPage->m_tape1, m_sessionPage->m_tape2};
-		ConfigurationData::ID id[6] = {ConfigurationData::CD_HISTDISKA,
-			ConfigurationData::CD_HISTDISKB,
-			ConfigurationData::CD_HISTCARTA,
-			ConfigurationData::CD_HISTCARTB,
-			ConfigurationData::CD_HISTTAPE1,
-			ConfigurationData::CD_HISTTAPE2};
-			ConfigurationData * config = ConfigurationData::instance();
-			config->GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
-			wxString value;
-			int pos;
-			for (int i=0;i<6;i++)
-			{
-				field[i]->Clear();
-				config->GetParameter(id[i],value);
-				do
-				{
-					pos = value.Find(_("::"));
-					if (pos != -1)
-					{
-						field[i]->Append(value.Left(pos));
-						value = value.Mid(pos + 2);	
-					}
-				}while (pos !=-1);
-				if (m_InsertedMedia & (1 << i)){
-					field[i]->SetSelection(0);
-				}
-				else {
-					field[i]->SetValue(_(""));
-				}
-			}
-
-			config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
-			if (!m_usedMachine.IsEmpty())
-			{
-				int pos = m_sessionPage->m_machineList->FindString(m_usedMachine);
-				if (pos != -1)
-					m_sessionPage->m_machineList->SetSelection (pos);
-			}
-
-			config->GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);
-			do
-			{
-				pos = value.Find(_("::"));
-				if (pos != -1)
-				{
-					m_sessionPage->m_extensionList->SetStringSelection (value.Left(pos));
-					value = value.Mid(pos + 2);	
-				}
-			} while (pos !=-1);
-}
-
-void wxCatapultFrame::SaveHistory()
-{
-	wxComboBox * field[6] = {m_sessionPage->m_diskA, m_sessionPage->m_diskB, 
-		m_sessionPage->m_cartA, m_sessionPage->m_cartB, 
-		m_sessionPage->m_tape1, m_sessionPage->m_tape2};
-		ConfigurationData::ID id[6] = {ConfigurationData::CD_HISTDISKA,
-			ConfigurationData::CD_HISTDISKB,
-			ConfigurationData::CD_HISTCARTA,
-			ConfigurationData::CD_HISTCARTB,
-			ConfigurationData::CD_HISTTAPE1,
-			ConfigurationData::CD_HISTTAPE2};
-			ConfigurationData * config = ConfigurationData::instance();
-			wxString temp;
-			for (int i=0;i<6;i++)
-			{
-				temp.Clear();
-				field[i]->SetValue(_(""));
-				for (int j=0;j<field[i]->GetCount();j++)
-				{
-					temp += field[i]->GetString (j);
-					if (!field[i]->GetString(j).IsEmpty())
-						temp += _("::");
-				}
-				config->SetParameter(id[i],temp);
-			}
-			config->SetParameter(ConfigurationData::CD_MEDIAINSERTED,(long) m_InsertedMedia);
-			config->SetParameter(ConfigurationData::CD_USEDMACHINE,m_usedMachine);
-			config->SetParameter(ConfigurationData::CD_USEDEXTENSIONS,m_usedExtensions);
 }
 
 void wxCatapultFrame::SetControlsOnLaunch()

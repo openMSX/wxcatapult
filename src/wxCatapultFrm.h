@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.9 2004/03/23 19:09:16 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.10 2004/03/26 20:02:06 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -58,17 +58,9 @@ class wxCatapultFrame : public wxFrame
 		
 		CatapultXMLParser * m_parser;
 		
-		int m_InsertedMedia;
-		wxString m_usedMachine;
-		wxString m_usedExtensions;
-		
 		wxTimer m_fpsTimer;
 		wxTimer m_focusTimer;
 		wxWindow * m_currentFocus;
-
-		void SaveHistory();
-		void RestoreHistory();
-		void AddHistory (wxComboBox * media);
 
 		bool WriteMessage (wxString msg);
 

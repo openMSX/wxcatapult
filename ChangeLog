@@ -1,4 +1,11 @@
-$Id: ChangeLog,v 1.37 2004/04/05 20:04:01 mthuurne Exp $
+$Id: ChangeLog,v 1.38 2004/04/06 14:59:21 h_oudejans Exp $
+
+2004-04-07 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* History is updated when a new disk or tape is inserted while
+	   openMSX is running.
+	* History and used hardware is saved before openMSX is started and 
+	   when a disk or tape is changed when openMSX is running.
+	* Fixed: Media comboboxes were cleared on launch.
 
 2004-04-06 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* When the configuration dialog is closed with Ok, catapult will

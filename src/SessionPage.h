@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.7 2004/03/28 16:57:24 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.8 2004/04/06 14:59:21 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -39,7 +39,9 @@ class SessionPage : public CatapultPage
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 		void SetControlsOnLaunch();
 		void SetControlsOnEnd();
-
+		void getMedia(wxArrayString & parameters);
+		void getHardware(wxArrayString & hardware);
+		void UpdateSessionData();
 	private:
 		static int CompareCaseInsensitive(const wxString& first, const wxString& second);
 		bool BrowseDisk (wxComboBox * target, wxString devicename, wxString defaultpath);
@@ -48,6 +50,10 @@ class SessionPage : public CatapultPage
 		void fillMachines (wxArrayString & machineArray);
 		void prepareExtensions (wxString sharepath, wxArrayString & extensionArray, bool optional=false);
 		void fillExtensions (wxArrayString & extensionArray);
+		void AddHistory (wxComboBox * media);
+		void SaveHistory();
+		void RestoreHistory();
+
 		wxBitmapButton * m_browseDiskA;
 		wxBitmapButton * m_browseDiskB;
 		wxBitmapButton * m_browseTape1;
@@ -61,6 +67,9 @@ class SessionPage : public CatapultPage
 		wxString m_lastTape1;
 		wxString m_lastTape2;		
 		
+		int m_InsertedMedia;
+		wxString m_usedMachine;
+		wxString m_usedExtensions;
 		openMSXController * m_controller;
 		wxCatapultFrame * m_parent;
 

@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.9 2004/03/28 16:57:24 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.10 2004/04/06 14:59:21 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -97,6 +97,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 			buttons[i]->Enable(false);
 			buttons[i]->Enable(true);
 		}
+	RestoreHistory();
 }
 
 SessionPage::~SessionPage()
@@ -140,17 +141,6 @@ void SessionPage::OnClearCasPatch(wxCommandEvent &event)
 	m_lastTape2 = _("");
 	m_controller->WriteCommand("cas eject");
 }
-/*
-void SessionPage::OnClickCombo (wxCommandEvent &event)
-{
-	wxComboBox * box = (wxComboBox *)event.GetEventObject();
-	wxString sel = box->GetString(box->GetSelection());
-	wxString cursel = box->GetValue();
-	if (sel != cursel){
-		box->SetValue(sel);
-	}
-}
-*/
 
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
 {
@@ -182,6 +172,10 @@ bool SessionPage::BrowseDisk(wxComboBox *target, wxString devicename, wxString d
 		m_controller->WriteCommand(wxString(devicename + " eject"));
 		if (!target->GetValue().IsEmpty()){
 			m_controller->WriteCommand(devicename + " " + ConvertPath(target->GetValue(),true));
+			if (m_controller->IsOpenMSXRunning()){
+				AddHistory(target);
+				SaveHistory();
+			}
 		}
 		return true;
 	}
@@ -231,6 +225,10 @@ void SessionPage::OnBrowseNormalTape(wxCommandEvent &event)
 		m_controller->WriteCommand("cassetteplayer eject");
 		if (!m_tape1->GetValue().IsEmpty()){
 			m_controller->WriteCommand("cassetteplayer " + ConvertPath(m_tape1->GetValue(),true));
+			if (m_controller->IsOpenMSXRunning()){
+				AddHistory(m_tape1);
+				SaveHistory();
+			}
 		}
 		m_lastTape1 = m_tape1->GetValue();
 	}
@@ -253,6 +251,10 @@ void SessionPage::OnBrowseCasPatch(wxCommandEvent &event)
 		m_controller->WriteCommand("cas eject");
 		if (!m_tape2->GetValue().IsEmpty()){
 			m_controller->WriteCommand("cas " + ConvertPath(m_tape2->GetValue(),true));
+			if (m_controller->IsOpenMSXRunning()){
+				AddHistory(m_tape2);
+				SaveHistory();
+			}
 		}
 		m_lastTape2 = m_tape2->GetValue();
 	}
@@ -394,8 +396,10 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 			m_controller->WriteCommand("diska eject");
 			if (!m_diskA->GetValue().IsEmpty()){
 				m_controller->WriteCommand("diska " + ConvertPath(m_diskA->GetValue(),true));
+				AddHistory(m_diskA);
 			}
 			m_lastDiskA = m_diskA->GetValue();
+
 		}	
 	}
 	else if (oldFocus == m_diskB){
@@ -403,6 +407,7 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 			m_controller->WriteCommand("diskb eject");
 			if (!m_diskA->GetValue().IsEmpty()){
 				m_controller->WriteCommand("diskb " + ConvertPath(m_diskB->GetValue(),true));
+				AddHistory(m_diskB);
 			}
 			m_lastDiskB = m_diskB->GetValue();
 		}
@@ -412,6 +417,7 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 			m_controller->WriteCommand("cassetteplayer eject");
 			if (!m_tape1->GetValue().IsEmpty()){
 				m_controller->WriteCommand("cassetteplayer " + ConvertPath(m_tape1->GetValue(),true));
+				AddHistory(m_tape1);
 			}
 			m_lastTape1 = m_tape1->GetValue();
 		}
@@ -421,10 +427,12 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 			m_controller->WriteCommand("cas eject");
 			if (!m_tape2->GetValue().IsEmpty()){
 				m_controller->WriteCommand("cas " + ConvertPath(m_tape2->GetValue(),true));
+				AddHistory(m_tape1);
 			}
 			m_lastTape2 = m_tape2->GetValue();
 		}
 	}
+	SaveHistory();
 }
 
 void SessionPage::SetControlsOnLaunch()
@@ -449,4 +457,173 @@ void SessionPage::SetControlsOnEnd()
 	m_clearCartB->Enable(true);
 	m_browseCartA->Enable(true);
 	m_browseCartB->Enable(true);
+}
+
+void SessionPage::getMedia(wxArrayString & parameters)
+{
+	wxComboBox * box [6] = {m_diskA,m_diskB,m_cartA,m_cartB,m_tape1,m_tape2};
+	parameters.Clear();
+	for (int i=0;i<6;i++){
+		parameters.Add(_(""));
+		if (!box[i]->GetValue().IsEmpty()){
+			parameters[i] = m_diskA->GetValue();
+		}
+	}
+}
+
+void SessionPage::getHardware(wxArrayString & parameters)
+{
+	parameters.Clear();
+	parameters.Add(m_machineList->GetValue());
+	wxArrayInt sel;
+	if (m_extensionList->GetSelections(sel) >0){
+		for (unsigned int i=0;i<sel.GetCount();i++){
+			parameters.Add(m_extensionList->GetString(sel[i]));
+		}
+	}	
+}
+
+void SessionPage::UpdateSessionData()
+{
+	wxComboBox * box [6] = {m_diskA,m_diskB,m_cartA,m_cartB,m_tape1,m_tape2};
+	int flags [6] = {ConfigurationData::MB_DISKA,ConfigurationData::MB_DISKB,
+					 ConfigurationData::MB_CARTA,ConfigurationData::MB_CARTB,
+					 ConfigurationData::MB_TAPE1,ConfigurationData::MB_TAPE2};
+	unsigned int i;
+	m_InsertedMedia = 0;
+	for (i=0;i<6;i++){
+		if (!box[i]->GetValue().IsEmpty()){
+			AddHistory (box[i]);
+			m_InsertedMedia |= flags [i];
+		}
+	}
+	
+	wxArrayString hardware;
+	getHardware(hardware);
+	m_usedMachine = hardware[0];
+	m_usedExtensions.Clear();
+	if (hardware.GetCount()>1)
+	{
+		for (i=1;i<hardware.GetCount();i++){
+			m_usedExtensions += hardware[i] + _("::");
+		}
+	}
+	SaveHistory();
+}
+
+void SessionPage::AddHistory(wxComboBox *media)
+{
+	// wxWindows 2.4 does not support insertion in a wxComboBox
+	// so this is gonna be replace as soon as 2.5 is stable
+	wxString currentItem = media->GetValue();
+	wxArrayString items;
+	unsigned int pos = media->FindString(media->GetValue());
+	unsigned int num = media->GetCount();		
+	unsigned int i;
+	if (num == 0) 
+	{
+		media->Append(media->GetValue());
+	}
+	else
+	{
+		items.Add(media->GetValue());
+		for (i=0;i<num;i++)
+		{
+			if (i != pos)
+				items.Add(media->GetString(i));
+		}
+		media->Clear();
+		for (i=0;i<items.GetCount();i++)
+			media->Append(items[i]);
+	}
+	media->SetValue(currentItem);
+}
+
+void SessionPage::RestoreHistory()
+{
+	wxComboBox * field[6] = {m_diskA, m_diskB, m_cartA, m_cartB, m_tape1, m_tape2};
+		ConfigurationData::ID id[6] = {ConfigurationData::CD_HISTDISKA,
+			ConfigurationData::CD_HISTDISKB,
+			ConfigurationData::CD_HISTCARTA,
+			ConfigurationData::CD_HISTCARTB,
+			ConfigurationData::CD_HISTTAPE1,
+			ConfigurationData::CD_HISTTAPE2};
+			ConfigurationData * config = ConfigurationData::instance();
+			config->GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
+			wxString value;
+			int pos;
+			for (int i=0;i<6;i++)
+			{
+				field[i]->Clear();
+				config->GetParameter(id[i],value);
+				do
+				{
+					pos = value.Find(_("::"));
+					if (pos != -1)
+					{
+						field[i]->Append(value.Left(pos));
+						value = value.Mid(pos + 2);	
+					}
+				}while (pos !=-1);
+				if (m_InsertedMedia & (1 << i)){
+					field[i]->SetSelection(0);
+				}
+				else {
+					field[i]->SetValue(_(""));
+				}
+			}
+
+			config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
+			if (!m_usedMachine.IsEmpty())
+			{
+				int pos = m_machineList->FindString(m_usedMachine);
+				if (pos != -1)
+					m_machineList->SetSelection (pos);
+			}
+
+			config->GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);
+			do
+			{
+				pos = value.Find(_("::"));
+				if (pos != -1)
+				{
+					m_extensionList->SetStringSelection (value.Left(pos));
+					value = value.Mid(pos + 2);	
+				}
+			} while (pos !=-1);
+}
+
+void SessionPage::SaveHistory()
+{
+	wxComboBox * field[6] = {m_diskA, m_diskB, m_cartA, m_cartB, m_tape1, m_tape2};
+	ConfigurationData::ID id[6] = {ConfigurationData::CD_HISTDISKA,
+			ConfigurationData::CD_HISTDISKB, ConfigurationData::CD_HISTCARTA,
+			ConfigurationData::CD_HISTCARTB, ConfigurationData::CD_HISTTAPE1,
+			ConfigurationData::CD_HISTTAPE2};
+			ConfigurationData * config = ConfigurationData::instance();
+	wxString temp;
+	wxString current;
+	for (int i=0;i<6;i++){
+		temp.Clear();
+		current = field[i]->GetValue();
+		field[i]->SetValue(_(""));
+		for (int j=0;j<field[i]->GetCount();j++){
+			temp += field[i]->GetString (j);
+			if (!field[i]->GetString(j).IsEmpty()){
+				temp += _("::");
+			}
+		}
+		field[i]->SetValue(current);
+		config->SetParameter(id[i],temp);
+	}
+	config->SetParameter(ConfigurationData::CD_MEDIAINSERTED,(long) m_InsertedMedia);
+	config->SetParameter(ConfigurationData::CD_USEDMACHINE,m_usedMachine);
+	config->SetParameter(ConfigurationData::CD_USEDEXTENSIONS,m_usedExtensions);
+	bool result;
+	result = ConfigurationData::instance()->SaveData();
+#ifndef OPENMSX_DEMO_CD_VERSION
+	if (!result){
+		wxMessageBox ("Error saving configuration data");
+	}
+#endif
 }
