@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.36 2004/11/10 21:35:25 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.37 2004/11/11 17:14:59 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -23,6 +23,7 @@
 #include "openMSXController.h"
 
 #ifdef __WXMSW__
+#define _WIN32_IE 0x400	// to be able to use shell objects
 #include <shlobj.h>
 #endif
 
