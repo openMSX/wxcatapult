@@ -1,4 +1,4 @@
-$Id: ChangeLog,v 1.4 2004/02/06 21:02:16 h_oudejans Exp $
+$Id: ChangeLog,v 1.5 2004/02/06 21:32:04 manuelbi Exp $
 
 2004-02-06 Manuel Bilderbeek <manuel@msxnet.org>
 	* added version variable in Makefile (maybe add config.h?)
@@ -8,6 +8,8 @@ $Id: ChangeLog,v 1.4 2004/02/06 21:02:16 h_oudejans Exp $
 	* machines and extensions are refreshed after the
 	  configuration dialog has been called
 	* added program icon
+	* removed unicode from xml parser
+	* replaced diskimage.bmp
 
 2004-02-05 Wouter Vermaelen <wouter.vermaelen@pi.be>
 	* handle unknown XML tags better
