@@ -1,6 +1,8 @@
 #
 # File:		Makefile for openMSX catapult
 
+VERSION:=\"0.0.1CVS\"
+
 CXX:=$(shell wx-config --cxx)
 SED:=sed
 
@@ -44,6 +46,7 @@ BITMAPS:=$(addprefix $(BUILD_BASE)/,$(wildcard $(BITMAPSDIR)/*.bmp))
 
 CXXFLAGS:=-c -g
 CXXFLAGS+=$(shell xml2-config --cflags) $(shell wx-config --cxxflags)
+CXXFLAGS+=-DVERSION=$(VERSION)
 
 # implementation
 

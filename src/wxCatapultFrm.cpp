@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.3 2004/02/06 20:54:52 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -154,7 +154,8 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 {
 	// called when help - about is picked from the menu or toolbar
 	wxString msg;
-	msg.Printf(_("openMSX Catapult Neo 0.0.1\nCVS Version\nCreated by the openMSX team\n"));
+	msg.Printf(_("openMSX Catapult Neo " VERSION "\n\n"
+		"Created by the openMSX team\n\nBuilt on "__DATE__"\n"));
 
 	wxMessageBox(msg, _("About wxCatapult"), wxOK | wxICON_INFORMATION, this);
 }
@@ -166,7 +167,6 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 	dlg.ShowModal();
 	m_sessionPage->SetupHardware();
 }
-
 
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
