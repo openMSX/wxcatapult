@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.98 2004/11/06 16:08:02 andete Exp $
+$Id: ChangeLog,v 1.99 2004/11/06 16:50:33 manuelbi Exp $
+
+2004-11-10 Joost Yervante Damad <joost@lumatec.be>
+	* debian packaging is working
 
 2004-11-06 Joost Yervante Damad <joost@lumatec.be>
 	* make it possible to disable symlink for install

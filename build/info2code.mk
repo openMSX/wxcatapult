@@ -1,4 +1,4 @@
-# $Id: info2code.mk,v 1.1 2004/05/08 20:50:44 mthuurne Exp $
+# $Id: info2code.mk,v 1.2 2004/05/09 17:13:48 mthuurne Exp $
 #
 # Write build info to C++ constants, so source can access it.
 # Advantages of this approach:
@@ -18,6 +18,8 @@ $(CONFIG_HEADER): $(MAKE_PATH)/info2code.mk $(CUSTOM_MAKE)
 	@echo "#endif" >> $@
 	@echo "" >> $@
 	@echo "static const wxString RESOURCEDIR = \"$(INSTALL_BASE)/resources\";" >> $@
+	@echo "static const wxString CATAPULT_OPENMSX_BINARY = \"$(CATAPULT_OPENMSX_BINARY)\";" >> $@
+	@echo "static const wxString CATAPULT_OPENMSX_SHARE = \"$(CATAPULT_OPENMSX_SHARE)\";" >> $@
 	@echo "" >> $@
 	@echo "#endif //__CONFIG_H__" >> $@
 

@@ -1,4 +1,4 @@
-# $Id: custom.mk,v 1.1 2004/05/09 09:27:58 mthuurne Exp $
+# $Id: custom.mk,v 1.2 2004/11/06 16:05:15 andete Exp $
 #
 # This file contains user-adjustable settings for the build and installation
 # process.
@@ -14,3 +14,8 @@ INSTALL_BASE:=/opt/openMSX-Catapult
 # /usr/local/bin for system-wide installs and ~/bin for personal installs.
 SYMLINK_FOR_BINARY:=true
 
+# Locations for openMSX binaries and share directory
+# these are suggested as initial values when you run catapult
+# for the first time
+CATAPULT_OPENMSX_BINARY:=/opt/openMSX/bin/openmsx
+CATAPULT_OPENMSX_SHARE:=/opt/openMSX/share

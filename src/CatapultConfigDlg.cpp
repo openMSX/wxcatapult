@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.8 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.9 2004/10/11 17:10:24 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,6 +12,8 @@
 
 #include "CatapultConfigDlg.h"
 #include "ConfigurationData.h"
+
+#include "config.h"
 
 	IMPLEMENT_CLASS(CatapultConfigDlg, wxDialog)
 BEGIN_EVENT_TABLE(CatapultConfigDlg, wxDialog)
@@ -53,7 +55,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 		}
 		guess += "openmsx.exe";
 #else
-		guess = wxT("/opt/openMSX/bin/openmsx");
+		guess = wxT(CATAPULT_OPENMSX_BINARY);
 #endif
 		if (wxFileExists(guess)) {
 			m_ExecPath->SetValue(guess);
@@ -73,7 +75,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 			guess = "";
 		}
 #else
-		guess = wxT("/opt/openMSX/share");
+		guess = wxT(CATAPULT_OPENMSX_SHARE);
 #endif
 	}
 	if (wxDirExists(guess)) {

@@ -23,7 +23,8 @@ else
 	CFLAGS += -O2
 endif
 
-config.status: configure
+#config.status: configure
+config.status:
 	dh_testdir
 	@# Add here commands to configure the package.
 	@# CFLAGS="$(CFLAGS)" ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
@@ -37,7 +38,9 @@ build-stamp:  config.status
 	# Add here commands to compile the package.
 	$(MAKE) \
 		INSTALL_SHARE_DIR=/usr/share/openmsx-catapult \
-		CXX="ccache g++"
+		INSTALL_BASE=/usr/share/openmsx-catapult \
+		CATAPULT_OPENMSX_BINARY=/usr/bin/openmsx \
+		CATAPULT_OPENMSX_SHARE=/usr/share/openmsx
 	docbook-to-man debian/openmsx-catapult.sgml > openmsx-catapult.1
 
 	touch build-stamp
@@ -50,6 +53,7 @@ clean:
 	-$(MAKE) clean
 	- rm -rf derived/
 	- rm -rf debian/tmp
+	- rm -rf debian/openmsx-catapult
 #ifneq "$(wildcard /usr/share/misc/config.sub)" ""
 #	cp -f /usr/share/misc/config.sub config.sub
 #endif
@@ -72,7 +76,9 @@ install: build
 		INSTALL_SHARE_DIR=$(CURDIR)/debian/tmp/usr/share/openmsx-catapult \
 		INSTALL_DOC_DIR=$(CURDIR)/debian/tmp/usr/share/doc/openmsx-catapult \
 		SYMLINK_FOR_BINARY=false \
-		CATAPULT_INSTALL=$(CURDIR)/debian/tmp/usr
+		CATAPULT_INSTALL=$(CURDIR)/debian/tmp/usr \
+		CATAPULT_NO_DESKTOP_HOOKS=true
+	@mv debian/tmp/usr/bin/catapult debian/tmp/usr/bin/openmsx-catapult
 	#@echo "  Removing CVS directories from .../share"
 	#@find $(CURDIR)/debian/openmsx/usr/share -name CVS | xargs rm -rf
 

@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.27 2004/10/03 17:02:11 h_oudejans Exp $
+# $Id: main.mk,v 1.28 2004/11/06 16:05:15 andete Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -219,6 +219,11 @@ $(call BOOLCHECK,CATAPULT_PREBUILT)
 
 INSTALL_DOCS:=release-notes.txt release-history.txt
 CATAPULT_INSTALL?=$(INSTALL_BASE)
+# Allow full customization of locations, used by Debian packaging.
+INSTALL_BINARY_DIR?=$(CATAPULT_INSTALL)/bin
+INSTALL_SHARE_DIR?=$(CATAPULT_INSTALL)
+INSTALL_DOC_DIR?=$(CATAPULT_INSTALL)/doc
+
 
 ifeq ($(CATAPULT_PREBUILT),true)
 # TODO: Prebuilt is used only on win32, but using this is not clean.
@@ -231,47 +236,50 @@ install: all
 endif
 	@echo "Installing to $(CATAPULT_INSTALL):"
 	@echo "  Executable..."
-	@mkdir -p $(CATAPULT_INSTALL)/bin
+	@mkdir -p $(INSTALL_BINARY_DIR)
 ifeq ($(CATAPULT_PREBUILT),true)
-	@cp -f $(BINARY_FULL) $(CATAPULT_INSTALL)/bin/$(BINARY_FILE)
+	@cp -f $(BINARY_FULL) $(INSTALL_BINARY_DIR)/$(BINARY_FILE)
 else
-	@strip -o $(CATAPULT_INSTALL)/bin/$(BINARY_FILE) $(BINARY_FULL)
+	@strip -o $(INSTALL_BINARY_DIR)/$(BINARY_FILE) $(BINARY_FULL)
 endif
 	@echo "  Data files..."
-	@cp -rf $(RESOURCES_PATH) $(CATAPULT_INSTALL)/
+	@mkdir -p $(INSTALL_SHARE_DIR)
+	@cp -rf $(RESOURCES_PATH) $(INSTALL_SHARE_DIR)/
 	@echo "  Documentation..."
-	@mkdir -p $(CATAPULT_INSTALL)/doc
-	@cp -f README GPL AUTHORS $(CATAPULT_INSTALL)/doc
-	@cp -f $(addprefix doc/,$(INSTALL_DOCS)) $(CATAPULT_INSTALL)/doc
-	@mkdir -p $(CATAPULT_INSTALL)/doc/manual
+	@mkdir -p $(INSTALL_DOC_DIR)
+	@cp -f README GPL AUTHORS $(INSTALL_DOC_DIR)
+	@cp -f $(addprefix doc/,$(INSTALL_DOCS)) $(INSTALL_DOC_DIR)
+	@mkdir -p $(INSTALL_DOC_DIR)/manual
 	@cp -f $(addprefix doc/manual/,*.html *.css *.png) \
-		$(CATAPULT_INSTALL)/doc/manual
+		$(INSTALL_DOC_DIR)/manual
 ifeq ($(CATAPULT_PREBUILT),false)
+ifneq ($(CATAPULT_NO_DESKTOP_HOOKS),true)
 	@echo "  Desktop hooks..."
-	@mkdir -p $(CATAPULT_INSTALL)/resources/icons
-	@cp -rf src/catapult.xpm $(CATAPULT_INSTALL)/resources/icons
+	@mkdir -p $(INSTALL_SHARE_DIR)/resources/icons
+	@cp -rf src/catapult.xpm $(INSTALL_SHARE_DIR)/resources/icons
 	@if [ -d /usr/share/applications -a -w /usr/share/applications ]; \
-		then sed -e "s|%INSTALL_BASE%|$(INSTALL_BASE)|" \
+		then sed -e "s|%INSTALL_BASE%|$(INSTALL_SHARE_DIR)|" \
 			desktop/openMSX-Catapult.desktop \
 			> /usr/share/applications/openMSX-Catapult.desktop; \
 		else mkdir -p ~/.local/share/applications && \
-			sed -e "s|%INSTALL_BASE%|$(INSTALL_BASE)|" \
+			sed -e "s|%INSTALL_BASE%|$(INSTALL_SHARE_DIR)|" \
 			desktop/openMSX-Catapult.desktop \
 			> ~/.local/share/applications/openMSX-Catapult.desktop; \
 		fi
+endif
 ifeq ($(SYMLINK_FOR_BINARY),true)
 	@echo "  Creating symlink..."
 	@if [ -d /usr/local/bin -a -w /usr/local/bin ]; \
-		then ln -sf $(CATAPULT_INSTALL)/bin/$(BINARY_FILE) \
+		then ln -sf $(INSTALL_BINARY_DIR)/$(BINARY_FILE) \
 			/usr/local/bin/$(BINARY_FILE); \
 		else if [ -d ~/bin ]; \
-			then ln -sf $(CATAPULT_INSTALL)/bin/$(BINARY_FILE) \
+			then ln -sf $(INSTALL_BINARY_DIR)/$(BINARY_FILE) \
 				~/bin/$(BINARY_FILE); \
 			fi; \
 		fi
 endif
 	@echo "  Setting permissions..."
-	@chmod -R a+rX $(INSTALL_BASE)
+	@chmod -R a+rX $(INSTALL_SHARE_DIR)
 endif # CATAPULT_PREBUILT
 	@echo "Installation complete... have fun!"
 

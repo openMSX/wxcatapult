@@ -26,7 +26,7 @@ manpage.1: manpage.sgml
   <!ENTITY dhsection   "<manvolnum>1</manvolnum>">
   <!ENTITY dhemail     "<email>joost@lumatec.be</email>">
   <!ENTITY dhusername  "Joost Yervante Damad">
-  <!ENTITY dhucpackage "<refentrytitle>OPENMSX</refentrytitle>">
+  <!ENTITY dhucpackage "<refentrytitle>OPENMSX-CATAPULT</refentrytitle>">
   <!ENTITY dhpackage   "openmsx-catapult">
 
   <!ENTITY debian      "<productname>Debian</productname>">
