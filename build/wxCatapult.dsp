@@ -607,6 +607,85 @@ InputName=input
 # End Source File
 # Begin Source File
 
+SOURCE=..\dialogs\ipsselect.wxg
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\ipsselect.wxg
+InputName=ipsselect
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\ipsselect.wxg
+InputName=ipsselect
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\ipsselect.wxg
+InputName=ipsselect
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\ipsselect.wxg
+InputName=ipsselect
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\ipsselect.wxg
+InputName=ipsselect
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\ipsselect.wxg
+InputName=ipsselect
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\dialogs\misccontrols.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
@@ -1830,6 +1909,10 @@ SOURCE=..\src\InputPage.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\IPSSelectionDlg.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\MiscControlPage.cpp
 # End Source File
 # Begin Source File
@@ -1950,6 +2033,10 @@ SOURCE=..\src\FullScreenDlg.h
 # Begin Source File
 
 SOURCE=..\src\InputPage.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\IPSSelectionDlg.h
 # End Source File
 # Begin Source File
 

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.76 2004/12/03 18:38:20 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.77 2005/01/06 16:27:22 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	if (!m_openMsxRunning) 
 		return;
 	wxString led[6]={wxT("power"), wxT("caps"), wxT("kana"), wxT("pause"),
-		wxT("turbo"), wxT("fdd")};
+		wxT("turbo"), wxT("FDD")};
 	unsigned int i=0;
 	FOREACH(i,led){	
 		m_appWindow->UpdateLed(led[i],wxT("off"));
@@ -510,15 +510,16 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 		}
 	}
 	if (ver == -1) {
-		wxMessageBox (wxT("Unable to determine openMSX version!\nPlease upgrade to 0.4.0 or higher."),wxT("Error"));
+		wxMessageBox (wxT("Unable to determine openMSX version!\nPlease upgrade to 0.5.0 or higher."),wxT("Error"));
 		return false;	
 	}
-	if (ver < 400) {
-		wxMessageBox (wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.4.0 or higher."),wxT("Error"));
+	if (ver < 500) {
+		wxMessageBox (wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.5.0 or higher."),wxT("Error"));
 		return false;
 	}
-	if ((version.Find(wxT("-dev")) != -1) || (ver > 400)) {
+	if ((version.Find(wxT("-dev")) != -1) || (ver > 500)) {
 		// put specific code for NEW versions here
+		
 	}
 	else{ 
 		// put specific code for OLD supported versions here

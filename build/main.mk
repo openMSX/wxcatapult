@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.34 2004/12/25 23:01:13 h_oudejans Exp $
+# $Id: main.mk,v 1.35 2005/01/26 02:31:51 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -199,7 +199,8 @@ SOURCES+= \
 	FullScreenDlg \
 	ScreenShotDlg \
 	Version \
-	RomTypeDlg
+	RomTypeDlg \
+	IPSSelectionDlg
 
 OBJECTS_FULL:=$(addprefix $(OBJECTS_PATH)/, $(addsuffix .o,$(SOURCES)))
 
@@ -215,6 +216,7 @@ XRC_FULL:=$(addprefix $(XRC_PATH)/, \
 	fullscreen.xrc \
 	screenshot.xrc \
 	romtype.xrc \
+	ipsselect.xrc \
 	)
 
 BITMAPS:=$(addprefix $(BUILD_PATH)/,$(wildcard $(BITMAPS_PATH)/*.bmp))

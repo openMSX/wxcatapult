@@ -18,6 +18,11 @@ s/\([^<]*\)\(<object.*" \)\(name="GlobalTabControl" .*>\)/\1\2\3\
 	/<choices>/,/<\/choices>/d
 }
 
+/name="IPSSelectionDialog"/,${
+	/selection/d
+	/<choices>/,/<\/choices>/d
+}
+
 /name="VideoControlPage"/,${
 	s/choices/content/
 	s/choice/item/g

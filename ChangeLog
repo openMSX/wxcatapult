@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.110 2005/01/09 19:47:30 manuelbi Exp $
+$Id: ChangeLog,v 1.111 2005/01/26 17:24:13 h_oudejans Exp $
+
+2004-01-31 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fix IPS and mapper support
+	* Added multiple IPS and disk IPS.	
 
 2004-01-26 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed problems with non-lowercase settings in the audiopage

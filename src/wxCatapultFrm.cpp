@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.55 2005/01/09 19:47:30 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.56 2005/01/26 17:24:15 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -311,8 +311,14 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_launch_AbortButton->Enable(false);
 	wxArrayString hardware;
 	wxArrayString media;
+	wxArrayString patches[5];
+	wxArrayString types;
+	
 	m_sessionPage->getHardware(hardware);
 	m_sessionPage->getMedia(media);
+	m_sessionPage->getPatches(patches);
+	m_sessionPage->getTypes(types);
+
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	if (hardware[0] != wxT(" <default> "))
@@ -327,14 +333,21 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 			cmd += wxT(" -ext ") + hardware[i];
 		}
 	}
-
 	wxString parmname [5]={wxT("diska"),wxT("diskb"),wxT("carta"),wxT("cartb"),wxT("cassetteplayer")};
 	FOREACH(i,parmname) {
 		if (!media[i].IsEmpty()) {
 			cmd += wxT(" -") + parmname[i] +wxT(" \"") + media[i] + wxT("\"");
+			if (!types[i].IsEmpty()){
+				cmd += wxT(" -romtype ") + types[i];
+			}
+			int count = patches[i].GetCount();
+			if (count != 0){
+				for (int j=0;j<count;j++){
+					cmd += wxT(" -ips \"") + patches[i].Item(j) + wxT("\"");
+				}
+			}
 		}
 	}
-
 	m_sessionPage->UpdateSessionData();
 	m_statusPage->m_outputtext->Clear();
 	m_controller->StartOpenMSX(cmd);
@@ -436,6 +449,7 @@ void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 	if (ledname == wxT("kana")) led = m_kanaLed;
 	if (ledname == wxT("pause")) led = m_pauseLed;
 	if (ledname == wxT("turbo")) led = m_turboLed;
+//	if (ledname == wxT("fdd")) led = m_fddLed;
 	if (ledname == wxT("FDD")) led = m_fddLed;
 
 	if (ledstate == wxT("off")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
