@@ -161,7 +161,7 @@ by simply typing:
 </div>
 
 <p>
-Windows users can simply double-click on the catapult icon in the start menu if 
+Windows users can simply double-click on the Catapult icon in the start menu if 
 they have chosen to create it during setup. If not, simply find the executable 
 and start it anyway you like.
 </p>
@@ -231,7 +231,7 @@ This page contains three types of controls:
 <p>
 This page contains all controls to select how openMSX should display the MSX 
 screen. Some of this controls can cause openMSX to slow down. This page also 
-contains some controls to let openMSX make screenshots.
+contains some controls to let openMSX make screen shots.
 [<a class="internal" href="#video">details</a>]
 </p>
 
@@ -257,7 +257,7 @@ can be typed into the emulated MSX including newlines.
 
 <p>
 This page contains the messages Catapult gets from openMSX. This can be information 
-like what cartridge has been found or which machine is used, but it can also 
+like what cartridge has been found, which machine is used or where the screen shot has been saved, but it can also 
 show warnings or errors that occur. In case of an error, Catapult automatically 
 selects this page.
 [<a class="internal" href="#status">status</a>]
@@ -311,11 +311,8 @@ but openMSX might make a problem. Some problems that can occur are:
 
 <ul>
 <li>too many extensions need a cartridge slot. There are a limited amount of
-such slots available (most machines have only two of them).</li>
-<li>two or more selected extensions are basically the same. This can easily
-lead to duplicate ID errors.</li> 
-<li>one of more extensions were already available in the chosen machine. This
-may also lead to duplicate ID errors.</li> 
+such slots available (most machines have only two of them). You can increase the number of cartridge slots by also selecting the slot expander extension.</li>
+<li>two or more selected extensions are basically the same. This will cause I/O port conflicts in the MSX machine, which you will be warned for by openMSX in the Status Page.</li> 
 </ul>
 
 <p>
@@ -347,14 +344,13 @@ controls will be grayed out (disabled).
 </dd>
 <dt>cassettes (tapes):</dt>
 <dd>
-Most MSX1 computers depend on a tape recorder (or data recorder). Most MSX2 or
-higher computers support cassette as well. Like using disks, when a machine
+Most MSX1 computers depend on a tape recorder (or data recorder) and almost all other MSX computers support cassette as well. Like using disks, when a machine
 doesn't support cassette you can still fill in these fields. openMSX will just
 ignore them. As can be seen on the picture above, there are two kinds of tape.
 The first is called 'normal tape' in Catapult, which accepts wav-files as input.
-These normally require plugging in a cassetteplayer, but Catapult takes care of
+These normally require plugging in a cassette player, but Catapult takes care of
 that if this type of tape is used. The second is called 'Cas'. this accepts a
-.cas-file (a binary representation of the cassette). See the <a class="external"
+.cas-file (a binary representation of the cassette). Note that the 'normal tape' field also accepts .cas files, they will be converted to .wav internally by openMSX. See the <a class="external"
 href="http://openmsx.sourceforge.net/manual/user.html#tape">openMSX User's Manual</a> for more information about using cassettes.
 </dd>
 </dl>
@@ -422,8 +418,8 @@ influence the speed and frame skip setting of openMSX. The upper row controls
 the speed percentage of openMSX. You can use the slider to select a speed
 between 1 and 500%. You can also directly input the speed into the input box.
 Finally, the buttons on the right are to set the speed to respectively 100% and
-the maximum. If the Max Speed Button is used, all limits are removed. Very usefull
-to fastforward demo's or loading screens. If the selected speed is higher than your 
+the maximum. If the Max Speed Button is used, all limits are removed. Very useful
+to fast forward demo's or loading screens. If the selected speed is higher than your 
 PC can manage, openMSX will try to go as fast as possible. The next rows selects how 
 many frames may be maximally skipped to maintain the chosen speed and how many frames 
 are minimally skipped.
@@ -447,11 +443,11 @@ For each joystick port, you can choose between a mouse, keyjoystick and any joys
 hooked up to the PC. If you select the same device for both ports, you get a 
 warning and a request for confirmation. This allows you to choose which port the 
 selected device should be in. These are the only controls that can be modified 
-before openMSX is started. You can also adjust the Ren Sha Turbo speed (Joystick autofire)
-if the current MSX supports it (MSXturboR).
+before openMSX is started. You can also adjust the Ren Sha Turbo speed (joystick auto fire)
+if the current MSX supports it (MSXturboR, e.g.).
 </p>
 <p>
-You can hook a Printer logger or SIMPL in the printerport. When you choose the Printer logger,
+You can hook a Printer logger or SIMPL in the printer port. When you choose the Printer logger,
 you can also choose which file to use for the log by either typing it directly or browsing for it.
 If you plug SIMPL (a very simple Digital to Analog Converter) into the printer port, openMSX
 supports it as an extra audio device. You can also see a slider for it appearing it the Audio Controls
@@ -513,17 +509,16 @@ to Catapult (using ALT-TAB) and simply deselecting full screen again.
 </p>
 
 <p>
-The center part of this page allows you to modify the openMSX screen. All of 
+The centre part of this page allows you to modify the openMSX screen. All of 
 these settings can be controlled by using the slider, typing the value directly 
 into the edit field or using the reset button to revert to the default state. 
-These settings are pretty much self-explanatory. Blur and Glow are only 
-supported in the SDLGL renderer.
+These settings are pretty much self-explanatory, or otherwise explained in the <a class="external" href="http://openmsx.sourceforge.net/manual/user.html#gamma">openMSX User's Manual</a>. Glow is only supported in the SDLGL renderer.
 </p>
 
 <p>
-The bottom line of the page can be used to create screenshots from openMSX. As soon as 
+The bottom line of the page can be used to create screen shots from openMSX. As soon as 
 a filename is available in the first box, the second box will show a counter. This counter is
-based on the number of files that allready exist. So if <code>test</code> is 
+based on the number of files that already exist. So if <code>test</code> is 
 typed and <code>test0001</code>, <code>test0002</code> and <code>test0003</code>
 exists, then the counter will show <code>0004</code>. The browse button can also be used
 to set a filename, however the counter part will recalculated. So even if you browse and try
@@ -532,11 +527,11 @@ You can also override the counter by just typing another number, but as soon as 
 again, the counter will be recalculated. Normally, there is no reason to override the counter.
 </p>
 <p>
-Finally, pressing the Grab button takes the screenshot. If the filename and counter fields are empty
-openMSX will take a screenshot with the default settings. The first time, there will be a message that
-the shot has been taken and that the location is shown in the Status page, since no further changes
-are noticable. You can disable this message when it pops up. The location of the screenshot taken 
-will be shown in the Status page.
+Finally, pressing the Grab button takes the screen shot. If the filename and counter fields are empty,
+openMSX will take a screen shot with the default settings. The first time, there will be a message that
+the shot has been taken and that the location is shown in the Status Page, since no further changes
+are noticeable. You can disable this message when it pops up. So, again, the location of the screen shot taken 
+will be shown in the Status Page.
 </p>
 
 <h3><a id="audio">5.3. Audio Control Page</a></h3>
@@ -555,8 +550,8 @@ a simple message will be displayed stating: "No audio channel data available".
 The top half of this page is used to adjust the volume and channel mode of the
 sound devices present in openMSX. When a slider is all the way up, volume is set
 to maximum and if it's all the way down that specific device is muted. The mode 
-selector below each slider lets you choose between L(eft), R(ight) and M(ono). 
-However, some sound devices only support S(tereo).
+selector below each slider lets you choose between L(eft), R(ight), M(ono) and (O)ff. 
+However, some sound devices only support S(tereo) (and Off, of course).
 </p>
 
 <p>
@@ -580,11 +575,11 @@ route the MIDI data to a MIDI device you have connected to your system.
 </p>
 
 <p>
-MIDI-IN and MIDI-OUT are only available on the MSXturboR GT.
+Again: MIDI-IN and MIDI-OUT are only available on the MSXturboR GT.
 </p>
 
 <p>
-Finally, the last row is to select the PCM wave input. You can choose
+Finally, the last row is to select the PCM wave input, which is also only available on the MSXturboR GT. You can choose
 <code>--empty--</code>
 or <code>wavinput</code>. In case of <code>wavinput</code>, the field besides it selects from which file 
 the PCM input is taken.
@@ -599,13 +594,13 @@ Below, there's a picture of the Input Text page.
 </p>
 <p>
 This page contains only three controls. The big text field can be used to type or paste any text you want
-typed out in the emulated MSX. Please be advised that typing special characters like german or spanish 
-specific characters, the communiction between openMSX and catapult can be lost. All characters typed in 
+typed out in the emulated MSX. Please be advised that typing special characters like German or Spanish 
+specific characters, the communication between openMSX and Catapult can be lost. All characters typed in 
 this field will be typed in the MSX, so it could take a while when there's a large text.
 Any newlines within this field will result in an <code>enter</code> in the MSX.
-The text is transmitted to the MSX as soon as the type button is used. The text will not be automaticly cleared,
+The text is transmitted to the MSX as soon as the type button is used. The text will not be automatically cleared,
 so the same text can be used multiple times. 
-Finally, the clear button clears the text, so you can start over.
+Finally, the clear button clears the text, so you can start over. A final note: this feature only works correctly on MSX machines with European/International keyboards, for now.
 </p>
 
 <h2><a id="status">7. Status Display</a></h2>
@@ -616,9 +611,13 @@ The status display of Catapult consists of four different elements:
 
 <ul>
 <li>Status Page</li>
-<li>LED Status Display</li>
-<li>Emulator Status</li>
-<li>Frame rate display</li>
+<li>Global Section with:
+ <ul>
+  <li>LED Status Display</li>
+  <li>Emulator Status</li>
+  <li>Frame rate display</li>
+ </ul>
+</li>
 </ul>
 
 <p>
@@ -637,15 +636,17 @@ whenever openMSX is started.
 </p>
 
 <p>
-The LED Status Display shows the status of the MSX LEDs at any given time. 
+The LED status display in the Global Section shows the status of the MSX LEDs at any given time. 
 Which LEDs are used depends on the type of MSX computer openMSX is emulating. 
-The pause LED acts both as MSXturboR pause LED and as an indication that openMSX 
-is paused.
+</p>
+
+<p>
+The final part of the Global Section is the status bar, at the bottom of the Catapult window.
 </p>
 
 <p>
 On the left side of the status bar you can see whether or not the emulator is 
-running. This can be convenient if you have multiple Catapults running.
+running. This can be convenient if you have multiple Catapults in use. It will also tell you if openMSX is paused.
 </p>
 
 <p>
@@ -662,23 +663,22 @@ time with the current settings and thus frames are being skipped.
 
 <h2><a id="menu">8. Using the menu</a></h2>
 <p>
-Although most of the catapult action is done using the various pages mentioned above, there
-are a few options only available though the pulldown menu. These options are described briefly 
+Although most of the Catapult action is done using the various pages mentioned above, there
+are a few options only available through the pull down menu. These options are described briefly 
 in this section.</p>
-
 <dl>
 <dt>
 Quit
 </dt>
 <dd>
-This closes catapult. If there is a running openMSX (started by this instance of catapult) it will be
+This closes Catapult. If there is a running openMSX (started by this instance of Catapult) it will be
 closed also. 
 </dd>
 <dt>
 Edit Configuration
 </dt>
 <dd>
-Here you can change which openMSX version catapult is to start. It also lets you choose were the 
+Here you can change which openMSX version Catapult is to start, if you installed more than one. It also lets you choose were the 
 shared openMSX settings can be found.
 </dd>
 <dt>
@@ -686,27 +686,27 @@ Load openMSX Settings
 </dt>
 <dd>
 Here you can browse for an openMSX settings file to be used. This settings file will be used the next
-time you start openMSX. This option is not saved when you close catapult.
+time you start openMSX. This option is not saved when you close Catapult.
 </dd>
 <dt>
 Save openMSX Settings
 </dt>	
 <dd>
-This option is only available when openMSX is running. You can ask openMSX to save it's settings to
-the default location.
+This option is only available when openMSX is running. You can ask openMSX to save its settings to
+the default location (which <code>share/settings.xml</code>).
 </dd>
 <dt>
 Save openMSX Settings As
 </dt>	
 <dd>
-This option is only available when openMSX is running. You can ask openMSX to save it's settings to
-a specified location.
+This option is only available when openMSX is running. You can ask openMSX to save its settings to
+a specified file.
 </dd>
 <dt>
 About
 </dt>
 <dd>
-Shows information about catapult including the version number
+Shows information about Catapult including the version number.
 </dd>
 </dl>
 
@@ -748,6 +748,9 @@ at SourceForge.
 At the moment of writing, there are four trackers:
 Bugs, Support Requests, Patches and Feature Requests.
 </li>
+<li>
+Post a message on the <a class="external" href="http://sourceforge.net/forum/?group_id=38274">openMSX forums</a> at SourceForge.
+</li>
 </ol>
 
 <p>
@@ -756,7 +759,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: user.html,v 1.5 2004/05/14 02:26:59 mthuurne Exp $
+$Id: user.html,v 1.6 2004/10/05 16:29:09 h_oudejans Exp $
 </p>
 
 </body>
