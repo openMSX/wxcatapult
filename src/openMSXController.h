@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.7 2004/03/20 19:53:32 manuelbi Exp $
+// $Id: openMSXController.h,v 1.8 2004/03/21 20:49:36 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,6 +20,9 @@ class openMSXController
 {
 	public:
 		wxString FilterCurrentValue(wxString);
+		void GetConnectors (wxArrayString & connectors);
+		void GetPluggables (wxArrayString & pluggables);
+		void GetPluggableDescriptions (wxArrayString & descriptions);
 		void StartOpenMSX (wxString cmd, bool hidden=false);
 		bool WriteCommand(wxString msg);
 		void HandleParsedOutput (wxCommandEvent &event);
@@ -46,9 +49,14 @@ class openMSXController
 		LaunchMode m_launchMode;
 	private:
 		unsigned int m_openMSXID;
+		wxArrayString m_connectors;
+		wxArrayString m_pluggables;
+		wxArrayString m_pluggabledescriptions;
 		wxString m_infoCommand;
 		wxString m_unsetCommand;
 		wxString GetPendingCommand();
+		void InitConnectors(wxString connectors);
+		void InitPluggables(wxString pluggables);		
 		void HandleHiddenLaunchReply(wxCommandEvent &event);
 		void HandleNormalLaunchReply(wxCommandEvent &event);
 		void TrackAsserts(wxString cmd, wxString result);

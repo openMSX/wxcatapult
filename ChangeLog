@@ -1,5 +1,9 @@
-$Id: ChangeLog,v 1.20 2004/03/21 13:50:11 manuelbi Exp $
+$Id: ChangeLog,v 1.21 2004/03/21 20:49:36 h_oudejans Exp $
 
+2004-03-22 Herman Oudejand <hn.oudejans@quicknet.nl>
+	* Added midi in/out and sample input plugins
+	* Filenames still need to be done
+	
 2004-03-21 Manuel Bilderbeek <manuel@msxnet.org>
 	* removed Mute button from MiscControls, made the new one in
 	  AudioControls functional

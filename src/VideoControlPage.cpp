@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.3 2004/02/07 07:21:49 mthuurne Exp $
+// $Id: VideoControlPage.cpp,v 1.4 2004/02/08 16:05:05 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@
 #include "VideoControlPage.h"
 #include "wxCatapultFrm.h"
 
-	IMPLEMENT_CLASS(VideoControlPage, wxPanel)
+IMPLEMENT_CLASS(VideoControlPage, wxPanel)
 BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_TEXT(XRCID("RendererSelector"),VideoControlPage::OnChangeRenderer)
 	EVT_COMBOBOX(XRCID("ScalerSelector"),VideoControlPage::OnChangeScaler)
