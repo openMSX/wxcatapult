@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.21 2004/10/04 16:41:46 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.22 2004/10/06 19:28:24 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -52,6 +52,7 @@ class MiscControlPage : public CatapultPage
 		void SetMaxFrameskip (wxString value);
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
 		void InitConnectorPanel ();
+		void InvalidPrinterLogFilename();
 		wxToggleButton * m_powerButton;
 		
 	private:
@@ -66,6 +67,13 @@ class MiscControlPage : public CatapultPage
 		wxButton * m_defaultMinFrameSkipButton;
 		wxButton * m_defaultMaxFrameSkipButton;
 		
+		wxStaticText * m_emulationSpeedLabel;
+		wxStaticText * m_frameskipLabel;
+		wxStaticText * m_frameskipMinLabel;
+		wxStaticText * m_frameskipMaxLabel;
+		wxStaticText * m_printerportLabel;
+		wxStaticText * m_renshaLabel;
+		wxStaticText * m_printerportFileLabel;
 
 		wxToggleButton * m_pauseButton;
 		wxToggleButton * m_firmwareButton;

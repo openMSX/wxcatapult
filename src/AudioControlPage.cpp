@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.21 2004/10/04 17:17:00 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.22 2004/10/06 19:28:23 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -40,6 +40,12 @@ AudioControlPage::AudioControlPage(wxWindow * parent, openMSXController * contro
 	m_browseMidiInButton = (wxBitmapButton *)FindWindow(wxT("BrowseMidiInButton"));
 	m_browseMidiOutButton = (wxBitmapButton *)FindWindow(wxT("BrowseMidiOutButton"));
 	m_browseSampleInputButton = (wxBitmapButton *)FindWindow(wxT("BrowseSampleInputButton"));
+	m_midiInLabel = (wxStaticText *)FindWindow(wxT("MidiInLabel"));
+	m_midiOutLabel = (wxStaticText *)FindWindow(wxT("MidiOutLabel"));
+	m_sampleInLabel = (wxStaticText *)FindWindow(wxT("SoundInLabel"));
+	m_midiInFileLabel = (wxStaticText *)FindWindow(wxT("MidiInFileLabel"));
+	m_midiOutFileLabel = (wxStaticText *)FindWindow(wxT("MidiOutFileLabel"));
+	m_sampleInFileLabel = (wxStaticText *)FindWindow(wxT("SampleInFileLabel"));
 	m_controller=controller;
 	m_midiInFilename = wxT("");
 	m_midiOutFilename = wxT("");
@@ -156,6 +162,12 @@ void AudioControlPage::DisableAudioPanel ()
 	combo->Clear();combo->Enable(false);
 	text->Clear(); text->Enable(false);
 	button->Enable(false);
+	m_midiInLabel->Enable(false);
+	m_midiOutLabel->Enable(false);
+	m_sampleInLabel->Enable(false);
+	m_midiInFileLabel->Enable(false);
+	m_midiOutFileLabel->Enable(false);
+	m_sampleInFileLabel->Enable(false);
 }
 
 void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
@@ -395,6 +407,8 @@ void AudioControlPage::InitAudioIO()
 			if (child) {
 				child->Enable(true);
 				child->Clear();
+				m_midiInLabel->Enable(true);
+				m_midiInFileLabel->Enable(true);
 				wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (wxT("MidiInFileInput"));
 				wxButton * midibutton = (wxButton *)FindWindow(wxT("BrowseMidiInButton"));
 				miditext->Enable(true);
@@ -419,6 +433,8 @@ void AudioControlPage::InitAudioIO()
 			if (child) {
 				child->Enable(true);
 				child->Clear();
+				m_midiOutLabel->Enable(true);
+				m_midiOutFileLabel->Enable(true);
 				wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (wxT("MidiOutFileInput"));
 				wxButton * midibutton = (wxButton *)FindWindow(wxT("BrowseMidiOutButton"));
 				miditext->Enable(true);
@@ -442,6 +458,8 @@ void AudioControlPage::InitAudioIO()
 			if (child) {
 				child->Enable(true);
 				child->Clear();
+				m_sampleInLabel->Enable(true);
+				m_sampleInFileLabel->Enable(true);
 				wxTextCtrl * sampletext = (wxTextCtrl *)FindWindow (wxT("SampleFileInput"));
 				wxButton * samplebutton = (wxButton *)FindWindow(wxT("BrowseSampleInputButton"));
 				sampletext->Enable(true);

@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.h,v 1.12 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: AudioControlPage.h,v 1.13 2004/10/04 17:17:00 h_oudejans Exp $
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -60,6 +60,13 @@ class AudioControlPage : public CatapultPage
 		wxString m_midiInFilename;
 		wxString m_midiOutFilename;
 		wxString m_sampleInFilename;
+	
+		wxStaticText * m_midiInLabel;
+		wxStaticText * m_midiOutLabel;
+		wxStaticText * m_sampleInLabel;
+		wxStaticText * m_midiInFileLabel;
+		wxStaticText * m_midiOutFileLabel;
+		wxStaticText * m_sampleInFileLabel;
 
 		wxBitmapButton * m_browseMidiInButton;
 		wxBitmapButton * m_browseMidiOutButton;

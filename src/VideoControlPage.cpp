@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.23 2004/10/02 20:50:45 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.24 2004/10/04 16:41:46 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -90,6 +90,17 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_defaultGamma = "";
 	m_defaultScanline = "";
 	
+	m_rendererLabel = (wxStaticText *)FindWindow(wxT("RendererLabel"));
+	m_scalerLabel = (wxStaticText *)FindWindow(wxT("ScalerLabel"));
+	m_accuracyLabel = (wxStaticText *)FindWindow(wxT("AccuracyLabel"));
+	m_deinterlaceLabel = (wxStaticText *)FindWindow(wxT("DeInterlaceLabel"));
+	m_limitSpritesLabel = (wxStaticText *)FindWindow(wxT("LimitSpriteLabel"));
+	m_fullScreenLabel = (wxStaticText *)FindWindow(wxT("FullScreenLabel"));
+	m_scanLineLabel = (wxStaticText *)FindWindow(wxT("ScanLineLabel"));
+	m_blurLabel = (wxStaticText *)FindWindow(wxT("BlurLabel"));
+	m_glowLabel = (wxStaticText *)FindWindow(wxT("GlowLabel"));
+	m_gammaLabel = (wxStaticText *)FindWindow(wxT("GammaLabel"));
+
 	wxBitmap & tempBmp = m_browseScreenshotButton->GetBitmapLabel();
 	tempBmp.SetMask(new wxMask(tempBmp,wxColour(255,0,255)));
 	m_browseScreenshotButton->Enable(false);
@@ -347,6 +358,16 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_limitSpritesButton->Enable(true);
 	m_fullscreenButton->Enable(true);
 	m_screenShotButton->Enable(true);
+	m_rendererLabel->Enable(true);
+	m_scalerLabel->Enable(true);
+	m_accuracyLabel->Enable(true);
+	m_deinterlaceLabel->Enable(true);
+	m_limitSpritesLabel->Enable(true);
+	m_fullScreenLabel->Enable(true);
+	m_scanLineLabel->Enable(true);
+	m_blurLabel->Enable(true);
+	m_glowLabel->Enable(true);
+	m_gammaLabel->Enable(true);
 }
 
 void VideoControlPage::SetControlsOnEnd()
@@ -370,6 +391,16 @@ void VideoControlPage::SetControlsOnEnd()
 	m_limitSpritesButton->Enable(false);
 	m_fullscreenButton->Enable(false);
 	m_screenShotButton->Enable(false);
+	m_rendererLabel->Enable(false);
+	m_scalerLabel->Enable(false);
+	m_accuracyLabel->Enable(false);
+	m_deinterlaceLabel->Enable(false);
+	m_limitSpritesLabel->Enable(false);
+	m_fullScreenLabel->Enable(false);
+	m_scanLineLabel->Enable(false);
+	m_blurLabel->Enable(false);
+	m_glowLabel->Enable(false);
+	m_gammaLabel->Enable(false);
 }
 
 void VideoControlPage::FillRenderers(wxString renderers)

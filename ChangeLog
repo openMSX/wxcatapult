@@ -1,6 +1,13 @@
-$Id: ChangeLog,v 1.87 2004/10/04 16:41:45 h_oudejans Exp $
+$Id: ChangeLog,v 1.88 2004/10/06 19:28:23 h_oudejans Exp $
 
-2004-10-06 Herman Oudejans
+2004-10-08 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed printerlogger pluggable
+	* removed tear-off option from menu's
+	* Disabled labels of disabled controls
+	* Fixed a problem in the startup script
+	* Added Save settings at exit (menu check)
+
+2004-10-06 Herman Oudejans <hn.oudeans@quicknet.nl>
 	* Added support for the 'firmwareswitch' setting.
 
 2004-10-04 Herman Oudejans
@@ -8,12 +15,12 @@ $Id: ChangeLog,v 1.87 2004/10/04 16:41:45 h_oudejans Exp $
 	* Catapult now sends an 'unplug' before sending 'plug'
 	* Minor clean ups.
 
-2004-10-03 Herman Oudejans
+2004-10-03 Herman Oudejans <hn.oudeans@quicknet.nl>
 	* Joystick settings are now saved.
 	* Provided user feedback for screenshot without parameters
 	* Added printerport functionality	
 
-2004-10-02 Herman Oudejans
+2004-10-02 Herman Oudejans <hn.oudeans@quicknet.nl>
 	* Added Screenshot support
 	* 'Grab' and 'Type' buttons are now disabled until openMSX runs
 	* fixed initial state of the mute button

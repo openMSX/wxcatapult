@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.24 2004/09/27 17:14:06 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.25 2004/10/03 17:02:12 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -79,6 +79,11 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_clearCartB = (wxBitmapButton *)FindWindow(wxT("ClearCartB"));
 	m_clearTape1 = (wxBitmapButton *)FindWindow(wxT("ClearNormalTape"));
 	m_clearTape2 = (wxBitmapButton *)FindWindow(wxT("ClearCasPatch"));
+	
+	m_machineListLabel = (wxStaticText *)FindWindow(wxT("MachineListLabel"));
+	m_extensionListLabel = (wxStaticText *)FindWindow(wxT("ExtensionLabel"));
+	m_cartALabel = (wxStaticText *)FindWindow(wxT("CartA_Label"));
+	m_cartBLabel = (wxStaticText *)FindWindow(wxT("CartB_Label"));
 
 	m_lastDiskA = "";
 	m_lastDiskB = "";
@@ -499,7 +504,11 @@ void SessionPage::SetControlsOnLaunch()
 	m_clearCartA->Enable(false);
 	m_clearCartB->Enable(false);
 	m_browseCartA->Enable(false);
-	m_browseCartB->Enable(false);		
+	m_browseCartB->Enable(false);
+	m_extensionListLabel->Enable(false);
+	m_machineListLabel->Enable(false);
+	m_cartALabel->Enable(false);
+	m_cartBLabel->Enable(false);
 }
 
 void SessionPage::SetControlsOnEnd()
@@ -513,6 +522,10 @@ void SessionPage::SetControlsOnEnd()
 	m_browseCartA->Enable(true);
 	m_browseCartB->Enable(true);
 	m_cassettePortState = wxT("disabled");
+	m_extensionListLabel->Enable(true);
+	m_machineListLabel->Enable(true);
+	m_cartALabel->Enable(true);
+	m_cartBLabel->Enable(true);
 }
 
 void SessionPage::getMedia(wxArrayString & parameters)

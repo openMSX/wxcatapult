@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.32 2004/10/04 16:41:46 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.33 2004/10/06 19:28:23 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -84,6 +84,15 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_minFrameSkipSlider->SetTickFreq (5,1);
 	m_renshaTurboSlider->SetTickFreq (5,1);
 	m_oldSpeed="";
+
+	m_printerportFileLabel = (wxStaticText *)FindWindow (wxT("PrinterLogFileLabel"));
+	m_printerportLabel = (wxStaticText *)FindWindow(wxT("PrinterLabel"));
+	m_renshaLabel = (wxStaticText *)FindWindow(wxT("RenShaTurboLabel"));
+	m_frameskipLabel = (wxStaticText *)FindWindow(wxT("FrameSkipLabel"));
+	m_frameskipMaxLabel = (wxStaticText *)FindWindow(wxT("FrameSkipMaxLabel"));
+	m_frameskipMinLabel = (wxStaticText *)FindWindow(wxT("FrameSkipMinLabel"));
+	m_emulationSpeedLabel = (wxStaticText *)FindWindow(wxT("EmulationSpeedLabel"));	
+
 
 	wxBitmap & tempBmp = m_browsePrinterLog->GetBitmapLabel();
 	tempBmp.SetMask(new wxMask(tempBmp,wxColour(255,0,255)));
@@ -296,9 +305,19 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_powerButton->Enable(true);
 	m_resetButton->Enable(true);
 	m_pauseButton->Enable(true);
-
+	m_printerportSelector->Enable(true);
 	m_pauseButton->SetValue(false);
 	m_firmwareButton->SetValue(false);
+	m_printerLogFile->Enable(true);
+	m_browsePrinterLog->Enable(true);
+	m_printerportFileLabel->Enable(true);
+	m_printerportLabel->Enable(true);
+	m_frameskipLabel->Enable(true);
+	m_frameskipMaxLabel->Enable(true);
+	m_frameskipMinLabel->Enable(true);
+	m_emulationSpeedLabel->Enable(true);	
+
+
 }
 
 void MiscControlPage::EnableFirmware(wxString setting)
@@ -310,6 +329,7 @@ void MiscControlPage::EnableFirmware(wxString setting)
 void MiscControlPage::EnableRenShaTurbo()
 {
 	m_renshaTurboSlider->Enable(true);
+	m_renshaLabel->Enable(true);
 }
 
 void MiscControlPage::SetControlsOnEnd()
@@ -331,6 +351,19 @@ void MiscControlPage::SetControlsOnEnd()
 	m_firmwareButton->Enable(false);
 	m_pauseButton->Enable(false);
 	m_renshaTurboSlider->Enable(false);
+	m_printerLogFile->Enable(false);
+	m_browsePrinterLog->Enable(false);
+	m_printerportSelector->Enable(false);
+	m_printerportFileLabel->Enable(false);
+	m_printerportLabel->Enable(false);
+	m_renshaLabel->Enable(false);
+	m_frameskipLabel->Enable(false);
+	m_frameskipMaxLabel->Enable(false);
+	m_frameskipMinLabel->Enable(false);
+	m_emulationSpeedLabel->Enable(false);	
+
+
+
 }
 
 void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
@@ -423,13 +456,13 @@ void MiscControlPage::InitConnectorPanel ()
 				InitJoystickPort (connectors[i], "Joyport1Selector", currentClass);
 			} else if (connectors[i] == wxT("joyportb")) {
 				InitJoystickPort (connectors[i], "Joyport2Selector", currentClass);
-			} else if (connectors[i] == wxT("printerport")){
-				InitJoystickPort (connectors[i], "PrinterportSelector", currentClass);
+//			} else if (connectors[i] == wxT("printerport")){
+//				InitJoystickPort (connectors[i], "PrinterportSelector", currentClass);
 			}
 		}
 	}
-	wxTextCtrl * text = (wxTextCtrl *)FindWindow("PrinterLogFile");
-	m_controller->WriteCommand(wxString("set printerlogfilename ") + ConvertPath(text->GetValue()));
+//	wxTextCtrl * text = (wxTextCtrl *)FindWindow("PrinterLogFile");
+//	m_controller->WriteCommand(wxString("set printerlogfilename ") + ConvertPath(text->GetValue()));
 }
 
 void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wxString connectorClass)
@@ -552,20 +585,14 @@ void MiscControlPage::OnChangePrinterPort(wxCommandEvent & event)
 void MiscControlPage::OnPrinterportChanged(bool save)
 {
 	wxString current = m_printerportSelector->GetValue();
-	if (current == "logger"){
-		m_printerLogFile->Enable(true);
-		m_browsePrinterLog->Enable(true);
-	}
-	else{
-		m_printerLogFile->Enable(false);
-		m_browsePrinterLog->Enable(false);
-	}
 	if (save){
 		ConfigurationData::instance()->SetParameter(ConfigurationData::CD_PRINTERPORT,current);
 		ConfigurationData::instance()->SaveData();
 	}
 	m_controller->WriteCommand("unplug printerport");
-	m_controller->WriteCommand(wxString("plug printerport ") + current);	
+	if (current != "--empty--"){
+		m_controller->WriteCommand(wxString("plug printerport ") + current);	
+	}
 }
 
 void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent &event)
@@ -589,4 +616,11 @@ void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent &event)
 	if (filedlg.ShowModal() == wxID_OK){
 		m_printerLogFile->SetValue(filedlg.GetPath());
 	}
+}
+
+void MiscControlPage::InvalidPrinterLogFilename()
+{
+	wxMessageBox (_("Unable to plug in printerport logger!\nPlease select a valid file name first."),_("Error"));
+	m_printerportSelector->SetValue(wxT("--empty--"));
+	m_controller->WriteCommand(wxT("unplug printerport"));
 }
