@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.9 2004/03/20 22:04:31 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.10 2004/03/21 12:40:12 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -59,25 +59,25 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Quit,  wxCatapultFrame::OnMenuQuit)
 	EVT_MENU(Catapult_About, wxCatapultFrame::OnMenuAbout)
 	EVT_MENU(Catapult_Edit_Config, wxCatapultFrame::OnMenuEditConfig)
-EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
+	EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
 	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
 	EVT_BUTTON(XRCID("ApplyButton"),wxCatapultFrame::OnApplyChanges)
 	EVT_BUTTON(XRCID("QuitButton"),wxCatapultFrame::OnMenuQuit)
 	EVT_TIMER(TIMER_ID, wxCatapultFrame::OnTimer)
 END_EVENT_TABLE()
 
-// include icon for any non-unix version
+	// include icon for any non-unix version
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
-    #include "catapult.xpm"
+#include "catapult.xpm"
 #endif
 
-	// ----------------------------------------------------------------------------
+	// ------------------------------------------------------------------
 	// main frame
-	// ----------------------------------------------------------------------------
+	// ------------------------------------------------------------------
 
 	// frame constructor
-wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
-	: m_timer(this, TIMER_ID)
+	wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
+: m_timer(this, TIMER_ID)
 {
 #ifdef __WINDOWS__	
 	m_controller = new openMSXWindowsController(this);
@@ -87,7 +87,7 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 
 	wxXmlResource::Get()->LoadFrame(this, parent, _("CatapultFrame"));
 	SetIcon (wxICON(acatapult));
-	
+
 	// create menu bars				jdayeshdfsg
 
 	wxMenu *fileMenu = new wxMenu("", wxMENU_TEAROFF);
@@ -166,7 +166,7 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 	// called when help - about is picked from the menu or toolbar
 	wxString msg;
 	msg.Printf(_("openMSX Catapult Neo " VERSION "\n\n"
-		"Created by the openMSX team\n\nBuilt on "__DATE__"\n"));
+				"Created by the openMSX team\n\nBuilt on "__DATE__"\n"));
 
 	wxMessageBox(msg, _("About wxCatapult"), wxOK | wxICON_INFORMATION, this);
 }
@@ -377,7 +377,6 @@ void wxCatapultFrame::EnableControls()
 	m_sessionPage->m_clearCartB->Enable(false);
 	m_sessionPage->m_browseCartA->Enable(false);
 	m_sessionPage->m_browseCartB->Enable(false);
-
 }
 
 void wxCatapultFrame::DisableControls()
@@ -392,7 +391,6 @@ void wxCatapultFrame::DisableControls()
 	m_sessionPage->m_clearCartB->Enable(true);
 	m_sessionPage->m_browseCartA->Enable(true);
 	m_sessionPage->m_browseCartB->Enable(true);
-
 }
 
 void wxCatapultFrame::OnApplyChanges(wxCommandEvent &event)
@@ -458,5 +456,5 @@ void wxCatapultFrame::SetFPSdisplay(wxString val)
 
 void wxCatapultFrame::OnTimer(wxTimerEvent& event)
 {
-    m_controller->WriteCommand(m_controller->GetInfoCommand(_("fps")));
+	m_controller->WriteCommand(m_controller->GetInfoCommand(_("fps")));
 }

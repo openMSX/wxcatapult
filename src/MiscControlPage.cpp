@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.3 2004/02/07 07:21:49 mthuurne Exp $
+// $Id: MiscControlPage.cpp,v 1.4 2004/02/08 16:05:05 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -31,7 +31,6 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_TOGGLEBUTTON(XRCID("CmdTimingButton"),MiscControlPage::OnSetCmdTiming)
 	EVT_TEXT(XRCID("FrameSkipIndicator"),MiscControlPage::OnInputFrameskip)
 	EVT_TEXT(XRCID("SpeedIndicator"),MiscControlPage::OnInputSpeed)
-	EVT_TOGGLEBUTTON(XRCID("MuteButton"),MiscControlPage::OnMute)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -58,7 +57,6 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_frameSkipAutoButton = (wxToggleButton *)FindWindow (_("AutoFrameSkipButton"));
 	m_throttleButton = (wxToggleButton *)FindWindow (_("ThrottleButton"));
 	m_cmdTimingButton = (wxToggleButton *)FindWindow (_("CmdTimingButton"));
-	m_muteButton = (wxToggleButton *)FindWindow(_("MuteButton"));
 
 	m_speedSlider->SetTickFreq (25,1);
 	m_frameSkipSlider->SetTickFreq (5,1);
@@ -208,7 +206,6 @@ void MiscControlPage::EnableControls()
 
 	m_throttleButton->Enable(true);
 	m_cmdTimingButton->Enable(true);
-	m_muteButton->Enable(true);
 }
 
 void MiscControlPage::DisableControls()
@@ -230,7 +227,6 @@ void MiscControlPage::DisableControls()
 
 	m_throttleButton->Enable(false);
 	m_cmdTimingButton->Enable(false);
-	m_muteButton->Enable(false);
 }
 
 void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
@@ -280,12 +276,6 @@ void MiscControlPage::OnInputFrameskip(wxCommandEvent &event)
 		m_frameSkipSlider->Disable();
 		m_frameSkipAutoButton->SetValue(true);
 	}
-
-}
-
-void MiscControlPage::OnMute(wxCommandEvent &event)
-{
-	m_controller->WriteCommand ("toggle mute");
 }
 
 void MiscControlPage::SetSpeed (wxString value)

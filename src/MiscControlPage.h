@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: MiscControlPage.h,v 1.3 2004/02/08 16:05:05 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -36,13 +36,11 @@ class MiscControlPage : public wxPanel
 		void OnReset (wxCommandEvent &event);
 		void OnInputFrameskip (wxCommandEvent & event);
 		void OnInputSpeed (wxCommandEvent & event);
-		void OnMute (wxCommandEvent & event);
 		void SetSpeed (wxString value);
 		void SetFrameskip (wxString value);
 		void SetThrottle (wxString value);
 		void SetCmdTiming (wxString value);		
-		
-		
+
 		wxToggleButton * m_powerButton;
 
 	private:
@@ -57,15 +55,14 @@ class MiscControlPage : public wxPanel
 		wxToggleButton * m_frameSkipAutoButton;
 		wxToggleButton * m_throttleButton;
 		wxToggleButton * m_cmdTimingButton;
-		wxToggleButton * m_muteButton;
 		wxSlider * m_speedSlider;
 		wxSlider * m_frameSkipSlider;
 		wxTextCtrl * m_speedIndicator;
 		wxTextCtrl * m_frameSkipIndicator;
 
 		DECLARE_CLASS(MiscControlPage)
-			// any class wishing to process wxWindows events must use this macro
-			DECLARE_EVENT_TABLE()
+		// any class wishing to process wxWindows events must use this macro
+		DECLARE_EVENT_TABLE()
 };
 
 #endif // !defined(AFX_MISCCONTROLPAGE_H__268AE890_7734_45CE_8C8C_55AD2ADB2157__INCLUDED_)

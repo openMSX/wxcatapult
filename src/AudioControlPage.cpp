@@ -27,7 +27,6 @@ AudioControlPage::AudioControlPage(wxWindow * parent, openMSXController * contro
 
 AudioControlPage::~AudioControlPage()
 {
-
 }
 
 void AudioControlPage::InitAudioChannels(wxString channels)
@@ -62,7 +61,7 @@ void AudioControlPage::SetupAudioMixer()
 	wxStaticText * noAudio = (wxStaticText *) FindWindow(_("NoAudioText"));
 	AudioSizer->Remove(0);
 	delete noAudio;
-	
+
 	ConvertChannelNames (m_audioChannels);
 	for (unsigned int i=0;i<m_audioChannels.GetCount();i++){
 		AddChannel (m_audioChannels[i],i);
@@ -93,16 +92,16 @@ void AudioControlPage::DestroyAudioMixer()
 				delete child;
 			}
 		}
-	child = FindWindow (wxString(_("_MuteButton")));
-	if (child){
-		delete child;
-	}
+		child = FindWindow (wxString(_("MuteButton")));
+		if (child){
+			delete child;
+		}
 
-	wxStaticText * noAudio = new wxStaticText(m_audioPanel, -1, _("No audio channel data available"),
-							wxDefaultPosition, wxDefaultSize,wxALIGN_CENTRE, _("NoAudioText"));
-	AudioSizer->Add(noAudio, 1, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 0);
-	AudioSizer->Layout();
-	m_audioChannels.Clear();
+		wxStaticText * noAudio = new wxStaticText(m_audioPanel, -1, _("No audio channel data available"),
+				wxDefaultPosition, wxDefaultSize,wxALIGN_CENTRE, _("NoAudioText"));
+		AudioSizer->Add(noAudio, 1, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 0);
+		AudioSizer->Layout();
+		m_audioChannels.Clear();
 	}
 }
 
@@ -114,7 +113,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 #else
 	defaultsize = wxSize(40,18);
 #endif
-	
+
 	int i;
 	wxSizer * AudioSizer = m_audioPanel->GetSizer();
 	wxString choices1[3]={_("M"), _("L"), _("R")};
@@ -122,49 +121,52 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	wxString number;
 	number.sprintf("%u",channelnumber);
 	wxStaticText * label = new wxStaticText(m_audioPanel, -1, labeltext.Mid(0,labeltext.Find("::")),
-					wxDefaultPosition, wxDefaultSize,0,
-					wxString(_("AudioLabel_")+number));
+			wxDefaultPosition, wxDefaultSize,0,
+			wxString(_("AudioLabel_")+number));
 	wxSlider * slider = new wxSlider(m_audioPanel,FIRSTAUDIOSLIDER+channelnumber,0,0,100,wxDefaultPosition,
-					wxDefaultSize,wxSL_VERTICAL,wxDefaultValidator,
-					wxString(_("AudioSlider_")+number));
+			wxDefaultSize,wxSL_VERTICAL,wxDefaultValidator,
+			wxString(_("AudioSlider_")+number));
 	wxComboBox * combo = NULL;
-	wxButton * button = NULL;
+	wxToggleButton * button = NULL;
 	if (GetAudioChannelType(channelnumber).Mid(0,9) == _("MoonSound")){
 		combo = new wxComboBox(m_audioPanel,FIRSTAUDIOCOMBO+channelnumber,
 				_("S"), wxDefaultPosition,defaultsize,1,choices2,wxCB_READONLY,
 				wxDefaultValidator,wxString(_("AudioMode_")+number));
 	}
 	else if (GetAudioChannelType(channelnumber) == _("master")){	
-		button = new wxButton(m_audioPanel,-1,_("Mute"), wxDefaultPosition,
-				wxDefaultSize,0,wxDefaultValidator,wxString(_("_MuteButton")));
+		button = new wxToggleButton(m_audioPanel,-1,_("Mute"), wxDefaultPosition,
+				wxDefaultSize,0,wxDefaultValidator,wxString(_("MuteButton")));
 	}
 	else {	
 		combo = new wxComboBox(m_audioPanel,FIRSTAUDIOCOMBO+channelnumber,
 				_("M"), wxDefaultPosition,defaultsize,3,choices1,wxCB_READONLY,
 				wxDefaultValidator,wxString(_("AudioMode_")+number));
 	}
-	
+
 	wxBoxSizer * sizer = new wxBoxSizer(wxVERTICAL);
-		
-		sizer->Add(label, 0, wxALIGN_CENTER_HORIZONTAL,0);
-		sizer->Add(slider, 1, wxALIGN_CENTER_HORIZONTAL,0);
+
+	sizer->Add(label, 0, wxALIGN_CENTER_HORIZONTAL,0);
+	sizer->Add(slider, 1, wxALIGN_CENTER_HORIZONTAL,0);
 	if (channelnumber !=0){	
 		sizer->Add(combo,0,wxALIGN_CENTER_HORIZONTAL,0);
 	}
 	else {
 		sizer->Add(button,0,wxALIGN_CENTER_HORIZONTAL,0);
 	}
-		AudioSizer->Add(sizer,0,wxEXPAND | wxRIGHT,10);
-		AudioSizer->Fit(m_audioPanel);
-	
+	AudioSizer->Add(sizer,0,wxEXPAND | wxRIGHT,10);
+	AudioSizer->Fit(m_audioPanel);
+
 	for (i=wxEVT_SCROLL_TOP;i<=wxEVT_SCROLL_ENDSCROLL;i++){	
 		Connect(-1,i,(wxObjectEventFunction)
 				(wxEventFunction)(wxCommandEventFunction)
 				&AudioControlPage::OnChangeVolume);
 	}
 	Connect (-1,wxEVT_COMMAND_COMBOBOX_SELECTED ,(wxObjectEventFunction)
-				(wxEventFunction)(wxCommandEventFunction)
-				&AudioControlPage::OnChangeMode);
+			(wxEventFunction)(wxCommandEventFunction)
+			&AudioControlPage::OnChangeMode);
+	Connect (-1, wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, (wxObjectEventFunction)
+			(wxEventFunction)(wxCommandEventFunction)
+			&AudioControlPage::OnMute);
 }
 
 void AudioControlPage::ConvertChannelNames(wxArrayString & names)
@@ -187,7 +189,7 @@ void AudioControlPage::ConvertChannelNames(wxArrayString & names)
 	In.Add(_("Konami Synthesizer DAC"));Out.Add(_("p Konami\nSynth"));
 	In.Add(_("Play samples via your printer port."));Out.Add(_("q Simple"));
 	In.Add(_("Cassetteplayer, use to read .cas or .wav files."));Out.Add(_("z tape\n"));
-	
+
 	for (i=0;i<names.GetCount();i++){
 		unsigned int InIndex = 0;
 		bool found = false;
@@ -206,7 +208,7 @@ void AudioControlPage::ConvertChannelNames(wxArrayString & names)
 	}
 }
 
-void AudioControlPage::OnChangeVolume(wxScrollEvent &event)
+void AudioControlPage::OnChangeVolume(wxScrollEvent& event)
 {
 	int ID=event.GetId();
 	wxString channelname = GetAudioChannelName(ID-FIRSTAUDIOSLIDER);
@@ -216,7 +218,7 @@ void AudioControlPage::OnChangeVolume(wxScrollEvent &event)
 	m_controller->WriteCommand(cmd);
 }
 
-void AudioControlPage::OnChangeMode(wxCommandEvent & event)
+void AudioControlPage::OnChangeMode(wxCommandEvent& event)
 {
 	int ID=event.GetId();
 	wxString channelname = GetAudioChannelName(ID-FIRSTAUDIOCOMBO);
@@ -224,23 +226,28 @@ void AudioControlPage::OnChangeMode(wxCommandEvent & event)
 	wxString value;
 	switch (tempval[0])
 	{
-	case 'M':
-		value = _("mono");
-		break;
-	case 'L':
-		value = _("left");
-		break;
-	case 'R':
-		value = _("right");
-		break;
-	case 'S':
-		value = _("stereo");
-	default:
-		break;
+		case 'M':
+			value = _("mono");
+			break;
+		case 'L':
+			value = _("left");
+			break;
+		case 'R':
+			value = _("right");
+			break;
+		case 'S':
+			value = _("stereo");
+		default:
+			break;
 	}
 	wxString cmd;
 	cmd.sprintf("set %s_mode %s",channelname.c_str(),value.c_str());
 	m_controller->WriteCommand(cmd);
+}
+
+void AudioControlPage::OnMute(wxCommandEvent& event)
+{
+	m_controller->WriteCommand ("toggle mute");
 }
 
 wxString AudioControlPage::GetAudioChannelName (int number)
@@ -273,14 +280,13 @@ wxString AudioControlPage::GetAudioChannelType (int number)
 	}
 	temp.Replace ("\n"," ",true);
 	return wxString(temp);
-	
 }
 
 int AudioControlPage::GetNumberOfAudioChannels ()
 {
 	return m_audioChannels.GetCount();
 }
-	
+
 void AudioControlPage::SetChannelVolume (int number, wxString value)
 {
 	long intvalue;
@@ -288,7 +294,7 @@ void AudioControlPage::SetChannelVolume (int number, wxString value)
 	value.ToLong(&intvalue);	
 	slider->SetValue (100-intvalue);
 }	
-	
+
 void AudioControlPage::SetChannelMode (int number, wxString value)
 {
 	wxString val;
@@ -299,6 +305,4 @@ void AudioControlPage::SetChannelMode (int number, wxString value)
 	wxComboBox * combo = (wxComboBox *)FindWindowById(number+FIRSTAUDIOCOMBO,this);
 	combo->SetValue(val);
 }
-
-
 

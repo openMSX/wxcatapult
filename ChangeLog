@@ -1,4 +1,10 @@
-$Id: ChangeLog,v 1.18 2004/03/20 19:53:31 manuelbi Exp $
+$Id: ChangeLog,v 1.19 2004/03/21 12:40:12 h_oudejans Exp $
+
+2004-03-21 Manuel Bilderbeek <manuel@msxnet.org>
+	* removed Mute button from MiscControls, made the new one in
+	  AudioControls functional
+	* some code layout clean ups
+	* set status properly during hidden launch
 
 2004-03-21 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* use openmsx_info sounddevice <device> to query the devicetype.

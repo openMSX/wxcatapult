@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.10 2004/03/20 19:53:32 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.11 2004/03/21 12:40:12 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -70,19 +70,20 @@ bool openMSXController::PostLaunch()
 {
 	WriteMessage (_("<openmsx-control>\n"));
 	switch (m_launchMode){
-	case LAUNCH_HIDDEN:
-		WriteCommand (_("openmsx_info"));
-		break;
-	case LAUNCH_NORMAL:
-		WriteCommand (GetInfoCommand(_("renderer")));
-		break;
-	default:
-		assert (false);
-		break;
+		case LAUNCH_HIDDEN:
+			WriteCommand (_("openmsx_info"));
+			m_appWindow->SetStatusText("Initializing...");
+			break;
+		case LAUNCH_NORMAL:
+			WriteCommand (GetInfoCommand(_("renderer")));
+			m_appWindow->SetStatusText("Running emulator");
+			break;
+		default:
+			assert (false);
+			break;
 	}
 
 	m_appWindow->StartTimer();
-	m_appWindow->SetStatusText("Running emulator");
 	return true;
 }
 
@@ -170,18 +171,18 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					}
 					break;				
 			}
-			
+
 			break; 
 		case CatapultXMLParser::TAG_LOG:
 			if (m_launchMode != LAUNCH_HIDDEN){
 				switch (data->logLevel) {
-				case CatapultXMLParser::LOG_WARNING:
-					m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
-					break;
-				case CatapultXMLParser::LOG_INFO:
-				case CatapultXMLParser::LOG_UNKNOWN:
-					m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(0,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
-					break;
+					case CatapultXMLParser::LOG_WARNING:
+						m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
+						break;
+					case CatapultXMLParser::LOG_INFO:
+					case CatapultXMLParser::LOG_UNKNOWN:
+						m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(0,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
+						break;
 				}	
 				m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);		
 				m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
@@ -221,7 +222,7 @@ void openMSXController::StartOpenMSX(wxString cmd, bool hidden)
 		m_launchMode = LAUNCH_NORMAL;
 	}
 	Launch(cmd);			
-	
+
 }
 
 void openMSXController::HandleHiddenLaunchReply(wxCommandEvent &event)
@@ -235,32 +236,32 @@ void openMSXController::HandleHiddenLaunchReply(wxCommandEvent &event)
 	wxString command = GetPendingCommand();
 	if (command == _("openmsx_info")){
 		switch (data->replyState){
-		case CatapultXMLParser::REPLY_OK:
-			m_infoCommand = _("openmsx_info");
-			if (data->contents.Find("\n") == -1){
-				m_infoCommand = _("openmsx_info_tcl");	
-			}
-			WriteCommand(_("quit"));
-			break;
-		case CatapultXMLParser::REPLY_NOK:
-			WriteCommand("info");
-			return;
-		default:
-			break;
+			case CatapultXMLParser::REPLY_OK:
+				m_infoCommand = _("openmsx_info");
+				if (data->contents.Find("\n") == -1){
+					m_infoCommand = _("openmsx_info_tcl");	
+				}
+				WriteCommand(_("quit"));
+				break;
+			case CatapultXMLParser::REPLY_NOK:
+				WriteCommand("info");
+				return;
+			default:
+				break;
 		}
 	} 
 	else if (command == _("info")) {
 		switch (data->replyState) {
-		case CatapultXMLParser::REPLY_OK:
-			m_infoCommand = _("info");
-			WriteCommand(_("quit"));
-			break;
-		case CatapultXMLParser::REPLY_NOK:
-			wxMessageBox (_("Please update openMSX to 0.3.3 or higher"));
-			m_launchMode = LAUNCH_NONE;
-			return;
-		default:
-			break;
+			case CatapultXMLParser::REPLY_OK:
+				m_infoCommand = _("info");
+				WriteCommand(_("quit"));
+				break;
+			case CatapultXMLParser::REPLY_NOK:
+				wxMessageBox (_("Please update openMSX to 0.3.3 or higher"));
+				m_launchMode = LAUNCH_NONE;
+				return;
+			default:
+				break;
 		}
 	}
 	else if (command == _("quit")){
@@ -312,7 +313,7 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 	else if (command == _("set blur")){
 		m_appWindow->m_videoControlPage->SetBlur(FilterCurrentValue(data->contents));
 		WriteCommand (_("set glow"));
-		}
+	}
 	else if (command == _("set glow")){
 		m_appWindow->m_videoControlPage->SetGlow(FilterCurrentValue(data->contents));
 		WriteCommand (_("set gamma"));
@@ -343,41 +344,41 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 	}
 	else if (command == GetInfoCommand(_("sounddevice"))){
 		m_appWindow->m_audioControlPage->InitAudioChannels(data->contents);
-		WriteCommand (wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(1))));
+			WriteCommand (wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(1))));
 	}
 	else if (m_appWindow->m_audioControlPage->GetNumberOfAudioChannels() >0){
-			for (i=0;i<m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1;i++){
-				if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i)+_("_volume"))){
-					m_appWindow->m_audioControlPage->SetChannelVolume(i,FilterCurrentValue(data->contents));
-					WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i+1)+("_volume")));
-				}
-				if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i)+_("_mode"))){
-					m_appWindow->m_audioControlPage->SetChannelMode(i,FilterCurrentValue(data->contents));
-					WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i+1)+("_mode")));
-				}
-				if (command == wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(i)))){
-					m_appWindow->m_audioControlPage->AddChannelType(i,FilterCurrentValue(data->contents));
-					WriteCommand (wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(i+1))));
-				}
+		for (i=0;i<m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1;i++){
+			if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i)+_("_volume"))){
+				m_appWindow->m_audioControlPage->SetChannelVolume(i,FilterCurrentValue(data->contents));
+				WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i+1)+("_volume")));
 			}
-			if (command == wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)))){
-				m_appWindow->m_audioControlPage->AddChannelType(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
+			if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i)+_("_mode"))){
+				m_appWindow->m_audioControlPage->SetChannelMode(i,FilterCurrentValue(data->contents));
+				WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i+1)+("_mode")));
+			}
+			if (command == wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(i)))){
+				m_appWindow->m_audioControlPage->AddChannelType(i,FilterCurrentValue(data->contents));
+					WriteCommand (wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(i+1))));
+			}
+		}
+		if (command == wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)))){
+			m_appWindow->m_audioControlPage->AddChannelType(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
 				m_appWindow->m_audioControlPage->SetupAudioMixer();		
 				WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(0)+_("_volume")));
-			}
-			if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)+_("_volume"))){
-				m_appWindow->m_audioControlPage->SetChannelVolume(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
-				WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(1)+_("_mode")));
-			}		
-			if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)+_("_mode"))){
-				m_appWindow->m_audioControlPage->SetChannelMode(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
-				wxSize tempsize = m_appWindow->GetSize();
-				tempsize.SetHeight(tempsize.GetHeight()+1);
-				tempsize.SetWidth(tempsize.GetWidth()+1);
-				m_appWindow->SetSize(tempsize);
-				m_appWindow->EnableControls();
-				m_launchMode = LAUNCH_NONE; // interactive mode
-			}
+		}
+		if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)+_("_volume"))){
+			m_appWindow->m_audioControlPage->SetChannelVolume(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
+			WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(1)+_("_mode")));
+		}		
+		if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)+_("_mode"))){
+			m_appWindow->m_audioControlPage->SetChannelMode(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
+			wxSize tempsize = m_appWindow->GetSize();
+			tempsize.SetHeight(tempsize.GetHeight()+1);
+			tempsize.SetWidth(tempsize.GetWidth()+1);
+			m_appWindow->SetSize(tempsize);
+			m_appWindow->EnableControls();
+			m_launchMode = LAUNCH_NONE; // interactive mode
+		}
 	}
 }
 

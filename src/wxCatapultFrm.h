@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.5 2004/03/20 14:30:55 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.6 2004/03/20 19:53:32 manuelbi Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -53,25 +53,24 @@ class wxCatapultFrame : public wxFrame
 		wxNotebook * m_tabControl;
 		wxButton * m_launch_AbortButton;
 	private:
-		
 		wxString ConvertPath (wxString path, bool ConvertSlash=false);
-
 		
 		CatapultXMLParser * m_parser;
-
+		
 		int m_InsertedMedia;
 		wxString m_usedMachine;
 		wxString m_usedExtensions;
+		
+		wxTimer m_timer;
+		
 		void SaveHistory();
 		void RestoreHistory();
 		void AddHistory (wxComboBox * media);
 
 		bool WriteMessage (wxString msg);
-		
-		wxTimer m_timer;
-		
+
 		DECLARE_CLASS(wxCatapultFrame)
-			// any class wishing to process wxWindows events must use this macro
+		// any class wishing to process wxWindows events must use this macro
 		DECLARE_EVENT_TABLE()
 };
 
