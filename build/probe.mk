@@ -1,4 +1,4 @@
-# $Id: probe.mk,v 1.2 2004/05/09 15:16:59 mthuurne Exp $
+# $Id: probe.mk,v 1.3 2004/05/09 15:26:55 mthuurne Exp $
 #
 # Replacement for "configure".
 # Performs some test compiles, to check for headers and functions.
@@ -39,7 +39,7 @@ XRC_CFLAGS:=$(WX_CFLAGS)
 # Libraries
 # =========
 
-CHECK_LIBS:=WX XRC1 XRC2 XML
+CHECK_LIBS:=WX XRC XML
 
 WX_LDFLAGS:=`wx-config --libs 2>> $(LOG)`
 WX_RESULT:=`wx-config --version`
@@ -47,11 +47,8 @@ WX_RESULT:=`wx-config --version`
 XML_LDFLAGS:=`xml2-config --libs 2>> $(LOG)`
 XML_RESULT:=`xml2-config --version`
 
-XRC1_LDFLAGS:=$(WX_LDFLAGS) -lwx_gtk_xrc-2.4
-XRC1_RESULT:=yes
-
-XRC2_LDFLAGS:=$(WX_LDFLAGS) -lwx_gtk2_xrc-2.4
-XRC2_RESULT:=yes
+XRC_LDFLAGS:=`wx-config --libs | sed -e "s/-lwx_\([^-]*\)-\([^ ]*\)/\0 -lwx_\1_xrc-\2/" 2>> $(LOG)`
+XRC_RESULT:=yes
 
 
 # Implementation
