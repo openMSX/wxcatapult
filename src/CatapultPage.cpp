@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.3 2004/03/25 19:45:26 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.4 2004/03/25 20:22:48 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,6 +10,8 @@
 #endif
 
 #include "CatapultPage.h"
+#include <wx/notebook.h>
+#include "AudioControlPage.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -39,52 +41,60 @@ void CatapultPage::InitSettingsTable ()
 {
 	// this is an unshielded array, please add elements if the
 	// number of settings increase
-	m_settingsTable = new SettingTableElementType [21];
-	AddSetting(0,"renderer","RendererSelector",&CatapultPage::UpdateComboSetting,false);
-	AddSetting(1,"scaler","ScalerSelector",&CatapultPage::UpdateComboSetting,false);
-	AddSetting(2,"accuracy","AccuracySelector",&CatapultPage::UpdateComboSetting,true);
-	AddSetting(3,"deinterlace","DeInterlaceButton",&CatapultPage::UpdateToggleSetting,true);
-	AddSetting(4,"limitsprites","LimitSpriteButton",&CatapultPage::UpdateToggleSetting,true);
-	AddSetting(5,"blur","BlurIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting(6,"glow","GlowIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting(7,"gamma","GammaIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting(8,"scanline","ScanlineIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting(9,"speed","SpeedIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting(10,"frameskip","FrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting(11,"throttle","ThrottleButton",&CatapultPage::UpdateToggleSetting,true);
-	AddSetting(12,"cmdtiming","CmdTimingButton",&CatapultPage::UpdateToggleSetting,true);
-	AddSetting(13,"power","PowerButton",&CatapultPage::UpdateToggleSetting,false);
-	AddSetting(14,"pause","PauseButton",&CatapultPage::UpdateToggleSetting,false);
-	AddSetting(15,"frontswitch","FirmwareButton",&CatapultPage::UpdateToggleSetting,false);
-	AddSetting(16,"mute","MuteButton",&CatapultPage::UpdateToggleSetting,false);
-	AddSetting(17,"midi-in-readfilename","MidiInFileInput",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting(18,"midi-out-logfilename","MidiOutFileInput",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting(19,"audio-inputfilename","SampleFileInput",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting(20,"","",NULL,NULL); // end of table
+	m_settingTableSize = 0;
+	m_settingTable = new SettingTableElementType [SETTINGTABLE_MAXSIZE];
+	AddSetting("renderer","RendererSelector",&CatapultPage::UpdateComboSetting,false);
+	AddSetting("scaler","ScalerSelector",&CatapultPage::UpdateComboSetting,false);
+	AddSetting("accuracy","AccuracySelector",&CatapultPage::UpdateComboSetting,true);
+	AddSetting("deinterlace","DeInterlaceButton",&CatapultPage::UpdateToggleSetting,true);
+	AddSetting("limitsprites","LimitSpriteButton",&CatapultPage::UpdateToggleSetting,true);
+	AddSetting("blur","BlurIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("glow","GlowIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("gamma","GammaIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("scanline","ScanlineIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("speed","SpeedIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("frameskip","FrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("throttle","ThrottleButton",&CatapultPage::UpdateToggleSetting,true);
+	AddSetting("cmdtiming","CmdTimingButton",&CatapultPage::UpdateToggleSetting,true);
+	AddSetting("power","PowerButton",&CatapultPage::UpdateToggleSetting,false);
+	AddSetting("pause","PauseButton",&CatapultPage::UpdateToggleSetting,false);
+	AddSetting("frontswitch","FirmwareButton",&CatapultPage::UpdateToggleSetting,false);
+	AddSetting("mute","MuteButton",&CatapultPage::UpdateToggleSetting,false);
+	AddSetting("midi-in-readfilename","MidiInFileInput",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("midi-out-logfilename","MidiOutFileInput",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("audio-inputfilename","SampleFileInput",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("*_volume","volume",&CatapultPage::UpdateAudioSetting,false);
+	AddSetting("*_mode","mode",&CatapultPage::UpdateAudioSetting,false);
 }
 
-void CatapultPage::AddSetting (int number,wxString setting, wxString controlname,
+void CatapultPage::AddSetting (wxString setting, wxString controlname,
 	bool (CatapultPage::*pfunction)(wxString,wxString,wxString,bool),
 	bool convert)
-{
-	m_settingsTable[number].setting = setting;
-	m_settingsTable[number].controlname = controlname;
-	m_settingsTable[number].pfunction = pfunction;
-	m_settingsTable[number].convert = convert;
+{	
+	if (m_settingTableSize >= SETTINGTABLE_MAXSIZE){
+		wxMessageBox ("Not enough space to store the Settingtable","Internal Catapult Error");
+		return;
+	}
+	m_settingTable[m_settingTableSize].setting = setting;
+	m_settingTable[m_settingTableSize].controlname = controlname;
+	m_settingTable[m_settingTableSize].pfunction = pfunction;
+	m_settingTable[m_settingTableSize].convert = convert;
+	m_settingTableSize ++;
 }
 
 void CatapultPage::UpdateSetting(wxString name, wxString data)
 {
 	int index = 0;
 	bool found = false;
-	while ((!found) && (m_settingsTable[index].setting != "")){
-		if (m_settingsTable[index].setting == name){
+	while ((!found) && (index < SETTINGTABLE_MAXSIZE)){
+
+		if (name.Matches(m_settingTable[index].setting.c_str())){
 			found = true;
-			if (m_settingsTable[index].pfunction != NULL){
-				(*this.*(m_settingsTable[index].pfunction))(
-					name, data, m_settingsTable[index].controlname,
-					m_settingsTable[index].convert);
-			}			
+			if (m_settingTable[index].pfunction != NULL){
+				(*this.*(m_settingTable[index].pfunction))(
+					name, data, m_settingTable[index].controlname,
+					m_settingTable[index].convert);
+			}
 		}
 	index ++;
 	}
@@ -134,3 +144,29 @@ bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxStr
 	}
 	return false;
 }
+
+bool CatapultPage::UpdateAudioSetting (wxString setting, wxString data, wxString selection, bool dummy)
+{
+	int i;
+	wxString slidertext;
+	wxNotebook * notebook = (wxNotebook *) m_parent;
+	AudioControlPage * audiopage = NULL;
+	for (i=0;i<notebook->GetPageCount();i++){
+		if (notebook->GetPageText(i) == _("Audio Controls")){
+			audiopage = (AudioControlPage *)notebook->GetPage(i);
+		}
+	}
+	for (i=0;i<audiopage->GetNumberOfAudioChannels();i++){
+		if ((audiopage->GetAudioChannelName(i) + _("_") + selection) == setting){
+			if (selection == _("volume")){
+				audiopage->SetChannelVolume(i,data);
+			}
+			else{
+				audiopage->SetChannelMode(i,data);
+			}
+			return true;
+		}
+	}
+	return false;
+}
+

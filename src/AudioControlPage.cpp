@@ -1,4 +1,4 @@
-// $id: $
+// $Id: $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -30,6 +30,7 @@ END_EVENT_TABLE()
 //////////////////////////////////////////////////////////////////////
 
 AudioControlPage::AudioControlPage(wxWindow * parent, openMSXController * controller)
+:CatapultPage(parent)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, _("AudioControlPage"));
 	m_audioPanel = (wxPanel *)FindWindow (_("AudioChannelPanel"));

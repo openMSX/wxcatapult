@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.5 2004/03/23 16:31:19 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -381,4 +381,26 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 	}
 }
 
+void SessionPage::SetControlsOnLaunch()
+{
+	m_machineList->Enable(false);
+	m_extensionList->Enable(false);
+	m_cartA->Enable(false);
+	m_cartB->Enable(false);
+	m_clearCartA->Enable(false);
+	m_clearCartB->Enable(false);
+	m_browseCartA->Enable(false);
+	m_browseCartB->Enable(false);		
+}
 
+void SessionPage::SetControlsOnEnd()
+{
+	m_machineList->Enable(true);
+	m_extensionList->Enable(true);
+	m_cartA->Enable(true);
+	m_cartB->Enable(true);
+	m_clearCartA->Enable(true);
+	m_clearCartB->Enable(true);
+	m_browseCartA->Enable(true);
+	m_browseCartB->Enable(true);
+}

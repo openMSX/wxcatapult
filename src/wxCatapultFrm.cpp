@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.13 2004/03/23 16:31:19 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.14 2004/03/23 19:09:16 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -130,10 +130,11 @@ END_EVENT_TABLE()
 	m_audioControlPage = new AudioControlPage(m_tabControl,m_controller);
 
 	m_tabControl->AddPage(m_sessionPage,_("Session"),true);
-	m_tabControl->AddPage(m_statusPage,_("Status Info"),false);
 	m_tabControl->AddPage(m_miscControlPage,_("Misc Controls"),false);
 	m_tabControl->AddPage(m_videoControlPage,_("Video Controls"),false);
 	m_tabControl->AddPage(m_audioControlPage,_("Audio Controls"),false);
+	m_tabControl->AddPage(m_statusPage,_("Status Info"),false);
+	
 	wxWindow * tempwindow = FindWindow(_("MainWindowPanel"));
 	wxSize size = tempwindow->GetSizer()->Fit(tempwindow);
 	this->GetSizer()->SetMinSize(size);
@@ -143,7 +144,7 @@ END_EVENT_TABLE()
 	m_launch_AbortButton = (wxButton *)FindWindow(_("Launch_AbortButton"));
 
 	RestoreHistory();
-	DisableControls();
+	SetControlsOnEnd();
 	m_launch_AbortButton->Enable(false);
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
@@ -252,7 +253,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	}
 
 	m_controller->StartOpenMSX(cmd);
-	EnableControls();
+	SetControlsOnLaunch();
 	m_statusPage->m_outputtext->Clear();
 }
 
@@ -366,32 +367,18 @@ void wxCatapultFrame::SaveHistory()
 			config->SetParameter(ConfigurationData::CD_USEDEXTENSIONS,m_usedExtensions);
 }
 
-void wxCatapultFrame::EnableControls()
+void wxCatapultFrame::SetControlsOnLaunch()
 {
-	m_miscControlPage->EnableControls();
-	m_videoControlPage->EnableControls();
-	m_sessionPage->m_machineList->Enable(false);
-	m_sessionPage->m_extensionList->Enable(false);
-	m_sessionPage->m_cartA->Enable(false);
-	m_sessionPage->m_cartB->Enable(false);
-	m_sessionPage->m_clearCartA->Enable(false);
-	m_sessionPage->m_clearCartB->Enable(false);
-	m_sessionPage->m_browseCartA->Enable(false);
-	m_sessionPage->m_browseCartB->Enable(false);
+	m_miscControlPage->SetControlsOnLaunch();
+	m_videoControlPage->SetControlsOnLaunch();
+	m_sessionPage->SetControlsOnLaunch();
 }
 
-void wxCatapultFrame::DisableControls()
+void wxCatapultFrame::SetControlsOnEnd()
 {
-	m_miscControlPage->DisableControls();
-	m_videoControlPage->DisableControls();
-	m_sessionPage->m_machineList->Enable(true);
-	m_sessionPage->m_extensionList->Enable(true);
-	m_sessionPage->m_cartA->Enable(true);
-	m_sessionPage->m_cartB->Enable(true);
-	m_sessionPage->m_clearCartA->Enable(true);
-	m_sessionPage->m_clearCartB->Enable(true);
-	m_sessionPage->m_browseCartA->Enable(true);
-	m_sessionPage->m_browseCartB->Enable(true);
+	m_miscControlPage->SetControlsOnEnd();
+	m_videoControlPage->SetControlsOnEnd();
+	m_sessionPage->SetControlsOnEnd();
 }
 
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.5 2004/03/23 16:31:19 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,8 +18,9 @@ class openMSXController;
 class MiscControlPage : public CatapultPage  
 {
 	public:
-		void DisableControls();
-		void EnableControls ();
+		void SetControlsOnEnd();
+		void SetControlsOnLaunch();
+		void EnableFirmware();
 		MiscControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
 		virtual ~MiscControlPage();
 		void OnSetThrottle (wxCommandEvent &event);

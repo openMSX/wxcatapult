@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.4 2004/03/23 16:31:19 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.5 2004/03/25 19:30:12 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,8 +20,8 @@ class openMSXController;
 class VideoControlPage : public CatapultPage 
 {
 	public:
-		void DisableControls();
-		void EnableControls();
+		void SetControlsOnEnd();
+		void SetControlsOnLaunch();
 		VideoControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller = NULL);
 		virtual ~VideoControlPage();
 
@@ -82,7 +82,10 @@ class VideoControlPage : public CatapultPage
 		wxTextCtrl * m_gammaIndicator;
 		wxTextCtrl * m_scanlineIndicator;
 		
-		int lastBlur;
+		wxString m_defaultBlur;
+		wxString m_defaultGlow;
+		wxString m_defaultGamma;
+		wxString m_defaultScanline;
 
 		DECLARE_CLASS(VideoControlPage)
 			// any class wishing to process wxWindows events must use this macro

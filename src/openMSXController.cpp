@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.17 2004/03/23 19:09:16 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.18 2004/03/25 19:30:12 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -101,7 +101,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	m_appWindow->m_audioControlPage->DestroyAudioMixer();
 	m_openMsxRunning = false;
 	m_appWindow->m_launch_AbortButton->Enable(true);
-	m_appWindow->DisableControls();
+	m_appWindow->SetControlsOnEnd();
 	m_appWindow->m_launch_AbortButton->SetLabel(_("Launch"));
 }
 
@@ -420,6 +420,10 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 	else if (command == _("set cmdtiming")){
 		TrackAsserts ("set cmdtiming",data->contents);
 		m_appWindow->m_miscControlPage->SetCmdTiming(FilterCurrentValue(FilterCurrentValue(data->contents)));
+		WriteCommand (_("set frontswitch"));
+	}
+	else if (command == _("set frontswitch")){
+		m_appWindow->m_miscControlPage->EnableFirmware();
 		WriteCommand (GetInfoCommand(_("connector")));
 	}
 	else if (command == GetInfoCommand(_("connector"))){
@@ -502,7 +506,7 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 			tempsize.SetHeight(tempsize.GetHeight()+1);
 			tempsize.SetWidth(tempsize.GetWidth()+1);
 			m_appWindow->SetSize(tempsize);
-			m_appWindow->EnableControls();
+			m_appWindow->SetControlsOnLaunch();
 			m_launchMode = LAUNCH_NONE; // interactive mode
 		}
 	}

@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.3 2004/02/06 21:08:01 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.4 2004/03/23 16:31:19 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -36,6 +36,8 @@ class SessionPage : public CatapultPage
 		void OnClearDiskA (wxCommandEvent & event);
 		void SetupHardware ();
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
+		void SetControlsOnLaunch();
+		void SetControlsOnEnd();
 
 	private:
 		static int CompareCaseInsensitive(const wxString& first, const wxString& second);

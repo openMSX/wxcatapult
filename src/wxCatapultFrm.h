@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.8 2004/03/23 16:31:19 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.9 2004/03/23 19:09:16 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -29,8 +29,8 @@ class wxCatapultFrame : public wxFrame
 		void OnMenuAbout(wxCommandEvent& event);
 		void OnMenuEditConfig(wxCommandEvent& event);
 		void OnLaunch(wxCommandEvent& event);
-		void DisableControls();
-		void EnableControls();
+		void SetControlsOnEnd();
+		void SetControlsOnLaunch();
 		void StartTimers();
 		void StopTimers();
 		void OnUpdateFPS(wxTimerEvent& event);

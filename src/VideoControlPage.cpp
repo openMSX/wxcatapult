@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.7 2004/03/25 20:04:57 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -66,8 +66,10 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_defaultGlowButton = (wxButton*)FindWindow(_("ZeroGlowButton"));
 	m_defaultGammaButton = (wxButton*)FindWindow(_("DefaultGammaButton"));
 	m_defaultScanlineButton = (wxButton*)FindWindow(_("ZeroScanlineButton"));
-	lastBlur = -1;
-
+	m_defaultBlur = "";
+	m_defaultGlow = "";
+	m_defaultGamma = "";
+	m_defaultScanline = "";
 }
 
 VideoControlPage::~VideoControlPage()
@@ -151,32 +153,24 @@ void VideoControlPage::OnChangeScanlines(wxScrollEvent &event)
 	m_controller->WriteCommand (wxString(_("set scanline ")) + text);
 }
 
-void VideoControlPage::OnDefaultBlur(wxCommandEvent &event)
+ void VideoControlPage::OnDefaultBlur(wxCommandEvent &event)
 {
-	m_blurSlider->SetValue(50);
-	m_blurIndicator->SetValue(_("50"));
-	m_controller->WriteCommand (_("set blur 50"));
+	m_blurIndicator->SetValue(m_defaultBlur);
 }
 
 void VideoControlPage::OnDefaultGlow(wxCommandEvent &event)
 {
-	m_glowSlider->SetValue(0);
-	m_glowIndicator->SetValue(_("0"));
-	m_controller->WriteCommand (_("set glow 0"));
+	m_glowIndicator->SetValue(m_defaultGlow);
 }
 
 void VideoControlPage::OnDefaultGamma(wxCommandEvent &event)
 {
-	m_gammaSlider->SetValue(110);
-	m_gammaIndicator->SetValue(_("1.10"));
-	m_controller->WriteCommand (_("set gamma 1.10"));
+	m_gammaIndicator->SetValue(m_defaultGamma);
 }
 
 void VideoControlPage::OnDefaultScanlines(wxCommandEvent &event)
 {
-	m_scanlineSlider->SetValue(20);
-	m_scanlineIndicator->SetValue(_("20"));
-	m_controller->WriteCommand (_("set scanline 20"));
+	m_scanlineIndicator->SetValue(m_defaultScanline);
 }
 
 void VideoControlPage::OnInputBlur(wxCommandEvent &event)
@@ -263,7 +257,7 @@ void VideoControlPage::OnInputScanline(wxCommandEvent &event)
 	}
 }
 
-void VideoControlPage::EnableControls()
+void VideoControlPage::SetControlsOnLaunch()
 {
 	m_blurSlider->Enable(true);
 	m_blurIndicator->Enable(true);
@@ -284,7 +278,7 @@ void VideoControlPage::EnableControls()
 	m_limitSpritesButton->Enable(true);
 }
 
-void VideoControlPage::DisableControls()
+void VideoControlPage::SetControlsOnEnd()
 {
 	m_blurSlider->Enable(false);
 	m_blurIndicator->Enable(false);
@@ -375,20 +369,32 @@ void VideoControlPage::SetLimitSprites(wxString value)
 
 void VideoControlPage::SetBlur(wxString value)
 {
+	if (m_defaultBlur == _("")){
+		m_defaultBlur = value;
+	}
 	m_blurIndicator->SetValue(value);
 }
 
 void VideoControlPage::SetGlow(wxString value)
 {
+	if (m_defaultGlow == _("")){
+		m_defaultGlow = value;
+	}
 	m_glowIndicator->SetValue(value);
 }
 
 void VideoControlPage::SetGamma(wxString value)
 {
+	if (m_defaultGamma == _("")){
+		m_defaultGamma = value;
+	}
 	m_gammaIndicator->SetValue(value);
 }
 
 void VideoControlPage::SetScanline(wxString value)
 {
+	if (m_defaultScanline == _("")){
+		m_defaultScanline = value;
+	}
 	m_scanlineIndicator->SetValue(value);
 }

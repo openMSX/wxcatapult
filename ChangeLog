@@ -1,4 +1,12 @@
-$Id: ChangeLog,v 1.23 2004/03/23 16:31:18 h_oudejans Exp $
+$Id: ChangeLog,v 1.24 2004/03/25 19:30:12 h_oudejans Exp $
+
+2004-03-26 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Updates for audiocontrol on openmsx now result in update
+	   the audiomixer in catapult.
+	* Videocontrols with reset button now reset to the first value
+	   taken from openmsx.
+	*  Moved statusinfo to the last tab
+	*  Firmware should now only be enabled if a machine has it	
 
 2004-03-25 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* updates from openmsx result now in update to the controls

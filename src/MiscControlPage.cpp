@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.5 2004/03/21 13:50:14 manuelbi Exp $
+// $Id: MiscControlPage.cpp,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -188,7 +188,7 @@ void MiscControlPage::OnSetCmdTiming(wxCommandEvent &event)
 	}
 }
 
-void MiscControlPage::EnableControls()
+void MiscControlPage::SetControlsOnLaunch()
 {
 	m_speedSlider->Enable(true);
 	m_speedIndicator->Enable(true);
@@ -202,14 +202,21 @@ void MiscControlPage::EnableControls()
 
 	m_powerButton->Enable(true);
 	m_resetButton->Enable(true);
-	m_firmwareButton->Enable(true);
 	m_pauseButton->Enable(true);
 
 	m_throttleButton->Enable(true);
 	m_cmdTimingButton->Enable(true);
+	m_pauseButton->SetValue(false);
+	m_firmwareButton->SetValue(false);
+	m_frameSkipAutoButton->SetValue(false);
 }
 
-void MiscControlPage::DisableControls()
+void MiscControlPage::EnableFirmware()
+{
+	m_firmwareButton->Enable(true);
+}
+
+void MiscControlPage::SetControlsOnEnd()
 {
 	m_speedSlider->Enable(false);
 	m_speedIndicator->Enable(false);
