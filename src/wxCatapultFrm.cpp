@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.18 2004/03/31 18:23:04 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.19 2004/04/03 18:53:27 manuelbi Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -183,23 +183,27 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 
 void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 {
+	wxString cmd;
 	CatapultConfigDlg dlg;
 	dlg.Center();
-	dlg.ShowModal();
-	m_sessionPage->SetupHardware();
+	if (dlg.ShowModal() == wxID_OK){
+		m_sessionPage->SetupHardware(false);
+		ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+		m_controller->StartOpenMSX(cmd,true);
+	}
 }
 
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
 	if (m_launch_AbortButton->GetLabel().IsSameAs(_("Abort"))){
-		m_controller->WriteCommand(_("quit"));
+		m_controller->WriteCommand("quit");
 		return;
 	}
 
 	m_launch_AbortButton->SetLabel(_("Abort"));
 	m_launch_AbortButton->Enable(false);
 
-	m_miscControlPage->m_powerButton->SetValue(true);
+//	m_miscControlPage->m_powerButton->SetValue(true);
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 
@@ -411,7 +415,7 @@ void wxCatapultFrame::SetFPSdisplay(wxString val)
 
 void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 {
-	m_controller->WriteCommand(m_controller->GetInfoCommand(_("fps")));
+	m_controller->WriteCommand(m_controller->GetInfoCommand("fps"));
 }
 
 void wxCatapultFrame::OnCheckFocus(wxTimerEvent& event)
@@ -458,15 +462,15 @@ void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 {
 	wxString resourceDir = ((wxCatapultApp &)wxGetApp()).GetResourceDir();
 	wxStaticBitmap * led = NULL;
-	if (ledname == _("power")) led = m_powerLed;
-	if (ledname == _("caps")) led = m_capsLed;
-	if (ledname == _("kana")) led = m_kanaLed;
-	if (ledname == _("pause")) led = m_pauseLed;
-	if (ledname == _("turbo")) led = m_turboLed;
-	if (ledname == _("fdd")) led = m_fddLed;
+	if (ledname == "power") led = m_powerLed;
+	if (ledname == "caps") led = m_capsLed;
+	if (ledname == "kana") led = m_kanaLed;
+	if (ledname == "pause") led = m_pauseLed;
+	if (ledname == "turbo") led = m_turboLed;
+	if (ledname == "fdd") led = m_fddLed;
 
-	if (ledstate == _("off")) led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
-	if (ledstate == _("on")) led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
+	if (ledstate == "off") led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
+	if (ledstate == "on") led->SetBitmap(wxBitmap(resourceDir + _("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
 }
 
 

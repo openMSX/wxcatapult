@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.8 2004/03/28 15:11:51 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.9 2004/03/28 16:57:24 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_lastTape1 = "";
 	m_lastTape2 = "";
 
-	SetupHardware();
+	SetupHardware(true);
 	
 	// let's put a mask on all the bitmapbuttons
 
@@ -107,14 +107,14 @@ void SessionPage::OnClearDiskA(wxCommandEvent &event)
 {
 	m_diskA->SetValue(_(""));
 	m_lastDiskA = _("");
-	m_controller->WriteCommand(_("diska eject"));
+	m_controller->WriteCommand("diska eject");
 }
 
 void SessionPage::OnClearDiskB(wxCommandEvent &event)
 {
 	m_diskB->SetValue(_(""));
 	m_lastDiskB = _("");
-	m_controller->WriteCommand(_("diskb eject"));
+	m_controller->WriteCommand("diskb eject");
 }
 
 void SessionPage::OnClearCartA(wxCommandEvent &event)
@@ -131,14 +131,14 @@ void SessionPage::OnClearNormalTape(wxCommandEvent &event)
 {
 	m_tape1->SetValue(_(""));
 	m_lastTape1 = _("");
-	m_controller->WriteCommand(_("cassetteplayer eject"));
+	m_controller->WriteCommand("cassetteplayer eject");
 }
 
 void SessionPage::OnClearCasPatch(wxCommandEvent &event)
 {
 	m_tape2->SetValue(_(""));
 	m_lastTape2 = _("");
-	m_controller->WriteCommand(_("cas eject"));
+	m_controller->WriteCommand("cas eject");
 }
 /*
 void SessionPage::OnClickCombo (wxCommandEvent &event)
@@ -179,9 +179,9 @@ bool SessionPage::BrowseDisk(wxComboBox *target, wxString devicename, wxString d
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		target->SetValue (filedlg.GetPath());
-		m_controller->WriteCommand(wxString(devicename + _(" eject")));
+		m_controller->WriteCommand(wxString(devicename + " eject"));
 		if (!target->GetValue().IsEmpty()){
-			m_controller->WriteCommand(devicename + _(" ") + ConvertPath(target->GetValue(),true));
+			m_controller->WriteCommand(devicename + " " + ConvertPath(target->GetValue(),true));
 		}
 		return true;
 	}
@@ -228,9 +228,9 @@ void SessionPage::OnBrowseNormalTape(wxCommandEvent &event)
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		m_tape1->SetValue (filedlg.GetPath());	
-		m_controller->WriteCommand(_("cassetteplayer eject"));
+		m_controller->WriteCommand("cassetteplayer eject");
 		if (!m_tape1->GetValue().IsEmpty()){
-			m_controller->WriteCommand(_("cassetteplayer ") + ConvertPath(m_tape1->GetValue(),true));
+			m_controller->WriteCommand("cassetteplayer " + ConvertPath(m_tape1->GetValue(),true));
 		}
 		m_lastTape1 = m_tape1->GetValue();
 	}
@@ -250,17 +250,31 @@ void SessionPage::OnBrowseCasPatch(wxCommandEvent &event)
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		m_tape2->SetValue (filedlg.GetPath());
-		m_controller->WriteCommand(_("cas eject"));
+		m_controller->WriteCommand("cas eject");
 		if (!m_tape2->GetValue().IsEmpty()){
-			m_controller->WriteCommand(_("cas ") + ConvertPath(m_tape2->GetValue(),true));
+			m_controller->WriteCommand("cas " + ConvertPath(m_tape2->GetValue(),true));
 		}
 		m_lastTape2 = m_tape2->GetValue();
 	}
 	
 }
 
-void SessionPage::SetupHardware ()
+void SessionPage::SetupHardware (bool initial)
 {
+	wxString currentMachine;
+	wxArrayString currentExtensions;
+	if (!initial){
+		wxArrayInt sel;
+		currentMachine  = m_machineList->GetValue();
+		currentExtensions.Clear();
+		if (m_extensionList->GetSelections(sel) >0){
+			for (unsigned int i=0;i<sel.GetCount();i++){
+				currentExtensions.Add(m_extensionList->GetString(sel[i]));
+			}
+		}
+
+
+	}
 	ConfigurationData * config = ConfigurationData::instance();
 	wxString sharepath;
 	config->GetParameter(ConfigurationData::CD_SHAREPATH,sharepath);
@@ -283,6 +297,21 @@ void SessionPage::SetupHardware ()
 	machineArray.Sort(SessionPage::CompareCaseInsensitive);
 	fillExtensions (extensionArray);
 	fillMachines (machineArray);
+	if (!initial){
+		int sel = m_machineList->FindString(currentMachine);
+		if (sel != -1){
+			m_machineList->SetSelection(sel);
+		}
+		else{
+			m_machineList->SetSelection(0);
+		}
+		for (unsigned i=0;i<currentExtensions.GetCount();i++){
+			sel = m_extensionList->FindString(currentExtensions[i]);
+			if (sel != -1){
+				m_extensionList->SetSelection(sel);
+			}
+		}
+	}
 }
 
 
@@ -362,36 +391,36 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 {
 	if (oldFocus == m_diskA){
 		if (m_diskA->GetValue() != m_lastDiskA){
-			m_controller->WriteCommand(_("diska eject"));
+			m_controller->WriteCommand("diska eject");
 			if (!m_diskA->GetValue().IsEmpty()){
-				m_controller->WriteCommand(_("diska ") + ConvertPath(m_diskA->GetValue(),true));
+				m_controller->WriteCommand("diska " + ConvertPath(m_diskA->GetValue(),true));
 			}
 			m_lastDiskA = m_diskA->GetValue();
 		}	
 	}
 	else if (oldFocus == m_diskB){
 		if (m_diskB->GetValue() != m_lastDiskB){
-			m_controller->WriteCommand(_("diskb eject"));
+			m_controller->WriteCommand("diskb eject");
 			if (!m_diskA->GetValue().IsEmpty()){
-				m_controller->WriteCommand(_("diskb ") + ConvertPath(m_diskB->GetValue(),true));
+				m_controller->WriteCommand("diskb " + ConvertPath(m_diskB->GetValue(),true));
 			}
 			m_lastDiskB = m_diskB->GetValue();
 		}
 	}
 	else if (oldFocus == m_tape1){
 		if (m_tape1->GetValue() != m_lastTape1){
-			m_controller->WriteCommand(_("cassetteplayer eject"));
+			m_controller->WriteCommand("cassetteplayer eject");
 			if (!m_tape1->GetValue().IsEmpty()){
-				m_controller->WriteCommand(_("cassetteplayer ") + ConvertPath(m_tape1->GetValue(),true));
+				m_controller->WriteCommand("cassetteplayer " + ConvertPath(m_tape1->GetValue(),true));
 			}
 			m_lastTape1 = m_tape1->GetValue();
 		}
 	}
 	else if (oldFocus == m_tape2){
 		if (m_tape2->GetValue() != m_lastTape2){
-			m_controller->WriteCommand(_("cas eject"));
+			m_controller->WriteCommand("cas eject");
 			if (!m_tape2->GetValue().IsEmpty()){
-				m_controller->WriteCommand(_("cas ") + ConvertPath(m_tape2->GetValue(),true));
+				m_controller->WriteCommand("cas " + ConvertPath(m_tape2->GetValue(),true));
 			}
 			m_lastTape2 = m_tape2->GetValue();
 		}

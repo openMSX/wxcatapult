@@ -1,4 +1,10 @@
-$Id: ChangeLog,v 1.36 2004/04/05 18:29:39 h_oudejans Exp $
+$Id: ChangeLog,v 1.37 2004/04/05 20:04:01 mthuurne Exp $
+
+2004-04-06 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* When the configuration dialog is closed with Ok, catapult will
+	   now run openmsx -v to make sure all parameter are set properly.
+	* If the openmsx executable and/or share directory is changed,
+	   catapult tries to restore the previous machine and extensions.	
 
 2004-04-05 Maarten ter Huurne <maarten@treewalker.org>
 	* Added "make install".

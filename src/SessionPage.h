@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.6 2004/03/28 15:11:51 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.7 2004/03/28 16:57:24 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ class SessionPage : public CatapultPage
 		void OnClearCartA (wxCommandEvent & event);
 		void OnClearDiskB (wxCommandEvent & event);
 		void OnClearDiskA (wxCommandEvent & event);
-		void SetupHardware ();
+		void SetupHardware (bool initial);
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 		void SetControlsOnLaunch();
 		void SetControlsOnEnd();
