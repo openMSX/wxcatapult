@@ -1,5 +1,5 @@
 <application path="../../resources/dialogs/status.xrc" name="" class="" option="0" language="XRC" top_window="" encoding="ISO-8859-1" use_gettext="0" overwrite="0"> 
-			<object class="wxPanel" name="AudioControlPage" base="EditPanel">
+			<object class="wxPanel" name="AudioControlPage" base="EditTopLevelPanel">
 			      <style>wxTAB_TRAVERSAL</style>
 			      <object class="wxBoxSizer" name="AudioControlsSizer" base="EditBoxSizer">
 			          <orient>wxVERTICAL</orient>
