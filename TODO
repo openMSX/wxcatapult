@@ -1,11 +1,8 @@
 - create a 'dist' target for the Makefile!
 - use alternative names for XRC library if it can't be found, or some other way
   to make this more robust
-- add some files:
-  - add documentation, like a manual
-  - add information about license and stuff (since it's in the same project as openMSX itself, I think the licenses should also be the same: our project page on sf.net only lists one license... In any case: the same license as openMSX is fine with me and Herman (GPL))
-  - add files like README, COPYING, AUTHORS, etc., if we really want that
-- define a release procedure and document it
+- add documentation, like a manual, if necessary (?)
+- define a release procedure and document it in the dummy release files in doc/
 - fix bugs?
 - add icon that is clearer?
 - add a more extensive pluggable setup? 
