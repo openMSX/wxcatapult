@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.8 2004/04/15 16:04:36 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.9 2004/04/16 21:24:26 m9710797 Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,9 +27,14 @@
 
 openMSXLinuxController::~openMSXLinuxController()
 {
-	if (m_openMsxRunning) 
+	if (m_openMsxRunning){ 
 		WriteCommand("quit");
-	ClosePipes();
+		m_stdOutThread->Wait();
+		m_stdErrThread->Wait();
+		delete m_stdOutThread;
+		delete m_stdErrThread;
+	}
+		
 }
 
 bool openMSXLinuxController::Launch(wxString cmdline)
@@ -39,17 +44,17 @@ bool openMSXLinuxController::Launch(wxString cmdline)
 	if (!execute(cmdline.c_str(), m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)){
 		return false;
 	}
-	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);
-	if (thread->Create() == wxTHREAD_NO_ERROR)
+	m_stdOutThread = new PipeReadThread(m_appWindow, MSGID_STDOUT,wxTHREAD_JOINABLE);
+	if (m_stdOutThread->Create() == wxTHREAD_NO_ERROR)
 	{
-		thread->SetFileDescriptor(m_openMSXstdout);
-		thread->Run();
+		m_stdOutThread->SetFileDescriptor(m_openMSXstdout);
+		m_stdOutThread->Run();
 	}
-	PipeReadThread * thread2 = new PipeReadThread(m_appWindow, MSGID_STDERR);	
-	if (thread2->Create() == wxTHREAD_NO_ERROR)
+	m_stdErrThread = new PipeReadThread(m_appWindow, MSGID_STDERR,wxTHREAD_JOINABLE);	
+	if (m_stdErrThread->Create() == wxTHREAD_NO_ERROR)
 	{
-		thread2->SetFileDescriptor(m_openMSXstderr);
-		thread2->Run();
+		m_stdErrThread->SetFileDescriptor(m_openMSXstderr);
+		m_stdErrThread->Run();
 	}
 	
 	m_openMsxRunning = true;
@@ -137,18 +142,7 @@ bool openMSXLinuxController::WriteMessage(wxString msg)
 
 void openMSXLinuxController::HandleNativeEndProcess ()
 {
-	ClosePipes();
+	close(m_openMSXstdin);
 }
 
-void openMSXLinuxController::ClosePipes ()
-{
-	if (m_openMSXstdin != -1){
-		close (m_openMSXstdin);
-	}
-	if (m_openMSXstdout != -1){
-		close (m_openMSXstdout);
-	}
-	if (m_openMSXstderr != -1){
-		close (m_openMSXstderr);
-	}
-}
+

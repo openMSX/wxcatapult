@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.h,v 1.5 2004/04/12 13:33:10 h_oudejans Exp $
+// $Id: openMSXLinuxController.h,v 1.6 2004/04/15 16:04:36 h_oudejans Exp $
 // openMSXLinuxController.h: interface for the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -16,6 +16,8 @@
 
 using std::string;
 
+class PipeReadThread;
+
 class openMSXLinuxController : public openMSXController  
 {
 	public:
@@ -27,10 +29,11 @@ class openMSXLinuxController : public openMSXController
 		virtual ~openMSXLinuxController();
 	private:
 		bool execute(const string& command, int& fdIn, int& fdOut, int& fdErr);
-		void ClosePipes();
 		int m_openMSXstdin;
 		int m_openMSXstdout;
 		int m_openMSXstderr;
+		PipeReadThread * m_stdErrThread;
+		PipeReadThread * m_stdOutThread;
 };
 
 #endif // !defined(AFX_OPENMSXLINUXCONTROLLER_H__25F18E15_838A_453A_A819_B48FDFE01E28__INCLUDED_)

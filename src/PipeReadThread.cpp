@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.cpp,v 1.6 2004/04/14 20:07:45 m9710797 Exp $
+// $Id: PipeReadThread.cpp,v 1.7 2004/04/17 11:15:14 h_oudejans Exp $
 // PipeReadThread.cpp: implementation of the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 			wxPostEvent(m_target, event);	
 		}
 	}while (bytesRead > 0);
-
+	close (m_descriptor);
 #else
 
 	DWORD dwBytesRead;

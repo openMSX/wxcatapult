@@ -1,4 +1,4 @@
-$Id: ChangeLog,v 1.56 2004/04/17 14:41:17 manuelbi Exp $
+$Id: ChangeLog,v 1.57 2004/04/17 15:49:53 h_oudejans Exp $
 
 2004-04-17 Manuel Bilderbeek <manuel@msxnet.org>
 	* added loads of tooltips to the wxg files and changed some texts
@@ -9,6 +9,8 @@ $Id: ChangeLog,v 1.56 2004/04/17 14:41:17 manuelbi Exp $
 	* Fixed: openmsx fatal errors were sometimes repeated over and
 	   over again.
 	* Added: Full screen button (disabled in windows for now).
+	* Fixed segfault on close catapult while openmsx runs (again).
+	  Thanks to wouter.
 
 2004-04-16 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Restructured the videocontrolpage.
