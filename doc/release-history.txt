@@ -4,7 +4,7 @@ Release History
 This is an overview of the changes that were incorporated into past
 releases.
 
-openMSX Catapult 0.4.0-R1 (2004-05-23)
+openMSX Catapult 0.4.0-R1 (2004-05-28)
 --------------------------------------
 
 This was the first Catapult new style, with the following features:
