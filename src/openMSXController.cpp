@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.44 2004/04/25 15:29:16 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.45 2004/04/27 17:01:21 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -97,7 +97,6 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	m_appWindow->StopTimers();
 	m_appWindow->SetStatusText("Ready");
 	delete m_parser;
-	m_commands.clear();
 	m_appWindow->m_audioControlPage->DestroyAudioMixer();
 	m_appWindow->m_audioControlPage->DisableAudioPanel();
 	m_openMsxRunning = false;
@@ -105,6 +104,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	m_appWindow->SetControlsOnEnd();
 	m_appWindow->m_launch_AbortButton->SetLabel(_("Start"));
 	HandleNativeEndProcess ();
+	m_commands.clear();
 }
 
 void openMSXController::HandleStdOut(wxCommandEvent &event)

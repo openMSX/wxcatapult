@@ -1,4 +1,17 @@
-$Id: ChangeLog,v 1.64 2004/04/21 05:55:08 h_oudejans Exp $
+$Id: ChangeLog,v 1.65 2004/04/25 15:29:45 h_oudejans Exp $
+
+2004-04-30 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* the m_command != NULL assert should be fixed now. I tried 
+	   to reproduce the assert but just couldn't.
+
+2004-04-27 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Personal share dir is now also used in windows to find machines
+	   and extensions
+	* Items added to history are now converted to the native (back)slash.
+	* file filters with capitals extensions added. .DSK and alike should now be
+	   also found in linux.
+	* If normal tape (wave) is used and the machine is equiped with a
+	   cassetteport it's automaticly plugged.
 
 2004-04-25 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Catapult now initially guesses where openmsx could be and checks
