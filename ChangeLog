@@ -1,4 +1,6 @@
-$Id: ChangeLog,v 1.59 2004/04/17 20:56:19 h_oudejans Exp $
+$Id: ChangeLog,v 1.60 2004/04/17 21:57:32 manuelbi Exp $
+
+2004-04-18 Fullscreen button in windows works.
 
 2004-04-17 Manuel Bilderbeek <manuel@msxnet.org>
 	* added loads of tooltips to the wxg files and changed some texts

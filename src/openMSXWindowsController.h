@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.h,v 1.3 2004/03/31 14:49:51 h_oudejans Exp $
+// $Id: openMSXWindowsController.h,v 1.4 2004/04/01 08:31:48 h_oudejans Exp $
 // openMSXWindowsController.h: interface for the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -16,6 +16,8 @@ class PipeConnectThread;
 class openMSXWindowsController : public openMSXController  
 {
 	public:
+		void RaiseOpenMSX();
+		void RestoreOpenMSX();
 		void HandleEndProcess (wxCommandEvent &event);
 		bool WriteMessage (wxString msg);
 		void HandlePipeCreated();
@@ -27,6 +29,14 @@ class openMSXWindowsController : public openMSXController
 		virtual ~openMSXWindowsController();
 
 	private:
+		struct FindOpenmsxInfo
+		{
+			LPPROCESS_INFORMATION ProcessInfo;
+			HWND hWndFound;
+		};
+		
+		HWND FindOpenMSXWindow();
+		static BOOL CALLBACK EnumWindowCallBack(HWND hwnd, LPARAM lParam);
 		void CloseHandles (bool useNamedPipes, HANDLE hThread, HANDLE hInputRead, 
 				HANDLE hOutputWrite, HANDLE hErrorWrite);
 		void ShowError (wxString msg);
@@ -37,6 +47,8 @@ class openMSXWindowsController : public openMSXController
 
 		HANDLE m_outputHandle;
 		HANDLE m_namedPipeHandle;
+		HWND m_catapultWindow;
+		PROCESS_INFORMATION m_openmsxProcInfo;
 		bool m_pipeActive;
 		unsigned long m_launchCounter;
 		PipeConnectThread * m_connectThread;	

@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.5 2004/04/12 13:33:10 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.6 2004/04/12 19:30:43 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -29,6 +29,7 @@ openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 	m_pipeActive = false;
 	m_openMsxRunning = false;
 	m_namedPipeHandle = INVALID_HANDLE_VALUE;
+	m_catapultWindow = GetActiveWindow();
 }
 
 openMSXWindowsController::~openMSXWindowsController()
@@ -66,8 +67,6 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	cmdLine += CreateControlParameter(useNamedPipes);
 	CreatePipes(useNamedPipes, &hInputRead, &hOutputWrite, &hErrorWrite, &hOutputRead, &hErrorRead);
 
-	PROCESS_INFORMATION pi;
-
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE | CREATE_SUSPENDED;
 	WORD wStartupWnd = SW_HIDE;
 
@@ -82,7 +81,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	si.wShowWindow = wStartupWnd;
 	
 	CreateProcess (NULL,(char *)cmdLine.c_str(),
-			NULL,NULL,true, dwProcessFlags ,NULL,NULL,&si,&pi); //testing suspended
+			NULL,NULL,true, dwProcessFlags ,NULL,NULL,&si,&m_openmsxProcInfo); //testing suspended
 	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);	
 	if (thread->Create() == wxTHREAD_NO_ERROR)
 	{
@@ -96,7 +95,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 		thread2->Run();
 	}
 
-	::ResumeThread(pi.hThread);
+	::ResumeThread(m_openmsxProcInfo.hThread);
 	
 	if (useNamedPipes)
 	{
@@ -115,7 +114,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 		m_appWindow->m_launch_AbortButton->Enable(true);
 	}
 	m_openMsxRunning = true;
-	CloseHandles (useNamedPipes,pi.hThread, hInputRead, hOutputWrite, hErrorWrite );
+	CloseHandles (useNamedPipes,m_openmsxProcInfo.hThread, hInputRead, hOutputWrite, hErrorWrite );
 	
 	return true;
 }
@@ -305,4 +304,57 @@ wxString openMSXWindowsController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 		version = output[0];
 	}
 	return wxString (version);
+}
+
+void openMSXWindowsController::RaiseOpenMSX()
+{
+	HWND openmsxWindow = FindOpenMSXWindow();
+	if (openmsxWindow != NULL){
+		SetParent (openmsxWindow,m_catapultWindow);
+		SetActiveWindow(openmsxWindow);
+		SetParent (openmsxWindow,NULL);
+	}
+}
+
+void openMSXWindowsController::RestoreOpenMSX()
+{
+	HWND openmsxWindow = FindOpenMSXWindow();
+	if (openmsxWindow != NULL){
+		SetParent (openmsxWindow,m_catapultWindow);
+		SetWindowPos(openmsxWindow,HWND_TOP,0,0,640,480,SWP_NOSIZE || SWP_SHOWWINDOW);
+		SetParent (openmsxWindow,NULL);
+	}
+}
+
+HWND openMSXWindowsController::FindOpenMSXWindow()
+{
+	if (!m_openMsxRunning) {
+		return NULL;
+	}
+	FindOpenmsxInfo findInfo;
+	findInfo.hWndFound = NULL;
+	findInfo.ProcessInfo = &m_openmsxProcInfo;
+
+	WaitForInputIdle(m_openmsxProcInfo.hProcess, INFINITE );
+	EnumWindows (EnumWindowCallBack, (LPARAM)&findInfo ) ;
+	return findInfo.hWndFound;
+}
+
+BOOL CALLBACK openMSXWindowsController::EnumWindowCallBack(HWND hwnd, LPARAM lParam) 
+{
+	FindOpenmsxInfo * info = (FindOpenmsxInfo * )lParam; 
+	DWORD ProcessId; 
+	GetWindowThreadProcessId ( hwnd, &ProcessId ); 
+	char title [11];
+	GetWindowText(hwnd, title, 10);
+	if ( ProcessId  == info->ProcessInfo->dwProcessId && strlen(title) != 0) 
+	{ 
+		info->hWndFound = hwnd; 
+		return false; 
+	} 
+	else 
+	{ 
+		// Keep enumerating 
+		return true; 
+	} 
 }

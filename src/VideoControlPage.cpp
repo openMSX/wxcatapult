@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.12 2004/04/04 19:47:15 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.13 2004/04/17 15:49:54 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,7 +10,12 @@
 #include "wx/wx.h"
 #endif
 
+#ifdef __WINDOWS__
+#include "openMSXWindowsController.h"
+#else
 #include "openMSXController.h"
+#endif
+
 #include "StatusPage.h"
 #include "VideoControlPage.h"
 #include "wxCatapultFrm.h"
@@ -78,9 +83,9 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_defaultGamma = "";
 	m_defaultScanline = "";
 #ifdef __WINDOWS__
-	m_fullscreenButton->Show(false);
-	wxStaticText * text = (wxStaticText *)FindWindow(_("FullScreenLabel"));
-	text->Show(false);
+//	m_fullscreenButton->Show(false);
+//	wxStaticText * text = (wxStaticText *)FindWindow(_("FullScreenLabel"));
+//	text->Show(false);
 #endif
 }
 
@@ -154,13 +159,21 @@ void VideoControlPage::OnFullScreen(wxCommandEvent &event)
 	if (doIt){
 		if (button->GetValue())
 		{
+#ifdef __WINDOWS__
+			((openMSXWindowsController *)m_controller)->RaiseOpenMSX();
+#endif
 			m_controller->WriteCommand ("set fullscreen on");
 			button->SetLabel("On");
 		}
 		else
 		{
+		
 			m_controller->WriteCommand ("set fullscreen off");
 			button->SetLabel("Off");
+#ifdef __WINDOWS__
+			Sleep(500);
+			((openMSXWindowsController *)m_controller)->RestoreOpenMSX();
+#endif
 		}
 	}
 	else{
@@ -430,4 +443,9 @@ void VideoControlPage::SetSliderDefaults()
 	m_defaultGlow = m_glowIndicator->GetValue();
 	m_defaultGamma = m_gammaIndicator->GetValue();
 	m_defaultScanline = m_scanlineIndicator->GetValue();
+}
+
+void VideoControlPage::RestoreNormalScreen()
+{
+	((openMSXWindowsController *)m_controller)->RestoreOpenMSX();	
 }

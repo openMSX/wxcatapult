@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.11 2004/04/17 15:49:54 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.12 2004/04/17 21:57:13 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,6 +12,7 @@
 #include "CatapultPage.h"
 #include <wx/notebook.h>
 #include "AudioControlPage.h"
+#include "VideoControlPage.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -122,6 +123,19 @@ void CatapultPage::UpdateSetting(wxString name, wxString data)
 bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString control, bool convert)
 {
 	wxString ButtonText;
+#ifdef __WINDOWS__
+	wxNotebook * notebook = (wxNotebook *) m_parent;
+	VideoControlPage * videopage = NULL;
+	for (int i=0;i<notebook->GetPageCount();i++){
+		if (notebook->GetPageText(i) == _("Audio Controls")){
+			videopage = (VideoControlPage *)notebook->GetPage(i);
+		}
+	}
+	if ((setting == _("fullscreen")) && (data == _("off"))){
+		videopage->RestoreNormalScreen();
+	}
+#endif
+	
 	wxToggleButton * button = (wxToggleButton *)m_parent->FindWindow(control);
 	if (button != NULL){
 		if ((data == "on") || (data == "broken")){
