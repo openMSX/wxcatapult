@@ -1,8 +1,6 @@
 openMSX Catapult Release Process
 ================================
 
-[TODO: really fill this in, some things are not working yet...]
-
 This is a kind of recipe for doing releases. Having it written down
 decreases the change of forgetting a small but crucial step during the
 hectic work of getting a release out.
@@ -15,27 +13,30 @@ Preparing for a release
   Currently most documentation is in "doc".
 - Write release notes in "doc/release-notes.txt".
 - Add the change list to "doc/release-history.txt".
-- Edit the version number in build/version.mk:
-    VERSION=1.2.3
-  The version should be the version of openMSX for which this Catapult
-  release was intended. [TODO: finalise this, for cases of additional
-  Catapult releases.]
-  Set RELEASE_FLAG to true.
 
 Creating a release candidate
 ----------------------------
 
+- Edit the version number in build/version.mk:
+    VERSION=1.2.3-R4-rc1
+  The version should be the version of openMSX for which this Catapult
+  release was intended, with "-R<catapult-release>" appended.
+  Set RELEASE_FLAG to true.
+- Update the release date in "doc/release-notes.txt" and
+  "doc/release-history.txt".
 - Tag the CVS archive:
-    cvs rtag RELEASE_1_2_3 Catapult
+    cvs rtag RELEASE_1_2_3_R4_RC1 Catapult
 - Export the tagged code:
     cvs -d :ext:user@cvs.sourceforge.net:/cvsroot/openmsx \
-    export -r RELEASE_1_2_3 Catapult
+    export -r RELEASE_1_2_3_R4_RC1 Catapult
   This step makes sure that exactly the tagged code will be released.
-  Export instead of checkout gets rid of the CVS admin directories.
+  Export instead of checkout gets rid of the CVS admin directories and
+  empty (obsolete) directories.
 - Create the distribution tar.gz file:
     make dist
 - Save the created file somewhere you can find it again:
-    mv derived/dist/openmsx-catapult-1.2.3.tar.gz <some_dir>/openmsx-catapult-1.2.3-rc1.tar.gz
+    mv derived/dist/openmsx-catapult-1.2.3-R4-rc1.tar.gz
+      <some_dir>/openmsx-catapult-1.2.3-R4-rc1.tar.gz
   This is the release candidate.
 
 Sanity check on release candidate
@@ -70,31 +71,31 @@ is made, which will become the release.
 
 To move the release tag, use the following CVS command:
   cvs tag -r <revision> -F RELEASE_1_2_3 <file>
-Maybe in the future release candidates will be made public as well, in that
-case they deserve a separate tag ("RELEASE_1_2_3_RC1").
 
 Make the release public
 -----------------------
 
+If this is "R1", follow the openMSX release process. The steps below apply to
+releasing a Catapult update for an existing openMSX version.
+
 Put the release on SourceForge:
 - Upload the release tar.gz to "ftp://upload.sourceforge.net/incoming/".
 - On the project page, choose "Admin", followed by "File Releases".
-- At the bottom, choose "Add Release".
-- As the release name, type the version number ("1.2.3").
-- For the Release Notes, select "doc/release-notes.txt".
-- For the Change Log, select "doc/release-history.txt".
-- Check "Preserve my pre-formatted text" and choose "Submit/Refresh".
-  Now you should see the release notes and change history filled in in the
-  edit boxes.
+- Choose "Edit Releases" and then the release you want to edit.
 - Select the uploaded file from the file list and choose "Add Files and/or
   Refresh View".
-- File info: "Processor = Platform Independent", "File Type = Source .gz".
+- File info for the source tarball:
+    Processor: "Platform Independent", File Type: "Source .gz"
+  File info for the Win32 update installer:
+    Processor: "i386", File Type: ".exe (32-bit Windows)"
   Finally, choose "Update/Refresh".
 
 Announce:
 - Post change list to msx.org.
 - Post news item on sourceforge.net.
 
-Finally:
-- Put "Released openmsx-catapult-1.2.3." entry in the ChangeLog in CVS.
+Post-release
+------------
+
+- Put "Released openmsx-catapult-1.2.3-R4." entry in the ChangeLog in CVS.
 - Set RELEASE_FLAG to false in build/version.mk
