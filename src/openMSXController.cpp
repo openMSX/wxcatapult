@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.31 2004/04/10 21:24:05 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.32 2004/04/12 13:37:08 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -99,6 +99,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	delete m_parser;
 	m_commands.clear();
 	m_appWindow->m_audioControlPage->DestroyAudioMixer();
+	m_appWindow->m_audioControlPage->DisableAudioPanel();
 	m_openMsxRunning = false;
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_appWindow->SetControlsOnEnd();
@@ -160,12 +161,18 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				if ((lastcmd.Mid(0,5) != "plug ") || (lastcmd.Find(' ',true) == 4) ||
 					(lastcmd.Mid(5,lastcmd.Find(' ',true)-5)!= data->name)){
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
+						m_appWindow->m_audioControlPage->DestroyAudioMixer();
+						m_launchMode = LAUNCH_NORMAL;
+						executeLaunch(NULL,41);
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG){
 				wxString lastcmd = PeekPendingCommand();
 				if ((lastcmd.Mid(0,7) != "unplug ") || (lastcmd.Find(' ',true) == 6)){
 					m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
+					m_appWindow->m_audioControlPage->DestroyAudioMixer();
+					m_launchMode = LAUNCH_NORMAL;
+					executeLaunch(NULL,41);
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA){
@@ -583,7 +590,7 @@ void openMSXController::AddLaunchInstruction (wxString cmd, wxString action, wxS
 	m_launchScriptSize ++;
 }
 
-void openMSXController::executeLaunch (wxCommandEvent * event)
+void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 {	
 	CatapultXMLParser::ParseResult * data = NULL;
 	if (event != NULL){
@@ -644,8 +651,8 @@ void openMSXController::executeLaunch (wxCommandEvent * event)
 		}
 	}
 	else{ // init chain of events
-		sendStep = 0;
-		recvStep = 0;
+		sendStep = startLine;
+		recvStep = startLine;
 		sendLoop = -1;
 		recvLoop = -1;
 	}

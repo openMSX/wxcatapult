@@ -1,4 +1,4 @@
-$Id: ChangeLog,v 1.48 2004/04/12 13:33:09 h_oudejans Exp $
+$Id: ChangeLog,v 1.49 2004/04/12 13:37:08 h_oudejans Exp $
 
 2004-04-12 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* fixed gtk segfault when starting openmsx.
@@ -9,6 +9,7 @@ $Id: ChangeLog,v 1.48 2004/04/12 13:33:09 h_oudejans Exp $
 	* fixed wxCatapult.dsp (added winmm library for joystick checking).
 	* openmsx 1211 has a new versionstring (openmsx -v). adapted 
 	   catapult for it.
+	* (un)plugging sounds devices now updates the mixer.
 
 2004-04-11 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* joystickport devices are now prepluggable.

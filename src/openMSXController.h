@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.17 2004/04/07 16:44:47 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.18 2004/04/08 18:57:23 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ class openMSXController
 		void HandleNormalLaunchReply(wxCommandEvent &event);
 		
 		void newLaunchReply (wxCommandEvent & event);
-		void executeLaunch (wxCommandEvent * event = NULL);
+		void executeLaunch (wxCommandEvent * event = NULL, int startLine = 0);
 		void FinishLaunch ();
 		int tokenize (wxString text, wxString seperator, wxArrayString & result);
 		wxString translate(wxArrayString tokens, int loop, wxString lastdata);

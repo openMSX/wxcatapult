@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.12 2004/04/06 15:05:31 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.13 2004/04/10 21:24:05 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -125,26 +125,32 @@ void AudioControlPage::DestroyAudioMixer()
 		AudioSizer->Add(noAudio, 1, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 0);
 		AudioSizer->Layout();
 		m_audioChannels.Clear();
-		wxTextCtrl * text = (wxTextCtrl *)FindWindow (_("MidiInFileInput"));
-		wxButton * button = (wxButton *)FindWindow(_("BrowseMidiInButton"));
-		wxComboBox * combo = (wxComboBox *)FindWindow (_("MidiInSelector"));
-		combo->Clear();combo->Enable(false);
-		text->Clear(); text->Enable(false);
-		button->Enable(false);
-		text = (wxTextCtrl *)FindWindow (_("MidiOutFileInput"));
-		button = (wxButton *)FindWindow(_("BrowseMidiOutButton"));
-		combo = (wxComboBox *)FindWindow (_("MidiOutSelector"));
-		combo->Clear();combo->Enable(false);
-		text->Clear(); text->Enable(false);
-		button->Enable(false);
-		text = (wxTextCtrl *)FindWindow (_("SampleFileInput"));
-		button = (wxButton *)FindWindow(_("BrowseSampleInputButton"));
-		combo = (wxComboBox *)FindWindow (_("SampleInSelector"));
-		combo->Clear();combo->Enable(false);
-		text->Clear(); text->Enable(false);
-		button->Enable(false);
 	}
 }
+
+void AudioControlPage::DisableAudioPanel ()
+{
+	wxTextCtrl * text = (wxTextCtrl *)FindWindow (_("MidiInFileInput"));
+	wxButton * button = (wxButton *)FindWindow(_("BrowseMidiInButton"));
+	wxComboBox * combo = (wxComboBox *)FindWindow (_("MidiInSelector"));
+	combo->Clear();combo->Enable(false);
+	text->Clear(); text->Enable(false);
+	button->Enable(false);
+	text = (wxTextCtrl *)FindWindow (_("MidiOutFileInput"));
+	button = (wxButton *)FindWindow(_("BrowseMidiOutButton"));
+	combo = (wxComboBox *)FindWindow (_("MidiOutSelector"));
+	combo->Clear();combo->Enable(false);
+	text->Clear(); text->Enable(false);
+	button->Enable(false);
+	text = (wxTextCtrl *)FindWindow (_("SampleFileInput"));
+	button = (wxButton *)FindWindow(_("BrowseSampleInputButton"));
+	combo = (wxComboBox *)FindWindow (_("SampleInSelector"));
+	combo->Clear();combo->Enable(false);
+	text->Clear(); text->Enable(false);
+	button->Enable(false);
+}
+
+
 
 void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 {

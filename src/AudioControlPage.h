@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.h,v 1.9 2004/04/06 15:05:31 h_oudejans Exp $
+// $Id: AudioControlPage.h,v 1.10 2004/04/10 21:24:05 h_oudejans Exp $
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -46,6 +46,7 @@ class AudioControlPage : public CatapultPage
 		void AddChannelType(int channel,wxString type);
 		void SetupAudioMixer ();
 		void DestroyAudioMixer ();
+		void DisableAudioPanel ();
 		AudioControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller = NULL);
 		virtual ~AudioControlPage();
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
