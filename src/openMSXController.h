@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.10 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.11 2004/03/26 20:02:06 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -36,7 +36,8 @@ class openMSXController
 		openMSXController(wxWindow * target);
 		virtual ~openMSXController();
 		bool m_openMsxRunning;
-		wxString GetInfoCommand (wxString parameter); 
+		wxString GetInfoCommand (wxString parameter);
+		wxString GetExistCommand (wxString parameter);
 		
 	protected:
 		wxCatapultFrame * m_appWindow;

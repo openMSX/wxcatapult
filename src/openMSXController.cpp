@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.18 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.19 2004/03/26 20:02:06 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -117,7 +117,12 @@ void openMSXController::HandleStdErr(wxCommandEvent &event)
 	wxString * data = (wxString *)event.GetClientData();
 	if (*data == "\n")
 		return;
-	m_appWindow->m_tabControl->SetSelection(1);	
+	int i;
+	for (i=0;i<m_appWindow->m_tabControl->GetPageCount();i++){
+		if (m_appWindow->m_tabControl->GetPageText(i) == _("Status Info")){
+			m_appWindow->m_tabControl->SetSelection(i);	
+		}
+	}
 	m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(255,23,23),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
 
 	m_appWindow->m_statusPage->m_outputtext->AppendText(*data);
@@ -342,6 +347,10 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
 	wxString command = GetPendingCommand();
 	if (command == GetInfoCommand(_("renderer"))){
+		WriteCommand ("update enable setting");
+		WriteCommand ("update enable led");
+		WriteCommand ("update enable plug");
+		WriteCommand ("update enable unplug");
 		WriteCommand (GetInfoCommand(_("scaler")));
 		TrackAsserts ("Fill rendererers",data->contents); 
 		m_appWindow->m_videoControlPage->FillRenderers(data->contents);		
@@ -352,7 +361,14 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 		m_appWindow->m_videoControlPage->FillScalers(data->contents);		
 	}
 	else if (command == _("set power on")){
-		WriteCommand (wxString(m_unsetCommand + " renderer"));				
+		WriteCommand (GetExistCommand("frontswitch"));
+	}
+	else if (command == GetExistCommand("frontswitch")){
+//		if ((command.Mid(0,3) == "set") || 
+//			((command.Mid(0,10) == "info exist") && (data->contents == "0"))){
+//				m_appWindow->m_miscControlPage->EnableFirmware();
+//		}
+		WriteCommand (wxString(m_unsetCommand + " renderer"));
 	}
 	else if (command == wxString(m_unsetCommand + " renderer")){
 		WriteCommand (_("set renderer"));
@@ -541,6 +557,16 @@ wxString openMSXController::GetInfoCommand (wxString parameter)
 	infoCommand = tempCmd + _(" ") + parameter + endCmd;
 	return wxString (infoCommand);
 }
+
+wxString openMSXController::GetExistCommand (wxString parameter)
+{
+	if (m_infoCommand.Find(_("openmsx")) != -1){
+		return wxString (_("info exist ") + parameter);
+	}
+	else{
+		return wxString (_("set ") + parameter);
+	}
+}	
 
 void openMSXController::TrackAsserts (wxString command, wxString result)
 {
