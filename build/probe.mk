@@ -1,4 +1,4 @@
-# $Id: probe.mk,v 1.10 2005/01/06 17:53:03 h_oudejans Exp $
+# $Id: probe.mk,v 1.11 2005/01/07 14:49:08 h_oudejans Exp $
 #
 # Replacement for "configure".
 # Performs some test compiles, to check for headers and functions.
@@ -45,7 +45,7 @@ WX_CFLAGS:=`wx-config --cflags 2>> $(LOG)`
 XML_HEADER:=<libxml/parser.h>
 XML_CFLAGS:=`xml2-config --cflags 2>> $(LOG)`
 
-XRC_HEADER:=<wx/xrc/xml.h>
+XRC_HEADER:=<wx/xrc/xmlres.h>
 XRC_CFLAGS:=$(WX_CFLAGS)
 
 
