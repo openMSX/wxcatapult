@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.13 2004/05/09 15:26:55 mthuurne Exp $
+# $Id: main.mk,v 1.14 2004/05/09 17:57:52 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -135,8 +135,6 @@ DEPEND_FLAGS+=-MP
 # Compiler and Flags
 # ==================
 
-CXX:=$(shell wx-config --cxx)
-
 CXXFLAGS:=-g -pipe -Wall
 CXXFLAGS+=-I$(CONFIG_PATH)
 CXXFLAGS+=$(WX_CFLAGS) $(XRC_CFLAGS) $(XML_CFLAGS)
@@ -155,6 +153,11 @@ $(error Cannot build Catapult because essential libraries are unavailable. \
 Please install the needed libraries and rerun (g)make)
 endif
 
+ifeq ($(PROBE_MAKE_INCLUDED),true)
+# If probe was succesful, it's safe to use wx-config.
+CXX:=$(shell wx-config --cxx)
+endif
+
 # Force a probe if "probe" target is passed explicitly.
 ifneq ($(filter probe,$(MAKECMDGOALS)),)
 probe: $(PROBE_MAKE)
@@ -165,7 +168,7 @@ endif
 # TODO: It would be cleaner to include probe.mk and probe-results.mk,
 #       instead of executing them in a sub-make.
 $(PROBE_MAKE): $(PROBE_SCRIPT)
-	@OUTDIR=$(@D) COMPILE="$(CXX)" \
+	@OUTDIR=$(@D) COMPILE=g++ \
 		$(MAKE) --no-print-directory -f $<
 	@PROBE_MAKE=$(PROBE_MAKE) MAKE_PATH=$(MAKE_PATH) \
 		$(MAKE) --no-print-directory -f $(MAKE_PATH)/probe-results.mk
