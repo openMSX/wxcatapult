@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.17 2004/05/08 19:52:53 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.18 2004/05/09 14:25:51 manuelbi Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -164,8 +164,8 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	}
 	int i;
 	wxSizer * AudioSizer = m_audioPanel->GetSizer();
-	wxString choices1[3]={_("M"), _("L"), _("R")};
-	wxString choices2[1]={_("S")};
+	wxString choices1[4]={_("M"), _("L"), _("R"), _("O")};
+	wxString choices2[2]={_("S"), _("O")};
 	wxString number;
 	number.sprintf("%u",channelnumber);
 	wxStaticText * label = new wxStaticText(m_audioPanel, -1, labeltext.Mid(0,labeltext.Find("::")),
@@ -186,7 +186,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	wxToggleButton * button = NULL;
 	if (chanType.Mid(0,9) == wxT("MoonSound")) {
 		combo = new wxComboBox(m_audioPanel,FIRSTAUDIOCOMBO+channelnumber,
-				wxT("S"), wxDefaultPosition,defaultsize,1,choices2,wxCB_READONLY,
+				wxT("S"), wxDefaultPosition,defaultsize,2,choices2,wxCB_READONLY,
 				wxDefaultValidator,wxString(wxT("AudioMode_")+number));
 		combo->SetToolTip("Channel Mode");
 	}
@@ -196,7 +196,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	}
 	else {	
 		combo = new wxComboBox(m_audioPanel,FIRSTAUDIOCOMBO+channelnumber,
-				wxT("M"), wxDefaultPosition,defaultsize,3,choices1,wxCB_READONLY,
+				wxT("M"), wxDefaultPosition,defaultsize,4,choices1,wxCB_READONLY,
 				wxDefaultValidator,wxString(wxT("AudioMode_")+number));
 		combo->SetToolTip("Channel Mode");
 	}
@@ -294,6 +294,9 @@ void AudioControlPage::OnChangeMode(wxCommandEvent& event)
 		case 'R':
 			value = wxT("right");
 			break;
+		case 'O':
+			value = wxT("off");
+			break;
 		case 'S':
 			value = wxT("stereo");
 		default:
@@ -365,6 +368,7 @@ void AudioControlPage::SetChannelMode (int number, wxString value)
 	if (value==wxT("mono")) val = _("M");
 	if (value==wxT("left")) val = _("L");
 	if (value==wxT("right")) val = _("R");
+	if (value==wxT("off")) val = _("O");
 	if (value==wxT("stereo")) val = _("S");
 	wxComboBox * combo = (wxComboBox *)FindWindowById(number+FIRSTAUDIOCOMBO,this);
 	combo->SetSelection(combo->FindString(val));
