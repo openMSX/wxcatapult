@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.32 2004/04/12 13:37:08 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.33 2004/04/12 19:28:08 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -530,8 +530,6 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("#info renderer","","RendererSelector",&openMSXController::FillComboBox,true);
 	AddLaunchInstruction ("#info scaler","","ScalerSelector",&openMSXController::FillComboBox,true);
 	AddLaunchInstruction ("#info accuracy","","AccuracySelector",&openMSXController::FillComboBox,false);
-	AddLaunchInstruction ("update enable plug","","",NULL,false);
-	AddLaunchInstruction ("update enable unplug","","",NULL,false);
 	AddLaunchInstruction ("update enable media","","",NULL,false);
 	AddLaunchInstruction ("#exist frontswitch","","#",&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction ("set renderer","","renderer",&openMSXController::UpdateSetting,true);
@@ -571,6 +569,8 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set master_volume","","master_volume",&openMSXController::UpdateSetting,false);
 	AddLaunchInstruction ("set *_volume","","*_volume",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set *_mode","","*_mode",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("update enable plug","","",NULL,false);
+	AddLaunchInstruction ("update enable unplug","","",NULL,false);
 	
 }
 

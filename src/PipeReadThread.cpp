@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.cpp,v 1.4 2004/04/12 13:33:10 h_oudejans Exp $
+// $Id: PipeReadThread.cpp,v 1.5 2004/04/12 18:21:50 mthuurne Exp $
 // PipeReadThread.cpp: implementation of the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -39,6 +39,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 	do{
 		bytesRead = read(m_descriptor,szBuffer,1000);
 		if (bytesRead > 0){
+			szBuffer[bytesRead] = 0;
 			wxString temp2 = szBuffer;
 			wxString * temp = new wxString;
 			*temp = temp2.Left(bytesRead);
