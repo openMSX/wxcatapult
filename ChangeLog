@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.14 2004/03/06 14:13:52 mthuurne Exp $
+$Id: ChangeLog,v 1.15 2004/03/06 15:08:10 mthuurne Exp $
+
+2004-03-19 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Added audiocontrolspage
 
 2004-03-06 Maarten ter Huurne <maarten@treewalker.org>
 	* Moved build files to a subdir named "build".

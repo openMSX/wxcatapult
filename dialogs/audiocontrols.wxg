@@ -1,0 +1,210 @@
+<application path="../../resources/dialogs/status.xrc" name="" class="" option="0" language="XRC" top_window="" encoding="ISO-8859-1" use_gettext="0" overwrite="0"> 
+			<object class="wxPanel" name="AudioControlPage" base="EditPanel">
+			      <style>wxTAB_TRAVERSAL</style>
+			      <object class="wxBoxSizer" name="AudioControlsSizer" base="EditBoxSizer">
+			          <orient>wxVERTICAL</orient>
+			          <object class="sizeritem">
+			              <flag>wxEXPAND</flag>
+			              <border>0</border>
+			              <option>1</option>
+			              <object class="wxStaticBoxSizer" name="SoundSizer" base="EditStaticBoxSizer">
+			                  <orient>wxVERTICAL</orient>
+			                  <label>Mixer</label>
+			                  <object class="sizeritem">
+			                      <flag>wxEXPAND</flag>
+			                      <border>0</border>
+			                      <option>1</option>
+			                      <object class="wxPanel" name="AudioChannelPanel" base="EditPanel">
+			                          <style>wxTAB_TRAVERSAL</style>
+			                          <scroll_rate>10, 0</scroll_rate>
+			                          <scrollable>1</scrollable>
+			                          <object class="wxBoxSizer" name="AudioChannelSizer" base="EditBoxSizer">
+			                              <orient>wxHORIZONTAL</orient>
+			                              <object class="sizeritem">
+			                                  <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+			                                  <border>0</border>
+			                                  <option>1</option>
+			                                  <object class="wxStaticText" name="NoAudioText" base="EditStaticText">
+			                                      <style>wxALIGN_CENTRE</style>
+			                                      <attribute>1</attribute>
+			                                      <label>No audio channel data available</label>
+			                                  </object>
+			                              </object>
+			                          </object>
+			                      </object>
+			                  </object>
+			                  <object class="sizeritem">
+			                      <flag>wxEXPAND</flag>
+			                      <border>0</border>
+			                      <option>0</option>
+			                      <object class="wxBoxSizer" name="MixerMiscSizer" base="EditBoxSizer">
+			                          <orient>wxHORIZONTAL</orient>			                          
+			                      </object>
+			                  </object>
+			              </object>
+			          </object>
+			          <object class="sizeritem">
+			              <flag>wxEXPAND</flag>
+			              <border>0</border>
+			              <option>0</option>
+			              <object class="wxStaticBoxSizer" name="SoundIOSizer" base="EditStaticBoxSizer">
+			                  <orient>wxHORIZONTAL</orient>
+			                  <label>Sound I/O</label>
+			                  <object class="sizeritem">
+			                      <flag>wxEXPAND</flag>
+			                      <border>0</border>
+			                      <option>0</option>
+			                      <object class="wxBoxSizer" name="SoundIOLabelSizer" base="EditBoxSizer">
+			                          <orient>wxVERTICAL</orient>
+			                          <object class="sizeritem">
+			                              <flag>wxALIGN_CENTER_VERTICAL</flag>
+			                              <border>0</border>
+			                              <option>1</option>
+			                              <object class="wxStaticText" name="MidiInLabel" base="EditStaticText">
+			                                  <attribute>1</attribute>
+			                                  <label>Midi In:</label>
+			                                  <disabled>1</disabled>
+			                              </object>
+			                          </object>
+			                          <object class="sizeritem">
+			                              <flag>wxALIGN_CENTER_VERTICAL</flag>
+			                              <border>0</border>
+			                              <option>1</option>
+			                              <object class="wxStaticText" name="MidiOutLabel" base="EditStaticText">
+			                                  <attribute>1</attribute>
+			                                  <label>Midi Out:</label>
+			                                  <disabled>1</disabled>
+			                              </object>
+			                          </object>
+			                          <object class="sizeritem">
+			                              <flag>wxALIGN_CENTER_VERTICAL</flag>
+			                              <border>0</border>
+			                              <option>1</option>
+			                              <object class="wxStaticText" name="SoundInLabel" base="EditStaticText">
+			                                  <attribute>1</attribute>
+			                                  <label>Sample Input:</label>
+			                              </object>
+			                          </object>
+			                      </object>
+			                  </object>
+			                  <object class="sizeritem">
+			                      <border>0</border>
+			                      <option>0</option>
+			                      <object class="wxBoxSizer" name="SoundIODropListSizer" base="EditBoxSizer">
+			                          <orient>wxVERTICAL</orient>
+			                          <object class="sizeritem">
+			                              <flag>wxEXPAND</flag>
+			                              <border>0</border>
+			                              <option>0</option>
+			                              <object class="wxChoice" name="MidiInSelector" base="EditChoice">
+			                                  <selection>0</selection>
+			                                  <choices>
+			                                      <choice>Unplugged</choice>
+			                                      <choice>Midi In Reader</choice>
+			                                  </choices>
+			                                  <disabled>1</disabled>
+			                              </object>
+			                          </object>
+			                          <object class="sizeritem">
+			                              <flag>wxEXPAND</flag>
+			                              <border>0</border>
+			                              <option>0</option>
+			                              <object class="wxChoice" name="MidiOutDropList" base="EditChoice">
+			                                  <selection>0</selection>
+			                                  <choices>
+			                                      <choice>Unplugged</choice>
+			                                      <choice>Midi Out Logger</choice>
+			                                  </choices>
+			                                  <disabled>1</disabled>
+			                              </object>
+			                          </object>
+			                      </object>
+			                  </object>
+			                  <object class="sizeritem">
+			                      <flag>wxEXPAND</flag>
+			                      <border>0</border>
+			                      <option>1</option>
+			                      <object class="wxBoxSizer" name="sizer_5" base="EditBoxSizer">
+			                          <orient>wxHORIZONTAL</orient>
+			                          <object class="sizeritem">
+			                              <flag>wxEXPAND</flag>
+			                              <border>0</border>
+			                              <option>1</option>
+			                              <object class="wxBoxSizer" name="sizer_6" base="EditBoxSizer">
+			                                  <orient>wxVERTICAL</orient>
+			                                  <object class="sizeritem">
+			                                      <flag>wxEXPAND</flag>
+			                                      <border>0</border>
+			                                      <option>1</option>
+			                                      <object class="wxBoxSizer" name="sizer_7" base="EditBoxSizer">
+			                                          <orient>wxHORIZONTAL</orient>
+			                                          <object class="sizeritem">
+			                                              <border>0</border>
+			                                              <option>1</option>
+			                                              <object class="wxTextCtrl" name="text_ctrl_7" base="EditTextCtrl">
+			                                                  <disabled>1</disabled>
+			                                              </object>
+			                                          </object>
+			                                          <object class="sizeritem">
+			                                              <border>0</border>
+			                                              <option>0</option>
+			                                              <object class="wxButton" name="button_4" base="EditButton">
+			                                                  <label>...</label>
+			                                                  <disabled>1</disabled>
+			                                              </object>
+			                                          </object>
+			                                      </object>
+			                                  </object>
+			                                  <object class="sizeritem">
+			                                      <flag>wxEXPAND</flag>
+			                                      <border>0</border>
+			                                      <option>1</option>
+			                                      <object class="wxBoxSizer" name="sizer_8" base="EditBoxSizer">
+			                                          <orient>wxHORIZONTAL</orient>
+			                                          <object class="sizeritem">
+			                                              <border>0</border>
+			                                              <option>1</option>
+			                                              <object class="wxTextCtrl" name="text_ctrl_8" base="EditTextCtrl">
+			                                                  <disabled>1</disabled>
+			                                              </object>
+			                                          </object>
+			                                          <object class="sizeritem">
+			                                              <border>0</border>
+			                                              <option>0</option>
+			                                              <object class="wxButton" name="BrowseMidiOutButton" base="EditButton">
+			                                                  <label>...</label>
+			                                                  <disabled>1</disabled>
+			                                              </object>
+			                                          </object>
+			                                      </object>
+			                                  </object>
+			                                  <object class="sizeritem">
+			                                      <flag>wxEXPAND</flag>
+			                                      <border>0</border>
+			                                      <option>1</option>
+			                                      <object class="wxBoxSizer" name="sizer_9" base="EditBoxSizer">
+			                                          <orient>wxHORIZONTAL</orient>
+			                                          <object class="sizeritem">
+			                                              <border>0</border>
+			                                              <option>1</option>
+			                                              <object class="wxTextCtrl" name="text_ctrl_9" base="EditTextCtrl">
+			                                              </object>
+			                                          </object>
+			                                          <object class="sizeritem">
+			                                              <border>0</border>
+			                                              <option>0</option>
+			                                              <object class="wxButton" name="button_6" base="EditButton">
+			                                                  <label>...</label>
+			                                              </object>
+			                                          </object>
+			                                      </object>
+			                                  </object>
+			                              </object>
+			                          </object>
+			                      </object>
+			                  </object>
+			              </object>
+			          </object>
+			      </object>
+			  </object>
+</application>  

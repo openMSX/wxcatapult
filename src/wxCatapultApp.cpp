@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.3 2004/02/12 18:50:37 h_oudejans Exp $
+// $Id: wxCatapultApp.cpp,v 1.4 2004/03/06 15:08:11 mthuurne Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -59,6 +59,7 @@ bool wxCatapultApp::OnInit()
 	succes &= LoadXRC (_("status.xrc"));
 	succes &= LoadXRC (_("misccontrols.xrc"));
 	succes &= LoadXRC (_("videocontrols.xrc"));
+	succes &= LoadXRC (_("audiocontrols.xrc"));
 
 	if (succes)
 	{	
@@ -97,6 +98,10 @@ bool wxCatapultApp::LoadXRC(wxString XrcFile)
 
 wxString wxCatapultApp::GetResourceDir ()
 {
+#ifdef RESOURCEDIR
 	return wxString(RESOURCEDIR);
+#else
+	return wxString(::wxPathOnly(argv[0]) + _("/../resources"));	
+#endif
 }
 

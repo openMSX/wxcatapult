@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.1 2004/03/06 14:13:52 mthuurne Exp $
+# $Id: main.mk,v 1.2 2004/03/06 15:08:11 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -38,6 +38,7 @@ SOURCES:= \
 	SessionPage \
 	StatusPage \
 	VideoControlPage \
+	AudioControlPage \
 	MiscControlPage \
 	openMSXController \
 	openMSXLinuxController
@@ -50,6 +51,7 @@ DIALOGS:=$(addprefix $(XRCDIR)/, \
 	session.xrc \
 	misccontrols.xrc \
 	videocontrols.xrc \
+	audiocontrols.xrc \
 	status.xrc \
 	)
 

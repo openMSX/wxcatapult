@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.5 2004/02/08 16:05:05 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.6 2004/02/27 18:40:02 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -19,6 +19,7 @@
 #include "SessionPage.h"
 #include "StatusPage.h"
 #include "VideoControlPage.h"
+#include "AudioControlPage.h"
 #include "MiscControlPage.h"
 #ifdef __WINDOWS__
 #include "openMSXWindowsController.h"
@@ -27,6 +28,8 @@
 #endif
 
 #define unisprintf sprintf
+
+#include "config.h"
 
 // ----------------------------------------------------------------------------
 // constants
@@ -109,11 +112,13 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 	m_statusPage = new StatusPage(m_tabControl);
 	m_miscControlPage = new MiscControlPage(m_tabControl,m_controller);
 	m_videoControlPage = new VideoControlPage(m_tabControl,m_controller);
-	
+	m_audioControlPage = new AudioControlPage(m_tabControl,m_controller);
+
 	m_tabControl->AddPage(m_sessionPage,_("Session"),true);
 	m_tabControl->AddPage(m_statusPage,_("Status Info"),false);
 	m_tabControl->AddPage(m_miscControlPage,_("Misc Controls"),false);
 	m_tabControl->AddPage(m_videoControlPage,_("Video Controls"),false);
+	m_tabControl->AddPage(m_audioControlPage,_("Audio Controls"),false);
 	wxWindow * tempwindow = FindWindow(_("MainWindowPanel"));
 	wxSize size = tempwindow->GetSizer()->Fit(tempwindow);
 	this->GetSizer()->SetMinSize(size);

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.7 2004/02/27 18:40:02 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.8 2004/03/03 18:06:27 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -16,6 +16,7 @@
 #include "StatusPage.h"
 #include "VideoControlPage.h"
 #include "MiscControlPage.h"
+#include "AudioControlPage.h"
 #include "wxCatapultApp.h"
 #include <cassert>
 
@@ -88,6 +89,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 		return;
 	delete m_parser;
 	m_commands.clear();
+	m_appWindow->m_audioControlPage->DestroyAudioMixer();
 	m_openMsxRunning = false;
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_appWindow->DisableControls();
@@ -264,6 +266,7 @@ void openMSXController::HandleHiddenLaunchReply(wxCommandEvent &event)
 
 void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 {
+	int i;
 	CatapultXMLParser::ParseResult * data = (CatapultXMLParser::ParseResult *)event.GetClientData();
 	wxString command = GetPendingCommand();
 	if (command == GetInfoCommand(_("renderer"))){
@@ -330,8 +333,37 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 	}
 	else if (command == _("set cmdtiming")){
 		m_appWindow->m_miscControlPage->SetCmdTiming(FilterCurrentValue(data->contents));
-		m_appWindow->EnableControls();
-		m_launchMode = LAUNCH_NONE; // interactive mode
+		WriteCommand (GetInfoCommand(_("sounddevice")));
+	}
+	else if (command == GetInfoCommand(_("sounddevice"))){
+		m_appWindow->m_audioControlPage->SetupAudioMixer(data->contents);
+		WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(0)+_("_volume")));
+	}
+	else if (m_appWindow->m_audioControlPage->GetNumberOfAudioChannels() >0){
+			for (i=0;i<m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1;i++){
+				if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i)+_("_volume"))){
+					m_appWindow->m_audioControlPage->SetChannelVolume(i,FilterCurrentValue(data->contents));
+					WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i+1)+("_volume")));
+				}
+				if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i)+_("_mode"))){
+					m_appWindow->m_audioControlPage->SetChannelMode(i,FilterCurrentValue(data->contents));
+					WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i+1)+("_mode")));
+				}
+			}
+			if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)+_("_volume"))){
+				m_appWindow->m_audioControlPage->SetChannelVolume(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
+				WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(1)+_("_mode")));
+			}		
+			if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)+_("_mode"))){
+				m_appWindow->m_audioControlPage->SetChannelMode(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
+				wxSize tempsize = m_appWindow->GetSize();
+				tempsize.SetHeight(tempsize.GetHeight()+1);
+				tempsize.SetWidth(tempsize.GetWidth()+1);
+				m_appWindow->SetSize(tempsize);
+				m_appWindow->EnableControls();
+				m_launchMode = LAUNCH_NONE; // interactive mode
+			}
+		
 	}
 }
 

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.3 2004/02/08 16:05:05 h_oudejans Exp $
+// $Id: wxCatapultFrm.h,v 1.4 2004/02/27 18:40:02 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -10,6 +10,7 @@ class CatapultXMLParser;
 class SessionPage;
 class StatusPage;
 class VideoControlPage;
+class AudioControlPage;
 class MiscControlPage;
 class openMSXController;
 
@@ -36,7 +37,8 @@ class wxCatapultFrame : public wxFrame
 		StatusPage * m_statusPage;
 		VideoControlPage * m_videoControlPage;
 		MiscControlPage * m_miscControlPage;
-		
+		AudioControlPage * m_audioControlPage;
+
 		wxString m_lastDiskA;
 		wxString m_lastDiskB;
 		wxString m_lastTape1;
