@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.33 2004/12/25 22:52:10 h_oudejans Exp $
+# $Id: main.mk,v 1.34 2004/12/25 23:01:13 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -30,8 +30,8 @@ BOOLCHECK=$(strip \
 CXXFLAGS:=
 LDFLAGS:=
 LINK_FLAGS:=
-SOURCES:=	
-	
+SOURCES:=
+
 # Logical Targets
 # ===============
 
@@ -102,8 +102,8 @@ $(DETECTSYS_MAKE): $(DETECTSYS_SCRIPT)
 	@sh $< > $@
 
 endif # CATAPULT_TARGET_OS
-endif # CATAPULT_TARGET_CPU	
-	
+endif # CATAPULT_TARGET_CPU
+
 PLATFORM:=
 ifneq ($(origin CATAPULT_TARGET_OS),undefined)
 ifneq ($(origin CATAPULT_TARGET_CPU),undefined)
@@ -131,8 +131,8 @@ include $(MAKE_PATH)/platform-$(CATAPULT_TARGET_OS).mk
 # - executable file name extension
 #$(call DEFCHECK,EXEEXT)
 # - platform supports symlinks?
-#$(call BOOLCHECK,USE_SYMLINK)	
-	
+#$(call BOOLCHECK,USE_SYMLINK)
+
 # Flavours
 # ========
 
@@ -163,10 +163,10 @@ CONFIG_PATH:=$(BUILD_PATH)/config
 PROBE_MAKE:=$(CONFIG_PATH)/probed_defs.mk
 CONFIG_HEADER:=$(CONFIG_PATH)/config.h
 VERSION_HEADER:=$(CONFIG_PATH)/Version.ii
-	
+
 # Configuration
-# =============	
-		
+# =============
+
 include $(MAKE_PATH)/info2code.mk
 ifneq ($(filter $(DEPEND_TARGETS),$(MAKECMDGOALS)),)
 -include $(PROBE_MAKE)
@@ -231,14 +231,16 @@ DEPEND_FLAGS+=-MP
 
 CXXFLAGS+=-pipe -Wall
 CXXFLAGS+=-I$(CONFIG_PATH)
-CXXFLAGS+= $(XRC_CFLAGS) $(XML_CFLAGS)
-LDFLAGS+= $(XRC_LDFLAGS) $(XML_LDFLAGS)
+CXXFLAGS+=$(XRC_CFLAGS) $(XML_CFLAGS)
+LINK_FLAGS+=$(XRC_LDFLAGS) $(XML_LDFLAGS)
+LINK_FLAGS_PREFIX:=-Wl,
+LINK_FLAGS+=$(addprefix $(LINK_FLAGS_PREFIX),$(LDFLAGS))
 
 # Strip binary?
 CATAPULT_STRIP?=false
 $(call BOOLCHECK,CATAPULT_STRIP)
 ifeq ($(CATAPULT_STRIP),true)
-  LDFLAGS+=--strip-all
+  LINK_FLAGS+=-s
 endif
 
 # Build Rules
@@ -283,7 +285,7 @@ config:
 $(BINARY_FULL): $(OBJECTS_FULL)
 	@echo "Linking $(BINARY_FILE)..."
 	@mkdir -p $(@D)
-	@$(CXX) -o $@ $(OBJECTS_FULL) $(LDFLAGS) 
+	@$(CXX) -o $@ $(OBJECTS_FULL) $(LINK_FLAGS)
 
 # Compile and generate dependency files in one go.
 DEPEND_SUBST=$(patsubst $(SOURCES_PATH)/%.cpp,$(DEPEND_PATH)/%.d,$<)
@@ -387,7 +389,7 @@ TARGET_CATAPULT:=$(wildcard $(BINARY_PATH)/$(BINARY_FILE))
 check_build:
 ifeq ($(TARGET_CATAPULT),)
 	$(error Create Catapult first)
-endif 
+endif
 
 # Source Packaging
 # ================
