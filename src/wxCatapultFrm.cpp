@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.10 2004/03/21 12:40:12 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.11 2004/03/21 13:50:14 manuelbi Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -94,8 +94,8 @@ END_EVENT_TABLE()
 	wxMenu *editMenu = new wxMenu("", wxMENU_TEAROFF);
 	wxMenu *helpMenu = new wxMenu("", wxMENU_TEAROFF);
 
-	fileMenu->Append(Catapult_Quit, _("E&xit\tAlt-X"), _("Quit this program"));
-	editMenu->Append(Catapult_Edit_Config, _("Edit &Configuration"), _("Adjust Catapult Settings"));
+	fileMenu->Append(Catapult_Quit, _("&Quit\tCtrl-Q"), _("Quit this program"));
+	editMenu->Append(Catapult_Edit_Config, _("Edit &Configuration\tCtrl-C"), _("Adjust Catapult Configuration"));
 	helpMenu->Append(Catapult_About, _("&About Catapult...\tCtrl-A"), _("Show about dialog"));
 
 	// now append the freshly created menu to the menu bar...
