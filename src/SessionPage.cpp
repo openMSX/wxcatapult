@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.45 2005/01/26 17:24:14 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.46 2005/01/31 21:00:39 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -1071,7 +1071,7 @@ void SessionPage::OnSelectMapper(wxCommandEvent & event)
 		if (m_romTypeDialog->ShowModal(value) == wxID_OK){	
 			target->type = m_romTypeDialog->GetSelectedType();
 			UpdateTooltip(target);
-			if ((target->type != "") && (target->type.Upper() != "AUTO")){
+			if ((target->type != wxT("")) && (target->type.Upper() != wxT("AUTO"))){
 				item.sprintf(wxT("Select cartridge type (%s)"),target->type);
 			}
 			target->mmenu->SetLabel(Cart_Select_Mapper,item);
