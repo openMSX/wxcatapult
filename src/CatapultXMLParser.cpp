@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.12 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.13 2004/08/26 14:29:46 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////

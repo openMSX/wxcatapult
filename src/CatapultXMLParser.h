@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.h,v 1.8 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: CatapultXMLParser.h,v 1.9 2004/08/26 14:29:46 h_oudejans Exp $
 // CatapultXMLParser.h: interface for the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
