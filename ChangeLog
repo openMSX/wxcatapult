@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.86 2004/10/03 20:08:25 h_oudejans Exp $
+$Id: ChangeLog,v 1.87 2004/10/04 16:41:45 h_oudejans Exp $
+
+2004-10-06 Herman Oudejans
+	* Added support for the 'firmwareswitch' setting.
 
 2004-10-04 Herman Oudejans
 	* Browse file buttons are now picture buttons

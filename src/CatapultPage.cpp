@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.22 2004/09/11 15:09:08 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.23 2004/09/24 22:03:24 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -68,6 +68,7 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting("power","PowerButton",&CatapultPage::UpdateToggleSetting,0);
 	AddSetting("pause","PauseButton",&CatapultPage::UpdateToggleSetting,0);
 	AddSetting("frontswitch","FirmwareButton",&CatapultPage::UpdateToggleSetting,0);
+	AddSetting("firmwareswitch","FirmwareButton",&CatapultPage::UpdateToggleSetting,0);
 	AddSetting("mute","MuteButton",&CatapultPage::UpdateToggleSetting,0);
 	AddSetting("midi-in-readfilename","MidiInFileInput",&CatapultPage::UpdateIndicatorSetting,0);
 	AddSetting("midi-out-logfilename","MidiOutFileInput",&CatapultPage::UpdateIndicatorSetting,0);

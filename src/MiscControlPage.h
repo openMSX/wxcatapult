@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.20 2004/10/03 20:08:26 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.21 2004/10/04 16:41:46 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ class MiscControlPage : public CatapultPage
 	public:
 		void SetControlsOnEnd();
 		void SetControlsOnLaunch();
-		void EnableFirmware();
+		void EnableFirmware(wxString setting);
 		void EnableRenShaTurbo();
 		MiscControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
 		virtual ~MiscControlPage();
@@ -80,6 +80,7 @@ class MiscControlPage : public CatapultPage
 		wxString m_oldJoy1;
 		wxString m_oldJoy2;
 		wxString m_oldSpeed;
+		wxString m_firmwareSetting;
 		wxComboBox * m_lastUpdatedCombo;
 		wxComboBox * m_printerportSelector;
 

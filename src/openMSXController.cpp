@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.62 2004/10/03 17:02:12 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.63 2004/10/03 17:15:34 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -511,6 +511,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("#info accuracy","","AccuracySelector",&openMSXController::FillComboBox,false);
 	AddLaunchInstruction ("update enable media","","",NULL,false);
 	AddLaunchInstruction ("info exist frontswitch","","#",&openMSXController::EnableFirmware,false);
+	AddLaunchInstruction ("info exist firmwareswitch","","#",&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction ("set renderer","","renderer",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set scaler","","scaler",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set accuracy","","accuracy",&openMSXController::UpdateSetting,true);
@@ -882,7 +883,14 @@ int openMSXController::FillComboBox (wxString data,wxString setting)
 int openMSXController::EnableFirmware (wxString data, wxString cmd)
 {
 	if ((data != "0") || (cmd.Mid(0,4) == wxT("set "))) {
-		m_appWindow->m_miscControlPage->EnableFirmware();
+		if (cmd.Find("frontswitch") != -1){
+			m_appWindow->m_miscControlPage->EnableFirmware("frontswitch");
+		}
+		else{
+			m_appWindow->m_miscControlPage->EnableFirmware("firmwareswitch");
+		}
+		
+		
 	}
 	return 0;
 }

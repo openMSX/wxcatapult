@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.31 2004/10/03 20:08:26 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.32 2004/10/04 16:41:46 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -175,7 +175,7 @@ void MiscControlPage::OnPower(wxCommandEvent &event)
 
 void MiscControlPage::OnFirmware(wxCommandEvent &event)
 {
-	m_controller->WriteCommand ("toggle frontswitch");
+	m_controller->WriteCommand (wxString("toggle ") + m_firmwareSetting);
 }
 
 void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
@@ -301,8 +301,9 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_firmwareButton->SetValue(false);
 }
 
-void MiscControlPage::EnableFirmware()
+void MiscControlPage::EnableFirmware(wxString setting)
 {
+	m_firmwareSetting = setting;
 	m_firmwareButton->Enable(true);
 }
 
