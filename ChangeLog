@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.96 2004/11/06 15:06:41 manuelbi Exp $
+$Id: ChangeLog,v 1.97 2004/11/06 15:53:04 manuelbi Exp $
+
+2004-11-06 Joost Yervante Damad <joost@lumatec.be>
+	* make it possible to disable symlink for install
+	* removed some ^M's from AUTHORS file
 
 2004-11-06 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Removed all hard loopends used in combination with static arrays to
