@@ -1,4 +1,13 @@
-$Id: ChangeLog,v 1.88 2004/10/06 19:28:23 h_oudejans Exp $
+$Id: ChangeLog,v 1.89 2004/10/08 15:26:40 h_oudejans Exp $
+
+2004-10-10 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed printerport plugin mechanism.
+	* Instead of using LaunchMode, every openMSX reply
+	   is linked to a handler-target. This can be either the
+	   interactive handler code or the automatic startup code.
+	   Advantage is that commands are no longer ignored, even
+	   at startup (Thanks to BifiMsx, Albert Beevendorp, for this
+	   solution).
 
 2004-10-08 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed printerlogger pluggable

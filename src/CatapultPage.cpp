@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.25 2004/10/08 15:26:03 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.26 2004/10/08 20:20:32 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -81,6 +81,7 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting("pcminput","SampleInSelector",&CatapultPage::UpdatePluggable,0);
 	AddSetting("joyporta","Joyport1Selector",&CatapultPage::UpdatePluggable,0);
 	AddSetting("joyportb","Joyport2Selector",&CatapultPage::UpdatePluggable,0);
+	AddSetting("printerport","PrinterportSelector",&CatapultPage::UpdatePluggable,0);
 	AddSetting("renshaturbo","RenshaTurboSlider",&CatapultPage::UpdateSliderSetting,0);
 	AddSetting("diska","DiskAContents",&CatapultPage::UpdateComboSetting,0);
 	AddSetting("diskb","DiskBContents",&CatapultPage::UpdateComboSetting,0);

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.64 2004/10/06 19:28:24 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.65 2004/10/08 15:25:28 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -31,7 +31,6 @@ openMSXController::openMSXController(wxWindow * target)
 	m_openMSXID = 0;
 	m_appWindow = (wxCatapultFrame *)target;
 	m_openMsxRunning = false;
-	m_launchMode = LAUNCH_NONE;
 	m_pluggables.Clear();
 	m_connectors.Clear();
 	InitLaunchScript ();
@@ -74,15 +73,7 @@ bool openMSXController::PreLaunch()
 bool openMSXController::PostLaunch()
 {
 	WriteMessage ("<openmsx-control>\n");
-	switch (m_launchMode) {
-		case LAUNCH_NORMAL:
-			executeLaunch();
-			break;
-		default:
-			assert (false);
-			break;
-	}
-
+	executeLaunch();
 	m_appWindow->StartTimers();
 	return true;
 }
@@ -164,19 +155,15 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				if ((lastcmd.Mid(0,5) != "plug ") || (lastcmd.Find(' ',true) == 4) ||
 					(lastcmd.Mid(5,lastcmd.Find(' ',true)-5)!= data->name)) {
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
-						m_launchMode = LAUNCH_NORMAL;
 						executeLaunch(NULL,43);
-						m_launchMode = LAUNCH_NONE;
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG) {
 				wxString lastcmd = PeekPendingCommand();
-				if ((lastcmd.Mid(0,7) != "unplug ") || (lastcmd.Find(' ',true) == 6)) {
+				if ((lastcmd.Mid(0,7) != "unplug ") || /*(lastcmd.Find(' ',true) == 6)) {*/
+					(lastcmd.Mid(7)!= data->name)) {
 					m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
-					m_launchMode = LAUNCH_NORMAL;
 					executeLaunch(NULL,43);
-					m_launchMode = LAUNCH_NONE;
-					
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA) {
@@ -192,7 +179,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 		case CatapultXMLParser::TAG_REPLY:
 			switch (data->replyState) {			
 				case CatapultXMLParser::REPLY_OK:
-					if (m_launchMode == LAUNCH_NORMAL) {
+					if (PeekPendingCommandTarget() == TARGET_STARTUP) {
 						HandleNormalLaunchReply(event);
 					}
 					else{
@@ -210,7 +197,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					break;
 				case CatapultXMLParser::REPLY_NOK:
 					{
-						if (m_launchMode == LAUNCH_NORMAL) {
+						if (PeekPendingCommandTarget() == TARGET_STARTUP) {
 							HandleNormalLaunchReply(event);
 						}
 						else{
@@ -277,11 +264,14 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 	delete data;
 }
 
-bool openMSXController::WriteCommand(wxString msg)
+bool openMSXController::WriteCommand(wxString msg, TargetType target)
 {
 	if (!m_openMsxRunning) 
 		return false;
-	m_commands.push_back(msg);
+	CommandEntry temp;
+	temp.command = msg;
+	temp.target = target;	
+	m_commands.push_back(temp);
 	xmlChar* buffer = xmlEncodeEntitiesReentrant(NULL, (const xmlChar*)msg.c_str());
 
 	bool result = (WriteMessage (wxString("<command>" + wxString(buffer) + "</command>\n")));
@@ -295,12 +285,14 @@ bool openMSXController::WriteCommand(wxString msg)
 wxString openMSXController::GetPendingCommand()
 {
 //	assert (!m_commands.empty());
+	CommandEntry entry;
 	wxString pending;
 	if (m_commands.empty()){	// TODO: why is assert (!m_commands.empty()) triggered ?
 		pending = "";			// it can only happen if a reply is received without a previous send command
 	}
 	else{
-		pending = m_commands.front();
+		entry = m_commands.front();
+		pending = entry.command;
 	}
 	m_commands.pop_front();
 	return wxString(pending);
@@ -308,14 +300,30 @@ wxString openMSXController::GetPendingCommand()
 
 wxString openMSXController::PeekPendingCommand()
 {
+	CommandEntry entry;
 	wxString pending;
 	if (m_commands.empty()) {
 		pending = "";
 	}
 	else {
-		pending = m_commands.front();
+		entry = m_commands.front();
+		pending = entry.command;
 	}
 	return wxString(pending);
+}
+
+enum openMSXController::TargetType openMSXController::PeekPendingCommandTarget()
+{
+	CommandEntry entry;
+	TargetType pending;
+	if (m_commands.empty()) {
+		pending = TARGET_INTERACTIVE;
+	}
+	else {
+		entry = m_commands.front();
+		pending = entry.target;
+	}
+	return pending;	
 }
 
 void openMSXController::StartOpenMSX(wxString cmd, bool getversion)
@@ -328,7 +336,6 @@ void openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 		m_appWindow->SetStatusText("Ready");
 	}
 	else {
-		m_launchMode = LAUNCH_NORMAL;
 		m_appWindow->SetStatusText("Running");
 		m_appWindow->EnableSaveSettings(true);
 		Launch(cmd);
@@ -599,8 +606,8 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 	static int sendLoop = -1;
 	static int recvLoop = -1;
 	static wxString lastdata = "";
-	wxString command;
 
+	wxString command;
 	if (event != NULL) { // handle received command
 		command = GetPendingCommand();
 		instruction  = m_launchScript[recvStep].command;
@@ -695,7 +702,7 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 					
 				}
 				else {
-					WriteCommand (cmd);
+					WriteCommand (cmd,TARGET_STARTUP);
 				}
 				action = m_launchScript[sendStep].scriptActions;
 				
@@ -720,6 +727,7 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 					}
 				}
 		}
+		return;
 }
 
 void openMSXController::FinishLaunch()
@@ -735,7 +743,6 @@ void openMSXController::FinishLaunch()
 	m_appWindow->SetSize(tempsize);
 #endif
 	m_appWindow->SetControlsOnLaunch();
-	m_launchMode = LAUNCH_NONE; // interactive mode
 }
 
 
@@ -995,3 +1002,9 @@ int openMSXController::EnableCassettePort (wxString data, wxString cmd)
 	m_appWindow->m_sessionPage->EnableCassettePort(data);
 	return 0;
 }
+
+void openMSXController::UpdateMixer()
+{
+	executeLaunch(NULL,43);
+}
+

@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.12 2004/09/24 22:03:24 h_oudejans Exp $
+// $Id: CatapultPage.h,v 1.13 2004/10/08 15:26:03 h_oudejans Exp $
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -11,7 +11,7 @@
 #endif // _MSC_VER > 1000
 
 #include <wx/tglbtn.h>
-#define SETTINGTABLE_MAXSIZE 36
+#define SETTINGTABLE_MAXSIZE 37
 
 #define S_CONVERT 1
 #define S_EVENT 2

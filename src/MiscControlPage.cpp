@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.33 2004/10/06 19:28:23 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.34 2004/10/08 15:26:40 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -591,8 +591,13 @@ void MiscControlPage::OnPrinterportChanged(bool save)
 	}
 	m_controller->WriteCommand("unplug printerport");
 	if (current != "--empty--"){
-		m_controller->WriteCommand(wxString("plug printerport ") + current);	
+		m_controller->WriteCommand(wxString("plug printerport ") + current);
+
 	}
+	if (m_controller->IsOpenMSXRunning()){
+		m_controller->UpdateMixer();
+	}
+		
 }
 
 void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent &event)

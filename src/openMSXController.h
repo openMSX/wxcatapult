@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.24 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.25 2004/09/24 22:03:24 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -9,6 +9,8 @@
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
+
+#pragma warning( disable : 4786) // we don't want 39 warnings about browse info names getting too long
 
 #include <list>
 #include "CatapultPage.h"
@@ -22,6 +24,11 @@ class CatapultXMLParser;
 class openMSXController  
 {
 	public:
+		enum TargetType{
+			TARGET_STARTUP,
+			TARGET_INTERACTIVE
+		};
+		void UpdateMixer ();
 		void GetConnectors (wxArrayString & connectors);
 		wxString GetConnectorClass (wxString name);
 		wxString GetConnectorContents (wxString name);		
@@ -29,7 +36,7 @@ class openMSXController
 		void GetPluggableDescriptions (wxArrayString & descriptions);
 		void GetPluggableClasses (wxArrayString & classes);
 		void StartOpenMSX (wxString cmd, bool getversion=false);
-		bool WriteCommand(wxString msg);
+		bool WriteCommand(wxString msg, TargetType target = TARGET_INTERACTIVE);
 		void HandleParsedOutput (wxCommandEvent &event);
 		void HandleStdErr (wxCommandEvent & event);
 		void HandleStdOut (wxCommandEvent &event);
@@ -49,14 +56,9 @@ class openMSXController
 	protected:
 		wxCatapultFrame * m_appWindow;
 		bool m_openMsxRunning;
-		enum LaunchMode{
-			LAUNCH_NONE,
-			LAUNCH_NORMAL
-		};
 		bool PostLaunch ();
 		bool PreLaunch();
 		CatapultXMLParser * m_parser;
-		LaunchMode m_launchMode;
 	private:
 		bool wait;
 		int sendStep;
@@ -70,6 +72,10 @@ class openMSXController
 			wxString parameter;
 			int (openMSXController::*p_okfunction)(wxString,wxString); 
 			bool showError;
+		};
+		struct CommandEntry{
+			wxString command;
+			TargetType target;
 		};
 		
 		LaunchInstructionType * m_launchScript;
@@ -87,7 +93,7 @@ class openMSXController
 		wxArrayString m_pluggableclasses;
 		wxString GetPendingCommand();
 		wxString PeekPendingCommand();
-		
+		enum TargetType PeekPendingCommandTarget();
 				
 		void HandleNormalLaunchReply(wxCommandEvent &event);
 		
@@ -117,8 +123,7 @@ class openMSXController
 		int InitConnectorPanel (wxString dummy1, wxString dummy2);
 		int EnableCassettePort (wxString data, wxString cmd);
 
-
-		list<wxString> m_commands;		
+		list<CommandEntry> m_commands;
 };
 
 #endif // !defined(AFX_OPENMSXCONTROLLER_H__B093351A_1D73_4989_87F1_59EC5C871497__INCLUDED_)
