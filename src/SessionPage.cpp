@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.19 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.20 2004/08/26 16:02:49 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -116,7 +116,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 			}
 		}
 		m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),-1);
-//	delete tempDC;
+	delete tempDC;
 
 
 

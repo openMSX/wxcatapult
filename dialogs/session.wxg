@@ -21,7 +21,7 @@
                         </object>
                     </object>
                     <object class="sizeritem">
-                        <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
+                        <flag>wxEXPAND</flag>
                         <border>0</border>
                         <option>0</option>
                         <object class="wxComboBox" name="MachineList" base="EditComboBox">
