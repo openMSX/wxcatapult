@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.7 2004/03/26 20:02:06 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.8 2004/03/28 15:11:51 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,12 +24,12 @@
 
 IMPLEMENT_CLASS(SessionPage, wxPanel)
 BEGIN_EVENT_TABLE(SessionPage, wxPanel)
-	EVT_COMBOBOX(XRCID("DiskAContents"),SessionPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("DiskBContents"),SessionPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("CartAContents"),SessionPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("CartBContents"),SessionPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("Tape1Contents"),SessionPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("Tape2Contents"),SessionPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("DiskAContents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("DiskBContents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("CartAContents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("CartBContents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("Tape1Contents"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("Tape2Contents"),CatapultPage::OnClickCombo)
 	EVT_BUTTON(XRCID("BrowseDiskA"),SessionPage::OnBrowseDiskA)
 	EVT_BUTTON(XRCID("BrowseDiskB"),SessionPage::OnBrowseDiskB)
 	EVT_BUTTON(XRCID("BrowseCartA"),SessionPage::OnBrowseCartA)
@@ -140,7 +140,7 @@ void SessionPage::OnClearCasPatch(wxCommandEvent &event)
 	m_lastTape2 = _("");
 	m_controller->WriteCommand(_("cas eject"));
 }
-
+/*
 void SessionPage::OnClickCombo (wxCommandEvent &event)
 {
 	wxComboBox * box = (wxComboBox *)event.GetEventObject();
@@ -150,7 +150,7 @@ void SessionPage::OnClickCombo (wxCommandEvent &event)
 		box->SetValue(sel);
 	}
 }
-
+*/
 
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
 {

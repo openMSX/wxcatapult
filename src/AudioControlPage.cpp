@@ -1,4 +1,4 @@
-// $Id: $
+// $Id: AudioControlPage.cpp,v 1.9 2004/03/26 20:02:05 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -17,9 +17,12 @@
 
 IMPLEMENT_CLASS(AudioControlPage, wxPanel)
 BEGIN_EVENT_TABLE(AudioControlPage, wxPanel)
-	EVT_COMBOBOX(XRCID("MidiInSelector"),AudioControlPage::OnChangeMidiInPlug)
-	EVT_COMBOBOX(XRCID("MidiOutSelector"),AudioControlPage::OnChangeMidiOutPlug)
-	EVT_COMBOBOX(XRCID("SampleInSelector"),AudioControlPage::OnChangeSampleInPlug)
+	EVT_COMBOBOX(XRCID("MidiInSelector"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("MidiOutSelector"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("SampleInSelector"),CatapultPage::OnClickCombo)
+	EVT_TEXT(XRCID("MidiInSelector"),AudioControlPage::OnChangeMidiInPlug)
+	EVT_TEXT(XRCID("MidiOutSelector"),AudioControlPage::OnChangeMidiOutPlug)
+	EVT_TEXT(XRCID("SampleInSelector"),AudioControlPage::OnChangeSampleInPlug)
 	EVT_BUTTON(XRCID("BrowseMidiInButton"),AudioControlPage::OnBrowseMidiInFile)
 	EVT_BUTTON(XRCID("BrowseMidiOutButton"),AudioControlPage::OnBrowseMidiOutFile)
 	EVT_BUTTON(XRCID("BrowseSampleInputButton"),AudioControlPage::OnBrowseSampleInFile)
@@ -262,6 +265,7 @@ void AudioControlPage::OnChangeVolume(wxScrollEvent& event)
 
 void AudioControlPage::OnChangeMode(wxCommandEvent& event)
 {
+	CatapultPage::OnClickCombo (event);
 	int ID=event.GetId();
 	wxString channelname = GetAudioChannelName(ID-FIRSTAUDIOCOMBO);
 	const wxString tempval = ((wxComboBox *)event.GetEventObject())->GetValue();
@@ -350,7 +354,8 @@ void AudioControlPage::SetChannelMode (int number, wxString value)
 	if (value==_("right")) val = _("R");
 	if (value==_("stereo")) val = _("S");
 	wxComboBox * combo = (wxComboBox *)FindWindowById(number+FIRSTAUDIOCOMBO,this);
-	combo->SetValue(val);
+	//combo->SetValue(val);
+	combo->SetSelection(combo->FindString(val));
 }
 
 void AudioControlPage::DisableMasterVolume()

@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.4 2004/03/25 20:22:48 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.5 2004/03/26 20:02:06 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -35,6 +35,16 @@ wxString CatapultPage::ConvertPath(wxString path, bool ConvertSlash)
 	if (ConvertSlash)
 		path.Replace(_("\\"),_("/"),true);
 	return path;
+}
+
+void CatapultPage::OnClickCombo (wxCommandEvent &event)
+{
+	wxComboBox * box = (wxComboBox *)event.GetEventObject();
+	wxString sel = box->GetString(box->GetSelection());
+	wxString cursel = box->GetValue();
+	if (sel != cursel){
+		box->SetValue(sel);
+	}
 }
 
 void CatapultPage::InitSettingsTable ()

@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.7 2004/03/25 20:04:57 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.8 2004/03/26 20:02:06 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -17,6 +17,9 @@
 
 IMPLEMENT_CLASS(VideoControlPage, wxPanel)
 BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
+	EVT_COMBOBOX(XRCID("RendererSelector"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("ScalerSelector"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("AccuracySelector"),CatapultPage::OnClickCombo)
 	EVT_TEXT(XRCID("RendererSelector"),VideoControlPage::OnChangeRenderer)
 	EVT_TEXT(XRCID("ScalerSelector"),VideoControlPage::OnChangeScaler)
 	EVT_TEXT(XRCID("AccuracySelector"),VideoControlPage::OnChangeAccuracy)
