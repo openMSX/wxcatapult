@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.52 2005/02/05 09:50:54 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.53 2005/02/08 19:50:26 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -118,7 +118,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 
 		m_cartMenu[j] = new wxMenu(wxT(""),0);
 		m_cartMenu[j]->Append(Cart_Browse_File,wxT("Browse ROM image"),wxT(""),wxITEM_NORMAL);
-		m_cartMenu[j]->Append(Cart_Eject,wxT("Eject Rom"),wxT(""),wxITEM_NORMAL);
+		m_cartMenu[j]->Append(Cart_Eject,wxT("Eject ROM"),wxT(""),wxITEM_NORMAL);
 		m_cartMenu[j]->Append(Cart_Select_Mapper,wxT("Select ROM type (AUTO)"),wxT(""),wxITEM_NORMAL);
 		m_cartMenu[j]->Append(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"),wxT(""),wxITEM_NORMAL);
 	}
