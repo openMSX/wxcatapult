@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.71 2004/11/10 21:35:26 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.72 2004/11/11 17:14:59 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	if (!m_openMsxRunning) 
 		return;
 	wxString led[7]={wxT("power"), wxT("caps"), wxT("kana"), wxT("pause"),
-		wxT("turbo"), wxT("fdd"), wxT("")};
+		wxT("turbo"), wxT("fdd")};
 	unsigned int i=0;
 	FOREACH(i,led){	
 		m_appWindow->UpdateLed(led[i],"off");
