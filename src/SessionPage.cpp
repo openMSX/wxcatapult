@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.21 2004/08/26 16:06:29 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.22 2004/09/26 09:50:01 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -397,11 +397,10 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensio
 void SessionPage::fillExtensions (wxArrayString & extensionArray)
 {
 	wxString temp;
-	for (unsigned int i=0;i<extensionArray.GetCount();i++)
-	{
-		if (m_extensionList->FindString (extensionArray[i]) == -1)
-			temp = extensionArray[i];
-			temp.Replace("_"," ",true);
+	for (unsigned int i=0;i<extensionArray.GetCount();i++){
+		temp = extensionArray[i];
+		temp.Replace("_"," ",true);
+		if (m_extensionList->FindString (temp) == -1)
 			m_extensionList->Append(temp);
 	}
 
@@ -435,9 +434,9 @@ void SessionPage::fillMachines (wxArrayString & machineArray)
 	wxString temp;
 	for (unsigned int i=0;i<machineArray.GetCount();i++)
 	{
-		if (m_machineList->FindString (machineArray[i]) == -1)
-			temp = machineArray[i];
-			temp.Replace("_"," ",true);
+		temp = machineArray[i];
+		temp.Replace("_"," ",true);
+		if (m_machineList->FindString (temp) == -1)
 			m_machineList->Append(temp);
 	}
 }
