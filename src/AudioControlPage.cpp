@@ -23,6 +23,7 @@ AudioControlPage::AudioControlPage(wxWindow * parent, openMSXController * contro
 	wxXmlResource::Get()->LoadPanel(this, parent, _("AudioControlPage"));
 	m_audioPanel = (wxPanel *)FindWindow (_("AudioChannelPanel"));
 	m_controller=controller;
+	m_masterVolumeEnabled = true;
 }
 
 AudioControlPage::~AudioControlPage()
@@ -65,6 +66,11 @@ void AudioControlPage::SetupAudioMixer()
 	ConvertChannelNames (m_audioChannels);
 	for (unsigned int i=0;i<m_audioChannels.GetCount();i++){
 		AddChannel (m_audioChannels[i],i);
+	}
+	
+	if (!m_masterVolumeEnabled){
+		wxWindow * mastervol = FindWindow(_("AudioSlider_0"));
+		mastervol->Enable(false);
 	}
 }
 
@@ -113,7 +119,10 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 #else
 	defaultsize = wxSize(40,18);
 #endif
-
+	int maxvol = 100;
+	if (!m_masterVolumeEnabled){
+		maxvol = 32767;
+	}
 	int i;
 	wxSizer * AudioSizer = m_audioPanel->GetSizer();
 	wxString choices1[3]={_("M"), _("L"), _("R")};
@@ -123,7 +132,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	wxStaticText * label = new wxStaticText(m_audioPanel, -1, labeltext.Mid(0,labeltext.Find("::")),
 			wxDefaultPosition, wxDefaultSize,0,
 			wxString(_("AudioLabel_")+number));
-	wxSlider * slider = new wxSlider(m_audioPanel,FIRSTAUDIOSLIDER+channelnumber,0,0,100,wxDefaultPosition,
+	wxSlider * slider = new wxSlider(m_audioPanel,FIRSTAUDIOSLIDER+channelnumber,0,0,maxvol,wxDefaultPosition,
 			wxDefaultSize,wxSL_VERTICAL,wxDefaultValidator,
 			wxString(_("AudioSlider_")+number));
 	wxComboBox * combo = NULL;
@@ -279,6 +288,7 @@ wxString AudioControlPage::GetAudioChannelType (int number)
 		temp = m_audioChannels[number].Mid(pos+2,pos2-pos-2);
 	}
 	temp.Replace ("\n"," ",true);
+	temp.Trim ();
 	return wxString(temp);
 }
 
@@ -289,10 +299,14 @@ int AudioControlPage::GetNumberOfAudioChannels ()
 
 void AudioControlPage::SetChannelVolume (int number, wxString value)
 {
+	int maxvol = 100;
+	if (!m_masterVolumeEnabled){
+		maxvol = 32767;
+	}	
 	long intvalue;
 	wxSlider * slider = (wxSlider *)FindWindowById(number+FIRSTAUDIOSLIDER,this);
 	value.ToLong(&intvalue);	
-	slider->SetValue (100-intvalue);
+	slider->SetValue (maxvol-intvalue);
 }	
 
 void AudioControlPage::SetChannelMode (int number, wxString value)
@@ -305,4 +319,10 @@ void AudioControlPage::SetChannelMode (int number, wxString value)
 	wxComboBox * combo = (wxComboBox *)FindWindowById(number+FIRSTAUDIOCOMBO,this);
 	combo->SetValue(val);
 }
+
+void AudioControlPage::DisableMasterVolume()
+{
+	m_masterVolumeEnabled = false;	
+}
+
 

@@ -17,6 +17,7 @@ class openMSXController;
 class AudioControlPage : public wxPanel  
 {
 	public:
+		void DisableMasterVolume();
 		void SetChannelVolume(int number, wxString value);
 		void SetChannelMode (int number,wxString value);
 		wxString GetAudioChannelName(int number);
@@ -37,6 +38,7 @@ class AudioControlPage : public wxPanel
 		openMSXController * m_controller;
 		wxPanel * m_audioPanel;
 		wxArrayString m_audioChannels;
+		bool m_masterVolumeEnabled;
 };
 
 #endif 
