@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.20 2004/04/06 14:59:21 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.21 2004/04/07 16:44:47 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -203,7 +203,13 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	{
 		cmd += " -machine " + hardware[0];
 	}
-		
+	
+	if (hardware.GetCount() > 1){
+		for (i=1;i<hardware.GetCount();i++){
+			cmd += " -ext " + hardware[1];
+		}
+	}
+
 	wxString parmname [6]={_("diska"),_("diskb"),_("carta"),_("cartb"),_("cassetteplayer"),_("cas")};
 	for (i=0;i<6;i++){
 		if (!media[i].IsEmpty()){
