@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.h,v 1.5 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: PipeReadThread.h,v 1.6 2004/11/11 17:14:59 h_oudejans Exp $
 // PipeReadThread.h: interface for the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,6 +10,10 @@
 #include "wx/process.h"
 #include "wx/window.h"
 #include "wx/txtstrm.h"
+
+#ifdef __WXMSW__
+#include <windows.h>
+#endif
 
 #if _MSC_VER > 1000
 #pragma once
