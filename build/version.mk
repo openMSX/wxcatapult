@@ -1,4 +1,4 @@
-# $Id: version.mk,v 1.7 2004/10/17 23:59:00 mthuurne Exp $
+# $Id: version.mk,v 1.8 2004/10/18 00:04:36 mthuurne Exp $
 #
 # Version info.
 
@@ -6,7 +6,7 @@
 PACKAGE_NAME:=openmsx-catapult
 
 # Version number.
-PACKAGE_VERSION:=0.5.0-R1
+PACKAGE_VERSION:=0.5.0
 
 # Is this a release version ("true") or development version ("false").
-RELEASE_FLAG:=true
+RELEASE_FLAG:=false
