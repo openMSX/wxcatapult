@@ -1,4 +1,4 @@
-// $Id: ScreenShotDlg.cpp,v 1.2 2004/10/03 17:17:26 h_oudejans Exp $
+// $Id: ScreenShotDlg.cpp,v 1.3 2004/11/11 17:14:59 h_oudejans Exp $
 // ScreenshotDlg.cpp: implementation of the FullScreenDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,7 +14,7 @@
 
 IMPLEMENT_CLASS(ScreenshotDlg, wxDialog)
 BEGIN_EVENT_TABLE(ScreenshotDlg, wxDialog)
-	EVT_BUTTON(XRCID("OkButton"),ScreenshotDlg::OnOk)	
+	EVT_BUTTON(XRCID(wxT("OkButton")),ScreenshotDlg::OnOk)	
 END_EVENT_TABLE()
 
 

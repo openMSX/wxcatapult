@@ -1,4 +1,4 @@
-// $Id: InputPage.cpp,v 1.4 2004/10/04 20:45:49 manuelbi Exp $
+// $Id: InputPage.cpp,v 1.5 2004/11/11 17:14:59 h_oudejans Exp $
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -16,8 +16,8 @@
 
 IMPLEMENT_CLASS(InputPage, wxPanel)
 BEGIN_EVENT_TABLE(InputPage, wxPanel)
-	EVT_BUTTON(XRCID("TypeTextButton"),InputPage::OnTypeText)
-	EVT_BUTTON(XRCID("ClearTextButton"),InputPage::OnClearText)
+	EVT_BUTTON(XRCID(wxT("TypeTextButton")),InputPage::OnTypeText)
+	EVT_BUTTON(XRCID(wxT("ClearTextButton")),InputPage::OnClearText)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ void InputPage::OnTypeText (wxCommandEvent &event)
 	test.Replace("]","\\]",true);
 	test.Replace("}","\\}",true);
 	test.Replace("{","\\{",true);
-	m_controller->WriteCommand(wxString("type \"") + test + "\"");	
+	m_controller->WriteCommand(wxString(wxT("type \"")) + test + wxT("\""));	
 }
 
 void InputPage::OnClearText(wxCommandEvent &event)

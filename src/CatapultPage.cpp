@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.29 2004/11/06 13:51:33 manuelbi Exp $
+// $Id: CatapultPage.cpp,v 1.30 2004/11/11 17:14:59 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -53,42 +53,42 @@ void CatapultPage::InitSettingsTable ()
 {
 	m_settingTableSize = 0;
 	m_settingTable = new SettingTableElementType [SETTINGTABLE_MAXSIZE];
-	AddSetting("renderer","RendererSelector",&CatapultPage::UpdateComboSetting,0);
-	AddSetting("scaler","ScalerSelector",&CatapultPage::UpdateComboSetting,0);
-	AddSetting("accuracy","AccuracySelector",&CatapultPage::UpdateComboSetting,0);
-	AddSetting("deinterlace","DeInterlaceButton",&CatapultPage::UpdateToggleSetting,S_CONVERT);
-	AddSetting("limitsprites","LimitSpriteButton",&CatapultPage::UpdateToggleSetting,S_CONVERT);
-	AddSetting("blur","BlurIndicator",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("glow","GlowIndicator",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("gamma","GammaIndicator",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("scanline","ScanlineIndicator",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("speed","SpeedIndicator",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("minframeskip","MinFrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("maxframeskip","MaxFrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("throttle","MaxSpeedButton",&CatapultPage::UpdateToggleSetting,S_INVERT | S_EVENT);
-	AddSetting("power","PowerButton",&CatapultPage::UpdateToggleSetting,0);
-	AddSetting("pause","PauseButton",&CatapultPage::UpdateToggleSetting,0);
-	AddSetting("frontswitch","FirmwareButton",&CatapultPage::UpdateToggleSetting,0);
-	AddSetting("firmwareswitch","FirmwareButton",&CatapultPage::UpdateToggleSetting,0);
-	AddSetting("mute","MuteButton",&CatapultPage::UpdateToggleSetting,0);
-	AddSetting("midi-in-readfilename","MidiInFileInput",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("midi-out-logfilename","MidiOutFileInput",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("audio-inputfilename","SampleFileInput",&CatapultPage::UpdateIndicatorSetting,0);
-	AddSetting("*_volume","volume",&CatapultPage::UpdateAudioSetting,0);
-	AddSetting("*_mode","mode",&CatapultPage::UpdateAudioSetting,0);
-	AddSetting("msx-midi-in","MidiInSelector",&CatapultPage::UpdateMidiPlug,0);
-	AddSetting("msx-midi-out","MidiOutSelector",&CatapultPage::UpdateMidiPlug,0);
-	AddSetting("pcminput","SampleInSelector",&CatapultPage::UpdatePluggable,0);
-	AddSetting("joyporta","Joyport1Selector",&CatapultPage::UpdatePluggable,0);
-	AddSetting("joyportb","Joyport2Selector",&CatapultPage::UpdatePluggable,0);
-	AddSetting("printerport","PrinterportSelector",&CatapultPage::UpdatePluggable,0);
-	AddSetting("renshaturbo","RenshaTurboSlider",&CatapultPage::UpdateSliderSetting,0);
-	AddSetting("diska","DiskAContents",&CatapultPage::UpdateComboSetting,0);
-	AddSetting("diskb","DiskBContents",&CatapultPage::UpdateComboSetting,0);
-	AddSetting("cassette","CassetteContents",&CatapultPage::UpdateComboSetting,0);
-	AddSetting("fullscreen","FullScreenButton",&CatapultPage::UpdateToggleSetting,S_CONVERT);
-	AddSetting("save_settings_on_exit","Save Settings On Exit",&CatapultPage::UpdateMenuSetting,0);
-	AddSetting("printerlogfilename","PrinterLogFile",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("renderer"),wxT("RendererSelector"),&CatapultPage::UpdateComboSetting,0);
+	AddSetting(wxT("scaler"),wxT("ScalerSelector"),&CatapultPage::UpdateComboSetting,0);
+	AddSetting(wxT("accuracy"),wxT("AccuracySelector"),&CatapultPage::UpdateComboSetting,0);
+	AddSetting(wxT("deinterlace"),wxT("DeInterlaceButton"),&CatapultPage::UpdateToggleSetting,S_CONVERT);
+	AddSetting(wxT("limitsprites"),wxT("LimitSpriteButton"),&CatapultPage::UpdateToggleSetting,S_CONVERT);
+	AddSetting(wxT("blur"),wxT("BlurIndicator"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("glow"),wxT("GlowIndicator"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("gamma"),wxT("GammaIndicator"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("scanline"),wxT("ScanlineIndicator"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("speed"),wxT("SpeedIndicator"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("minframeskip"),wxT("MinFrameSkipIndicator"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("maxframeskip"),wxT("MaxFrameSkipIndicator"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("throttle"),wxT("MaxSpeedButton"),&CatapultPage::UpdateToggleSetting,S_INVERT | S_EVENT);
+	AddSetting(wxT("power"),wxT("PowerButton"),&CatapultPage::UpdateToggleSetting,0);
+	AddSetting(wxT("pause"),wxT("PauseButton"),&CatapultPage::UpdateToggleSetting,0);
+	AddSetting(wxT("frontswitch"),wxT("FirmwareButton"),&CatapultPage::UpdateToggleSetting,0);
+	AddSetting(wxT("firmwareswitch"),wxT("FirmwareButton"),&CatapultPage::UpdateToggleSetting,0);
+	AddSetting(wxT("mute"),wxT("MuteButton"),&CatapultPage::UpdateToggleSetting,0);
+	AddSetting(wxT("midi-in-readfilename"),wxT("MidiInFileInput"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("midi-out-logfilename"),wxT("MidiOutFileInput"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("audio-inputfilename"),wxT("SampleFileInput"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("*_volume"),wxT("volume"),&CatapultPage::UpdateAudioSetting,0);
+	AddSetting(wxT("*_mode"),wxT("mode"),&CatapultPage::UpdateAudioSetting,0);
+	AddSetting(wxT("msx-midi-in"),wxT("MidiInSelector"),&CatapultPage::UpdateMidiPlug,0);
+	AddSetting(wxT("msx-midi-out"),wxT("MidiOutSelector"),&CatapultPage::UpdateMidiPlug,0);
+	AddSetting(wxT("pcminput"),wxT("SampleInSelector"),&CatapultPage::UpdatePluggable,0);
+	AddSetting(wxT("joyporta"),wxT("Joyport1Selector"),&CatapultPage::UpdatePluggable,0);
+	AddSetting(wxT("joyportb"),wxT("Joyport2Selector"),&CatapultPage::UpdatePluggable,0);
+	AddSetting(wxT("printerport"),wxT("PrinterportSelector"),&CatapultPage::UpdatePluggable,0);
+	AddSetting(wxT("renshaturbo"),wxT("RenShaTurboSlider"),&CatapultPage::UpdateSliderSetting,0);
+	AddSetting(wxT("diska"),wxT("DiskAContents"),&CatapultPage::UpdateComboSetting,0);
+	AddSetting(wxT("diskb"),wxT("DiskBContents"),&CatapultPage::UpdateComboSetting,0);
+	AddSetting(wxT("cassette"),wxT("CassetteContents"),&CatapultPage::UpdateComboSetting,0);
+	AddSetting(wxT("fullscreen"),wxT("FullScreenButton"),&CatapultPage::UpdateToggleSetting,S_CONVERT);
+	AddSetting(wxT("save_settings_on_exit"),wxT("Save Settings On Exit"),&CatapultPage::UpdateMenuSetting,0);
+	AddSetting(wxT("printerlogfilename"),wxT("PrinterLogFile"),&CatapultPage::UpdateIndicatorSetting,0);
 }
 
 void CatapultPage::AddSetting (wxString setting, wxString controlname,
@@ -96,7 +96,7 @@ void CatapultPage::AddSetting (wxString setting, wxString controlname,
 	int flags)
 {	
 	if (m_settingTableSize >= SETTINGTABLE_MAXSIZE) {
-		wxMessageBox ("Not enough space to store the setting table!\nPlease contact the authors.","Internal Catapult Error");
+		wxMessageBox (wxT("Not enough space to store the setting table!\nPlease contact the authors."),wxT("Internal Catapult Error"));
 		return;
 	}
 	m_settingTable[m_settingTableSize].setting = setting;
@@ -138,7 +138,7 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 	
 	wxToggleButton * button = (wxToggleButton *)m_parent->FindWindowByName(control);
 	if (button != NULL) {
-		if ((data == "on") || (data == "true") || (data == "1") || (data== "yes")) {
+		if ((data == wxT("on")) || (data == wxT("true")) || (data == wxT("1")) || (data== wxT("yes"))) {
 			sendvalue = active;
 		}
 		else{
@@ -155,11 +155,11 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 		}
 					
 		if (flags & S_CONVERT) {
-			if ((data == "false") || (data == "no") || (data == "0")){
-				data = "off";
+			if ((data == wxT("false")) || (data == wxT("no")) || (data == wxT("0"))){
+				data = wxT("off");
 			}
-			if ((data == "true") || (data == "yes") || (data == "1")){
-				data = "on";
+			if ((data == wxT("true")) || (data == wxT("yes")) || (data == wxT("1"))){
+				data = wxT("on");
 			}
 			ButtonText = data.Mid(0,1).Upper() + data.Mid(1).Lower();
 			button->SetLabel(ButtonText);
@@ -217,9 +217,9 @@ bool CatapultPage::UpdateMenuSetting (wxString setting, wxString data, wxString 
 	bool sendvalue = false;
 	long savedvalue = 0;
 	wxFrame * appwnd = (wxFrame *)GetParent()->GetGrandParent();
-	int menusetting = appwnd->GetMenuBar()->FindMenuItem("&Settings","Save openMSX Settings On &Exit");
+	int menusetting = appwnd->GetMenuBar()->FindMenuItem(wxT("&Settings"),wxT("Save openMSX Settings On &Exit"));
 	if (menusetting != wxNOT_FOUND) {
-		if ((data == "on") || (data == "true") || (data == "1") || (data== "yes")) {
+		if ((data == wxT("on")) || (data == wxT("true")) || (data == wxT("1")) || (data== wxT("yes"))) {
 			sendvalue = true;
 			savedvalue = 1;
 		}

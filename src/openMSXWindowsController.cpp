@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.12 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: openMSXWindowsController.cpp,v 1.13 2004/11/14 18:31:18 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 openMSXWindowsController::~openMSXWindowsController()
 {
 	if (m_openMsxRunning) { 
-		WriteCommand("quit");
+		WriteCommand(wxT("quit"));
 	}
 }
  
@@ -191,21 +191,21 @@ bool openMSXWindowsController::CreatePipes(bool useNamedPipes,HANDLE * input,
 	{
 		if (!CreatePipe(&hInputRead, &hInputWriteTmp,&sa,0))
 		{
-			ShowError(_("Error creating pipe for stdin"));
+			ShowError(wxT("Error creating pipe for stdin"));
 			return false;
 		}
 
 		if (!DuplicateHandle(GetCurrentProcess(),hInputWriteTmp,
 					GetCurrentProcess(), &hInputWrite, 0,FALSE, DUPLICATE_SAME_ACCESS))
 		{
-			ShowError(_("Error Duplicating InputWriteTmp Handle"));
+			ShowError(wxT("Error Duplicating InputWriteTmp Handle"));
 			return false;
 
 		}
 
 		if (!CloseHandle(hInputWriteTmp))
 		{
-			ShowError(_("Error Closing Input Temp Handle"));
+			ShowError(wxT("Error Closing Input Temp Handle"));
 			return false;
 		}
 		m_outputHandle = hInputWrite;
@@ -214,13 +214,13 @@ bool openMSXWindowsController::CreatePipes(bool useNamedPipes,HANDLE * input,
 
 	if (!CreatePipe(&hOutputReadTmp,&hOutputWrite,&sa,0))
 	{
-		ShowError(_("Error creating pipe for stdout"));
+		ShowError(wxT("Error creating pipe for stdout"));
 		return false;
 	}
 
 	if (!CreatePipe(&hErrorReadTmp,&hErrorWrite,&sa,0))
 	{
-		ShowError(_("Error creating pipe for stderr"));
+		ShowError(wxT("Error creating pipe for stderr"));
 		return false;
 	}
 	*input = hInputHandle;
@@ -235,7 +235,7 @@ void openMSXWindowsController::ShowError(wxString msg)
 {
 	wxString error;
 	error.sprintf ("%ld",GetLastError());
-	wxMessageBox (msg + wxString(_(": error ")) + error);	
+	wxMessageBox (msg + wxString(wxT(": error ")) + error);	
 }
 
 void openMSXWindowsController::CloseHandles(bool useNamedPipes, HANDLE hThread,
@@ -244,18 +244,18 @@ void openMSXWindowsController::CloseHandles(bool useNamedPipes, HANDLE hThread,
 {
 	if (!CloseHandle(hThread)) 
 	{
-		wxMessageBox (_T("Unable to close thread handle"));
+		wxMessageBox (wxT("Unable to close thread handle"));
 		return;
 	}
 
 	if (!CloseHandle(hOutputWrite))
 	{
-		wxMessageBox (_T("Unable to close Output Write"));
+		wxMessageBox (wxT("Unable to close Output Write"));
 		return;	  
 	};
 	if (!CloseHandle(hErrorWrite))
 	{
-		wxMessageBox (_T("Unable to close Error Write"));
+		wxMessageBox (wxT("Unable to close Error Write"));
 		return;	  
 	};
 
@@ -263,7 +263,7 @@ void openMSXWindowsController::CloseHandles(bool useNamedPipes, HANDLE hThread,
 	{
 		if (!CloseHandle(hInputRead))
 		{
-			wxMessageBox (_T("Unable to close Input Read"));
+			wxMessageBox (wxT("Unable to close Input Read"));
 			return;	  
 		};
 	}	
@@ -297,7 +297,7 @@ void openMSXWindowsController::HandleEndProcess(wxCommandEvent &event)
 
 wxString openMSXWindowsController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
-	wxString version = "";
+	wxString version = wxT("");
 	wxArrayString output;
 	int code = wxExecute(openmsxCmd + wxT(" -v"), output);
 	if ((code != -1) && (output.GetCount()>0)) {

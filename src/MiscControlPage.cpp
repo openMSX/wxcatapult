@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.35 2004/10/10 11:48:30 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.36 2004/11/11 17:14:59 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,28 +20,28 @@
 
 IMPLEMENT_CLASS(MiscControlPage, wxPanel)
 BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
-	EVT_BUTTON(XRCID("ResetButton"),MiscControlPage::OnReset)
-	EVT_TOGGLEBUTTON (XRCID("PauseButton"),MiscControlPage::OnPause)
-	EVT_TOGGLEBUTTON (XRCID("PowerButton"),MiscControlPage::OnPower)
-	EVT_TOGGLEBUTTON (XRCID("FirmwareButton"),MiscControlPage::OnFirmware)
-	EVT_COMMAND_SCROLL (XRCID("SpeedSlider"),MiscControlPage::OnSpeedChange)
-	EVT_BUTTON(XRCID("NormalSpeedButton"),MiscControlPage::OnSetNormalSpeed)
-	EVT_TOGGLEBUTTON(XRCID("MaxSpeedButton"),MiscControlPage::OnSetMaxSpeed)
-	EVT_COMMAND_SCROLL (XRCID("MinFrameSkipSlider"),MiscControlPage::OnMinFrameSkipChange)
-	EVT_COMMAND_SCROLL (XRCID("MaxFrameSkipSlider"),MiscControlPage::OnMaxFrameSkipChange)
-	EVT_BUTTON(XRCID("DefaultMinFrameSkipButton"),MiscControlPage::OnSetDefaultMinFrameSkip)
-	EVT_BUTTON(XRCID("DefaultMaxFrameSkipButton"),MiscControlPage::OnSetDefaultMaxFrameSkip)
-	EVT_TOGGLEBUTTON(XRCID("ThrottleButton"),MiscControlPage::OnSetThrottle)
-	EVT_TOGGLEBUTTON(XRCID("CmdTimingButton"),MiscControlPage::OnSetCmdTiming)
-	EVT_TEXT(XRCID("MinFrameSkipIndicator"),MiscControlPage::OnInputMinFrameskip)
-	EVT_TEXT(XRCID("MaxFrameSkipIndicator"),MiscControlPage::OnInputMaxFrameskip)
-	EVT_TEXT(XRCID("SpeedIndicator"),MiscControlPage::OnInputSpeed)
-	EVT_TEXT(XRCID("Joyport1Selector"),MiscControlPage::OnChangeJoystick)
-	EVT_TEXT(XRCID("Joyport2Selector"),MiscControlPage::OnChangeJoystick)
-	EVT_TEXT(XRCID("PrinterportSelector"),MiscControlPage::OnChangePrinterPort)
-	EVT_TEXT(XRCID("PrinterLogFile"),MiscControlPage::OnChangePrinterLogFile)
-	EVT_BUTTON(XRCID("BrowsePrinterLog"),MiscControlPage::OnBrowsePrinterLogFile)
-	EVT_COMMAND_SCROLL (XRCID("RenshaTurboSlider"),MiscControlPage::OnChangeRenShaTurbo)
+	EVT_BUTTON(XRCID(wxT("ResetButton")),MiscControlPage::OnReset)
+	EVT_TOGGLEBUTTON (XRCID(wxT("PauseButton")),MiscControlPage::OnPause)
+	EVT_TOGGLEBUTTON (XRCID(wxT("PowerButton")),MiscControlPage::OnPower)
+	EVT_TOGGLEBUTTON (XRCID(wxT("FirmwareButton")),MiscControlPage::OnFirmware)
+	EVT_COMMAND_SCROLL (XRCID(wxT("SpeedSlider")),MiscControlPage::OnSpeedChange)
+	EVT_BUTTON(XRCID(wxT("NormalSpeedButton")),MiscControlPage::OnSetNormalSpeed)
+	EVT_TOGGLEBUTTON(XRCID(wxT("MaxSpeedButton")),MiscControlPage::OnSetMaxSpeed)
+	EVT_COMMAND_SCROLL (XRCID(wxT("MinFrameSkipSlider")),MiscControlPage::OnMinFrameSkipChange)
+	EVT_COMMAND_SCROLL (XRCID(wxT("MaxFrameSkipSlider")),MiscControlPage::OnMaxFrameSkipChange)
+	EVT_BUTTON(XRCID(wxT("DefaultMinFrameSkipButton")),MiscControlPage::OnSetDefaultMinFrameSkip)
+	EVT_BUTTON(XRCID(wxT("DefaultMaxFrameSkipButton")),MiscControlPage::OnSetDefaultMaxFrameSkip)
+	EVT_TOGGLEBUTTON(XRCID(wxT("ThrottleButton")),MiscControlPage::OnSetThrottle)
+	EVT_TOGGLEBUTTON(XRCID(wxT("CmdTimingButton")),MiscControlPage::OnSetCmdTiming)
+	EVT_TEXT(XRCID(wxT("MinFrameSkipIndicator")),MiscControlPage::OnInputMinFrameskip)
+	EVT_TEXT(XRCID(wxT("MaxFrameSkipIndicator")),MiscControlPage::OnInputMaxFrameskip)
+	EVT_TEXT(XRCID(wxT("SpeedIndicator")),MiscControlPage::OnInputSpeed)
+	EVT_TEXT(XRCID(wxT("Joyport1Selector")),MiscControlPage::OnChangeJoystick)
+	EVT_TEXT(XRCID(wxT("Joyport2Selector")),MiscControlPage::OnChangeJoystick)
+	EVT_TEXT(XRCID(wxT("PrinterportSelector")),MiscControlPage::OnChangePrinterPort)
+	EVT_TEXT(XRCID(wxT("PrinterLogFile")),MiscControlPage::OnChangePrinterLogFile)
+	EVT_BUTTON(XRCID(wxT("BrowsePrinterLog")),MiscControlPage::OnBrowsePrinterLogFile)
+	EVT_COMMAND_SCROLL (XRCID(wxT("RenshaTurboSlider")),MiscControlPage::OnChangeRenShaTurbo)
 #ifdef __UNIX__
 	EVT_TIMER(-1,MiscControlPage::OnJoystickChanged)
 #endif
@@ -83,7 +83,7 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_maxFrameSkipSlider->SetTickFreq (5,1);
 	m_minFrameSkipSlider->SetTickFreq (5,1);
 	m_renshaTurboSlider->SetTickFreq (5,1);
-	m_oldSpeed="";
+	m_oldSpeed= wxT("");
 
 	m_printerportFileLabel = (wxStaticText *)FindWindowByName (wxT("PrinterLogFileLabel"));
 	m_printerportLabel = (wxStaticText *)FindWindowByName(wxT("PrinterLabel"));
@@ -143,7 +143,7 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	box[0]->Append(wxT("simpl"));	
 
 	wxString filename;
-	wxTextCtrl * text = (wxTextCtrl *)FindWindowByName("PrinterLogFile");
+	wxTextCtrl * text = (wxTextCtrl *)FindWindowByName(wxT("PrinterLogFile"));
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_PRINTERPORT,current);
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_PRINTERFILE,filename);
 	text->SetValue(filename);
@@ -164,27 +164,27 @@ MiscControlPage::~MiscControlPage()
 
 void MiscControlPage::OnReset(wxCommandEvent &event)
 {
-	m_controller->WriteCommand ("reset");
+	m_controller->WriteCommand (wxT("reset"));
 }
 
 void MiscControlPage::OnPause(wxCommandEvent &event)
 {
-	m_controller->WriteCommand ("toggle pause");
+	m_controller->WriteCommand (wxT("toggle pause"));
 }
 
 void MiscControlPage::OnPower(wxCommandEvent &event)
 {
-	m_controller->WriteCommand ("toggle power");
+	m_controller->WriteCommand (wxT("toggle power"));
 	if (m_powerButton->GetValue())
 	{
-		m_controller->WriteCommand ("set pause off");
+		m_controller->WriteCommand (wxT("set pause off"));
 		m_pauseButton->SetValue(false);
 	}
 }
 
 void MiscControlPage::OnFirmware(wxCommandEvent &event)
 {
-	m_controller->WriteCommand (wxString("toggle ") + m_firmwareSetting);
+	m_controller->WriteCommand (wxString(wxT("toggle ")) + m_firmwareSetting);
 }
 
 void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
@@ -192,38 +192,38 @@ void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
 	wxString speedText;
 	speedText.sprintf("%ld", event.GetInt());
 	m_speedIndicator->SetValue(speedText);
-	m_controller->WriteCommand (wxString("set speed ") + speedText);
-	m_controller->WriteCommand ("set throttle on");
+	m_controller->WriteCommand (wxString(wxT("set speed ")) + speedText);
+	m_controller->WriteCommand (wxT("set throttle on"));
 }
 
 void MiscControlPage::OnSetNormalSpeed(wxCommandEvent &event)
 {
-	m_controller->WriteCommand ("set speed 100");
+	m_controller->WriteCommand (wxT("set speed 100"));
 	m_speedIndicator->SetValue(wxT("100"));
 	m_speedSlider->SetValue (100);
-	m_controller->WriteCommand ("set throttle on");
+	m_controller->WriteCommand (wxT("set throttle on"));
 }
 
 void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
 {
 	if (m_speedMaxButton->GetValue()){
 		m_oldSpeed = m_speedIndicator->GetValue();
-		m_controller->WriteCommand ("set speed 500");
+		m_controller->WriteCommand (wxT("set speed 500"));
 		m_speedSlider->Disable();
 		m_speedIndicator->Disable();
 		m_speedNormalButton->Disable();
 		m_speedIndicator->SetValue(wxT("500"));
-		m_controller->WriteCommand ("set throttle off");
+		m_controller->WriteCommand (wxT("set throttle off"));
 	}
 	else{
-		if (m_oldSpeed != ""){
-			m_controller->WriteCommand (wxString("set speed ") + m_oldSpeed);
+		if (m_oldSpeed != wxT("")){
+			m_controller->WriteCommand (wxString(wxT("set speed ")) + m_oldSpeed);
 			m_speedSlider->Enable();
 			m_speedIndicator->Enable();
 			m_speedNormalButton->Enable();
 			m_speedIndicator->SetValue(m_oldSpeed);
-			m_controller->WriteCommand ("set throttle on");
-			m_oldSpeed = "";
+			m_controller->WriteCommand (wxT("set throttle on"));
+			m_oldSpeed = wxT("");
 		}
 	}
 }
@@ -233,7 +233,7 @@ void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent &event)
 	wxString skipText;
 	skipText.sprintf("%ld", event.GetInt());
 	m_maxFrameSkipIndicator->SetValue(skipText);
-	m_controller->WriteCommand (wxString("set maxframeskip " + skipText));
+	m_controller->WriteCommand (wxString(wxT("set maxframeskip ") + skipText));
 }
 
 void MiscControlPage::OnMinFrameSkipChange(wxScrollEvent &event)
@@ -241,19 +241,19 @@ void MiscControlPage::OnMinFrameSkipChange(wxScrollEvent &event)
 	wxString skipText;
 	skipText.sprintf("%ld", event.GetInt());
 	m_minFrameSkipIndicator->SetValue(skipText);
-	m_controller->WriteCommand (wxString("set minframeskip " + skipText));
+	m_controller->WriteCommand (wxString(wxT("set minframeskip ") + skipText));
 }
 
 void MiscControlPage::OnSetDefaultMaxFrameSkip(wxCommandEvent &event)
 {
-	m_controller->WriteCommand ("unset maxframeskip");
+	m_controller->WriteCommand (wxT("unset maxframeskip"));
 	m_maxFrameSkipIndicator->Enable();
 	m_maxFrameSkipSlider->Enable();
 }
 
 void MiscControlPage::OnSetDefaultMinFrameSkip(wxCommandEvent &event)
 {
-	m_controller->WriteCommand ("unset minframeskip");
+	m_controller->WriteCommand (wxT("unset minframeskip"));
 	m_minFrameSkipIndicator->Enable();
 	m_minFrameSkipSlider->Enable();
 }
@@ -263,13 +263,13 @@ void MiscControlPage::OnSetThrottle(wxCommandEvent &event)
 	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
 	if (button->GetValue())
 	{
-		m_controller->WriteCommand ("set throttle on");
-		button->SetLabel("On");
+		m_controller->WriteCommand (wxT("set throttle on"));
+		button->SetLabel(wxT("On"));
 	}
 	else
 	{
-		m_controller->WriteCommand ("set throttle off");
-		button->SetLabel("Off");
+		m_controller->WriteCommand (wxT("set throttle off"));
+		button->SetLabel(wxT("Off"));
 	}	
 }
 
@@ -278,13 +278,13 @@ void MiscControlPage::OnSetCmdTiming(wxCommandEvent &event)
 	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
 	if (button->GetValue())
 	{
-		m_controller->WriteCommand ("set cmdtiming broken");
-		button->SetLabel("Broken");
+		m_controller->WriteCommand (wxT("set cmdtiming broken"));
+		button->SetLabel(wxT("Broken"));
 	}
 	else
 	{
-		m_controller->WriteCommand ("set cmdtiming real");
-		button->SetLabel("Real");
+		m_controller->WriteCommand (wxT("set cmdtiming real"));
+		button->SetLabel(wxT("Real"));
 	}
 }
 
@@ -381,7 +381,7 @@ void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
 		}
 		if (num >= 1)
 		{
-			m_controller->WriteCommand (wxString("set speed ") + text);
+			m_controller->WriteCommand (wxString(wxT("set speed ")) + text);
 			m_speedSlider->SetValue(num);
 		}
 	}
@@ -402,7 +402,7 @@ void MiscControlPage::OnInputMinFrameskip(wxCommandEvent &event)
 		}
 		if (num >= 0)
 		{
-			m_controller->WriteCommand (wxString("set minframeskip " + text));
+			m_controller->WriteCommand (wxString(wxT("set minframeskip ") + text));
 			m_minFrameSkipSlider->SetValue(num);
 		}
 	}	
@@ -423,7 +423,7 @@ void MiscControlPage::OnInputMaxFrameskip(wxCommandEvent &event)
 		}
 		if (num >= 0)
 		{
-			m_controller->WriteCommand (wxString("set maxframeskip " + text));
+			m_controller->WriteCommand (wxString(wxT("set maxframeskip ") + text));
 			m_maxFrameSkipSlider->SetValue(num);
 		}
 	}	
@@ -453,11 +453,11 @@ void MiscControlPage::InitConnectorPanel ()
 		for (unsigned i=0;i<connectors.GetCount();i++) {
 			currentClass = m_controller->GetConnectorClass(connectors[i]);
 			if (connectors[i] == wxT("joyporta")) {
-				InitJoystickPort (connectors[i], "Joyport1Selector", currentClass);
+				InitJoystickPort (connectors[i],wxT("Joyport1Selector"), currentClass);
 			} else if (connectors[i] == wxT("joyportb")) {
-				InitJoystickPort (connectors[i], "Joyport2Selector", currentClass);
+				InitJoystickPort (connectors[i],wxT("Joyport2Selector"), currentClass);
 //			} else if (connectors[i] == wxT("printerport")){
-//				InitJoystickPort (connectors[i], "PrinterportSelector", currentClass);
+//				InitJoystickPort (connectors[i],wxT("PrinterportSelector"), currentClass);
 			}
 		}
 	}
@@ -485,12 +485,12 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 		}
 	}
 	box->SetValue(currentval);
-	wxString cmd = "plug";
+	wxString cmd = wxT("plug");
 	if (currentval == wxT("--empty--")) {
-		cmd = "unplug";
-		currentval = "";
+		cmd = wxT("unplug");
+		currentval = wxT("");
 	}
-	m_controller->WriteCommand(wxString(cmd + " " + connector + " " + currentval));
+	m_controller->WriteCommand(wxString(cmd +wxT(" ") + connector +wxT(" ") + currentval));
 }
 
 void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
@@ -515,20 +515,20 @@ void MiscControlPage::OnJoystickChanged()
 	wxComboBox * box2 = NULL;
 	wxString * oldValue1 = NULL; // this port
 	wxString * oldValue2 = NULL; // the other port
-	wxString cmd = "unplug ";
+	wxString cmd = wxT("unplug ");
 	wxString connector;
 	wxString connector2;
-	wxString value = "";
-	if (box->GetName() == "Joyport1Selector") {
-		connector = "joyporta ";
-		connector2 = "joyportb";
+	wxString value = wxT("");
+	if (box->GetName() == wxT("Joyport1Selector")) {
+		connector = wxT("joyporta ");
+		connector2 = wxT("joyportb");
 		box2 = (wxComboBox *)FindWindowByName (wxT("Joyport2Selector"));
 		oldValue1 = &m_oldJoy1;
 		oldValue2 = &m_oldJoy2;
 	} 
-	else if (box->GetName() == "Joyport2Selector") {
-		connector = "joyportb ";
-		connector2 = "joyporta";
+	else if (box->GetName() == wxT("Joyport2Selector")) {
+		connector = wxT("joyportb ");
+		connector2 = wxT("joyporta");
 		box2 = (wxComboBox *)FindWindowByName (wxT("Joyport1Selector"));
 		oldValue1 = &m_oldJoy2;
 		oldValue2 = &m_oldJoy1;
@@ -536,20 +536,20 @@ void MiscControlPage::OnJoystickChanged()
 	
 	if (box->GetValue() != wxT("--empty--")) {
 		value = box->GetValue();
-		cmd = "plug ";
+		cmd = wxT("plug ");
 	}
 
-	if ((box->GetValue() != ("--empty--")) && (box->GetValue() == box2->GetValue())) {
+	if ((box->GetValue() != (wxT("--empty--"))) && (box->GetValue() == box2->GetValue())) {
 		MessageActive = true;
 		int result = wxMessageBox ("Unable to plug a device in more than one port!\n\n\
 Do you still want to plug it into this port?\n\
-This device will then be removed from any other port(s).","Warning",wxOK | wxCANCEL);
+This device will then be removed from any other port(s).",wxT("Warning"),wxOK | wxCANCEL);
 		MessageActive = false;
 		if (result == wxOK) {
 			box2->SetSelection(0);
 			*oldValue2 = wxT("--empty--");
 			*oldValue1 = box->GetValue();
-			m_controller->WriteCommand(wxString("unplug " + connector2));
+			m_controller->WriteCommand(wxString(wxT("unplug ") + connector2));
 			m_controller->WriteCommand(wxString(cmd + connector + value));
 		}
 		else{ // cancel
@@ -574,7 +574,7 @@ void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent & event)
 	value.sprintf ("%ld",event.GetInt());
 	
 	
-	m_controller->WriteCommand(wxString ("set renshaturbo ") + value);
+	m_controller->WriteCommand(wxString (wxT("set renshaturbo ")) + value);
 }
 
 void MiscControlPage::OnChangePrinterPort(wxCommandEvent & event)
@@ -589,9 +589,9 @@ void MiscControlPage::OnPrinterportChanged(bool save)
 		ConfigurationData::instance()->SetParameter(ConfigurationData::CD_PRINTERPORT,current);
 		ConfigurationData::instance()->SaveData();
 	}
-	m_controller->WriteCommand("unplug printerport");
-	if (current != "--empty--"){
-		m_controller->WriteCommand(wxString("plug printerport ") + current);
+	m_controller->WriteCommand(wxT("unplug printerport"));
+	if (current != wxT("--empty--")){
+		m_controller->WriteCommand(wxString(wxT("plug printerport ")) + current);
 
 	}
 	if (m_controller->IsOpenMSXRunning()){
@@ -605,7 +605,7 @@ void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent &event)
 	wxString current = ((wxTextCtrl *)event.GetEventObject())->GetValue();
 	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_PRINTERFILE,current);
 	ConfigurationData::instance()->SaveData();
-	m_controller->WriteCommand(wxString("set printerlogfilename ") + ConvertPath(current));
+	m_controller->WriteCommand(wxString(wxT("set printerlogfilename ")) + ConvertPath(current));
 }
 
 void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent &event)
@@ -617,7 +617,7 @@ void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent &event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,_("Choose file to save printer log to"), "", wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
+	wxFileDialog filedlg(this,wxT("Choose file to save printer log to"),wxT(""), wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK){
 		m_printerLogFile->SetValue(filedlg.GetPath());
 	}
@@ -625,7 +625,7 @@ void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent &event)
 
 void MiscControlPage::InvalidPrinterLogFilename()
 {
-	wxMessageBox (_("Unable to plug in printerport logger!\nPlease select a valid file name first."),_("Error"));
+	wxMessageBox (wxT("Unable to plug in printerport logger!\nPlease select a valid file name first."),wxT("Error"));
 	m_printerportSelector->SetValue(wxT("--empty--"));
 	m_controller->WriteCommand(wxT("unplug printerport"));
 }

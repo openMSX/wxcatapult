@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.10 2004/11/10 21:16:26 andete Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.11 2004/11/11 17:14:59 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,10 +19,10 @@
 
 	IMPLEMENT_CLASS(CatapultConfigDlg, wxDialog)
 BEGIN_EVENT_TABLE(CatapultConfigDlg, wxDialog)
-	EVT_BUTTON(XRCID("ConfigOk"),CatapultConfigDlg::OnOk)
-	EVT_BUTTON(XRCID("ConfigCancel"),CatapultConfigDlg::OnCancel)
-	EVT_BUTTON(XRCID("ConfigBrowseExec"),CatapultConfigDlg::OnBrowseExec)
-	EVT_BUTTON(XRCID("ConfigBrowseShare"),CatapultConfigDlg::OnBrowseShare)
+	EVT_BUTTON(XRCID(wxT("ConfigOk")),CatapultConfigDlg::OnOk)
+	EVT_BUTTON(XRCID(wxT("ConfigCancel")),CatapultConfigDlg::OnCancel)
+	EVT_BUTTON(XRCID(wxT("ConfigBrowseExec")),CatapultConfigDlg::OnBrowseExec)
+	EVT_BUTTON(XRCID(wxT("ConfigBrowseShare")),CatapultConfigDlg::OnBrowseShare)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -31,7 +31,7 @@ END_EVENT_TABLE()
 
 CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 {
-	wxString guess = "";
+	wxString guess = wxT("");
 	wxXmlResource::Get()->LoadDialog(this, parent, wxT("ConfigurationDialog"));
 	m_ExecPath = (wxTextCtrl *)FindWindowByName(wxT("ConfigExecData"));
 	m_SharePath = (wxTextCtrl *)FindWindowByName(wxT("ConfigShareData"));
@@ -55,7 +55,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 				guess = guess.Left(pos+1);
 			}
 		}
-		guess += "openmsx.exe";
+		guess += wxT("openmsx.exe");
 #else
 		guess = wxT(CATAPULT_OPENMSX_BINARY);
 #endif
@@ -74,7 +74,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 			guess = guess.Left(pos+1) + wxT("share");
 		}
 		else{
-			guess = "";
+			guess = wxT("");
 		}
 #else
 		guess = wxT(CATAPULT_OPENMSX_SHARE);
@@ -98,13 +98,13 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 	tempShare = m_SharePath->GetValue();
 	if (!::wxFileExists(tempExec))
 	{
-		wxMessageBox ("That's not a valid executable...");
+		wxMessageBox (wxT("That's not a valid executable..."));
 	}
 	else
 	{
 		if (!::wxDirExists(tempShare))
 		{
-			wxMessageBox("That's not a valid share path...");
+			wxMessageBox(wxT("That's not a valid share path..."));
 		}
 		else
 		{
@@ -133,7 +133,7 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent &event)
 	executable = wxT(".exe");
 #endif
 
-	wxFileDialog filedlg(this,_("Select openMSX executable"),
+	wxFileDialog filedlg(this,wxT("Select openMSX executable"),
 			defaultpath, wxT("openmsx") + executable, 
 			wxT("*") + executable,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
@@ -144,7 +144,7 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent &event)
 
 void CatapultConfigDlg::OnBrowseShare(wxCommandEvent &event)
 {
-	wxString defaultpath = "";
+	wxString defaultpath = wxT("");
 	if (!m_SharePath->GetValue().IsEmpty()) {
 		defaultpath = ::wxPathOnly(wxString(m_SharePath->GetValue())+wxT("/"));
 	}
@@ -152,7 +152,7 @@ void CatapultConfigDlg::OnBrowseShare(wxCommandEvent &event)
 		defaultpath = ::wxPathOnly(wxString(m_ExecPath->GetValue())+wxT("/"));
 	}
 
-	wxDirDialog dirdlg(this, _("Select openMSX share directory"),defaultpath);
+	wxDirDialog dirdlg(this, wxT("Select openMSX share directory"),defaultpath);
 	if (dirdlg.ShowModal() == wxID_OK)
 	{
 		m_SharePath->SetValue (dirdlg.GetPath());

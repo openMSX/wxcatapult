@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.16 2004/10/03 17:02:12 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.17 2004/11/11 17:15:00 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -92,7 +92,7 @@ bool wxCatapultApp::OnInit()
 		frame->Show(TRUE);
 	}
 	else{
-		wxMessageBox ("Unable to load resources!\nThere is something wrong with your installation.\n","Error");
+		wxMessageBox (wxT("Unable to load resources!\nThere is something wrong with your installation.\n"),wxT("error"));
 		return FALSE;
 	}
 	return TRUE;

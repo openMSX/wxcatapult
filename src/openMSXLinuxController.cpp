@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.12 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: openMSXLinuxController.cpp,v 1.13 2004/10/02 11:01:56 m9710797 Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -29,7 +29,7 @@
 openMSXLinuxController::~openMSXLinuxController()
 {
 	if (m_openMsxRunning) { 
-		WriteCommand("quit");
+		WriteCommand(wxT("quit"));
 		m_stdOutThread->Wait();
 		m_stdErrThread->Wait();
 		delete m_stdOutThread;
@@ -123,8 +123,8 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 
 wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
-	wxString version = "";
-	system (wxString (openmsxCmd + " -v > /tmp/catapult.tmp").c_str());
+	wxString version = wxT("");
+	system (wxString (openmsxCmd +wxT(" -v > /tmp/catapult.tmp")).c_str());
 	wxTextFile tempfile (wxT("/tmp/catapult.tmp"));
 	if (tempfile.Open()) {
 		version = tempfile.GetFirstLine();
