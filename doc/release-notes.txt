@@ -13,13 +13,15 @@ Added: openMSX type support (typing remotely into the MSX)
 Added: Screenshot support
 Added: Printerport connector
 Added: Saving of Joystick settings.
+Added: Ren Sha Turbo support (turboR only)
 
 Changed: Throttle into Max Speed
 Changed: underscores in machine and extension names are now showed as spaces
 Changed: Removed tear-off menu style in gtk
 
 Known issues / caveats:
-- comboboxes behave a bit strangely sometimes on non-Windows systems
+- comboboxes behave a bit strangely sometimes on non-Windows systems.
+- typing into openMSX doesnt' support language specific characters yet.
 - still not complete
 
 openMSX Home Page:
