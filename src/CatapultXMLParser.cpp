@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.3 2004/02/05 20:02:34 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.4 2004/02/05 20:28:35 m9710797 Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -45,35 +45,35 @@ void CatapultXMLParser::cb_start_element(CatapultXMLParser * parser, const xmlCh
 	}
 	switch (parser->parseResult.parseState) {
 		case STATE_START:
-			if (!strcmp((const char *)name, _("openmsx-output"))) {
+			if (!strcmp((const char *)name, "openmsx-output")) {
 				parser->parseResult.parseState = TAG_OPENMSX;
 			} else {
 				++(parser->parseResult.unknownLevel);
 			}
 			break;
 		case TAG_OPENMSX:
-			if (!strcmp((const char *)name, _("reply"))) {
+			if (!strcmp((const char *)name, "reply")) {
 				parser->parseResult.parseState = TAG_REPLY;
 				parser->parseReply((const char**)attrs);
-			} else if (!strcmp((const char *)name, _("log"))) {
+			} else if (!strcmp((const char *)name, "log")) {
 				parser->parseResult.parseState = TAG_LOG;
 				parser->parseLog((const char**)attrs);
-			} else if (!strcmp((const char *)name, _("update"))) {
+			} else if (!strcmp((const char *)name, "update")) {
 				parser->parseResult.parseState = TAG_UPDATE;
 				parser->parseUpdate((const char**)attrs);
 			} else 
 			
 			// about to be depreciated tags
-			if (!strcmp((const char *)name, _("info"))) {
+			if (!strcmp((const char *)name, "info")) {
 				parser->parseResult.parseState = TAG_INFO;
 				parser->parseResult.logLevel = LOG_INFO;
-			} else if (!strcmp((const char *)name, _("ok"))) {
+			} else if (!strcmp((const char *)name, "ok")) {
 				parser->parseResult.parseState = TAG_OK;
 				parser->parseResult.replyState = REPLY_OK;
-			} else if (!strcmp((const char *)name, _("nok"))) {
+			} else if (!strcmp((const char *)name, "nok")) {
 				parser->parseResult.parseState = TAG_NOK;
 				parser->parseResult.replyState = REPLY_NOK;
-			} else if (!strcmp((const char *)name, _("warning"))) {
+			} else if (!strcmp((const char *)name, "warning")) {
 				parser->parseResult.parseState = TAG_WARNING;
 				parser->parseResult.logLevel = LOG_WARNING;
 			} else {
@@ -153,7 +153,7 @@ void CatapultXMLParser::SendParsedData()
 	case TAG_UPDATE:
 		result->parseState = TAG_UPDATE;
 		if (parseResult.updateType == UPDATE_OLD) {
-			if (parseResult.contents.Find(_(" LED O")) != -1) {
+			if (parseResult.contents.Find(" LED O") != -1) {
 				result->name = parseResult.contents.Left(parseResult.contents.Find(' ')).Lower();
 				result->contents = parseResult.contents.Right(parseResult.contents.Len() - parseResult.contents.Find(' ',true)-1).Lower();
 				result->updateType = UPDATE_LED;
