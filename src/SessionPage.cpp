@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.31 2004/11/06 15:06:42 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.32 2004/11/06 15:53:04 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -84,7 +84,6 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cartALabel = (wxStaticText *)FindWindow(wxT("CartA_Label"));
 	m_cartBLabel = (wxStaticText *)FindWindow(wxT("CartB_Label"));
 
-	m_cassettePlayerSizer = (wxStaticBoxSizer *)FindWindow(wxT("CassettePlayerSizer"));
 	m_cassetteLabel = (wxStaticText *)FindWindow(wxT("Cassette_Label"));
 
 	m_lastDiskA = "";
