@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.34 2004/04/14 20:07:46 m9710797 Exp $
+// $Id: openMSXController.cpp,v 1.35 2004/04/15 18:28:22 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////

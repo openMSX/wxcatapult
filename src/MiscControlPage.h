@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.11 2004/04/11 20:18:23 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.12 2004/04/15 18:26:26 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////

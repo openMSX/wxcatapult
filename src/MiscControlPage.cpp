@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.14 2004/04/15 16:03:51 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.15 2004/04/15 18:26:26 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
