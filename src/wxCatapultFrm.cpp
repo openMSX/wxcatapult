@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.7 2004/03/20 14:30:55 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.8 2004/03/20 19:53:32 manuelbi Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -451,9 +451,8 @@ void wxCatapultFrame::StopTimer()
 
 void wxCatapultFrame::SetFPSdisplay(wxString val)
 {
-	double valfl;
-	assert(val.ToDouble(&valfl));
-	val.sprintf("%2.1f",valfl);
+	double valfl = strtod(val.c_str(),NULL);
+	val.sprintf("%2.1f",valfl);	
 	SetStatusText(_(val + " fps"),1);
 }
 
