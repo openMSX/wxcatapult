@@ -1,4 +1,14 @@
-$Id: ChangeLog,v 1.79 2004/09/11 15:08:55 h_oudejans Exp $
+$Id: ChangeLog,v 1.80 2004/09/24 22:02:02 h_oudejans Exp $
+
+2004-09-26 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Converter underscores to spaces in machines and extensions
+	* Fixed: If machines and/or extensions were saved the last time
+		    and catapult is started and stopped immidiately,
+		    the selected stuff was lost.
+	* Machine and extension names can now contain spaces.
+	* Added 'touch' in the windows build steps to avoid having to copy
+	   the bitmaps over and over again.
+	* Cleaned up the output of the windows build process.
 
 2004-09-24 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed some sizers in the video and misc pages

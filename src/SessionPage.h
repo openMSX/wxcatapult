@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.9 2004/04/07 16:44:47 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.10 2004/04/27 17:01:21 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -69,6 +69,9 @@ class SessionPage : public CatapultPage
 		wxString m_lastTape1;
 		wxString m_lastTape2;		
 		wxString m_cassettePortState;
+
+		wxArrayString m_machineArray;
+		wxArrayString m_extensionArray;
 
 		int m_InsertedMedia;
 		wxString m_usedMachine;

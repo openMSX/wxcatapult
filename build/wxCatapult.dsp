@@ -98,7 +98,7 @@ SOURCE=..\dialogs\audiocontrols.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\audiocontrols.wxg
 InputName=audiocontrols
@@ -110,7 +110,7 @@ InputName=audiocontrols
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\audiocontrols.wxg
 InputName=audiocontrols
@@ -129,7 +129,7 @@ SOURCE=..\dialogs\catapult.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\catapult.wxg
 InputName=catapult
@@ -141,7 +141,7 @@ InputName=catapult
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\catapult.wxg
 InputName=catapult
@@ -160,7 +160,7 @@ SOURCE=..\dialogs\config.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\config.wxg
 InputName=config
@@ -172,7 +172,7 @@ InputName=config
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\config.wxg
 InputName=config
@@ -191,7 +191,7 @@ SOURCE=..\dialogs\fullscreen.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\fullscreen.wxg
 InputName=fullscreen
@@ -203,7 +203,7 @@ InputName=fullscreen
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\fullscreen.wxg
 InputName=fullscreen
@@ -222,7 +222,7 @@ SOURCE=..\dialogs\misccontrols.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\misccontrols.wxg
 InputName=misccontrols
@@ -234,7 +234,7 @@ InputName=misccontrols
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\misccontrols.wxg
 InputName=misccontrols
@@ -253,7 +253,7 @@ SOURCE=..\dialogs\session.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\session.wxg
 InputName=session
@@ -265,7 +265,7 @@ InputName=session
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\session.wxg
 InputName=session
@@ -284,7 +284,7 @@ SOURCE=..\dialogs\status.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\status.wxg
 InputName=status
@@ -296,7 +296,7 @@ InputName=status
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\status.wxg
 InputName=status
@@ -315,7 +315,7 @@ SOURCE=..\dialogs\videocontrols.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\videocontrols.wxg
 InputName=videocontrols
@@ -327,7 +327,7 @@ InputName=videocontrols
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build - Translating resource $(InputPath)
+# Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
 InputPath=..\dialogs\videocontrols.wxg
 InputName=videocontrols
@@ -395,26 +395,28 @@ SOURCE=..\resources\bitmaps\diskimage.bmp
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Copying Bitmap $(InputPath)
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\diskimage.bmp
 InputName=diskimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\diskimage.bmp
 InputName=diskimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ENDIF 
@@ -426,26 +428,28 @@ SOURCE=..\resources\bitmaps\eject.bmp
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Copying Bitmap $(InputPath)
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\eject.bmp
 InputName=eject
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\eject.bmp
 InputName=eject
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ENDIF 
@@ -457,26 +461,28 @@ SOURCE=..\resources\bitmaps\ledoff.bmp
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Copying Bitmap $(InputPath)
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\ledoff.bmp
 InputName=ledoff
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\ledoff.bmp
 InputName=ledoff
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ENDIF 
@@ -488,26 +494,28 @@ SOURCE=..\resources\bitmaps\ledon.bmp
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Copying Bitmap $(InputPath)
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\ledon.bmp
 InputName=ledon
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\ledon.bmp
 InputName=ledon
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ENDIF 
@@ -519,26 +527,28 @@ SOURCE=..\resources\bitmaps\romimage.bmp
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Copying Bitmap $(InputPath)
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\romimage.bmp
 InputName=romimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\romimage.bmp
 InputName=romimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ENDIF 
@@ -550,26 +560,28 @@ SOURCE=..\resources\bitmaps\tapeimage.bmp
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
-# Begin Custom Build - Copying Bitmap $(InputPath)
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\tapeimage.bmp
 InputName=tapeimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
 
-# Begin Custom Build
+# Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
 InputPath=..\resources\bitmaps\tapeimage.bmp
 InputName=tapeimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps
-
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
 # End Custom Build
 
 !ENDIF 

@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.20 2004/08/26 16:02:49 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.21 2004/08/26 16:06:29 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -109,13 +109,13 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_extensionList->GetSize(&dx,&dy); //default size
 	wMax = dx;
 	items = m_extensionList->GetCount();
-		for (index=0;index<items;index++){
-			tempDC->GetTextExtent(wxString(m_extensionList->GetString(index) + "W"),&w,&h);
-			if (w > wMax){
-				wMax = w;
-			}
+	for (index=0;index<items;index++){
+		tempDC->GetTextExtent(wxString(m_extensionList->GetString(index) + "W"),&w,&h);
+		if (w > wMax){
+			wMax = w;
 		}
-		m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),-1);
+	}
+	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),-1);
 	delete tempDC;
 
 
@@ -326,13 +326,11 @@ void SessionPage::SetupHardware (bool initial)
 	m_machineList->Append(wxT(" <default> "));
 	m_extensionList->Clear();
 
-	wxArrayString machineArray;
-	wxArrayString extensionArray;
-	machineArray.Clear();
-	extensionArray.Clear();
+	m_machineArray.Clear();
+	m_extensionArray.Clear();
 
-	prepareExtensions (sharepath, extensionArray);
-	prepareMachines (sharepath, machineArray);
+	prepareExtensions (sharepath, m_extensionArray);
+	prepareMachines (sharepath, m_machineArray);
 	wxString personalShare; 
 #ifdef __UNIX__
 	personalShare = ::wxGetHomeDir() + "/.openMSX/share";
@@ -341,13 +339,13 @@ void SessionPage::SetupHardware (bool initial)
 	SHGetSpecialFolderPath(0,temp,CSIDL_PERSONAL, 1);
 	personalShare = wxString(temp) + "/openMSX/share";
 #endif
-	prepareExtensions (personalShare, extensionArray, true);
-	prepareMachines (personalShare, machineArray, true);
+	prepareExtensions (personalShare, m_extensionArray, true);
+	prepareMachines (personalShare, m_machineArray, true);
 
-	extensionArray.Sort(SessionPage::CompareCaseInsensitive);
-	machineArray.Sort(SessionPage::CompareCaseInsensitive);
-	fillExtensions (extensionArray);
-	fillMachines (machineArray);
+	m_extensionArray.Sort(SessionPage::CompareCaseInsensitive);
+	m_machineArray.Sort(SessionPage::CompareCaseInsensitive);
+	fillExtensions (m_extensionArray);
+	fillMachines (m_machineArray);
 	if (!initial) {
 		int sel = m_machineList->FindString(currentMachine);
 		if (sel != -1) {
@@ -398,10 +396,13 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensio
 
 void SessionPage::fillExtensions (wxArrayString & extensionArray)
 {
+	wxString temp;
 	for (unsigned int i=0;i<extensionArray.GetCount();i++)
 	{
 		if (m_extensionList->FindString (extensionArray[i]) == -1)
-			m_extensionList->Append(extensionArray[i]);
+			temp = extensionArray[i];
+			temp.Replace("_"," ",true);
+			m_extensionList->Append(temp);
 	}
 
 }
@@ -431,10 +432,13 @@ void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArr
 
 void SessionPage::fillMachines (wxArrayString & machineArray)
 {
+	wxString temp;
 	for (unsigned int i=0;i<machineArray.GetCount();i++)
 	{
 		if (m_machineList->FindString (machineArray[i]) == -1)
-			m_machineList->Append(machineArray[i]);
+			temp = machineArray[i];
+			temp.Replace("_"," ",true);
+			m_machineList->Append(temp);
 	}
 }
 
@@ -524,11 +528,18 @@ void SessionPage::getMedia(wxArrayString & parameters)
 void SessionPage::getHardware(wxArrayString & parameters)
 {
 	parameters.Clear();
-	parameters.Add(m_machineList->GetValue());
+	int pos = m_machineList->GetSelection();
+	if (pos == 0){
+		parameters.Add(ConvertPath(m_machineList->GetValue(),true));
+	}
+	else{
+		parameters.Add(ConvertPath(m_machineArray[m_machineList->GetSelection()-1]));
+	}
+	
 	wxArrayInt sel;
 	if (m_extensionList->GetSelections(sel) >0) {
 		for (unsigned int i=0;i<sel.GetCount();i++) {
-			parameters.Add(m_extensionList->GetString(sel[i]));
+			parameters.Add(m_extensionArray[sel[i]]);
 		}
 	}	
 }
@@ -598,6 +609,7 @@ void SessionPage::AddHistory(wxComboBox *media)
 
 void SessionPage::RestoreHistory()
 {
+	wxString temp;
 	wxComboBox * field[6] = {m_diskA, m_diskB, m_cartA, m_cartB, m_tape1, m_tape2};
 		ConfigurationData::ID id[6] = {ConfigurationData::CD_HISTDISKA,
 			ConfigurationData::CD_HISTDISKB,
@@ -633,18 +645,25 @@ void SessionPage::RestoreHistory()
 			config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
 			if (!m_usedMachine.IsEmpty())
 			{
-				int pos = m_machineList->FindString(m_usedMachine);
+				temp = m_usedMachine;
+				temp.Replace("_"," ",true);
+				temp.Replace("\"","",true);
+				int pos = m_machineList->FindString(temp);
+				
 				if (pos != -1)
 					m_machineList->SetSelection (pos);
 			}
 
 			config->GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);
+			m_usedExtensions = value;
 			do
 			{
 				pos = value.Find(wxT("::"));
 				if (pos != -1)
 				{
-					m_extensionList->SetStringSelection (value.Left(pos));
+					temp = value.Left(pos);
+					temp.Replace("_"," ",true);
+					m_extensionList->SetStringSelection (temp);
 					value = value.Mid(pos + 2);	
 				}
 			} while (pos !=-1);
