@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.36 2004/04/15 18:35:00 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.37 2004/04/15 18:48:48 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -130,9 +130,6 @@ void openMSXController::HandleStdErr(wxCommandEvent &event)
 	m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(255,23,23),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
 
 	m_appWindow->m_statusPage->m_outputtext->AppendText(*data);
-#ifdef __UNIX__
-	m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
-#endif
 	delete data;
 }
 
