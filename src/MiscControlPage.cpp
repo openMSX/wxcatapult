@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.24 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: MiscControlPage.cpp,v 1.25 2004/06/06 18:25:42 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -26,12 +26,14 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_COMMAND_SCROLL (XRCID("SpeedSlider"),MiscControlPage::OnSpeedChange)
 	EVT_BUTTON(XRCID("NormalSpeedButton"),MiscControlPage::OnSetNormalSpeed)
 	EVT_BUTTON(XRCID("MaxSpeedButton"),MiscControlPage::OnSetMaxSpeed)
-	EVT_COMMAND_SCROLL (XRCID("FrameSkipSlider"),MiscControlPage::OnFrameSkipChange)
-	EVT_BUTTON(XRCID("ZeroFrameSkipButton"),MiscControlPage::OnSetZeroFrameSkip)
-	EVT_TOGGLEBUTTON(XRCID("AutoFrameSkipButton"),MiscControlPage::OnSetAutoFrameSkip)
+	EVT_COMMAND_SCROLL (XRCID("MinFrameSkipSlider"),MiscControlPage::OnMinFrameSkipChange)
+	EVT_COMMAND_SCROLL (XRCID("MaxFrameSkipSlider"),MiscControlPage::OnMaxFrameSkipChange)
+	EVT_BUTTON(XRCID("DefaultMinFrameSkipButton"),MiscControlPage::OnSetDefaultMinFrameSkip)
+	EVT_BUTTON(XRCID("DefaultMaxFrameSkipButton"),MiscControlPage::OnSetDefaultMaxFrameSkip)
 	EVT_TOGGLEBUTTON(XRCID("ThrottleButton"),MiscControlPage::OnSetThrottle)
 	EVT_TOGGLEBUTTON(XRCID("CmdTimingButton"),MiscControlPage::OnSetCmdTiming)
-	EVT_TEXT(XRCID("FrameSkipIndicator"),MiscControlPage::OnInputFrameskip)
+	EVT_TEXT(XRCID("MinFrameSkipIndicator"),MiscControlPage::OnInputMinFrameskip)
+	EVT_TEXT(XRCID("MaxFrameSkipIndicator"),MiscControlPage::OnInputMaxFrameskip)
 	EVT_TEXT(XRCID("SpeedIndicator"),MiscControlPage::OnInputSpeed)
 	EVT_TEXT(XRCID("Joyport1Selector"),MiscControlPage::OnChangeJoystick)
 	EVT_TEXT(XRCID("Joyport2Selector"),MiscControlPage::OnChangeJoystick)
@@ -61,11 +63,13 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 
 	m_speedNormalButton = (wxButton *)FindWindow (wxT("NormalSpeedButton"));
 	m_speedMaxButton = (wxButton *)FindWindow (wxT("MaxSpeedButton"));
-	m_frameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("FrameSkipIndicator"));
+	m_minFrameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("MinFrameSkipIndicator"));
+	m_maxFrameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("MaxFrameSkipIndicator"));
 	m_maxFrameSkipSlider = (wxSlider *)FindWindow(wxT("MaxFrameSkipSlider"));
 	m_minFrameSkipSlider = (wxSlider *)FindWindow(wxT("MinFrameSkipSlider"));
 
-	m_frameSkipZeroButton = (wxButton *)FindWindow (wxT("ZeroFrameSkipButton"));
+	m_defaultMaxFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMaxFrameSkipButton"));
+	m_defaultMinFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMinFrameSkipButton"));
 	m_throttleButton = (wxToggleButton *)FindWindow (wxT("ThrottleButton"));
 	m_cmdTimingButton = (wxToggleButton *)FindWindow (wxT("CmdTimingButton"));
 
@@ -160,35 +164,34 @@ void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
 	m_controller->WriteCommand ("set throttle off");
 }
 
-void MiscControlPage::OnFrameSkipChange(wxScrollEvent &event)
+void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent &event)
 {
 	wxString skipText;
 	skipText.sprintf("%ld", event.GetInt());
-	m_frameSkipIndicator->SetValue(skipText);
+	m_maxFrameSkipIndicator->SetValue(skipText);
 	m_controller->WriteCommand (wxString("set maxframeskip " + skipText));
 }
 
-void MiscControlPage::OnSetZeroFrameSkip(wxCommandEvent &event)
+void MiscControlPage::OnMinFrameSkipChange(wxScrollEvent &event)
 {
-	m_controller->WriteCommand ("set maxframeskip 0");
-	m_frameSkipIndicator->Enable();
-	m_frameSkipIndicator->SetValue(wxT("0"));
-	m_maxFrameSkipSlider->Enable();
-	m_maxFrameSkipSlider->SetValue (0);
+	wxString skipText;
+	skipText.sprintf("%ld", event.GetInt());
+	m_minFrameSkipIndicator->SetValue(skipText);
+	m_controller->WriteCommand (wxString("set minframeskip " + skipText));
 }
 
-void MiscControlPage::OnSetAutoFrameSkip(wxCommandEvent &event)
+void MiscControlPage::OnSetDefaultMaxFrameSkip(wxCommandEvent &event)
 {
-	wxToggleButton * button = (wxToggleButton *)event.m_eventObject;
-	if (button->GetValue()) {
-		m_frameSkipIndicator->SetValue(wxT("auto"));
-	}
-	else{
-		int val = m_maxFrameSkipSlider->GetValue();
-		wxString strval;
-		strval.sprintf ("%d",val);
-		m_frameSkipIndicator->SetValue(strval);
-	}
+	m_controller->WriteCommand ("unset maxframeskip");
+	m_maxFrameSkipIndicator->Enable();
+	m_maxFrameSkipSlider->Enable();
+}
+
+void MiscControlPage::OnSetDefaultMinFrameSkip(wxCommandEvent &event)
+{
+	m_controller->WriteCommand ("unset minframeskip");
+	m_minFrameSkipIndicator->Enable();
+	m_minFrameSkipSlider->Enable();
 }
 
 void MiscControlPage::OnSetThrottle(wxCommandEvent &event)
@@ -229,8 +232,11 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_speedMaxButton->Enable(true);
 
 	m_maxFrameSkipSlider->Enable(true);
-	m_frameSkipIndicator->Enable(true);
-	m_frameSkipZeroButton->Enable(true);
+	m_minFrameSkipSlider->Enable(true);
+	m_minFrameSkipIndicator->Enable(true);
+	m_maxFrameSkipIndicator->Enable(true);
+	m_defaultMinFrameSkipButton->Enable(true);
+	m_defaultMaxFrameSkipButton->Enable(true);
 
 	m_powerButton->Enable(true);
 	m_resetButton->Enable(true);
@@ -255,8 +261,11 @@ void MiscControlPage::SetControlsOnEnd()
 	m_speedMaxButton->Enable(false);
 
 	m_maxFrameSkipSlider->Enable(false);
-	m_frameSkipIndicator->Enable(false);
-	m_frameSkipZeroButton->Enable(false);
+	m_minFrameSkipSlider->Enable(false);
+	m_minFrameSkipIndicator->Enable(false);
+	m_maxFrameSkipIndicator->Enable(false);
+	m_defaultMinFrameSkipButton->Enable(false);
+	m_defaultMaxFrameSkipButton->Enable(false);
 
 	m_powerButton->Enable(false);
 	m_resetButton->Enable(false);
@@ -288,9 +297,9 @@ void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
 	}
 }
 
-void MiscControlPage::OnInputFrameskip(wxCommandEvent &event)
+void MiscControlPage::OnInputMinFrameskip(wxCommandEvent &event)
 {
-	wxString text = m_frameSkipIndicator->GetValue ();
+	wxString text = m_minFrameSkipIndicator->GetValue ();
 	if (text.IsNumber())
 	{
 		unsigned long num;
@@ -299,7 +308,28 @@ void MiscControlPage::OnInputFrameskip(wxCommandEvent &event)
 		{
 			num = 100;
 			text = wxT("100");
-			m_frameSkipIndicator->SetValue(text);
+			m_minFrameSkipIndicator->SetValue(text);
+		}
+		if (num >= 0)
+		{
+			m_controller->WriteCommand (wxString("set minframeskip " + text));
+			m_minFrameSkipSlider->SetValue(num);
+		}
+	}	
+}
+
+void MiscControlPage::OnInputMaxFrameskip(wxCommandEvent &event)
+{
+	wxString text = m_maxFrameSkipIndicator->GetValue ();
+	if (text.IsNumber())
+	{
+		unsigned long num;
+		text.ToULong(&num);
+		if (num > 100)
+		{
+			num = 100;
+			text = wxT("100");
+			m_maxFrameSkipIndicator->SetValue(text);
 		}
 		if (num >= 0)
 		{
@@ -314,9 +344,14 @@ void MiscControlPage::SetSpeed (wxString value)
 	m_speedIndicator->SetValue(value);
 }
 
-void MiscControlPage::SetFrameskip (wxString value)
+void MiscControlPage::SetMinFrameskip (wxString value)
 {
-	m_frameSkipIndicator->SetValue(value);
+	m_minFrameSkipIndicator->SetValue(value);
+}
+
+void MiscControlPage::SetMaxFrameskip (wxString value)
+{
+	m_maxFrameSkipIndicator->SetValue(value);
 }
 
 void MiscControlPage::SetThrottle (wxString value)

@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.19 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: CatapultPage.cpp,v 1.20 2004/06/06 18:25:42 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -62,7 +62,8 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting("gamma","GammaIndicator",&CatapultPage::UpdateIndicatorSetting,false);
 	AddSetting("scanline","ScanlineIndicator",&CatapultPage::UpdateIndicatorSetting,false);
 	AddSetting("speed","SpeedIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("maxframeskip","FrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("minframeskip","MinFrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting("maxframeskip","MaxFrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
 	AddSetting("throttle","ThrottleButton",&CatapultPage::UpdateToggleSetting,true);
 	AddSetting("cmdtiming","CmdTimingButton",&CatapultPage::UpdateToggleSetting,true);
 	AddSetting("power","PowerButton",&CatapultPage::UpdateToggleSetting,false);

@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.76 2004/08/26 16:02:48 h_oudejans Exp $
+$Id: ChangeLog,v 1.77 2004/08/26 16:51:32 h_oudejans Exp $
+
+2004-08-29 Manuel Bilderbeek <manuel@msxnet.org>
+	* Implemented minframeskip and maxframeskip completely.
 
 2004-08-26 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added pause status in statusbar.
@@ -205,7 +208,7 @@ $Id: ChangeLog,v 1.76 2004/08/26 16:02:48 h_oudejans Exp $
 2004-03-22 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added midi in/out and sample input plugins
 	* Filenames still need to be done
-	
+
 2004-03-21 Manuel Bilderbeek <manuel@msxnet.org>
 	* removed Mute button from MiscControls, made the new one in
 	  AudioControls functional

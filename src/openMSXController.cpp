@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.52 2004/08/26 14:29:46 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.53 2004/08/26 21:15:25 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -499,6 +499,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("@execute","","",&openMSXController::SetSliderDefaults,false);
 	AddLaunchInstruction ("set speed","","speed",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set maxframeskip","","maxframeskip",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set minframeskip","","minframeskip",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set throttle","","throttle",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set cmdtiming","","cmdtiming",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("#info pluggable","14","",&openMSXController::InitPluggables,true);
