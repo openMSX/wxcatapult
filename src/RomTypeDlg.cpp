@@ -58,6 +58,9 @@ int RomTypeDlg::ShowModal(wxString type)
 			m_romTypeList->SetSelection(pos,true);
 		}
 	}
+	else{
+		m_romTypeList->SetSelection(0,true);
+	}
 	this->Fit();
 	return wxDialog::ShowModal();
 }

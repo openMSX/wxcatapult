@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.21 2005/01/31 21:00:54 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.22 2005/02/01 18:30:43 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -120,7 +120,6 @@ class SessionPage : public CatapultPage
 		void AddHistory (mediaInfo * media);
 		void SaveHistory();
 		void RestoreHistory();
-		void UpdateTooltip (mediaInfo * media);
 
 		mediaInfo * m_diskA;
 		mediaInfo * m_diskB;
