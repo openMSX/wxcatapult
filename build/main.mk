@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.19 2004/05/24 15:40:56 h_oudejans Exp $
+# $Id: main.mk,v 1.20 2004/05/24 17:04:16 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -57,7 +57,7 @@ OBJECTS_PATH:=$(BUILD_PATH)/obj
 
 BINARY_PATH:=$(BUILD_PATH)/bin
 BINARY_FILE:=catapult
-BINARY_FULL:=$(BINARY_PATH)/$(BINARY_FILE)
+BINARY_FULL=$(BINARY_PATH)/$(BINARY_FILE) # allow override
 
 RESOURCES_PATH:=$(BUILD_PATH)/resources
 XRC_PATH:=$(RESOURCES_PATH)/dialogs
@@ -208,42 +208,50 @@ clean:
 
 
 # Installation and Binary Packaging
-# ========================
+# =================================
+
+CATAPULT_PREBUILT?=false
+$(call BOOLCHECK,CATAPULT_PREBUILT)
 
 INSTALL_DOCS:=release-notes.txt release-history.txt
 CATAPULT_INSTALL?=$(INSTALL_BASE)
 
-ifeq ($(DONOTBUILD),)
-install: all
-else
-BINARY_FILE=Catapult.exe
-BINARY_FULL:=bin/catapult.exe
+ifeq ($(CATAPULT_PREBUILT),true)
+# TODO: Prebuilt is used only on win32, but using this not clean.
+BINARY_FILE:=Catapult.exe
 RESOURCES_PATH:=resources
-FILES_ONLY:=yes
+FILES_ONLY:=true
 install: check_build
+else
+FILES_ONLY:=false
+install: all
 endif
 	@echo "Installing to $(CATAPULT_INSTALL):"
 	@echo "  Executable..."
 	@mkdir -p $(CATAPULT_INSTALL)/bin
-	@cp $(BINARY_FULL) $(CATAPULT_INSTALL)/bin/$(BINARY_FILE)
+ifeq ($(CATAPULT_PREBUILT),true)
+	@cp -f $(BINARY_FULL) $(CATAPULT_INSTALL)/bin/$(BINARY_FILE)
+else
+	@strip -o $(CATAPULT_INSTALL)/bin/$(BINARY_FILE) $(BINARY_FULL)
+endif
 	@echo "  Data files..."
-	@cp -r $(RESOURCES_PATH) $(CATAPULT_INSTALL)/
+	@cp -rf $(RESOURCES_PATH) $(CATAPULT_INSTALL)/
 	@echo "  Documentation..."
 	@mkdir -p $(CATAPULT_INSTALL)/doc
-	@cp $(addprefix doc/,$(INSTALL_DOCS)) $(CATAPULT_INSTALL)/doc
+	@cp -f README GPL AUTHORS $(CATAPULT_INSTALL)/doc
+	@cp -f $(addprefix doc/,$(INSTALL_DOCS)) $(CATAPULT_INSTALL)/doc
 	@mkdir -p $(CATAPULT_INSTALL)/doc/manual
-	@cp $(addprefix doc/manual/,*.html *.css) $(CATAPULT_INSTALL)/doc/manual
-ifneq ($(FILES_ONLY),yes)	
+	@cp -f $(addprefix doc/manual/,*.html *.css) $(CATAPULT_INSTALL)/doc/manual
+ifeq ($(CATAPULT_PREBUILT),false)
 	@echo "  Desktop hooks..."
 	@mkdir -p $(CATAPULT_INSTALL)/resources/icons
-	@cp -r src/catapult.xpm $(CATAPULT_INSTALL)/resources/icons
-
+	@cp -rf src/catapult.xpm $(CATAPULT_INSTALL)/resources/icons
 	@if [ -d /usr/share/applications -a -w /usr/share/applications ]; \
-		then sed -e "s|%CATAPULT_INSTALL%|$(CATAPULT_INSTALL)|" \
+		then sed -e "s|%INSTALL_BASE%|$(INSTALL_BASE)|" \
 			desktop/openMSX-Catapult.desktop \
 			> /usr/share/applications/openMSX-Catapult.desktop; \
-		else mkdir -p ~/.local/share/applications; \
-			sed -e "s|%CATAPULT_INSTALL%|$(CATAPULT_INSTALL)|" \
+		else mkdir -p ~/.local/share/applications && \
+			sed -e "s|%INSTALL_BASE%|$(INSTALL_BASE)|" \
 			desktop/openMSX-Catapult.desktop \
 			> ~/.local/share/applications/openMSX-Catapult.desktop; \
 		fi
@@ -258,7 +266,7 @@ ifneq ($(FILES_ONLY),yes)
 		fi
 	@echo "  Setting permissions..."
 	@chmod -R a+rX $(INSTALL_BASE)
-endif # FILES_ONLY
+endif # CATAPULT_PREBUILT
 	@echo "Installation complete... have fun!"
 
 TARGET_CATAPULT:=$(wildcard bin/Catapult.exe)
@@ -269,7 +277,7 @@ ifeq ($(TARGET_CATAPULT),)
 endif 
 
 # Source Packaging
-# =========
+# ================
 
 DIST_BASE:=$(BUILD_BASE)/dist
 DIST_PATH:=$(DIST_BASE)/$(PACKAGE_FULL)
