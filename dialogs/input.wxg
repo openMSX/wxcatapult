@@ -11,7 +11,7 @@
                 <border>5</border>
                 <option>1</option>
                 <object class="wxTextCtrl" name="InputText" base="EditTextCtrl">
-                    <style>wxTE_MULTILINE|wxHSCROLL|wxTE_RICH</style>
+                    <style>wxTE_MULTILINE|wxHSCROLL</style>
                     <tooltip>Type or paste text here to send it to openMSX</tooltip>
                 </object>
             </object>

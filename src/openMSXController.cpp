@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.78 2005/01/31 21:00:55 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.79 2005/02/08 19:50:26 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -287,7 +287,7 @@ bool openMSXController::WriteCommand(wxString msg, TargetType target)
 	char * convertBuffer = new char[msg.Len()+1];
 	strcpy(convertBuffer,(const char*) (wxConvUTF8.cWX2MB(msg)));
 	xmlChar* buffer = xmlEncodeEntitiesReentrant(NULL,(const xmlChar *)convertBuffer);
-	char * commandBuffer = new char[msg.Len()+25];
+	char * commandBuffer = new char[strlen((const char *) buffer)+25];
 	strcpy (commandBuffer,"<command>");
 	strcat (commandBuffer,(const char *)buffer);
 	strcat (commandBuffer,"</command>\n");
