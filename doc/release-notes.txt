@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.5.0-R1 (2004-10-13)
+Release Notes for openMSX Catapult 0.5.0-R1 (2004-10-15)
 ========================================================
 
 This new release brings you the following improvements:
@@ -12,7 +12,7 @@ Added: Saving openMSX Settings
 Added: openMSX type support (typing remotely into the MSX)
 Added: Screenshot support
 Added: Printerport connector
-Added: Saving of Joystick settings.
+Added: Saving of Joystick settings
 Added: Ren Sha Turbo support (turboR only)
 
 Changed: Throttle into Max Speed
@@ -20,8 +20,8 @@ Changed: underscores in machine and extension names are now showed as spaces
 Changed: Removed tear-off menu style in gtk
 
 Known issues / caveats:
-- comboboxes behave a bit strangely sometimes on non-Windows systems.
-- typing into openMSX doesnt' support language specific characters yet.
+- comboboxes behave a bit strangely sometimes on non-Windows systems
+- typing into openMSX doesn't support language specific characters yet
 - still not complete
 
 openMSX Home Page:
@@ -31,8 +31,8 @@ Project page on SourceForge:
 Contact options:
 - Send a message to the openmsx-user mailing list.
   Go to the SourceForge project page and look under "Lists".
-- Talk to us on #openMSX on irc.freenode.net.
-- Use the "Support" tab on the project page.
+- Use the Forums on the project page.
+- Talk to us on #openmsx on irc.freenode.net.
 
 Have fun with your emulated MSX!
                                         the openMSX developers
