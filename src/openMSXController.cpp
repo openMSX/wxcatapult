@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.28 2004/04/05 18:29:39 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.29 2004/04/06 15:05:31 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -319,6 +319,8 @@ bool openMSXController::InitConnectors(wxString connectors, wxString dummy)
 	if (connectors.IsEmpty())
 		return false;
 	m_connectors.Clear();
+	m_connectorclasses.Clear();
+	m_connectorcontents.Clear();
 	int pos;
 	wxString temp = connectors;
 	do
@@ -345,12 +347,55 @@ void openMSXController::GetConnectors (wxArrayString & connectors)
 	}
 }
 
+wxString openMSXController::GetConnectorClass (wxString name)
+{
+	if (m_connectorclasses.IsEmpty()) return wxString (_(""));
+	unsigned index = 0;
+	bool found = false;
+	while ((!found) && (index < m_connectors.GetCount())){
+		if (m_connectors[index] == name){
+			found = true;
+		}
+		else{
+			index++;
+		}
+	}
+	if (!found){
+		wxMessageBox ("Get Connector class, connector: " + name + " not found");
+		return wxString(_(""));
+	}
+	return wxString (m_connectorclasses[index]);
+}
+
+wxString openMSXController::GetConnectorContents (wxString name)
+{
+	if (m_connectorcontents.IsEmpty()) return wxString (_(""));
+	unsigned index = 0;
+	bool found = false;
+	while ((!found) && (index < m_connectors.GetCount())){
+		if (m_connectors[index] == name){
+			found = true;
+		}
+		else{
+			index++;
+		}
+	}
+	if (!found){
+		wxMessageBox ("Get Connector contents, connector: " + name + " not found");
+		return wxString(_(""));
+	}
+	return wxString (m_connectorcontents[index]);
+}
+
+
+
 bool openMSXController::InitPluggables(wxString pluggables, wxString dummy)
 {
 	if (pluggables.IsEmpty())
 		return false;
 	m_pluggables.Clear();
 	m_pluggabledescriptions.Clear();
+	m_pluggableclasses.Clear();
 	int pos;
 	wxString temp = pluggables;
 	do
@@ -386,6 +431,16 @@ void openMSXController::GetPluggableDescriptions (wxArrayString & descriptions)
 		descriptions.Add(m_pluggabledescriptions[i]);				
 	}
 }
+
+void openMSXController::GetPluggableClasses (wxArrayString & classes)
+{
+	classes.Clear();
+	if (m_pluggableclasses.IsEmpty()) return;
+	for (unsigned int i=0;i<m_pluggableclasses.GetCount();i++){
+		classes.Add(m_pluggableclasses[i]);				
+	}
+}
+
 
 bool openMSXController::SetupOpenMSXParameters(wxString version)
 {
@@ -461,15 +516,19 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set maxframeskip","","maxframeskip",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set throttle","","throttle",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set cmdtiming","","cmdtiming",&openMSXController::UpdateSetting,true);
-	AddLaunchInstruction ("#info pluggable","10","",&openMSXController::InitPluggables,true);
+	AddLaunchInstruction ("#info pluggable","14","",&openMSXController::InitPluggables,true);
 	AddLaunchInstruction ("#info_nostore pluggable *","","*",&openMSXController::AddPluggableDescription,true);
-	AddLaunchInstruction ("#info connector","7","",&openMSXController::InitConnectors,true);
+	AddLaunchInstruction ("#info_nostore connectionclass *","","*",&openMSXController::AddPluggableClass,true);
+	AddLaunchInstruction ("#info connector","10","",&openMSXController::InitConnectors,true);
+	AddLaunchInstruction ("#info_nostore connectionclass *","","*",&openMSXController::AddConnectorClass,true);
+	AddLaunchInstruction ("plug *","","*",&openMSXController::AddConnectorContents,true);
 	AddLaunchInstruction ("@checkfor msx-midi-in","1","",NULL,false);
 	AddLaunchInstruction ("set midi-in-readfilename","","midi-in-readfilename",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("@checkfor msx-midi-out","1","",NULL,false);
 	AddLaunchInstruction ("set midi-out-logfilename","","midi-out-logfilename",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("@checkfor pcminput","1","",NULL,false);
 	AddLaunchInstruction ("set audio-inputfilename","","audio-inputfilename",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("@execute","","",&openMSXController::InitConnectorPanel,false);
 	AddLaunchInstruction ("@execute","","",&openMSXController::InitAudioConnectorPanel,false);
 	AddLaunchInstruction ("#info sounddevice","5","",&openMSXController::InitSoundDevices,true);
 	AddLaunchInstruction ("#info_nostore sounddevice *","","*",&openMSXController::SetChannelType,true);
@@ -842,6 +901,24 @@ bool openMSXController::AddPluggableDescription(wxString data,wxString name)
 	return true;
 }
 
+bool openMSXController::AddPluggableClass(wxString data, wxString name)
+{
+	m_pluggableclasses.Add(data);
+	return true;
+}
+
+bool openMSXController::AddConnectorClass(wxString data, wxString name)
+{
+	m_connectorclasses.Add(data);
+	return true;
+}
+
+bool openMSXController::AddConnectorContents(wxString data, wxString name)
+{
+	m_connectorcontents.Add(data);
+	return true;
+}
+
 bool openMSXController::SetSliderDefaults (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_videoControlPage->SetSliderDefaults();
@@ -851,6 +928,12 @@ bool openMSXController::SetSliderDefaults (wxString dummy1, wxString dummy2)
 bool openMSXController::InitAudioConnectorPanel (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_audioControlPage->InitAudioIO();
+	return true;
+}
+
+bool openMSXController::InitConnectorPanel (wxString dummy1, wxString dummy2)
+{
+	m_appWindow->m_miscControlPage->InitConnectorPanel();
 	return true;
 }
 

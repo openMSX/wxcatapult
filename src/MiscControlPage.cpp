@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.7 2004/03/26 20:02:06 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.8 2004/04/05 18:29:39 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -31,6 +31,8 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_TOGGLEBUTTON(XRCID("CmdTimingButton"),MiscControlPage::OnSetCmdTiming)
 	EVT_TEXT(XRCID("FrameSkipIndicator"),MiscControlPage::OnInputFrameskip)
 	EVT_TEXT(XRCID("SpeedIndicator"),MiscControlPage::OnInputSpeed)
+	EVT_TEXT(XRCID("Joyport1Selector"),MiscControlPage::OnChangeJoystick)
+	EVT_TEXT(XRCID("Joyport2Selector"),MiscControlPage::OnChangeJoystick)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -232,6 +234,13 @@ void MiscControlPage::SetControlsOnEnd()
 
 	m_throttleButton->Enable(false);
 	m_cmdTimingButton->Enable(false);
+	wxComboBox * box;
+	box = (wxComboBox *)FindWindow ("Joyport1Selector");
+	box->Clear();
+	box->Enable(false);
+	box = (wxComboBox *)FindWindow ("Joyport2Selector");
+	box->Clear();
+	box->Enable(false);
 }
 
 void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
@@ -323,4 +332,66 @@ void MiscControlPage::EnableAutoFrameSkip()
 	m_autoFrameSkipEnabled = true;
 	m_frameSkipSetting = "frameskip";
 
+}
+
+void MiscControlPage::InitConnectorPanel ()
+{
+	wxArrayString connectors;
+	wxString currentClass;
+	m_controller->GetConnectors(connectors);
+	if (connectors.GetCount() > 0){
+		for (unsigned i=0;i<connectors.GetCount();i++){
+			currentClass = m_controller->GetConnectorClass(connectors[i]);
+			if (connectors[i] == _("joyporta")){
+				InitJoystickPort (connectors[i], "Joyport1Selector", currentClass);
+			} else if (connectors[i] == _("joyportb")){
+				InitJoystickPort (connectors[i], "Joyport2Selector", currentClass);
+			}
+		}
+	}
+}
+
+void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wxString connectorClass)
+{
+	wxArrayString pluggables;
+	wxArrayString classes;
+	m_controller->GetPluggableClasses(classes);
+	if (classes.GetCount() ==0) return;
+	
+	wxComboBox * box = (wxComboBox *)FindWindow (control);
+	box->Enable(true);
+	box->Clear();
+	box->Append(_("--empty--"));
+	wxString currentClass;
+	m_controller->GetPluggables(pluggables);
+	if (pluggables.GetCount() > 0){
+		for (unsigned i=0;i<pluggables.GetCount();i++){
+			if (classes[i] == connectorClass){
+				box->Append(pluggables[i]);
+			}
+		}
+	}
+	wxString plugged = m_controller->GetConnectorContents(connector);
+	box->SetSelection(box->FindString(plugged.Mid(connector.Len()+2,plugged.Len()-connector.Len()-3)));
+}
+
+void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
+{
+	wxComboBox * box = (wxComboBox *)event.GetEventObject();
+	wxString cmd = "unplug ";
+	wxString connector;
+	wxString value = "";
+	if (box->GetName() == "Joyport1Selector"){
+		connector = "joyporta ";
+	} 
+	else if (box->GetName() == "Joyport2Selector"){
+		connector = "joyportb ";
+	}
+	
+	if (box->GetValue() != _("--empty--")){
+		value = box->GetValue();
+		cmd = "plug ";
+	}
+
+	m_controller->WriteCommand(wxString(cmd + connector + value));
 }

@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.16 2004/04/05 18:29:39 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.17 2004/04/07 16:44:47 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,8 +24,11 @@ class openMSXController
 	public:
 		wxString FilterCurrentValue(wxString);
 		void GetConnectors (wxArrayString & connectors);
+		wxString GetConnectorClass (wxString name);
+		wxString GetConnectorContents (wxString name);		
 		void GetPluggables (wxArrayString & pluggables);
 		void GetPluggableDescriptions (wxArrayString & descriptions);
+		void GetPluggableClasses (wxArrayString & classes);
 		void StartOpenMSX (wxString cmd, bool getversion=false);
 		bool WriteCommand(wxString msg);
 		void HandleParsedOutput (wxCommandEvent &event);
@@ -81,8 +84,11 @@ class openMSXController
 				bool showError);
 		unsigned int m_openMSXID;
 		wxArrayString m_connectors;
+		wxArrayString m_connectorclasses;
+		wxArrayString m_connectorcontents;
 		wxArrayString m_pluggables;
 		wxArrayString m_pluggabledescriptions;
+		wxArrayString m_pluggableclasses;
 		wxString m_infoCommand;
 		wxString m_unsetCommand;
 		wxString GetPendingCommand();
@@ -108,8 +114,12 @@ class openMSXController
 		bool InitSoundDevices (wxString data, wxString dummy);
 		bool SetChannelType (wxString data,wxString name);
 		bool AddPluggableDescription(wxString data,wxString name);
+		bool AddPluggableClass(wxString data,wxString name);
+		bool AddConnectorClass(wxString data,wxString name);
+		bool AddConnectorContents(wxString data,wxString name);
 		bool SetSliderDefaults (wxString dummy1, wxString dummy2);
 		bool InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
+		bool InitConnectorPanel (wxString dummy1, wxString dummy2);
 		bool EnableAutoFrameSkip (wxString data, wxString cmd);
 
 		list<wxString> m_commands;		
