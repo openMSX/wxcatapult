@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.32 2004/03/31 14:49:51 h_oudejans Exp $
+$Id: ChangeLog,v 1.33 2004/04/01 08:31:48 h_oudejans Exp $
+
+2004-04-04 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Catapult no longer segfaults when it can't find the resources
 
 2004-04-01 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* fixed memory leaks

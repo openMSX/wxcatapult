@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.5 2004/03/20 14:30:55 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.6 2004/03/31 14:49:51 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -86,14 +86,22 @@ bool wxCatapultApp::OnInit()
 		// Show the frame.
 		frame->Show(TRUE);
 	}
-
+	else{
+		wxMessageBox ("Unable to load resources\n","Error");
+	}
 	return TRUE;
 }
 
 bool wxCatapultApp::LoadXRC(wxString XrcFile)
 {
 	wxString resourceDir = GetResourceDir();
-	return wxXmlResource::Get()->Load(resourceDir + _("/dialogs/") + XrcFile);
+	if (::wxFileExists(resourceDir + _("/dialogs/") + XrcFile)){
+		wxXmlResource::Get()->Load(resourceDir + _("/dialogs/") + XrcFile);
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 wxString wxCatapultApp::GetResourceDir ()
