@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.69 2004/10/17 16:58:15 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.70 2004/11/06 11:57:15 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -85,9 +85,8 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	wxString led[7]={wxT("power"), wxT("caps"), wxT("kana"), wxT("pause"),
 		wxT("turbo"), wxT("fdd"), wxT("")};
 	int i=0;
-	while (!led[i].IsEmpty()){	
+	FOREACH(i,led){	
 		m_appWindow->UpdateLed(led[i],"off");
-		i++;
 	}
 	m_appWindow->StopTimers();
 	m_appWindow->SetStatusText("Ready");

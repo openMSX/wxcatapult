@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.44 2004/10/12 14:56:47 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.46 2004/11/06 11:57:15 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -330,11 +330,10 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 
 	wxString parmname [6]={wxT("diska"),wxT("diskb"),wxT("carta"),wxT("cartb"),wxT("cassetteplayer"),wxT("")};
 	i=0;
-	while (!parmname[i].IsEmpty()) {
+	FOREACH(i,parmname) {
 		if (!media[i].IsEmpty()) {
 			cmd += " -" + parmname[i] + " \"" + media[i] + wxT("\"");
 		}
-		i++;
 	}
 
 	m_sessionPage->UpdateSessionData();

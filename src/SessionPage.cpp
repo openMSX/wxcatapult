@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.34 2004/11/06 16:50:33 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.35 2004/11/06 18:46:10 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -125,18 +125,17 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 
 	// let's put a mask on all the bitmapbuttons
 
-	wxBitmapButton * buttons[] = {m_browseDiskA, m_browseDiskB,
+	wxBitmapButton * buttons[10] = {m_browseDiskA, m_browseDiskB,
 		m_browseCartA, m_browseCartB, m_browseCassette, 
 		m_clearDiskA, m_clearDiskB, m_clearCartA, m_clearCartB,
 		m_clearCassette};
-
-		for (int i=0;i<10;i++)
-		{
+	int i;
+	FOREACH (i,buttons){
 			wxBitmap & temp = buttons[i]->GetBitmapLabel();
 			temp.SetMask(new wxMask(temp,wxColour(255,0,255)));
 			buttons[i]->Enable(false);
 			buttons[i]->Enable(true);
-		}
+	}
 	RestoreHistory();
 	m_cassettePortState = "disabled";
 }
@@ -550,7 +549,8 @@ void SessionPage::getMedia(wxArrayString & parameters)
 {
 	wxComboBox * box [5] = {m_diskA,m_diskB,m_cartA,m_cartB,m_cassette};
 	parameters.Clear();
-	for (int i=0;i<5;i++) {
+	int i=0;
+	FOREACH(i,box){
 		parameters.Add(wxT(""));
 		if (!box[i]->GetValue().IsEmpty()) {
 			parameters[i] = box[i]->GetValue();
@@ -586,7 +586,8 @@ void SessionPage::UpdateSessionData()
 		ConfigurationData::MB_CASSETTE};
 	unsigned int i;
 	m_InsertedMedia = 0;
-	for (i=0;i<5;i++) {
+	i=0;
+	FOREACH(i,box){
 		if (!box[i]->GetValue().IsEmpty()) {
 			AddHistory (box[i]);
 			m_InsertedMedia |= flags [i];
@@ -652,8 +653,8 @@ void SessionPage::RestoreHistory()
 			config->GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
 			wxString value;
 			int pos;
-			for (int i=0;i<5;i++)
-			{
+			int i=0;
+			FOREACH(i,field){
 				field[i]->Clear();
 				config->GetParameter(id[i],value);
 				do
@@ -709,7 +710,8 @@ void SessionPage::SaveHistory()
 			ConfigurationData * config = ConfigurationData::instance();
 	wxString temp;
 	wxString current;
-	for (int i=0;i<5;i++) {
+	int i=0;
+	FOREACH(i,field){
 		temp.Clear();
 		current = field[i]->GetValue();
 		field[i]->SetValue(wxT(""));

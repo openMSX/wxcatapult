@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.100 2004/11/10 21:16:22 andete Exp $
+$Id: ChangeLog,v 1.101 2004/11/10 21:18:13 andete Exp $
+
+2004-11-10 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* All static arrays that used to be looped through by for-loops, are
+	  now looped by the new macro FOREACH
 
 2004-11-10 Joost Yervante Damad <joost@lumatec.be>
 	* debian packaging is working

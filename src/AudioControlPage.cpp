@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.23 2004/10/08 15:26:40 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.24 2004/11/06 13:51:33 manuelbi Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -50,11 +50,10 @@ AudioControlPage::AudioControlPage(wxWindow * parent, openMSXController * contro
 	m_midiInFilename = wxT("");
 	m_midiOutFilename = wxT("");
 
-	wxBitmapButton * buttons[] = {m_browseMidiInButton,m_browseMidiOutButton,
+	wxBitmapButton * buttons[3] = {m_browseMidiInButton,m_browseMidiOutButton,
 		m_browseSampleInputButton};
-
-		for (int i=0;i<3;i++)
-		{
+		int i;
+		FOREACH(i,buttons){
 			wxBitmap & temp = buttons[i]->GetBitmapLabel();
 			temp.SetMask(new wxMask(temp,wxColour(255,0,255)));
 			buttons[i]->Enable(false);

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.16 2004/10/01 16:33:46 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.17 2004/10/08 15:23:54 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -15,6 +15,8 @@ class VideoControlPage;
 class AudioControlPage;
 class MiscControlPage;
 class openMSXController;
+
+#define FOREACH(x,array) for (x=0;x<sizeof(array)/sizeof(array[0]);x++)
 
 // Define a new frame type: this is going to be our main frame
 class wxCatapultFrame : public wxFrame
