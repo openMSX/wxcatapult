@@ -1,4 +1,4 @@
-openmsx-catapult (0.5.0R1-3) unstable; urgency=low
+openmsx-catapult (0.5.0R1-4) unstable; urgency=low
 
   * Close ITP. (Closes: #286949)
   * fix menu
