@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.h,v 1.5 2004/10/03 20:08:26 h_oudejans Exp $
+// $Id: ConfigurationData.h,v 1.6 2004/10/08 15:24:39 h_oudejans Exp $
 // onfigurationData.h: interface for the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -26,10 +26,10 @@ class ConfigurationData
 		bool GetParameter (int p_iId, wxString & p_data);
 		bool GetParameter (int p_iId, int * p_data);
 		enum ID {CD_EXECPATH, CD_SHAREPATH,CD_HISTDISKA, CD_HISTDISKB, CD_HISTCARTA, CD_HISTCARTB,
-			CD_HISTTAPE1, CD_HISTTAPE2, CD_MEDIAINSERTED, CD_USEDMACHINE,CD_USEDEXTENSIONS,
+			CD_HISTTAPE1, CD_MEDIAINSERTED, CD_USEDMACHINE,CD_USEDEXTENSIONS,
 			CD_FULLSCREENWARN,CD_SCREENSHOTINFO,CD_JOYPORT1,CD_JOYPORT2,CD_PRINTERPORT,CD_PRINTERFILE,
 			};
-			enum MediaBits {MB_DISKA=1, MB_DISKB=2, MB_CARTA=4, MB_CARTB=8, MB_TAPE1=16, MB_TAPE2=32};
+			enum MediaBits {MB_DISKA=1, MB_DISKB=2, MB_CARTA=4, MB_CARTB=8, MB_TAPE1=16};
 			bool SetParameter (int p_iId, wxVariant p_data);
 			bool HaveRequiredSettings ();
 
@@ -47,7 +47,6 @@ class ConfigurationData
 			wxString m_cartaHistory;
 			wxString m_cartbHistory;
 			wxString m_tape1History;
-			wxString m_tape2History;
 			wxString m_usedMachine;
 			wxString m_usedExtensions;
 			wxString m_usedJoyport1;

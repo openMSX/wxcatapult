@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.27 2004/10/16 09:28:16 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.28 2004/10/17 15:21:48 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -33,19 +33,16 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_COMBOBOX(XRCID("CartAContents"),CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(XRCID("CartBContents"),CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(XRCID("Tape1Contents"),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("Tape2Contents"),CatapultPage::OnClickCombo)
 	EVT_BUTTON(XRCID("BrowseDiskA"),SessionPage::OnBrowseDiskA)
 	EVT_BUTTON(XRCID("BrowseDiskB"),SessionPage::OnBrowseDiskB)
 	EVT_BUTTON(XRCID("BrowseCartA"),SessionPage::OnBrowseCartA)
 	EVT_BUTTON(XRCID("BrowseCartB"),SessionPage::OnBrowseCartB)
-	EVT_BUTTON(XRCID("BrowseNormalTape"),SessionPage::OnBrowseNormalTape)
-	EVT_BUTTON(XRCID("BrowseCasPatch"),SessionPage::OnBrowseCasPatch)
+	EVT_BUTTON(XRCID("BrowseTape"),SessionPage::OnBrowseTape)
 	EVT_BUTTON(XRCID("ClearDiskA"),SessionPage::OnClearDiskA)
 	EVT_BUTTON(XRCID("ClearDiskB"),SessionPage::OnClearDiskB)
 	EVT_BUTTON(XRCID("ClearCartA"),SessionPage::OnClearCartA)
 	EVT_BUTTON(XRCID("ClearCartB"),SessionPage::OnClearCartB)
-	EVT_BUTTON(XRCID("ClearNormalTape"),SessionPage::OnClearNormalTape)
-	EVT_BUTTON(XRCID("ClearCasPatch"),SessionPage::OnClearCasPatch)
+	EVT_BUTTON(XRCID("ClearTape"),SessionPage::OnClearTape)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -63,22 +60,19 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_diskB = (wxComboBox *)FindWindow(wxT("DiskBContents"));
 	m_cartA = (wxComboBox *)FindWindow(wxT("CartAContents"));
 	m_cartB = (wxComboBox *)FindWindow(wxT("CartBContents"));
-	m_tape1 = (wxComboBox *)FindWindow(wxT("NormalTapeContents"));
-	m_tape2 = (wxComboBox *)FindWindow(wxT("CasPatchContents"));
+	m_tape1 = (wxComboBox *)FindWindow(wxT("TapeContents"));
 	m_extensionList = (wxListBox *)FindWindow(wxT("ExtensionList"));
 	m_machineList = (wxComboBox *)FindWindow(wxT("MachineList"));
 	m_browseDiskA = (wxBitmapButton *)FindWindow(wxT("BrowseDiskA"));
 	m_browseDiskB = (wxBitmapButton *)FindWindow(wxT("BrowseDiskB"));
 	m_browseCartA = (wxBitmapButton *)FindWindow(wxT("BrowseCartA"));
 	m_browseCartB = (wxBitmapButton *)FindWindow(wxT("BrowseCartB"));
-	m_browseTape1 = (wxBitmapButton *)FindWindow(wxT("BrowseNormalTape"));
-	m_browseTape2 = (wxBitmapButton *)FindWindow(wxT("BrowseCasPatch"));
+	m_browseTape1 = (wxBitmapButton *)FindWindow(wxT("BrowseTape"));
 	m_clearDiskA = (wxBitmapButton *)FindWindow(wxT("ClearDiskA"));
 	m_clearDiskB = (wxBitmapButton *)FindWindow(wxT("ClearDiskB"));
 	m_clearCartA = (wxBitmapButton *)FindWindow(wxT("ClearCartA"));
 	m_clearCartB = (wxBitmapButton *)FindWindow(wxT("ClearCartB"));
-	m_clearTape1 = (wxBitmapButton *)FindWindow(wxT("ClearNormalTape"));
-	m_clearTape2 = (wxBitmapButton *)FindWindow(wxT("ClearCasPatch"));
+	m_clearTape1 = (wxBitmapButton *)FindWindow(wxT("ClearTape"));
 	
 	m_machineListLabel = (wxStaticText *)FindWindow(wxT("MachineListLabel"));
 	m_extensionListLabel = (wxStaticText *)FindWindow(wxT("ExtensionLabel"));
@@ -88,7 +82,6 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_lastDiskA = "";
 	m_lastDiskB = "";
 	m_lastTape1 = "";
-	m_lastTape2 = "";
 
 	SetupHardware(true);
 	
@@ -123,16 +116,14 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),-1);
 	delete tempDC;
 
-
-
 	// let's put a mask on all the bitmapbuttons
 
 	wxBitmapButton * buttons[] = {m_browseDiskA, m_browseDiskB,
-		m_browseCartA, m_browseCartB, m_browseTape1, m_browseTape2,
+		m_browseCartA, m_browseCartB, m_browseTape1, 
 		m_clearDiskA, m_clearDiskB, m_clearCartA, m_clearCartB,
-		m_clearTape1, m_clearTape2};
+		m_clearTape1};
 
-		for (int i=0;i<12;i++)
+		for (int i=0;i<10;i++)
 		{
 			wxBitmap & temp = buttons[i]->GetBitmapLabel();
 			temp.SetMask(new wxMask(temp,wxColour(255,0,255)));
@@ -171,18 +162,11 @@ void SessionPage::OnClearCartB(wxCommandEvent &event)
 	m_cartB->SetValue(wxT(""));
 }
 
-void SessionPage::OnClearNormalTape(wxCommandEvent &event)
+void SessionPage::OnClearTape(wxCommandEvent &event)
 {
 	m_tape1->SetValue(wxT(""));
 	m_lastTape1 = wxT("");
 	m_controller->WriteCommand("cassetteplayer eject");
-}
-
-void SessionPage::OnClearCasPatch(wxCommandEvent &event)
-{
-	m_tape2->SetValue(wxT(""));
-	m_lastTape2 = wxT("");
-	m_controller->WriteCommand("cas eject");
 }
 
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
@@ -251,17 +235,17 @@ void SessionPage::BrowseCart(wxComboBox *target, wxString defaultpath)
 	}
 }
 
-void SessionPage::OnBrowseNormalTape(wxCommandEvent &event)
+void SessionPage::OnBrowseTape(wxCommandEvent &event)
 {
 	wxString defaultpath = ::wxPathOnly(m_tape1->GetValue());
 	wxString path;
 #ifndef __MOTIF__
-	path = wxT("All known tape (sound) files|*.zip;*.ZIP;*.gz;*.GZ;*.wav;*.WAV|Uncompressed tape (sound) files|*.wav;*.WAV|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
+	path = wxT("All known tape files|*.zip;*.ZIP;*.gz;*.GZ;*.wav;*.WAV;*.cas;*.CAS|Uncompressed tape files|*.wav;*.WAV;*.cas;*.CAS|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,wxT("Select tape sound image"), defaultpath, wxT(""), path ,wxOPEN);
+	wxFileDialog filedlg(this,wxT("Select tape image"), defaultpath, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		m_tape1->SetValue (filedlg.GetPath());	
@@ -279,33 +263,6 @@ void SessionPage::OnBrowseNormalTape(wxCommandEvent &event)
 		}
 		m_lastTape1 = m_tape1->GetValue();
 	}
-}
-
-void SessionPage::OnBrowseCasPatch(wxCommandEvent &event)
-{
-	wxString defaultpath = ::wxPathOnly(m_tape2->GetValue());
-	wxString path;
-#ifndef __MOTIF__
-	path = wxT("All known cassette files|*.zip;*.ZIP;*.gz;*.GZ;*.cas;*.CAS|Uncompressed cassette files|*.cas;*.CAS|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
-
-	wxFileDialog filedlg(this,_("Select cas image"), defaultpath, wxT(""), path ,wxOPEN);
-	if (filedlg.ShowModal() == wxID_OK)
-	{
-		m_tape2->SetValue (filedlg.GetPath());
-		m_controller->WriteCommand("cas eject");
-		if (!m_tape2->GetValue().IsEmpty()) {
-			m_controller->WriteCommand("cas " + ConvertPath(m_tape2->GetValue(),true));
-			if (m_controller->IsOpenMSXRunning()) {
-				AddHistory(m_tape2);
-				SaveHistory();
-			}
-		}
-		m_lastTape2 = m_tape2->GetValue();
-	}
-	
 }
 
 void SessionPage::SetupHardware (bool initial)
@@ -485,17 +442,6 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 				m_lastTape1 = m_tape1->GetValue();
 			}
 		}
-		else if (oldFocus == m_tape2) {
-			if (m_tape2->GetValue() != m_lastTape2) {
-				contents = m_tape2->GetValue();
-				m_controller->WriteCommand("cas eject");
-				if (!contents.IsEmpty()) {
-					m_controller->WriteCommand("cas " + ConvertPath(m_tape2->GetValue(),true));
-					AddHistory(m_tape1);
-				}
-				m_lastTape2 = m_tape2->GetValue();
-			}
-		}
 		SaveHistory();
 	}
 }
@@ -535,9 +481,9 @@ void SessionPage::SetControlsOnEnd()
 
 void SessionPage::getMedia(wxArrayString & parameters)
 {
-	wxComboBox * box [6] = {m_diskA,m_diskB,m_cartA,m_cartB,m_tape1,m_tape2};
+	wxComboBox * box [5] = {m_diskA,m_diskB,m_cartA,m_cartB,m_tape1};
 	parameters.Clear();
-	for (int i=0;i<6;i++) {
+	for (int i=0;i<5;i++) {
 		parameters.Add(wxT(""));
 		if (!box[i]->GetValue().IsEmpty()) {
 			parameters[i] = box[i]->GetValue();
@@ -566,15 +512,14 @@ void SessionPage::getHardware(wxArrayString & parameters)
 
 void SessionPage::UpdateSessionData()
 {
-	wxComboBox * box [6] = {m_diskA, m_diskB, m_cartA, m_cartB, m_tape1,
-		m_tape2};
-	int flags [6] = {ConfigurationData::MB_DISKA,
+	wxComboBox * box [5] = {m_diskA, m_diskB, m_cartA, m_cartB, m_tape1};
+	int flags [5] = {ConfigurationData::MB_DISKA,
 		ConfigurationData::MB_DISKB,
 		ConfigurationData::MB_CARTA,ConfigurationData::MB_CARTB,
-		ConfigurationData::MB_TAPE1,ConfigurationData::MB_TAPE2};
+		ConfigurationData::MB_TAPE1};
 	unsigned int i;
 	m_InsertedMedia = 0;
-	for (i=0;i<6;i++) {
+	for (i=0;i<5;i++) {
 		if (!box[i]->GetValue().IsEmpty()) {
 			AddHistory (box[i]);
 			m_InsertedMedia |= flags [i];
@@ -630,18 +575,17 @@ void SessionPage::AddHistory(wxComboBox *media)
 void SessionPage::RestoreHistory()
 {
 	wxString temp;
-	wxComboBox * field[6] = {m_diskA, m_diskB, m_cartA, m_cartB, m_tape1, m_tape2};
-		ConfigurationData::ID id[6] = {ConfigurationData::CD_HISTDISKA,
+	wxComboBox * field[5] = {m_diskA, m_diskB, m_cartA, m_cartB, m_tape1};
+		ConfigurationData::ID id[5] = {ConfigurationData::CD_HISTDISKA,
 			ConfigurationData::CD_HISTDISKB,
 			ConfigurationData::CD_HISTCARTA,
 			ConfigurationData::CD_HISTCARTB,
-			ConfigurationData::CD_HISTTAPE1,
-			ConfigurationData::CD_HISTTAPE2};
+			ConfigurationData::CD_HISTTAPE1};
 			ConfigurationData * config = ConfigurationData::instance();
 			config->GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
 			wxString value;
 			int pos;
-			for (int i=0;i<6;i++)
+			for (int i=0;i<5;i++)
 			{
 				field[i]->Clear();
 				config->GetParameter(id[i],value);
@@ -691,15 +635,14 @@ void SessionPage::RestoreHistory()
 
 void SessionPage::SaveHistory()
 {
-	wxComboBox * field[6] = {m_diskA, m_diskB, m_cartA, m_cartB, m_tape1, m_tape2};
-	ConfigurationData::ID id[6] = {ConfigurationData::CD_HISTDISKA,
+	wxComboBox * field[5] = {m_diskA, m_diskB, m_cartA, m_cartB, m_tape1};
+	ConfigurationData::ID id[5] = {ConfigurationData::CD_HISTDISKA,
 			ConfigurationData::CD_HISTDISKB, ConfigurationData::CD_HISTCARTA,
-			ConfigurationData::CD_HISTCARTB, ConfigurationData::CD_HISTTAPE1,
-			ConfigurationData::CD_HISTTAPE2};
+			ConfigurationData::CD_HISTCARTB, ConfigurationData::CD_HISTTAPE1};
 			ConfigurationData * config = ConfigurationData::instance();
 	wxString temp;
 	wxString current;
-	for (int i=0;i<6;i++) {
+	for (int i=0;i<5;i++) {
 		temp.Clear();
 		current = field[i]->GetValue();
 		field[i]->SetValue(wxT(""));

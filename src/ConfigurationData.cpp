@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.6 2004/10/03 20:08:26 h_oudejans Exp $
+// $Id: ConfigurationData.cpp,v 1.7 2004/10/08 15:24:39 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,7 +27,6 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(wxT("/history/CartA"),&m_cartaHistory);
 	ConfigData->Read(wxT("/history/CartB"),&m_cartbHistory);
 	ConfigData->Read(wxT("/history/Tape1"),&m_tape1History);
-	ConfigData->Read(wxT("/history/Tape2"),&m_tape2History);
 	ConfigData->Read(wxT("/history/MediaInserted"),&m_mediaInserted);
 	ConfigData->Read(wxT("/history/UsedMachine"),&m_usedMachine);
 	ConfigData->Read(wxT("/history/UsedExtensions"), &m_usedExtensions);
@@ -80,9 +79,6 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 			break;
 		case CD_HISTTAPE1:
 			m_tape1History = p_data.GetString();
-			break;
-		case CD_HISTTAPE2:
-			m_tape2History = p_data.GetString();
 			break;
 		case CD_USEDMACHINE:
 			m_usedMachine = p_data.GetString();
@@ -143,9 +139,6 @@ bool ConfigurationData::GetParameter(int p_iId, wxString &p_data)
 			break;
 		case CD_HISTTAPE1:
 			p_data = m_tape1History;
-			break;
-		case CD_HISTTAPE2:
-			p_data = m_tape2History;
 			break;
 		case CD_USEDMACHINE:
 			p_data = m_usedMachine;
@@ -212,7 +205,6 @@ bool ConfigurationData::SaveData()
 	retVal &= ConfigData->Write(wxT("/history/CartA"),m_cartaHistory);
 	retVal &= ConfigData->Write(wxT("/history/CartB"),m_cartbHistory);
 	retVal &= ConfigData->Write(wxT("/history/Tape1"),m_tape1History);
-	retVal &= ConfigData->Write(wxT("/history/Tape2"),m_tape2History);
 	retVal &= ConfigData->Write(wxT("/history/MediaInserted"),m_mediaInserted);
 	retVal &= ConfigData->Write(wxT("/history/UsedMachine"),m_usedMachine);
 	retVal &= ConfigData->Write(wxT("/history/UsedExtensions"),m_usedExtensions);

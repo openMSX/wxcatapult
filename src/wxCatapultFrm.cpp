@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.43 2004/10/08 15:23:54 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.44 2004/10/12 14:56:47 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -328,8 +328,8 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		}
 	}
 
-	wxString parmname [6]={wxT("diska"),wxT("diskb"),wxT("carta"),wxT("cartb"),wxT("cassetteplayer"),wxT("cas")};
-	for (i=0;i<6;i++) {
+	wxString parmname [5]={wxT("diska"),wxT("diskb"),wxT("carta"),wxT("cartb"),wxT("cassetteplayer")};
+	for (i=0;i<5;i++) {
 		if (!media[i].IsEmpty()) {
 			cmd += " -" + parmname[i] + " \"" + media[i] + wxT("\"");
 		}
