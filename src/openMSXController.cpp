@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.51 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.52 2004/08/26 14:29:46 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -299,7 +299,7 @@ void openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 	}
 	else {
 		m_launchMode = LAUNCH_NORMAL;
-		m_appWindow->SetStatusText("openMSX status: Running");
+		m_appWindow->SetStatusText("Running");
 		Launch(cmd);
 	}
 }

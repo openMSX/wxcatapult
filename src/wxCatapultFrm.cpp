@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.35 2004/08/26 16:51:39 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.36 2004/08/26 20:17:57 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -360,10 +360,10 @@ void wxCatapultFrame::UpdateState (wxString statename, wxString state)
 		return;
 	}
 	if (state == "true"){
-		statustext = "openMSX status: Paused";
+		statustext = "Paused";
 	}
 	else{
-		statustext = "openMSX status: Running";
+		statustext = "Running";
 	}
 	SetStatusText(statustext,0);
 }
