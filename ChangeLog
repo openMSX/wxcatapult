@@ -1,4 +1,14 @@
-$Id: ChangeLog,v 1.63 2004/04/18 14:20:31 h_oudejans Exp $
+$Id: ChangeLog,v 1.64 2004/04/21 05:55:08 h_oudejans Exp $
+
+2004-04-25 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Catapult now initially guesses where openmsx could be and checks
+	   for it. If users maintain default values, those values should be good
+	   from the start.
+	* Fixed a bug in returning from fullscreen in Windows.
+	* Cataputl should now accept non-dev openmsx versions higher than 
+	   0.3.4. This should cause the soon to release 0.4.0 to be accepted as
+	   a new version instead of an old.
+	* Fixed the layout of the midi/sample panel a bit.
 
 2004-04-20 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Move screen after returning from full screen is now ONLY done

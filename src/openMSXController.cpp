@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.42 2004/04/18 15:57:22 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.43 2004/04/21 05:55:09 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -499,7 +499,7 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 		wxMessageBox ("The openMSX version you are using is too old!\nPlease upgrade to 0.3.4 or higher.","Error");
 		return false;
 	}
-	if (version.Find(_("-dev")) != -1){
+	if ((version.Find(_("-dev")) != -1) || (ver > 304)){
 		m_infoCommand = _("openmsx_info_tcl");
 		m_appWindow->m_audioControlPage->EnableMasterVolume();
 		m_unsetCommand = _("unset");
