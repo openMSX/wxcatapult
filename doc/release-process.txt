@@ -20,6 +20,7 @@ Preparing for a release
   The version should be the version of openMSX for which this Catapult
   release was intended. [TODO: finalise this, for cases of additional
   Catapult releases.]
+  Set RELEASE_FLAG to true.
 
 Creating a release candidate
 ----------------------------
@@ -96,5 +97,4 @@ Announce:
 
 Finally:
 - Put "Released openmsx-catapult-1.2.3." entry in the ChangeLog in CVS.
-- Change version number in build/version.mk in CVS:
-    VERSION=1.2.3[CVS]
+- Set RELEASE_FLAG to false in build/version.mk
