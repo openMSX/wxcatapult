@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.15 2004/11/06 15:06:42 manuelbi Exp $
+// $Id: SessionPage.h,v 1.16 2004/11/06 15:53:04 manuelbi Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -77,8 +77,6 @@ class SessionPage : public CatapultPage
 		wxStaticText * m_cartBLabel;
 		wxStaticText * m_cassetteLabel;
 
-		wxStaticBoxSizer * m_cassettePlayerSizer;
-		
 		wxArrayString m_machineArray;
 		wxArrayString m_extensionArray;
 
