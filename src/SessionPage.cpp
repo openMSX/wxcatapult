@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.49 2005/02/01 18:30:42 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.50 2005/02/03 17:47:28 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 		m_cartMenu[j] = new wxMenu(wxT(""),0);
 		m_cartMenu[j]->Append(Cart_Browse_File,wxT("Browse cartridge"),wxT(""),wxITEM_NORMAL);
 		m_cartMenu[j]->Append(Cart_Eject,wxT("Eject cartridge"),wxT(""),wxITEM_NORMAL);
-		m_cartMenu[j]->Append(Cart_Select_Mapper,wxT("Select cartridge type"),wxT(""),wxITEM_NORMAL);
+		m_cartMenu[j]->Append(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"),wxT(""),wxITEM_NORMAL);
 		m_cartMenu[j]->Append(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"),wxT(""),wxITEM_NORMAL);
 	}
 	m_casMenu = new wxMenu(wxT(""),0);
