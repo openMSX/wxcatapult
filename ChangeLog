@@ -1,4 +1,17 @@
-$Id: ChangeLog,v 1.105 2004/12/03 18:38:19 h_oudejans Exp $
+$Id: ChangeLog,v 1.106 2004/12/13 22:11:47 manuelbi Exp $
+
+2004-12-26 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Removed some non-game romtypes
+	* Made the romtype dialog autosizing by contents
+	* Added Cassette stuff by popup menu
+	* Fixed some minor bugs and warnings
+
+2004-12-25 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Added popup menu's to the sessionpage.
+	* Added romtype selection (romtypes are hardcoded for now)
+	* Added IPS selection
+	* Added Browse for directory (dirasdisk)
+	* Added Empty disk
 
 2004-12-13 Manuel Bilderbeek <manuel@msxnet.org>
 	* Added proper enable/disable behaviour for Clear and Type buttons on

@@ -33,6 +33,35 @@ RomTypeDlg::~RomTypeDlg()
 	
 }
 
+int RomTypeDlg::ShowModal(wxString type)
+{
+	int pos;
+	wxFont myFont = m_romTypeList->GetFont();
+	wxMemoryDC * tempDC= new wxMemoryDC();
+	tempDC->SetFont(myFont);
+	int dx,dy,index;
+	m_romTypeList->GetSize(&dx,&dy); //default size
+	int w,h,wMax=dx;
+	int items = m_romTypeList->GetCount();
+		for (index=0;index<items;index++){
+			tempDC->GetTextExtent(wxString(m_romTypeList->GetString(index) + wxT("W")),&w,&h);
+			if (w > wMax){
+				wMax = w;
+			}
+		}
+	m_romTypeList->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),280);
+	wxString fullName;
+	if (!type.IsEmpty()){
+		fullName = ConvertRomType(type,false);
+		pos = m_romTypeList->FindString(fullName);
+		if (pos != -1){
+			m_romTypeList->SetSelection(pos,true);
+		}
+	}
+	this->Fit();
+	return wxDialog::ShowModal();
+}
+
 void RomTypeDlg::OnCancel(wxCommandEvent &event)
 {
 	EndModal(wxID_CANCEL);
@@ -127,3 +156,4 @@ wxString RomTypeDlg::ConvertRomType(wxString source, bool backwards)
 	}
 	return retVal;
 }
+

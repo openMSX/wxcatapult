@@ -16,6 +16,7 @@ public:
 	void OnCancel(wxCommandEvent& event);
 	void OnOk(wxCommandEvent& event);
 	virtual ~RomTypeDlg();
+	void SetSelectedType(wxString type);
 	wxString GetSelectedType();
 	wxString GetSelectedFullTypeName();
 	int FindRomType (wxString type);
@@ -23,6 +24,7 @@ public:
 	void AddRomType (wxString type);
 	void SetRomTypeFullName (wxString type, wxString name);
 	wxString ConvertRomType (wxString source, bool backwards);
+	int ShowModal(wxString type);
 
 private:
 	wxListBox * m_romTypeList;

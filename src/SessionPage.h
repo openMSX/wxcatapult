@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.17 2004/11/06 15:54:09 manuelbi Exp $
+// $Id: SessionPage.h,v 1.18 2004/12/25 22:29:34 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -35,13 +35,16 @@ class SessionPage : public CatapultPage
 		void OnClearDiskA (wxCommandEvent & event);
 		void OnRewind (wxCommandEvent & event);
 		void OnForcePlay (wxCommandEvent & event);
+		void OnForcePlayByMenu (wxCommandEvent & event);
 		void OnChangeCassetteContents (wxCommandEvent & event);
 		void OnClickDiskMenu (wxCommandEvent & event);
 		void OnClickCartMenu (wxCommandEvent & event);
+		void OnClickCasMenu (wxCommandEvent & event);
 		void OnInsertEmptyDiskByMenu (wxCommandEvent & event);
 		void OnBrowseDiskByMenu (wxCommandEvent &event);
 		void OnBrowseDiskDirByMenu (wxCommandEvent &event);
 		void OnBrowseCartByMenu (wxCommandEvent &event);
+		void OnEjectDiskByMenu (wxCommandEvent & event);
 		void OnSelectMapper (wxCommandEvent & event);
 		void OnSelectIPS (wxCommandEvent & event);
 		void OnCloseMenu (wxCommandEvent & event);
@@ -59,6 +62,7 @@ class SessionPage : public CatapultPage
 		void SetupRomType (wxString romtype, wxString fullname);
 
 	private:
+		wxComboBox * GetLastMenuTarget();
 		static int CompareCaseInsensitive(const wxString& first, const wxString& second);
 		void GetRomTypes ();
 		wxString ConvertRomType (wxString source, bool backwards);
