@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.9 2004/04/17 15:49:54 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.10 2004/04/18 11:57:41 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,7 +24,9 @@ class VideoControlPage : public CatapultPage
 		void SetControlsOnLaunch();
 		VideoControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller = NULL);
 		virtual ~VideoControlPage();
+#ifdef __WINDOWS__		
 		void RestoreNormalScreen();
+#endif
 		void OnInputScanline (wxCommandEvent & event);
 		void OnInputGamma (wxCommandEvent & event);
 		void OnInputGlow (wxCommandEvent & event);

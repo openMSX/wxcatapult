@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.12 2004/04/17 21:57:13 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.13 2004/04/18 11:57:41 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
