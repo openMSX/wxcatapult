@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.2 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.3 2004/03/25 19:45:26 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -130,7 +130,6 @@ bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxStr
 	if (indicator != NULL){
 		if (indicator->GetValue() != data)
 			indicator->SetValue(data);
-			printf("test");
 		return true;
 	}
 	return false;
