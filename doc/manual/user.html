@@ -32,8 +32,9 @@
 			<li><a class="internal" href="#tour_misc">3.2. Miscellaneous Control Page</a></li>
 			<li><a class="internal" href="#tour_video">3.3. Video Control Page</a></li>
 			<li><a class="internal" href="#tour_audio">3.4. Audio Control Page</a></li>
-			<li><a class="internal" href="#tour_status">3.5. Status Page</a></li>
-			<li><a class="internal" href="#tour_global">3.6. Global Section</a></li>
+			<li><a class="internal" href="#tour_input">3.5. Input Text</a></li>
+			<li><a class="internal" href="#tour_status">3.6. Status Page</a></li>
+			<li><a class="internal" href="#tour_global">3.7. Global Section</a></li>
 		</ol>
 	</li>
 	<li><a class="internal" href="#session">4. Using the Session Page</a>
@@ -50,8 +51,10 @@
 			<li><a class="internal" href="#audio">5.3. Audio Control Page</a></li>
 		</ol>
 	</li>
-	<li><a class="internal" href="#status">6. Status Display</a></li>
-	<li><a class="internal" href="#contact">7. Contact Info</a></li>
+	<li><a class="internal" href="#input">6. Input Text</a></li>
+	<li><a class="internal" href="#status">7. Status Display</a></li>
+	<li><a class="internal" href="#menu">8. Using the menu</a></li>
+	<li><a class="internal" href="#contact">9. Contact Info</a></li>
 </ol>
 
 <h2><a id="intro">1. Introduction</a></h2>
@@ -138,6 +141,10 @@ only the big picture.
 <dd>
 Initial version. 
 </dd>
+<dt>2004-10-05: Herman Oudejans</dt>
+<dd>
+Updated for version 0.5.0
+</dd>
 
 </dl>
 
@@ -175,13 +182,13 @@ scanned anyway. After you press the OK button, Catapult's main screen appears, a
 </p>
 
 <p class="image">
-<img src="mainscreen.png" width="609" height="428" alt="Main Screen"></img>
+<img src="mainscreen.png" width="555" height="465" alt="Main Screen"></img>
 </p>
 
 <h2><a id="tour">3. A Quick Tour</a></h2>
 
 <p>
-The main screen of Catapult consists of 5 pages to separate different kinds 
+The main screen of Catapult consists of 6 pages to separate different kinds 
 of functionality. This creates a much clearer interface than trying to put 
 everything on one page. This Section introduces the different pages and how they 
 can be used. It also tells about the global section of Catapult.
@@ -212,7 +219,7 @@ This page contains three types of controls:
 <ul>
 <li>controls to set the speed and frame skip of openMSX.</li>
 <li>controls to push special buttons on the MSX within openMSX like power and reset.</li>
-<li>controls to plug devices into the joystick ports of the MSX.</li>
+<li>controls to plug devices into the ports of the MSX.</li>
 </ul>
 
 <p>
@@ -223,7 +230,8 @@ This page contains three types of controls:
 
 <p>
 This page contains all controls to select how openMSX should display the MSX 
-screen. Some of this controls can cause openMSX to slow down.
+screen. Some of this controls can cause openMSX to slow down. This page also 
+contains some controls to let openMSX make screenshots.
 [<a class="internal" href="#video">details</a>]
 </p>
 
@@ -238,7 +246,14 @@ MSX computer is emulated.
 [<a class="internal" href="#audio">details</a>]
 </p>
 
-<h3><a id="tour_status">3.5. Status Page</a></h3>
+<h3><a id="tour_input">3.5. Input Text</a></h3>
+<p>
+This page can be used to 'type' text in openMSX. Any text typed or copied into the text field
+can be typed into the emulated MSX including newlines.
+[<a class="internal" href="#input">input</a>]
+</p>
+
+<h3><a id="tour_status">3.6. Status Page</a></h3>
 
 <p>
 This page contains the messages Catapult gets from openMSX. This can be information 
@@ -248,7 +263,7 @@ selects this page.
 [<a class="internal" href="#status">status</a>]
 </p>
 
-<h3><a id="tour_global">3.6. Global Section</a></h3>
+<h3><a id="tour_global">3.7. Global Section</a></h3>
 
 <p>
 The global section can be found in the bottom of the Catapult screen. It 
@@ -270,7 +285,7 @@ still be easily recognisable.
 </p>
 
 <p class="image">
-<img src="session.png" width="596" height="296" alt="Session Page"></img>
+<img src="session.png" width="541" height="334" alt="Session Page"></img>
 </p>
 
 <h3><a id="hardware">4.1. Selecting Hardware</a></h3>
@@ -398,7 +413,7 @@ openMSX is not running, all controls will be disabled.
 </p>
 
 <p class="image">
-<img src="misc.png" width="590" height="259" alt="Miscellaneous Controls Page"></img>
+<img src="misc.png" width="543" height="328" alt="Miscellaneous Controls Page"></img>
 </p>
 
 <p>
@@ -406,15 +421,12 @@ The top section of this page consist of a number of controls with which you can
 influence the speed and frame skip setting of openMSX. The upper row controls
 the speed percentage of openMSX. You can use the slider to select a speed
 between 1 and 500%. You can also directly input the speed into the input box.
-Finally, the buttons on the right are to set the speed to respectively 100 and
-500%. If the selected speed is higher than your PC can manage, openMSX will try
-to go as fast as possible. The next row selects how many frames may be maximally
-skipped to maintain the chosen speed. The controls here work similar to the
-speed controls. Finally, there's the throttle button. This button toggles
-between throttle on or off. When throttle is off, openMSX tries to go as fast as
-possible, skipping the maximum amount of frames you set with the frame skip
-setting. If the throttle is on, openMSX will maintain 50 or 60 fps (depending on
-the MSX display frequency).
+Finally, the buttons on the right are to set the speed to respectively 100% and
+the maximum. If the Max Speed Button is used, all limits are removed. Very usefull
+to fastforward demo's or loading screens. If the selected speed is higher than your 
+PC can manage, openMSX will try to go as fast as possible. The next rows selects how 
+many frames may be maximally skipped to maintain the chosen speed and how many frames 
+are minimally skipped.
 </p>
 
 <p>
@@ -427,13 +439,23 @@ choose whether or not you want to enable the firmware in the MSX you are
 emulating (this is called the frontswitch setting in openMSX).
 </p>
 
+<p> 
+The bottom of the page allows you to hook devices to the MSX connectors. 
+</p>
 <p>
-The bottom of this page allows you to put devices into the MSX joystick ports. 
-For each port, you can choose between a mouse, keyjoystick and any joysticks 
+For each joystick port, you can choose between a mouse, keyjoystick and any joysticks 
 hooked up to the PC. If you select the same device for both ports, you get a 
 warning and a request for confirmation. This allows you to choose which port the 
 selected device should be in. These are the only controls that can be modified 
-before openMSX is started.
+before openMSX is started. You can also adjust the Ren Sha Turbo speed (Joystick autofire)
+if the current MSX supports it (MSXturboR).
+</p>
+<p>
+You can hook a Printer logger or SIMPL in the printerport. When you choose the Printer logger,
+you can also choose which file to use for the log by either typing it directly or browsing for it.
+If you plug SIMPL (a very simple Digital to Analog Converter) into the printer port, openMSX
+supports it as an extra audio device. You can also see a slider for it appearing it the Audio Controls
+page.
 </p>
 
 <h3><a id="video">5.2. Video Control Page</a></h3>
@@ -444,7 +466,7 @@ If openMSX is not running, all controls will be disabled.
 </p>
 
 <p class="image">
-<img src="video.png" width="592" height="291" alt="Video Control Page"></img>
+<img src="video.png" width="544" height="334" alt="Video Control Page"></img>
 </p>
 
 <p>
@@ -491,11 +513,30 @@ to Catapult (using ALT-TAB) and simply deselecting full screen again.
 </p>
 
 <p>
-The lower half of this page allows you to modify the openMSX screen. All of 
+The center part of this page allows you to modify the openMSX screen. All of 
 these settings can be controlled by using the slider, typing the value directly 
 into the edit field or using the reset button to revert to the default state. 
 These settings are pretty much self-explanatory. Blur and Glow are only 
 supported in the SDLGL renderer.
+</p>
+
+<p>
+The bottom line of the page can be used to create screenshots from openMSX. As soon as 
+a filename is available in the first box, the second box will show a counter. This counter is
+based on the number of files that allready exist. So if <code>test</code> is 
+typed and <code>test0001</code>, <code>test0002</code> and <code>test0003</code>
+exists, then the counter will show <code>0004</code>. The browse button can also be used
+to set a filename, however the counter part will recalculated. So even if you browse and try
+to open <code>test0002</code> the result will still be <code>test0004</code>.
+You can also override the counter by just typing another number, but as soon as you change the name
+again, the counter will be recalculated. Normally, there is no reason to override the counter.
+</p>
+<p>
+Finally, pressing the Grab button takes the screenshot. If the filename and counter fields are empty
+openMSX will take a screenshot with the default settings. The first time, there will be a message that
+the shot has been taken and that the location is shown in the Status page, since no further changes
+are noticable. You can disable this message when it pops up. The location of the screenshot taken 
+will be shown in the Status page.
 </p>
 
 <h3><a id="audio">5.3. Audio Control Page</a></h3>
@@ -507,7 +548,7 @@ a simple message will be displayed stating: "No audio channel data available".
 </p>
 
 <p class="image">
-<img src="audio.png" width="590" height="288" alt="Audio Controls Page"></img>
+<img src="audio.png" width="543" height="333" alt="Audio Controls Page"></img>
 </p>
 
 <p>
@@ -549,7 +590,25 @@ or <code>wavinput</code>. In case of <code>wavinput</code>, the field besides it
 the PCM input is taken.
 </p>
 
-<h2><a id="status">6. Status Display</a></h2>
+<h2><a id="input">6. Input Text</a></h2>
+<p>
+Below, there's a picture of the Input Text page.
+</p>
+<p class="image">
+<img src="input.png" width="545" height="334" alt="Audio Controls Page"></img>
+</p>
+<p>
+This page contains only three controls. The big text field can be used to type or paste any text you want
+typed out in the emulated MSX. Please be advised that typing special characters like german or spanish 
+specific characters, the communiction between openMSX and catapult can be lost. All characters typed in 
+this field will be typed in the MSX, so it could take a while when there's a large text.
+Any newlines within this field will result in an <code>enter</code> in the MSX.
+The text is transmitted to the MSX as soon as the type button is used. The text will not be automaticly cleared,
+so the same text can be used multiple times. 
+Finally, the clear button clears the text, so you can start over.
+</p>
+
+<h2><a id="status">7. Status Display</a></h2>
 
 <p>
 The status display of Catapult consists of four different elements:
@@ -574,7 +633,7 @@ whenever openMSX is started.
 </p>
 
 <p class="image">
-<img src="status.png" width="599" height="298" alt="Status Page"></img>
+<img src="status.png" width="544" height="334" alt="Status Page"></img>
 </p>
 
 <p>
@@ -601,7 +660,58 @@ below 50 fps, your computer is actually a bit to slow to generate all frames in
 time with the current settings and thus frames are being skipped.
 </p>
 
-<h2><a id="contact">7. Contact Info</a></h2>
+<h2><a id="menu">8. Using the menu</a></h2>
+<p>
+Although most of the catapult action is done using the various pages mentioned above, there
+are a few options only available though the pulldown menu. These options are described briefly 
+in this section.</p>
+
+<dl>
+<dt>
+Quit
+</dt>
+<dd>
+This closes catapult. If there is a running openMSX (started by this instance of catapult) it will be
+closed also. 
+</dd>
+<dt>
+Edit Configuration
+</dt>
+<dd>
+Here you can change which openMSX version catapult is to start. It also lets you choose were the 
+shared openMSX settings can be found.
+</dd>
+<dt>
+Load openMSX Settings
+</dt>
+<dd>
+Here you can browse for an openMSX settings file to be used. This settings file will be used the next
+time you start openMSX. This option is not saved when you close catapult.
+</dd>
+<dt>
+Save openMSX Settings
+</dt>	
+<dd>
+This option is only available when openMSX is running. You can ask openMSX to save it's settings to
+the default location.
+</dd>
+<dt>
+Save openMSX Settings As
+</dt>	
+<dd>
+This option is only available when openMSX is running. You can ask openMSX to save it's settings to
+a specified location.
+</dd>
+<dt>
+About
+</dt>
+<dd>
+Shows information about catapult including the version number
+</dd>
+</dl>
+
+
+<h2><a id="contact">9. Contact Info</a></h2>
 
 <p>
 Since Catapult is still in heavy development, feedback and bug reports are very
@@ -646,7 +756,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: user.html,v 1.4 2004/05/13 17:57:25 h_oudejans Exp $
+$Id: user.html,v 1.5 2004/05/14 02:26:59 mthuurne Exp $
 </p>
 
 </body>
