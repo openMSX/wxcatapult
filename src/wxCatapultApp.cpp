@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.19 2004/12/25 22:29:34 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.20 2005/01/06 16:27:23 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -15,8 +15,9 @@
 #include "ConfigurationData.h"
 #include "CatapultConfigDlg.h"
 
-#ifdef ADD_TOGGLEBUTTON_HANDLER
+#if !wxCHECK_VERSION(2,5,0)
 #include "wxToggleButtonXmlHandler.h"
+#define ADD_TOGGLEBUTTON_HANDLER 1
 #endif
 
 #ifdef __UNIX__
