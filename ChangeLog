@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.104 2004/11/14 18:34:25 h_oudejans Exp $
+$Id: ChangeLog,v 1.105 2004/12/03 18:38:19 h_oudejans Exp $
+
+2004-12-13 Manuel Bilderbeek <manuel@msxnet.org>
+	* Added proper enable/disable behaviour for Clear and Type buttons on
+	  InputPage
 
 2004-12-03 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* fixed info2code.mk so config.h and version.ii are created with

@@ -1,4 +1,4 @@
-// $Id: InputPage.cpp,v 1.6 2004/12/01 20:05:58 h_oudejans Exp $
+// $Id: InputPage.cpp,v 1.7 2004/12/03 18:38:19 h_oudejans Exp $
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,6 +18,7 @@ IMPLEMENT_CLASS(InputPage, wxPanel)
 BEGIN_EVENT_TABLE(InputPage, wxPanel)
 	EVT_BUTTON(XRCID("TypeTextButton"),InputPage::OnTypeText)
 	EVT_BUTTON(XRCID("ClearTextButton"),InputPage::OnClearText)
+	EVT_TEXT(XRCID("InputText"),InputPage::OnTextChange)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -29,7 +30,13 @@ InputPage::InputPage(wxWindow * parent, openMSXController * controller)
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("InputPage"));
 	m_inputtext = (wxTextCtrl *)FindWindowByName(wxT("InputText"));
 	m_typeTextButton = (wxButton *)FindWindowByName(wxT("TypeTextButton"));
+	m_clearTextButton = (wxButton *)FindWindowByName(wxT("ClearTextButton"));
 	m_controller = controller;
+
+	m_typeTextButton->Enable(false);
+	m_clearTextButton->Enable(false);
+
+	launched = false;
 }
 
 InputPage::~InputPage()
@@ -55,14 +62,23 @@ void InputPage::OnClearText(wxCommandEvent &event)
 	m_inputtext->Clear();
 }
 
+void InputPage::OnTextChange(wxCommandEvent &event)
+{
+	m_clearTextButton->Enable(m_inputtext->GetValue().Length() != 0);
+	m_typeTextButton->Enable(launched && 
+				m_inputtext->GetValue().Length() != 0);
+}
+
 void InputPage::SetControlsOnEnd()
 {
+	launched=false;
 	m_typeTextButton->Enable(false);
 }
 
 void InputPage::SetControlsOnLaunch()
 {
-	m_typeTextButton->Enable(true);
+	launched=true;
+	m_typeTextButton->Enable(m_inputtext->GetValue().Length() != 0);
 }
 
 

@@ -1,4 +1,4 @@
-// $Id: InputPage.h,v 1.1 2004/10/01 16:49:46 h_oudejans Exp $
+// $Id: InputPage.h,v 1.2 2004/10/02 20:50:45 h_oudejans Exp $
 // InputPage.h: interface for the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -25,11 +25,12 @@ class InputPage : public CatapultPage
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
 		void OnTypeText (wxCommandEvent &event);
 		void OnClearText (wxCommandEvent &event);
+		void OnTextChange (wxCommandEvent &event);
 	private:
 		openMSXController * m_controller;
 		wxButton * m_typeTextButton;
-
-
+		wxButton * m_clearTextButton;
+		bool launched;
 
 		DECLARE_CLASS(InputPage)
 			// any class wishing to process wxWindows events must use this macro
