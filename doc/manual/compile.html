@@ -36,7 +36,7 @@
 			<li><a class="internal" href="#tools">3.1. Build Tools</a></li>
 			<li><a class="internal" href="#libs">3.2. Libraries</a></li>
 			<li><a class="internal" href="#complibs">3.3. Compilation of the 
-            libraries</a></li>
+            Libraries</a></li>
 			<li><a class="internal" href="#compilenow">3.4. Compilation Itself</a></li>
 		</ol>
 	</li>
@@ -52,13 +52,13 @@
 The latest version of the openMSX Catapult manual can be found on the openMSX home page:
 </p>
 <p>
-<a class="external" href="http://openmsx.sf.net/manual-catapult/">http://openmsx.sf.net/manual-catapult/</a>
+<a class="external" href="http://openmsx.sourceforge.net/manual-catapult/">http://openmsx.sourceforge.net/manual-catapult/</a>
 </p>
 <p>
 The latest version of the openMSX manual can also be found there:
 </p>
 <p>
-<a class="external" href="http://openmsx.sf.net/manual/">http://openmsx.sf.net/manual/</a>
+<a class="external" href="http://openmsx.sourceforge.net/manual/">http://openmsx.sourceforge.net/manual/</a>
 </p>
 <p>
 You can also use these URLs to get up-to-date versions of the hyperlinks if you
@@ -69,7 +69,7 @@ printed out this manual.
 <p>
 This guide is about Catapult, the (optional) GUI for openMSX. You can find more
 information about openMSX on the <a class="external"
-href="http://openmsx.sf.net/">openMSX home page</a>.
+href="http://openmsx.sourceforge.net/">openMSX home page</a>.
 You can also download the emulator itself from there.
 </p>
 
@@ -97,27 +97,27 @@ Most openMSX developers run some form of Linux, so this is the platform on which
 </dd>
 <dt>Windows</dt>
 <dd>
-Windows is also a supported platform for openMSX (Catapult). Most Windows users will just download the binary release. But if you want to follow the latest developments or like to play with the code a bit, it is possible to compile openMSX on Windows yourself. This manual gives a few pointers in the right direction for that. The main Catapult developer uses mainly Windows, so compilation is very well supported on this platform as well.
+Most Windows users will just download the binary release. But if you want to follow the latest developments or like to play with the code a bit, it is possible to compile Catapult on Windows yourself. The main Catapult developer uses mainly Windows, so compilation is very well supported on this platform as well. This manual gives a few pointers in the right direction for that. 
 </dd>
 <dt>FreeBSD</dt>
 <dd>
-openMSX Catapult was compiled successfully on FreeBSD 4 and 5. FreeBSD is not a platform we support officially, but whenever a user finds compilation problems on FreeBSD, we fix them, so usually FreeBSD compilation should work.
+Catapult was compiled successfully on FreeBSD 4 and 5. FreeBSD is not a platform we support officially, but whenever a user finds compilation problems on FreeBSD, we fix them, so usually FreeBSD compilation should work.
 </dd>
 <dt>Mac OS X</dt>
 <dd>
-If you install the development tools, you can compile openMSX on Mac OS X. Support for Mac OS X is similar to that for FreeBSD: we fix bugs when reported, but none of the core developers run Mac OS X.
+There is a port of wxWidgets for Mac OS X, but noone has tried to compile Catapult with it yet. If you try, please let us know.
 </dd>
 <dt>other operating systems</dt>
 <dd>
-openMSX (Catapult) theoretically can compile on every system where you have g++ (the C++ compiler of GCC) and the required libraries are available. However, in practice every system is slightly different and a new operation system will not work out-of-the-box. Still, it shouldn't take much effort to make openMSX (Catapult) build on a new OS.
+Catapult theoretically can compile on every system where you have g++ (the C++ compiler of GCC) and the required libraries are available. However, in practice every system is slightly different and a new operation system will not work out-of-the-box. Still, it shouldn't take much effort to make Catapult build on a new OS.
 </dd>
 </dl>
 <p>
-If you need help compiling openMSX (Catapult), please
+If you need help compiling Catapult, please
 <a class="internal" href="#contact">contact us</a>.
-If you needed any modifications to make openMSX (Catapult) compile,
+If you needed any modifications to make Catapult compile,
 please send those modifications to us,
-so we can make openMSX ever more portable.
+so we can make Catapult ever more portable.
 </p>
 
 <p>
@@ -164,9 +164,9 @@ Schaap and Maarten ter Huurne.</dd>
 Catapult is a sub-project of openMSX, developed using the tools <a
 class="external" href="http://www.sourceforge.net/">SourceForge.net</a> freely
 offers to open source projects. The code is stored in CVS, an open source
-version management system. Once in a while a Catapult release is made. At this
-point in time, we do not know yet how we will organise the release of Catapult:
-either together with openMSX or separate releases in some form.
+version management system.
+Catapult is released at every openMSX release.
+It can be released inbetween openMSX releases as well, if there is a lot of development that we want to share with the users without waiting for the next openMSX release.
 </p>
 
 <p>
@@ -364,7 +364,7 @@ Make interprets rules that define how a project should be built.</dd>
 
 <dt>g++</dt>
 <dd>The GNU C++ compiler.
-Version 3.2 or 3.3 is recommended;
+Version 3.2 or later is recommended;
 2.95 is not supported for openMSX, so we also don't support it for
 Catapult.</dd>
 
@@ -372,8 +372,7 @@ Catapult.</dd>
 
 <p>
 For compilation in Windows you will need Microsoft Visual Studio. Catapult 
-was written with version 6.0. If it also compiles on higher versions is unknown 
-at this point. You also need to download <code>sed.exe</code> from
+was written with version 6.0. Whether it also compiles on higher versions is unknown at this point. You also need to download <code>sed.exe</code> from
 <a class="external" href="http://www.gnu.org/">GNU Home</a>.
 </p>
 
@@ -396,16 +395,11 @@ Compiling in Windows means that you also need the lib-files
 </p>
 
 <p>
-If there are no binary versions of the required libraries available for your system or you 
-rather compile them yourself, please see the next section for a few hints about compiling 
-them from their sources.
+If there are no binary versions of the required libraries available for your system or you rather compile them yourself, please see the next section for a few hints about compiling them from their sources.
 </p>
 
 <p>
-First of all, you need some wxWidgets packages or libraries. Not every
-distribution has these available yet. If they are not available for you, please
-refer the next section. Note that for Windows there are even no binary releases
-available.
+First of all, you need some wxWidgets (formerly known as wxWindows) packages or libraries.
 On a Debian testing system, the packages are called:
 </p>
 
@@ -424,14 +418,20 @@ On a Debian testing system, the packages are called:
 </dl>
 
 <p>
-Furthermore, you need the XML library that is also used in openMSX itself. In Debian they are called:</p>
+Some Linux distributions do not package the 'contrib' part of wxWindows, if that is the case for your distribution, you will have to compile both the wxWindows core and contrib from source.
+Also for Windows there are no binary releases available.
+Please read the next section for instructions for compiling wxWidgets from source.
+</p>
+
+<p>
+Furthermore, you need the XML library that is also used in openMSX itself. In Debian its packages are called:</p>
 
 <dl>
 <dt>libxml2 and libxml2-dev</dt>
 <dd>XML C library, originally developed for GNOME.</dd>
 </dl>
 
-<h3><a id="complibs">3.3. Compilation of the libraries</a></h3>
+<h3><a id="complibs">3.3. Compilation of the Libraries</a></h3>
 
 <p>
 For some distributions it's necessary to manually compile the libraries. This 
@@ -445,9 +445,7 @@ wxWidgets Home</a> and the libxml2 sources are available at
 <p>
 In Linux, the compilation of wxWidgets is quite straightforward. Just follow the
 docs provided with the library and the wxgtk library should be created. 
-Don't forget to change to the directory <em>top of the source
-tree</em><code>/wxGTK-2.4.2/contrib</code> and build those libraries too. You'll
-need the XRC library for Catapult. 
+Don't forget to change to the directory <code>/wxGTK-2.4.2/contrib</code> and build those libraries too. You'll need the XRC library for Catapult.
 Compilation of libxml2 is also easy. The libxml2 documentation should give more
 than enough information to build it.
 </p>
@@ -457,8 +455,8 @@ wxWidgets uses a configuration file to be able to select which features should
 be compiled into the library. If these settings are wrong it won't be possible
 to use the Catapult resources, which are essential for running Catapult. 
 This configuration file is called <code>setup.h</code> and can be found in
-<em>top of the source tree</em><code>/wxWindows-2.4.2/include/wx/msw</code>, for
-Windows.  Make sure you adjust the following settings:
+<code>/wxWindows-2.4.2/include/wx/msw</code>, for Windows.
+Make sure you adjust the following settings:
 </p>
 
 <ul>
@@ -477,8 +475,7 @@ make these libraries available to Visual C++.
 
 <p>
 After compiling the wxWidgets library it's time for the XRC extension.
-Its sources can be found in <em>top of the source tree</em>
-<code>/wxWindows-2.4.2/contrib/src/xrc</code>.
+Its sources can be found in <code>/wxWindows-2.4.2/contrib/src/xrc</code>.
 In Visual C++, open the workspace file (<code>XrcVC.dsw</code>) and go to
 Project Settings-&gt;Library.
 Make sure the dll-linked version and the statically linked version don't point
@@ -512,13 +509,7 @@ make
 </div>
 
 <p>
-With some distributions you might need to change the name of the XRC library in 
-the Makefile. TODO: this will hopefully be fixed by Maarten!
-</p>
-
-<p>
-In Windows, just open <code>wxCatapult.dsw</code> (it's in the 
-build-directory) and compile it.
+In Windows, just open <code>build\wxCatapult.dsw</code> and compile it.
 </p>
 
 <p>
@@ -570,16 +561,16 @@ from <code>Catapult.exe</code>) <code>..\resources\bitmaps</code></li>
 
 <p>
 If all went well, you should have Catapult installed now.
-You can test it by executing Catapult:
+You can test it by starting Catapult from the command line:
 </p>
 <div class="commandline">
 catapult
 </div>
-<p>or double click the icon in Windows, e.g.</p>
+<p>or by double clicking the icon in Windows.</p>
 
 <p>
 Using Catapult should be intuitive, but if it's not, please read the <a
-class="external" href="user.html">Catapult User Manual</a>. This should give a
+class="external" href="user.html">Catapult User's Manual</a>. This should give a
 complete description on how to use Catapult.
 </p>
 
@@ -638,7 +629,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.7 2004/05/08 15:27:43 manuelbi Exp $
+$Id: compile.html,v 1.8 2004/05/18 19:34:11 manuelbi Exp $
 </p>
 
 </body>
