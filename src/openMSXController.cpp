@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.20 2004/03/27 20:37:15 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.21 2004/03/28 18:51:26 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -357,8 +357,12 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 	}
 	else if (command == GetInfoCommand(_("scaler"))){
 		TrackAsserts ("Fill scalers",data->contents);
-		WriteCommand (_("set power on"));
-		m_appWindow->m_videoControlPage->FillScalers(data->contents);		
+		m_appWindow->m_videoControlPage->FillScalers(data->contents);
+		WriteCommand (GetInfoCommand(_("accuracy")));
+	}
+	else if (command == GetInfoCommand(_("accuracy"))){
+		m_appWindow->m_videoControlPage->FillAccuracy(data->contents);
+		WriteCommand (_("set power on"));				
 	}
 	else if (command == _("set power on")){
 		WriteCommand (GetExistCommand("frontswitch"));

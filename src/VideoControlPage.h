@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.5 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.6 2004/03/26 20:02:06 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -44,6 +44,7 @@ class VideoControlPage : public CatapultPage
 		void OnChangeRenderer(wxCommandEvent &event);
 		void FillRenderers (wxString renderers);
 		void FillScalers (wxString scalers);
+		void FillAccuracy(wxString accuracy);
 		void SetRenderer (wxString value);
 		void SetScaler (wxString value);
 		void SetAccuracy (wxString value);

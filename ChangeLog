@@ -1,10 +1,11 @@
-$Id: ChangeLog,v 1.29 2004/03/28 18:51:27 h_oudejans Exp $
+$Id: ChangeLog,v 1.30 2004/03/28 19:42:00 h_oudejans Exp $
 
 2004-03-28 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed linux disk/cart/tape combobox problems
 	* Fixed Audio/Video combobox problems
 	* Fixed "no audiomixer when no firmware"
 	* Fixed more combo problems
+	* Accuracies are now asked from openmsx
 
 2004-03-27 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Catapult now sends update enable commands to openmsx

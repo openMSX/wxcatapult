@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.9 2004/03/28 16:57:24 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.10 2004/03/28 19:42:00 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -310,6 +310,11 @@ void VideoControlPage::FillRenderers(wxString renderers)
 void VideoControlPage::FillScalers(wxString scalers)
 {
 	FillComboBox (m_scalerList, scalers);
+}
+
+void VideoControlPage::FillAccuracy(wxString accuracy)
+{
+	FillComboBox (m_accuracyList, accuracy);
 }
 
 
