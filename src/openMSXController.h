@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.18 2004/04/08 18:57:23 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.19 2004/04/12 19:28:08 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ class openMSXController
 			wxString command;
 			wxString scriptActions;
 			wxString parameter;
-			bool (openMSXController::*p_okfunction)(wxString,wxString); 
+			int (openMSXController::*p_okfunction)(wxString,wxString); 
 			bool showError;
 		};
 		
@@ -80,7 +80,7 @@ class openMSXController
 		int m_launchScriptSize;
 	
 		void AddLaunchInstruction (wxString cmd, wxString action, wxString parameter, 
-				bool (openMSXController::*pfunction)(wxString,wxString),
+				int (openMSXController::*pfunction)(wxString,wxString),
 				bool showError);
 		unsigned int m_openMSXID;
 		wxArrayString m_connectors;
@@ -106,21 +106,21 @@ class openMSXController
 													LaunchInstructionType instruction,
 													int * sendStep, int loopcount,
 													wxString datalist);
-		bool UpdateSetting (wxString data,wxString setting);
-		bool FillComboBox (wxString data,wxString setting);
-		bool EnableFirmware (wxString dummy, wxString cmd);
-		bool InitConnectors(wxString connectors,wxString dummy);
-		bool InitPluggables(wxString pluggables,wxString dummy);
-		bool InitSoundDevices (wxString data, wxString dummy);
-		bool SetChannelType (wxString data,wxString name);
-		bool AddPluggableDescription(wxString data,wxString name);
-		bool AddPluggableClass(wxString data,wxString name);
-		bool AddConnectorClass(wxString data,wxString name);
-		bool AddConnectorContents(wxString data,wxString name);
-		bool SetSliderDefaults (wxString dummy1, wxString dummy2);
-		bool InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
-		bool InitConnectorPanel (wxString dummy1, wxString dummy2);
-		bool EnableAutoFrameSkip (wxString data, wxString cmd);
+		int UpdateSetting (wxString data,wxString setting);
+		int FillComboBox (wxString data,wxString setting);
+		int EnableFirmware (wxString dummy, wxString cmd);
+		int InitConnectors(wxString connectors,wxString dummy);
+		int InitPluggables(wxString pluggables,wxString dummy);
+		int InitSoundDevices (wxString data, wxString dummy);
+		int SetChannelType (wxString data,wxString name);
+		int AddPluggableDescription(wxString data,wxString name);
+		int AddPluggableClass(wxString data,wxString name);
+		int AddConnectorClass(wxString data,wxString name);
+		int AddConnectorContents(wxString data,wxString name);
+		int SetSliderDefaults (wxString dummy1, wxString dummy2);
+		int InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
+		int InitConnectorPanel (wxString dummy1, wxString dummy2);
+		int EnableAutoFrameSkip (wxString data, wxString cmd);
 
 		list<wxString> m_commands;		
 };

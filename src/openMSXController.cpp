@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.33 2004/04/12 19:28:08 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.34 2004/04/14 20:07:46 m9710797 Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -161,7 +161,6 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				if ((lastcmd.Mid(0,5) != "plug ") || (lastcmd.Find(' ',true) == 4) ||
 					(lastcmd.Mid(5,lastcmd.Find(' ',true)-5)!= data->name)){
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
-						m_appWindow->m_audioControlPage->DestroyAudioMixer();
 						m_launchMode = LAUNCH_NORMAL;
 						executeLaunch(NULL,41);
 				}
@@ -170,7 +169,6 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				wxString lastcmd = PeekPendingCommand();
 				if ((lastcmd.Mid(0,7) != "unplug ") || (lastcmd.Find(' ',true) == 6)){
 					m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
-					m_appWindow->m_audioControlPage->DestroyAudioMixer();
 					m_launchMode = LAUNCH_NORMAL;
 					executeLaunch(NULL,41);
 				}
@@ -348,10 +346,10 @@ wxString openMSXController::GetExistCommand (wxString parameter)
 	}
 }	
 
-bool openMSXController::InitConnectors(wxString connectors, wxString dummy)
+int openMSXController::InitConnectors(wxString connectors, wxString dummy)
 {
 	if (connectors.IsEmpty())
-		return false;
+		return -1;
 	m_connectors.Clear();
 	m_connectorclasses.Clear();
 	m_connectorcontents.Clear();
@@ -368,7 +366,7 @@ bool openMSXController::InitConnectors(wxString connectors, wxString dummy)
 	}while (pos !=-1);
 	if (!temp.IsEmpty()) // not everything parsed ?
 		m_connectors.Add(temp);
-	return true;
+	return 0;
 }
 
 
@@ -423,10 +421,10 @@ wxString openMSXController::GetConnectorContents (wxString name)
 
 
 
-bool openMSXController::InitPluggables(wxString pluggables, wxString dummy)
+int openMSXController::InitPluggables(wxString pluggables, wxString dummy)
 {
 	if (pluggables.IsEmpty())
-		return false;
+		return -1;
 	m_pluggables.Clear();
 	m_pluggabledescriptions.Clear();
 	m_pluggableclasses.Clear();
@@ -443,7 +441,7 @@ bool openMSXController::InitPluggables(wxString pluggables, wxString dummy)
 	}while (pos !=-1);
 	if (!temp.IsEmpty()) // not everything parsed ?
 		m_pluggables.Add(temp);	
-	return true;
+	return 0;
 }
 
 
@@ -508,12 +506,13 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 		m_infoCommand = _("openmsx_info_tcl");
 		m_appWindow->m_audioControlPage->EnableMasterVolume();
 		m_unsetCommand = _("unset");
-
+		m_appWindow->m_miscControlPage->DisableAutoFrameSkip();
 	}
 	else{   // release (less possibilities)
 		m_infoCommand = _("info");
 		m_appWindow->m_audioControlPage->DisableMasterVolume();
 		m_unsetCommand = _("restoredefault");
+		m_appWindow->m_miscControlPage->EnableAutoFrameSkip(false);
 	}
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	return true;
@@ -575,7 +574,7 @@ void openMSXController::InitLaunchScript ()
 }
 
 void openMSXController::AddLaunchInstruction (wxString cmd, wxString action, wxString parameter, 
-				bool (openMSXController::*pfunction)(wxString,wxString),
+				int (openMSXController::*pfunction)(wxString,wxString),
 				bool showError)
 {	
 	if (m_launchScriptSize >= LAUNCHSCRIPT_MAXSIZE){
@@ -858,7 +857,10 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 			if (event != NULL){
 				contents = FilterCurrentValue(data->contents);
 			}
-			(*this.*(instruction.p_okfunction))(contents,parameter);
+			int result = (*this.*(instruction.p_okfunction))(contents,parameter);
+			if (result >0){
+				*sendStep += result;		
+			}
 		}
 	}
 	else {
@@ -867,9 +869,7 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 		}
 		if (actions != ""){
 			if (actions == "e"){
-				int index = 0;
-				while (m_launchScript[index].command != "!done") index ++;
-				*sendStep = index;
+				*sendStep = m_launchScriptSize;
 			}
 			else{
 				long displace;
@@ -880,33 +880,39 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 	}
 }
 
-bool openMSXController::UpdateSetting (wxString data,wxString setting)
+int openMSXController::UpdateSetting (wxString data,wxString setting)
 {
 	m_appWindow->m_videoControlPage->UpdateSetting(setting,data);
-	return true;
+	return 0;
 }
 
-bool openMSXController::FillComboBox (wxString data,wxString setting)
+int openMSXController::FillComboBox (wxString data,wxString setting)
 {
 	m_appWindow->m_videoControlPage->FillComboBox(setting,data);
-	return true;
+	return 0;
 }
 
-bool openMSXController::EnableFirmware (wxString data, wxString cmd)
+int openMSXController::EnableFirmware (wxString data, wxString cmd)
 {
 	if ((data != "0") || (cmd.Mid(0,4) == _("set "))){
 		m_appWindow->m_miscControlPage->EnableFirmware();
 	}
-	return true;
+	return 0;
 }
 
-bool openMSXController::InitSoundDevices (wxString data, wxString dummy)
+int openMSXController::InitSoundDevices (wxString data, wxString dummy)
 {
-	m_appWindow->m_audioControlPage->InitAudioChannels(data);
-	return true;
+	wxArrayString channels;
+	tokenize(data,"\n",channels);
+	if ((int)channels.GetCount() != (m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)){
+		m_appWindow->m_audioControlPage->DestroyAudioMixer();	
+		m_appWindow->m_audioControlPage->InitAudioChannels(data);
+		return 0;
+	}
+	return 5; // skip 5 instructions TODO: improve this
 }
 
-bool openMSXController::SetChannelType (wxString data,wxString name)
+int openMSXController::SetChannelType (wxString data,wxString name)
 {
 	int maxchannels = m_appWindow->m_audioControlPage->GetNumberOfAudioChannels();
 	int index = 0;
@@ -921,61 +927,61 @@ bool openMSXController::SetChannelType (wxString data,wxString name)
 	}
 	if (!found){
 		wxMessageBox ("Set Channeltype : " + name + " not found");
-		return false;
+		return -1;
 	}
 	m_appWindow->m_audioControlPage->AddChannelType(index,data);
 	if (index == (maxchannels-1)){
 		m_appWindow->m_audioControlPage->SetupAudioMixer();
 	}
-	return true;
+	return 0;
 }
 
-bool openMSXController::AddPluggableDescription(wxString data,wxString name)
+int openMSXController::AddPluggableDescription(wxString data,wxString name)
 {
 	m_pluggabledescriptions.Add(data);
-	return true;
+	return 0;
 }
 
-bool openMSXController::AddPluggableClass(wxString data, wxString name)
+int openMSXController::AddPluggableClass(wxString data, wxString name)
 {
 	m_pluggableclasses.Add(data);
-	return true;
+	return 0;
 }
 
-bool openMSXController::AddConnectorClass(wxString data, wxString name)
+int openMSXController::AddConnectorClass(wxString data, wxString name)
 {
 	m_connectorclasses.Add(data);
-	return true;
+	return 0;
 }
 
-bool openMSXController::AddConnectorContents(wxString data, wxString name)
+int openMSXController::AddConnectorContents(wxString data, wxString name)
 {
 	m_connectorcontents.Add(data);
-	return true;
+	return 0;
 }
 
-bool openMSXController::SetSliderDefaults (wxString dummy1, wxString dummy2)
+int openMSXController::SetSliderDefaults (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_videoControlPage->SetSliderDefaults();
-	return true;
+	return 0;
 }
 
-bool openMSXController::InitAudioConnectorPanel (wxString dummy1, wxString dummy2)
+int openMSXController::InitAudioConnectorPanel (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_audioControlPage->InitAudioIO();
-	return true;
+	return 0;
 }
 
-bool openMSXController::InitConnectorPanel (wxString dummy1, wxString dummy2)
+int openMSXController::InitConnectorPanel (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_miscControlPage->InitConnectorPanel();
-	return true;
+	return 0;
 }
 
-bool openMSXController::EnableAutoFrameSkip (wxString data, wxString cmd)
+int openMSXController::EnableAutoFrameSkip (wxString data, wxString cmd)
 {
 	if ((data != "0") || (cmd.Mid(0,4) == _("set "))){
 		m_appWindow->m_miscControlPage->EnableAutoFrameSkip();
 	}
-	return true;
+	return 0;
 }
