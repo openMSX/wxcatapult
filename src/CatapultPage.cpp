@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.18 2004/05/08 19:08:31 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.19 2004/05/09 14:25:51 manuelbi Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -62,7 +62,6 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting("gamma","GammaIndicator",&CatapultPage::UpdateIndicatorSetting,false);
 	AddSetting("scanline","ScanlineIndicator",&CatapultPage::UpdateIndicatorSetting,false);
 	AddSetting("speed","SpeedIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("frameskip","FrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
 	AddSetting("maxframeskip","FrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
 	AddSetting("throttle","ThrottleButton",&CatapultPage::UpdateToggleSetting,true);
 	AddSetting("cmdtiming","CmdTimingButton",&CatapultPage::UpdateToggleSetting,true);
@@ -123,19 +122,6 @@ void CatapultPage::UpdateSetting(wxString name, wxString data)
 bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString control, bool convert)
 {
 	wxString ButtonText;
-#ifdef __WINDOWS__
-	wxNotebook * notebook = (wxNotebook *) m_parent;
-	VideoControlPage * videopage = NULL;
-	for (int i=0;i<notebook->GetPageCount();i++) {
-		if (notebook->GetPageText(i) == wxT("Video Controls")) {
-			videopage = (VideoControlPage *)notebook->GetPage(i);
-		}
-	}
-	if ((setting == wxT("fullscreen")) && (data == wxT("off"))) {
-		videopage->RestoreNormalScreen();
-	}
-#endif
-	
 	wxToggleButton * button = (wxToggleButton *)m_parent->FindWindow(control);
 	if (button != NULL) {
 		if ((data == "on") || (data == "broken")) {

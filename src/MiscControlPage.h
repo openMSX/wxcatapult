@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.14 2004/04/18 12:49:52 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.15 2004/05/09 14:25:51 manuelbi Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -43,8 +43,6 @@ class MiscControlPage : public CatapultPage
 		void SetFrameskip (wxString value);
 		void SetThrottle (wxString value);
 		void SetCmdTiming (wxString value);		
-		void EnableAutoFrameSkip(bool enableButton = true);
-		void DisableAutoFrameSkip();
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
 		void InitConnectorPanel ();
 		wxToggleButton * m_powerButton;
@@ -60,22 +58,20 @@ class MiscControlPage : public CatapultPage
 
 		wxToggleButton * m_pauseButton;
 		wxToggleButton * m_firmwareButton;
-		wxToggleButton * m_frameSkipAutoButton;
 		wxToggleButton * m_throttleButton;
 		wxToggleButton * m_cmdTimingButton;
 		wxSlider * m_speedSlider;
-		wxSlider * m_frameSkipSlider;
+		wxSlider * m_maxFrameSkipSlider;
+		wxSlider * m_minFrameSkipSlider;
 		wxTextCtrl * m_speedIndicator;
 		wxTextCtrl * m_frameSkipIndicator;
-		wxString m_frameSkipSetting;
 		wxString m_oldJoy1;
 		wxString m_oldJoy2;
 		wxComboBox * m_lastUpdatedCombo;
 
 #ifdef __UNIX__		
-			wxTimer m_joystick_update_timer; // bad solution for a worse bug in (wx?)gtk
+		wxTimer m_joystick_update_timer; // bad solution for a worse bug in (wx?)gtk
 #endif
-		bool m_autoFrameSkipEnabled;
 		DECLARE_CLASS(MiscControlPage)
 		// any class wishing to process wxWindows events must use this macro
 		DECLARE_EVENT_TABLE()

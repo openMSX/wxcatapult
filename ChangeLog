@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.73 2004/05/28 23:24:25 mthuurne Exp $
+$Id: ChangeLog,v 1.74 2004/05/30 14:47:14 manuelbi Exp $
+
+2004-06-06 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Removed all openMSX 0.3.4 support
+	* Prepared GUI for minframeskip setting support.
 
 2004-05-29 Manuel Bilderbeek <manuel@msxnet.org>
 	* Added support for muting individual channels via channel mode

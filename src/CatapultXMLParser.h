@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.h,v 1.6 2004/03/25 19:30:12 h_oudejans Exp $
+// $Id: CatapultXMLParser.h,v 1.7 2004/04/10 21:24:05 h_oudejans Exp $
 // CatapultXMLParser.h: interface for the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -26,10 +26,6 @@ class CatapultXMLParser
 			TAG_LOG,
 			TAG_UPDATE,
 			
-			TAG_OK,			// depreciated
-			TAG_NOK,		// depreciated
-			TAG_INFO,		// depreciated
-			TAG_WARNING,	// depreciated
 		};		
 
 		enum ReplyStatus {
@@ -45,7 +41,6 @@ class CatapultXMLParser
 		};
 
 		enum UpdateType {
-			UPDATE_OLD,
 			UPDATE_UNKNOWN,
 			UPDATE_LED,
 			UPDATE_SETTING,

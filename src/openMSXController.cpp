@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.49 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.50 2004/05/28 15:50:32 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -201,11 +201,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 						}
 						else{
 							wxString command = GetPendingCommand();
-							if ((command == GetInfoCommand("fps")) ||
-								(command.Mid(0,13) == wxT("update enable"))) {
-								// just ignore (old version)
-							}
-							else if (command == wxT("plug msx-midi-in midi-in-reader")) {
+							if (command == wxT("plug msx-midi-in midi-in-reader")) {
 								m_appWindow->m_audioControlPage->InvalidMidiInReader();
 							}
 							else if (command == wxT("plug msx-midi-out midi-out-logger")) {
@@ -267,8 +263,8 @@ wxString openMSXController::GetPendingCommand()
 {
 //	assert (!m_commands.empty());
 	wxString pending;
-	if (m_commands.empty()){
-		pending = "";
+	if (m_commands.empty()){	// TODO: why is assert (!m_commands.empty()) triggered ?
+		pending = "";			// it can only happen if a reply is received without a previous send command
 	}
 	else{
 		pending = m_commands.front();
@@ -310,45 +306,10 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 	executeLaunch(&event);
 }
 
-// if openmsx version < 0.3.5 filter the current value from the explanation
-
-wxString openMSXController::FilterCurrentValue(wxString value)
-{
-	wxString temp = value;
-	int pos = temp.Find(wxT("current value   : "));
-	if (pos != -1) {
-		wxString temp2;
-		temp = temp.Mid(pos+18);
-		pos = temp.Find(0x0A);
-		if (pos != -1) {
-			return (wxString(temp.Left(pos)));
-		}
-	}
-	return value; // can't find it, just return the input
-}
-
 wxString openMSXController::GetInfoCommand (wxString parameter)
 {
-	wxString infoCommand;
-	wxString tempCmd = m_infoCommand;
-	wxString endCmd = "";
-	if (m_infoCommand == wxT("openmsx_info_tcl")) {
-		tempCmd = wxT("join [openmsx_info");
-		endCmd = wxT("] \\n");
-	}
-	infoCommand = tempCmd + wxT(" ") + parameter + endCmd;
-	return wxString (infoCommand);
+	return wxString ("join [openmsx_info " + parameter + "] \\n");
 }
-
-wxString openMSXController::GetExistCommand (wxString parameter)
-{
-	if (m_infoCommand.Find(wxT("openmsx")) != -1) {
-		return wxString (wxT("info exist ") + parameter);
-	}
-	else{
-		return wxString (wxT("set ") + parameter);
-	}
-}	
 
 int openMSXController::InitConnectors(wxString connectors, wxString dummy)
 {
@@ -492,26 +453,18 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 		}
 	}
 	if (ver == -1) {
-		wxMessageBox ("Unable to determine openMSX version!\nPlease upgrade to 0.3.4 or higher.","Error");
+		wxMessageBox ("Unable to determine openMSX version!\nPlease upgrade to 0.4.0 or higher.","Error");
 		return false;	
 	}
-	if (ver < 304) {
-		wxMessageBox ("The openMSX version you are using is too old!\nPlease upgrade to 0.3.4 or higher.","Error");
+	if (ver < 400) {
+		wxMessageBox ("The openMSX version you are using is too old!\nPlease upgrade to 0.4.0 or higher.","Error");
 		return false;
 	}
-	if ((version.Find(wxT("-dev")) != -1) || (ver > 304)) {
-		m_infoCommand = wxT("openmsx_info_tcl");
-		m_appWindow->m_audioControlPage->EnableMasterVolume();
-		m_unsetCommand = wxT("unset");
-		m_appWindow->m_miscControlPage->DisableAutoFrameSkip();
-		m_oldVersion = false;
+	if ((version.Find(wxT("-dev")) != -1) || (ver > 400)) {
+		// put specific code for NEW versions here
 	}
-	else{   // release (less possibilities)
-		m_infoCommand = wxT("info");
-		m_appWindow->m_audioControlPage->DisableMasterVolume();
-		m_unsetCommand = wxT("restoredefault");
-		m_appWindow->m_miscControlPage->EnableAutoFrameSkip(false);
-		m_oldVersion = true;
+	else{ 
+		// put specific code for OLD supported versions here
 	}
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	return true;
@@ -524,12 +477,12 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("update enable setting","","",NULL,false);
 	AddLaunchInstruction ("update enable led","","",NULL,false);
 	AddLaunchInstruction ("set power on","e","power",&openMSXController::UpdateSetting,true);
-	AddLaunchInstruction ("#unset renderer","e","",NULL,true);
+	AddLaunchInstruction ("unset renderer","e","",NULL,true);
 	AddLaunchInstruction ("#info renderer","","RendererSelector",&openMSXController::FillComboBox,true);
 	AddLaunchInstruction ("#info scaler","","ScalerSelector",&openMSXController::FillComboBox,true);
 	AddLaunchInstruction ("#info accuracy","","AccuracySelector",&openMSXController::FillComboBox,false);
 	AddLaunchInstruction ("update enable media","","",NULL,false);
-	AddLaunchInstruction ("#exist frontswitch","","#",&openMSXController::EnableFirmware,false);
+	AddLaunchInstruction ("info exist frontswitch","","#",&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction ("set renderer","","renderer",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set scaler","","scaler",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set accuracy","","accuracy",&openMSXController::UpdateSetting,true);
@@ -542,9 +495,6 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set scanline","0","scanline",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("@execute","","",&openMSXController::SetSliderDefaults,false);
 	AddLaunchInstruction ("set speed","","speed",&openMSXController::UpdateSetting,true);
-	AddLaunchInstruction ("#exist frameskip","1","#",&openMSXController::EnableAutoFrameSkip,false);
-	AddLaunchInstruction ("set frameskip","","frameskip",&openMSXController::UpdateSetting,true);
-	AddLaunchInstruction ("#exist maxframeskip","1","#",NULL,false);
 	AddLaunchInstruction ("set maxframeskip","","maxframeskip",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set throttle","","throttle",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set cmdtiming","","cmdtiming",&openMSXController::UpdateSetting,true);
@@ -564,7 +514,6 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("@execute","","",&openMSXController::InitAudioConnectorPanel,false);
 	AddLaunchInstruction ("#info sounddevice","5","",&openMSXController::InitSoundDevices,true);
 	AddLaunchInstruction ("#info_nostore sounddevice *","","*",&openMSXController::SetChannelType,true);
-	AddLaunchInstruction ("#exist master_volume","1","",NULL,false);
 	AddLaunchInstruction ("set master_volume","","master_volume",&openMSXController::UpdateSetting,false);
 	AddLaunchInstruction ("set *_volume","","*_volume",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set *_mode","","*_mode",&openMSXController::UpdateSetting,true);
@@ -800,13 +749,6 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 				parameter.Trim(true);	
 				tokens[token] = GetInfoCommand(parameter);
 			}
-			else if (tokens[token].Mid(0,6) == "#exist") {
-				tokens[token] = GetExistCommand(tokens[token+1]);
-				tokens.Remove(token+1);
-			}
-			else if (tokens[token].Mid(0,6) == "#unset") {
-				tokens[token] = m_unsetCommand;
-			}
 			else {
 				assert(false); // invalid command
 			}
@@ -867,7 +809,7 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 				parameter = cmd;
 			}
 			if (event != NULL) {
-				contents = FilterCurrentValue(data->contents);
+				contents = data->contents;
 			}
 			int result = (*this.*(instruction.p_okfunction))(contents,parameter);
 			if (result >0) {
@@ -986,12 +928,6 @@ int openMSXController::InitAudioConnectorPanel (wxString dummy1, wxString dummy2
 int openMSXController::InitConnectorPanel (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_miscControlPage->InitConnectorPanel();
-	return 0;
-}
-
-int openMSXController::EnableAutoFrameSkip (wxString data, wxString cmd)
-{
-	m_appWindow->m_miscControlPage->EnableAutoFrameSkip();
 	return 0;
 }
 

@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.10 2004/05/08 19:08:31 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.11 2004/05/09 14:25:51 manuelbi Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -63,22 +63,7 @@ void CatapultXMLParser::cb_start_element(CatapultXMLParser * parser, const xmlCh
 			} else if (!strcmp((const char *)name, "update")) {
 				parser->parseResult.parseState = TAG_UPDATE;
 				parser->parseUpdate((const char**)attrs);
-			} else 
-			
-			// about to be deprecated tags
-			if (!strcmp((const char *)name, "info")) {
-				parser->parseResult.parseState = TAG_INFO;
-				parser->parseResult.logLevel = LOG_INFO;
-			} else if (!strcmp((const char *)name, "ok")) {
-				parser->parseResult.parseState = TAG_OK;
-				parser->parseResult.replyState = REPLY_OK;
-			} else if (!strcmp((const char *)name, "nok")) {
-				parser->parseResult.parseState = TAG_NOK;
-				parser->parseResult.replyState = REPLY_NOK;
-			} else if (!strcmp((const char *)name, "warning")) {
-				parser->parseResult.parseState = TAG_WARNING;
-				parser->parseResult.logLevel = LOG_WARNING;
-			} else {
+			} else  {
 				++(parser->parseResult.unknownLevel);
 			}
 			break;
@@ -102,10 +87,6 @@ void CatapultXMLParser::cb_end_element (CatapultXMLParser * parser,  const xmlCh
 		case TAG_OPENMSX:
 			parser->parseResult.parseState = STATE_START;
 			break;
-		case TAG_INFO:
-		case TAG_OK:
-		case TAG_NOK:
-		case TAG_WARNING:
 		case TAG_UPDATE:
 		case TAG_LOG:
 		case TAG_REPLY:
@@ -120,10 +101,6 @@ void CatapultXMLParser::cb_text (CatapultXMLParser * parser, const xmlChar * cha
 	wxString temp;
 	switch (parser->parseResult.parseState)
 	{
-		case TAG_INFO:
-		case TAG_OK:
-		case TAG_NOK:
-		case TAG_WARNING:
 		case TAG_UPDATE:
 		case TAG_LOG:
 		case TAG_REPLY:
@@ -147,32 +124,18 @@ void CatapultXMLParser::SendParsedData()
 	case TAG_OPENMSX:
 		assert(false);
 		break;
-	case TAG_INFO:
-	case TAG_WARNING:
 	case TAG_LOG:
 		result->parseState = TAG_LOG;
 		result->logLevel = parseResult.logLevel;
 		break;
-	case TAG_OK:
-	case TAG_NOK:
 	case TAG_REPLY:
 		result->parseState = TAG_REPLY;
 		result->replyState = parseResult.replyState;
 		break;
 	case TAG_UPDATE:
 		result->parseState = TAG_UPDATE;
-		if (parseResult.updateType == UPDATE_OLD) {
-			if (parseResult.contents.Find(" LED O") != -1) {
-				result->name = parseResult.contents.Left(parseResult.contents.Find(' ')).Lower();
-				result->contents = parseResult.contents.Right(parseResult.contents.Len() - parseResult.contents.Find(' ',true)-1).Lower();
-				result->updateType = UPDATE_LED;
-			}
-			else result->updateType = UPDATE_UNKNOWN;
-		}
-		else {
-			result->name = parseResult.name.Lower();
-			result->updateType = parseResult.updateType;
-		}
+		result->name = parseResult.name.Lower();
+		result->updateType = parseResult.updateType;
 		break;
 	}
 	
@@ -244,7 +207,5 @@ void CatapultXMLParser::parseUpdate(const char** attrs)
 				parseResult.name = attrs[1];
 			}
 		}
-	} else {
-		parseResult.updateType = UPDATE_OLD;
-	}
+	} 
 } 

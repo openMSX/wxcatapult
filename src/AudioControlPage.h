@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.h,v 1.10 2004/04/10 21:24:05 h_oudejans Exp $
+// $Id: AudioControlPage.h,v 1.11 2004/04/12 19:28:08 h_oudejans Exp $
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -26,8 +26,6 @@ class AudioControlPage : public CatapultPage
 		void InvalidMidiInReader();
 		void InvalidMidiOutLogger();
 		void InvalidSampleFilename();
-		void DisableMasterVolume();
-		void EnableMasterVolume();
 		void SetChannelVolume(int number, wxString value);
 		void SetChannelMode (int number,wxString value);
 		wxString GetAudioChannelName(int number);
@@ -62,7 +60,6 @@ class AudioControlPage : public CatapultPage
 		wxString m_midiInFilename;
 		wxString m_midiOutFilename;
 		wxString m_sampleInFilename;
-		bool m_masterVolumeEnabled;
 
 		DECLARE_CLASS(AudioControlPage)
 		// any class wishing to process wxWindows events must use this macro

@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.22 2004/04/27 17:01:21 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.23 2004/05/09 14:25:51 manuelbi Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -22,7 +22,6 @@ class CatapultXMLParser;
 class openMSXController  
 {
 	public:
-		wxString FilterCurrentValue(wxString);
 		void GetConnectors (wxArrayString & connectors);
 		wxString GetConnectorClass (wxString name);
 		wxString GetConnectorContents (wxString name);		
@@ -45,10 +44,8 @@ class openMSXController
 		virtual ~openMSXController();
 		
 		wxString GetInfoCommand (wxString parameter);
-		wxString GetExistCommand (wxString parameter);
 		bool IsOpenMSXRunning() {return m_openMsxRunning;};
 		void InitLaunchScript ();
-		bool m_oldVersion;
 	protected:
 		wxCatapultFrame * m_appWindow;
 		bool m_openMsxRunning;
@@ -89,8 +86,6 @@ class openMSXController
 		wxArrayString m_pluggables;
 		wxArrayString m_pluggabledescriptions;
 		wxArrayString m_pluggableclasses;
-		wxString m_infoCommand;
-		wxString m_unsetCommand;
 		wxString GetPendingCommand();
 		wxString PeekPendingCommand();
 		
@@ -120,7 +115,6 @@ class openMSXController
 		int SetSliderDefaults (wxString dummy1, wxString dummy2);
 		int InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
 		int InitConnectorPanel (wxString dummy1, wxString dummy2);
-		int EnableAutoFrameSkip (wxString data, wxString cmd);
 		int EnableCassettePort (wxString data, wxString cmd);
 
 

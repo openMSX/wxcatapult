@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.18 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: AudioControlPage.cpp,v 1.19 2004/05/30 14:47:15 manuelbi Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -38,7 +38,6 @@ AudioControlPage::AudioControlPage(wxWindow * parent, openMSXController * contro
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("AudioControlPage"));
 	m_audioPanel = (wxPanel *)FindWindow (wxT("AudioChannelPanel"));
 	m_controller=controller;
-	m_masterVolumeEnabled = true;
 	m_midiInFilename = wxT("");
 	m_midiOutFilename = wxT("");
 }
@@ -83,11 +82,6 @@ void AudioControlPage::SetupAudioMixer()
 	ConvertChannelNames (m_audioChannels);
 	for (unsigned int i=0;i<m_audioChannels.GetCount();i++) {
 		AddChannel (m_audioChannels[i],i);
-	}
-	
-	if (!m_masterVolumeEnabled) {
-		wxWindow * mastervol = FindWindow(wxT("AudioSlider_0"));
-		mastervol->Enable(false);
 	}
 }
 
@@ -159,9 +153,6 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	defaultsize = wxSize(40,18);
 #endif
 	int maxvol = 100;
-	if (!m_masterVolumeEnabled) {
-		maxvol = 32767;
-	}
 	int i;
 	wxSizer * AudioSizer = m_audioPanel->GetSizer();
 	wxString choices1[4]={_("M"), _("L"), _("R"), _("O")};
@@ -352,14 +343,10 @@ int AudioControlPage::GetNumberOfAudioChannels ()
 
 void AudioControlPage::SetChannelVolume (int number, wxString value)
 {
-	int maxvol = 100;
-	if (!m_masterVolumeEnabled) {
-		maxvol = 32767;
-	}	
 	long intvalue;
 	wxSlider * slider = (wxSlider *)FindWindowById(number+FIRSTAUDIOSLIDER,this);
 	value.ToLong(&intvalue);	
-	slider->SetValue (maxvol-intvalue);
+	slider->SetValue (100-intvalue);
 }	
 
 void AudioControlPage::SetChannelMode (int number, wxString value)
@@ -373,17 +360,6 @@ void AudioControlPage::SetChannelMode (int number, wxString value)
 	wxComboBox * combo = (wxComboBox *)FindWindowById(number+FIRSTAUDIOCOMBO,this);
 	combo->SetSelection(combo->FindString(val));
 }
-
-void AudioControlPage::DisableMasterVolume()
-{
-	m_masterVolumeEnabled = false;	
-}
-
-void AudioControlPage::EnableMasterVolume()
-{
-	m_masterVolumeEnabled = true;
-}
-
 
 void AudioControlPage::InitAudioIO()
 {

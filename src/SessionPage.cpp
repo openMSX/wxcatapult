@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.17 2004/05/08 19:52:53 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.18 2004/05/09 14:25:51 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -533,7 +533,7 @@ void SessionPage::UpdateSessionData()
 void SessionPage::AddHistory(wxComboBox *media)
 {
 	// wxWindows 2.4 does not support insertion in a wxComboBox
-	// so this is gonna be replace as soon as 2.5 is stable
+	// so this is gonna be replaced as soon as 2.5 is stable
 	wxString currentItem = media->GetValue();
 #ifdef __WINDOWS__
 	currentItem.Replace("/","\\",true);
