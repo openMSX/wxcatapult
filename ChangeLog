@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.66 2004/04/30 09:51:20 h_oudejans Exp $
+$Id: ChangeLog,v 1.67 2004/05/06 19:33:07 h_oudejans Exp $
+
+2004-05-08 Maarten ter Huurne <maarten@treewalker.org>
+	* Migrated build system stuff from openMSX to Catapult.
+	  Includes handling of version info.
+	* Implemented "make dist".
 
 2004-05-06 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added manuals (thx to Manuel).
