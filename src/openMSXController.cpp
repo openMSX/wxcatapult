@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.57 2004/10/01 16:33:46 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.58 2004/10/01 19:04:26 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -269,7 +269,7 @@ bool openMSXController::WriteCommand(wxString msg)
 	bool result = (WriteMessage (wxString("<command>" + wxString(buffer) + "</command>\n")));
 
 	if (buffer != NULL) {
-		free(buffer);
+		xmlFree(buffer);
 	}
 	return result;
 }
