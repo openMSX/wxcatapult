@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.25 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.26 2004/08/29 08:15:00 manuelbi Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_TOGGLEBUTTON (XRCID("FirmwareButton"),MiscControlPage::OnFirmware)
 	EVT_COMMAND_SCROLL (XRCID("SpeedSlider"),MiscControlPage::OnSpeedChange)
 	EVT_BUTTON(XRCID("NormalSpeedButton"),MiscControlPage::OnSetNormalSpeed)
-	EVT_BUTTON(XRCID("MaxSpeedButton"),MiscControlPage::OnSetMaxSpeed)
+	EVT_TOGGLEBUTTON(XRCID("MaxSpeedButton"),MiscControlPage::OnSetMaxSpeed)
 	EVT_COMMAND_SCROLL (XRCID("MinFrameSkipSlider"),MiscControlPage::OnMinFrameSkipChange)
 	EVT_COMMAND_SCROLL (XRCID("MaxFrameSkipSlider"),MiscControlPage::OnMaxFrameSkipChange)
 	EVT_BUTTON(XRCID("DefaultMinFrameSkipButton"),MiscControlPage::OnSetDefaultMinFrameSkip)
@@ -62,7 +62,7 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_speedSlider = (wxSlider *)FindWindow(wxT("SpeedSlider"));
 
 	m_speedNormalButton = (wxButton *)FindWindow (wxT("NormalSpeedButton"));
-	m_speedMaxButton = (wxButton *)FindWindow (wxT("MaxSpeedButton"));
+	m_speedMaxButton = (wxToggleButton *)FindWindow (wxT("MaxSpeedButton"));
 	m_minFrameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("MinFrameSkipIndicator"));
 	m_maxFrameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("MaxFrameSkipIndicator"));
 	m_maxFrameSkipSlider = (wxSlider *)FindWindow(wxT("MaxFrameSkipSlider"));
@@ -70,12 +70,11 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 
 	m_defaultMaxFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMaxFrameSkipButton"));
 	m_defaultMinFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMinFrameSkipButton"));
-	m_throttleButton = (wxToggleButton *)FindWindow (wxT("ThrottleButton"));
-	m_cmdTimingButton = (wxToggleButton *)FindWindow (wxT("CmdTimingButton"));
-
+	
 	m_speedSlider->SetTickFreq (25,1);
 	m_maxFrameSkipSlider->SetTickFreq (5,1);
 	m_minFrameSkipSlider->SetTickFreq (5,1);
+	m_oldSpeed="";
 
 // temporary hardcoded joystick port devices (not for BSD)
 
@@ -139,8 +138,6 @@ void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
 	speedText.sprintf("%ld", event.GetInt());
 	m_speedIndicator->SetValue(speedText);
 	m_controller->WriteCommand (wxString("set speed ") + speedText);
-	m_throttleButton->SetValue(true);
-	m_throttleButton->SetLabel(wxT("On"));
 	m_controller->WriteCommand ("set throttle on");
 }
 
@@ -149,19 +146,31 @@ void MiscControlPage::OnSetNormalSpeed(wxCommandEvent &event)
 	m_controller->WriteCommand ("set speed 100");
 	m_speedIndicator->SetValue(wxT("100"));
 	m_speedSlider->SetValue (100);
-	m_throttleButton->SetValue(true);
-	m_throttleButton->SetLabel(wxT("On"));
 	m_controller->WriteCommand ("set throttle on");
 }
 
 void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
 {
-	m_controller->WriteCommand ("set speed 500");
-	m_speedIndicator->SetValue(wxT("500"));
-	m_speedSlider->SetValue (500);
-	m_throttleButton->SetValue(false);
-	m_throttleButton->SetLabel(wxT("Off"));
-	m_controller->WriteCommand ("set throttle off");
+	if (m_speedMaxButton->GetValue()){
+		m_oldSpeed = m_speedIndicator->GetValue();
+		m_controller->WriteCommand ("set speed 500");
+		m_speedSlider->Disable();
+		m_speedIndicator->Disable();
+		m_speedNormalButton->Disable();
+		m_speedIndicator->SetValue(wxT("500"));
+		m_controller->WriteCommand ("set throttle off");
+	}
+	else{
+		if (m_oldSpeed != ""){
+			m_controller->WriteCommand (wxString("set speed ") + m_oldSpeed);
+			m_speedSlider->Enable();
+			m_speedIndicator->Enable();
+			m_speedNormalButton->Enable();
+			m_speedIndicator->SetValue(m_oldSpeed);
+			m_controller->WriteCommand ("set throttle on");
+			m_oldSpeed = "";
+		}
+	}
 }
 
 void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent &event)
@@ -242,8 +251,6 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_resetButton->Enable(true);
 	m_pauseButton->Enable(true);
 
-	m_throttleButton->Enable(true);
-	m_cmdTimingButton->Enable(true);
 	m_pauseButton->SetValue(false);
 	m_firmwareButton->SetValue(false);
 }
@@ -272,8 +279,6 @@ void MiscControlPage::SetControlsOnEnd()
 	m_firmwareButton->Enable(false);
 	m_pauseButton->Enable(false);
 
-	m_throttleButton->Enable(false);
-	m_cmdTimingButton->Enable(false);
 }
 
 void MiscControlPage::OnInputSpeed(wxCommandEvent &event)
@@ -352,30 +357,6 @@ void MiscControlPage::SetMinFrameskip (wxString value)
 void MiscControlPage::SetMaxFrameskip (wxString value)
 {
 	m_maxFrameSkipIndicator->SetValue(value);
-}
-
-void MiscControlPage::SetThrottle (wxString value)
-{
-	if (value == wxT("on")) {
-		m_throttleButton->SetValue(true);
-		m_throttleButton->SetLabel(wxT("On"));
-	}
-	else {
-		m_throttleButton->SetValue(false);
-		m_throttleButton->SetLabel(wxT("Off"));
-	}
-}
-
-void MiscControlPage::SetCmdTiming (wxString value)
-{
-	if (value == wxT("broken")) {
-		m_cmdTimingButton->SetValue(true);
-		m_cmdTimingButton->SetLabel(wxT("Broken"));
-	}
-	else {
-		m_cmdTimingButton->SetValue(false);
-		m_cmdTimingButton->SetLabel(wxT("Real"));
-	}
 }
 
 void MiscControlPage::InitConnectorPanel ()

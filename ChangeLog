@@ -1,4 +1,10 @@
-$Id: ChangeLog,v 1.77 2004/08/26 16:51:32 h_oudejans Exp $
+$Id: ChangeLog,v 1.78 2004/08/29 08:14:59 manuelbi Exp $
+
+2004-09-11 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Changed the Misc Controls page layout
+	* Several cosmetic fixes
+	* Removed the Throttle button. Same functionality is now in the
+	   'Max speed' button.
 
 2004-08-29 Manuel Bilderbeek <manuel@msxnet.org>
 	* Implemented minframeskip and maxframeskip completely.

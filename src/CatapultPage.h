@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.9 2004/04/27 19:52:17 h_oudejans Exp $
+// $Id: CatapultPage.h,v 1.10 2004/08/29 08:15:00 manuelbi Exp $
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,6 +12,10 @@
 
 #include <wx/tglbtn.h>
 #define SETTINGTABLE_MAXSIZE 35
+
+#define S_CONVERT 1
+#define S_EVENT 2
+#define S_INVERT 4
 
 class CatapultPage : public wxPanel 
 {
@@ -28,23 +32,23 @@ private:
 	struct SettingTableElementType{
 		wxString setting;
 		wxString controlname;
-		bool (CatapultPage::*pfunction)(wxString,wxString,wxString,bool);
-		bool convert;
+		bool (CatapultPage::*pfunction)(wxString,wxString,wxString,int);
+		int flags;
 	};
 	
 	SettingTableElementType * m_settingTable;
 	int m_settingTableSize;
 	void InitSettingsTable ();
 	void AddSetting (wxString settings, wxString controlname,
-		bool (CatapultPage::*pfunction)(wxString,wxString,wxString,bool),
-		bool convert);
+		bool (CatapultPage::*pfunction)(wxString,wxString,wxString,int),
+		int flags);
 	wxWindow * m_parent;
-	bool UpdateToggleSetting(wxString setting, wxString data, wxString control, bool convert);
-	bool UpdateComboSetting(wxString setting, wxString data, wxString control, bool convert);
-	bool UpdateIndicatorSetting(wxString setting, wxString data, wxString control, bool dummy);
-	bool UpdateAudioSetting (wxString setting, wxString data, wxString selection, bool dummy2);
-	bool UpdateMidiPlug (wxString connector, wxString data, wxString control, bool dummy);
-	bool UpdatePluggable (wxString connector, wxString data, wxString control, bool dummy);
+	bool UpdateToggleSetting(wxString setting, wxString data, wxString control, int flags);
+	bool UpdateComboSetting(wxString setting, wxString data, wxString control, int flags);
+	bool UpdateIndicatorSetting(wxString setting, wxString data, wxString control, int flags);
+	bool UpdateAudioSetting (wxString setting, wxString data, wxString selection, int flags);
+	bool UpdateMidiPlug (wxString connector, wxString data, wxString control, int flags);
+	bool UpdatePluggable (wxString connector, wxString data, wxString control, int flags);
 };
 
 #endif 

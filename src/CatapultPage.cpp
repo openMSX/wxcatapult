@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.20 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.21 2004/08/29 08:15:00 manuelbi Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -52,44 +52,43 @@ void CatapultPage::InitSettingsTable ()
 {
 	m_settingTableSize = 0;
 	m_settingTable = new SettingTableElementType [SETTINGTABLE_MAXSIZE];
-	AddSetting("renderer","RendererSelector",&CatapultPage::UpdateComboSetting,false);
-	AddSetting("scaler","ScalerSelector",&CatapultPage::UpdateComboSetting,false);
-	AddSetting("accuracy","AccuracySelector",&CatapultPage::UpdateComboSetting,false);
-	AddSetting("deinterlace","DeInterlaceButton",&CatapultPage::UpdateToggleSetting,true);
-	AddSetting("limitsprites","LimitSpriteButton",&CatapultPage::UpdateToggleSetting,true);
-	AddSetting("blur","BlurIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("glow","GlowIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("gamma","GammaIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("scanline","ScanlineIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("speed","SpeedIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("minframeskip","MinFrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("maxframeskip","MaxFrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("throttle","ThrottleButton",&CatapultPage::UpdateToggleSetting,true);
-	AddSetting("cmdtiming","CmdTimingButton",&CatapultPage::UpdateToggleSetting,true);
-	AddSetting("power","PowerButton",&CatapultPage::UpdateToggleSetting,false);
-	AddSetting("pause","PauseButton",&CatapultPage::UpdateToggleSetting,false);
-	AddSetting("frontswitch","FirmwareButton",&CatapultPage::UpdateToggleSetting,false);
-	AddSetting("mute","MuteButton",&CatapultPage::UpdateToggleSetting,false);
-	AddSetting("midi-in-readfilename","MidiInFileInput",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("midi-out-logfilename","MidiOutFileInput",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("audio-inputfilename","SampleFileInput",&CatapultPage::UpdateIndicatorSetting,false);
-	AddSetting("*_volume","volume",&CatapultPage::UpdateAudioSetting,false);
-	AddSetting("*_mode","mode",&CatapultPage::UpdateAudioSetting,false);
-	AddSetting("msx-midi-in","MidiInSelector",&CatapultPage::UpdateMidiPlug,false);
-	AddSetting("msx-midi-out","MidiOutSelector",&CatapultPage::UpdateMidiPlug,false);
-	AddSetting("pcminput","SampleInSelector",&CatapultPage::UpdatePluggable,false);
-	AddSetting("joyporta","Joyport1Selector",&CatapultPage::UpdatePluggable,false);
-	AddSetting("joyportb","Joyport2Selector",&CatapultPage::UpdatePluggable,false);
-	AddSetting("diska","DiskAContents",&CatapultPage::UpdateComboSetting,false);
-	AddSetting("diskb","DiskBContents",&CatapultPage::UpdateComboSetting,false);
-	AddSetting("tape1","Tape1Contents",&CatapultPage::UpdateComboSetting,false);
-	AddSetting("tape2","Tape2Contents",&CatapultPage::UpdateComboSetting,false);
-	AddSetting("fullscreen","FullScreenButton",&CatapultPage::UpdateToggleSetting,true);
+	AddSetting("renderer","RendererSelector",&CatapultPage::UpdateComboSetting,0);
+	AddSetting("scaler","ScalerSelector",&CatapultPage::UpdateComboSetting,0);
+	AddSetting("accuracy","AccuracySelector",&CatapultPage::UpdateComboSetting,0);
+	AddSetting("deinterlace","DeInterlaceButton",&CatapultPage::UpdateToggleSetting,S_CONVERT);
+	AddSetting("limitsprites","LimitSpriteButton",&CatapultPage::UpdateToggleSetting,S_CONVERT);
+	AddSetting("blur","BlurIndicator",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("glow","GlowIndicator",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("gamma","GammaIndicator",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("scanline","ScanlineIndicator",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("speed","SpeedIndicator",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("minframeskip","MinFrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("maxframeskip","MaxFrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("throttle","MaxSpeedButton",&CatapultPage::UpdateToggleSetting,S_INVERT | S_EVENT);
+	AddSetting("power","PowerButton",&CatapultPage::UpdateToggleSetting,0);
+	AddSetting("pause","PauseButton",&CatapultPage::UpdateToggleSetting,0);
+	AddSetting("frontswitch","FirmwareButton",&CatapultPage::UpdateToggleSetting,0);
+	AddSetting("mute","MuteButton",&CatapultPage::UpdateToggleSetting,0);
+	AddSetting("midi-in-readfilename","MidiInFileInput",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("midi-out-logfilename","MidiOutFileInput",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("audio-inputfilename","SampleFileInput",&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting("*_volume","volume",&CatapultPage::UpdateAudioSetting,0);
+	AddSetting("*_mode","mode",&CatapultPage::UpdateAudioSetting,0);
+	AddSetting("msx-midi-in","MidiInSelector",&CatapultPage::UpdateMidiPlug,0);
+	AddSetting("msx-midi-out","MidiOutSelector",&CatapultPage::UpdateMidiPlug,0);
+	AddSetting("pcminput","SampleInSelector",&CatapultPage::UpdatePluggable,0);
+	AddSetting("joyporta","Joyport1Selector",&CatapultPage::UpdatePluggable,0);
+	AddSetting("joyportb","Joyport2Selector",&CatapultPage::UpdatePluggable,0);
+	AddSetting("diska","DiskAContents",&CatapultPage::UpdateComboSetting,0);
+	AddSetting("diskb","DiskBContents",&CatapultPage::UpdateComboSetting,0);
+	AddSetting("tape1","Tape1Contents",&CatapultPage::UpdateComboSetting,0);
+	AddSetting("tape2","Tape2Contents",&CatapultPage::UpdateComboSetting,0);
+	AddSetting("fullscreen","FullScreenButton",&CatapultPage::UpdateToggleSetting,S_CONVERT);
 }
 
 void CatapultPage::AddSetting (wxString setting, wxString controlname,
-	bool (CatapultPage::*pfunction)(wxString,wxString,wxString,bool),
-	bool convert)
+	bool (CatapultPage::*pfunction)(wxString,wxString,wxString,int),
+	int flags)
 {	
 	if (m_settingTableSize >= SETTINGTABLE_MAXSIZE) {
 		wxMessageBox ("Not enough space to store the setting table!\nPlease contact the authors.","Internal Catapult Error");
@@ -98,7 +97,7 @@ void CatapultPage::AddSetting (wxString setting, wxString controlname,
 	m_settingTable[m_settingTableSize].setting = setting;
 	m_settingTable[m_settingTableSize].controlname = controlname;
 	m_settingTable[m_settingTableSize].pfunction = pfunction;
-	m_settingTable[m_settingTableSize].convert = convert;
+	m_settingTable[m_settingTableSize].flags = flags;
 	m_settingTableSize ++;
 }
 
@@ -113,25 +112,50 @@ void CatapultPage::UpdateSetting(wxString name, wxString data)
 			if (m_settingTable[index].pfunction != NULL) {
 				(*this.*(m_settingTable[index].pfunction))(
 					name, data, m_settingTable[index].controlname,
-					m_settingTable[index].convert);
+					m_settingTable[index].flags);
 			}
 		}
 	index ++;
 	}
 }
 
-bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString control, bool convert)
+bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString control, int flags)
 {
+	bool value[]={false,true};
+	int active = 1;
+	int sendvalue;
+
+
 	wxString ButtonText;
+	if (flags & S_INVERT){
+		active = 0;
+	}
+	
 	wxToggleButton * button = (wxToggleButton *)m_parent->FindWindow(control);
 	if (button != NULL) {
-		if ((data == "on") || (data == "broken")) {
-			button->SetValue(true);
+		if ((data == "on") || (data == "true") || (data == "1") || (data== "yes")) {
+			sendvalue = active;
 		}
 		else{
-			button->SetValue(false);
+			sendvalue = 1-active;
+			
 		}
-		if (convert) {
+		button->SetValue(value[sendvalue]);	
+		
+		if (flags & S_EVENT){
+			wxCommandEvent event(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED,button->GetId());
+			event.SetInt(active);
+			event.SetEventObject(button);
+			button->ProcessEvent(event);
+		}
+					
+		if (flags & S_CONVERT) {
+			if ((data == "false") || (data == "no") || (data == "0")){
+				data = "off";
+			}
+			if ((data == "true") || (data == "yes") || (data == "1")){
+				data = "on";
+			}
 			ButtonText = data.Mid(0,1).Upper() + data.Mid(1).Lower();
 			button->SetLabel(ButtonText);
 		}
@@ -140,10 +164,10 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 	return false;
 }
 
-bool CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString control, bool convert)
+bool CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString control, int flags)
 {
 	wxString valuetext = data;
-	if (convert) {
+	if (flags & S_CONVERT) {
 		valuetext = data.Mid(0,1).Upper() + data.Mid(1).Lower();
 	}
 	wxComboBox * box = (wxComboBox *)m_parent->FindWindow(control);
@@ -159,7 +183,7 @@ bool CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString 
 	return false;
 }
 
-bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxString control, bool dummy)
+bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxString control, int flags)
 {
 	wxTextCtrl * indicator = (wxTextCtrl *)m_parent->FindWindow(control);
 	if (indicator != NULL) {
@@ -170,7 +194,7 @@ bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxStr
 	return false;
 }
 
-bool CatapultPage::UpdateAudioSetting (wxString setting, wxString data, wxString selection, bool dummy)
+bool CatapultPage::UpdateAudioSetting (wxString setting, wxString data, wxString selection, int flags)
 {
 	int i;
 	wxString slidertext;
@@ -195,7 +219,7 @@ bool CatapultPage::UpdateAudioSetting (wxString setting, wxString data, wxString
 	return false;
 }
 
-bool CatapultPage::UpdateMidiPlug (wxString connector, wxString data, wxString control, bool dummy)
+bool CatapultPage::UpdateMidiPlug (wxString connector, wxString data, wxString control, int flags)
 {
 	wxNotebook * notebook = (wxNotebook *) m_parent;
 	AudioControlPage * audiopage = NULL;
@@ -208,7 +232,7 @@ bool CatapultPage::UpdateMidiPlug (wxString connector, wxString data, wxString c
 	return true;
 }
 
-bool CatapultPage::UpdatePluggable (wxString connector, wxString data, wxString control, bool dummy)
+bool CatapultPage::UpdatePluggable (wxString connector, wxString data, wxString control, int flags)
 {
 	wxString valuetext = data;
 	if (data == wxT("")) {

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.16 2004/06/06 18:25:42 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.17 2004/08/29 08:15:00 manuelbi Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -44,8 +44,6 @@ class MiscControlPage : public CatapultPage
 		void SetSpeed (wxString value);
 		void SetMinFrameskip (wxString value);
 		void SetMaxFrameskip (wxString value);
-		void SetThrottle (wxString value);
-		void SetCmdTiming (wxString value);		
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
 		void InitConnectorPanel ();
 		wxToggleButton * m_powerButton;
@@ -56,14 +54,12 @@ class MiscControlPage : public CatapultPage
 		openMSXController * m_controller;
 		wxButton * m_resetButton;
 		wxButton * m_speedNormalButton;
-		wxButton * m_speedMaxButton;
+		wxToggleButton * m_speedMaxButton;
 		wxButton * m_defaultMinFrameSkipButton;
 		wxButton * m_defaultMaxFrameSkipButton;
 
 		wxToggleButton * m_pauseButton;
 		wxToggleButton * m_firmwareButton;
-		wxToggleButton * m_throttleButton;
-		wxToggleButton * m_cmdTimingButton;
 		wxSlider * m_speedSlider;
 		wxSlider * m_maxFrameSkipSlider;
 		wxSlider * m_minFrameSkipSlider;
@@ -72,6 +68,7 @@ class MiscControlPage : public CatapultPage
 		wxTextCtrl * m_maxFrameSkipIndicator;
 		wxString m_oldJoy1;
 		wxString m_oldJoy2;
+		wxString m_oldSpeed;
 		wxComboBox * m_lastUpdatedCombo;
 
 #ifdef __UNIX__		
