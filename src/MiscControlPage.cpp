@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.19 2004/04/18 15:45:22 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.20 2004/04/22 20:03:31 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -94,8 +94,8 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 		for (int j=1;j<=joy.GetNumberJoysticks();j++){
 			temp.sprintf("joystick%d",j);
 			box[i]->Append(temp);
-#endif
 		}
+#endif
 		box[i]->SetSelection(0);
 	}
 	m_oldJoy1 = _("--empty--");
