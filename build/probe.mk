@@ -1,4 +1,4 @@
-# $Id: probe.mk,v 1.9 2005/01/06 16:42:01 h_oudejans Exp $
+# $Id: probe.mk,v 1.10 2005/01/06 17:53:03 h_oudejans Exp $
 #
 # Replacement for "configure".
 # Performs some test compiles, to check for headers and functions.
@@ -67,7 +67,8 @@ else
 WX2XRC:=$(WX2XRC_DYNAMIC)
 endif
 
-ifeq ($(filter %xrc%,$(shell wx-config --libs)),)
+XRC_IN_WXCONFIG :=$(strip $(shell wx-config --libs | grep xrc))
+ifeq ($(XRC_IN_WXCONFIG),)
 XRC_LDFLAGS:=`((wx-config --libs > /dev/null) && (wx-config --libs | sed -e "$(WX2XRC)")) 2>> $(LOG)`
 else
 XRC_LDFLAGS:=`wx-config --libs 2>> $(LOG)`
