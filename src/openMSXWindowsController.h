@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.h,v 1.6 2004/04/18 15:50:55 h_oudejans Exp $
+// $Id: openMSXWindowsController.h,v 1.7 2004/05/09 14:25:51 manuelbi Exp $
 // openMSXWindowsController.h: interface for the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -11,6 +11,7 @@
 #endif // _MSC_VER > 1000
 
 #include "openMSXController.h"
+#include <windows.h>
 
 class PipeConnectThread;
 class openMSXWindowsController : public openMSXController  

@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.35 2004/11/06 18:46:10 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.36 2004/11/10 21:35:25 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@
 #include "VideoControlPage.h"
 #include "openMSXController.h"
 
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 #include <shlobj.h>
 #endif
 
@@ -59,32 +59,32 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("SessionPage"));
 
 	m_parent = (wxCatapultFrame *)parent->GetParent()->GetParent();
-	m_diskA = (wxComboBox *)FindWindow(wxT("DiskAContents"));
-	m_diskB = (wxComboBox *)FindWindow(wxT("DiskBContents"));
-	m_cartA = (wxComboBox *)FindWindow(wxT("CartAContents"));
-	m_cartB = (wxComboBox *)FindWindow(wxT("CartBContents"));
-	m_cassette = (wxComboBox *)FindWindow(wxT("CassetteContents"));
-	m_extensionList = (wxListBox *)FindWindow(wxT("ExtensionList"));
-	m_machineList = (wxComboBox *)FindWindow(wxT("MachineList"));
-	m_browseDiskA = (wxBitmapButton *)FindWindow(wxT("BrowseDiskA"));
-	m_browseDiskB = (wxBitmapButton *)FindWindow(wxT("BrowseDiskB"));
-	m_browseCartA = (wxBitmapButton *)FindWindow(wxT("BrowseCartA"));
-	m_browseCartB = (wxBitmapButton *)FindWindow(wxT("BrowseCartB"));
-	m_browseCassette = (wxBitmapButton *)FindWindow(wxT("BrowseCassette"));
-	m_clearDiskA = (wxBitmapButton *)FindWindow(wxT("ClearDiskA"));
-	m_clearDiskB = (wxBitmapButton *)FindWindow(wxT("ClearDiskB"));
-	m_clearCartA = (wxBitmapButton *)FindWindow(wxT("ClearCartA"));
-	m_clearCartB = (wxBitmapButton *)FindWindow(wxT("ClearCartB"));
-	m_clearCassette = (wxBitmapButton *)FindWindow(wxT("ClearCassette"));
-        m_forcePlayButton = (wxToggleButton *)FindWindow(wxT("ForcePlayButton"));
-	m_rewindButton = (wxButton *)FindWindow(wxT("RewindButton"));
+	m_diskA = (wxComboBox *)FindWindowByName(wxT("DiskAContents"));
+	m_diskB = (wxComboBox *)FindWindowByName(wxT("DiskBContents"));
+	m_cartA = (wxComboBox *)FindWindowByName(wxT("CartAContents"));
+	m_cartB = (wxComboBox *)FindWindowByName(wxT("CartBContents"));
+	m_cassette = (wxComboBox *)FindWindowByName(wxT("CassetteContents"));
+	m_extensionList = (wxListBox *)FindWindowByName(wxT("ExtensionList"));
+	m_machineList = (wxComboBox *)FindWindowByName(wxT("MachineList"));
+	m_browseDiskA = (wxBitmapButton *)FindWindowByName(wxT("BrowseDiskA"));
+	m_browseDiskB = (wxBitmapButton *)FindWindowByName(wxT("BrowseDiskB"));
+	m_browseCartA = (wxBitmapButton *)FindWindowByName(wxT("BrowseCartA"));
+	m_browseCartB = (wxBitmapButton *)FindWindowByName(wxT("BrowseCartB"));
+	m_browseCassette = (wxBitmapButton *)FindWindowByName(wxT("BrowseCassette"));
+	m_clearDiskA = (wxBitmapButton *)FindWindowByName(wxT("ClearDiskA"));
+	m_clearDiskB = (wxBitmapButton *)FindWindowByName(wxT("ClearDiskB"));
+	m_clearCartA = (wxBitmapButton *)FindWindowByName(wxT("ClearCartA"));
+	m_clearCartB = (wxBitmapButton *)FindWindowByName(wxT("ClearCartB"));
+	m_clearCassette = (wxBitmapButton *)FindWindowByName(wxT("ClearCassette"));
+        m_forcePlayButton = (wxToggleButton *)FindWindowByName(wxT("ForcePlayButton"));
+	m_rewindButton = (wxButton *)FindWindowByName(wxT("RewindButton"));
 	
-	m_machineListLabel = (wxStaticText *)FindWindow(wxT("MachineListLabel"));
-	m_extensionListLabel = (wxStaticText *)FindWindow(wxT("ExtensionLabel"));
-	m_cartALabel = (wxStaticText *)FindWindow(wxT("CartA_Label"));
-	m_cartBLabel = (wxStaticText *)FindWindow(wxT("CartB_Label"));
+	m_machineListLabel = (wxStaticText *)FindWindowByName(wxT("MachineListLabel"));
+	m_extensionListLabel = (wxStaticText *)FindWindowByName(wxT("ExtensionLabel"));
+	m_cartALabel = (wxStaticText *)FindWindowByName(wxT("CartA_Label"));
+	m_cartBLabel = (wxStaticText *)FindWindowByName(wxT("CartB_Label"));
 
-	m_cassetteLabel = (wxStaticText *)FindWindow(wxT("Cassette_Label"));
+	m_cassetteLabel = (wxStaticText *)FindWindowByName(wxT("Cassette_Label"));
 
 	m_lastDiskA = "";
 	m_lastDiskB = "";
@@ -129,7 +129,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 		m_browseCartA, m_browseCartB, m_browseCassette, 
 		m_clearDiskA, m_clearDiskB, m_clearCartA, m_clearCartB,
 		m_clearCassette};
-	int i;
+	unsigned int i;
 	FOREACH (i,buttons){
 			wxBitmap & temp = buttons[i]->GetBitmapLabel();
 			temp.SetMask(new wxMask(temp,wxColour(255,0,255)));
@@ -173,7 +173,7 @@ void SessionPage::OnClearCassette(wxCommandEvent &event)
 	m_cassette->SetValue(wxT(""));
 	m_lastCassette = wxT("");
 	m_controller->WriteCommand("cassetteplayer eject");
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 	// Bug in wxMSW? On wxGTK this is not necessary
 	OnChangeCassetteContents(event);
 #endif
@@ -549,7 +549,7 @@ void SessionPage::getMedia(wxArrayString & parameters)
 {
 	wxComboBox * box [5] = {m_diskA,m_diskB,m_cartA,m_cartB,m_cassette};
 	parameters.Clear();
-	int i=0;
+	unsigned int i=0;
 	FOREACH(i,box){
 		parameters.Add(wxT(""));
 		if (!box[i]->GetValue().IsEmpty()) {
@@ -612,7 +612,7 @@ void SessionPage::AddHistory(wxComboBox *media)
 	// wxWindows 2.4 does not support insertion in a wxComboBox
 	// so this is gonna be replaced as soon as 2.5 is stable
 	wxString currentItem = media->GetValue();
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 	currentItem.Replace("/","\\",true);
 #else
 	currentItem.Replace("\\","/",true);
@@ -653,7 +653,7 @@ void SessionPage::RestoreHistory()
 			config->GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
 			wxString value;
 			int pos;
-			int i=0;
+			unsigned int i=0;
 			FOREACH(i,field){
 				field[i]->Clear();
 				config->GetParameter(id[i],value);
@@ -710,7 +710,7 @@ void SessionPage::SaveHistory()
 			ConfigurationData * config = ConfigurationData::instance();
 	wxString temp;
 	wxString current;
-	int i=0;
+	unsigned int i=0;
 	FOREACH(i,field){
 		temp.Clear();
 		current = field[i]->GetValue();

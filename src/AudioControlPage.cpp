@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.24 2004/11/06 13:51:33 manuelbi Exp $
+// $Id: AudioControlPage.cpp,v 1.25 2004/11/10 21:35:25 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -36,23 +36,23 @@ AudioControlPage::AudioControlPage(wxWindow * parent, openMSXController * contro
 :CatapultPage(parent)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("AudioControlPage"));
-	m_audioPanel = (wxPanel *)FindWindow (wxT("AudioChannelPanel"));
-	m_browseMidiInButton = (wxBitmapButton *)FindWindow(wxT("BrowseMidiInButton"));
-	m_browseMidiOutButton = (wxBitmapButton *)FindWindow(wxT("BrowseMidiOutButton"));
-	m_browseSampleInputButton = (wxBitmapButton *)FindWindow(wxT("BrowseSampleInputButton"));
-	m_midiInLabel = (wxStaticText *)FindWindow(wxT("MidiInLabel"));
-	m_midiOutLabel = (wxStaticText *)FindWindow(wxT("MidiOutLabel"));
-	m_sampleInLabel = (wxStaticText *)FindWindow(wxT("SoundInLabel"));
-	m_midiInFileLabel = (wxStaticText *)FindWindow(wxT("MidiInFileLabel"));
-	m_midiOutFileLabel = (wxStaticText *)FindWindow(wxT("MidiOutFileLabel"));
-	m_sampleInFileLabel = (wxStaticText *)FindWindow(wxT("SampleInFileLabel"));
+	m_audioPanel = (wxPanel *)FindWindowByName (wxT("AudioChannelPanel"));
+	m_browseMidiInButton = (wxBitmapButton *)FindWindowByName(wxT("BrowseMidiInButton"));
+	m_browseMidiOutButton = (wxBitmapButton *)FindWindowByName(wxT("BrowseMidiOutButton"));
+	m_browseSampleInputButton = (wxBitmapButton *)FindWindowByName(wxT("BrowseSampleInputButton"));
+	m_midiInLabel = (wxStaticText *)FindWindowByName(wxT("MidiInLabel"));
+	m_midiOutLabel = (wxStaticText *)FindWindowByName(wxT("MidiOutLabel"));
+	m_sampleInLabel = (wxStaticText *)FindWindowByName(wxT("SoundInLabel"));
+	m_midiInFileLabel = (wxStaticText *)FindWindowByName(wxT("MidiInFileLabel"));
+	m_midiOutFileLabel = (wxStaticText *)FindWindowByName(wxT("MidiOutFileLabel"));
+	m_sampleInFileLabel = (wxStaticText *)FindWindowByName(wxT("SampleInFileLabel"));
 	m_controller=controller;
 	m_midiInFilename = wxT("");
 	m_midiOutFilename = wxT("");
 
 	wxBitmapButton * buttons[3] = {m_browseMidiInButton,m_browseMidiOutButton,
 		m_browseSampleInputButton};
-		int i;
+		unsigned int i;
 		FOREACH(i,buttons){
 			wxBitmap & temp = buttons[i]->GetBitmapLabel();
 			temp.SetMask(new wxMask(temp,wxColour(255,0,255)));
@@ -94,7 +94,7 @@ void AudioControlPage::AddChannelType(int channel,wxString type)
 void AudioControlPage::SetupAudioMixer()
 {
 	wxSizer * AudioSizer = m_audioPanel->GetSizer();
-	wxStaticText * noAudio = (wxStaticText *) FindWindow(wxT("NoAudioText"));
+	wxStaticText * noAudio = (wxStaticText *) FindWindowByName(wxT("NoAudioText"));
 	AudioSizer->Remove(0);
 	delete noAudio;
 
@@ -115,20 +115,20 @@ void AudioControlPage::DestroyAudioMixer()
 			AudioSizer->Remove(i-1);
 			wxString number;
 			number.sprintf ("%u",i-1);
-			child = FindWindow(wxString(wxT("AudioLabel_") + number));
+			child = FindWindowByName(wxString(wxT("AudioLabel_") + number));
 			if (child) {
 				delete child;
 			}
-			child = FindWindow(wxString(wxT("AudioSlider_") + number));
+			child = FindWindowByName(wxString(wxT("AudioSlider_") + number));
 			if (child) {
 				delete child;
 			}
-			child = FindWindow(wxString(wxT("AudioMode_") + number));
+			child = FindWindowByName(wxString(wxT("AudioMode_") + number));
 			if (child) {
 				delete child;
 			}
 		}
-		child = FindWindow (wxString(wxT("MuteButton")));
+		child = FindWindowByName (wxString(wxT("MuteButton")));
 		if (child) {
 			delete child;
 		}
@@ -143,21 +143,21 @@ void AudioControlPage::DestroyAudioMixer()
 
 void AudioControlPage::DisableAudioPanel ()
 {
-	wxTextCtrl * text = (wxTextCtrl *)FindWindow (wxT("MidiInFileInput"));
-	wxButton * button = (wxButton *)FindWindow(wxT("BrowseMidiInButton"));
-	wxComboBox * combo = (wxComboBox *)FindWindow (wxT("MidiInSelector"));
+	wxTextCtrl * text = (wxTextCtrl *)FindWindowByName (wxT("MidiInFileInput"));
+	wxButton * button = (wxButton *)FindWindowByName(wxT("BrowseMidiInButton"));
+	wxComboBox * combo = (wxComboBox *)FindWindowByName (wxT("MidiInSelector"));
 	combo->Clear();combo->Enable(false);
 	text->Clear(); text->Enable(false);
 	button->Enable(false);
-	text = (wxTextCtrl *)FindWindow (wxT("MidiOutFileInput"));
-	button = (wxButton *)FindWindow(wxT("BrowseMidiOutButton"));
-	combo = (wxComboBox *)FindWindow (wxT("MidiOutSelector"));
+	text = (wxTextCtrl *)FindWindowByName (wxT("MidiOutFileInput"));
+	button = (wxButton *)FindWindowByName(wxT("BrowseMidiOutButton"));
+	combo = (wxComboBox *)FindWindowByName (wxT("MidiOutSelector"));
 	combo->Clear();combo->Enable(false);
 	text->Clear(); text->Enable(false);
 	button->Enable(false);
-	text = (wxTextCtrl *)FindWindow (wxT("SampleFileInput"));
-	button = (wxButton *)FindWindow(wxT("BrowseSampleInputButton"));
-	combo = (wxComboBox *)FindWindow (wxT("SampleInSelector"));
+	text = (wxTextCtrl *)FindWindowByName (wxT("SampleFileInput"));
+	button = (wxButton *)FindWindowByName(wxT("BrowseSampleInputButton"));
+	combo = (wxComboBox *)FindWindowByName (wxT("SampleInSelector"));
 	combo->Clear();combo->Enable(false);
 	text->Clear(); text->Enable(false);
 	button->Enable(false);
@@ -172,7 +172,7 @@ void AudioControlPage::DisableAudioPanel ()
 void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 {
 	wxSize defaultsize;
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 	defaultsize = wxDefaultSize;
 #else
 	defaultsize = wxSize(40,18);
@@ -402,14 +402,14 @@ void AudioControlPage::InitAudioIO()
 	}
 	for  (i=0;i<connectors.GetCount();i++) {
 		if (connectors[i] == "msx-midi-in") {
-			child = (wxComboBox *)FindWindow (wxT("MidiInSelector"));
+			child = (wxComboBox *)FindWindowByName (wxT("MidiInSelector"));
 			if (child) {
 				child->Enable(true);
 				child->Clear();
 				m_midiInLabel->Enable(true);
 				m_midiInFileLabel->Enable(true);
-				wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (wxT("MidiInFileInput"));
-				wxButton * midibutton = (wxButton *)FindWindow(wxT("BrowseMidiInButton"));
+				wxTextCtrl * miditext = (wxTextCtrl *)FindWindowByName (wxT("MidiInFileInput"));
+				wxButton * midibutton = (wxButton *)FindWindowByName(wxT("BrowseMidiInButton"));
 				miditext->Enable(true);
 				midibutton->Enable(true);				
 				child->Append(wxT("--empty--"));
@@ -428,14 +428,14 @@ void AudioControlPage::InitAudioIO()
 			}
 		}
 		if (connectors[i] == "msx-midi-out") {
-			child = (wxComboBox *)FindWindow (wxT("MidiOutSelector"));
+			child = (wxComboBox *)FindWindowByName (wxT("MidiOutSelector"));
 			if (child) {
 				child->Enable(true);
 				child->Clear();
 				m_midiOutLabel->Enable(true);
 				m_midiOutFileLabel->Enable(true);
-				wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (wxT("MidiOutFileInput"));
-				wxButton * midibutton = (wxButton *)FindWindow(wxT("BrowseMidiOutButton"));
+				wxTextCtrl * miditext = (wxTextCtrl *)FindWindowByName (wxT("MidiOutFileInput"));
+				wxButton * midibutton = (wxButton *)FindWindowByName(wxT("BrowseMidiOutButton"));
 				miditext->Enable(true);
 				midibutton->Enable(true);				
 				child->Append(wxT("--empty--"));
@@ -453,14 +453,14 @@ void AudioControlPage::InitAudioIO()
 			}
 		}
 		if (connectors[i] == "pcminput") {
-			child = (wxComboBox *)FindWindow (wxT("SampleInSelector"));
+			child = (wxComboBox *)FindWindowByName (wxT("SampleInSelector"));
 			if (child) {
 				child->Enable(true);
 				child->Clear();
 				m_sampleInLabel->Enable(true);
 				m_sampleInFileLabel->Enable(true);
-				wxTextCtrl * sampletext = (wxTextCtrl *)FindWindow (wxT("SampleFileInput"));
-				wxButton * samplebutton = (wxButton *)FindWindow(wxT("BrowseSampleInputButton"));
+				wxTextCtrl * sampletext = (wxTextCtrl *)FindWindowByName (wxT("SampleFileInput"));
+				wxButton * samplebutton = (wxButton *)FindWindowByName(wxT("BrowseSampleInputButton"));
 				sampletext->Enable(true);
 				samplebutton->Enable(true);				
 				child->Append(wxT("--empty--"));
@@ -498,7 +498,7 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent & event)
 void AudioControlPage::InvalidMidiInReader()
 {
 	wxMessageBox (_("Unable to plug in MIDI-in file reader!\nPlease select a valid file name first."),_("Error"));
-	wxComboBox * box = (wxComboBox *)FindWindow (wxT("MidiInSelector"));
+	wxComboBox * box = (wxComboBox *)FindWindowByName (wxT("MidiInSelector"));
 	box->SetValue(wxT("--empty--"));
 	m_controller->WriteCommand(wxT("unplug msx-midi-in"));
 }
@@ -526,7 +526,7 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent & event)
 void AudioControlPage::InvalidMidiOutLogger()
 {
 	wxMessageBox (_("Unable to plug in MIDI-out logger!\nPlease select a valid file name first."),_("Error"));
-	wxComboBox * box = (wxComboBox *)FindWindow (wxT("MidiOutSelector"));
+	wxComboBox * box = (wxComboBox *)FindWindowByName (wxT("MidiOutSelector"));
 	box->SetValue(wxT("--empty--"));
 	m_controller->WriteCommand(wxT("unplug msx-midi-out"));
 }
@@ -545,7 +545,7 @@ void AudioControlPage::OnChangeSampleInPlug(wxCommandEvent & event)
 void AudioControlPage::InvalidSampleFilename()
 {
 	wxMessageBox (_("Unable to plug in PCM wave input!\nPlease select a valid file name first."),_("Error"));
-	wxComboBox * box = (wxComboBox *)FindWindow (wxT("SampleInSelector"));
+	wxComboBox * box = (wxComboBox *)FindWindowByName (wxT("SampleInSelector"));
 	box->SetValue(wxT("--empty--"));
 	m_controller->WriteCommand(wxT("unplug pcminput"));
 }
@@ -571,7 +571,7 @@ void AudioControlPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocu
 
 void AudioControlPage::OnBrowseMidiInFile (wxCommandEvent & event)
 {
-	wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (wxT("MidiInFileInput"));
+	wxTextCtrl * miditext = (wxTextCtrl *)FindWindowByName (wxT("MidiInFileInput"));
 	wxString defaultpath = ::wxPathOnly(miditext->GetValue());
 	wxFileDialog filedlg(this,_("Select MIDI input file"), defaultpath, wxT(""), wxT("*.*") ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
@@ -585,7 +585,7 @@ void AudioControlPage::OnBrowseMidiInFile (wxCommandEvent & event)
 
 void AudioControlPage::OnBrowseMidiOutFile (wxCommandEvent & event)
 {
-	wxTextCtrl * miditext = (wxTextCtrl *)FindWindow (wxT("MidiOutFileInput"));
+	wxTextCtrl * miditext = (wxTextCtrl *)FindWindowByName (wxT("MidiOutFileInput"));
 	wxString defaultpath = ::wxPathOnly(miditext->GetValue());
 	wxFileDialog filedlg(this,_("Select MIDI output file"), defaultpath, wxT(""), wxT("*.*") ,wxSAVE|wxOVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK)
@@ -599,7 +599,7 @@ void AudioControlPage::OnBrowseMidiOutFile (wxCommandEvent & event)
 
 void AudioControlPage::OnBrowseSampleInFile (wxCommandEvent & event)
 {
-	wxTextCtrl * sampletext = (wxTextCtrl *)FindWindow (wxT("SampleFileInput"));
+	wxTextCtrl * sampletext = (wxTextCtrl *)FindWindowByName (wxT("SampleFileInput"));
 	wxString defaultpath = ::wxPathOnly(sampletext->GetValue());
 	wxFileDialog filedlg(this,_("Select PCM sample input file"), defaultpath, wxT(""), wxT("*.*") ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
@@ -649,7 +649,7 @@ void AudioControlPage::UpdateMidiPlug (wxString connector, wxString data)
 		value = wxT("--empty--");
 	}
 
-	wxComboBox * box = (wxComboBox *)FindWindow(connector);
+	wxComboBox * box = (wxComboBox *)FindWindowByName(connector);
 	if (box != NULL) {
 		box->SetValue(value);
 	}

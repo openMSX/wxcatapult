@@ -1,4 +1,4 @@
-// $Id: StatusPage.cpp,v 1.5 2004/03/23 19:09:16 h_oudejans Exp $
+// $Id: StatusPage.cpp,v 1.6 2004/05/08 19:08:31 h_oudejans Exp $
 // StatusPage.cpp: implementation of the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ END_EVENT_TABLE()
 StatusPage::StatusPage(wxWindow * parent)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("StatusPage"));
-	m_outputtext = (wxTextCtrl *)FindWindow(wxT("OutputText"));
+	m_outputtext = (wxTextCtrl *)FindWindowByName(wxT("OutputText"));
 }
 
 StatusPage::~StatusPage()

@@ -1,4 +1,4 @@
-// $Id: ScreenShotDlg.cpp,v 1.1 2004/10/03 17:02:12 h_oudejans Exp $
+// $Id: ScreenShotDlg.cpp,v 1.2 2004/10/03 17:17:26 h_oudejans Exp $
 // ScreenshotDlg.cpp: implementation of the FullScreenDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ ScreenshotDlg::~ScreenshotDlg()
 void ScreenshotDlg::OnOk(wxCommandEvent &event)
 {
 	ConfigurationData * config = ConfigurationData::instance();
-	wxCheckBox * box = (wxCheckBox *)FindWindow(wxT("DoNotShow"));
+	wxCheckBox * box = (wxCheckBox *)FindWindowByName(wxT("DoNotShow"));
 	long notwarn = 0;
 	if (box->IsChecked()) {
 		notwarn = 1;

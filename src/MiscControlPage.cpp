@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.34 2004/10/08 15:26:40 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.35 2004/10/10 11:48:30 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -59,25 +59,25 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 #endif
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("MiscControlPage"));
 	m_controller = controller;
-	m_powerButton = (wxToggleButton *)FindWindow(wxT("PowerButton"));
-	m_pauseButton = (wxToggleButton *)FindWindow(wxT("PauseButton"));	
-	m_resetButton = (wxButton *)FindWindow(wxT("ResetButton"));
-	m_firmwareButton = (wxToggleButton *)FindWindow(wxT("FirmwareButton"));
-	m_speedIndicator = (wxTextCtrl *)FindWindow(wxT("SpeedIndicator"));
-	m_speedSlider = (wxSlider *)FindWindow(wxT("SpeedSlider"));
-	m_speedNormalButton = (wxButton *)FindWindow (wxT("NormalSpeedButton"));
-	m_speedMaxButton = (wxToggleButton *)FindWindow (wxT("MaxSpeedButton"));
-	m_minFrameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("MinFrameSkipIndicator"));
-	m_maxFrameSkipIndicator = (wxTextCtrl *)FindWindow(wxT("MaxFrameSkipIndicator"));
-	m_maxFrameSkipSlider = (wxSlider *)FindWindow(wxT("MaxFrameSkipSlider"));
-	m_minFrameSkipSlider = (wxSlider *)FindWindow(wxT("MinFrameSkipSlider"));
-	m_renshaTurboSlider = (wxSlider *)FindWindow(wxT("RenshaTurboSlider"));
-	m_browsePrinterLog = (wxBitmapButton*) FindWindow(wxT("BrowsePrinterLog"));
-	m_printerLogFile = (wxTextCtrl *)FindWindow(wxT("PrinterLogFile"));
-	m_printerportSelector = (wxComboBox*)FindWindow(wxT("PrinterportSelector"));
+	m_powerButton = (wxToggleButton *)FindWindowByName(wxT("PowerButton"));
+	m_pauseButton = (wxToggleButton *)FindWindowByName(wxT("PauseButton"));	
+	m_resetButton = (wxButton *)FindWindowByName(wxT("ResetButton"));
+	m_firmwareButton = (wxToggleButton *)FindWindowByName(wxT("FirmwareButton"));
+	m_speedIndicator = (wxTextCtrl *)FindWindowByName(wxT("SpeedIndicator"));
+	m_speedSlider = (wxSlider *)FindWindowByName(wxT("SpeedSlider"));
+	m_speedNormalButton = (wxButton *)FindWindowByName (wxT("NormalSpeedButton"));
+	m_speedMaxButton = (wxToggleButton *)FindWindowByName (wxT("MaxSpeedButton"));
+	m_minFrameSkipIndicator = (wxTextCtrl *)FindWindowByName(wxT("MinFrameSkipIndicator"));
+	m_maxFrameSkipIndicator = (wxTextCtrl *)FindWindowByName(wxT("MaxFrameSkipIndicator"));
+	m_maxFrameSkipSlider = (wxSlider *)FindWindowByName(wxT("MaxFrameSkipSlider"));
+	m_minFrameSkipSlider = (wxSlider *)FindWindowByName(wxT("MinFrameSkipSlider"));
+	m_renshaTurboSlider = (wxSlider *)FindWindowByName(wxT("RenshaTurboSlider"));
+	m_browsePrinterLog = (wxBitmapButton*) FindWindowByName(wxT("BrowsePrinterLog"));
+	m_printerLogFile = (wxTextCtrl *)FindWindowByName(wxT("PrinterLogFile"));
+	m_printerportSelector = (wxComboBox*)FindWindowByName(wxT("PrinterportSelector"));
 
-	m_defaultMaxFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMaxFrameSkipButton"));
-	m_defaultMinFrameSkipButton = (wxButton *)FindWindow (wxT("DefaultMinFrameSkipButton"));
+	m_defaultMaxFrameSkipButton = (wxButton *)FindWindowByName (wxT("DefaultMaxFrameSkipButton"));
+	m_defaultMinFrameSkipButton = (wxButton *)FindWindowByName (wxT("DefaultMinFrameSkipButton"));
 	
 	m_speedSlider->SetTickFreq (25,1);
 	m_maxFrameSkipSlider->SetTickFreq (5,1);
@@ -85,13 +85,13 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_renshaTurboSlider->SetTickFreq (5,1);
 	m_oldSpeed="";
 
-	m_printerportFileLabel = (wxStaticText *)FindWindow (wxT("PrinterLogFileLabel"));
-	m_printerportLabel = (wxStaticText *)FindWindow(wxT("PrinterLabel"));
-	m_renshaLabel = (wxStaticText *)FindWindow(wxT("RenShaTurboLabel"));
-	m_frameskipLabel = (wxStaticText *)FindWindow(wxT("FrameSkipLabel"));
-	m_frameskipMaxLabel = (wxStaticText *)FindWindow(wxT("FrameSkipMaxLabel"));
-	m_frameskipMinLabel = (wxStaticText *)FindWindow(wxT("FrameSkipMinLabel"));
-	m_emulationSpeedLabel = (wxStaticText *)FindWindow(wxT("EmulationSpeedLabel"));	
+	m_printerportFileLabel = (wxStaticText *)FindWindowByName (wxT("PrinterLogFileLabel"));
+	m_printerportLabel = (wxStaticText *)FindWindowByName(wxT("PrinterLabel"));
+	m_renshaLabel = (wxStaticText *)FindWindowByName(wxT("RenShaTurboLabel"));
+	m_frameskipLabel = (wxStaticText *)FindWindowByName(wxT("FrameSkipLabel"));
+	m_frameskipMaxLabel = (wxStaticText *)FindWindowByName(wxT("FrameSkipMaxLabel"));
+	m_frameskipMinLabel = (wxStaticText *)FindWindowByName(wxT("FrameSkipMinLabel"));
+	m_emulationSpeedLabel = (wxStaticText *)FindWindowByName(wxT("EmulationSpeedLabel"));	
 
 
 	wxBitmap & tempBmp = m_browsePrinterLog->GetBitmapLabel();
@@ -109,8 +109,8 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 #endif
 	int JoySaveID[]={ConfigurationData::CD_JOYPORT1, ConfigurationData::CD_JOYPORT2};
 	wxComboBox * box[2];
-	box[0] = (wxComboBox *)FindWindow (wxT("Joyport1Selector"));
-	box[1] = (wxComboBox *)FindWindow (wxT("Joyport2Selector"));
+	box[0] = (wxComboBox *)FindWindowByName (wxT("Joyport1Selector"));
+	box[1] = (wxComboBox *)FindWindowByName (wxT("Joyport2Selector"));
 	for (int i=0;i<2;i++) {
 		box[i]->Clear();
 		box[i]->Append(wxT("--empty--"));
@@ -136,14 +136,14 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 
 	
 	
-	box[0] = (wxComboBox *)FindWindow (wxT("PrinterportSelector"));
+	box[0] = (wxComboBox *)FindWindowByName (wxT("PrinterportSelector"));
 	box[0]->Clear();
 	box[0]->Append(wxT("--empty--"));
 	box[0]->Append(wxT("logger"));
 	box[0]->Append(wxT("simpl"));	
 
 	wxString filename;
-	wxTextCtrl * text = (wxTextCtrl *)FindWindow("PrinterLogFile");
+	wxTextCtrl * text = (wxTextCtrl *)FindWindowByName("PrinterLogFile");
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_PRINTERPORT,current);
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_PRINTERFILE,filename);
 	text->SetValue(filename);
@@ -461,7 +461,7 @@ void MiscControlPage::InitConnectorPanel ()
 			}
 		}
 	}
-//	wxTextCtrl * text = (wxTextCtrl *)FindWindow("PrinterLogFile");
+//	wxTextCtrl * text = (wxTextCtrl *)FindWindowByName("PrinterLogFile");
 //	m_controller->WriteCommand(wxString("set printerlogfilename ") + ConvertPath(text->GetValue()));
 }
 
@@ -471,7 +471,7 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 	wxArrayString classes;
 	m_controller->GetPluggableClasses(classes);
 	if (classes.GetCount() ==0) return;
-	wxComboBox * box = (wxComboBox *)FindWindow (control);
+	wxComboBox * box = (wxComboBox *)FindWindowByName (control);
 	wxString currentval = box->GetValue();
 	box->Clear();
 	box->Append(wxT("--empty--"));
@@ -522,14 +522,14 @@ void MiscControlPage::OnJoystickChanged()
 	if (box->GetName() == "Joyport1Selector") {
 		connector = "joyporta ";
 		connector2 = "joyportb";
-		box2 = (wxComboBox *)FindWindow (wxT("Joyport2Selector"));
+		box2 = (wxComboBox *)FindWindowByName (wxT("Joyport2Selector"));
 		oldValue1 = &m_oldJoy1;
 		oldValue2 = &m_oldJoy2;
 	} 
 	else if (box->GetName() == "Joyport2Selector") {
 		connector = "joyportb ";
 		connector2 = "joyporta";
-		box2 = (wxComboBox *)FindWindow (wxT("Joyport1Selector"));
+		box2 = (wxComboBox *)FindWindowByName (wxT("Joyport1Selector"));
 		oldValue1 = &m_oldJoy2;
 		oldValue2 = &m_oldJoy1;
 	}
@@ -560,8 +560,8 @@ This device will then be removed from any other port(s).","Warning",wxOK | wxCAN
 		m_controller->WriteCommand(wxString(cmd + connector + value));
 		*oldValue1 = box->GetValue();
 	}
-	wxComboBox * joy1 = (wxComboBox *)FindWindow (wxT("Joyport1Selector"));
-	wxComboBox * joy2 = (wxComboBox *)FindWindow (wxT("Joyport2Selector"));	
+	wxComboBox * joy1 = (wxComboBox *)FindWindowByName (wxT("Joyport1Selector"));
+	wxComboBox * joy2 = (wxComboBox *)FindWindowByName (wxT("Joyport2Selector"));	
 	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_JOYPORT1,joy1->GetValue());
 	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_JOYPORT2,joy2->GetValue());
 	ConfigurationData::instance()->SaveData();

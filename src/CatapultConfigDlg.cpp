@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.9 2004/10/11 17:10:24 h_oudejans Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.10 2004/11/10 21:16:26 andete Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -13,7 +13,9 @@
 #include "CatapultConfigDlg.h"
 #include "ConfigurationData.h"
 
+#ifndef __WXMSW__
 #include "config.h"
+#endif
 
 	IMPLEMENT_CLASS(CatapultConfigDlg, wxDialog)
 BEGIN_EVENT_TABLE(CatapultConfigDlg, wxDialog)
@@ -31,9 +33,9 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 {
 	wxString guess = "";
 	wxXmlResource::Get()->LoadDialog(this, parent, wxT("ConfigurationDialog"));
-	m_ExecPath = (wxTextCtrl *)FindWindow(wxT("ConfigExecData"));
-	m_SharePath = (wxTextCtrl *)FindWindow(wxT("ConfigShareData"));
-	wxTextCtrl * OkButton = (wxTextCtrl *)FindWindow(wxT("ConfigOk"));
+	m_ExecPath = (wxTextCtrl *)FindWindowByName(wxT("ConfigExecData"));
+	m_SharePath = (wxTextCtrl *)FindWindowByName(wxT("ConfigShareData"));
+	wxTextCtrl * OkButton = (wxTextCtrl *)FindWindowByName(wxT("ConfigOk"));
 	wxString temp;
 	ConfigurationData * config = ConfigurationData::instance();
 	OkButton->SetFocus(); // avoid strange behaviour of the execpath textctrl
@@ -41,7 +43,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 		m_ExecPath->SetValue(temp);
 	}
 	if (temp == wxT("")) {
-#ifdef __WINDOWS__		
+#ifdef __WXMSW__		
 		guess = ((wxCatapultApp &)wxGetApp()).GetResourceDir();
 		guess.Replace ("/","\\",true);
 		for (int i=0;i<2;i++) {
@@ -64,7 +66,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 	if (config->GetParameter(ConfigurationData::CD_SHAREPATH,temp))
 		m_SharePath->SetValue(temp);
 	if (temp==wxT("") && (m_ExecPath->GetValue() != wxT(""))) {
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 		guess = m_ExecPath->GetValue();
 		guess.Replace ("/","\\",true);
 		int pos = guess.Find('\\',true);

@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.25 2004/10/08 15:26:40 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.26 2004/10/08 20:22:38 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,7 +10,7 @@
 #include <wx/wx.h>
 #endif
 
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 #include "openMSXWindowsController.h"
 #else
 #include "openMSXController.h"
@@ -59,47 +59,47 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("VideoControlPage"));
 	m_controller = controller;
-	m_rendererList = (wxComboBox *)FindWindow(wxT("RendererSelector"));;
-	m_scalerList = (wxComboBox *)FindWindow(wxT("ScalerSelector"));
-	m_accuracyList = (wxComboBox*)FindWindow(wxT("AccuracySelector"));
-	m_deinterlaceButton = (wxToggleButton*)FindWindow(wxT("DeInterlaceButton"));
-	m_limitSpritesButton = (wxToggleButton*)FindWindow(wxT("LimitSpriteButton"));
-	m_fullscreenButton = (wxToggleButton*)FindWindow(wxT("FullScreenButton"));
-	m_blurSlider = (wxSlider*)FindWindow(wxT("BlurSlider"));
+	m_rendererList = (wxComboBox *)FindWindowByName(wxT("RendererSelector"));;
+	m_scalerList = (wxComboBox *)FindWindowByName(wxT("ScalerSelector"));
+	m_accuracyList = (wxComboBox*)FindWindowByName(wxT("AccuracySelector"));
+	m_deinterlaceButton = (wxToggleButton*)FindWindowByName(wxT("DeInterlaceButton"));
+	m_limitSpritesButton = (wxToggleButton*)FindWindowByName(wxT("LimitSpriteButton"));
+	m_fullscreenButton = (wxToggleButton*)FindWindowByName(wxT("FullScreenButton"));
+	m_blurSlider = (wxSlider*)FindWindowByName(wxT("BlurSlider"));
 	m_blurSlider->SetTickFreq(5,1);
-	m_glowSlider = (wxSlider*)FindWindow(wxT("GlowSlider"));
+	m_glowSlider = (wxSlider*)FindWindowByName(wxT("GlowSlider"));
 	m_glowSlider->SetTickFreq(5,1);
-	m_gammaSlider = (wxSlider*)FindWindow(wxT("GammaSlider"));
+	m_gammaSlider = (wxSlider*)FindWindowByName(wxT("GammaSlider"));
 	m_gammaSlider->SetTickFreq(25,1);
-	m_scanlineSlider = (wxSlider*)FindWindow(wxT("ScanLineSlider"));
+	m_scanlineSlider = (wxSlider*)FindWindowByName(wxT("ScanLineSlider"));
 	m_scanlineSlider->SetTickFreq(5,1);
-	m_blurIndicator = (wxTextCtrl*)FindWindow(wxT("BlurIndicator"));
-	m_glowIndicator = (wxTextCtrl*)FindWindow(wxT("GlowIndicator"));
-	m_gammaIndicator = (wxTextCtrl*)FindWindow(wxT("GammaIndicator"));
-	m_scanlineIndicator =(wxTextCtrl*)FindWindow(wxT("ScanlineIndicator"));
-	m_defaultBlurButton = (wxButton*)FindWindow(wxT("ZeroBlurButton"));
-	m_defaultGlowButton = (wxButton*)FindWindow(wxT("ZeroGlowButton"));
-	m_defaultGammaButton = (wxButton*)FindWindow(wxT("DefaultGammaButton"));
-	m_defaultScanlineButton = (wxButton*)FindWindow(wxT("ZeroScanlineButton"));
-	m_screenShotFile = (wxTextCtrl*)FindWindow(wxT("ScreenShotFilename"));
-	m_screenShotCounter = (wxTextCtrl*)FindWindow(wxT("ScreenShotCounter"));
-	m_screenShotButton = (wxButton*)FindWindow(wxT("ScreenShotButton"));
-	m_browseScreenshotButton = (wxBitmapButton *)FindWindow(wxT("BrowseScreenShotButton"));
+	m_blurIndicator = (wxTextCtrl*)FindWindowByName(wxT("BlurIndicator"));
+	m_glowIndicator = (wxTextCtrl*)FindWindowByName(wxT("GlowIndicator"));
+	m_gammaIndicator = (wxTextCtrl*)FindWindowByName(wxT("GammaIndicator"));
+	m_scanlineIndicator =(wxTextCtrl*)FindWindowByName(wxT("ScanlineIndicator"));
+	m_defaultBlurButton = (wxButton*)FindWindowByName(wxT("ZeroBlurButton"));
+	m_defaultGlowButton = (wxButton*)FindWindowByName(wxT("ZeroGlowButton"));
+	m_defaultGammaButton = (wxButton*)FindWindowByName(wxT("DefaultGammaButton"));
+	m_defaultScanlineButton = (wxButton*)FindWindowByName(wxT("ZeroScanlineButton"));
+	m_screenShotFile = (wxTextCtrl*)FindWindowByName(wxT("ScreenShotFilename"));
+	m_screenShotCounter = (wxTextCtrl*)FindWindowByName(wxT("ScreenShotCounter"));
+	m_screenShotButton = (wxButton*)FindWindowByName(wxT("ScreenShotButton"));
+	m_browseScreenshotButton = (wxBitmapButton *)FindWindowByName(wxT("BrowseScreenShotButton"));
 	m_defaultBlur = "";
 	m_defaultGlow = "";
 	m_defaultGamma = "";
 	m_defaultScanline = "";
 	
-	m_rendererLabel = (wxStaticText *)FindWindow(wxT("RendererLabel"));
-	m_scalerLabel = (wxStaticText *)FindWindow(wxT("ScalerLabel"));
-	m_accuracyLabel = (wxStaticText *)FindWindow(wxT("AccuracyLabel"));
-	m_deinterlaceLabel = (wxStaticText *)FindWindow(wxT("DeInterlaceLabel"));
-	m_limitSpritesLabel = (wxStaticText *)FindWindow(wxT("LimitSpriteLabel"));
-	m_fullScreenLabel = (wxStaticText *)FindWindow(wxT("FullScreenLabel"));
-	m_scanLineLabel = (wxStaticText *)FindWindow(wxT("ScanLineLabel"));
-	m_blurLabel = (wxStaticText *)FindWindow(wxT("BlurLabel"));
-	m_glowLabel = (wxStaticText *)FindWindow(wxT("GlowLabel"));
-	m_gammaLabel = (wxStaticText *)FindWindow(wxT("GammaLabel"));
+	m_rendererLabel = (wxStaticText *)FindWindowByName(wxT("RendererLabel"));
+	m_scalerLabel = (wxStaticText *)FindWindowByName(wxT("ScalerLabel"));
+	m_accuracyLabel = (wxStaticText *)FindWindowByName(wxT("AccuracyLabel"));
+	m_deinterlaceLabel = (wxStaticText *)FindWindowByName(wxT("DeInterlaceLabel"));
+	m_limitSpritesLabel = (wxStaticText *)FindWindowByName(wxT("LimitSpriteLabel"));
+	m_fullScreenLabel = (wxStaticText *)FindWindowByName(wxT("FullScreenLabel"));
+	m_scanLineLabel = (wxStaticText *)FindWindowByName(wxT("ScanLineLabel"));
+	m_blurLabel = (wxStaticText *)FindWindowByName(wxT("BlurLabel"));
+	m_glowLabel = (wxStaticText *)FindWindowByName(wxT("GlowLabel"));
+	m_gammaLabel = (wxStaticText *)FindWindowByName(wxT("GammaLabel"));
 
 	wxBitmap & tempBmp = m_browseScreenshotButton->GetBitmapLabel();
 	tempBmp.SetMask(new wxMask(tempBmp,wxColour(255,0,255)));
@@ -178,7 +178,7 @@ void VideoControlPage::OnFullScreen(wxCommandEvent &event)
 	if (doIt) {
 		if (button->GetValue())
 		{
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 			((openMSXWindowsController *)m_controller)->RaiseOpenMSX();
 #endif
 			m_controller->WriteCommand ("set fullscreen on");
@@ -189,7 +189,7 @@ void VideoControlPage::OnFullScreen(wxCommandEvent &event)
 		
 			m_controller->WriteCommand ("set fullscreen off");
 			button->SetLabel("Off");
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 			Sleep(500);
 			((openMSXWindowsController *)m_controller)->RestoreOpenMSX();
 #endif
@@ -421,7 +421,7 @@ void VideoControlPage::FillAccuracy(wxString accuracy)
 
 void VideoControlPage::FillComboBox (wxString control, wxString contents)
 {	
-	wxComboBox * box = (wxComboBox *)FindWindow(control);
+	wxComboBox * box = (wxComboBox *)FindWindowByName(control);
 	int pos;
 	box->Clear();
 	wxString temp = contents;

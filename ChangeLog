@@ -1,4 +1,13 @@
-$Id: ChangeLog,v 1.101 2004/11/10 21:18:13 andete Exp $
+$Id: ChangeLog,v 1.102 2004/11/10 21:35:25 h_oudejans Exp $
+
+2004-11-11 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed gcc compiler warning (signed/unsigned mismatch) in FOREACH code
+	* First step for compiling using mingw:
+		- Included <windows.h> where HANDLE is needed
+		- Replaced FindWindow() by FindWindowByName() because mingw gets confused
+		  about the FindWindow defined in winbase.h (included in windows.h)
+		- Replaced __WINDOWS__ by __WXMSW__ (wx-config gives only -D__WXMSW__)
+		- Fixed vc++ compiler error in CatapultConfigDlg (config.h is POSIX only).
 
 2004-11-10 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* All static arrays that used to be looped through by for-loops, are

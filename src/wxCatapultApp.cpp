@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.15 2004/10/01 17:21:01 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.16 2004/10/03 17:02:12 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -112,7 +112,7 @@ bool wxCatapultApp::LoadXRC(wxString XrcFile)
 
 wxString wxCatapultApp::GetResourceDir ()
 {
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 	wxString temp = ::wxPathOnly(argv[0]);
 	temp.Replace("/","\\",true);
 	while (temp.Last() == '\\') {

@@ -1,4 +1,4 @@
-// $Id: InputPage.cpp,v 1.3 2004/10/02 20:50:45 h_oudejans Exp $
+// $Id: InputPage.cpp,v 1.4 2004/10/04 20:45:49 manuelbi Exp $
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,8 +27,8 @@ END_EVENT_TABLE()
 InputPage::InputPage(wxWindow * parent, openMSXController * controller)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("InputPage"));
-	m_inputtext = (wxTextCtrl *)FindWindow(wxT("InputText"));
-	m_typeTextButton = (wxButton *)FindWindow(wxT("TypeTextButton"));
+	m_inputtext = (wxTextCtrl *)FindWindowByName(wxT("InputText"));
+	m_typeTextButton = (wxButton *)FindWindowByName(wxT("TypeTextButton"));
 	m_controller = controller;
 }
 

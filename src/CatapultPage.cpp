@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.28 2004/11/06 11:25:05 manuelbi Exp $
+// $Id: CatapultPage.cpp,v 1.29 2004/11/06 13:51:33 manuelbi Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -136,7 +136,7 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 		active = 0;
 	}
 	
-	wxToggleButton * button = (wxToggleButton *)m_parent->FindWindow(control);
+	wxToggleButton * button = (wxToggleButton *)m_parent->FindWindowByName(control);
 	if (button != NULL) {
 		if ((data == "on") || (data == "true") || (data == "1") || (data== "yes")) {
 			sendvalue = active;
@@ -175,7 +175,7 @@ bool CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString 
 	if (flags & S_CONVERT) {
 		valuetext = data.Mid(0,1).Upper() + data.Mid(1).Lower();
 	}
-	wxComboBox * box = (wxComboBox *)m_parent->FindWindow(control);
+	wxComboBox * box = (wxComboBox *)m_parent->FindWindowByName(control);
 	if (box != NULL) {
 		if (box->GetWindowStyle() & wxCB_READONLY) {
 			box->SetSelection(box->FindString(valuetext));
@@ -190,7 +190,7 @@ bool CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString 
 
 bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxString control, int flags)
 {
-	wxTextCtrl * indicator = (wxTextCtrl *)m_parent->FindWindow(control);
+	wxTextCtrl * indicator = (wxTextCtrl *)m_parent->FindWindowByName(control);
 	if (indicator != NULL) {
 		if (indicator->GetValue() != data)
 			indicator->SetValue(data);
@@ -203,7 +203,7 @@ bool CatapultPage::UpdateSliderSetting(wxString setting, wxString data, wxString
 {
 	long value;
 	data.ToLong(&value,10);
-	wxSlider * slider = (wxSlider *)m_parent->FindWindow(control);
+	wxSlider * slider = (wxSlider *)m_parent->FindWindowByName(control);
 	if (slider != NULL) {
 		if (slider->GetValue() != value)
 			slider->SetValue(value);
@@ -272,7 +272,7 @@ bool CatapultPage::UpdatePluggable (wxString connector, wxString data, wxString 
 	if (data == wxT("")) {
 		valuetext = wxT("--empty--");
 	}
-	wxComboBox * box = (wxComboBox *)m_parent->FindWindow(control);
+	wxComboBox * box = (wxComboBox *)m_parent->FindWindowByName(control);
 	if (box != NULL) {
 		box->SetValue(valuetext);
 	}

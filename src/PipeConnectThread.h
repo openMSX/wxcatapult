@@ -1,4 +1,4 @@
-// $Id$
+// $Id: PipeConnectThread.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // PipeConnectThread.h: interface for the PipeConnectThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,6 +10,7 @@
 #include "wx/process.h"
 #include "wx/window.h"
 #include "wx/txtstrm.h"
+#include <windows.h>
 
 #if _MSC_VER > 1000
 #pragma once

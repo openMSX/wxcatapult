@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.46 2004/11/06 11:57:15 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.47 2004/11/10 21:35:26 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -22,7 +22,7 @@
 #include "MiscControlPage.h"
 #include "InputPage.h"
 #include "Version.h"
-#ifdef __WINDOWS__
+#ifdef __WXMSW__
 #include "openMSXWindowsController.h"
 #else
 #include "openMSXLinuxController.h"
@@ -94,7 +94,7 @@ END_EVENT_TABLE()
 	m_fpsTimer.SetOwner(this,FPS_TIMER);
 	m_focusTimer.SetOwner(this,FOCUS_TIMER);
 
-#ifdef __WINDOWS__	
+#ifdef __WXMSW__	
 	m_controller = new openMSXWindowsController(this);
 #else
 	m_controller = new openMSXLinuxController(this);
@@ -130,14 +130,14 @@ END_EVENT_TABLE()
 
 	// Fill the membervariables with control pointer for easy access
 
-	m_powerLed = (wxStaticBitmap *)FindWindow(wxT("PowerLed"));
-	m_capsLed = (wxStaticBitmap *)FindWindow(wxT("CapsLockLed"));
-	m_kanaLed = (wxStaticBitmap *)FindWindow(wxT("KanaLed"));
-	m_pauseLed = (wxStaticBitmap *)FindWindow(wxT("PauseLed"));
-	m_turboLed = (wxStaticBitmap *)FindWindow(wxT("TurboLed"));
-	m_fddLed = (wxStaticBitmap *)FindWindow(wxT("FDDLed"));
+	m_powerLed = (wxStaticBitmap *)FindWindowByName(wxT("PowerLed"));
+	m_capsLed = (wxStaticBitmap *)FindWindowByName(wxT("CapsLockLed"));
+	m_kanaLed = (wxStaticBitmap *)FindWindowByName(wxT("KanaLed"));
+	m_pauseLed = (wxStaticBitmap *)FindWindowByName(wxT("PauseLed"));
+	m_turboLed = (wxStaticBitmap *)FindWindowByName(wxT("TurboLed"));
+	m_fddLed = (wxStaticBitmap *)FindWindowByName(wxT("FDDLed"));
 
-	m_tabControl = (wxNotebook *)FindWindow(wxT("GlobalTabControl"));
+	m_tabControl = (wxNotebook *)FindWindowByName(wxT("GlobalTabControl"));
 	m_sessionPage = new SessionPage(m_tabControl,m_controller);
 	m_statusPage = new StatusPage(m_tabControl);
 	m_miscControlPage = new MiscControlPage(m_tabControl,m_controller);
@@ -152,13 +152,13 @@ END_EVENT_TABLE()
 	m_tabControl->AddPage(m_inputPage,wxT("Input Text"),false);
 	m_tabControl->AddPage(m_statusPage,wxT("Status Info"),false);
 	
-	wxWindow * tempwindow = FindWindow(wxT("MainWindowPanel"));
+	wxWindow * tempwindow = FindWindowByName(wxT("MainWindowPanel"));
 	wxSize size = tempwindow->GetSizer()->Fit(tempwindow);
 	this->GetSizer()->SetMinSize(size);
 	this->GetSizer()->Fit(this);
 	this->GetSizer()->SetSizeHints(this);
 
-	m_launch_AbortButton = (wxButton *)FindWindow(wxT("Launch_AbortButton"));
+	m_launch_AbortButton = (wxButton *)FindWindowByName(wxT("Launch_AbortButton"));
 
 	SetControlsOnEnd();
 	m_launch_AbortButton->Enable(false);
@@ -329,7 +329,6 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	}
 
 	wxString parmname [6]={wxT("diska"),wxT("diskb"),wxT("carta"),wxT("cartb"),wxT("cassetteplayer"),wxT("")};
-	i=0;
 	FOREACH(i,parmname) {
 		if (!media[i].IsEmpty()) {
 			cmd += " -" + parmname[i] + " \"" + media[i] + wxT("\"");
