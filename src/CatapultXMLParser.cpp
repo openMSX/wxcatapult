@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.14 2004/11/06 11:58:09 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.15 2004/12/03 18:38:19 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ void CatapultXMLParser::cb_text (CatapultXMLParser * parser, const xmlChar * cha
 		case TAG_UPDATE:
 		case TAG_LOG:
 		case TAG_REPLY:
-			temp = (const char *) chars;
+			temp =  wxString((const wxChar *)chars,len);
 			parser->parseResult.contents.Append (temp.Left(len));
 			break;
 		default:
@@ -147,7 +147,7 @@ void CatapultXMLParser::SendParsedData()
 void CatapultXMLParser::ParseXmlInput(wxString input,unsigned int ID)
 {
 	parseResult.openMSXID = ID;
-	xmlParseChunk (context, (char *)input.c_str(), input.Len(),0);
+	xmlParseChunk (context, (const char*) (wxConvUTF8.cWX2MB(input)), input.Len(),0);
 }
 
 void CatapultXMLParser::parseReply(const char** attrs)
@@ -207,7 +207,7 @@ void CatapultXMLParser::parseUpdate(const char** attrs)
 					parseResult.updateType = UPDATE_STATE;
 				}
 			} else if (strcmp(attrs[0], "name") == 0) {
-				parseResult.name = attrs[1];
+				parseResult.name = wxString((const wxChar *)attrs[1],strlen(attrs[1]));
 			}
 		}
 	} 

@@ -1,9 +1,10 @@
-// $Id: CatapultPage.cpp,v 1.32 2004/12/03 18:38:19 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.33 2004/12/25 22:29:34 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
+#include "wx/version.h"
 
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
@@ -14,6 +15,12 @@
 #include "AudioControlPage.h"
 #include "VideoControlPage.h"
 #include "ConfigurationData.h"
+
+#if wxCHECK_VERSION(2,5,0)
+#define WX24SIGNCAST
+#else
+#define WX24SIGNCAST (unsigned int)
+#endif
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -230,11 +237,11 @@ bool CatapultPage::UpdateMenuSetting (wxString setting, wxString data, wxString 
 
 bool CatapultPage::UpdateAudioSetting (wxString setting, wxString data, wxString selection, int flags)
 {
-	int i;
+	unsigned int i;
 	wxString slidertext;
 	wxNotebook * notebook = (wxNotebook *) m_parent;
 	AudioControlPage * audiopage = NULL;
-	for (i=0;i<notebook->GetPageCount();i++) {
+	for (i=0;i< WX24SIGNCAST (notebook->GetPageCount());i++) {
 		if (notebook->GetPageText(i) == wxT("Audio Controls")) {
 			audiopage = (AudioControlPage *)notebook->GetPage(i);
 		}
@@ -257,7 +264,7 @@ bool CatapultPage::UpdateMidiPlug (wxString connector, wxString data, wxString c
 {
 	wxNotebook * notebook = (wxNotebook *) m_parent;
 	AudioControlPage * audiopage = NULL;
-	for (int i=0;i<notebook->GetPageCount();i++) {
+	for (unsigned int i=0;i< WX24SIGNCAST notebook->GetPageCount();i++) {
 		if (notebook->GetPageText(i) == wxT("Audio Controls")) {
 			audiopage = (AudioControlPage *)notebook->GetPage(i);
 		}

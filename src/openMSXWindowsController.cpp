@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.13 2004/11/14 18:31:18 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.14 2004/12/01 20:05:59 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	si.hStdError  = hErrorWrite;
 	si.wShowWindow = wStartupWnd;
 	
-	CreateProcess (NULL,(char *)cmdLine.c_str(),
+	CreateProcess (NULL,(wxChar *)cmdLine.c_str(),
 			NULL,NULL,true, dwProcessFlags ,NULL,NULL,&si,&m_openmsxProcInfo); //testing suspended
 	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);	
 	if (thread->Create() == wxTHREAD_NO_ERROR)
@@ -128,7 +128,7 @@ bool openMSXWindowsController::DetermenNamedPipeUsage()
 		if (!GetVersionEx (&info))
 		{
 			wxString msg;
-			msg.sprintf ("Error getting system info: %ld ", GetLastError());
+			msg.sprintf (wxT("Error getting system info: %ld "), GetLastError());
 			wxMessageBox (msg);
 		}
 		else{
@@ -150,7 +150,7 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 			m_launchCounter++;
 		}
 		wxString pipeName;
-		pipeName.sprintf ("\\\\.\\pipe\\Catapult-%u-%lu", _getpid(), m_launchCounter);
+		pipeName.sprintf (wxT("\\\\.\\pipe\\Catapult-%u-%lu"), _getpid(), m_launchCounter);
 		parameter += wxT(" pipe:") + (pipeName.Mid(9));
 		if (m_connectThread == NULL)
 		{
@@ -160,7 +160,7 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 			if (m_namedPipeHandle == INVALID_HANDLE_VALUE)
 			{
 				wxString text;
-				text.sprintf("Error creating pipe: %ld",GetLastError());
+				text.sprintf(wxT("Error creating pipe: %ld"),GetLastError());
 				wxMessageBox (text);
 			}
 		}
@@ -234,7 +234,7 @@ bool openMSXWindowsController::CreatePipes(bool useNamedPipes,HANDLE * input,
 void openMSXWindowsController::ShowError(wxString msg)
 {
 	wxString error;
-	error.sprintf ("%ld",GetLastError());
+	error.sprintf (wxT("%ld"),GetLastError());
 	wxMessageBox (msg + wxString(wxT(": error ")) + error);	
 }
 
@@ -276,13 +276,13 @@ void openMSXWindowsController::HandlePipeCreated()
 	PostLaunch();
 }
 
-bool openMSXWindowsController::WriteMessage(wxString msg)
+bool openMSXWindowsController::WriteMessage(xmlChar * msg,size_t length)
 {
 	if (!m_openMsxRunning) 
 		return false;
 	unsigned long BytesWritten;
-	if (!::WriteFile(m_outputHandle,msg.c_str(),msg.Len(),&BytesWritten,NULL))
-		return false;
+	if (!::WriteFile(m_outputHandle,msg,length,&BytesWritten,NULL))
+		return false;	
 	return true;
 }
 
@@ -346,9 +346,9 @@ BOOL CALLBACK openMSXWindowsController::EnumWindowCallBack(HWND hwnd, LPARAM lPa
 	FindOpenmsxInfo * info = (FindOpenmsxInfo * )lParam; 
 	DWORD ProcessId; 
 	GetWindowThreadProcessId ( hwnd, &ProcessId ); 
-	char title [11];
+	TCHAR title [11];
 	GetWindowText(hwnd, title, 10);
-	if ( ProcessId  == info->ProcessInfo->dwProcessId && strlen(title) != 0) 
+	if ( ProcessId  == info->ProcessInfo->dwProcessId && _tcslen(title) != 0) 
 	{ 
 		info->hWndFound = hwnd; 
 		return false; 

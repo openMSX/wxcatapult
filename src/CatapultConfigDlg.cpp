@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.13 2004/12/03 18:38:19 h_oudejans Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.14 2004/12/25 22:29:34 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 	if (temp == wxT("")) {
 #ifdef __WXMSW__		
 		guess = ((wxCatapultApp &)wxGetApp()).GetResourceDir();
-		guess.Replace ("/","\\",true);
+		guess.Replace (wxT("/"),wxT("\\"),true);
 		for (int i=0;i<2;i++) {
 			while (guess.Last() == '\\') {
 				guess = guess.Left(guess.Len()-1);
@@ -68,7 +68,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 	if (temp==wxT("") && (m_ExecPath->GetValue() != wxT(""))) {
 #ifdef __WXMSW__
 		guess = m_ExecPath->GetValue();
-		guess.Replace ("/","\\",true);
+		guess.Replace (wxT("/"),wxT("\\"),true);
 		int pos = guess.Find('\\',true);
 		if (pos != -1) {
 			guess = guess.Left(pos+1) + wxT("share");
@@ -77,7 +77,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 			guess = wxT("");
 		}
 #else
-		guess = wxT(CATAPULT_OPENMSX_SHARE);
+		guess = CATAPULT_OPENMSX_SHARE;
 #endif
 	}
 	if (wxDirExists(guess)) {

@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.14 2004/12/01 20:05:59 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.15 2004/12/03 18:38:20 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -35,7 +35,6 @@ openMSXLinuxController::~openMSXLinuxController()
 		delete m_stdOutThread;
 		delete m_stdErrThread;
 	}
-		
 }
 
 bool openMSXLinuxController::Launch(wxString cmdline)
@@ -119,12 +118,11 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 	}
 	return true;
 }
- 
 
 wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
 	wxString version = wxT("");
-	system ((char *)wxString (openmsxCmd +wxT(" -v > /tmp/catapult.tmp")).c_str());
+	system ((const char*) (wxConvUTF8.cWX2MB((openmsxCmd +wxT(" -v > /tmp/catapult.tmp")))));
 	wxTextFile tempfile (wxT("/tmp/catapult.tmp"));
 	if (tempfile.Open()) {
 		version = tempfile.GetFirstLine();
@@ -133,11 +131,11 @@ wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 	return wxString (version);
 }
 
-bool openMSXLinuxController::WriteMessage(wxString msg)
+bool openMSXLinuxController::WriteMessage(xmlChar * msg,size_t length)
 {
 	if (!m_openMsxRunning) 
 		return false;
-	write(m_openMSXstdin, (char *)msg.c_str(), msg.Len());
+	write(m_openMSXstdin, msg,length);
 	return true;
 }
 

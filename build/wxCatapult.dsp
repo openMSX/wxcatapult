@@ -4,7 +4,7 @@
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
-CFG=wxCatapult - Win32 Debug
+CFG=wxCatapult - Win32 Debug Unicode
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
@@ -13,12 +13,16 @@ CFG=wxCatapult - Win32 Debug
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "wxCatapult.mak" CFG="wxCatapult - Win32 Debug"
+!MESSAGE NMAKE /f "wxCatapult.mak" CFG="wxCatapult - Win32 Debug Unicode"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
 !MESSAGE "wxCatapult - Win32 Release" (based on "Win32 (x86) Console Application")
 !MESSAGE "wxCatapult - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "wxCatapult - Win32 Debug wx24" (based on "Win32 (x86) Console Application")
+!MESSAGE "wxCatapult - Win32 Release wx24" (based on "Win32 (x86) Console Application")
+!MESSAGE "wxCatapult - Win32 Release Unicode" (based on "Win32 (x86) Console Application")
+!MESSAGE "wxCatapult - Win32 Debug Unicode" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -42,8 +46,8 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /W4 /GX /Od /I "..\derived\config" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /FR /FD /c
-# SUBTRACT CPP /X /YX
+# ADD CPP /nologo /MD /W3 /GX /Od /I "..\derived\config" /I "d:\programming\wx25\lib\vc_lib\msw" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /FR /FD /c
+# SUBTRACT CPP /WX /X /YX
 # ADD BASE RSC /l 0x3009 /d "NDEBUG"
 # ADD RSC /l 0x3009 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -51,7 +55,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib wsock32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib zlib.lib regex.lib png.lib jpeg.lib tiff.lib wxmsw.lib wxxrcs.lib libxml2.lib winmm.lib shell32.lib /nologo /version:0.1 /subsystem:windows /machine:I386 /nodefaultlib:"wsock32.dll" /out:"..\derived\bin\catapult.exe" /libpath:"c:\windows\system32" /WARN:1
+# ADD LINK32 wxmsw25_xrc.lib wxmsw25_html.lib wxmsw25_adv.lib wxmsw25_core.lib wxbase25_xml.lib wxbase25.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxexpat.lib wxregex.lib kernel32.lib user32.lib gdi32.lib winspool.lib wsock32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib libxml2.lib winmm.lib shell32.lib /nologo /version:0.1 /subsystem:windows /machine:I386 /nodefaultlib:"wsock32.dll" /out:"..\derived\bin\catapult.exe" /libpath:"c:\windows\system32" /WARN:1
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
@@ -68,6 +72,32 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /Zi /Od /I "..\derived\config" /I "d:\programming\wx25\lib\vc_lib\mswd" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /D "__WXDEBUG__" /D WXDEBUG=1 /FR /YX /FD /GZ /c
+# SUBTRACT CPP /X
+# ADD BASE RSC /l 0x3009 /d "_DEBUG"
+# ADD RSC /l 0x3009 /d "_DEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 wxmsw25d_xrc.lib wxmsw25d_html.lib wxmsw25d_adv.lib wxmsw25d_core.lib wxbase25d_xml.lib wxbase25d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxexpatd.lib wxregexd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib libxml2.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"msvcrt.lib" /out:"..\derived\bin\catapultd.exe"
+# SUBTRACT LINK32 /pdb:none
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "Debug"
+# PROP BASE Intermediate_Dir "Debug"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir "..\derived\bin"
+# PROP Intermediate_Dir "..\derived\bin\Debug24"
+# PROP Ignore_Export_Lib 0
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /MDd /W4 /Gm /GX /Zi /Od /I "..\derived\config" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /D "__WXDEBUG__" /D WXDEBUG=1 /FR /YX /FD /GZ /c
 # SUBTRACT CPP /X
 # ADD BASE RSC /l 0x3009 /d "_DEBUG"
@@ -80,12 +110,100 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlibd.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib wxxrcds.lib libxml2.lib winmm.lib shell32.lib /nologo /subsystem:windows /incremental:no /debug /machine:I386 /out:"..\derived\bin\catapultd.exe" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir "Release"
+# PROP BASE Intermediate_Dir "Release"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir "..\derived\bin"
+# PROP Intermediate_Dir "..\derived\bin\Release24"
+# PROP Ignore_Export_Lib 0
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MD /W4 /GX /Od /I "..\derived\config" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /FR /FD /c
+# SUBTRACT CPP /X /YX
+# ADD BASE RSC /l 0x3009 /d "NDEBUG"
+# ADD RSC /l 0x3009 /d "NDEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib wsock32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib zlib.lib regex.lib png.lib jpeg.lib tiff.lib wxmsw.lib wxxrcs.lib libxml2.lib winmm.lib shell32.lib /nologo /version:0.1 /subsystem:windows /machine:I386 /nodefaultlib:"wsock32.dll" /out:"..\derived\bin\catapult.exe" /libpath:"c:\windows\system32" /WARN:1
+# SUBTRACT LINK32 /pdb:none
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir "wxCatapult___Win32_Release_Unicode"
+# PROP BASE Intermediate_Dir "wxCatapult___Win32_Release_Unicode"
+# PROP BASE Ignore_Export_Lib 0
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir "..\derived\bin"
+# PROP Intermediate_Dir "..\derived\bin\ReleaseUnicode"
+# PROP Ignore_Export_Lib 0
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /MD /W3 /GX /Od /I "..\derived\config" /I "d:\programming\wx25\lib\vc_lib\msw" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /FR /FD /c
+# SUBTRACT BASE CPP /WX /X /YX
+# ADD CPP /nologo /MD /W3 /GX /Od /I "..\derived\config" /I "d:\programming\wx25\lib\vc_lib\mswu" /D "_UNICODE" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /FR /FD /c
+# SUBTRACT CPP /WX /X /YX
+# ADD BASE RSC /l 0x3009 /d "NDEBUG"
+# ADD RSC /l 0x3009 /d "NDEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 wxmsw25_xrc.lib wxmsw25_html.lib wxmsw25_adv.lib wxmsw25_core.lib wxbase25_xml.lib wxbase25.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxexpat.lib wxregex.lib kernel32.lib user32.lib gdi32.lib winspool.lib wsock32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib libxml2.lib winmm.lib shell32.lib /nologo /version:0.1 /subsystem:windows /machine:I386 /nodefaultlib:"wsock32.dll" /out:"..\derived\bin\catapult.exe" /libpath:"c:\windows\system32" /WARN:1
+# SUBTRACT BASE LINK32 /pdb:none
+# ADD LINK32 wxmsw25u_xrc.lib wxmsw25u_html.lib wxmsw25u_adv.lib wxmsw25u_core.lib wxbase25u_xml.lib wxbase25u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib libxml2.lib /nologo /subsystem:windows /machine:I386 /out:"..\derived\bin\catapult.exe" /libpath:"c:\windows\system32"
+# SUBTRACT LINK32 /pdb:none
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "wxCatapult___Win32_Debug_Unicode"
+# PROP BASE Intermediate_Dir "wxCatapult___Win32_Debug_Unicode"
+# PROP BASE Ignore_Export_Lib 0
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir "..\derived\bin"
+# PROP Intermediate_Dir "..\derived\bin\DebugUnicode"
+# PROP Ignore_Export_Lib 0
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /MDd /W3 /Gm /GX /Zi /Od /I "..\derived\config" /I "d:\programming\wx25\lib\vc_lib\mswd" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /D "__WXDEBUG__" /D WXDEBUG=1 /FR /YX /FD /GZ /c
+# SUBTRACT BASE CPP /X
+# ADD CPP /nologo /MDd /W3 /Gm /GX /Zi /Od /I "..\derived\config" /I "d:\programming\wx25\lib\vc_lib\mswd" /D "_UNICODE" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_WINDOWS" /D WINVER=0x400 /D "_MT" /D wxUSE_GUI=1 /D "__WXDEBUG__" /D WXDEBUG=1 /FR /YX /FD /GZ /c
+# SUBTRACT CPP /X
+# ADD BASE RSC /l 0x3009 /d "_DEBUG"
+# ADD RSC /l 0x3009 /d "_DEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 wxmsw25d_xrc.lib wxmsw25d_html.lib wxmsw25d_adv.lib wxmsw25d_core.lib wxbase25d_xml.lib wxbase25d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxexpatd.lib wxregexd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib libxml2.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"msvcrt.lib" /out:"..\derived\bin\catapultd.exe"
+# SUBTRACT BASE LINK32 /pdb:none
+# ADD LINK32 wxmsw25ud_xrc.lib wxmsw25ud_html.lib wxmsw25ud_adv.lib wxmsw25ud_core.lib wxbase25ud_xml.lib wxbase25ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxexpatd.lib wxregexud.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib libxml2.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"msvcrt.lib" /out:"..\derived\bin\catapultd.exe"
+# SUBTRACT LINK32 /pdb:none
+
 !ENDIF 
 
 # Begin Target
 
 # Name "wxCatapult - Win32 Release"
 # Name "wxCatapult - Win32 Debug"
+# Name "wxCatapult - Win32 Debug wx24"
+# Name "wxCatapult - Win32 Release wx24"
+# Name "wxCatapult - Win32 Release Unicode"
+# Name "wxCatapult - Win32 Debug Unicode"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
@@ -109,6 +227,54 @@ InputName=audiocontrols
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\audiocontrols.wxg
+InputName=audiocontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\audiocontrols.wxg
+InputName=audiocontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\audiocontrols.wxg
+InputName=audiocontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\audiocontrols.wxg
+InputName=audiocontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
@@ -151,6 +317,54 @@ InputName=catapult
 
 # End Custom Build
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\catapult.wxg
+InputName=catapult
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\catapult.wxg
+InputName=catapult
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\catapult.wxg
+InputName=catapult
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\catapult.wxg
+InputName=catapult
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -171,6 +385,54 @@ InputName=config
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\config.wxg
+InputName=config
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\config.wxg
+InputName=config
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\config.wxg
+InputName=config
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\config.wxg
+InputName=config
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
@@ -213,6 +475,54 @@ InputName=fullscreen
 
 # End Custom Build
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\fullscreen.wxg
+InputName=fullscreen
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\fullscreen.wxg
+InputName=fullscreen
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\fullscreen.wxg
+InputName=fullscreen
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\fullscreen.wxg
+InputName=fullscreen
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -233,6 +543,54 @@ InputName=input
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\input.wxg
+InputName=input
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\input.wxg
+InputName=input
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\input.wxg
+InputName=input
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\input.wxg
+InputName=input
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
@@ -275,6 +633,54 @@ InputName=misccontrols
 
 # End Custom Build
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\misccontrols.wxg
+InputName=misccontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\misccontrols.wxg
+InputName=misccontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\misccontrols.wxg
+InputName=misccontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\misccontrols.wxg
+InputName=misccontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -295,6 +701,54 @@ InputName=romtype
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\romtype.wxg
+InputName=romtype
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\romtype.wxg
+InputName=romtype
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\romtype.wxg
+InputName=romtype
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\romtype.wxg
+InputName=romtype
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
@@ -337,6 +791,54 @@ InputName=screenshot
 
 # End Custom Build
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\screenshot.wxg
+InputName=screenshot
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\screenshot.wxg
+InputName=screenshot
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\screenshot.wxg
+InputName=screenshot
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\screenshot.wxg
+InputName=screenshot
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -357,6 +859,54 @@ InputName=session
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\session.wxg
+InputName=session
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\session.wxg
+InputName=session
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\session.wxg
+InputName=session
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\session.wxg
+InputName=session
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
@@ -399,6 +949,54 @@ InputName=status
 
 # End Custom Build
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\status.wxg
+InputName=status
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\status.wxg
+InputName=status
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\status.wxg
+InputName=status
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\status.wxg
+InputName=status
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -419,6 +1017,54 @@ InputName=videocontrols
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\videocontrols.wxg
+InputName=videocontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\videocontrols.wxg
+InputName=videocontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\videocontrols.wxg
+InputName=videocontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\videocontrols.wxg
+InputName=videocontrols
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
@@ -475,6 +1121,78 @@ InputPath=.\version.mk
 	
 # End Custom Build
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# PROP BASE Ignore_Default_Tool 1
+# PROP Ignore_Default_Tool 1
+USERDEP__VERSI="$(InputDir)\..\ChangeLog"	
+# Begin Custom Build - Creating Version Information
+InputDir=.
+InputPath=.\version.mk
+
+"$(InputDir)\..\derived\config\version.ii" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	mkdir ..\derived 2> nul 
+	mkdir ..\derived\config 2> nul 
+	sed -ne "s/\$Id: ChangeLog,v \([^ ]*\).*/const wxString Version::CHANGELOG_REVISION = \"\1\";/p" $(InputDir)\..\ChangeLog > $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/RELEASE_FLAG:= *\([^ ]*\).*/const bool Version::RELEASE = \1;/p" $(InputDir)/version.mk >> $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/PACKAGE_VERSION:= *\([^ ]*\).*/const wxString Version::VERSION =  \"\1\";/p" $(InputDir)\version.mk >> $(InputDir)\..\derived\config\version.ii 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# PROP BASE Ignore_Default_Tool 1
+# PROP Ignore_Default_Tool 1
+USERDEP__VERSI="$(InputDir)\..\ChangeLog"	
+# Begin Custom Build - Creating Version Information
+InputDir=.
+InputPath=.\version.mk
+
+"$(InputDir)\..\derived\config\version.ii" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	mkdir ..\derived 2> nul 
+	mkdir ..\derived\config 2> nul 
+	sed -ne "s/\$Id: ChangeLog,v \([^ ]*\).*/const wxString Version::CHANGELOG_REVISION = \"\1\";/p" $(InputDir)\..\ChangeLog > $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/RELEASE_FLAG:= *\([^ ]*\).*/const bool Version::RELEASE = \1;/p" $(InputDir)/version.mk >> $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/PACKAGE_VERSION:= *\([^ ]*\).*/const wxString Version::VERSION =  \"\1\";/p" $(InputDir)\version.mk >> $(InputDir)\..\derived\config\version.ii 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# PROP BASE Ignore_Default_Tool 1
+# PROP Ignore_Default_Tool 1
+USERDEP__VERSI="$(InputDir)\..\ChangeLog"	
+# Begin Custom Build - Creating Version Information
+InputDir=.
+InputPath=.\version.mk
+
+"$(InputDir)\..\derived\config\version.ii" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	mkdir ..\derived 2> nul 
+	mkdir ..\derived\config 2> nul 
+	sed -ne "s/\$Id: ChangeLog,v \([^ ]*\).*/const wxString Version::CHANGELOG_REVISION = wxT(\"\1\");/p" $(InputDir)\..\ChangeLog > $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/RELEASE_FLAG:= *\([^ ]*\).*/const bool Version::RELEASE = \1;/p" $(InputDir)/version.mk >> $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/PACKAGE_VERSION:= *\([^ ]*\).*/const wxString Version::VERSION =  wxT(\"\1\");/p" $(InputDir)\version.mk >> $(InputDir)\..\derived\config\version.ii 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# PROP BASE Ignore_Default_Tool 1
+# PROP Ignore_Default_Tool 1
+USERDEP__VERSI="$(InputDir)\..\ChangeLog"	
+# Begin Custom Build - Creating Version Information
+InputDir=.
+InputPath=.\version.mk
+
+"$(InputDir)\..\derived\config\version.ii" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	mkdir ..\derived 2> nul 
+	mkdir ..\derived\config 2> nul 
+	sed -ne "s/\$Id: ChangeLog,v \([^ ]*\).*/const wxString Version::CHANGELOG_REVISION = wxT(\"\1\");/p" $(InputDir)\..\ChangeLog > $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/RELEASE_FLAG:= *\([^ ]*\).*/const bool Version::RELEASE = \1;/p" $(InputDir)/version.mk >> $(InputDir)\..\derived\config\version.ii 
+	sed -ne "s/PACKAGE_VERSION:= *\([^ ]*\).*/const wxString Version::VERSION =  wxT(\"\1\");/p" $(InputDir)\version.mk >> $(InputDir)\..\derived\config\version.ii 
+	
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -500,6 +1218,58 @@ InputName=diskimage
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\diskimage.bmp
+InputName=diskimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\diskimage.bmp
+InputName=diskimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\diskimage.bmp
+InputName=diskimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\diskimage.bmp
+InputName=diskimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
@@ -545,6 +1315,58 @@ InputName=eject
 	
 # End Custom Build
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\eject.bmp
+InputName=eject
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\eject.bmp
+InputName=eject
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\eject.bmp
+InputName=eject
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\eject.bmp
+InputName=eject
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -566,6 +1388,58 @@ InputName=file
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\file.bmp
+InputName=file
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\file.bmp
+InputName=file
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\file.bmp
+InputName=file
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\file.bmp
+InputName=file
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
@@ -611,6 +1485,58 @@ InputName=ledoff
 	
 # End Custom Build
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledoff.bmp
+InputName=ledoff
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledoff.bmp
+InputName=ledoff
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledoff.bmp
+InputName=ledoff
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledoff.bmp
+InputName=ledoff
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -632,6 +1558,58 @@ InputName=ledon
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledon.bmp
+InputName=ledon
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledon.bmp
+InputName=ledon
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledon.bmp
+InputName=ledon
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\ledon.bmp
+InputName=ledon
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
@@ -677,6 +1655,58 @@ InputName=romimage
 	
 # End Custom Build
 
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\romimage.bmp
+InputName=romimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\romimage.bmp
+InputName=romimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\romimage.bmp
+InputName=romimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\romimage.bmp
+InputName=romimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -698,6 +1728,58 @@ InputName=tapeimage
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\tapeimage.bmp
+InputName=tapeimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\tapeimage.bmp
+InputName=tapeimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\tapeimage.bmp
+InputName=tapeimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\tapeimage.bmp
+InputName=tapeimage
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
@@ -757,7 +1839,37 @@ SOURCE=..\src\openMSXController.cpp
 # Begin Source File
 
 SOURCE=..\src\openMSXLinuxController.cpp
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
 # PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 

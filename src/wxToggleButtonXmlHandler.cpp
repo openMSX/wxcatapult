@@ -1,7 +1,15 @@
-// $Id$
+// $Id: wxToggleButtonXmlHandler.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // wxToggleButtonXmlHandler.cpp: implementation of the wxToggleButtonXmlHandler class.
 //
 //////////////////////////////////////////////////////////////////////
+#include <wx/version.h>
+
+#if wxCHECK_VERSION(2,5,0)
+// don't use this file for 2.5 or higher
+#else
+
+#define ADD_TOGGLEBUTTON_HANDLER 1
+
 #include <wx/tglbtn.h>
 #include "wxToggleButtonXmlHandler.h"
 
@@ -38,3 +46,5 @@ bool wxToggleButtonXmlHandler::CanHandle(wxXmlNode *node)
 {
 	return IsOfClass(node, wxT("wxToggleButton"));
 }
+
+#endif // version < 2.5

@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.28 2004/11/11 17:15:00 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.29 2004/11/14 18:32:32 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,6 +18,7 @@
 
 #include <list>
 #include "CatapultPage.h"
+#include "CatapultXMLParser.h"
 
 #define LAUNCHSCRIPT_MAXSIZE 100
 
@@ -46,7 +47,7 @@ class openMSXController
 		void HandleStdOut (wxCommandEvent &event);
 		void HandleEndProcess (wxCommandEvent & event);
 		bool SetupOpenMSXParameters (wxString version);
-		virtual bool WriteMessage (wxString msg)=0;
+		virtual bool WriteMessage (xmlChar * msg,size_t length)=0;
 		virtual bool Launch (wxString cmdline)=0;
 		virtual void HandleNativeEndProcess ()=0;
 		virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd)=0;
@@ -126,7 +127,6 @@ class openMSXController
 		int InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
 		int InitConnectorPanel (wxString dummy1, wxString dummy2);
 		int EnableCassettePort (wxString data, wxString cmd);
-
 		list<CommandEntry> m_commands;
 };
 

@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.28 2004/12/01 20:05:59 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.29 2004/12/03 18:38:20 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -204,7 +204,7 @@ void VideoControlPage::OnFullScreen(wxCommandEvent &event)
 void VideoControlPage::OnChangeBlur(wxScrollEvent &event)
 {
 	wxString text;
-	text.sprintf("%ld", event.GetInt());
+	text.sprintf(wxT("%ld"), event.GetInt());
 	m_blurIndicator->SetValue(text);
 	m_controller->WriteCommand (wxString(wxT("set blur ")) + text);	
 }
@@ -212,7 +212,7 @@ void VideoControlPage::OnChangeBlur(wxScrollEvent &event)
 void VideoControlPage::OnChangeGlow(wxScrollEvent &event)
 {
 	wxString text;
-	text.sprintf("%ld", event.GetInt());
+	text.sprintf(wxT("%ld"), event.GetInt());
 	m_glowIndicator->SetValue(text);
 	m_controller->WriteCommand (wxString(wxT("set glow ")) + text);
 }
@@ -220,7 +220,7 @@ void VideoControlPage::OnChangeGlow(wxScrollEvent &event)
 void VideoControlPage::OnChangeGamma(wxScrollEvent &event)
 {
 	wxString text;
-	text.sprintf("%ld.%02ld", event.GetInt() / 100, event.GetInt() % 100);
+	text.sprintf(wxT("%ld.%02ld"), event.GetInt() / 100, event.GetInt() % 100);
 	m_gammaIndicator->SetValue(text);
 	m_controller->WriteCommand (wxString(wxT("set gamma ")) + text);
 }
@@ -228,7 +228,7 @@ void VideoControlPage::OnChangeGamma(wxScrollEvent &event)
 void VideoControlPage::OnChangeScanlines(wxScrollEvent &event)
 {
 	wxString text;
-	text.sprintf("%ld", event.GetInt());
+	text.sprintf(wxT("%ld"), event.GetInt());
 	m_scanlineIndicator->SetValue(text);
 	m_controller->WriteCommand (wxString(wxT("set scanline ")) + text);
 }
@@ -427,7 +427,7 @@ void VideoControlPage::FillComboBox (wxString control, wxString contents)
 	wxString temp = contents;
 	do
 	{
-		pos = temp.Find("\n");
+		pos = temp.Find(wxT("\n"));
 		if (pos != -1)
 		{
 			box->Append(temp.Left(pos));
@@ -539,7 +539,7 @@ int VideoControlPage::FindFirstFreeScreenshotFile(wxString prefix)
 	bool found = false;
 	do{
 		counter++;
-		countString.sprintf("0000%d",counter);
+		countString.sprintf(wxT("0000%d"),counter);
 		countString = countString.Right(4);
 		if (!wxFileExists(prefix + countString +wxT(".png"))){
 			found = true;			
@@ -563,7 +563,7 @@ void VideoControlPage::UpdateScreenshotCounter()
 	wxString prefix = m_screenShotFile->GetValue();
 	if (prefix != wxT("")){
 		wxString countString;
-		countString.sprintf("0000%d",FindFirstFreeScreenshotFile(prefix));
+		countString.sprintf(wxT("0000%d"),FindFirstFreeScreenshotFile(prefix));
 		countString = countString.Right(4);
 		m_screenShotCounter->SetValue(countString);
 	}

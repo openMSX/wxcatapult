@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.22 2004/10/06 19:28:24 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.23 2004/10/08 15:26:40 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -45,7 +45,8 @@ class MiscControlPage : public CatapultPage
 		void OnChangePrinterLogFile (wxCommandEvent &event);
 		void OnBrowsePrinterLogFile (wxCommandEvent &event);
 		void OnChangeRenShaTurbo (wxScrollEvent & event);
-		void OnJoystickChanged ();
+		void OnJoystickChangedTimer(wxTimerEvent & event);
+		void OnJoystickChanged();
 		void OnInputSpeed (wxCommandEvent & event);
 		void SetSpeed (wxString value);
 		void SetMinFrameskip (wxString value);

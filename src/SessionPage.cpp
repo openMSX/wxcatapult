@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.41 2004/12/25 22:29:34 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.42 2004/12/27 11:37:11 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -176,25 +176,30 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	RestoreHistory();
 	m_cassettePortState = wxT("disabled");
 
-	m_diskMenu = new wxMenu("",0);
-	m_diskMenu->Append(Disk_Insert_New,wxT("Insert empty disk"),"",wxITEM_NORMAL);
-	m_diskMenu->Append(Disk_Browse_File,wxT("Browse for diskfile"),"",wxITEM_NORMAL);
-	m_diskMenu->Append(Disk_Browse_Dir,wxT("Browse for diskfolder (dirasdisk)"),"",wxITEM_NORMAL);
-	m_diskMenu->Append(Disk_Eject,wxT("Eject disk"),"",wxITEM_NORMAL);
+	m_diskMenu = new wxMenu(wxT(""),0);
+	m_diskMenu->Append(Disk_Insert_New,wxT("Insert empty disk"),wxT(""),wxITEM_NORMAL);
+	m_diskMenu->Append(Disk_Browse_File,wxT("Browse for diskfile"),wxT(""),wxITEM_NORMAL);
+	m_diskMenu->Append(Disk_Browse_Dir,wxT("Browse for diskfolder (dirasdisk)"),wxT(""),wxITEM_NORMAL);
+	m_diskMenu->Append(Disk_Eject,wxT("Eject disk"),wxT(""),wxITEM_NORMAL);
 
-	m_cartMenu = new wxMenu("",0);
-	m_cartMenu->Append(Cart_Browse_File,wxT("Browse cartrdige"),"",wxITEM_NORMAL);
-	m_cartMenu->Append(Cart_Select_Mapper,wxT("Select cartridge type"),"",wxITEM_NORMAL);
-	m_cartMenu->Append(Cart_Browse_Ips,wxT("Browse IPS patch"),"",wxITEM_NORMAL);
+	m_cartMenu = new wxMenu(wxT(""),0);
+	m_cartMenu->Append(Cart_Browse_File,wxT("Browse cartrdige"),wxT(""),wxITEM_NORMAL);
+	m_cartMenu->Append(Cart_Select_Mapper,wxT("Select cartridge type"),wxT(""),wxITEM_NORMAL);
+	m_cartMenu->Append(Cart_Browse_Ips,wxT("Browse IPS patch"),wxT(""),wxITEM_NORMAL);
 
-	m_casMenu = new wxMenu("",0);
-	m_casMenu->Append(Cas_Browse_File,wxT("Browse cassette"),"",wxITEM_NORMAL);
-	m_casMenu->Append(Cas_Eject,wxT("Eject cassette"),"",wxITEM_NORMAL);
-	m_casMenu->Append(Cas_Rewind,wxT("Rewind cassette"),"",wxITEM_NORMAL);
-	m_casMenu->Append(Cas_ForcePlay,wxT("Forced play"),"",wxITEM_CHECK);
+	m_casMenu = new wxMenu(wxT(""),0);
+	m_casMenu->Append(Cas_Browse_File,wxT("Browse cassette"),wxT(""),wxITEM_NORMAL);
+	m_casMenu->Append(Cas_Eject,wxT("Eject cassette"),wxT(""),wxITEM_NORMAL);
+	m_casMenu->Append(Cas_Rewind,wxT("Rewind cassette"),wxT(""),wxITEM_NORMAL);
+	m_casMenu->Append(Cas_ForcePlay,wxT("Forced play"),wxT(""),wxITEM_CHECK);
 	
 	m_romTypeDialog = new RomTypeDlg (this);
 	GetRomTypes();
+	m_diskA->SetDropTarget(new SessionDropTarget(m_diskA));
+	m_diskB->SetDropTarget(new SessionDropTarget(m_diskB));
+	m_cartA->SetDropTarget(new SessionDropTarget(m_cartA));
+	m_cartB->SetDropTarget(new SessionDropTarget(m_cartB));
+	m_cassette->SetDropTarget(new SessionDropTarget(m_cassette));
 }
 
 SessionPage::~SessionPage()
@@ -401,9 +406,9 @@ void SessionPage::SetupHardware (bool initial)
 #ifdef __UNIX__
 	personalShare = ::wxGetHomeDir() +wxT("/.openMSX/share");
 #else
-	char temp[MAX_PATH + 1];
+	TCHAR temp[MAX_PATH + 1];
 	SHGetSpecialFolderPath(0,temp,CSIDL_PERSONAL, 1);
-	personalShare = wxString(temp) +wxT("/openMSX/share");
+	personalShare = wxString((const wxChar *)temp) +wxT("/openMSX/share");
 #endif
 	prepareExtensions (personalShare, m_extensionArray, true);
 	prepareMachines (personalShare, m_machineArray, true);
@@ -432,10 +437,10 @@ void SessionPage::SetupHardware (bool initial)
 
 int SessionPage::CompareCaseInsensitive(const wxString& first, const wxString& second)
 {
-	int result = first.CmpNoCase((char *)second.c_str());
+	int result = first.CmpNoCase(second);
 	if (result != 0) return result;
 
-	return first.Cmp((char *)second.c_str());
+	return first.Cmp(second);
 }
 
 void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensionArray, bool optional)
@@ -454,7 +459,7 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensio
 	while (succes)
 	{
 		if (::wxFileExists(sharepath + wxT("/extensions/") + extension + wxT("/hardwareconfig.xml"))) {
-			if (extensionArray.Index((char *)extension.c_str(),true) == wxNOT_FOUND){
+			if (extensionArray.Index(extension,true) == wxNOT_FOUND){
 				extensionArray.Add(extension);
 			}
 		}
@@ -467,7 +472,7 @@ void SessionPage::fillExtensions (wxArrayString & extensionArray)
 	wxString temp;
 	for (unsigned int i=0;i<extensionArray.GetCount();i++){
 		temp = extensionArray[i];
-		temp.Replace("_"," ",true);
+		temp.Replace(wxT("_"),wxT(" "),true);
 		m_extensionList->Append(temp);
 	}
 
@@ -489,7 +494,7 @@ void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArr
 	while (succes)
 	{
 		if (::wxFileExists(sharepath + wxT("/machines/") + machine + wxT("/hardwareconfig.xml"))) {
-			if (machineArray.Index((char *)machine.c_str(),true) == wxNOT_FOUND){
+			if (machineArray.Index(machine,true) == wxNOT_FOUND){
 				machineArray.Add(machine);
 			}
 		}
@@ -504,7 +509,7 @@ void SessionPage::fillMachines (wxArrayString & machineArray)
 	for (unsigned int i=0;i<machineArray.GetCount();i++)
 	{
 		temp = machineArray[i];
-		temp.Replace("_"," ",true);
+		temp.Replace(wxT("_"),wxT(" "),true);
 		m_machineList->Append(temp);
 	}
 }
@@ -675,9 +680,9 @@ void SessionPage::AddHistory(wxComboBox *media)
 	// so this is gonna be replaced as soon as 2.5 is stable
 	wxString currentItem = media->GetValue();
 #ifdef __WXMSW__
-	currentItem.Replace("/","\\",true);
+	currentItem.Replace(wxT("/"),wxT("\\"),true);
 #else
-	currentItem.Replace("\\","/",true);
+	currentItem.Replace(wxT("\\"),wxT("/"),true);
 #endif	
 	wxArrayString items;
 	unsigned int pos = media->FindString(currentItem);
@@ -740,8 +745,8 @@ void SessionPage::RestoreHistory()
 			if (!m_usedMachine.IsEmpty())
 			{
 				temp = m_usedMachine;
-				temp.Replace("_"," ",true);
-				temp.Replace("\"","",true);
+				temp.Replace(wxT("_"),wxT(" "),true);
+				temp.Replace(wxT("\""),wxT(""),true);
 				int pos = m_machineList->FindString(temp);
 				
 				if (pos != -1)
@@ -756,7 +761,7 @@ void SessionPage::RestoreHistory()
 				if (pos != -1)
 				{
 					temp = value.Left(pos);
-					temp.Replace("_"," ",true);
+					temp.Replace(wxT("_"),wxT(" "),true);
 					m_extensionList->SetStringSelection (temp);
 					value = value.Mid(pos + 2);	
 				}
@@ -867,7 +872,7 @@ void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent & event)
 	wxComboBox * target = GetLastMenuTarget();
 	if (target != NULL ){
 		devicename = m_lastUsedPopup->GetLabel();
-		devicename.Replace(" ","",TRUE);
+		devicename.Replace(wxT(" "),wxT(""),TRUE);
 		devicename.LowerCase();		
 		wxFileDialog filedlg(this,wxT("Create disk image"), ::wxPathOnly(target->GetValue()), wxT(""), wxT("*.*"),wxSAVE|wxOVERWRITE_PROMPT);
 		if (filedlg.ShowModal() == wxID_OK){
@@ -944,14 +949,14 @@ void SessionPage::OnSelectMapper(wxCommandEvent & event)
 			if (ips.IsEmpty())
 			{
 				if (!mapper.IsEmpty()){
-					value.Append(",");
+					value.Append(wxT(","));
 					value.Append(mapper);
 				}
 			}
 			else{
-				value.Append(",");
+				value.Append(wxT(","));
 				value.Append(mapper);
-				value.Append(",");
+				value.Append(wxT(","));
 				value.Append(ips);
 			}
 		target->SetValue(value);
@@ -982,10 +987,10 @@ void SessionPage::OnSelectIPS(wxCommandEvent & event)
 				value.Replace(OldIps,filedlg.GetPath());	
 			}
 			else{
-				if (GetRomMapper(value) == ""){
-					value.Append(",");	
+				if (GetRomMapper(value) == wxT("")){
+					value.Append(wxT(","));	
 				}			
-				value.Append(",");
+				value.Append(wxT(","));
 				value.Append(filedlg.GetPath());
 			}
 			target->SetValue(value);
@@ -993,9 +998,9 @@ void SessionPage::OnSelectIPS(wxCommandEvent & event)
 	}
 }
 
-void SessionPage::OnCloseMenu(wxCommandEvent & event)
+void SessionPage::OnCloseMenu(wxMenuEvent & event)
 {
-	wxMessageBox("closed");
+	wxMessageBox(wxT("closed"));
 }
 
 void SessionPage::GetRomTypes ()
@@ -1107,20 +1112,20 @@ wxString SessionPage::GetRomFile(wxString rom)
 	int pos;
 	wxString name = wxT("");
 	wxString mapper = GetRomMapper(rom);
-	if (mapper.IsEmpty() && (rom.Find(",,") == -1))
+	if (mapper.IsEmpty() && (rom.Find(wxT(",,")) == -1))
 	{
 		name = rom; // no mapper or IPS used	
 	}
 	else
 	{
-		mapper.Prepend(",");
+		mapper.Prepend(wxT(","));
 		if (rom.Right(mapper.Length()) == mapper)
 		{
 			name = rom.Left(rom.Length() - mapper.Length());
 		}
 		else
 		{
-			mapper.Append(",");
+			mapper.Append(wxT(","));
 			pos = rom.Find(mapper);
 			name = rom.Left(pos);
 		}
@@ -1133,11 +1138,11 @@ wxString SessionPage::GetRomIPS(wxString rom)
 	int pos;
 	wxString ips = wxT("");
 	wxString mapper = GetRomMapper(rom);
-	if (!mapper.IsEmpty() || rom.Find(",,") != -1)
+	if (!mapper.IsEmpty() || rom.Find(wxT(",,")) != -1)
 	{
-		mapper.Prepend(",");
+		mapper.Prepend(wxT(","));
 		if (rom.Right(mapper.Length()) != mapper){
-			mapper.Append(",");
+			mapper.Append(wxT(","));
 			pos = rom.Find(mapper);	
 			ips = rom.Mid(pos+mapper.Length());
 		}
@@ -1145,6 +1150,23 @@ wxString SessionPage::GetRomIPS(wxString rom)
 	return wxString (ips);
 }
 
+SessionDropTarget::SessionDropTarget(wxComboBox * target)
+{
+	m_target = target;
+}
+
+SessionDropTarget::~SessionDropTarget()
+{
+}
+
+bool SessionDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
+{
+	if (filenames.GetCount() != 0)
+	{
+		m_target->Append(filenames[0]); // just the first for starters
+	}
+	return true;
+}
 
 
 

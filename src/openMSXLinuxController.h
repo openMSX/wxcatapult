@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.h,v 1.6 2004/04/15 16:04:36 h_oudejans Exp $
+// $Id: openMSXLinuxController.h,v 1.7 2004/04/17 18:50:51 h_oudejans Exp $
 // openMSXLinuxController.h: interface for the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@ class PipeReadThread;
 class openMSXLinuxController : public openMSXController  
 {
 	public:
-		bool WriteMessage(wxString msg);
+		bool WriteMessage(xmlChar * msg,size_t length);
 		virtual bool Launch (wxString cmdline);
 		virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
 		virtual void HandleNativeEndProcess ();

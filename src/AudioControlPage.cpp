@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.27 2004/12/01 20:05:57 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.28 2004/12/03 18:38:19 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -114,7 +114,7 @@ void AudioControlPage::DestroyAudioMixer()
 		{
 			AudioSizer->Remove(i-1);
 			wxString number;
-			number.sprintf ("%u",i-1);
+			number.sprintf (wxT("%u"),i-1);
 			child = FindWindowByName(wxString(wxT("AudioLabel_") + number));
 			if (child) {
 				delete child;
@@ -183,8 +183,8 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	wxString choices1[4]={wxT("M"), wxT("L"), wxT("R"), wxT("O")};
 	wxString choices2[2]={wxT("S"), wxT("O")};
 	wxString number;
-	number.sprintf("%u",channelnumber);
-	wxStaticText * label = new wxStaticText(m_audioPanel, -1, labeltext.Mid(0,labeltext.Find("::")),
+	number.sprintf(wxT("%u"),channelnumber);
+	wxStaticText * label = new wxStaticText(m_audioPanel, -1, labeltext.Mid(0,labeltext.Find(wxT("::"))),
 			wxDefaultPosition, wxDefaultSize,0,
 			wxString(wxT("AudioLabel_")+number));
 	wxSlider * slider = new wxSlider(m_audioPanel,FIRSTAUDIOSLIDER+channelnumber,0,0,maxvol,wxDefaultPosition,
@@ -196,7 +196,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	if (chanType !=  chanName) { 
 		chanDesc += wxT(" (") +chanType +wxT(")");
 	}
-	chanDesc.Replace ("\\ "," ",true);
+	chanDesc.Replace (wxT("\\ "),wxT(" "),true);
 	slider->SetToolTip(wxString(chanDesc + wxT(" volume")));
 	wxComboBox * combo = NULL;
 	wxToggleButton * button = NULL;
@@ -288,7 +288,7 @@ void AudioControlPage::OnChangeVolume(wxScrollEvent& event)
 	wxString channelname = GetAudioChannelName(ID-FIRSTAUDIOSLIDER);
 	int scrollpos = 100-event.GetPosition();
 	wxString cmd;
-	cmd.sprintf("set %s_volume %d",(char *)channelname.c_str(),scrollpos);
+	cmd.sprintf(wxT("set %s_volume %d"),(char *)channelname.c_str(),scrollpos);
 	m_controller->WriteCommand(cmd);
 }
 
@@ -319,7 +319,7 @@ void AudioControlPage::OnChangeMode(wxCommandEvent& event)
 			break;
 	}
 	wxString cmd;
-	cmd.sprintf("set %s_mode %s",(char *)channelname.c_str(),(char *)value.c_str());
+	cmd.sprintf(wxT("set %s_mode %s"),(char *)channelname.c_str(),(char *)value.c_str());
 	m_controller->WriteCommand(cmd);
 }
 
@@ -331,39 +331,39 @@ void AudioControlPage::OnMute(wxCommandEvent& event)
 wxString AudioControlPage::GetAudioChannelName (int number)
 {
 	wxString temp;
-	int pos = m_audioChannels[number].Find(";;");
+	int pos = m_audioChannels[number].Find(wxT(";;"));
 	if (pos == -1) {
 		temp = m_audioChannels[number];
 	}
 	else{
 		temp = m_audioChannels[number].Mid(pos+2);
 	}
-	temp.Replace (" ","\\ ",true);	
+	temp.Replace (wxT(" "),wxT("\\ "),true);	
 	return wxString(temp);
 }
 
 wxString AudioControlPage::GetAudioChannelType (int number)
 {
 	wxString temp;
-	int pos2 = m_audioChannels[number].Find(";;");
+	int pos2 = m_audioChannels[number].Find(wxT(";;"));
 	if (pos2 == -1) {
 		return wxString(wxT(""));
 	}
-	int pos = m_audioChannels[number].Find("::");
+	int pos = m_audioChannels[number].Find(wxT("::"));
 	if (pos == -1) {
 		temp = m_audioChannels[number].Mid(0,pos2);
 	}
 	else{
 		temp = m_audioChannels[number].Mid(pos+2,pos2-pos-2);
 	}
-	temp.Replace ("\n"," ",true);
+	temp.Replace (wxT("\n"),wxT(" "),true);
 	temp.Trim ();
 	return wxString(temp);
 }
 
-int AudioControlPage::GetNumberOfAudioChannels ()
+unsigned int AudioControlPage::GetNumberOfAudioChannels ()
 {
-	return m_audioChannels.GetCount();
+	return (unsigned int) m_audioChannels.GetCount();
 }
 
 void AudioControlPage::SetChannelVolume (int number, wxString value)

@@ -138,7 +138,7 @@ int RomTypeDlg::FindRomFullTypeName(wxString name)
 
 wxString RomTypeDlg::ConvertRomType(wxString source, bool backwards)
 {
-	wxString retVal="";
+	wxString retVal=wxT("");
 	int offset;
 	int index;
 	if (backwards){

@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.h,v 1.13 2004/10/04 17:17:00 h_oudejans Exp $
+// $Id: AudioControlPage.h,v 1.14 2004/10/08 15:26:40 h_oudejans Exp $
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ class AudioControlPage : public CatapultPage
 		void SetChannelMode (int number,wxString value);
 		wxString GetAudioChannelName(int number);
 		wxString GetAudioChannelType (int number);
-		int GetNumberOfAudioChannels();
+		unsigned int GetNumberOfAudioChannels();
 		void OnChangeVolume(wxScrollEvent& event);
 		void OnChangeMode(wxCommandEvent& event);
 		void OnMute(wxCommandEvent& event);

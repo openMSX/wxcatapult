@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.h,v 1.7 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: openMSXWindowsController.h,v 1.8 2004/11/11 17:15:00 h_oudejans Exp $
 // openMSXWindowsController.h: interface for the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ class openMSXWindowsController : public openMSXController
 		void RaiseOpenMSX();
 		void RestoreOpenMSX();
 		void HandleEndProcess (wxCommandEvent &event);
-		bool WriteMessage (wxString msg);
+		bool WriteMessage (xmlChar * msg,size_t length);
 		void HandlePipeCreated();
 		virtual bool Launch (wxString cmdLine);
 		virtual bool HandleMessage (wxCommandEvent & event);

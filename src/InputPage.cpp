@@ -1,4 +1,4 @@
-// $Id: InputPage.cpp,v 1.7 2004/12/03 18:38:19 h_oudejans Exp $
+// $Id: InputPage.cpp,v 1.8 2004/12/13 22:11:47 manuelbi Exp $
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -46,14 +46,14 @@ InputPage::~InputPage()
 void InputPage::OnTypeText (wxCommandEvent &event)
 {
 	wxString test = m_inputtext->GetValue();
-	test.Replace("\\","\\\\",true);
-	test.Replace("\n","\\r",true);
-	test.Replace("$","\\$",true);
-	test.Replace("\"","\\\"",true);
-	test.Replace("[","\\[",true);
-	test.Replace("]","\\]",true);
-	test.Replace("}","\\}",true);
-	test.Replace("{","\\{",true);
+	test.Replace(wxT("\\"),wxT("\\\\"),true);
+	test.Replace(wxT("\n"),wxT("\\r"),true);
+	test.Replace(wxT("$"),wxT("\\$"),true);
+	test.Replace(wxT("\""),wxT("\\\""),true);
+	test.Replace(wxT("["),wxT("\\["),true);
+	test.Replace(wxT("]"),wxT("\\]"),true);
+	test.Replace(wxT("}"),wxT("\\}"),true);
+	test.Replace(wxT("{"),wxT("\\{"),true);
 	m_controller->WriteCommand(wxString(wxT("type \"")) + test + wxT("\""));	
 }
 

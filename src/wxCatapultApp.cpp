@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.18 2004/12/01 20:06:00 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.19 2004/12/25 22:29:34 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -14,7 +14,10 @@
 #include "wx/cmdline.h"
 #include "ConfigurationData.h"
 #include "CatapultConfigDlg.h"
+
+#ifdef ADD_TOGGLEBUTTON_HANDLER
 #include "wxToggleButtonXmlHandler.h"
+#endif
 
 #ifdef __UNIX__
 #include "config.h"
@@ -50,7 +53,10 @@ bool wxCatapultApp::OnInit()
 {
 	wxApp::OnInit();
 	wxXmlResource::Get()->InitAllHandlers();
+
+#ifdef ADD_TOGGLEBUTTON_HANDLER
 	wxXmlResource::Get()->AddHandler(new wxToggleButtonXmlHandler);
+#endif
 
 	EVT_CONTROLLER = wxNewEventType();
 
@@ -115,7 +121,7 @@ wxString wxCatapultApp::GetResourceDir ()
 {
 #ifdef __WXMSW__
 	wxString temp = ::wxPathOnly(argv[0]);
-	temp.Replace("/","\\",true);
+	temp.Replace(wxT("/"),wxT("\\"),true);
 	while (temp.Last() == '\\') {
 			temp = temp.Left(temp.Len()-1);
 		}

@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.cpp,v 1.9 2004/05/08 19:08:31 h_oudejans Exp $
+// $Id: PipeReadThread.cpp,v 1.10 2004/05/09 14:25:51 manuelbi Exp $
 // PipeReadThread.cpp: implementation of the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 		bytesRead = read(m_descriptor,szBuffer,1000);
 		if (bytesRead > 0) {
 			szBuffer[bytesRead] = 0;
-			wxString temp2 = szBuffer;
+			wxString temp2 = wxCSConv(wxT("ISO8859-1")).cMB2WX(szBuffer);
 			wxString * temp = new wxString;
 			*temp = temp2.Left(bytesRead);
 			wxCommandEvent event(EVT_CONTROLLER);
@@ -60,7 +60,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 		bResult=ReadFile(m_hTarget,szBuffer,1000,&dwBytesRead,NULL);
 		if (bResult) // the bytes could not be read
 		{
-			wxString temp2 = szBuffer;
+			wxString temp2 = wxCSConv(wxT("ISO8859-1")).cMB2WX(szBuffer);
 			wxString * temp = new wxString;
 			*temp = temp2.Left(dwBytesRead);
 			wxCommandEvent event(EVT_CONTROLLER);

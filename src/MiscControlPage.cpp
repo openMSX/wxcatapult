@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.37 2004/12/01 20:05:58 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.38 2004/12/03 18:38:20 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_BUTTON(XRCID("BrowsePrinterLog"),MiscControlPage::OnBrowsePrinterLogFile)
 	EVT_COMMAND_SCROLL (XRCID("RenshaTurboSlider"),MiscControlPage::OnChangeRenShaTurbo)
 #ifdef __UNIX__
-	EVT_TIMER(-1,MiscControlPage::OnJoystickChanged)
+	EVT_TIMER(-1,MiscControlPage::OnJoystickChangedTimer)
 #endif
 END_EVENT_TABLE()
 
@@ -118,7 +118,7 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 		box[i]->Append(wxT("keyjoystick"));
 #ifndef __BSD__
 		for (int j=1;j<=joy.GetNumberJoysticks();j++) {
-			temp.sprintf("joystick%d",j);
+			temp.sprintf(wxT("joystick%d"),j);
 			box[i]->Append(temp);
 		}
 #endif
@@ -190,7 +190,7 @@ void MiscControlPage::OnFirmware(wxCommandEvent &event)
 void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
 {
 	wxString speedText;
-	speedText.sprintf("%ld", event.GetInt());
+	speedText.sprintf(wxT("%ld"), event.GetInt());
 	m_speedIndicator->SetValue(speedText);
 	m_controller->WriteCommand (wxString(wxT("set speed ")) + speedText);
 	m_controller->WriteCommand (wxT("set throttle on"));
@@ -231,7 +231,7 @@ void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
 void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent &event)
 {
 	wxString skipText;
-	skipText.sprintf("%ld", event.GetInt());
+	skipText.sprintf(wxT("%ld"), event.GetInt());
 	m_maxFrameSkipIndicator->SetValue(skipText);
 	m_controller->WriteCommand (wxString(wxT("set maxframeskip ") + skipText));
 }
@@ -239,7 +239,7 @@ void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent &event)
 void MiscControlPage::OnMinFrameSkipChange(wxScrollEvent &event)
 {
 	wxString skipText;
-	skipText.sprintf("%ld", event.GetInt());
+	skipText.sprintf(wxT("%ld"), event.GetInt());
 	m_minFrameSkipIndicator->SetValue(skipText);
 	m_controller->WriteCommand (wxString(wxT("set minframeskip ") + skipText));
 }
@@ -484,6 +484,10 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 			}
 		}
 	}
+	if (box->FindString(currentval) == wxNOT_FOUND )
+	{
+		currentval = box->GetString(0);
+	}
 	box->SetValue(currentval);
 	wxString cmd = wxT("plug");
 	if (currentval == wxT("--empty--")) {
@@ -503,6 +507,11 @@ void MiscControlPage::OnChangeJoystick(wxCommandEvent & event)
 #else
 	OnJoystickChanged();
 #endif
+}
+
+void MiscControlPage::OnJoystickChangedTimer(wxTimerEvent & event)
+{
+	OnJoystickChanged();
 }
 
 void MiscControlPage::OnJoystickChanged()
@@ -541,9 +550,9 @@ void MiscControlPage::OnJoystickChanged()
 
 	if ((box->GetValue() != (wxT("--empty--"))) && (box->GetValue() == box2->GetValue())) {
 		MessageActive = true;
-		int result = wxMessageBox ("Unable to plug a device in more than one port!\n\n\
+		int result = wxMessageBox (wxT("Unable to plug a device in more than one port!\n\n\
 Do you still want to plug it into this port?\n\
-This device will then be removed from any other port(s).",wxT("Warning"),wxOK | wxCANCEL);
+This device will then be removed from any other port(s)."),wxT("Warning"),wxOK | wxCANCEL);
 		MessageActive = false;
 		if (result == wxOK) {
 			box2->SetSelection(0);
@@ -571,7 +580,7 @@ This device will then be removed from any other port(s).",wxT("Warning"),wxOK | 
 void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent & event)
 {
 	wxString value;
-	value.sprintf ("%ld",event.GetInt());
+	value.sprintf (wxT("%ld"),event.GetInt());
 	
 	
 	m_controller->WriteCommand(wxString (wxT("set renshaturbo ")) + value);

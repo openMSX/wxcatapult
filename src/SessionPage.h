@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.18 2004/12/25 22:29:34 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.19 2004/12/27 11:37:11 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -7,6 +7,7 @@
 #define SESSIONPAGE_H
 
 #include "CatapultPage.h"
+#include "wx/dnd.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -15,6 +16,18 @@
 class RomTypeDlg;
 class openMSXController;
 class wxCatapultFrame;
+
+class SessionDropTarget : public wxFileDropTarget
+{
+public:	
+	SessionDropTarget (wxComboBox * target);
+	~SessionDropTarget ();
+	bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
+private:
+	wxComboBox * m_target;
+};
+
+
 class SessionPage : public CatapultPage  
 {
 	public:
@@ -47,7 +60,7 @@ class SessionPage : public CatapultPage
 		void OnEjectDiskByMenu (wxCommandEvent & event);
 		void OnSelectMapper (wxCommandEvent & event);
 		void OnSelectIPS (wxCommandEvent & event);
-		void OnCloseMenu (wxCommandEvent & event);
+		void OnCloseMenu (wxMenuEvent & event);
 		void SetupHardware (bool initial);
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 		void SetControlsOnLaunch();
