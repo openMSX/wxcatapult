@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.3 2004/02/27 18:40:02 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.4 2004/03/31 14:49:51 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -11,9 +11,11 @@
 #include "PipeReadThread.h"
 #include "PipeConnectThread.h"
 #include "openMSXWindowsController.h"
+#include "StatusPage.h"
 #include "wxCatapultFrm.h"
 #include "wxCatapultApp.h"
 #include <process.h>
+#include <wx/textfile.h>
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -26,15 +28,16 @@ openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 	m_connectThread = NULL;
 	m_pipeActive = false;
 	m_openMsxRunning = false;
-	m_namedPipeHandle = INVALID_HANDLE_VALUE;	
+	m_namedPipeHandle = INVALID_HANDLE_VALUE;
 }
 
 openMSXWindowsController::~openMSXWindowsController()
 {
-	if (m_openMsxRunning) 
-		WriteCommand(_("quit"));
+	if (m_openMsxRunning){ 
+		WriteCommand("quit");
+	}
 }
-
+ 
 bool openMSXWindowsController::HandleMessage(wxCommandEvent &event)
 {
 	int id = event.GetId();
@@ -77,17 +80,16 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	si.hStdOutput = hOutputWrite;
 	si.hStdError  = hErrorWrite;
 	si.wShowWindow = wStartupWnd;
-
+	
 	CreateProcess (NULL,(char *)cmdLine.c_str(),
 			NULL,NULL,true, dwProcessFlags ,NULL,NULL,&si,&pi); //testing suspended
-
-	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT, NULL);	
+	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);	
 	if (thread->Create() == wxTHREAD_NO_ERROR)
 	{
 		thread->SetHandle(hOutputRead);
 		thread->Run();
 	}
-	PipeReadThread * thread2 = new PipeReadThread (m_appWindow, MSGID_STDERR, NULL);
+	PipeReadThread * thread2 = new PipeReadThread (m_appWindow, MSGID_STDERR);
 	if (thread2->Create() == wxTHREAD_NO_ERROR)
 	{
 		thread2->SetHandle(hErrorRead);
@@ -95,7 +97,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	}
 
 	::ResumeThread(pi.hThread);
-
+	
 	if (useNamedPipes)
 	{
 		if (!m_pipeActive)
@@ -114,6 +116,24 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	}
 	m_openMsxRunning = true;
 	CloseHandles (useNamedPipes,pi.hThread, hInputRead, hOutputWrite, hErrorWrite );
+	
+#if 1
+#ifdef _DEBUG //gdb mode	
+	::wxRemoveFile (_("c:/script2.gdb"));
+	wxTextFile tempfile (_("c:/script2.gdb"));
+	if (tempfile.Create()){
+		wxString line;
+		line.sprintf ("attach %i",pi.dwProcessId);
+		tempfile.AddLine(line);
+		tempfile.AddLine("continue");
+		tempfile.Write();
+		tempfile.Close();
+	}
+	
+	gdb_pid = wxExecute("gdb --command=c:/script2.gdb");
+#endif
+#endif
+	
 	return true;
 }
 

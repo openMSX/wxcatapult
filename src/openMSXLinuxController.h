@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.h,v 1.3 2004/03/31 14:49:51 h_oudejans Exp $
+// $Id: openMSXLinuxController.h,v 1.4 2004/04/01 08:31:48 h_oudejans Exp $
 // openMSXLinuxController.h: interface for the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,6 +12,9 @@
 
 #include <wx/txtstrm.h>
 #include "openMSXController.h"
+#include <string> 
+
+using std::string;
 
 class openMSXLinuxController : public openMSXController  
 {
@@ -23,7 +26,10 @@ class openMSXLinuxController : public openMSXController
 		openMSXLinuxController(wxWindow * target);
 		virtual ~openMSXLinuxController();
 	private:
-		wxTextOutputStream * m_outputstream;
+		bool execute(const string& command, int& fdIn, int& fdOut, int& fdErr);
+		int m_openMSXstdin;
+		int m_openMSXstdout;
+		int m_openMSXstderr;
 };
 
 #endif // !defined(AFX_OPENMSXLINUXCONTROLLER_H__25F18E15_838A_453A_A819_B48FDFE01E28__INCLUDED_)

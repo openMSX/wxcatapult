@@ -1,4 +1,4 @@
-// $Id$
+// $Id: PipeReadThread.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // PipeReadThread.h: interface for the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,9 +18,11 @@
 class PipeReadThread : public wxThread  
 {
 	public:
-		PipeReadThread(wxWindow * target, int id, wxProcess * process, wxThreadKind kind=wxTHREAD_DETACHED);
+		PipeReadThread(wxWindow * target, int id, wxThreadKind kind=wxTHREAD_DETACHED);
 #ifdef __WINDOWS__	
 		void SetHandle (HANDLE hTarget) {m_hTarget=hTarget;}
+#else
+		void SetFileDescriptor (int descriptor){m_descriptor = descriptor;};
 #endif
 		wxThread::ExitCode Entry();
 		virtual ~PipeReadThread();
@@ -28,10 +30,11 @@ class PipeReadThread : public wxThread
 	private:
 		int m_id;
 		wxWindow * m_target;
-		wxProcess * m_process;
-		wxTextInputStream * m_inputstream;
+
 #ifdef __WINDOWS__	
 		HANDLE m_hTarget;
+#else 
+		int m_descriptor;
 #endif
 };
 
