@@ -1,11 +1,16 @@
-openmsx-catapult (0.5.0R1-2) unstable; urgency=low
+openmsx-catapult (0.5.0R1-3) unstable; urgency=low
 
   * Close ITP. (Closes: #286949)
+  * clean up manual page on clean; properly
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Sat,  1 Jan 2005 10:39:47 +0100
+
+openmsx-catapult (0.5.0R1-2) unstable; urgency=low
+
   * clean up manual page on clean
   * tidy debian/rules
 
  -- Joost Yervante Damad <joost@lumatec.be>  Sun, 26 Dec 2004 14:09:14 +0100
-
 
 openmsx-catapult (0.5.0R1-1) unstable; urgency=low
 
