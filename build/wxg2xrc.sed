@@ -31,6 +31,7 @@ s/ base="[^"]*"//
 
 # global replaces
 
+s/\.\.\/resources\/bitmaps/\.\.\/bitmaps/
 s/<application path.*>/<resource version="2.3.0.1">/
 s/<disabled>1<\/disabled>/<enabled>0<\/enabled>/
 s/<\/application>/<\/resource>/
