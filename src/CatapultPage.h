@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.7 2004/04/17 15:49:54 h_oudejans Exp $
+// $Id: CatapultPage.h,v 1.8 2004/04/27 17:01:21 h_oudejans Exp $
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ public:
 	void OnClickCombo (wxCommandEvent &event);
 	virtual void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)=0;
 protected:
-	wxString ConvertPath (wxString path, bool ConvertSlash=false, bool Quote = true);
+	wxString ConvertPath (wxString path, bool ConvertSlash=false);
 
 private:
 	struct SettingTableElementType{

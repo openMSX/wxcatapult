@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.15 2004/04/21 05:55:10 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.16 2004/04/27 17:01:20 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -29,18 +29,12 @@ CatapultPage::~CatapultPage()
 	delete [] m_settingTable;
 }
 
-wxString CatapultPage::ConvertPath(wxString path, bool ConvertSlash, bool Quote)
+wxString CatapultPage::ConvertPath(wxString path, bool ConvertSlash)
 {
-	if (Quote){
-		path.Prepend(_("\""));
-		path.Append(_("\""));
-	}
+	path.Prepend(_("\""));
+	path.Append(_("\""));
 	if (ConvertSlash)
-#ifdef __WINDOWS__		
-		path.Replace(_("/"),_("\\"),true);
-#else 
 		path.Replace(_("\\"),_("/"),true);
-#endif
 	return path;
 }
 
