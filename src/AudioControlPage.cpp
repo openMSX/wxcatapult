@@ -218,9 +218,9 @@ void AudioControlPage::OnChangeMode(wxCommandEvent & event)
 {
 	int ID=event.GetId();
 	wxString channelname = GetAudioChannelName(ID-FIRSTAUDIOCOMBO);
-	wxString tempval = ((wxComboBox *)event.GetEventObject())->GetValue();
+	const wxString tempval = ((wxComboBox *)event.GetEventObject())->GetValue();
 	wxString value;
-	switch (tempval[(size_t)0])
+	switch (tempval[0])
 	{
 	case 'M':
 		value = _("mono");
