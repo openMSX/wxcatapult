@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.23 2004/09/24 22:03:24 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.24 2004/10/06 19:28:23 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -13,6 +13,7 @@
 #include <wx/notebook.h>
 #include "AudioControlPage.h"
 #include "VideoControlPage.h"
+#include "ConfigurationData.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -86,6 +87,8 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting("tape1","Tape1Contents",&CatapultPage::UpdateComboSetting,0);
 	AddSetting("tape2","Tape2Contents",&CatapultPage::UpdateComboSetting,0);
 	AddSetting("fullscreen","FullScreenButton",&CatapultPage::UpdateToggleSetting,S_CONVERT);
+	AddSetting("save_settings_on_exit","Save Settings On Exit",&CatapultPage::UpdateMenuSetting,0);
+	AddSetting("printerlogfilename","PrinterLogFile",&CatapultPage::UpdateIndicatorSetting,0);
 }
 
 void CatapultPage::AddSetting (wxString setting, wxString controlname,
@@ -209,6 +212,22 @@ bool CatapultPage::UpdateSliderSetting(wxString setting, wxString data, wxString
 	return false;
 }
 
+bool CatapultPage::UpdateMenuSetting (wxString setting, wxString data, wxString control, int flags)
+{
+	bool sendvalue = false;
+	long savedvalue = 0;
+	wxFrame * appwnd = (wxFrame *)GetParent()->GetGrandParent();
+	int menusetting = appwnd->GetMenuBar()->FindMenuItem("&Settings","Save openMSX Settings On &Exit");
+	if (menusetting != NULL) {
+		if ((data == "on") || (data == "true") || (data == "1") || (data== "yes")) {
+			sendvalue = true;
+			savedvalue = 1;
+		}
+		appwnd->GetMenuBar()->Check(menusetting,sendvalue);
+	}
+	return false;
+}
+
 bool CatapultPage::UpdateAudioSetting (wxString setting, wxString data, wxString selection, int flags)
 {
 	int i;
@@ -259,3 +278,5 @@ bool CatapultPage::UpdatePluggable (wxString connector, wxString data, wxString 
 	}
 	return true;
 }
+
+

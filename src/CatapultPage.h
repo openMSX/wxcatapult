@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.11 2004/09/11 15:09:08 h_oudejans Exp $
+// $Id: CatapultPage.h,v 1.12 2004/09/24 22:03:24 h_oudejans Exp $
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -49,6 +49,7 @@ private:
 	bool UpdateIndicatorSetting(wxString setting, wxString data, wxString control, int flags);
 	bool UpdateSliderSetting (wxString setting, wxString data, wxString control, int flags);
 	bool UpdateAudioSetting (wxString setting, wxString data, wxString selection, int flags);
+	bool UpdateMenuSetting (wxString setting, wxString data, wxString selection, int flags);
 	bool UpdateMidiPlug (wxString connector, wxString data, wxString control, int flags);
 	bool UpdatePluggable (wxString connector, wxString data, wxString control, int flags);
 };

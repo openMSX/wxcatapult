@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.63 2004/10/03 17:15:34 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.64 2004/10/06 19:28:24 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -165,7 +165,8 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					(lastcmd.Mid(5,lastcmd.Find(' ',true)-5)!= data->name)) {
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
 						m_launchMode = LAUNCH_NORMAL;
-						executeLaunch(NULL,41);
+						executeLaunch(NULL,43);
+						m_launchMode = LAUNCH_NONE;
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG) {
@@ -173,7 +174,9 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				if ((lastcmd.Mid(0,7) != "unplug ") || (lastcmd.Find(' ',true) == 6)) {
 					m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
 					m_launchMode = LAUNCH_NORMAL;
-					executeLaunch(NULL,41);
+					executeLaunch(NULL,43);
+					m_launchMode = LAUNCH_NONE;
+					
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA) {
@@ -220,6 +223,9 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 							}
 							else if (command == wxT("plug pcminput wavinput")) {
 								m_appWindow->m_audioControlPage->InvalidSampleFilename();
+							}
+							else if (command == wxT("plug printerport logger")) {
+								m_appWindow->m_miscControlPage->InvalidPrinterLogFilename();
 							}
 							else if (command == wxT("save_settings")){
 								wxMessageBox (wxString ("Error saving openMSX settings\n")+data->contents);
@@ -524,6 +530,8 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("set scanline","0","scanline",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("info exist renshaturbo","1","#",&openMSXController::EnableRenShaTurbo,false);
 	AddLaunchInstruction ("set renshaturbo","0","renshaturbo",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set save_settings_on_exit","","save_settings_on_exit",&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction ("set printerlogfilename","","printerlogfilename",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("@execute","","",&openMSXController::SetSliderDefaults,false);
 	AddLaunchInstruction ("set speed","","speed",&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction ("set maxframeskip","","maxframeskip",&openMSXController::UpdateSetting,true);
@@ -554,6 +562,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("update enable plug","","",NULL,false);
 	AddLaunchInstruction ("update enable unplug","","",NULL,false);
 	AddLaunchInstruction ("update enable status","","",NULL,false);
+	
 	
 }
 
