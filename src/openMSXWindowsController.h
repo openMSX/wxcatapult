@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.h,v 1.5 2004/04/18 11:57:41 h_oudejans Exp $
+// $Id: openMSXWindowsController.h,v 1.6 2004/04/18 15:50:55 h_oudejans Exp $
 // openMSXWindowsController.h: interface for the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ class openMSXWindowsController : public openMSXController
 		virtual bool Launch (wxString cmdLine);
 		virtual bool HandleMessage (wxCommandEvent & event);
 		virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
-		virtual void HandleNativeEndProcess (){};
+		virtual void HandleNativeEndProcess () {};
 		openMSXWindowsController(wxWindow * target);
 		virtual ~openMSXWindowsController();
 

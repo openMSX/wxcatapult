@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.10 2004/05/08 19:08:32 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.11 2004/05/08 19:52:53 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 
 openMSXWindowsController::~openMSXWindowsController()
 {
-	if (m_openMsxRunning){ 
+	if (m_openMsxRunning) { 
 		WriteCommand("quit");
 	}
 }
@@ -50,7 +50,7 @@ bool openMSXWindowsController::HandleMessage(wxCommandEvent &event)
 			HandleEndProcess(event);
 			break;
 		default:
-			if (openMSXController::HandleMessage(event)){
+			if (openMSXController::HandleMessage(event)) {
 				return true;
 			}
 			return false; // invalid ID
@@ -122,7 +122,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 bool openMSXWindowsController::DetermenNamedPipeUsage()
 {
 	bool useNamedPipes = false;
-	if (!FORCE_UNNAMED_PIPES){
+	if (!FORCE_UNNAMED_PIPES) {
 		OSVERSIONINFO info;
 		info.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);	
 		if (!GetVersionEx (&info))
@@ -146,7 +146,7 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 
 	if (useNamedPipes)
 	{
-		if (m_connectThread == NULL){
+		if (m_connectThread == NULL) {
 			m_launchCounter++;
 		}
 		wxString pipeName;
@@ -300,7 +300,7 @@ wxString openMSXWindowsController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 	wxString version = "";
 	wxArrayString output;
 	int code = wxExecute(openmsxCmd + wxT(" -v"), output);
-	if ((code != -1) && (output.GetCount()>0)){
+	if ((code != -1) && (output.GetCount()>0)) {
 		version = output[0];
 	}
 	return wxString (version);
@@ -309,7 +309,7 @@ wxString openMSXWindowsController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 void openMSXWindowsController::RaiseOpenMSX()
 {
 	HWND openmsxWindow = FindOpenMSXWindow();
-	if (openmsxWindow != NULL){
+	if (openmsxWindow != NULL) {
 		SetParent (openmsxWindow,m_catapultWindow);
 		SetActiveWindow(openmsxWindow);
 		SetForegroundWindow(openmsxWindow);
@@ -320,7 +320,7 @@ void openMSXWindowsController::RaiseOpenMSX()
 void openMSXWindowsController::RestoreOpenMSX()
 {
 	HWND openmsxWindow = FindOpenMSXWindow();
-	if (openmsxWindow != NULL){
+	if (openmsxWindow != NULL) {
 		SetParent (openmsxWindow,m_catapultWindow);
 		SetWindowPos(openmsxWindow,HWND_TOP,0,0,640,480,SWP_NOSIZE || SWP_SHOWWINDOW);
 		SetParent (openmsxWindow,NULL);

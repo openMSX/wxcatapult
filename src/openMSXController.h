@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.21 2004/04/21 05:55:10 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.22 2004/04/27 17:01:21 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ class openMSXController
 		
 		wxString GetInfoCommand (wxString parameter);
 		wxString GetExistCommand (wxString parameter);
-		bool IsOpenMSXRunning(){return m_openMsxRunning;};
+		bool IsOpenMSXRunning() {return m_openMsxRunning;};
 		void InitLaunchScript ();
 		bool m_oldVersion;
 	protected:
@@ -103,9 +103,9 @@ class openMSXController
 		int tokenize (wxString text, wxString seperator, wxArrayString & result);
 		wxString translate(wxArrayString tokens, int loop, wxString lastdata);
 		void openMSXController::HandleLaunchReply (wxString cmd, wxCommandEvent * event,
-													LaunchInstructionType instruction,
-													int * sendStep, int loopcount,
-													wxString datalist);
+			LaunchInstructionType instruction,
+			int * sendStep, int loopcount,
+			wxString datalist);
 		int UpdateSetting (wxString data,wxString setting);
 		int FillComboBox (wxString data,wxString setting);
 		int EnableFirmware (wxString dummy, wxString cmd);

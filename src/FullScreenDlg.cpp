@@ -42,7 +42,7 @@ void FullScreenDlg::OnOk(wxCommandEvent &event)
 	ConfigurationData * config = ConfigurationData::instance();
 	wxCheckBox * box = (wxCheckBox *)FindWindow(wxT("DoNotShow"));
 	long notwarn = 0;
-	if (box->IsChecked()){
+	if (box->IsChecked()) {
 		notwarn = 1;
 	}
 	config->SetParameter(ConfigurationData::CD_FULLSCREENWARN,notwarn);

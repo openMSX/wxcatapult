@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.12 2004/05/08 20:50:44 mthuurne Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.13 2004/05/09 11:32:18 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -27,13 +27,13 @@
 // not wxApp)
 IMPLEMENT_APP(wxCatapultApp)
 
-	// ============================================================================
-	// implementation
-	// ============================================================================
+// ============================================================================
+// implementation
+// ============================================================================
 
-	// ----------------------------------------------------------------------------
-	// the application class
-	// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// the application class
+// ----------------------------------------------------------------------------
 
 wxCatapultApp::wxCatapultApp()
 {
@@ -90,7 +90,7 @@ bool wxCatapultApp::OnInit()
 		frame->Show(TRUE);
 	}
 	else{
-		wxMessageBox ("Unable to load resources\n","Error");
+		wxMessageBox ("Unable to load resources!\nThere is something wrong with your installation.\n","Error");
 		return FALSE;
 	}
 	return TRUE;
@@ -99,7 +99,7 @@ bool wxCatapultApp::OnInit()
 bool wxCatapultApp::LoadXRC(wxString XrcFile)
 {
 	wxString resourceDir = GetResourceDir();
-	if (::wxFileExists(resourceDir + wxT("/dialogs/") + XrcFile)){
+	if (::wxFileExists(resourceDir + wxT("/dialogs/") + XrcFile)) {
 		wxXmlResource::Get()->Load(resourceDir + wxT("/dialogs/") + XrcFile);
 		return true;
 	}
@@ -113,11 +113,11 @@ wxString wxCatapultApp::GetResourceDir ()
 #ifdef __WINDOWS__
 	wxString temp = ::wxPathOnly(argv[0]);
 	temp.Replace("/","\\",true);
-	while (temp.Last() == '\\'){
+	while (temp.Last() == '\\') {
 			temp = temp.Left(temp.Len()-1);
 		}
 		int pos = temp.Find('\\',true);
-		if (pos != -1){
+		if (pos != -1) {
 			temp = temp.Left(pos+1) + wxT("resources");
 		}
 	return wxString(temp);	

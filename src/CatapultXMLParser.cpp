@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.9 2004/04/10 21:24:05 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.10 2004/05/08 19:08:31 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ void CatapultXMLParser::cb_start_element(CatapultXMLParser * parser, const xmlCh
 				parser->parseUpdate((const char**)attrs);
 			} else 
 			
-			// about to be depreciated tags
+			// about to be deprecated tags
 			if (!strcmp((const char *)name, "info")) {
 				parser->parseResult.parseState = TAG_INFO;
 				parser->parseResult.logLevel = LOG_INFO;
@@ -141,7 +141,7 @@ void CatapultXMLParser::SendParsedData()
 	ParseResult * result = new ParseResult;
 	result->contents = parseResult.contents;
 	result->openMSXID = parseResult.openMSXID;
-	// handle both new and depreciated messages
+	// handle both new and deprecated messages
 	switch (parseResult.parseState)	{
 	case STATE_START:
 	case TAG_OPENMSX:
@@ -231,13 +231,13 @@ void CatapultXMLParser::parseUpdate(const char** attrs)
 				else if (strcmp(attrs[1], "setting") == 0) {
 					parseResult.updateType = UPDATE_SETTING;
 				}
-				else if (strcmp(attrs[1], "plug") == 0){
+				else if (strcmp(attrs[1], "plug") == 0) {
 					parseResult.updateType = UPDATE_PLUG;
 				}
-				else if (strcmp(attrs[1], "unplug") == 0){
+				else if (strcmp(attrs[1], "unplug") == 0) {
 					parseResult.updateType = UPDATE_UNPLUG;
 				}
-				else if (strcmp(attrs[1], "media") == 0){
+				else if (strcmp(attrs[1], "media") == 0) {
 					parseResult.updateType = UPDATE_MEDIA;
 				}
 			} else if (strcmp(attrs[0], "name") == 0) {

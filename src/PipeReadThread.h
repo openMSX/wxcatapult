@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.h,v 1.3 2004/04/12 13:33:10 h_oudejans Exp $
+// $Id: PipeReadThread.h,v 1.4 2004/04/18 15:50:55 h_oudejans Exp $
 // PipeReadThread.h: interface for the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ class PipeReadThread : public wxThread
 #ifdef __WINDOWS__	
 		void SetHandle (HANDLE hTarget) {m_hTarget=hTarget;}
 #else
-		void SetFileDescriptor (int descriptor){m_descriptor = descriptor;};
+		void SetFileDescriptor (int descriptor) {m_descriptor = descriptor;};
 #endif
 		wxThread::ExitCode Entry();
 		virtual ~PipeReadThread();

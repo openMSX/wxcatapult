@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.10 2004/04/17 18:50:51 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.11 2004/05/08 19:08:32 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@
 
 openMSXLinuxController::~openMSXLinuxController()
 {
-	if (m_openMsxRunning){ 
+	if (m_openMsxRunning) { 
 		WriteCommand("quit");
 		m_stdOutThread->Wait();
 		m_stdErrThread->Wait();
@@ -41,7 +41,7 @@ bool openMSXLinuxController::Launch(wxString cmdline)
 {
 	PreLaunch();
 	cmdline += wxT(" -control stdio");
-	if (!execute(cmdline.c_str(), m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)){
+	if (!execute(cmdline.c_str(), m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
 		return false;
 	}
 	m_stdOutThread = new PipeReadThread(m_appWindow, MSGID_STDOUT,wxTHREAD_JOINABLE);
@@ -125,7 +125,7 @@ wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 	wxString version = "";
 	system (wxString (openmsxCmd + " -v > /tmp/catapult.tmp").c_str());
 	wxTextFile tempfile (wxT("/tmp/catapult.tmp"));
-	if (tempfile.Open()){
+	if (tempfile.Open()) {
 		version = tempfile.GetFirstLine();
 		tempfile.Close();
 	}
@@ -144,5 +144,3 @@ void openMSXLinuxController::HandleNativeEndProcess ()
 {
 	close(m_openMSXstdin);
 }
-
-

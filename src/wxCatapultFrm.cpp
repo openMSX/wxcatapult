@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.29 2004/05/08 19:52:53 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.30 2004/05/08 20:50:44 mthuurne Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -29,7 +29,6 @@
 #include "openMSXController.h"
 
 #define unisprintf sprintf
-
 
 // ----------------------------------------------------------------------------
 // constants
@@ -91,7 +90,7 @@ END_EVENT_TABLE()
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("CatapultFrame"));
 	SetIcon (wxICON(acatapult));
 
-	// create menu bars				jdayeshdfsg
+	// create menu bars
 
 	wxMenu *fileMenu = new wxMenu("", wxMENU_TEAROFF);
 	wxMenu *editMenu = new wxMenu("", wxMENU_TEAROFF);
@@ -179,11 +178,11 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 	wxString cmd;
 	CatapultConfigDlg dlg;
 	dlg.Center();
-	if (dlg.ShowModal() == wxID_OK){
+	if (dlg.ShowModal() == wxID_OK) {
 		bool result = ConfigurationData::instance()->SaveData();
 #if !OPENMSX_DEMO_CD_VERSION
-		if (!result){
-			wxMessageBox ("Error saving configuration data");
+		if (!result) {
+			wxMessageBox ("Error saving configuration data!");
 		}
 #endif
 		m_sessionPage->SetupHardware(false);
@@ -196,7 +195,7 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
 	unsigned int i;
-	if (m_launch_AbortButton->GetLabel().IsSameAs(wxT("Stop"))){
+	if (m_launch_AbortButton->GetLabel().IsSameAs(wxT("Stop"))) {
 		m_controller->WriteCommand("quit");
 		return;
 	}
@@ -213,15 +212,15 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		cmd += " -machine " + hardware[0];
 	}
 	
-	if (hardware.GetCount() > 1){
-		for (i=1;i<hardware.GetCount();i++){
+	if (hardware.GetCount() > 1) {
+		for (i=1;i<hardware.GetCount();i++) {
 			cmd += " -ext " + hardware[i];
 		}
 	}
 
 	wxString parmname [6]={wxT("diska"),wxT("diskb"),wxT("carta"),wxT("cartb"),wxT("cassetteplayer"),wxT("cas")};
-	for (i=0;i<6;i++){
-		if (!media[i].IsEmpty()){
+	for (i=0;i<6;i++) {
+		if (!media[i].IsEmpty()) {
 			cmd += " -" + parmname[i] + " \"" + media[i] + wxT("\"");
 		}
 	}
@@ -279,10 +278,10 @@ void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 void wxCatapultFrame::OnCheckFocus(wxTimerEvent& event)
 {
 	int selectedPage = m_tabControl->GetSelection();
-	if (selectedPage != -1){
+	if (selectedPage != -1) {
 		CatapultPage * page = (CatapultPage *)m_tabControl->GetPage(selectedPage);
 		wxWindow * newfocus = page->FindFocus();
-		if (m_currentFocus != newfocus){
+		if (m_currentFocus != newfocus) {
 			page->HandleFocusChange(m_currentFocus,newfocus);
 			m_currentFocus = newfocus;
 		}
@@ -294,11 +293,11 @@ void wxCatapultFrame::OnChangePage(wxNotebookEvent &event)
 	CatapultPage * page;
 	int oldPageNr = event.GetOldSelection();
 	int newPageNr = event.GetSelection();
-	if (oldPageNr != -1){
+	if (oldPageNr != -1) {
 		page = (CatapultPage *)m_tabControl->GetPage(oldPageNr);
 		page->HandleFocusChange(m_currentFocus,NULL);	
 	}
-	if (newPageNr != -1){
+	if (newPageNr != -1) {
 		page = (CatapultPage *)m_tabControl->GetPage(newPageNr);	
 		wxWindow * newfocus = page->FindFocus();
 		page->HandleFocusChange(NULL,newfocus);
@@ -309,7 +308,7 @@ void wxCatapultFrame::OnChangePage(wxNotebookEvent &event)
 void wxCatapultFrame::OnDeselectCatapult(wxActivateEvent & event)
 {
 	int selectedPage = m_tabControl->GetSelection();
-	if (selectedPage != -1){
+	if (selectedPage != -1) {
 		CatapultPage * page = (CatapultPage *)m_tabControl->GetPage(selectedPage);	
 		page->HandleFocusChange(m_currentFocus,NULL);
 	}
@@ -330,5 +329,4 @@ void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 	if (ledstate == "off") led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
 	if (ledstate == "on") led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
 }
-
 

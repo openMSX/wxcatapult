@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.6 2004/05/08 19:08:31 h_oudejans Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.7 2004/05/08 19:52:53 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -35,48 +35,48 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 	wxString temp;
 	ConfigurationData * config = ConfigurationData::instance();
 	OkButton->SetFocus(); // avoid strange behaviour of the execpath textctrl
-	if (config->GetParameter(ConfigurationData::CD_EXECPATH,temp)){
+	if (config->GetParameter(ConfigurationData::CD_EXECPATH,temp)) {
 		m_ExecPath->SetValue(temp);
 	}
-	if (temp == wxT("")){
+	if (temp == wxT("")) {
 #ifdef __WINDOWS__		
 		guess = ((wxCatapultApp &)wxGetApp()).GetResourceDir();
 		guess.Replace ("/","\\",true);
-		for (int i=0;i<2;i++){
-			while (guess.Last() == '\\'){
+		for (int i=0;i<2;i++) {
+			while (guess.Last() == '\\') {
 				guess = guess.Left(guess.Len()-1);
 			}
 			int pos = guess.Find('\\',true);
-			if (pos !=-1){
+			if (pos !=-1) {
 				guess = guess.Left(pos+1);
 			}
 		}
 		guess += "openmsx.exe";
 #else
-		guess = wxT("opt/openMSX/bin/openmsx");
+		guess = wxT("/opt/openMSX/bin/openmsx");
 #endif
-		if (wxFileExists(guess)){
+		if (wxFileExists(guess)) {
 			m_ExecPath->SetValue(guess);
 		}
 	}
 	if (config->GetParameter(ConfigurationData::CD_SHAREPATH,temp))
 		m_SharePath->SetValue(temp);
-	if (temp==wxT("") && (m_ExecPath->GetValue() != wxT(""))){
+	if (temp==wxT("") && (m_ExecPath->GetValue() != wxT(""))) {
 #ifdef __WINDOWS__
 		guess = m_ExecPath->GetValue();
 		guess.Replace ("/","\\",true);
 		int pos = guess.Find('\\',true);
-		if (pos != -1){
+		if (pos != -1) {
 			guess = guess.Left(pos+1) + wxT("share");
 		}
 		else{
 			guess = "";
 		}
 #else
-		guess = wxT("opt/openMSX/share");
+		guess = wxT("/opt/openMSX/share");
 #endif
 	}
-	if (wxDirExists(guess)){
+	if (wxDirExists(guess)) {
 		m_SharePath->SetValue(guess);
 	}
 }
@@ -94,13 +94,13 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 	tempShare = m_SharePath->GetValue();
 	if (!::wxFileExists(tempExec))
 	{
-		wxMessageBox ("No valid exec path");
+		wxMessageBox ("That's not a valid executable...");
 	}
 	else
 	{
 		if (!::wxDirExists(tempShare))
 		{
-			wxMessageBox("No valid share path");
+			wxMessageBox("That's not a valid share path...");
 		}
 		else
 		{
@@ -140,10 +140,10 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent &event)
 void CatapultConfigDlg::OnBrowseShare(wxCommandEvent &event)
 {
 	wxString defaultpath = "";
-	if (!m_SharePath->GetValue().IsEmpty()){
+	if (!m_SharePath->GetValue().IsEmpty()) {
 		defaultpath = ::wxPathOnly(wxString(m_SharePath->GetValue())+wxT("/"));
 	}
-	else if (!m_ExecPath->GetValue().IsEmpty()){
+	else if (!m_ExecPath->GetValue().IsEmpty()) {
 		defaultpath = ::wxPathOnly(wxString(m_ExecPath->GetValue())+wxT("/"));
 	}
 

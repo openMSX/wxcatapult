@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.18 2004/04/21 05:55:10 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.19 2004/05/08 19:08:31 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -142,8 +142,8 @@ void VideoControlPage::OnFullScreen(wxCommandEvent &event)
 	int notwarn;
 	config->GetParameter(ConfigurationData::CD_FULLSCREENWARN,&notwarn);
 	bool doIt = false;
-	if (!notwarn){
-		if (dlg.ShowModal() == wxID_OK){
+	if (!notwarn) {
+		if (dlg.ShowModal() == wxID_OK) {
 			doIt = true;
 		}
 	}
@@ -151,7 +151,7 @@ void VideoControlPage::OnFullScreen(wxCommandEvent &event)
 		doIt = true;
 	}
 	
-	if (doIt){
+	if (doIt) {
 		if (button->GetValue())
 		{
 #ifdef __WINDOWS__
@@ -236,12 +236,12 @@ void VideoControlPage::OnInputBlur(wxCommandEvent &event)
 	{
 		unsigned long num;
 		text.ToULong(&num);
-		if (num > 100){
+		if (num > 100) {
 			num = 100;
 			text = wxT("100");
 			m_blurIndicator->SetValue(text);
 		}
-		if (num >= 0){
+		if (num >= 0) {
 			m_controller->WriteCommand (wxString("set blur ") + text);
 			m_blurSlider->SetValue(num);	
 		}
@@ -388,7 +388,7 @@ void VideoControlPage::FillComboBox (wxString control, wxString contents)
 			temp = temp.Mid(pos + 1);					
 		}
 	}while (pos !=-1);
-	if (!temp.IsEmpty()){ // not everything parsed ?
+	if (!temp.IsEmpty()) { // not everything parsed ?
 		box->Append(temp);
 	}
 }
@@ -410,7 +410,7 @@ void VideoControlPage::SetAccuracy(wxString value)
 
 void VideoControlPage::SetDeinterlace(wxString value)
 {
-	if (value == wxT("on")){
+	if (value == wxT("on")) {
 		m_deinterlaceButton->SetValue(true);
 		m_deinterlaceButton->SetLabel(wxT("On"));
 	}
@@ -422,7 +422,7 @@ void VideoControlPage::SetDeinterlace(wxString value)
 
 void VideoControlPage::SetLimitSprites(wxString value)
 {
-	if (value == wxT("on")){
+	if (value == wxT("on")) {
 		m_limitSpritesButton->SetValue(true);
 		m_limitSpritesButton->SetLabel(wxT("On"));
 	}
@@ -443,7 +443,7 @@ void VideoControlPage::SetSliderDefaults()
 #ifdef __WINDOWS__
 void VideoControlPage::RestoreNormalScreen()
 {
-	if (m_controller->m_oldVersion){
+	if (m_controller->m_oldVersion) {
 		((openMSXWindowsController *)m_controller)->RestoreOpenMSX();
 	}
 }
