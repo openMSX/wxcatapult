@@ -1,4 +1,4 @@
-# $Id: flavour-ppc.mk,v 1.2 2004/05/06 00:08:11 mthuurne Exp $
+# $Id: flavour-ppc.mk,v 1.1 2004/11/14 18:34:26 h_oudejans Exp $
 #
 # Configuration for "ppc" flavour:
 # Optimised for PPC-G4 and higher.
@@ -13,6 +13,5 @@ CXXFLAGS+=-mcpu=750
 endif
 
 # Strip executable?
-# TODO: Stripping would be good, but linker doesn't understand "--strip-all".
-CATAPULT_STRIP:=false
+CATAPULT_STRIP:=true
 
