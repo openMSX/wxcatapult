@@ -1,4 +1,4 @@
-// $Id: $
+// $Id: CatapultPage.cpp,v 1.2 2004/03/25 19:30:12 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -40,26 +40,26 @@ void CatapultPage::InitSettingsTable ()
 	// this is an unshielded array, please add elements if the
 	// number of settings increase
 	m_settingsTable = new SettingTableElementType [21];
-	AddSetting(0,"renderer","RendererSelector",this->UpdateComboSetting,false);
-	AddSetting(1,"scaler","ScalerSelector",this->UpdateComboSetting,false);
-	AddSetting(2,"accuracy","AccuracySelector",this->UpdateComboSetting,true);
-	AddSetting(3,"deinterlace","DeInterlaceButton",this->UpdateToggleSetting,true);
-	AddSetting(4,"limitsprites","LimitSpriteButton",this->UpdateToggleSetting,true);
-	AddSetting(5,"blur","BlurIndicator",this->UpdateIndicatorSetting,false);
-	AddSetting(6,"glow","GlowIndicator",this->UpdateIndicatorSetting,false);
-	AddSetting(7,"gamma","GammaIndicator",this->UpdateIndicatorSetting,false);
-	AddSetting(8,"scanline","ScanlineIndicator",this->UpdateIndicatorSetting,false);
-	AddSetting(9,"speed","SpeedIndicator",this->UpdateIndicatorSetting,false);
-	AddSetting(10,"frameskip","FrameSkipIndicator",this->UpdateIndicatorSetting,false);
-	AddSetting(11,"throttle","ThrottleButton",this->UpdateToggleSetting,true);
-	AddSetting(12,"cmdtiming","CmdTimingButton",this->UpdateToggleSetting,true);
-	AddSetting(13,"power","PowerButton",this->UpdateToggleSetting,false);
-	AddSetting(14,"pause","PauseButton",this->UpdateToggleSetting,false);
-	AddSetting(15,"frontswitch","FirmwareButton",this->UpdateToggleSetting,false);
-	AddSetting(16,"mute","MuteButton",this->UpdateToggleSetting,false);
-	AddSetting(17,"midi-in-readfilename","MidiInFileInput",this->UpdateIndicatorSetting,false);
-	AddSetting(18,"midi-out-logfilename","MidiOutFileInput",this->UpdateIndicatorSetting,false);
-	AddSetting(19,"audio-inputfilename","SampleFileInput",this->UpdateIndicatorSetting,false);
+	AddSetting(0,"renderer","RendererSelector",&CatapultPage::UpdateComboSetting,false);
+	AddSetting(1,"scaler","ScalerSelector",&CatapultPage::UpdateComboSetting,false);
+	AddSetting(2,"accuracy","AccuracySelector",&CatapultPage::UpdateComboSetting,true);
+	AddSetting(3,"deinterlace","DeInterlaceButton",&CatapultPage::UpdateToggleSetting,true);
+	AddSetting(4,"limitsprites","LimitSpriteButton",&CatapultPage::UpdateToggleSetting,true);
+	AddSetting(5,"blur","BlurIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting(6,"glow","GlowIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting(7,"gamma","GammaIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting(8,"scanline","ScanlineIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting(9,"speed","SpeedIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting(10,"frameskip","FrameSkipIndicator",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting(11,"throttle","ThrottleButton",&CatapultPage::UpdateToggleSetting,true);
+	AddSetting(12,"cmdtiming","CmdTimingButton",&CatapultPage::UpdateToggleSetting,true);
+	AddSetting(13,"power","PowerButton",&CatapultPage::UpdateToggleSetting,false);
+	AddSetting(14,"pause","PauseButton",&CatapultPage::UpdateToggleSetting,false);
+	AddSetting(15,"frontswitch","FirmwareButton",&CatapultPage::UpdateToggleSetting,false);
+	AddSetting(16,"mute","MuteButton",&CatapultPage::UpdateToggleSetting,false);
+	AddSetting(17,"midi-in-readfilename","MidiInFileInput",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting(18,"midi-out-logfilename","MidiOutFileInput",&CatapultPage::UpdateIndicatorSetting,false);
+	AddSetting(19,"audio-inputfilename","SampleFileInput",&CatapultPage::UpdateIndicatorSetting,false);
 	AddSetting(20,"","",NULL,NULL); // end of table
 }
 
