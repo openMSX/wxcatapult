@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.15 2004/04/18 12:17:59 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.16 2004/04/18 12:25:22 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
