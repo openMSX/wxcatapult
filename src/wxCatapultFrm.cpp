@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.6 2004/02/27 18:40:02 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.7 2004/03/20 14:30:55 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -26,6 +26,7 @@
 #else
 #include "openMSXLinuxController.h"
 #endif
+#include "openMSXController.h"
 
 #define unisprintf sprintf
 
@@ -44,6 +45,8 @@ enum
 	Catapult_Edit_Config
 };
 
+#define TIMER_ID -1
+
 // ----------------------------------------------------------------------------
 // event tables and other macros for wxWindows
 // ----------------------------------------------------------------------------
@@ -52,7 +55,7 @@ enum
 // handlers) which process them. It can be also done at run-time, but for the
 // simple menu events like this the static method is much simpler.
 	IMPLEMENT_CLASS(wxCatapultFrame, wxFrame)
-	BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
+BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Quit,  wxCatapultFrame::OnMenuQuit)
 	EVT_MENU(Catapult_About, wxCatapultFrame::OnMenuAbout)
 	EVT_MENU(Catapult_Edit_Config, wxCatapultFrame::OnMenuEditConfig)
@@ -60,7 +63,7 @@ EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
 	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
 	EVT_BUTTON(XRCID("ApplyButton"),wxCatapultFrame::OnApplyChanges)
 	EVT_BUTTON(XRCID("QuitButton"),wxCatapultFrame::OnMenuQuit)
-
+	EVT_TIMER(TIMER_ID, wxCatapultFrame::OnTimer)
 END_EVENT_TABLE()
 
 // include icon for any non-unix version
@@ -74,6 +77,7 @@ END_EVENT_TABLE()
 
 	// frame constructor
 wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
+	: m_timer(this, TIMER_ID)
 {
 #ifdef __WINDOWS__	
 	m_controller = new openMSXWindowsController(this);
@@ -432,4 +436,28 @@ wxString wxCatapultFrame::ConvertPath(wxString path, bool ConvertSlash)
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
 {
 	m_controller->HandleMessage(event);	
+}
+
+void wxCatapultFrame::StartTimer()
+{
+	m_timer.Start(1000);
+}
+
+void wxCatapultFrame::StopTimer()
+{
+	m_timer.Stop();
+	SetStatusText(_(""),1);
+}
+
+void wxCatapultFrame::SetFPSdisplay(wxString val)
+{
+	double valfl;
+	assert(val.ToDouble(&valfl));
+	val.sprintf("%2.1f",valfl);
+	SetStatusText(_(val + " fps"),1);
+}
+
+void wxCatapultFrame::OnTimer(wxTimerEvent& event)
+{
+    	m_controller->WriteCommand(m_controller->GetInfoCommand(_("fps")));
 }

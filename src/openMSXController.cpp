@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.8 2004/03/03 18:06:27 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.9 2004/03/20 14:30:55 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -80,6 +80,9 @@ bool openMSXController::PostLaunch()
 		assert (false);
 		break;
 	}
+
+	m_appWindow->StartTimer();
+	m_appWindow->SetStatusText("Running emulator");
 	return true;
 }
 
@@ -87,6 +90,9 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 {
 	if (!m_openMsxRunning) 
 		return;
+
+	m_appWindow->StopTimer();
+	m_appWindow->SetStatusText("Ready");
 	delete m_parser;
 	m_commands.clear();
 	m_appWindow->m_audioControlPage->DestroyAudioMixer();
@@ -94,7 +100,6 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_appWindow->DisableControls();
 	m_appWindow->m_launch_AbortButton->SetLabel(_("Launch"));
-
 }
 
 void openMSXController::HandleStdOut(wxCommandEvent &event)
@@ -143,7 +148,8 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 								HandleNormalLaunchReply(event);
 							}
 							else{
-								GetPendingCommand();
+								wxString command = GetPendingCommand();
+								if (command == GetInfoCommand("fps")) m_appWindow->SetFPSdisplay(data->contents);
 							}
 							break;
 						case CatapultXMLParser::REPLY_NOK:
@@ -363,7 +369,6 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 				m_appWindow->EnableControls();
 				m_launchMode = LAUNCH_NONE; // interactive mode
 			}
-		
 	}
 }
 

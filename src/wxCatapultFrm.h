@@ -1,10 +1,11 @@
-// $Id: wxCatapultFrm.h,v 1.4 2004/02/27 18:40:02 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.5 2004/03/20 14:30:55 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
 #include <wx/tglbtn.h>
 #include <wx/slider.h>
 #include <wx/notebook.h>
+#include <wx/timer.h>
 
 class CatapultXMLParser;
 class SessionPage;
@@ -32,6 +33,10 @@ class wxCatapultFrame : public wxFrame
 		void OnLaunch(wxCommandEvent& event);
 		void DisableControls();
 		void EnableControls();
+		void StartTimer();
+		void StopTimer();
+		void OnTimer(wxTimerEvent& event);
+		void SetFPSdisplay(wxString val);
 
 		SessionPage * m_sessionPage;
 		StatusPage * m_statusPage;
@@ -62,7 +67,9 @@ class wxCatapultFrame : public wxFrame
 		void AddHistory (wxComboBox * media);
 
 		bool WriteMessage (wxString msg);
-
+		
+		wxTimer m_timer;
+		
 		DECLARE_CLASS(wxCatapultFrame)
 			// any class wishing to process wxWindows events must use this macro
 		DECLARE_EVENT_TABLE()

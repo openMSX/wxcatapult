@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.16 2004/03/20 14:30:55 h_oudejans Exp $
+$Id: ChangeLog,v 1.17 2004/03/20 15:11:20 h_oudejans Exp $
+
+2004-03-20 Manuel Bilderbeek <manuel@msxnet.org>
+	* added frames per second display in status bar
+	* set status in status bar (could be expanded)
 
 2004-03-19 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added audiocontrolspage

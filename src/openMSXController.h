@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.5 2004/02/27 18:40:02 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.6 2004/03/03 18:06:27 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -32,6 +32,7 @@ class openMSXController
 		openMSXController(wxWindow * target);
 		virtual ~openMSXController();
 		bool m_openMsxRunning;
+		wxString GetInfoCommand (wxString parameter); 
 	protected:
 		enum LaunchMode{
 			LAUNCH_NONE,
@@ -49,7 +50,6 @@ class openMSXController
 		wxString GetPendingCommand();
 		void HandleHiddenLaunchReply(wxCommandEvent &event);
 		void HandleNormalLaunchReply(wxCommandEvent &event);
-		wxString GetInfoCommand (wxString parameter); 
 		list<wxString> m_commands;		
 };
 
