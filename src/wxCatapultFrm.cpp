@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.54 2004/12/27 11:37:11 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.55 2005/01/09 19:47:30 manuelbi Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -343,18 +343,18 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 
 void wxCatapultFrame::SetControlsOnLaunch()
 {
-	m_miscControlPage->SetControlsOnLaunch();
-	m_videoControlPage->SetControlsOnLaunch();
-	m_sessionPage->SetControlsOnLaunch();
-	m_inputPage->SetControlsOnLaunch();
+	if (m_miscControlPage) m_miscControlPage->SetControlsOnLaunch();
+	if (m_videoControlPage) m_videoControlPage->SetControlsOnLaunch();
+	if (m_sessionPage) m_sessionPage->SetControlsOnLaunch();
+	if (m_inputPage) m_inputPage->SetControlsOnLaunch();
 }
 
 void wxCatapultFrame::SetControlsOnEnd()
 {
-	m_miscControlPage->SetControlsOnEnd();
-	m_videoControlPage->SetControlsOnEnd();
-	m_sessionPage->SetControlsOnEnd();
-	m_inputPage->SetControlsOnEnd();
+	if (m_miscControlPage) m_miscControlPage->SetControlsOnEnd();
+	if (m_videoControlPage) m_videoControlPage->SetControlsOnEnd();
+	if (m_sessionPage) m_sessionPage->SetControlsOnEnd();
+	if (m_inputPage) m_inputPage->SetControlsOnEnd();
 }
 
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
@@ -436,7 +436,7 @@ void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 	if (ledname == wxT("kana")) led = m_kanaLed;
 	if (ledname == wxT("pause")) led = m_pauseLed;
 	if (ledname == wxT("turbo")) led = m_turboLed;
-	if (ledname == wxT("fdd")) led = m_fddLed;
+	if (ledname == wxT("FDD")) led = m_fddLed;
 
 	if (ledstate == wxT("off")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
 	if (ledstate == wxT("on")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));

@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.16 2005/01/06 16:27:21 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.17 2005/01/07 19:23:11 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -134,7 +134,7 @@ void CatapultXMLParser::SendParsedData()
 		break;
 	case TAG_UPDATE:
 		result->parseState = TAG_UPDATE;
-		result->name = parseResult.name.Lower();
+		result->name = parseResult.name;
 		result->updateType = parseResult.updateType;
 		break;
 	}

@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.109 2005/01/08 12:17:09 manuelbi Exp $
+$Id: ChangeLog,v 1.110 2005/01/09 19:47:30 manuelbi Exp $
+
+2004-01-26 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed problems with non-lowercase settings in the audiopage
+	* Made some more adjustments for wxmsw 2.5 with unicode
 
 2004-01-09 Manuel Bilderbeek <manuel@msxnet.org>
 	* Fixed fps counter on wx unicode.

@@ -83,7 +83,6 @@
                                         <object class="wxButton" name="DiskA_Button" base="EditButton">
                                             <tooltip>Disk A menu</tooltip>
                                             <label>Disk A</label>
-                                            <size>80, -1</size>
                                         </object>
                                     </object>
                                     <object class="sizeritem">

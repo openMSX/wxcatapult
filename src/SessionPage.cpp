@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.43 2005/01/06 16:27:22 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.44 2005/01/08 12:17:10 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -128,6 +128,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_lastCassette = wxT("");
 
 	SetupHardware(true);
+
 	
 	// Adjust the minimum size of the extension and listbox
 	
@@ -173,9 +174,9 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 			buttons[i]->Enable(false);
 			buttons[i]->Enable(true);
 	}
+
 	RestoreHistory();
 	m_cassettePortState = wxT("disabled");
-
 	m_diskMenu = new wxMenu(wxT(""),0);
 	m_diskMenu->Append(Disk_Insert_New,wxT("Insert empty disk"),wxT(""),wxITEM_NORMAL);
 	m_diskMenu->Append(Disk_Browse_File,wxT("Browse for disk file"),wxT(""),wxITEM_NORMAL);
@@ -200,6 +201,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cartA->SetDropTarget(new SessionDropTarget(m_cartA));
 	m_cartB->SetDropTarget(new SessionDropTarget(m_cartB));
 	m_cassette->SetDropTarget(new SessionDropTarget(m_cassette));
+
 }
 
 SessionPage::~SessionPage()
@@ -630,7 +632,7 @@ void SessionPage::getHardware(wxArrayString & parameters)
 	parameters.Clear();
 	int pos = m_machineList->GetSelection();
 	if (pos == 0){
-		parameters.Add(m_machineList->GetValue());
+		parameters.Add(wxT(" <default> "));
 	}
 	else{
 		parameters.Add(ConvertPath(m_machineArray[m_machineList->GetSelection()-1]));

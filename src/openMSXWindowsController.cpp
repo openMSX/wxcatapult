@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.14 2004/12/01 20:05:59 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.15 2005/01/06 16:27:23 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -70,17 +70,19 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE | CREATE_SUSPENDED;
 	WORD wStartupWnd = SW_HIDE;
 
-	STARTUPINFO si;
+	STARTUPINFOA si;
 	DWORD dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;	
-	ZeroMemory(&si,sizeof(STARTUPINFO));
-	si.cb = sizeof(STARTUPINFO);
+	ZeroMemory(&si,sizeof(STARTUPINFOA));
+	si.cb = sizeof(STARTUPINFOA);
 	si.dwFlags = dwFlags;	
 	si.hStdInput = hInputRead;	
 	si.hStdOutput = hOutputWrite;
 	si.hStdError  = hErrorWrite;
 	si.wShowWindow = wStartupWnd;
-	
-	CreateProcess (NULL,(wxChar *)cmdLine.c_str(),
+	char buffer[1000];
+	strcpy (buffer,(char*)(const char *) (wxConvUTF8.cWX2MB((cmdLine))));
+	CreateProcessA (NULL,buffer,
+//	CreateProcess (NULL,(wxChar *) cmdLine.c_str(),
 			NULL,NULL,true, dwProcessFlags ,NULL,NULL,&si,&m_openmsxProcInfo); //testing suspended
 	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);	
 	if (thread->Create() == wxTHREAD_NO_ERROR)
