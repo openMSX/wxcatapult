@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.25 2004/04/15 18:29:23 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.26 2004/04/15 18:35:00 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -193,11 +193,11 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
 	unsigned int i;
-	if (m_launch_AbortButton->GetLabel().IsSameAs(_("Abort"))){
+	if (m_launch_AbortButton->GetLabel().IsSameAs(_("Stop"))){
 		m_controller->WriteCommand("quit");
 		return;
 	}
-	m_launch_AbortButton->SetLabel(_("Abort"));
+	m_launch_AbortButton->SetLabel(_("Stop"));
 	m_launch_AbortButton->Enable(false);
 	wxArrayString hardware;
 	wxArrayString media;

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.38 2004/04/16 21:41:30 m9710797 Exp $
+// $Id: openMSXController.cpp,v 1.39 2004/04/17 15:49:54 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -103,7 +103,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 	m_openMsxRunning = false;
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_appWindow->SetControlsOnEnd();
-	m_appWindow->m_launch_AbortButton->SetLabel(_("Launch"));
+	m_appWindow->m_launch_AbortButton->SetLabel(_("Start"));
 	HandleNativeEndProcess ();
 }
 

@@ -1,4 +1,4 @@
-$Id: ChangeLog,v 1.57 2004/04/17 15:49:53 h_oudejans Exp $
+$Id: ChangeLog,v 1.58 2004/04/17 18:50:51 h_oudejans Exp $
 
 2004-04-17 Manuel Bilderbeek <manuel@msxnet.org>
 	* added loads of tooltips to the wxg files and changed some texts
@@ -11,6 +11,7 @@ $Id: ChangeLog,v 1.57 2004/04/17 15:49:53 h_oudejans Exp $
 	* Added: Full screen button (disabled in windows for now).
 	* Fixed segfault on close catapult while openmsx runs (again).
 	  Thanks to wouter.
+	* Aligned most resources. Changed Launch/Abort to Start/Stop.
 
 2004-04-16 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Restructured the videocontrolpage.
