@@ -1,6 +1,12 @@
-openmsx-catapult (0.5.0R1-4) unstable; urgency=low
+openmsx-catapult (0.5.0R1-5) unstable; urgency=low
 
   * Close ITP. (Closes: #286949)
+  * change architecture to any
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Tue, 25 Jan 2005 19:05:02 +0100
+
+openmsx-catapult (0.5.0R1-4) unstable; urgency=low
+
   * fix menu
 
  -- Joost Yervante Damad <joost@lumatec.be>  Mon, 10 Jan 2005 19:37:48 +0100
