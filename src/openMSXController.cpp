@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.19 2004/03/26 20:02:06 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.20 2004/03/27 20:37:15 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -364,10 +364,10 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 		WriteCommand (GetExistCommand("frontswitch"));
 	}
 	else if (command == GetExistCommand("frontswitch")){
-//		if ((command.Mid(0,3) == "set") || 
-//			((command.Mid(0,10) == "info exist") && (data->contents == "0"))){
-//				m_appWindow->m_miscControlPage->EnableFirmware();
-//		}
+		if ((command.Mid(0,3) == "set") || 
+			((command.Mid(0,10) == "info exist") && (data->contents == "1"))){
+				m_appWindow->m_miscControlPage->EnableFirmware();
+		}
 		WriteCommand (wxString(m_unsetCommand + " renderer"));
 	}
 	else if (command == wxString(m_unsetCommand + " renderer")){
@@ -436,10 +436,6 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 	else if (command == _("set cmdtiming")){
 		TrackAsserts ("set cmdtiming",data->contents);
 		m_appWindow->m_miscControlPage->SetCmdTiming(FilterCurrentValue(FilterCurrentValue(data->contents)));
-		WriteCommand (_("set frontswitch"));
-	}
-	else if (command == _("set frontswitch")){
-		m_appWindow->m_miscControlPage->EnableFirmware();
 		WriteCommand (GetInfoCommand(_("connector")));
 	}
 	else if (command == GetInfoCommand(_("connector"))){
