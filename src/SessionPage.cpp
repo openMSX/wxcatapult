@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.11 2004/04/07 16:44:47 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.12 2004/04/09 19:40:52 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -621,7 +621,7 @@ void SessionPage::SaveHistory()
 	config->SetParameter(ConfigurationData::CD_USEDEXTENSIONS,m_usedExtensions);
 	bool result;
 	result = ConfigurationData::instance()->SaveData();
-#ifndef OPENMSX_DEMO_CD_VERSION
+#if !OPENMSX_DEMO_CD_VERSION
 	if (!result){
 		wxMessageBox ("Error saving configuration data");
 	}
