@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.4 2004/02/07 07:21:49 mthuurne Exp $
+// $Id: openMSXController.cpp,v 1.5 2004/02/08 16:05:05 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -120,8 +120,10 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 	switch (data->parseState)
 	{
 		case CatapultXMLParser::TAG_UPDATE:
-			if (data->updateType == CatapultXMLParser::UPDATE_LED)
-				m_appWindow->m_statusPage->UpdateLed (data->name, data->contents);
+			if (m_launchMode != LAUNCH_HIDDEN){
+				if (data->updateType == CatapultXMLParser::UPDATE_LED)
+					m_appWindow->m_statusPage->UpdateLed (data->name, data->contents);
+			}
 			break;
 		case CatapultXMLParser::TAG_REPLY:
 			switch (m_launchMode){
@@ -159,17 +161,19 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 			
 			break; 
 		case CatapultXMLParser::TAG_LOG:
-			switch (data->logLevel) {
-			case CatapultXMLParser::LOG_WARNING:
-				m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
-				break;
-			case CatapultXMLParser::LOG_INFO:
-			case CatapultXMLParser::LOG_UNKNOWN:
-				m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(0,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
-				break;
-			}	
-			m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);		
-			m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+			if (m_launchMode != LAUNCH_HIDDEN){
+				switch (data->logLevel) {
+				case CatapultXMLParser::LOG_WARNING:
+					m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(174,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
+					break;
+				case CatapultXMLParser::LOG_INFO:
+				case CatapultXMLParser::LOG_UNKNOWN:
+					m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle (wxTextAttr(wxColour(0,0,0),wxNullColour,wxFont(10,wxMODERN,wxNORMAL,wxNORMAL)));
+					break;
+				}	
+				m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);		
+				m_appWindow->m_statusPage->m_outputtext->AppendText(_("\n"));
+			}
 			break;
 		default:
 			break;
@@ -271,56 +275,73 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 		WriteCommand (_("set renderer"));
 	}
 	else if (command == _("set renderer")){
-		m_appWindow->m_videoControlPage->SetRenderer(data->contents);
+		m_appWindow->m_videoControlPage->SetRenderer(FilterCurrentValue(data->contents));
 		WriteCommand (_("set scaler"));
 	}
 	else if (command == _("set scaler")){
-		m_appWindow->m_videoControlPage->SetScaler(data->contents);
+		m_appWindow->m_videoControlPage->SetScaler(FilterCurrentValue(data->contents));
 		WriteCommand (_("set accuracy"));
 	}
 	else if (command == _("set accuracy")){
-		m_appWindow->m_videoControlPage->SetAccuracy(data->contents);
+		m_appWindow->m_videoControlPage->SetAccuracy(FilterCurrentValue(data->contents));
 		WriteCommand (_("set deinterlace"));
 	}
 	else if (command == _("set deinterlace")){
-		m_appWindow->m_videoControlPage->SetDeinterlace(data->contents);
+		m_appWindow->m_videoControlPage->SetDeinterlace(FilterCurrentValue(data->contents));
 		WriteCommand (_("set limitsprites"));
 	}
 	else if (command == _("set limitsprites")){
-		m_appWindow->m_videoControlPage->SetLimitSprites(data->contents);
+		m_appWindow->m_videoControlPage->SetLimitSprites(FilterCurrentValue(data->contents));
 		WriteCommand (_("set blur"));
 	}
 	else if (command == _("set blur")){
-		m_appWindow->m_videoControlPage->SetBlur(data->contents);
+		m_appWindow->m_videoControlPage->SetBlur(FilterCurrentValue(data->contents));
 		WriteCommand (_("set glow"));
 		}
 	else if (command == _("set glow")){
-		m_appWindow->m_videoControlPage->SetGlow(data->contents);
+		m_appWindow->m_videoControlPage->SetGlow(FilterCurrentValue(data->contents));
 		WriteCommand (_("set gamma"));
 	}
 	else if (command == _("set gamma")){
-		m_appWindow->m_videoControlPage->SetGamma(data->contents);
+		m_appWindow->m_videoControlPage->SetGamma(FilterCurrentValue(data->contents));
 		WriteCommand (_("set scanline"));
 	}
 	else if (command == _("set scanline")){
-		m_appWindow->m_videoControlPage->SetScanline(data->contents);
+		m_appWindow->m_videoControlPage->SetScanline(FilterCurrentValue(data->contents));
 		WriteCommand (_("set speed"));
 	}
 	else if (command == _("set speed")){
-		m_appWindow->m_miscControlPage->SetSpeed(data->contents);
+		m_appWindow->m_miscControlPage->SetSpeed(FilterCurrentValue(data->contents));
 		WriteCommand (_("set frameskip"));
 	}
 	else if (command == _("set frameskip")){
-		m_appWindow->m_miscControlPage->SetFrameskip(data->contents);
+		m_appWindow->m_miscControlPage->SetFrameskip(FilterCurrentValue(data->contents));
 		WriteCommand (_("set throttle"));
 	}
 	else if (command == _("set throttle")){
-		m_appWindow->m_miscControlPage->SetThrottle(data->contents);
+		m_appWindow->m_miscControlPage->SetThrottle(FilterCurrentValue(data->contents));
 		WriteCommand (_("set cmdtiming"));
 	}
 	else if (command == _("set cmdtiming")){
-		m_appWindow->m_miscControlPage->SetCmdTiming(data->contents);
+		m_appWindow->m_miscControlPage->SetCmdTiming(FilterCurrentValue(data->contents));
 		m_appWindow->EnableControls();
 		m_launchMode = LAUNCH_NONE; // interactive mode
 	}
+}
+
+// if openmsx version < 0.3.5 filter the current value from the explanation
+
+wxString openMSXController::FilterCurrentValue(wxString value)
+{
+	wxString temp = value;
+	int pos = temp.Find(_("current value   : "));
+	if (pos != -1){
+		wxString temp2;
+		temp = temp.Mid(pos+18);
+		pos = temp.Find(0x0A);
+		if (pos != -1){
+			return (wxString(temp.Left(pos)));
+		}
+	}
+	return value; // can't find it, just return the input
 }
