@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.9 2004/03/20 14:30:55 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.10 2004/03/20 19:53:32 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -342,8 +342,8 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 		WriteCommand (GetInfoCommand(_("sounddevice")));
 	}
 	else if (command == GetInfoCommand(_("sounddevice"))){
-		m_appWindow->m_audioControlPage->SetupAudioMixer(data->contents);
-		WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(0)+_("_volume")));
+		m_appWindow->m_audioControlPage->InitAudioChannels(data->contents);
+		WriteCommand (wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(1))));
 	}
 	else if (m_appWindow->m_audioControlPage->GetNumberOfAudioChannels() >0){
 			for (i=0;i<m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1;i++){
@@ -355,6 +355,15 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 					m_appWindow->m_audioControlPage->SetChannelMode(i,FilterCurrentValue(data->contents));
 					WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(i+1)+("_mode")));
 				}
+				if (command == wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(i)))){
+					m_appWindow->m_audioControlPage->AddChannelType(i,FilterCurrentValue(data->contents));
+					WriteCommand (wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(i+1))));
+				}
+			}
+			if (command == wxString(GetInfoCommand(_("sounddevice ")+m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)))){
+				m_appWindow->m_audioControlPage->AddChannelType(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));
+				m_appWindow->m_audioControlPage->SetupAudioMixer();		
+				WriteCommand (wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(0)+_("_volume")));
 			}
 			if (command == wxString(_("set ") + m_appWindow->m_audioControlPage->GetAudioChannelName(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1)+_("_volume"))){
 				m_appWindow->m_audioControlPage->SetChannelVolume(m_appWindow->m_audioControlPage->GetNumberOfAudioChannels()-1,FilterCurrentValue(data->contents));

@@ -20,10 +20,13 @@ public:
 	void SetChannelVolume(int number, wxString value);
 	void SetChannelMode (int number,wxString value);
 	wxString GetAudioChannelName(int number);
+	wxString GetAudioChannelType (int number);
 	int GetNumberOfAudioChannels();
 	void OnChangeVolume(wxScrollEvent &event);
 	void OnChangeMode(wxCommandEvent & event);
-	void SetupAudioMixer (wxString channels);
+	void InitAudioChannels(wxString channels);
+	void AddChannelType(int channel,wxString type);
+	void SetupAudioMixer ();
 	void DestroyAudioMixer ();
 	AudioControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller = NULL);
 	virtual ~AudioControlPage();

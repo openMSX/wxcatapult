@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.8 2004/03/20 19:53:32 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.9 2004/03/20 22:04:31 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -458,5 +458,5 @@ void wxCatapultFrame::SetFPSdisplay(wxString val)
 
 void wxCatapultFrame::OnTimer(wxTimerEvent& event)
 {
-    	m_controller->WriteCommand(m_controller->GetInfoCommand(_("fps")));
+    m_controller->WriteCommand(m_controller->GetInfoCommand(_("fps")));
 }
