@@ -61,7 +61,7 @@ The latest version of the openMSX manual can also be found there:
 <a class="external" href="http://openmsx.sourceforge.net/manual/">http://openmsx.sourceforge.net/manual/</a>
 </p>
 <p>
-You can also use these URLs to get up-to-date versions of the hyperlinks if you
+You can also use these URLs to get up-to-date versions of the hyper links if you
 printed out this manual.
 </p>
 
@@ -84,6 +84,7 @@ For people who want to (or have to) compile Catapult themselves, we have written
 this guide.
 It explains how you can get it running on your system, i.e. how to get the
 sources and compile them.
+Note that some software distributions may have packaged openMSX Catapult and will enable you to install it directly using package management tools. We refer to the documentation of the tools of the distribution you are using to install openMSX Catapult. If you use such a package, you can skip the largest part of this manual and start reading at chapter <a class="internal" href="#next">5. Next Steps</a>.
 </p>
 
 <p>
@@ -105,7 +106,7 @@ Catapult was compiled successfully on FreeBSD 4 and 5. FreeBSD is not a platform
 </dd>
 <dt>Mac OS X</dt>
 <dd>
-Unfortunately, Catapult hasn't been succesfully compiled on Mac OS X. There is a port of wxWidgets (the base of Catapult), but version 2.4 doesn't support toggle button yet and version 2.5 doesn't react on most event (even button clicks). If you can get it (even partialy) working, please let us know. 
+Unfortunately, we have not been able to get Catapult working on Mac OS X. There is a port of wxWidgets (the base of Catapult), but version 2.4 doesn't support toggle buttons yet and any program we compiled with version 2.5 doesn't react on most events including button clicks. If you can get it (even partially) working, please let us know. 
 </dd>
 <dt>other operating systems</dt>
 <dd>
@@ -158,7 +159,7 @@ Schaap and Maarten ter Huurne.</dd>
 <dt>2004-10-04 Herman Oudejans</dt>
 <dd>Added touch.exe to the compilation packages</dd>
 <dt>2005-02-06 Herman Oudejans</dt>
-<dd>Updated this manual for compilation with wxWidgets 2.5 and for compilation with mingw32.</dd>
+<dd>Updated this manual for compilation with wxWidgets 2.5 and for compilation with MinGW32.</dd>
 
 </dl>
 
@@ -387,10 +388,10 @@ versions is unknown at this point. You also need to download <code>sed.exe</code
 <a class="external" href="http://www.gnu.org/">GNU Home</a> and <code>touch.exe</code> 
 from <a class="external" href="http://unxutils.sourceforge.net/">UnxUtils</a></dd>
 
-<dt>The combination of Minimal System (msys) and Minimalist GNU for windows (mingw32)</dt>
-<dd>This is the same combination that is needed to compile openMSX on windows.
-Although compilation works, the executable made from it will be larger as the
-binary released version and will also need to mingw runtime dll.
+<dt>The combination of Minimal System (msys) and Minimalist GNU for Windows (MinGW32)</dt>
+<dd>This is the same combination that is needed to compile openMSX on Windows.
+Although compilation works, the generated executable will be larger than the
+binary released version (which is compiled with Visual C++) and will also need the MinGW runtime DLL.
 </dd>
 </dl>
 
@@ -405,7 +406,7 @@ The runtime package for the "Foo" library is typically called
 Also, for compiling Catapult you need the development packages of these
 libraries installed as well.
 Development packages are typically named <code>libfoo-dev</code> or
-<code>libfoo-devel</code>. Windows users need to have the proper dll's installed
+<code>libfoo-devel</code>. Windows users need to have the proper DLL's installed
 (<code>foo.dll</code>) to be able to run Catapult.
 Compiling in Windows means that you also need the lib-files
 (<code>foo.lib</code>).
@@ -432,7 +433,7 @@ main runtime wxWidgets library</dd>
 <dd>This package contains the necessary headers to compile.</dd>
 
 <dt>libwxgtk-2.4-contrib</dt>
-<dd>Needed to be able to use the resources of Catapult.This package is only needed when compiling with wxWidgets 2.4</dd>
+<dd>Needed to be able to use the resources of Catapult. This package is only needed when compiling with wxWidgets 2.4</dd>
 
 <dt>libwxgtk-2.4-contrib-dev</dt>
 <dd>And the accompanied headers. This package is only needed when compiling with wxWidgets 2.4</dd>
@@ -512,7 +513,7 @@ After compiling the wxWidgets library it's time for the XRC extension.
 Its sources can be found in <code>/wxWindows-2.4.2/contrib/src/xrc</code>.
 In Visual C++, open the workspace file (<code>XrcVC.dsw</code>) and go to
 Project Settings-&gt;Library.
-Make sure the dll-linked version and the statically linked version don't point
+Make sure the DLL-linked version and the statically linked version don't point
 to the same file. Catapult uses the statically linked version and expects it to
 be called:
 </p>
@@ -531,7 +532,7 @@ available for Visual C++.
 
 <p>
 We have made compilation of Catapult itself as easy as possible. In most cases
-Linux (or msys) users only have to open a shell, go to the top of the source tree and
+Linux or msys users only have to open a shell, go to the top of the source tree and
 type:
 </p>
 
@@ -545,17 +546,17 @@ The following values are supported:
 </p>
 <dl>
 <dt>debug</dt>
-<dd>No optimization and full debug symbols</dd>
+<dd>No optimisation and full debug symbols</dd>
 <dt>devel</dt>
-<dd>Some optimization but still full debug symbols available (this is the recommended flavour for testing)</dd>
+<dd>Some optimisation but still full debug symbols available (this is the recommended flavour for testing)</dd>
 <dt>i686</dt>
-<dd>Fully optimized and no debug symbols(this is the default flavour)</dd>
+<dd>Fully optimised and no debug symbols (this is the default flavour)</dd>
 <dt>opt</dt>
-<dd>Basicaly the same as i686, but also for non intel targets</dd>
+<dd>Basically the same as i686, but also for non Intel targets</dd>
 <dt>ppc</dt>
-<dd>Specificaly for the sun power pc</dd>
+<dd>Specifically for Power PC processors</dd>
 <dt>win32</dt>
-<dd>Optimized for PIII but runnable with PI MMX and higher</dd>
+<dd>Optimised for PIII but runnable with Pentium MMX and higher</dd>
 </dl>
 
 <p>
@@ -680,7 +681,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.13 2004/10/05 21:46:32 manuelbi Exp $
+$Id: compile.html,v 1.14 2005/02/06 12:34:36 h_oudejans Exp $
 </p>
 
 </body>
