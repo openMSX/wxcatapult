@@ -3,10 +3,10 @@ Release Notes for openMSX Catapult 0.5.1-R1 (2005-02-28)
 
 This new release brings you the following improvements:
 
-Usage:
+User interface:
 
 Fixed: Some wrong behaviour with speed/throttle settings.
-Added: Popup menu's for diskA,diskB,cartA,cartB and cassette
+Added: Popup menus for diskA, diskB, cartA, cartB and cassette
 Added: Mapper selection for cartridges.
 Added: IPS support for disks and cartridges.
 Changed: There are no longer two cassette types.
@@ -15,14 +15,15 @@ Changed: The input page is no longer capable of displaying formatted text.
 
 Compilation:
 
-Added: Mingw compilation support.
+Added: Mingw compilation support. (Although it works fine it produces a larger
+	   executable and it needs the mingw runtime dll).
 Added: wxWidgets 2.5 unicode compile support (Not perfect yet).
-
-
 
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
+- the select extension listbox doesn't work properly when using wxWidgets 2.5.x
+  Use the spacebar to deselect extensions
 - typing into openMSX doesn't support language specific characters yet
 - still not complete
 
