@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.30 2004/11/14 18:34:26 h_oudejans Exp $
+# $Id: main.mk,v 1.31 2004/11/14 19:05:33 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -198,7 +198,8 @@ SOURCES+= \
 	openMSXController \
 	FullScreenDlg \
 	ScreenShotDlg \
-	Version
+	Version \
+	RomTypeDlg
 
 OBJECTS_FULL:=$(addprefix $(OBJECTS_PATH)/, $(addsuffix .o,$(SOURCES)))
 

@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.16 2004/11/06 15:53:04 manuelbi Exp $
+// $Id: SessionPage.h,v 1.17 2004/11/06 15:54:09 manuelbi Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,6 +12,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+class RomTypeDlg;
 class openMSXController;
 class wxCatapultFrame;
 class SessionPage : public CatapultPage  
@@ -24,7 +25,6 @@ class SessionPage : public CatapultPage
 		void OnBrowseCassette (wxCommandEvent &event);
 		void OnBrowseDiskA (wxCommandEvent& event);
 		void OnBrowseDiskB (wxCommandEvent& event);
-
 		void OnBrowseCartA (wxCommandEvent& event);
 		void OnBrowseCartB (wxCommandEvent& event);
 
@@ -36,6 +36,15 @@ class SessionPage : public CatapultPage
 		void OnRewind (wxCommandEvent & event);
 		void OnForcePlay (wxCommandEvent & event);
 		void OnChangeCassetteContents (wxCommandEvent & event);
+		void OnClickDiskMenu (wxCommandEvent & event);
+		void OnClickCartMenu (wxCommandEvent & event);
+		void OnInsertEmptyDiskByMenu (wxCommandEvent & event);
+		void OnBrowseDiskByMenu (wxCommandEvent &event);
+		void OnBrowseDiskDirByMenu (wxCommandEvent &event);
+		void OnBrowseCartByMenu (wxCommandEvent &event);
+		void OnSelectMapper (wxCommandEvent & event);
+		void OnSelectIPS (wxCommandEvent & event);
+		void OnCloseMenu (wxCommandEvent & event);
 		void SetupHardware (bool initial);
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 		void SetControlsOnLaunch();
@@ -45,8 +54,14 @@ class SessionPage : public CatapultPage
 		void UpdateSessionData();
 		void EnableCassettePort (wxString data);
 		void AutoPlugCassette ();
+		void AddRomType (wxString romtype);
+		void SetRomTypeFullName (wxString romtype, wxString fullname);
+		void SetupRomType (wxString romtype, wxString fullname);
+
 	private:
 		static int CompareCaseInsensitive(const wxString& first, const wxString& second);
+		void GetRomTypes ();
+		wxString ConvertRomType (wxString source, bool backwards);
 		bool BrowseDisk (wxComboBox * target, wxString devicename, wxString defaultpath);
 		void BrowseCart (wxComboBox * target, wxString defaultpath);
 		void prepareMachines(wxString sharepath, wxArrayString & machineArray, bool optional=false);
@@ -56,10 +71,17 @@ class SessionPage : public CatapultPage
 		void AddHistory (wxComboBox * media);
 		void SaveHistory();
 		void RestoreHistory();
+		wxString GetRomMapper (wxString rom);
+		wxString GetRomFile (wxString rom);
+		wxString GetRomIPS (wxString rom);
 
 		wxButton * m_rewindButton;
+		wxButton * m_diskAButton;
+		wxButton * m_diskBButton;
+		wxButton * m_cartAButton;
+		wxButton * m_cartBButton;
+		wxButton * m_cassetteButton;
 		wxToggleButton * m_forcePlayButton;
-
 		wxBitmapButton * m_browseDiskA;
 		wxBitmapButton * m_browseDiskB;
 		wxBitmapButton * m_browseCassette;
@@ -73,10 +95,6 @@ class SessionPage : public CatapultPage
 
 		wxStaticText * m_machineListLabel;
 		wxStaticText * m_extensionListLabel;
-		wxStaticText * m_cartALabel;
-		wxStaticText * m_cartBLabel;
-		wxStaticText * m_cassetteLabel;
-
 		wxArrayString m_machineArray;
 		wxArrayString m_extensionArray;
 
@@ -85,6 +103,13 @@ class SessionPage : public CatapultPage
 		wxString m_usedExtensions;
 		openMSXController * m_controller;
 		wxCatapultFrame * m_parent;
+
+		wxMenu * m_diskMenu;
+		wxMenu * m_cartMenu;
+		wxMenu * m_casMenu;
+
+		wxButton * m_lastUsedPopup;
+		RomTypeDlg * m_romTypeDialog;
 
 		DECLARE_CLASS(SessionPage)
 			// any class wishing to process wxWindows events must use this macro

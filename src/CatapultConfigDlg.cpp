@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.12 2004/12/01 20:05:58 h_oudejans Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.13 2004/12/03 18:38:19 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 		}
 		guess += wxT("openmsx.exe");
 #else
-		guess = wxT(CATAPULT_OPENMSX_BINARY);
+		guess = CATAPULT_OPENMSX_BINARY;
 #endif
 		if (wxFileExists(guess)) {
 			m_ExecPath->SetValue(guess);

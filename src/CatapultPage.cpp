@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.31 2004/12/01 20:05:58 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.32 2004/12/03 18:38:19 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -112,7 +112,7 @@ void CatapultPage::UpdateSetting(wxString name, wxString data)
 	bool found = false;
 	while ((!found) && (index < SETTINGTABLE_MAXSIZE)) {
 
-		if (name.Matches((char *)m_settingTable[index].setting.c_str())) {
+		if (name.Matches(m_settingTable[index].setting.c_str())) {
 			found = true;
 			if (m_settingTable[index].pfunction != NULL) {
 				(*this.*(m_settingTable[index].pfunction))(

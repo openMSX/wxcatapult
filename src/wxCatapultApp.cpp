@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.17 2004/11/11 17:15:00 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.18 2004/12/01 20:06:00 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -65,6 +65,7 @@ bool wxCatapultApp::OnInit()
 	succes &= LoadXRC (wxT("videocontrols.xrc"));
 	succes &= LoadXRC (wxT("audiocontrols.xrc"));
 	succes &= LoadXRC (wxT("input.xrc"));
+	succes &= LoadXRC (wxT("romtype.xrc"));
 
 	if (succes)
 	{	
