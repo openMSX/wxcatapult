@@ -1,7 +1,21 @@
+openmsx-catapult (0.5.1-2) unstable; urgency=low
+
+  * rebuild against sid, as discussed in  bug #303144 of openmsx package
+  * only build for i386 for now, as openmsx only builds for i386 currently
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Tue,  5 Apr 2005 19:27:06 +0200
+
+openmsx-catapult (0.5.1-1) unstable; urgency=low
+
+  * new upstream version
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Sun,  6 Mar 2005 08:22:30 +0100
+
 openmsx-catapult (0.5.0R1-6) unstable; urgency=low
 
   * Close ITP. (Closes: #286949)
-  * fix W: openmsx-catapult: unquoted-string-in-menu-item /usr/lib/menu/openmsx-catapult needs:1
+  * fix W: openmsx-catapult: unquoted-string-in-menu-item
+    /usr/lib/menu/openmsx-catapult needs:1
 
  -- Joost Yervante Damad <joost@lumatec.be>  Sun,  6 Feb 2005 13:34:17 +0100
 
