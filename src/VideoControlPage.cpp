@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.13 2004/04/17 15:49:54 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.14 2004/04/18 11:57:41 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -82,11 +82,6 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_defaultGlow = "";
 	m_defaultGamma = "";
 	m_defaultScanline = "";
-#ifdef __WINDOWS__
-//	m_fullscreenButton->Show(false);
-//	wxStaticText * text = (wxStaticText *)FindWindow(_("FullScreenLabel"));
-//	text->Show(false);
-#endif
 }
 
 VideoControlPage::~VideoControlPage()
