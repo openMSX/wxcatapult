@@ -1,7 +1,10 @@
-$Id: ChangeLog,v 1.13 2004/03/03 18:06:27 h_oudejans Exp $
+$Id: ChangeLog,v 1.14 2004/03/06 14:13:52 mthuurne Exp $
 
 2004-03-06 Maarten ter Huurne <maarten@treewalker.org>
 	* Moved build files to a subdir named "build".
+	* Define RESOURCEDIR from within build process.
+	  For the time being, developers should edit "build/config.mk" and set
+	  INSTALL_BASE to "<catapult_dir>/derived".
 
 2004-03-03 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* adapted for openmsx cvs Changelog version 1.1156 (openmsx_info 

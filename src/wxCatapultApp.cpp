@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: wxCatapultApp.cpp,v 1.3 2004/02/12 18:50:37 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -15,6 +15,8 @@
 #include "ConfigurationData.h"
 #include "CatapultConfigDlg.h"
 #include "wxToggleButtonXmlHandler.h"
+
+#include "config.h"
 
 // Create a new application object: this macro will allow wxWindows to create
 // the application object during program execution (it's better than using a
@@ -95,10 +97,6 @@ bool wxCatapultApp::LoadXRC(wxString XrcFile)
 
 wxString wxCatapultApp::GetResourceDir ()
 {
-#ifdef RESOURCEDIR
 	return wxString(RESOURCEDIR);
-#else
-	return wxString(::wxPathOnly(argv[0]) + _("/../resources"));	
-#endif
 }
 
