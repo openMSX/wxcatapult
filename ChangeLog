@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.65 2004/04/25 15:29:45 h_oudejans Exp $
+$Id: ChangeLog,v 1.66 2004/04/30 09:51:20 h_oudejans Exp $
+
+2004-05-06 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Added manuals (thx to Manuel).
 
 2004-04-30 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* the m_command != NULL assert should be fixed now. I tried 

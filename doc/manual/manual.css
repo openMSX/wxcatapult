@@ -1,0 +1,62 @@
+body, h1, h2, h3, h4 {
+	color: black;
+	background-color: white;
+}
+
+ol.toc {
+	list-style: none;
+	padding-left: 16pt;
+}
+
+p,ul,dl {
+	margin-left: 16pt;
+}
+
+table {
+	margin-left: 32pt;
+}
+
+p.image {
+	text-align: center;
+}
+
+p.version {
+	padding-top: 1em;
+	margin-left: 0pt;
+	font-size: 50%;
+	text-align: right;
+}
+dt.toc {
+	font-size: 150%;
+	font-weight: bold;
+}
+dd {
+	margin-left: 16pt;
+	margin-bottom: 0.5em;
+}
+div.commandline {
+	font-family: monospace;
+	margin-left: 32pt;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+p.todo {
+	background-color: white;
+	color: red;
+}
+a.internal, a.external:visited {
+	color: #000080;
+	background-color: white;
+}
+a.external:link {
+	color: #0000FF;
+	background-color: white;
+}
+a.external:active {
+	color: #8080FF;
+	background-color: white;
+}
+
+th {
+	text-align: left;
+}

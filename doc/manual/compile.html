@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN"
+"http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<link title="Purple" rel="stylesheet" href="../../openMSX/doc/manual/manual-purple.css" type="text/css" />
+<link title="Minty" rel="alternate stylesheet" href="../../openMSX/doc/manual/manual-minty.css" type="text/css" />
+<link title="Plain" rel="alternate stylesheet" href="../../openMSX/doc/manual/manual.css" type="text/css" />
+<title>openMSX Catapult Compilation Guide</title>
+</head>
+
+<body>
+
+<h1>Catapult Compilation Guide</h1>
+
+<h2>Contents</h2>
+<ol class="toc">
+	<li><a class="internal" href="#intro">1. Introduction</a>
+		<ol class="toc">
+			<li><a class="internal" href="#newver">1.1. New Versions of this Document</a></li>
+			<li><a class="internal" href="#purpose">1.2. Purpose</a></li>
+			<li><a class="internal" href="#contrib">1.3. Contributors</a></li>
+			<li><a class="internal" href="#history">1.4. Revision History</a></li>
+		</ol>
+	</li>
+	<li><a class="internal" href="#getsource">2. Getting the Source Code</a>
+		<ol class="toc">
+			<li><a class="internal" href="#getrelease">2.1. Released Version</a></li>
+			<li><a class="internal" href="#getcvs">2.2. CVS Checkout</a></li>
+			<li><a class="internal" href="#getsnapshot">2.3. CVS Snapshot</a></li>
+		</ol>
+	</li>
+	<li><a class="internal" href="#compile">3. Compilation</a>
+		<ol class="toc">
+			<li><a class="internal" href="#tools">3.1. Build Tools</a></li>
+			<li><a class="internal" href="#libs">3.2. Libraries</a></li>
+			<li><a class="internal" href="#complibs">3.3. Compilation of the 
+            libraries</a></li>
+			<li><a class="internal" href="#compilenow">3.4. Compilation Itself</a></li>
+		</ol>
+	</li>
+	<li><a class="internal" href="#install">4. Installation</a></li>
+	<li><a class="internal" href="#next">5. Next Steps</a></li>
+	<li><a class="internal" href="#contact">6. Contact Info</a></li>
+</ol>
+
+<h2><a id="intro">1. Introduction</a></h2>
+
+<h3><a id="newver">1.1. New Versions of this Document</a></h3>
+<p>
+The latest version of the openMSX manual can be found on the openMSX home page:
+</p>
+<p>
+<a class="external" href="http://openmsx.sf.net/manual/">http://openmsx.sf.net/manual/</a>
+</p>
+<p>
+You can also use this URL to get up-to-date versions of the hyperlinks
+if you printed out this manual.
+</p>
+
+<h3><a id="purpose">1.2. Purpose</a></h3>
+<p>
+This guide is about Catapult, the (optional) GUI for openMSX.</p>
+
+<p>
+openMSX is in alpha state, which means that some things work but not all
+features are implemented yet.
+Many emulation features are implemented, but in terms of user interface
+it is rather bare bones.
+That's why we decided to create a GUI for it, so most users could use 
+it without too much problems.
+For people who want (or have to) to compile Catapult themselves, we have written this guide.
+It explains how you can get it running on your system,
+i.e. how to get the sources and compile them.
+</p>
+
+<p>
+This guide describes how you can get the Catapult sources and compile them
+on a Linux or Windows machine. Most users will probably never compile it 
+on a Windows system (Windows users generally like binaries), but for those who do want to 
+compile, this manual gives a few pointers in the right direction. Linux users 
+don't have a choice most of the time. Every distribution is different and 
+binaries are hardly exchangeable. Compilation on *BSD works more or less the same 
+as on Linux and differences are noted in the appropriate sections. Other systems 
+that are supported by wxWidgets (formerly known as wxWindows) should work, but 
+for those cases it might take some extra attention to get it compiled.
+If you are compiling on such a platform,
+please share your experiences
+(see below for <a class="internal" href="#contact">contact info</a>),
+so we can make Catapult more portable.</p>
+
+<p>
+<em>Disclaimer:</em>
+We do not claim this guide is complete or even correct.
+What you do with the information in it is entirely at your own risk.
+We just hope it helps you enjoy Catapult (and with that openMSX) more.
+</p>
+
+<h3><a id="contrib">1.3. Contributors</a></h3>
+
+<p>
+The following people contributed to this document in one way or another:
+</p>
+<ul>
+<li>Herman Oudejans</li>
+<li>Manuel Bilderbeek</li>
+<li>Maarten ter Huurne</li>
+<li>other openMSX developers</li>
+</ul>
+<p>
+Thanks to all of them!
+</p>
+
+<h3><a id="history">1.4. Revision History</a></h3>
+
+<p>
+This section gives an overview of the changes that were made to this document.
+It doesn't contain every single modification (use the CVS log for that),
+only the big picture.
+</p>
+
+<dl>
+
+<dt>2004-04-25 Herman Oudejans</dt>
+<dd>Initial version based on the openMSX manuals by Manuel Bilderbeek, Jorrith 
+Schaap and Maarten ter Huurne.</dd>
+
+</dl>
+
+<h2><a id="getsource">2. Getting the Source Code</a></h2>
+
+<p>
+Catapult is a sub-project of openMSX, developed using the tools
+<a class="external" href="http://www.sourceforge.net/">SourceForge.net</a> 
+freely offers to open source projects. The code is stored in CVS, an open source 
+version management system. Once in a while a Catapult release is made.</p>
+
+<p>
+There are several options for getting the source code:
+</p>
+
+<dl>
+
+<dt><a class="internal" href="#getrelease">Released Version</a></dt>
+<dd>
+These are tested versions, which should give you little problem compiling
+and running.
+However, as Catapult development is often quite fast, they may not have all
+the latest features.
+Also there could be bugs that have been fixed since the last release.
+</dd>
+
+<dt><a class="internal" href="#getcvs">CVS Checkout</a></dt>
+<dd>
+Through anonymous CVS you can get the same development version the
+Catapult developers are using.
+This is the bleeding edge:
+the latest stuff, which may be great or may be horribly broken.
+Usually Catapult CVS compiles and runs fine, but we're only human,
+so once in a while it breaks.
+Also there may be changes that are not documented yet.
+</dd>
+
+<dt><a class="internal" href="#getsnapshot">CVS Snapshot</a></dt>
+<dd>
+A snapshot is created from a recent CVS checkout,
+in a <code>tar.gz</code> archive.
+A snapshot is therefore quite similar to a CVS checkout,
+but it doesn't require you to install and use CVS.
+</dd>
+
+</dl>
+
+<p>
+Releases are intended for general users, CVS and CVS snapshots are intended for
+(would be) developers, heavy testers and people who want to follow new
+developments closely. It might be a good idea to play with a release first. If
+you like what you see and want to get in deeper, you can switch to CVS later.
+If you update often, it is best to use a CVS checkout rather than
+a CVS snapshot, because with a checkout you can do efficient incremental
+updates, saving network bandwidth and compile time.
+</p>
+
+<p>
+If you downloaded a version that is either a lot older or a lot newer than
+this guide, it is a good idea to read the guide included in your downloaded
+version instead of the version you're reading right now.
+You can find the Compilation Guide in the directory
+<code>Catapult/doc/manual</code>.
+</p>
+
+<h3><a id="getrelease">2.1. Released Version</a></h3>
+
+<p>
+You can download a released version of Catapult from
+<a class="external" href="http://sourceforge.net/project/showfiles.php?group_id=38274"
+>the download page at SourceForge</a>.
+The latest version is probably the best one.
+</p>
+
+<p>
+After downloading, type:
+</p>
+<div class="commandline">tar xzvf Catapult-VERSION.tar.gz</div>
+<p>
+in which <code>VERSION</code> is the Catapult version you downloaded,
+or use the file name you saved the tar.gz file with.
+The directory that is created by uncompressing the <code>tar.gz</code> file
+is called the <em>top of the source tree</em>.
+</p>
+
+<p>
+Note: Windows doesn't natively support tar or gzip, but there are enough 
+utilities available to decompress these sources anyway. Examples of such 
+utilities are PowerArchiver 6.1 (free), Wiz (free), 7-zip (free) or WinZip 
+(commercial).</p>
+
+<h3><a id="getcvs">2.2. CVS Checkout</a></h3>
+
+<p>
+Getting a CVS checkout means you use CVS to retrieve the latest version
+of the source code of Catapult.
+This means you will need to install a CVS client.
+This package is usually simply named <code>cvs</code>.
+There are graphical front-ends for CVS,
+but this guide will tell you how to use CVS from the command line.
+More information about CVS can be found on the
+<a class="external" href="http://www.cvshome.org/">CVS Home</a> site. On this 
+site you can also find a CVS windows command-line tool.</p>
+
+<p>
+With the following line you can login to the openMSX CVS server:
+</p>
+<div class="commandline">
+cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/openmsx login
+</div>
+<p>
+In this line you specified where you want to retrieve the files from
+(host name of the CVS server),
+as who you want to retrieve the stuff
+(since you're not a developer, <code>anonymous</code> will do),
+and what project you want to retrieve (openmsx in this case, since Catapult is a 
+sub-project of openmsx).
+</p>
+
+<p>
+You will be prompted for a password.
+The password for user <code>anonymous</code> is empty, so just press enter.
+</p>
+
+<p>
+Example output:
+</p>
+<div class="commandline">
+jorrith@jardel openmsx $ cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/openmsx login
+</div>
+<div class="commandline">
+Logging in to :pserver:anonymous@cvs.sourceforge.net:2401/cvsroot/openmsx
+</div>
+<div class="commandline">
+CVS password:
+</div>
+<div class="commandline">
+jorrith@jardel openmsx $
+</div>
+
+<p>
+Now you can retrieve the latest sources with the following command:
+</p>
+<div class="commandline">
+cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/openmsx checkout 
+Catapult
+</div>
+<p>
+This will create a directory called <code>Catapult</code> for you
+in the current directory.
+This directory created by CVS is the called <em>top of the source tree</em>.
+In addition to the Catapult code, you will see CVS administration directories
+which are all called <code>CVS</code>.
+Do not mess with these, otherwise CVS will get confused.
+</p>
+<p>
+If you want to update your source tree later,
+go to the top of the source tree and type:
+</p>
+<div class="commandline">
+cvs update -d
+</div>
+<p>
+The <code>-d</code> option tells CVS to check out new directories that were
+created since your last checkout/update.
+</p>
+
+<h3><a id="getsnapshot">2.3. CVS Snapshot</a></h3>
+
+<p>
+First, download the
+<a class="external" href="http://openmsx.sourceforge.net/Catapult-CVS-snapshot.tar.gz">most recent CVS snapshot</a>.
+</p>
+
+<p>
+After downloading, type:
+</p>
+<div class="commandline">tar xzvf Catapult-CVS-snapshot.tar.gz</div>
+<p>
+The directory that is created by uncompressing the <code>tar.gz</code> file
+is called the <em>top of the source tree</em>.
+</p>
+
+<h2><a id="compile">3. Compilation</a></h2>
+
+<p>
+Before you can start compiling Catapult, you have to make sure your system
+has all the necessary build tools installed, as well as the libraries
+openMSX depends upon.
+The following sections list the packages you need.
+</p>
+
+<h3><a id="tools">3.1. Build Tools</a></h3>
+
+<p>
+For compilation in Linux, you need Make and a C++ compiler.
+If you have compiled packages from source before,
+you probably have these installed already.
+</p>
+
+<dl>
+
+<dt>make</dt>
+<dd>GNU implementation of the Make tool.
+Make interprets rules that define how a project should be built.</dd>
+
+<dt>g++</dt>
+<dd>The GNU C++ compiler.
+Version 3.2 or 3.3 is recommended;
+2.95 is not supported.</dd>
+
+</dl>
+
+
+<p>For compilation in Windows you will need Microsoft Visual Studio. Catapult 
+was written with version 6.0. If it also compiles on higher versions is unknown 
+at this point. You also need to download sed.exe from
+<a class="external" href="http://www.gnu.org/">GNU Home</a>.</p>
+
+
+<h3><a id="libs">3.2. Libraries</a></h3>
+
+<p>
+Catapult depends on a few libraries.
+Using Linux you must have the runtime packages of these libraries installed to be
+able to run Catapult.
+The runtime package for the "Foo" library is typically called
+<code>libfoo</code>.
+Also, for compiling Catapult you need the development packages of these
+libraries installed as well.
+Development packages are typically named
+<code>libfoo-dev</code> or <code>libfoo-devel</code>. Windows users need to have 
+the proper dll's installed (foo.dll) to be able to run Catapult. Compiling in 
+Windows means that you also need the lib-files (foo.lib).</p>
+
+<p>
+First of all, you need some wxWidgets packages or libraries. Not every 
+distribution has these available yet. If they are not available for you, please 
+refer the next section. Note that for Windows there are even no binary releases available. 
+On a Debian testing system, the packages are called:</p>
+
+<dl>
+<dt>libwxgtk-2.4</dt>
+<dd>wxWindows Cross-platform C++ GUI toolkit (GTK+ runtime). This is the main runtime wxWidgets library</dd>
+
+<dt>libwxgtk-2.4-dev</dt>
+<dd>This package contains the necessary headers to compile.</dd>
+
+<dt>libwxgtk-2.4-contrib</dt>
+<dd>Needed to be able to use the resources of Catapult.</dd>
+
+<dt>libwxgtk-2.4-contrib-dev</dt>
+<dd>And the accompanied headers</dd>
+
+</dl>
+
+<p>
+Furthermore, you need the XML library. In Windows there is a binary available 
+but it lacks SAX support. In Debian they are called:</p>
+
+<dl>
+
+<dt>libxml2 and libxml2-dev</dt>
+<dd>XML C library, originally developed for GNOME.</dd>
+
+
+</dl>
+
+<h3><a id="complibs">3.3. Compilation of the libraries</a></h3>
+
+<p>For some distributions it's necessary to manually compile the libraries. This 
+section gives a few pointers to get it to work. It's not intended to be a 
+substitute for the documentation supplied with the libraries. The wxWidgets 
+sources can be found at <a class="external" href="http://www.wxwidgets.org/">
+wxWidgets Home</a> and the libxml2 sources are available at
+<a class="external" href="http://www.xmlsoft.org">Libxml2 Home</a>.</p>
+
+<p>In Linux, the compilation of wxWidgets is quite straightforward. Just follow 
+the docs provided with the library and the wxgtk library should be created. 
+Don't forget to change to the directory <em>top of the source tree</em><code>/wxGTK-2.4.2/contrib</code>
+and build those libraries to. You'll need the XRC library for Catapult. 
+Compilation of libxml2 is also easy. The libxml2 documentation should be more 
+than enough to build it.</p>
+
+<p>wxWidgets uses a configuration file to be able to select which features 
+should be compiled into the library. If these settings are wrong it won't be 
+possible to use the Catapult resources, which are essential for running Catapult. 
+This configuration file is called <code>setup.h</code> and can be found in <em>top of the source tree</em><code>/wxWindows-2.4.2/include/wx/msw</code>, for Windows. 
+Make sure you adjust the following settings:</p>
+
+<ul>
+<li><code>#define wxUSE_PROPSHEET 1</code></li>
+<li><code>#define wxUSE_PROLOGIO 1</code></li>
+<li><code>#define wxUSE_WX_RESOURCES 1</code></li>
+</ul>
+
+<p>
+Without these adjustments the XRC library won't compile. Also, because of the 
+<code>PROLOGIO</code> setting, you won't be able to build a unicode library. After changing 
+these settings compilation should be easy (using the <code>wxWindows.dsw</code> file in 
+Visual C++). After compilation you should make these libraries available to 
+Visual C++.</p>
+<p>After compiling the wxWidgets library it's time for the XRC extension. 
+Sources for this are found in <em>top of the source tree</em><code>/wxWindows-2.4.2/contrib/src/xrc</code>. 
+Open the workspace file (<code>XrcVC.dsw</code>) and go to Project Settings-&gt;Library. Make 
+sure the dll-linked version and the statically linked version don't point to the 
+same file. Catapult uses the statically linked version and expects it to be 
+called:</p>
+
+<ul>
+<li><code>wxxrcs.lib</code> (Release version)</li>
+<li><code>wxxrcds.lib</code> (Debug version)</li>
+</ul>
+
+<p>
+After the link targets are changed you can compile the library and make it 
+available for Visual C++.</p>
+
+<p>Building the libxml2 library should be easy enough with the docs available.</p>
+
+<h3><a id="compilenow">3.4. Compilation Itself</a></h3>
+
+<p>
+We have made compilation of Catapult itself as easy as possible. In most cases 
+Linux users only have to open a shell, go to the top of the source tree and 
+type:</p>
+
+<div class="commandline">
+make
+</div>
+
+<p>
+With some distributions you might need to change the name of the XRC library in 
+the Makefile. TODO: this will hopefully be fixed by Maarten!</p>
+
+<p>
+In Windows, just open <code>wxCatapult.dsw</code> (it's in the 
+build-directory) and compile it.</p>
+
+<p>
+Depending on how fast your system is,
+this may take several minutes to half an hour.
+</p>
+
+<p>
+If you get errors during compilation, verify that you installed
+<a class="internal" href="#libs">all required libraries</a>,
+both the run time and development packages.
+If that doesn't help, or we forgot to list a library Catapult depends on,
+<a class="internal" href="#contact">contact the openMSX developers</a>.
+Make sure you provide us with the error message(s) you got.
+</p>
+
+<h2><a id="install">4. Installation</a></h2>
+
+<p>
+To install Catapult in Linux, run the following command:
+</p>
+<div class="commandline">
+make install
+</div>
+<p>
+This installs Catapult, by default in <code>/opt/openMSX-Catapult</code>.
+You can change this location by modifying the <code>config.mk</code> file.
+Note that only root has rights to write to system-wide directories such as
+<code>/opt</code>,
+so you may have to do <code>su</code> before <code>make install</code>.
+</p>
+
+<p>
+Windows doesn't really provide us with an installation system, so it's up to you 
+to make sure the files are in the right directory. Please follow these pointers 
+to make sure it should work:</p>
+
+<ul>
+<li><code>Catapult.exe</code> and <code>libxml2.dll</code> should be in the same directory
+or <code>libxml2.dll</code> should be somewhere in your path</li>
+<li>the resources (XRC) should be in the directory (relative from 
+<code>Catapult.exe</code>) <code>..\resources\dialogs</code></li>
+<li>The bitmaps (bmp) should be in the directory (also relative 
+from <code>Catapult.exe</code>) <code>..\resources\bitmaps</code></li>
+</ul>
+
+<h2><a id="next">5. Next Steps</a></h2>
+
+<p>
+If all went well, you should have Catapult installed now.
+You can test it by executing Catapult:
+</p>
+<div class="commandline">
+catapult
+</div>
+<p>or double click the icon in Windows, e.g.</p>
+
+<p>
+Using Catapult should be intuitive, but if it's not, please read the Catapult 
+Quick Start Manual. This should give a complete description on how to use 
+Catapult.</p>
+
+<p>
+If you got stuck somewhere in the compilation and installation process,
+please contact us. The next chapter will tell you how.
+</p>
+
+<h2><a id="contact">6. Contact Info</a></h2>
+
+<p>
+Since Catapult is still in heavy development, feedback and bug reports are very
+welcome!
+</p>
+
+<p>
+If you encounter problems, you have several options:
+</p>
+
+<ol>
+<li>
+If you're a regular user and want to discuss openMSX &amp; Catapult&nbsp; and possible problems,
+join our <code>openmsx-user</code> mailing list.
+More info on the
+<a class="external" href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing lists</a>,
+including an archive of old messages, can be found at SourceForge.
+</li>
+<li>
+Go to our IRC channel: <code>#openMSX</code> on <code>irc.freenode.net</code>
+and ask your question there.
+</li>
+<li>
+If you want to address the openMSX developers directly,
+post a message to the <code>openmsx-devel</code> mailing list.
+More info on the
+<a class="external" href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing lists</a>,
+including an archive of old messages, can be found at SourceForge.
+</li>
+<li>
+Use one of the
+<a class="external" href="http://sourceforge.net/tracker/?group_id=38274">openMSX trackers</a>
+at SourceForge.
+At the moment of writing, there are four trackers:
+Bugs, Support Requests, Patches and Feature Requests.
+</li>
+</ol>
+
+<p>
+For experienced users: if you get a crash,
+try to provide a <code>gdb</code> backtrace.
+</p>
+
+<p>
+In any case, try to give as much information as possible when you describe your
+bug or request.
+</p>
+
+<p class="version">
+$Id: compile.html,v 1.8 2004/03/10 19:45:40 manuelbi Exp $
+</p>
+
+</body>
+</html>
