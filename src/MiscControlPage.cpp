@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.20 2004/04/22 20:03:31 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.21 2004/04/25 08:05:33 manuelbi Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -415,9 +415,9 @@ void MiscControlPage::InitJoystickPort (wxString connector, wxString control, wx
 	}
 	box->SetValue(currentval);
 	wxString cmd = "plug";
-	if (currentval == _("--empty")){
+	if (currentval == _("--empty--")){
 		cmd = "unplug";
-		currentval == "";
+		currentval = "";
 	}
 	m_controller->WriteCommand(wxString(cmd + " " + connector + " " + currentval));
 }
