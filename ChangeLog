@@ -1,4 +1,4 @@
-$Id: ChangeLog,v 1.47 2004/04/12 09:03:25 h_oudejans Exp $
+$Id: ChangeLog,v 1.48 2004/04/12 13:33:09 h_oudejans Exp $
 
 2004-04-12 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* fixed gtk segfault when starting openmsx.
@@ -7,6 +7,8 @@ $Id: ChangeLog,v 1.47 2004/04/12 09:03:25 h_oudejans Exp $
 	   (thanks to wouter). Removing wxProcess and wxExecute seems 
 	   to get rid of the segfault when closing openmsx.
 	* fixed wxCatapult.dsp (added winmm library for joystick checking).
+	* openmsx 1211 has a new versionstring (openmsx -v). adapted 
+	   catapult for it.
 
 2004-04-11 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* joystickport devices are now prepluggable.

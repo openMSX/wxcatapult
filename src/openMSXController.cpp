@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.30 2004/04/08 18:57:23 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.31 2004/04/10 21:24:05 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -90,6 +90,10 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 {
 	if (!m_openMsxRunning) 
 		return;
+	wxString led[6]={_("power"),_("caps"),_("kana"),_("pause"),_("turbo"),_("fdd")};
+	for (int i=0;i<6;i++){	
+		m_appWindow->UpdateLed(led[i],"off");
+	}
 	m_appWindow->StopTimers();
 	m_appWindow->SetStatusText("Ready");
 	delete m_parser;
@@ -493,7 +497,7 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 		wxMessageBox ("The openMSX version you are using is too old!\nPlease upgrade to 0.3.4 or higher.","Error");
 		return false;
 	}
-	if (version.Find(_("CVS")) != -1){
+	if (version.Find(_("-dev")) != -1){
 		m_infoCommand = _("openmsx_info_tcl");
 		m_appWindow->m_audioControlPage->EnableMasterVolume();
 		m_unsetCommand = _("unset");
