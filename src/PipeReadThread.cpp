@@ -1,3 +1,4 @@
+// $Id$
 // PipeReadThread.cpp: implementation of the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -25,7 +26,6 @@
 
 PipeReadThread::~PipeReadThread()
 {
-
 }
 
 wxThread::ExitCode PipeReadThread::Entry()
@@ -69,11 +69,10 @@ wxThread::ExitCode PipeReadThread::Entry()
 			wxPostEvent(m_target, event);
 
 		}
-	}while (bResult);
+	} while (bResult);
 #endif	
 	wxCommandEvent endEvent(EVT_CONTROLLER);
 	endEvent.SetId(MSGID_ENDPROCESS);
 	wxPostEvent (m_target, endEvent);
 	return 0;
-
 }

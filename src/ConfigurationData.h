@@ -1,3 +1,4 @@
+// $Id$
 // onfigurationData.h: interface for the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -51,7 +52,6 @@ class ConfigurationData
 #else
 			wxConfigBase * ConfigData;
 #endif
-
 };
 
 #endif // !defined(AFX_ONFIGURATIONDATA_H__A32B4A30_2F92_11D8_B9CD_00104B4B187E__INCLUDED_)

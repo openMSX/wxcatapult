@@ -1,3 +1,4 @@
+// $Id$
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,6 +15,7 @@ CatapultXMLParser::ParseState CatapultXMLParser::user_data;
 xmlSAXHandler CatapultXMLParser::handler;
 xmlParserCtxt * CatapultXMLParser::context;
 wxWindow * CatapultXMLParser::m_target;
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -34,7 +36,6 @@ CatapultXMLParser::CatapultXMLParser(wxWindow * target)
 
 CatapultXMLParser::~CatapultXMLParser()
 {
-
 }
 
 void CatapultXMLParser::cb_start_element(ParseState *user_data, const xmlChar *name, const xmlChar **attrs)
@@ -151,7 +152,7 @@ void CatapultXMLParser::xmlFakeParse(wxString msg)
 				xmlFakeProcessLine (current);
 			}
 		}
-	}while (pos !=-1);
+	} while (pos !=-1);
 	if (!value.IsEmpty()) // not everything parsed ?
 		xmlFakeProcessLine (value);
 }
@@ -176,8 +177,6 @@ void CatapultXMLParser::xmlFakeProcessLine (wxString line)
 		parseEvent.SetId(MSGID_PARSED);
 		wxPostEvent (m_target, parseEvent);
 	}
-
-
 }
 
 #endif

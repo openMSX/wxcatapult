@@ -1,3 +1,4 @@
+// $Id$
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -61,14 +62,10 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 
 	m_speedSlider->SetTickFreq (25,1);
 	m_frameSkipSlider->SetTickFreq (5,1);
-
-
-
 }
 
 MiscControlPage::~MiscControlPage()
 {
-
 }
 
 void MiscControlPage::OnReset(wxCommandEvent &event)

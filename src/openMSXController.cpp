@@ -1,3 +1,4 @@
+// $Id$
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -26,9 +27,7 @@ openMSXController::openMSXController(wxWindow * target)
 
 openMSXController::~openMSXController()
 {
-
 }
-
 
 bool openMSXController::HandleMessage(wxCommandEvent &event)
 {
@@ -59,7 +58,6 @@ bool openMSXController::PreLaunch()
 	return true;
 }
 
-
 bool openMSXController::PostLaunch()
 {
 	WriteMessage (_("<openmsx-control>\n"));
@@ -67,7 +65,6 @@ bool openMSXController::PostLaunch()
 	WriteCommand (_("restoredefault renderer"));
 	return true;
 }
-
 
 void openMSXController::HandleEndProcess(wxCommandEvent &event)
 {

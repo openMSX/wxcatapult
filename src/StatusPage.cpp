@@ -1,3 +1,4 @@
+// $Id$
 // StatusPage.cpp: implementation of the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -36,7 +37,6 @@ StatusPage::StatusPage(wxWindow * parent)
 
 StatusPage::~StatusPage()
 {
-
 }
 
 void StatusPage::UpdateLed(wxString msg)

@@ -1,3 +1,4 @@
+// $Id$
 #ifndef wxCatapultApp_H
 #define wxCatapultApp_H
 

@@ -1,3 +1,4 @@
+// $Id$
 // StatusPage.h: interface for the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,7 +19,6 @@ class StatusPage : public wxPanel
 		wxTextCtrl * m_outputtext;
 
 	private:
-
 		wxStaticBitmap * m_powerLed;	// this should be replaced with real leds in time
 		wxStaticBitmap * m_capsLed;
 		wxStaticBitmap * m_kanaLed;

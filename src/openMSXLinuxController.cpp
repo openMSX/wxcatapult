@@ -1,3 +1,4 @@
+// $Id$
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,12 +21,10 @@
 	openMSXLinuxController::openMSXLinuxController(wxWindow * target)
 :openMSXController(target)
 {
-
 }
 
 openMSXLinuxController::~openMSXLinuxController()
 {
-
 }
 
 bool openMSXLinuxController::Launch(wxString cmdline)

@@ -1,3 +1,4 @@
+// $Id$
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -25,10 +26,7 @@
 #include "openMSXLinuxController.h"
 #endif
 
-
-
 #define unisprintf sprintf
-
 
 // ----------------------------------------------------------------------------
 // constants
@@ -76,7 +74,6 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 	m_controller = new openMSXLinuxController(this);
 #endif
 
-
 	// set the frame icon
 	//#ifdef __WINDOWS__  // TODO find out how this works in linux
 	//	SetIcon(wxICON(wxCatapult));
@@ -98,7 +95,6 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 	menuBar->Append(helpMenu, _("&Help"));
 
 	// ... and attach this menu bar to the frame
-
 
 	// load the image wanted on the toolbar
 	///    wxBitmap aboutImage("resource/help.bmp", wxBITMAP_TYPE_BMP);
@@ -141,21 +137,15 @@ wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
 
 	// Video page
 
-
 	// Global controls
 
 	m_launch_AbortButton = (wxButton *)FindWindow(_("Launch_AbortButton"));
 	m_applyButton = (wxButton *)FindWindow(_("ApplyButton"));
 
-
-
-
 	RestoreHistory();
 	SetLaunchDefaults();
 	DisableControls();
 	m_lastQuery = QIDLE;
-
-
 }
 
 // frame destructor
@@ -206,7 +196,6 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_lastDiskB = _("");
 	m_lastTape1 = _("");
 	m_lastTape2 = _("");
-
 
 	m_launch_AbortButton->SetLabel(_("Abort"));
 	m_launch_AbortButton->Enable(false);
@@ -272,7 +261,6 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	EnableControls();
 
 	m_statusPage->m_outputtext->Clear();
-
 }
 
 void wxCatapultFrame::AddHistory(wxComboBox *media)
@@ -290,7 +278,6 @@ void wxCatapultFrame::AddHistory(wxComboBox *media)
 	}
 	else
 	{
-
 		items.Add(media->GetValue());
 		for (i=0;i<num;i++)
 		{
@@ -303,8 +290,6 @@ void wxCatapultFrame::AddHistory(wxComboBox *media)
 	}
 	media->SetSelection(0);
 }
-
-
 
 void wxCatapultFrame::RestoreHistory()
 {
@@ -355,7 +340,7 @@ void wxCatapultFrame::RestoreHistory()
 					m_sessionPage->m_extensionList->SetStringSelection (value.Left(pos));
 					value = value.Mid(pos + 2);	
 				}
-			}while (pos !=-1);
+			} while (pos !=-1);
 }
 
 void wxCatapultFrame::SaveHistory()
@@ -387,9 +372,6 @@ void wxCatapultFrame::SaveHistory()
 			config->SetParameter(ConfigurationData::CD_USEDMACHINE,m_usedMachine);
 			config->SetParameter(ConfigurationData::CD_USEDEXTENSIONS,m_usedExtensions);
 }
-
-
-
 
 void wxCatapultFrame::EnableControls()
 {

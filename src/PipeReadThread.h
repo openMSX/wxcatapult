@@ -1,3 +1,4 @@
+// $Id$
 // PipeReadThread.h: interface for the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -32,7 +33,6 @@ class PipeReadThread : public wxThread
 #ifdef __WINDOWS__	
 		HANDLE m_hTarget;
 #endif
-
 };
 
 #endif // !defined(AFX_PIPEREADTHREAD_H__9CF545E1_3449_11D8_B9CF_00104B4B187E__INCLUDED_)

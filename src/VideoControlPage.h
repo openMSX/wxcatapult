@@ -1,3 +1,4 @@
+// $Id$
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -59,7 +60,6 @@ class VideoControlPage : public wxPanel
 		wxSlider * m_glowSlider;
 		wxSlider * m_gammaSlider;
 		wxSlider * m_scanlineSlider;
-
 
 		wxTextCtrl * m_blurIndicator;
 		wxTextCtrl * m_glowIndicator;

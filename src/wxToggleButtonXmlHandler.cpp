@@ -1,3 +1,4 @@
+// $Id$
 // wxToggleButtonXmlHandler.cpp: implementation of the wxToggleButtonXmlHandler class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -8,17 +9,14 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-	wxToggleButtonXmlHandler::wxToggleButtonXmlHandler()
+wxToggleButtonXmlHandler::wxToggleButtonXmlHandler()
 :wxXmlResourceHandler()
 {
-
 }
 
 wxToggleButtonXmlHandler::~wxToggleButtonXmlHandler()
 {
-
 }
-
 
 wxObject * wxToggleButtonXmlHandler::DoCreateResource()
 {
@@ -39,5 +37,4 @@ wxObject * wxToggleButtonXmlHandler::DoCreateResource()
 bool wxToggleButtonXmlHandler::CanHandle(wxXmlNode *node)
 {
 	return IsOfClass(node, wxT("wxToggleButton"));
-
 }

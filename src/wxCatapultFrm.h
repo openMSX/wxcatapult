@@ -1,11 +1,10 @@
+// $Id$
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
 #include <wx/tglbtn.h>
 #include <wx/slider.h>
 #include <wx/notebook.h>
-
-
 
 class CatapultXMLParser;
 class SessionPage;

@@ -1,3 +1,4 @@
+// $Id$
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -30,7 +31,6 @@
 
 openMSXWindowsController::~openMSXWindowsController()
 {
-
 }
 
 bool openMSXWindowsController::HandleMessage(wxCommandEvent &event)

@@ -1,3 +1,4 @@
+// $Id$
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -33,7 +34,6 @@ class SessionPage : public wxPanel
 		void OnChangeMedia (wxCommandEvent & event);
 
 	private:
-
 		static int CompareCaseInsensitive(const wxString& first, const wxString& second);
 		void BrowseDisk (wxComboBox * target, wxString defaultpath);
 		void BrowseCart (wxComboBox * target, wxString defaultpath);
@@ -73,7 +73,6 @@ class SessionPage : public wxPanel
 			wxBitmapButton * m_browseCartB;
 			wxBitmapButton * m_clearCartA;
 			wxBitmapButton * m_clearCartB;
-
 };
 
 #endif // !defined(AFX_SESSIONPAGE_H__93FE8492_93A5_411A_B50C_22F14696B5FC__INCLUDED_)

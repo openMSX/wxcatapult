@@ -1,3 +1,4 @@
+// $Id$
 // PipeConnectThread.cpp: implementation of the PipeConnectThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,7 +25,6 @@ PipeConnectThread::PipeConnectThread(wxWindow * target)
 
 PipeConnectThread::~PipeConnectThread()
 {
-
 }
 
 wxThread::ExitCode PipeConnectThread::Entry()

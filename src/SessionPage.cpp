@@ -1,10 +1,10 @@
+// $Id$
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
 
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
-
 
 #ifndef WX_PRECOMP
 #include "wx/wx.h"
@@ -120,7 +120,6 @@ SessionPage::SessionPage(wxWindow * parent)
 
 SessionPage::~SessionPage()
 {
-
 }
 
 void SessionPage::OnClearDiskA(wxCommandEvent &event)
@@ -161,7 +160,6 @@ void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
 void SessionPage::OnBrowseDiskB(wxCommandEvent &event)
 {
 	BrowseDisk (m_diskB,::wxPathOnly(m_diskA->GetValue()));
-
 }
 
 void SessionPage::BrowseDisk(wxComboBox *target, wxString defaultpath)
@@ -184,13 +182,11 @@ void SessionPage::BrowseDisk(wxComboBox *target, wxString defaultpath)
 void SessionPage::OnBrowseCartA(wxCommandEvent &event)
 {
 	BrowseCart (m_cartA,::wxPathOnly(m_cartA->GetValue()));
-
 }
 
 void SessionPage::OnBrowseCartB(wxCommandEvent &event)
 {
 	BrowseCart (m_cartB,::wxPathOnly(m_cartA->GetValue()));
-
 }
 
 void SessionPage::BrowseCart(wxComboBox *target, wxString defaultpath)
@@ -253,7 +249,6 @@ int SessionPage::CompareCaseInsensitive(const wxString& first, const wxString& s
 	return first.Cmp(second.c_str());
 }
 
-
 void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensionArray)
 {
 	wxDir sharedir (sharepath + _("/extensions"));
@@ -300,7 +295,6 @@ void SessionPage::fillMachines (wxArrayString & machineArray)
 		if (m_machineList->FindString (machineArray[i]) == -1)
 			m_machineList->Append(machineArray[i]);
 	}
-
 }
 
 void SessionPage::OnChangeMedia(wxCommandEvent &event)

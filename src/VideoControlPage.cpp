@@ -1,3 +1,4 @@
+// $Id$
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -34,6 +35,7 @@ BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_TEXT(XRCID("GlowIndicator"),VideoControlPage::OnInputGlow)
 	EVT_TEXT(XRCID("ScanlineIndicator"),VideoControlPage::OnInputScanline)
 END_EVENT_TABLE()
+
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
 	//////////////////////////////////////////////////////////////////////
@@ -63,12 +65,10 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_defaultGlowButton = (wxButton*)FindWindow(_("ZeroGlowButton"));
 	m_defaultGammaButton = (wxButton*)FindWindow(_("DefaultGammaButton"));
 	m_defaultScanlineButton = (wxButton*)FindWindow(_("ZeroScanlineButton"));
-
 }
 
 VideoControlPage::~VideoControlPage()
 {
-
 }
 
 void VideoControlPage::OnChangeRenderer(wxCommandEvent &event)
@@ -286,7 +286,6 @@ void VideoControlPage::OnInputScanline(wxCommandEvent &event)
 		}
 	}
 }
-
 
 void VideoControlPage::EnableControls()
 {

@@ -1,3 +1,4 @@
+// $Id$
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -37,13 +38,10 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
 		m_ExecPath->SetValue(temp);
 	if (config->GetParameter(ConfigurationData::CD_SHAREPATH,temp))
 		m_SharePath->SetValue(temp);
-
-
 }
 
 CatapultConfigDlg::~CatapultConfigDlg()
 {
-
 }
 
 void CatapultConfigDlg::OnOk(wxCommandEvent& event)
