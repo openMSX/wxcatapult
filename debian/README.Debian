@@ -1,13 +1,15 @@
 openMSX catapult package for Debian
 
 Please note that this package uses a slightly different directory layout then
-the default Catapult installation. If this is the case, remove the file
-".Catapult" in your homedirectory before you run catapult the first time.
+the default Catapult installation. If you used to have a source install,
+remove the file ".Catapult" in your homedirectory before you run catapult
+the first time after installing.
 
-please read the manual located in /usr/share/doc/openmsx-catapult/manual for details on using this program.
+Please read the manual located in /usr/share/doc/openmsx-catapult/manual
+for details on using this program.
 
 For problems with this package, please contact Joost Damad <joost@lumatec.be>
-or <openmsx-devel@lists.sourceforge.net>
+or openMSX developers <openmsx-devel@lists.sourceforge.net>
 You can also file a bugreport on http://sourceforge.net/projects/openmsx/
 
 Have fun!
