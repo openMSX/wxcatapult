@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.50 2004/05/28 15:50:32 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.51 2004/06/06 18:25:42 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -146,6 +146,9 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 		case CatapultXMLParser::TAG_UPDATE:
 			if (data->updateType == CatapultXMLParser::UPDATE_LED) {
 				m_appWindow->UpdateLed (data->name, data->contents);
+			}
+			if (data->updateType == CatapultXMLParser::UPDATE_STATE) {
+				m_appWindow->UpdateState (data->name, data->contents);
 			}
 			if (data->updateType == CatapultXMLParser::UPDATE_SETTING) {
 				wxString lastcmd = PeekPendingCommand();
@@ -296,7 +299,7 @@ void openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 	}
 	else {
 		m_launchMode = LAUNCH_NORMAL;
-		m_appWindow->SetStatusText("Running openMSX");
+		m_appWindow->SetStatusText("openMSX status: Running");
 		Launch(cmd);
 	}
 }
@@ -520,7 +523,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction ("plug cassetteport","","cassetteport",&openMSXController::EnableCassettePort,false);
 	AddLaunchInstruction ("update enable plug","","",NULL,false);
 	AddLaunchInstruction ("update enable unplug","","",NULL,false);
-	
+	AddLaunchInstruction ("update enable status","","",NULL,false);
 }
 
 void openMSXController::AddLaunchInstruction (wxString cmd, wxString action,

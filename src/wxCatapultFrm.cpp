@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.31 2004/05/09 14:25:51 manuelbi Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.32 2004/05/09 21:04:11 mthuurne Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -330,3 +330,17 @@ void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 	if (ledstate == "on") led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
 }
 
+void wxCatapultFrame::UpdateState (wxString statename, wxString state)
+{
+	wxString statustext;
+	if (statename != "paused"){  // just one possible type atm, so ignore all else
+		return;
+	}
+	if (state == "true"){
+		statustext = "openMSX status: Paused";
+	}
+	else{
+		statustext = "openMSX status: Running";
+	}
+	SetStatusText(statustext,0);
+}

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.10 2004/03/26 20:02:06 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.11 2004/04/07 16:44:47 h_oudejans Exp $ 
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -39,6 +39,7 @@ class wxCatapultFrame : public wxFrame
 		void OnDeselectCatapult(wxActivateEvent & event);
 		void SetFPSdisplay(wxString val);
 		void UpdateLed(wxString ledname, wxString ledstate);
+		void UpdateState (wxString statename, wxString state);
 		SessionPage * m_sessionPage;
 		StatusPage * m_statusPage;
 		VideoControlPage * m_videoControlPage;

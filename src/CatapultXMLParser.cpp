@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.11 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: CatapultXMLParser.cpp,v 1.12 2004/06/06 18:25:42 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -202,6 +202,9 @@ void CatapultXMLParser::parseUpdate(const char** attrs)
 				}
 				else if (strcmp(attrs[1], "media") == 0) {
 					parseResult.updateType = UPDATE_MEDIA;
+				}
+				else if (strcmp(attrs[1], "status") == 0){
+					parseResult.updateType = UPDATE_STATE;
 				}
 			} else if (strcmp(attrs[0], "name") == 0) {
 				parseResult.name = attrs[1];
