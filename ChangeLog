@@ -1,4 +1,4 @@
-$Id: ChangeLog,v 1.97 2004/11/06 15:53:04 manuelbi Exp $
+$Id: ChangeLog,v 1.98 2004/11/06 16:08:02 andete Exp $
 
 2004-11-06 Joost Yervante Damad <joost@lumatec.be>
 	* make it possible to disable symlink for install
@@ -20,6 +20,7 @@ $Id: ChangeLog,v 1.97 2004/11/06 15:53:04 manuelbi Exp $
 	  machine; disable buttons when there's no cassette selected
 	  TODO: the controls get disabled briefly (during silent launch) and
 	  then get enabled again if the port is found... Fix it if you can! ;)
+	* Fixed initial enabled-state of buttons, depending on CassetteComboBox
 
 2004-10-16 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed a problem with inserting a disk while openMSX is running.

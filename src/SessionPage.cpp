@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.32 2004/11/06 15:53:04 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.33 2004/11/06 16:07:41 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -498,11 +498,12 @@ void SessionPage::SetControlsOnLaunch()
 	m_machineListLabel->Enable(false);
 	m_cartALabel->Enable(false);
 	m_cartBLabel->Enable(false);
-	printf ("state: %s\n", m_cassettePortState.c_str());
 	if ((m_cassettePortState != wxT("disabled")) &&
 		(m_cassettePortState != wxT("cassetteplayers"))) {
-		m_rewindButton->Enable(true);
-		m_forcePlayButton->Enable(true);
+		if (m_cassette->GetValue() != wxT("")) {
+			m_rewindButton->Enable(true);
+			m_forcePlayButton->Enable(true);
+		}
 		m_cassetteLabel->Enable(true);
 		m_clearCassette->Enable(true);
 		m_browseCassette->Enable(true);
