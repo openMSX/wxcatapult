@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.h,v 1.3 2004/02/06 22:26:50 h_oudejans Exp $
+// $Id: wxCatapultApp.h,v 1.4 2004/02/12 18:50:37 h_oudejans Exp $
 #ifndef wxCatapultApp_H
 #define wxCatapultApp_H
 
@@ -27,8 +27,6 @@ SCOPE int EVT_CONTROLLER;
 #define MSGID_PARSED 3
 #define MSGID_PIPECREATED 4
 #define MSGID_ENDPROCESS 5
-
-#include "config.h"
 
 // Define a new application type, each program should derive a class from wxApp
 class wxCatapultApp : public wxApp

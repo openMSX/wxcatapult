@@ -1,4 +1,4 @@
-// $Id$
+// $Id: CatapultConfigDlg.cpp,v 1.2 2004/02/04 22:01:03 manuelbi Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -98,7 +98,14 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent &event)
 
 void CatapultConfigDlg::OnBrowseShare(wxCommandEvent &event)
 {
-	wxString defaultpath = ::wxPathOnly(wxString(m_SharePath->GetValue())+_("/"));
+	wxString defaultpath = "";
+	if (!m_SharePath->GetValue().IsEmpty()){
+		defaultpath = ::wxPathOnly(wxString(m_SharePath->GetValue())+_("/"));
+	}
+	else if (!m_ExecPath->GetValue().IsEmpty()){
+		defaultpath = ::wxPathOnly(wxString(m_ExecPath->GetValue())+_("/"));
+	}
+
 	wxDirDialog dirdlg(this, _("Select openMSX share directory"),defaultpath);
 	if (dirdlg.ShowModal() == wxID_OK)
 	{

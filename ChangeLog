@@ -1,4 +1,4 @@
-$Id: ChangeLog,v 1.40 2004/04/08 13:21:31 h_oudejans Exp $
+$Id: ChangeLog,v 1.41 2004/04/08 18:57:23 h_oudejans Exp $
 
 2004-04-08 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed windows build system. config.h is now created.
@@ -9,6 +9,8 @@ $Id: ChangeLog,v 1.40 2004/04/08 13:21:31 h_oudejans Exp $
 	     and libs need to be added to: tools->options->directories in vc++).
 	     There's no way to automate this, sorry :(
 	* Devices can now be plugged in the joystick ports
+	* Changed default directory behaviour while browsing for openmsx 
+	   share directory
 
 2004-04-07 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* History is updated when a new disk or tape is inserted while
