@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.5 2004/04/01 08:31:48 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.6 2004/04/12 13:33:10 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -86,24 +86,17 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 		dup2(pipeStdout[PIPE_WRITE], STDERR_FILENO);
 
 		// prepare cmdline
-		int numSpaces = count(command.begin(), command.end(), ' ');
-		char** argv = static_cast<char**>(
-		                alloca((numSpaces + 2) * sizeof(char*)));
+		// HACK: use sh to handle quoting
 		unsigned len = command.length();
 		char* cmd = static_cast<char*>(
 		                alloca((len + 1) * sizeof(char)));
 		memcpy(cmd, command.c_str(), len + 1);
+		char* argv[4];
+		argv[0] = "sh";
+		argv[1] = "-c";
+		argv[2] = cmd;
+		argv[3] = 0;
 		
-		char** argvp = argv;
-		*argvp++ = cmd;
-		for (char* p = cmd; *p; ++p) {
-			if (*p == ' ') {
-				*p = '\0';
-				*argvp++ = p + 1;
-			}
-		}
-		*argvp = 0;
-
 		// really execute command
 		execvp(argv[0], argv);
 
