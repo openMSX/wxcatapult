@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.13 2004/11/06 11:25:05 manuelbi Exp $
+// $Id: SessionPage.h,v 1.14 2004/11/06 13:51:33 manuelbi Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -33,6 +33,8 @@ class SessionPage : public CatapultPage
 		void OnClearCartA (wxCommandEvent & event);
 		void OnClearDiskB (wxCommandEvent & event);
 		void OnClearDiskA (wxCommandEvent & event);
+		void OnRewind (wxCommandEvent & event);
+		void OnForcePlay (wxCommandEvent & event);
 		void SetupHardware (bool initial);
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 		void SetControlsOnLaunch();
@@ -53,6 +55,9 @@ class SessionPage : public CatapultPage
 		void AddHistory (wxComboBox * media);
 		void SaveHistory();
 		void RestoreHistory();
+
+		wxButton * m_rewindButton;
+		wxToggleButton * m_forcePlayButton;
 
 		wxBitmapButton * m_browseDiskA;
 		wxBitmapButton * m_browseDiskB;

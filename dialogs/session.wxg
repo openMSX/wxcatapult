@@ -364,7 +364,7 @@
                                                 <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                                 <border>0</border>
                                                 <option>0</option>
-                                                <object class="wxToggleButton" name="ForcePlayButton" base="EditButton">
+                                                <object class="wxToggleButton" name="ForcePlayButton" base="EditToggleButton">
                                                     <tooltip>Run the cassette, even when no load command was given</tooltip>
                                                     <label>Force Play</label>
                                                 </object>
