@@ -1,4 +1,4 @@
-$Id$
+$Id: AUTHORS,v 1.1 2004/04/17 21:56:26 manuelbi Exp $
 
 Prime Developers:
 Herman Oudejans      <hn.oudejans@quicknet.nl>
@@ -11,6 +11,12 @@ With many thanks to:
 Michael Goettsche    <mail@tuxipuxi.de>
 Patrick van Arkel    <vampier@vampier.net>
 Albert Beevendorp    <bifi@msxnet.org>
+
+And before altering (or completely rewriting) we
+used code from the following contributors: 
+
+Finding a window by process ID:
+	Martin-Pierre Frenette  (www.codeproject.com)
 
 Historical note:
 
