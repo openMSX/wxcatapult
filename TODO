@@ -3,6 +3,6 @@
   - add information about license and stuff (since it's in the same project as openMSX itself, I think the licenses should also be the same: our project page on sf.net only lists one license... In any case: the same license as openMSX is fine with me and Herman (GPL))
   - add files like README, COPYING, AUTHORS, etc., if we really want that
 - define a release procedure and document it
-- fix bugs? (The segfault is rather annoying, but might have been fixed now)
+- fix bugs?
 - add icon that is clearer?
-- add pluggable setup? 
+- add a more extensive pluggable setup? 
