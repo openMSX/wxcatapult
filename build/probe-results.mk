@@ -1,4 +1,4 @@
-# $Id: probe-results.mk,v 1.2 2004/05/09 15:26:55 mthuurne Exp $
+# $Id: probe-results.mk,v 1.3 2004/11/10 21:16:25 andete Exp $
 #
 # Display probe results, so user can decide whether to start the build,
 # or to change system configuration and rerun "configure".
@@ -36,9 +36,9 @@ all:
 	@echo "  libxml2:         $(call HEADER,XML)"
 	@echo ""
 	@echo "Customizable options:"
-	@echo "  Install to:      $(INSTALL_BASE)"
-	@echo "  default openmsx binary loocation: $(CATAPULT_OPENMSX_BINARY)"
-	@echo "  default openmsx system share dir: $(CATAPULT_OPENMSX_SHARE)"
+	@echo "  Install to:                       $(INSTALL_BASE)"
+	@echo "  Default openMSX binary location:  $(CATAPULT_OPENMSX_BINARY)"
+	@echo "  Default openMSX system share dir: $(CATAPULT_OPENMSX_SHARE)"
 	@echo "  (you can edit these in build/custom.mk)"
 	@echo ""
 
