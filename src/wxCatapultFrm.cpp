@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.39 2004/10/01 16:33:46 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.40 2004/10/02 20:50:46 h_oudejans Exp $ 
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -109,9 +109,9 @@ END_EVENT_TABLE()
 
 	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), _("Quit this program"));
 	settingsMenu->Append(Catapult_Edit_Config, wxT("&Edit Configuration\tCtrl-E"), _("Adjust Catapult Configuration"));
-	settingsMenu->Append(Catapult_Load_OpenMSX_Settings, wxT("&Load OpenMSX Settings"), _("Load specified settings into openMSX"));
-	settingsMenu->Append(Catapult_Save_OpenMSX_Settings, wxT("&Save OpenMSX Settings"), _("Save All openMSX settings"));
-	settingsMenu->Append(Catapult_Save_OpenMSX_Settings_As, wxT("Save OpenMSX Settings As ..."), _("Save All openMSX settings to a specified file"));
+	settingsMenu->Append(Catapult_Load_OpenMSX_Settings, wxT("&Load openMSX Settings..."), _("Load specified settings into openMSX"));
+	settingsMenu->Append(Catapult_Save_OpenMSX_Settings, wxT("&Save openMSX Settings"), _("Save All openMSX settings"));
+	settingsMenu->Append(Catapult_Save_OpenMSX_Settings_As, wxT("Save openMSX Settings as..."), _("Save All openMSX settings to a specified file"));
 	helpMenu->Append(Catapult_About, wxT("&About Catapult...\tCtrl-A"), _("Show about dialog"));
 
 	// now append the freshly created menu to the menu bar...
