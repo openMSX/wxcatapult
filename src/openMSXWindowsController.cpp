@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.11 2004/05/08 19:52:53 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.12 2004/05/09 14:25:51 manuelbi Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ bool openMSXWindowsController::DetermenNamedPipeUsage()
 		if (!GetVersionEx (&info))
 		{
 			wxString msg;
-			msg.sprintf ("Error getting system info: %d ", GetLastError());
+			msg.sprintf ("Error getting system info: %ld ", GetLastError());
 			wxMessageBox (msg);
 		}
 		else{
@@ -150,7 +150,7 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 			m_launchCounter++;
 		}
 		wxString pipeName;
-		pipeName.sprintf ("\\\\.\\pipe\\Catapult-%u-%u", _getpid(), m_launchCounter);
+		pipeName.sprintf ("\\\\.\\pipe\\Catapult-%u-%lu", _getpid(), m_launchCounter);
 		parameter += wxT(" pipe:") + (pipeName.Mid(9));
 		if (m_connectThread == NULL)
 		{
@@ -160,7 +160,7 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 			if (m_namedPipeHandle == INVALID_HANDLE_VALUE)
 			{
 				wxString text;
-				text.sprintf("Error creating pipe: %d",GetLastError());
+				text.sprintf("Error creating pipe: %ld",GetLastError());
 				wxMessageBox (text);
 			}
 		}
@@ -234,7 +234,7 @@ bool openMSXWindowsController::CreatePipes(bool useNamedPipes,HANDLE * input,
 void openMSXWindowsController::ShowError(wxString msg)
 {
 	wxString error;
-	error.sprintf ("%d",GetLastError());
+	error.sprintf ("%ld",GetLastError());
 	wxMessageBox (msg + wxString(_(": error ")) + error);	
 }
 

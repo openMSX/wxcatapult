@@ -1,4 +1,4 @@
-// $Id: PipeConnectThread.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: PipeConnectThread.cpp,v 1.3 2004/05/08 19:08:31 h_oudejans Exp $
 // PipeConnectThread.cpp: implementation of the PipeConnectThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@ wxThread::ExitCode PipeConnectThread::Entry()
 	if (!ConnectNamedPipe (m_pipeHandle, NULL))
 	{
 		wxString text;
-		text.sprintf("Error connection pipe: %d",GetLastError());
+		text.sprintf("Error connection pipe: %ld",GetLastError());
 		wxMessageBox (text);
 
 	};
