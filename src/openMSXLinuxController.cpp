@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.11 2004/05/08 19:08:32 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.12 2004/05/09 14:25:51 manuelbi Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -8,6 +8,7 @@
 #include <wx/wx.h>
 #endif
 
+#include <unistd.h>
 #include <wx/process.h>
 #include <wx/textfile.h>
 #include "openMSXLinuxController.h"
