@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.27 2004/04/04 19:47:15 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.28 2004/04/05 18:29:39 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -417,6 +417,7 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 	}
 	if (version.Find(_("CVS")) != -1){
 		m_infoCommand = _("openmsx_info_tcl");
+		m_appWindow->m_audioControlPage->EnableMasterVolume();
 		m_unsetCommand = _("unset");
 
 	}

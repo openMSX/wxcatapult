@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.10 2004/03/28 16:57:24 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.11 2004/04/04 19:47:15 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -360,6 +360,12 @@ void AudioControlPage::DisableMasterVolume()
 {
 	m_masterVolumeEnabled = false;	
 }
+
+void AudioControlPage::EnableMasterVolume()
+{
+	m_masterVolumeEnabled = true;
+}
+
 
 void AudioControlPage::InitAudioIO()
 {

@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.h,v 1.7 2004/03/26 20:02:06 h_oudejans Exp $
+// $Id: AudioControlPage.h,v 1.8 2004/04/04 19:47:15 h_oudejans Exp $
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,6 +27,7 @@ class AudioControlPage : public CatapultPage
 		void InvalidMidiOutLogger();
 		void InvalidSampleFilename();
 		void DisableMasterVolume();
+		void EnableMasterVolume();
 		void SetChannelVolume(int number, wxString value);
 		void SetChannelMode (int number,wxString value);
 		wxString GetAudioChannelName(int number);
