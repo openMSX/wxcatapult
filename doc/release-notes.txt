@@ -1,5 +1,5 @@
-Release Notes for openMSX Catapult for openMSX 0.4.0 (2004-05-??)
-=================================================================
+Release Notes for openMSX Catapult 0.4.0-R1 (2004-05-23)
+========================================================
 
 This is the first official release, so everything is new. There have been some
 versions in the past, but we decided to ignore those in these notes. Unlike
@@ -38,5 +38,3 @@ Contact options:
 
 Have fun with your emulated MSX!
                                         the openMSX developers
-
-$Id: $

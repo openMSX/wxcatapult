@@ -4,4 +4,22 @@ Release History
 This is an overview of the changes that were incorporated into past
 releases.
 
-[TODO: fill this in for the first release!]
+openMSX Catapult 0.4.0-R1 (2004-05-23)
+--------------------------------------
+
+This was the first Catapult new style, with the following features:
+- Select machine and multiple extensions
+- Select media to put in the MSX (disk/tape/carts)
+- Disks and tapes can be changed when openMSX is running
+- Various controls to vary the openMSX speed (speed, max frameskip, throttle)
+- Ability to plug devices into the joystick ports (before and at run time)
+- openMSX render control (renderer, scalers, accuracy, blur, glow, gamma and
+  scanlines)
+- Complete audio mixer (consisting of all available sounddevices)
+- MIDI in/out pluggable support (for TurboR GT)
+- PCM Wave input selection (for TurboR)
+- openMSX errors and warnings display
+- MSX LEDs visualisation
+- Frame rate indicator
+- Full communication with openMSX (back and forth)
+
