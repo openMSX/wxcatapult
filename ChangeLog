@@ -1,4 +1,12 @@
-$Id: ChangeLog,v 1.119 2005/03/05 18:26:35 h_oudejans Exp $
+$Id: ChangeLog,v 1.120 2005/03/05 22:02:06 mthuurne Exp $
+
+2005-04-25 Manuel Bilderbeek <manuel@msxnet.org>
+	* Added EXPERIMENTAL AND UNTESTED build support for the following CPUs.
+	  DEC Alpha, ARM, HP PA-RISC, IA-64, Motorola 680x0, MIPS (Big and
+	  Little Endian), IBM S/390.
+	  Everything should work (endianness is OK), but we have no systems to
+	  test on. Let's wait until someone complains that it doesn't work and
+	  then fix it (if needed at all).
 
 2005-03-05 Maarten ter Huurne <maarten@treewalker.org>
 	* Released openmsx-catapult-0.5.1-R1.

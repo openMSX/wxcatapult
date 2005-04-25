@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: detectsys.sh,v 1.5 2004/10/22 21:39:17 mthuurne Exp $
+# $Id: detectsys.sh,v 1.1 2004/11/14 18:34:26 h_oudejans Exp $
 
 MYDIR=`dirname $0` || exit
 #MYDIR=/usr/share/automake-1.7
@@ -35,6 +35,26 @@ case "$GUESSED_CPU" in
 		CATAPULT_TARGET_CPU=x86_64;;
 	powerpc)
 		CATAPULT_TARGET_CPU=ppc;;
+	sparc*)
+		CATAPULT_TARGET_CPU=sparc;;
+	m68k)
+		CATAPULT_TARGET_CPU=m68k;;
+	alpha*)
+		CATAPULT_TARGET_CPU=alpha;;
+	arm*)
+		CATAPULT_TARGET_CPU=arm;;
+	mips)
+		CATAPULT_TARGET_CPU=mips;;
+	mips*eb)
+		CATAPULT_TARGET_CPU=mips;;
+	mips*el)
+		CATAPULT_TARGET_CPU=mipsel;;
+	hppa*)
+		CATAPULT_TARGET_CPU=hppa;;
+	ia64)
+		CATAPULT_TARGET_CPU=ia64;;
+	s390*)
+		CATAPULT_TARGET_CPU=s390;;
 	*)
 		echo "  Unknown CPU \"$GUESSED_CPU\"!" 1>&2
 		exit 1
