@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.17 2005/01/06 21:50:08 manuelbi Exp $
+// $Id: openMSXLinuxController.cpp,v 1.18 2005/05/13 14:11:03 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -135,7 +135,7 @@ bool openMSXLinuxController::WriteMessage(xmlChar * msg,size_t length)
 {
 	if (!m_openMsxRunning) 
 		return false;
-	if ((m_socket) && (m_socket->IsConnected()){
+	if ((m_socket) && (m_socket->IsConnected())) {
 		m_socket->Write(msg,length);
 		return m_socket->LastError();
 	}
