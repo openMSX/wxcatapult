@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.81 2005/03/05 11:52:58 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.82 2005/05/13 14:11:03 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -124,6 +124,8 @@ void openMSXController::HandleSocketEvent(wxSocketEvent & event)
 	case wxSOCKET_LOST:
 		break; // not sure what to do yet
 	case wxSOCKET_CONNECTION:
+		break;
+	default:
 		break;
 	}
 }
