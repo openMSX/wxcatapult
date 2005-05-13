@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.17 2004/10/08 15:23:54 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.h,v 1.18 2004/11/10 21:35:26 h_oudejans Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -6,6 +6,7 @@
 #include <wx/slider.h>
 #include <wx/notebook.h>
 #include <wx/timer.h>
+#include <wx/socket.h>
 
 class CatapultXMLParser;
 class SessionPage;
@@ -38,6 +39,7 @@ class wxCatapultFrame : public wxFrame
 		void OnMenuClose (wxMenuEvent &event);
 		void OnMenuOpen (wxMenuEvent &event);
 		void OnMenuHighlight(wxMenuEvent &event);
+		void OnSocketEvent (wxSocketEvent & event);
 		void OnLaunch(wxCommandEvent& event);
 		void SetControlsOnEnd();
 		void SetControlsOnLaunch();

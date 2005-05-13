@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.56 2005/01/26 17:24:15 h_oudejans Exp $ 
+// $Id: wxCatapultFrm.cpp,v 1.57 2005/01/31 21:00:57 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -38,19 +38,19 @@
 // IDs for the controls and the menu commands
 enum
 {
-	// menu items
+	// menu items and controls
 	Catapult_Quit = 1,
 	Catapult_About,
 	Catapult_Edit_Config,
 	Catapult_Load_OpenMSX_Settings,
 	Catapult_Save_OpenMSX_Settings,
 	Catapult_Save_OpenMSX_Settings_As,
-	Catapult_Save_On_Exit
-	
+	Catapult_Save_On_Exit,
 };
 
 #define FPS_TIMER 1
 #define FOCUS_TIMER 2
+#define OPENMSX_SOCKET 1
 
 // ----------------------------------------------------------------------------
 // event tables and other macros for wxWindows
@@ -77,6 +77,7 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU_OPEN(wxCatapultFrame::OnMenuOpen)
 	EVT_MENU_CLOSE(wxCatapultFrame::OnMenuClose)
 	EVT_MENU_HIGHLIGHT_ALL(wxCatapultFrame::OnMenuHighlight)
+	EVT_SOCKET (OPENMSX_SOCKET,OnSocketEvent)
 END_EVENT_TABLE()
 
 	// include icon for any non-unix version
@@ -375,6 +376,11 @@ void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
 	m_controller->HandleMessage(event);	
 }
 
+void wxCatapultFrame::OnSocketEvent(wxSocketEvent & event)
+{
+	m_controller->HandleSocketEvent (event);
+}
+
 void wxCatapultFrame::StartTimers()
 {
 	m_fpsTimer.Start(1000);
@@ -397,7 +403,7 @@ void wxCatapultFrame::SetFPSdisplay(wxString val)
 
 void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 {
-	m_controller->WriteCommand(m_controller->GetInfoCommand(wxT("fps")));
+//	m_controller->WriteCommand(m_controller->GetInfoCommand(wxT("fps")));
 }
 
 void wxCatapultFrame::OnCheckFocus(wxTimerEvent& event)
@@ -449,11 +455,10 @@ void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 	if (ledname == wxT("kana")) led = m_kanaLed;
 	if (ledname == wxT("pause")) led = m_pauseLed;
 	if (ledname == wxT("turbo")) led = m_turboLed;
-//	if (ledname == wxT("fdd")) led = m_fddLed;
 	if (ledname == wxT("FDD")) led = m_fddLed;
 
-	if (ledstate == wxT("off")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.bmp"),wxBITMAP_TYPE_BMP));
-	if (ledstate == wxT("on")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.bmp"),wxBITMAP_TYPE_BMP));
+	if (ledstate == wxT("off")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.png"),wxBITMAP_TYPE_PNG));
+	if (ledstate == wxT("on")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.png"),wxBITMAP_TYPE_PNG));
 }
 
 void wxCatapultFrame::UpdateState (wxString statename, wxString state)

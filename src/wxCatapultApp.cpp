@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.21 2005/01/07 12:40:27 h_oudejans Exp $ 
+// $Id: wxCatapultApp.cpp,v 1.22 2005/01/31 21:00:57 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -53,6 +53,7 @@ wxCatapultApp::~wxCatapultApp()
 bool wxCatapultApp::OnInit()
 {
 	wxApp::OnInit();
+	wxImage::AddHandler(new wxPNGHandler);
 	wxXmlResource::Get()->InitAllHandlers();
 
 #ifdef ADD_TOGGLEBUTTON_HANDLER
@@ -60,7 +61,7 @@ bool wxCatapultApp::OnInit()
 #endif
 
 	EVT_CONTROLLER = wxNewEventType();
-
+	wxImage::AddHandler(new wxPNGHandler);
 	bool succes = true;
 	succes &= LoadXRC (wxT("config.xrc"));
 	succes &= LoadXRC (wxT("fullscreen.xrc"));

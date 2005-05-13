@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.29 2004/11/14 18:32:32 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.30 2005/01/06 16:27:23 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,8 +19,10 @@
 #include <list>
 #include "CatapultPage.h"
 #include "CatapultXMLParser.h"
+#include <wx/socket.h>
 
 #define LAUNCHSCRIPT_MAXSIZE 100
+#define OPENMSX_SOCKET 1
 
 using std::list;
 
@@ -46,6 +48,7 @@ class openMSXController
 		void HandleStdErr (wxCommandEvent & event);
 		void HandleStdOut (wxCommandEvent &event);
 		void HandleEndProcess (wxCommandEvent & event);
+		void HandleSocketEvent (wxSocketEvent & event);
 		bool SetupOpenMSXParameters (wxString version);
 		virtual bool WriteMessage (xmlChar * msg,size_t length)=0;
 		virtual bool Launch (wxString cmdline)=0;
@@ -64,6 +67,7 @@ class openMSXController
 		bool PostLaunch ();
 		bool PreLaunch();
 		CatapultXMLParser * m_parser;
+		wxSocketClient * m_socket;
 	private:
 		bool wait;
 		int sendStep;
@@ -100,6 +104,7 @@ class openMSXController
 		wxString PeekPendingCommand();
 		enum TargetType PeekPendingCommandTarget();
 				
+		bool connectSocket();
 		void HandleNormalLaunchReply(wxCommandEvent &event);
 		
 		void newLaunchReply (wxCommandEvent & event);

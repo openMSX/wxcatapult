@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.40 2005/02/05 09:50:54 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.41 2005/03/05 11:52:57 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -91,12 +91,6 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_frameskipMaxLabel = (wxStaticText *)FindWindowByName(wxT("FrameSkipMaxLabel"));
 	m_frameskipMinLabel = (wxStaticText *)FindWindowByName(wxT("FrameSkipMinLabel"));
 	m_emulationSpeedLabel = (wxStaticText *)FindWindowByName(wxT("EmulationSpeedLabel"));	
-
-
-	wxBitmap & tempBmp = m_browsePrinterLog->GetBitmapLabel();
-	tempBmp.SetMask(new wxMask(tempBmp,wxColour(255,0,255)));
-	m_browsePrinterLog->Enable(false);
-	m_browsePrinterLog->Enable(true);
 	
 // temporary hardcoded joystick port devices (not for BSD)
 	wxString current;

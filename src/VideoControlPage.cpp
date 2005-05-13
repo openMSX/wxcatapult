@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.30 2005/01/06 16:27:22 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.31 2005/03/05 11:52:58 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -100,12 +100,6 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_blurLabel = (wxStaticText *)FindWindowByName(wxT("BlurLabel"));
 	m_glowLabel = (wxStaticText *)FindWindowByName(wxT("GlowLabel"));
 	m_gammaLabel = (wxStaticText *)FindWindowByName(wxT("GammaLabel"));
-
-	wxBitmap & tempBmp = m_browseScreenshotButton->GetBitmapLabel();
-	tempBmp.SetMask(new wxMask(tempBmp,wxColour(255,0,255)));
-	m_browseScreenshotButton->Enable(false);
-	m_browseScreenshotButton->Enable(true);
-
 }
 
 VideoControlPage::~VideoControlPage()

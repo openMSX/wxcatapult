@@ -1281,18 +1281,18 @@ InputPath=.\version.mk
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\resources\bitmaps\diskimage.bmp
+SOURCE=..\resources\bitmaps\diskimage.png
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\diskimage.bmp
+InputPath=..\resources\bitmaps\diskimage.png
 InputName=diskimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1300,12 +1300,12 @@ InputName=diskimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\diskimage.bmp
+InputPath=..\resources\bitmaps\diskimage.png
 InputName=diskimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1313,12 +1313,12 @@ InputName=diskimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\diskimage.bmp
+InputPath=..\resources\bitmaps\diskimage.png
 InputName=diskimage
 
-"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName).png" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1326,12 +1326,12 @@ InputName=diskimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\diskimage.bmp
+InputPath=..\resources\bitmaps\diskimage.png
 InputName=diskimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1339,12 +1339,12 @@ InputName=diskimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\diskimage.bmp
+InputPath=..\resources\bitmaps\diskimage.png
 InputName=diskimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1352,12 +1352,12 @@ InputName=diskimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\diskimage.bmp
+InputPath=..\resources\bitmaps\diskimage.png
 InputName=diskimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1366,18 +1366,18 @@ InputName=diskimage
 # End Source File
 # Begin Source File
 
-SOURCE=..\resources\bitmaps\eject.bmp
+SOURCE=..\resources\bitmaps\eject.png
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\eject.bmp
+InputPath=..\resources\bitmaps\eject.png
 InputName=eject
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1385,12 +1385,12 @@ InputName=eject
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\eject.bmp
+InputPath=..\resources\bitmaps\eject.png
 InputName=eject
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1398,12 +1398,12 @@ InputName=eject
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\eject.bmp
+InputPath=..\resources\bitmaps\eject.png
 InputName=eject
 
-"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName).png" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1411,12 +1411,12 @@ InputName=eject
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\eject.bmp
+InputPath=..\resources\bitmaps\eject.png
 InputName=eject
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1424,12 +1424,12 @@ InputName=eject
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\eject.bmp
+InputPath=..\resources\bitmaps\eject.png
 InputName=eject
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1437,12 +1437,12 @@ InputName=eject
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\eject.bmp
+InputPath=..\resources\bitmaps\eject.png
 InputName=eject
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1451,18 +1451,18 @@ InputName=eject
 # End Source File
 # Begin Source File
 
-SOURCE=..\resources\bitmaps\file.bmp
+SOURCE=..\resources\bitmaps\file.png
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\file.bmp
+InputPath=..\resources\bitmaps\file.png
 InputName=file
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1470,12 +1470,12 @@ InputName=file
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\file.bmp
+InputPath=..\resources\bitmaps\file.png
 InputName=file
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1483,12 +1483,12 @@ InputName=file
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\file.bmp
+InputPath=..\resources\bitmaps\file.png
 InputName=file
 
-"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName).png" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1496,12 +1496,12 @@ InputName=file
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\file.bmp
+InputPath=..\resources\bitmaps\file.png
 InputName=file
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1509,12 +1509,12 @@ InputName=file
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\file.bmp
+InputPath=..\resources\bitmaps\file.png
 InputName=file
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1522,12 +1522,12 @@ InputName=file
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\file.bmp
+InputPath=..\resources\bitmaps\file.png
 InputName=file
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1536,18 +1536,18 @@ InputName=file
 # End Source File
 # Begin Source File
 
-SOURCE=..\resources\bitmaps\ledoff.bmp
+SOURCE=..\resources\bitmaps\ledoff.png
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledoff.bmp
+InputPath=..\resources\bitmaps\ledoff.png
 InputName=ledoff
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1555,12 +1555,12 @@ InputName=ledoff
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledoff.bmp
+InputPath=..\resources\bitmaps\ledoff.png
 InputName=ledoff
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1568,12 +1568,12 @@ InputName=ledoff
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledoff.bmp
+InputPath=..\resources\bitmaps\ledoff.png
 InputName=ledoff
 
-"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName).png" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1581,12 +1581,12 @@ InputName=ledoff
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledoff.bmp
+InputPath=..\resources\bitmaps\ledoff.png
 InputName=ledoff
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1594,12 +1594,12 @@ InputName=ledoff
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledoff.bmp
+InputPath=..\resources\bitmaps\ledoff.png
 InputName=ledoff
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1607,12 +1607,12 @@ InputName=ledoff
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledoff.bmp
+InputPath=..\resources\bitmaps\ledoff.png
 InputName=ledoff
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1621,18 +1621,18 @@ InputName=ledoff
 # End Source File
 # Begin Source File
 
-SOURCE=..\resources\bitmaps\ledon.bmp
+SOURCE=..\resources\bitmaps\ledon.png
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledon.bmp
+InputPath=..\resources\bitmaps\ledon.png
 InputName=ledon
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1640,12 +1640,12 @@ InputName=ledon
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledon.bmp
+InputPath=..\resources\bitmaps\ledon.png
 InputName=ledon
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1653,12 +1653,12 @@ InputName=ledon
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledon.bmp
+InputPath=..\resources\bitmaps\ledon.png
 InputName=ledon
 
-"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName).png" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1666,12 +1666,12 @@ InputName=ledon
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledon.bmp
+InputPath=..\resources\bitmaps\ledon.png
 InputName=ledon
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1679,12 +1679,12 @@ InputName=ledon
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledon.bmp
+InputPath=..\resources\bitmaps\ledon.png
 InputName=ledon
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1692,12 +1692,12 @@ InputName=ledon
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\ledon.bmp
+InputPath=..\resources\bitmaps\ledon.png
 InputName=ledon
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1706,18 +1706,18 @@ InputName=ledon
 # End Source File
 # Begin Source File
 
-SOURCE=..\resources\bitmaps\romimage.bmp
+SOURCE=..\resources\bitmaps\romimage.png
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\romimage.bmp
+InputPath=..\resources\bitmaps\romimage.png
 InputName=romimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1725,12 +1725,12 @@ InputName=romimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\romimage.bmp
+InputPath=..\resources\bitmaps\romimage.png
 InputName=romimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1738,12 +1738,12 @@ InputName=romimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\romimage.bmp
+InputPath=..\resources\bitmaps\romimage.png
 InputName=romimage
 
-"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName).png" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1751,12 +1751,12 @@ InputName=romimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\romimage.bmp
+InputPath=..\resources\bitmaps\romimage.png
 InputName=romimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1764,12 +1764,12 @@ InputName=romimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\romimage.bmp
+InputPath=..\resources\bitmaps\romimage.png
 InputName=romimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1777,12 +1777,12 @@ InputName=romimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\romimage.bmp
+InputPath=..\resources\bitmaps\romimage.png
 InputName=romimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1791,18 +1791,18 @@ InputName=romimage
 # End Source File
 # Begin Source File
 
-SOURCE=..\resources\bitmaps\tapeimage.bmp
+SOURCE=..\resources\bitmaps\tapeimage.png
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\tapeimage.bmp
+InputPath=..\resources\bitmaps\tapeimage.png
 InputName=tapeimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1810,12 +1810,12 @@ InputName=tapeimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\tapeimage.bmp
+InputPath=..\resources\bitmaps\tapeimage.png
 InputName=tapeimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1823,12 +1823,12 @@ InputName=tapeimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\tapeimage.bmp
+InputPath=..\resources\bitmaps\tapeimage.png
 InputName=tapeimage
 
-"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName).png" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1836,12 +1836,12 @@ InputName=tapeimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\tapeimage.bmp
+InputPath=..\resources\bitmaps\tapeimage.png
 InputName=tapeimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1849,12 +1849,12 @@ InputName=tapeimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\tapeimage.bmp
+InputPath=..\resources\bitmaps\tapeimage.png
 InputName=tapeimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 
@@ -1862,12 +1862,12 @@ InputName=tapeimage
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\tapeimage.bmp
+InputPath=..\resources\bitmaps\tapeimage.png
 InputName=tapeimage
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
-	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName) 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
 	
 # End Custom Build
 

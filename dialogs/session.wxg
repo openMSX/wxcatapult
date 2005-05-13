@@ -103,7 +103,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="BrowseDiskA" base="EditBitmapButton">
                                             <tooltip>Browse</tooltip>
-                                            <bitmap>../resources/bitmaps/diskimage.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/diskimage.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
@@ -113,7 +113,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="ClearDiskA" base="EditBitmapButton">
                                             <tooltip>Eject</tooltip>
-                                            <bitmap>../resources/bitmaps/eject.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/eject.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
@@ -152,7 +152,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="BrowseDiskB" base="EditBitmapButton">
                                             <tooltip>Browse</tooltip>
-                                            <bitmap>../resources/bitmaps/diskimage.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/diskimage.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
@@ -162,7 +162,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="ClearDiskB" base="EditBitmapButton">
                                             <tooltip>Eject</tooltip>
-                                            <bitmap>../resources/bitmaps/eject.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/eject.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
@@ -210,7 +210,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="BrowseCartA" base="EditBitmapButton">
                                             <tooltip>Browse</tooltip>
-                                            <bitmap>../resources/bitmaps/romimage.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/romimage.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
@@ -220,7 +220,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="ClearCartA" base="EditBitmapButton">
                                             <tooltip>Eject</tooltip>
-                                            <bitmap>../resources/bitmaps/eject.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/eject.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
@@ -259,7 +259,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="BrowseCartB" base="EditBitmapButton">
                                             <tooltip>Browse</tooltip>
-                                            <bitmap>../resources/bitmaps/romimage.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/romimage.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
@@ -269,7 +269,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="ClearCartB" base="EditBitmapButton">
                                             <tooltip>Eject</tooltip>
-                                            <bitmap>../resources/bitmaps/eject.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/eject.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
@@ -318,7 +318,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="BrowseCassette" base="EditBitmapButton">
                                             <tooltip>Browse</tooltip>
-                                            <bitmap>../resources/bitmaps/tapeimage.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/tapeimage.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
@@ -328,7 +328,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="ClearCassette" base="EditBitmapButton">
                                             <tooltip>Eject</tooltip>
-                                            <bitmap>../resources/bitmaps/eject.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/eject.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>

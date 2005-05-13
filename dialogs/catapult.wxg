@@ -54,7 +54,7 @@
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="PowerLed" base="EditStaticBitmap">
                                                 <attribute>1</attribute>
-                                                <bitmap>../resources/bitmaps/ledoff.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/ledoff.png</bitmap>
                                             </object>
                                         </object>
                                         <object class="sizeritem">
@@ -80,7 +80,7 @@
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="CapsLockLed" base="EditStaticBitmap">
                                                 <attribute>1</attribute>
-                                                <bitmap>../resources/bitmaps/ledoff.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/ledoff.png</bitmap>
                                             </object>
                                         </object>
                                         <object class="sizeritem">
@@ -107,7 +107,7 @@
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="KanaLed" base="EditStaticBitmap">
                                                 <attribute>1</attribute>
-                                                <bitmap>../resources/bitmaps/ledoff.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/ledoff.png</bitmap>
                                             </object>
                                         </object>
                                         <object class="sizeritem">
@@ -133,7 +133,7 @@
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="PauseLed" base="EditStaticBitmap">
                                                 <attribute>1</attribute>
-                                                <bitmap>../resources/bitmaps/ledoff.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/ledoff.png</bitmap>
                                             </object>
                                         </object>
                                         <object class="sizeritem">
@@ -159,7 +159,7 @@
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="TurboLed" base="EditStaticBitmap">
                                                 <attribute>1</attribute>
-                                                <bitmap>../resources/bitmaps/ledoff.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/ledoff.png</bitmap>
                                             </object>
                                         </object>
                                         <object class="sizeritem">
@@ -185,7 +185,7 @@
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="FDDLed" base="EditStaticBitmap">
                                                 <attribute>1</attribute>
-                                                <bitmap>../resources/bitmaps/ledoff.bmp</bitmap>
+                                                <bitmap>../resources/bitmaps/ledoff.png</bitmap>
                                             </object>
                                         </object>
                                         <object class="sizeritem">

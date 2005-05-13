@@ -742,7 +742,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="BrowseScreenShotButton" base="EditBitmapButton">
                                             <tooltip>Browse</tooltip>
-                                            <bitmap>../resources/bitmaps/file.bmp</bitmap>
+                                            <bitmap>../resources/bitmaps/file.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>

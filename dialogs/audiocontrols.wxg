@@ -209,7 +209,7 @@
                                                 <option>0</option>
                                                 <object class="wxBitmapButton" name="BrowseMidiInButton" base="EditBitmapButton">
                                                     <tooltip>Browse</tooltip>
-                                                    <bitmap>../resources/bitmaps/file.bmp</bitmap>
+                                                    <bitmap>../resources/bitmaps/file.png</bitmap>
                                                     <disabled>1</disabled>
                                                     <size>23, 23</size>
                                                 </object>
@@ -237,7 +237,7 @@
                                                 <option>0</option>
                                                 <object class="wxBitmapButton" name="BrowseMidiOutButton" base="EditBitmapButton">
                                                     <tooltip>Browse</tooltip>
-                                                    <bitmap>../resources/bitmaps/file.bmp</bitmap>
+                                                    <bitmap>../resources/bitmaps/file.png</bitmap>
                                                     <disabled>1</disabled>
                                                     <size>23, 23</size>
                                                 </object>
@@ -265,7 +265,7 @@
                                                 <option>0</option>
                                                 <object class="wxBitmapButton" name="BrowseSampleInputButton" base="EditBitmapButton">
                                                     <tooltip>Browse</tooltip>
-                                                    <bitmap>../resources/bitmaps/file.bmp</bitmap>
+                                                    <bitmap>../resources/bitmaps/file.png</bitmap>
                                                     <disabled>1</disabled>
                                                     <size>23, 23</size>
                                                 </object>

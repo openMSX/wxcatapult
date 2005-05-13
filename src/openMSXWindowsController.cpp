@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.15 2005/01/06 16:27:23 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.16 2005/01/26 17:24:15 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -82,8 +82,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	char buffer[1000];
 	strcpy (buffer,(char*)(const char *) (wxConvUTF8.cWX2MB((cmdLine))));
 	CreateProcessA (NULL,buffer,
-//	CreateProcess (NULL,(wxChar *) cmdLine.c_str(),
-			NULL,NULL,true, dwProcessFlags ,NULL,NULL,&si,&m_openmsxProcInfo); //testing suspended
+					NULL,NULL,true, dwProcessFlags ,NULL,NULL,&si,&m_openmsxProcInfo); //testing suspended
 	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);	
 	if (thread->Create() == wxTHREAD_NO_ERROR)
 	{
@@ -282,10 +281,17 @@ bool openMSXWindowsController::WriteMessage(xmlChar * msg,size_t length)
 {
 	if (!m_openMsxRunning) 
 		return false;
+	if ((m_socket) && (m_socket->IsConnected())){
+		m_socket->Write(msg,length);
+		if (!m_socket->LastError()){
+			return true;
+		}
+		return false;
+	}
 	unsigned long BytesWritten;
 	if (!::WriteFile(m_outputHandle,msg,length,&BytesWritten,NULL))
 		return false;	
-	return true;
+	return true;	
 }
 
 void openMSXWindowsController::HandleEndProcess(wxCommandEvent &event)

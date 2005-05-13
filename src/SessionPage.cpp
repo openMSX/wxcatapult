@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.58 2005/03/05 18:24:16 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.59 2005/03/05 19:41:55 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -199,20 +199,6 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	}
 	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),-1);
 	delete tempDC;
-
-	// let's put a mask on all the bitmapbuttons
-
-	wxBitmapButton * buttons[10] = {m_browseDiskA, m_browseDiskB,
-		m_browseCartA, m_browseCartB, m_browseCassette, 
-		m_clearDiskA, m_clearDiskB, m_clearCartA, m_clearCartB,
-		m_clearCassette};
-	unsigned int i;
-	FOREACH (i,buttons){
-			wxBitmap & temp = buttons[i]->GetBitmapLabel();
-			temp.SetMask(new wxMask(temp,wxColour(255,0,255)));
-			buttons[i]->Enable(false);
-			buttons[i]->Enable(true);
-	}
 
 	RestoreHistory();
 	m_cassettePortState = wxT("disabled");

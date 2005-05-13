@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.120 2005/03/05 22:02:06 mthuurne Exp $
+$Id: ChangeLog,v 1.121 2005/04/25 21:13:33 manuelbi Exp $
+
+2005-05-13 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Added socket support (enable it by uncommenting line 82 of 
+	   openMSXController.cpp)
+	* Replaced bitmaps with png's and removed the masking code.
 
 2005-04-25 Manuel Bilderbeek <manuel@msxnet.org>
 	* Added EXPERIMENTAL AND UNTESTED build support for the following CPUs.

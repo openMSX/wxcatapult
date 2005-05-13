@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.80 2005/02/09 19:29:37 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.81 2005/03/05 11:52:58 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -40,6 +40,7 @@ openMSXController::openMSXController(wxWindow * target)
 	m_pluggables.Clear();
 	m_connectors.Clear();
 	InitLaunchScript ();
+	m_socket = NULL;
 }
 
 openMSXController::~openMSXController()
@@ -78,11 +79,53 @@ bool openMSXController::PreLaunch()
 
 bool openMSXController::PostLaunch()
 {
+//	connectSocket (); // disabled since openMSX has also diabled sockets for security reasons
 	char initial[] = "<openmsx-control>\n";
 	WriteMessage ((unsigned char *)initial,strlen(initial));
 	executeLaunch();
 	m_appWindow->StartTimers();
 	return true;
+}
+
+bool openMSXController::connectSocket()
+{
+	bool bRetval = false;
+	if (m_socket == NULL){ // only if we don't have a socket connection
+		m_socket = new wxSocketClient;
+		m_socket->SetEventHandler(*m_appWindow,OPENMSX_SOCKET);
+		m_socket->SetNotify (wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
+		m_socket->Notify(true);
+
+		wxIPV4address addr; // wx implemented only ipv4 so far
+		addr.Hostname (wxT("localhost")); // only localhost for now
+		addr.Service (9938); // openMSX port
+        if (!m_socket->Connect(addr,true)){ // don't wait, openMSX should be available allready
+			wxMessageBox (wxT("Error: openMSX not available for socket connection !"));			
+		}
+		else{
+			bRetval = true; // succes
+		}
+	}
+	return bRetval;
+}
+
+void openMSXController::HandleSocketEvent(wxSocketEvent & event)
+{
+	switch (event.GetSocketEvent()){
+	case wxSOCKET_INPUT:
+		{
+			char * buffer = new char[1024];
+        	event.GetSocket()->Read(buffer,1024);
+			buffer[event.GetSocket()->LastCount()-1]=0;
+			wxString data = buffer;
+			m_parser->ParseXmlInput(data,m_openMSXID);
+			delete buffer;	
+		}
+	case wxSOCKET_LOST:
+		break; // not sure what to do yet
+	case wxSOCKET_CONNECTION:
+		break;
+	}
 }
 
 void openMSXController::HandleEndProcess(wxCommandEvent &event)
