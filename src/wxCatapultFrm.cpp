@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.57 2005/01/31 21:00:57 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.58 2005/05/13 14:11:03 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -77,7 +77,7 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU_OPEN(wxCatapultFrame::OnMenuOpen)
 	EVT_MENU_CLOSE(wxCatapultFrame::OnMenuClose)
 	EVT_MENU_HIGHLIGHT_ALL(wxCatapultFrame::OnMenuHighlight)
-	EVT_SOCKET (OPENMSX_SOCKET,OnSocketEvent)
+	EVT_SOCKET (OPENMSX_SOCKET,wxCatapultFrame::OnSocketEvent)
 END_EVENT_TABLE()
 
 	// include icon for any non-unix version
