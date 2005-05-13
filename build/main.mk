@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.36 2005/01/31 21:00:31 h_oudejans Exp $
+# $Id: main.mk,v 1.37 2005/03/05 22:09:10 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -219,7 +219,7 @@ XRC_FULL:=$(addprefix $(XRC_PATH)/, \
 	ipsselect.xrc \
 	)
 
-BITMAPS:=$(addprefix $(BUILD_PATH)/,$(wildcard $(BITMAPS_PATH)/*.bmp))
+BITMAPS:=$(addprefix $(BUILD_PATH)/,$(wildcard $(BITMAPS_PATH)/*.png))
 
 DEPEND_PATH:=$(BUILD_PATH)/dep
 DEPEND_FULL:=$(addprefix $(DEPEND_PATH)/,$(addsuffix .d, $(SOURCES)))
@@ -408,7 +408,7 @@ DIST_FULL+=$(addprefix $(MAKE_PATH)/, \
 	*.mk *.sed *.dsp *.dsw config.guess detectsys.sh \
 	)
 DIST_FULL+=$(DIALOGS_PATH)/*.wxg
-DIST_FULL+=$(BITMAPS_PATH)/*.bmp
+DIST_FULL+=$(BITMAPS_PATH)/*.png
 DIST_FULL+=$(addprefix doc/, \
 	*.txt \
 	$(addprefix manual/, \
