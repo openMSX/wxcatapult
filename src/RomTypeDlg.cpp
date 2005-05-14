@@ -31,7 +31,7 @@ RomTypeDlg::RomTypeDlg(wxWindow * parent)
 
 RomTypeDlg::~RomTypeDlg()
 {
-	
+
 }
 
 int RomTypeDlg::ShowModal(wxString type)
@@ -50,7 +50,7 @@ int RomTypeDlg::ShowModal(wxString type)
 				wMax = w;
 			}
 		}
-	m_romTypeList->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),280);
+	m_romTypeList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_HSCROLL_ARROW_X),280);
 	wxString fullName;
 	if (!type.IsEmpty()){
 		fullName = ConvertRomType(type,false);
@@ -117,7 +117,7 @@ int RomTypeDlg::FindRomType(wxString type)
 	{
 		if (m_romTypes[counter] == type)
 		{
-			index = counter;	
+			index = counter;
 		}
 		counter+=2;
 	}
@@ -133,7 +133,7 @@ int RomTypeDlg::FindRomFullTypeName(wxString name)
 	{
 		if (m_romTypes[counter] == name)
 		{
-			index = counter;	
+			index = counter;
 		}
 		counter+=2;
 	}

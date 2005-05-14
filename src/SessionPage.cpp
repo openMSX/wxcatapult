@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.59 2005/03/05 19:41:55 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.60 2005/05/13 14:11:02 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@
 #include "IPSSelectionDlg.h"
 
 #ifdef __WXMSW__
-#ifndef __VISUALC__ 
+#ifndef __VISUALC__
 #define _WIN32_IE 0x400	// to be able to use shell objects
 #endif
 #include <shlobj.h>
@@ -156,7 +156,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
     m_forcePlayButton = (wxToggleButton *)FindWindowByName(wxT("ForcePlayButton"));
 	m_rewindButton = (wxButton *)FindWindowByName(wxT("RewindButton"));
 	m_diskAButton = (wxButton *)FindWindowByName(wxT("DiskA_Button"));
-	m_diskBButton = (wxButton *)FindWindowByName(wxT("DiskB_Button"));	
+	m_diskBButton = (wxButton *)FindWindowByName(wxT("DiskB_Button"));
 	m_cartAButton = (wxButton *)FindWindowByName(wxT("CartA_Button"));
 	m_cartBButton = (wxButton *)FindWindowByName(wxT("CartB_Button"));
 	m_cassetteButton = (wxButton *)FindWindowByName(wxT("CassetteButton"));
@@ -168,9 +168,9 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 
 	SetupHardware(true);
 
-	
+
 	// Adjust the minimum size of the extension and listbox
-	
+
 	wxFont myFont = m_machineList->GetFont();
 	wxMemoryDC * tempDC= new wxMemoryDC();
 	tempDC->SetFont(myFont);
@@ -197,12 +197,12 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 			wMax = w;
 		}
 	}
-	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),-1);
+	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_HSCROLL_ARROW_X),-1);
 	delete tempDC;
 
 	RestoreHistory();
 	m_cassettePortState = wxT("disabled");
-	
+
 	m_romTypeDialog = new RomTypeDlg (this);
 	GetRomTypes();
 	m_ipsDialog = new IPSSelectionDlg (this);
@@ -297,7 +297,7 @@ void SessionPage::OnForcePlayByMenu(wxCommandEvent & event)
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
 {
 	if (BrowseDisk (m_diskA, wxT("diska"), ::wxPathOnly(m_diskA->contents))) {
-		m_lastDiskA = m_diskA->contents;		
+		m_lastDiskA = m_diskA->contents;
 	}
 }
 
@@ -382,10 +382,10 @@ void SessionPage::OnBrowseCassette(wxCommandEvent &event)
 	if (filedlg.ShowModal() == wxID_OK)
 	{
 		m_cassette->contents = filedlg.GetPath();
-		m_cassette->control->SetValue (m_cassette->contents);	
+		m_cassette->control->SetValue (m_cassette->contents);
 		m_controller->WriteCommand(wxT("cassetteplayer eject"));
 		if (!m_cassette->contents.IsEmpty()) {
-			if ((m_cassettePortState != wxT("disabled")) && 
+			if ((m_cassettePortState != wxT("disabled")) &&
 				(m_cassettePortState != wxT("cassetteplayer"))) {
 					m_controller->WriteCommand(wxT("plug cassetteport cassetteplayer"));
 			}
@@ -404,7 +404,7 @@ void SessionPage::OnClickDiskACombo(wxCommandEvent & event)
 {
 	OnClickCombo(event);
 	OnChangeDiskAContents(event);
-	if (m_controller->IsOpenMSXRunning()) {	
+	if (m_controller->IsOpenMSXRunning()) {
 		m_controller->WriteCommand(wxT("diska eject"));
 		if (!m_diskA->contents.IsEmpty()) {
 			m_controller->WriteCommand(wxT("diska ") + ConvertPath(m_diskA->contents,true));
@@ -425,7 +425,7 @@ void SessionPage::OnClickDiskBCombo(wxCommandEvent & event)
 {
 	OnClickCombo(event);
 	OnChangeDiskBContents(event);
-	if (m_controller->IsOpenMSXRunning()) {	
+	if (m_controller->IsOpenMSXRunning()) {
 		m_controller->WriteCommand(wxT("diskb eject"));
 		if (!m_diskB->contents.IsEmpty()) {
 			m_controller->WriteCommand(wxT("diskb ") + ConvertPath(m_diskB->contents,true));
@@ -444,7 +444,7 @@ void SessionPage::OnChangeDiskBContents(wxCommandEvent & event)
 
 void SessionPage::UpdateMenuMapperLabel(mediaInfo * target)
 {
-	wxString item = wxT("Select cartridge type (AUTO)"); 
+	wxString item = wxT("Select cartridge type (AUTO)");
 	if ((target->type != wxT("")) && (target->type.Upper() != wxT("AUTO"))){
 		item = wxT("Select cartridge type (") + target->type + wxT(")");
 	}
@@ -470,7 +470,7 @@ void SessionPage::OnChangeCartAContents(wxCommandEvent & event)
 		m_cartA->type = wxT("");
 		m_cartA->contents = m_cartA->control->GetValue();
 		m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-		UpdateMenuMapperLabel(m_cartA);		
+		UpdateMenuMapperLabel(m_cartA);
 	}
 	m_cartA->avoid_evt = false;
 }
@@ -481,9 +481,9 @@ void SessionPage::OnClickCartBCombo(wxCommandEvent & event)
 	m_cartB->ips.Clear();
 	m_cartB->contents = m_cartB->control->GetValue();
 	m_cartB->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	m_cartB->type = m_cartB->typehistory[event.GetInt()];	
+	m_cartB->type = m_cartB->typehistory[event.GetInt()];
 	UpdateMenuMapperLabel(m_cartB);
-	m_cartB->avoid_evt = true;	
+	m_cartB->avoid_evt = true;
 }
 
 void SessionPage::OnChangeCartBContents(wxCommandEvent & event)
@@ -501,7 +501,7 @@ void SessionPage::OnChangeCartBContents(wxCommandEvent & event)
 void SessionPage::OnClickCassetteCombo(wxCommandEvent & event)
 {
 	OnClickCombo(event);
-	OnChangeCassetteContents(event);	
+	OnChangeCassetteContents(event);
 }
 
 void SessionPage::OnChangeCassetteContents(wxCommandEvent &event)
@@ -547,7 +547,7 @@ void SessionPage::SetupHardware (bool initial)
 
 	prepareExtensions (sharepath, m_extensionArray);
 	prepareMachines (sharepath, m_machineArray);
-	wxString personalShare; 
+	wxString personalShare;
 #ifdef __UNIX__
 	personalShare = ::wxGetHomeDir() +wxT("/.openMSX/share");
 #else
@@ -672,7 +672,7 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 					AddHistory(m_diskA);
 				}
 				m_lastDiskA = m_diskA->contents;
-			}	
+			}
 		}
 		else if (oldFocus == m_diskB->control) {
 			contents = m_diskB->contents;
@@ -794,7 +794,7 @@ void SessionPage::getMedia(wxArrayString & parameters)
 	unsigned int i=0;
 	FOREACH(i,media){
 		value = media[i]->contents;
-		parameters.Add(value);		
+		parameters.Add(value);
 	}
 }
 
@@ -806,14 +806,14 @@ void SessionPage::getTypes(wxArrayString & parameters)
 	unsigned int i=0;
 	FOREACH(i,media){
 		value = media[i]->type;
-		parameters.Add(value);		
+		parameters.Add(value);
 	}
 }
 
 void SessionPage::getPatches(wxArrayString * parameters)
 {
 	mediaInfo * media [5] = {m_diskA,m_diskB,m_cartA,m_cartB,m_cassette};
-	
+
 	unsigned int i=0;
 	FOREACH(i,media){
 		parameters[i] = media[i]->ips;
@@ -830,13 +830,13 @@ void SessionPage::getHardware(wxArrayString & parameters)
 	else{
 		parameters.Add(ConvertPath(m_machineArray[m_machineList->GetSelection()-1]));
 	}
-	
+
 	wxArrayInt sel;
 	if (m_extensionList->GetSelections(sel) >0) {
 		for (unsigned int i=0;i<sel.GetCount();i++) {
 			parameters.Add(m_extensionArray[sel[i]]);
 		}
-	}	
+	}
 }
 
 void SessionPage::UpdateSessionData()
@@ -855,7 +855,7 @@ void SessionPage::UpdateSessionData()
 			m_InsertedMedia |= flags [i];
 		}
 	}
-	
+
 	wxArrayString hardware;
 	getHardware(hardware);
 	m_usedMachine = hardware[0];
@@ -881,7 +881,7 @@ void SessionPage::AddHistory(mediaInfo *media)
 	currentItem.Replace(wxT("/"),wxT("\\"),true);
 #else
 	currentItem.Replace(wxT("\\"),wxT("/"),true);
-#endif	
+#endif
 	int pos = media->history.Index(currentItem);
 	if (pos != wxNOT_FOUND)
 	{
@@ -936,19 +936,19 @@ void SessionPage::RestoreHistory()
 			{
 				media[i]->history.Add(value.Left(pos));
 				media[i]->control->Append(value.Left(pos));
-				value = value.Mid(pos + 2);	
+				value = value.Mid(pos + 2);
 			}
 		}while (pos !=-1);
 		if ((media[i]==m_cartA) || (media[i]==m_cartB)){
 			hist++;
-			config->GetParameter(typeID[hist],types);	
+			config->GetParameter(typeID[hist],types);
 			do
 			{
 				pos = types.Find(wxT("::"));
 				if (pos != -1)
 				{
 					media[i]->typehistory.Add(types.Left(pos));
-					types = types.Mid(pos + 2);	
+					types = types.Mid(pos + 2);
 				}
 			}while (pos !=-1);
 			while (media[i]->typehistory.GetCount() < media[i]->history.GetCount()){
@@ -974,7 +974,7 @@ void SessionPage::RestoreHistory()
 		temp.Replace(wxT("_"),wxT(" "),true);
 		temp.Replace(wxT("\""),wxT(""),true);
 		int pos = m_machineList->FindString(temp);
-		
+
 		if (pos != -1){
 			m_machineList->SetSelection (pos);
 		}
@@ -988,11 +988,11 @@ void SessionPage::RestoreHistory()
 			temp = value.Left(pos);
 			temp.Replace(wxT("_"),wxT(" "),true);
 			m_extensionList->SetStringSelection (temp);
-			value = value.Mid(pos + 2);	
+			value = value.Mid(pos + 2);
 		}
 	} while (pos !=-1);
 }
-	
+
 void SessionPage::SaveHistory()
 {
 	mediaInfo * media[5] = {m_diskA, m_diskB, m_cartA, m_cartB, m_cassette};
@@ -1029,8 +1029,8 @@ void SessionPage::SaveHistory()
 			}
 			config->SetParameter(typeID[hist],temp);
 		}
-		
-		
+
+
 	}
 	config->SetParameter(ConfigurationData::CD_MEDIAINSERTED,(long) m_InsertedMedia);
 	config->SetParameter(ConfigurationData::CD_USEDMACHINE,m_usedMachine);
@@ -1085,7 +1085,7 @@ void SessionPage::OnClickCasMenu (wxCommandEvent & event)
 {
 	m_lastUsedPopup = (wxButton *)event.GetEventObject();
 	wxRect myRect = ((wxWindow *)event.GetEventObject())->GetRect();
-	m_casMenu->Enable(Cas_Rewind,m_rewindButton->IsEnabled());	
+	m_casMenu->Enable(Cas_Rewind,m_rewindButton->IsEnabled());
 	m_casMenu->Enable(Cas_ForcePlay,m_forcePlayButton->IsEnabled());
 	m_casMenu->Check(Cas_ForcePlay,m_forcePlayButton->GetValue());
 	PopupMenu(m_casMenu,myRect.GetLeft(),myRect.GetBottom());
@@ -1108,7 +1108,7 @@ SessionPage::mediaInfo * SessionPage::GetLastMenuTarget()
 
 void SessionPage::OnClickCartMenu(wxCommandEvent & event)
 {
-	int index;	
+	int index;
 	bool enable = true;
 	m_lastUsedPopup = (wxButton *)event.GetEventObject();
 	if (m_lastUsedPopup == m_cartAButton){
@@ -1136,7 +1136,7 @@ void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent & event)
 	if (target != NULL ){
 		devicename = m_lastUsedPopup->GetLabel();
 		devicename.Replace(wxT(" "),wxT(""),TRUE);
-		devicename.LowerCase();		
+		devicename.LowerCase();
 		wxFileDialog filedlg(this,wxT("Create disk image"), ::wxPathOnly(target->contents), wxT(""), wxT("*.*"),wxSAVE|wxOVERWRITE_PROMPT);
 		if (filedlg.ShowModal() == wxID_OK){
 			target->contents = filedlg.GetPath();
@@ -1150,7 +1150,7 @@ void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent & event)
 				SaveHistory();
 			}
 		}
-	}	
+	}
 }
 
 void SessionPage::OnBrowseCartByMenu(wxCommandEvent &event)
@@ -1170,7 +1170,7 @@ void SessionPage::OnBrowseDiskByMenu(wxCommandEvent &event)
 	}
 	else if (m_lastUsedPopup == m_diskBButton){
 		OnBrowseDiskB(event);
-	}	
+	}
 }
 
 void SessionPage::OnBrowseDiskDirByMenu(wxCommandEvent &event)
@@ -1214,7 +1214,7 @@ void SessionPage::OnSelectMapper(wxCommandEvent & event)
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
 		wxString value = target->type;
-		if (m_romTypeDialog->ShowModal(value) == wxID_OK){	
+		if (m_romTypeDialog->ShowModal(value) == wxID_OK){
 			target->type = m_romTypeDialog->GetSelectedType();
 			UpdateMenuMapperLabel(target);
 		}
@@ -1223,7 +1223,7 @@ void SessionPage::OnSelectMapper(wxCommandEvent & event)
 
 void SessionPage::OnSelectIPS(wxCommandEvent & event)
 {
-	wxString item = wxT("Select IPS Patches (None selected)"); 
+	wxString item = wxT("Select IPS Patches (None selected)");
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
 		if (m_ipsDialog->ShowModal(target->ips,target->ipsdir) == wxID_OK){
@@ -1239,8 +1239,8 @@ void SessionPage::OnSelectIPS(wxCommandEvent & event)
 }
 
 void SessionPage::OnBrowseDiskIps(wxCommandEvent & event)
-{	
-	wxString item = wxT("Select IPS Patches (None selected)"); 
+{
+	wxString item = wxT("Select IPS Patches (None selected)");
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
 		if (m_ipsDialog->ShowModal(target->ips,target->ipsdir) == wxID_OK){
@@ -1258,7 +1258,7 @@ void SessionPage::OnBrowseDiskIps(wxCommandEvent & event)
 				}
 				else if (m_lastUsedPopup == m_diskBButton){
 					devicename = wxT("diskb ");
-				}		
+				}
 				wxString command = devicename +wxT(" ") + ConvertPath(target->contents,true) + wxT(" ");
 				for (unsigned int i=0;i<target->ips.GetCount();i++)
 				{
@@ -1278,7 +1278,7 @@ void SessionPage::OnCloseMenu(wxMenuEvent & event)
 
 void SessionPage::GetRomTypes ()
 {
-	// TODO get it from openMSX	
+	// TODO get it from openMSX
 	SetupRomType(wxT(""),wxT("Autodetect type"));
 	SetupRomType(wxT("AUTO"),wxT("Autodetect type"));
 	SetupRomType(wxT("PAGE0"),wxT("Plain 16 kB Page 0"));
@@ -1333,7 +1333,7 @@ void SessionPage::GetRomTypes ()
 	SetupRomType(wxT("SYNTHESIZER"),wxT("Konami Synthesizer"));
 	SetupRomType(wxT("MAJUTSUSHI"),wxT("Hai no Majutsushi"));
 }
-		
+
 void SessionPage::AddRomType(wxString type)
 {
 	m_romTypeDialog->AddRomType(type);

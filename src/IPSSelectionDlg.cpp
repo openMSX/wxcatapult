@@ -42,7 +42,7 @@ IPSSelectionDlg::IPSSelectionDlg(wxWindow * parent)
 
 IPSSelectionDlg::~IPSSelectionDlg()
 {
-	
+
 }
 
 int IPSSelectionDlg::ShowModal(wxArrayString & patches, wxString targetDir)
@@ -69,7 +69,7 @@ int IPSSelectionDlg::ShowModal(wxArrayString & patches, wxString targetDir)
 				wMax = w;
 			}
 		}
-	m_ipsDisplay->SetSizeHints(wMax + wxSystemSettings::GetSystemMetric(wxSYS_HSCROLL_ARROW_X),118);
+	m_ipsDisplay->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_HSCROLL_ARROW_X),118);
 	this->Fit();
 	return wxDialog::ShowModal();
 }
@@ -92,21 +92,21 @@ void IPSSelectionDlg::OnAddIPS(wxCommandEvent &event)
 	path = wxT("All known patchfiles|*.ips;*.IPS;*.gz;*.GZ;*.zip;*.ZIP|Uncompressed patchfiles (*.ips)|*.ips;*.IPS|Compressed patchfiles|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
 	path = wxT("*.*");
-#endif	
+#endif
 	wxFileDialog filedlg(this,wxT("Select ips patchfile"), m_lastBrowseLocation, wxT(""), path ,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK){
 		result = filedlg.GetPath();
 		m_ipsDisplay->Append(result);
 		m_lastBrowseLocation = ::wxPathOnly(result);
 		CheckSelections();
-	}	
+	}
 }
 
 void IPSSelectionDlg::OnRemoveIPS(wxCommandEvent & event)
 {
 	wxArrayInt selections;
 	int num;
-	num = m_ipsDisplay->GetSelections(selections);	
+	num = m_ipsDisplay->GetSelections(selections);
 	if (num != 0)
 	{
 		for (int i=num-1;i>=0;i--){
@@ -121,7 +121,7 @@ void IPSSelectionDlg::OnMoveUp(wxCommandEvent & event)
 	wxString temp;
 	wxArrayInt selections;
 	int num;
-	num = m_ipsDisplay->GetSelections(selections);	
+	num = m_ipsDisplay->GetSelections(selections);
 	if (num != 0)
 	{
 		for (int i=0;i<num;i++){
@@ -139,7 +139,7 @@ void IPSSelectionDlg::OnMoveDown(wxCommandEvent & event)
 	wxString temp;
 	wxArrayInt selections;
 	int num;
-	num = m_ipsDisplay->GetSelections(selections);	
+	num = m_ipsDisplay->GetSelections(selections);
 	if (num != 0)
 	{
 		for (int i=num-1;i>=0;i--){
@@ -198,7 +198,7 @@ void IPSSelectionDlg::CheckSelections()
 			m_ipsMoveDownButton->Enable(true);
 		}
 		else{
-			m_ipsMoveDownButton->Enable(false);	
+			m_ipsMoveDownButton->Enable(false);
 		}
 
 	}
