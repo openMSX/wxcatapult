@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.22 2005/01/31 21:00:57 h_oudejans Exp $
+// $Id: wxCatapultApp.cpp,v 1.23 2005/05/13 14:11:03 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ wxCatapultApp::~wxCatapultApp()
 bool wxCatapultApp::OnInit()
 {
 	wxApp::OnInit();
-	wxImage::AddHandler(new wxPNGHandler);
+	wxImage::AddHandler(new wxPNGHandler());
 	wxXmlResource::Get()->InitAllHandlers();
 
 #ifdef ADD_TOGGLEBUTTON_HANDLER
@@ -61,7 +61,6 @@ bool wxCatapultApp::OnInit()
 #endif
 
 	EVT_CONTROLLER = wxNewEventType();
-	wxImage::AddHandler(new wxPNGHandler);
 	bool succes = true;
 	succes &= LoadXRC (wxT("config.xrc"));
 	succes &= LoadXRC (wxT("fullscreen.xrc"));
@@ -77,7 +76,7 @@ bool wxCatapultApp::OnInit()
 	succes &= LoadXRC (wxT("ipsselect.xrc"));
 
 	if (succes)
-	{	
+	{
 		// We'll set the appication and vendorname before the first call to 'Get'
 
 		SetVendorName(wxT("openMSX team"));
@@ -90,7 +89,7 @@ bool wxCatapultApp::OnInit()
 			CatapultConfigDlg dlg;
 			dlg.Center();
 			if (dlg.ShowModal() != wxID_OK)
-			{	
+			{
 				return FALSE;
 			}
 		}
@@ -132,7 +131,7 @@ wxString wxCatapultApp::GetResourceDir ()
 		if (pos != -1) {
 			temp = temp.Left(pos+1) + wxT("resources");
 		}
-	return wxString(temp);	
+	return wxString(temp);
 #else
 	return RESOURCEDIR;
 #endif
