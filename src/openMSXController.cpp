@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.83 2005/05/13 14:39:38 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.84 2005/05/14 11:17:13 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -118,7 +118,7 @@ void openMSXController::HandleSocketEvent(wxSocketEvent & event)
 			char * buffer = new char[1024];
         	event.GetSocket()->Read(buffer,1024);
 			buffer[event.GetSocket()->LastCount()-1]=0;
-			wxString data = buffer;
+			wxString data = wxCSConv(wxT("ISO8859-1")).cMB2WX(buffer);
 			m_parser->ParseXmlInput(data,m_openMSXID);
 			delete buffer;	
 		}
