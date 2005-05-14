@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.82 2005/05/13 14:11:03 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.83 2005/05/13 14:39:38 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -80,6 +80,7 @@ bool openMSXController::PreLaunch()
 bool openMSXController::PostLaunch()
 {
 //	connectSocket (); // disabled since openMSX has also diabled sockets for security reasons
+	m_appWindow->Enable(true);
 	char initial[] = "<openmsx-control>\n";
 	WriteMessage ((unsigned char *)initial,strlen(initial));
 	executeLaunch();
@@ -413,7 +414,7 @@ wxString openMSXController::GetInfoCommand (wxString parameter)
 	return wxString (wxT("join [openmsx_info ") + parameter +wxT("] \\n"));
 }
 
-int openMSXController::InitConnectors(wxString connectors, wxString dummy)
+int openMSXController::InitConnectors(wxString dummy, wxString connectors)
 {
 	if (connectors.IsEmpty())
 		return -1;
@@ -433,7 +434,7 @@ int openMSXController::InitConnectors(wxString connectors, wxString dummy)
 	}while (pos !=-1);
 	if (!temp.IsEmpty()) // not everything parsed ?
 		m_connectors.Add(temp);
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
 
@@ -484,7 +485,7 @@ wxString openMSXController::GetConnectorContents (wxString name)
 	return wxString (m_connectorcontents[index]);
 }
 
-int openMSXController::InitPluggables(wxString pluggables, wxString dummy)
+int openMSXController::InitPluggables(wxString dummy, wxString pluggables)
 {
 	if (pluggables.IsEmpty())
 		return -1;
@@ -504,7 +505,7 @@ int openMSXController::InitPluggables(wxString pluggables, wxString dummy)
 	} while (pos !=-1);
 	if (!temp.IsEmpty()) // not everything parsed ?
 		m_pluggables.Add(temp);	
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
 void openMSXController::GetPluggables (wxArrayString & pluggables)
@@ -644,6 +645,7 @@ void openMSXController::AddLaunchInstruction (wxString cmd, wxString action,
 		wxMessageBox (wxT("Not enough space to store the Launchscript!\nPlease contact the authors."),wxT("Internal Catapult Error"));
 		return;
 	}
+	// Add the instruction, parameters and other flags to the launch script
 	m_launchScript[m_launchScriptSize].command = cmd;
 	m_launchScript[m_launchScriptSize].scriptActions = action;
 	m_launchScript[m_launchScriptSize].parameter = parameter;
@@ -924,7 +926,7 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 			if (event != NULL) {
 				contents = data->contents;
 			}
-			int result = (*this.*(instruction.p_okfunction))(contents,parameter);
+			int result = (*this.*(instruction.p_okfunction))(parameter, contents);
 			if (result >0) {
 				*sendStep += result;		
 			}
@@ -947,19 +949,19 @@ void openMSXController::HandleLaunchReply (wxString cmd,wxCommandEvent * event,
 	}
 }
 
-int openMSXController::UpdateSetting (wxString data,wxString setting)
+int openMSXController::UpdateSetting (wxString setting,wxString data)
 {
-	m_appWindow->m_videoControlPage->UpdateSetting(setting,data);
-	return 0;
+	m_appWindow->m_videoControlPage->UpdateSetting(setting,data); // Just use any instance of CatapultPage
+	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::FillComboBox (wxString data,wxString setting)
+int openMSXController::FillComboBox (wxString setting,wxString data)
 {
-	m_appWindow->m_videoControlPage->FillComboBox(setting,data);
-	return 0;
+	m_appWindow->m_videoControlPage->FillComboBox(setting,data); // Just use any instance of CatapultPage
+	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::EnableFirmware (wxString data, wxString cmd)
+int openMSXController::EnableFirmware (wxString cmd, wxString data)
 {
 	if ((data != wxT("0")) || (cmd.Mid(0,4) == wxT("set "))) {
 		if (cmd.Find(wxT("frontswitch")) != -1){
@@ -968,22 +970,20 @@ int openMSXController::EnableFirmware (wxString data, wxString cmd)
 		else{
 			m_appWindow->m_miscControlPage->EnableFirmware(wxT("firmwareswitch"));
 		}
-		
-		
 	}
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::EnableRenShaTurbo (wxString data, wxString cmd)
+int openMSXController::EnableRenShaTurbo (wxString cmd, wxString data)
 {
 	if ((data != wxT("0")) || (cmd.Mid(0,4) == wxT("set "))) {
 		m_appWindow->m_miscControlPage->EnableRenShaTurbo();
 	}
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
 
-int openMSXController::InitSoundDevices (wxString data, wxString dummy)
+int openMSXController::InitSoundDevices (wxString dummy, wxString data)
 {
 	wxArrayString channels;
 	tokenize(data,wxT("\n"),channels);
@@ -995,7 +995,7 @@ int openMSXController::InitSoundDevices (wxString data, wxString dummy)
 	return 5; // skip 5 instructions TODO: improve this
 }
 
-int openMSXController::SetChannelType (wxString data,wxString name)
+int openMSXController::SetChannelType (wxString name,wxString data)
 {
 	int maxchannels = m_appWindow->m_audioControlPage->GetNumberOfAudioChannels();
 	int index = 0;
@@ -1015,59 +1015,58 @@ int openMSXController::SetChannelType (wxString data,wxString name)
 	if (index == (maxchannels-1)) {
 		m_appWindow->m_audioControlPage->SetupAudioMixer();
 	}
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::AddPluggableDescription(wxString data,wxString name)
+int openMSXController::AddPluggableDescription(wxString name,wxString data)
 {
 	m_pluggabledescriptions.Add(data);
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::AddPluggableClass(wxString data, wxString name)
+int openMSXController::AddPluggableClass(wxString name, wxString data)
 {
 	m_pluggableclasses.Add(data);
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::AddConnectorClass(wxString data, wxString name)
+int openMSXController::AddConnectorClass(wxString name, wxString data)
 {
 	m_connectorclasses.Add(data);
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::AddConnectorContents(wxString data, wxString name)
+int openMSXController::AddConnectorContents(wxString name, wxString data)
 {
 	m_connectorcontents.Add(data);
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
 int openMSXController::SetSliderDefaults (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_videoControlPage->SetSliderDefaults();
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
 int openMSXController::InitAudioConnectorPanel (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_audioControlPage->InitAudioIO();
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
 int openMSXController::InitConnectorPanel (wxString dummy1, wxString dummy2)
 {
 	m_appWindow->m_miscControlPage->InitConnectorPanel();
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::EnableCassettePort (wxString data, wxString cmd)
+int openMSXController::EnableCassettePort (wxString dummy, wxString data)
 {
 	m_appWindow->m_sessionPage->EnableCassettePort(data);
-	return 0;
+	return 0; // don't skip any lines in the startup script
 }
 
 void openMSXController::UpdateMixer()
 {
 	executeLaunch(NULL,43);
 }
-

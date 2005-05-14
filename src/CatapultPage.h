@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.13 2004/10/08 15:26:03 h_oudejans Exp $
+// $Id: CatapultPage.h,v 1.14 2004/10/10 11:48:30 h_oudejans Exp $
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ public:
 	void UpdateSetting(wxString name, wxString data);
 	void OnClickCombo (wxCommandEvent &event);
 	virtual void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)=0;
-	wxString ConvertPath (wxString path, bool ConvertSlash=false); // need to move somewhere else
+	wxString ConvertPath (wxString path, bool ConvertSlash=false, bool Backwards=false); // need to move somewhere else
 protected:
 	
 

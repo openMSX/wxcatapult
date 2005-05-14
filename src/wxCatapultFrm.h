@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.18 2004/11/10 21:35:26 h_oudejans Exp $
+// $Id: wxCatapultFrm.h,v 1.19 2005/05/13 14:11:04 h_oudejans Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -70,11 +70,9 @@ class wxCatapultFrame : public wxFrame
 		wxStaticBitmap * m_pauseLed;
 		wxStaticBitmap * m_turboLed;
 		wxStaticBitmap * m_fddLed;
-		
 		wxMenu * settingsMenu;
 		
 		CatapultXMLParser * m_parser;
-		
 		wxTimer m_fpsTimer;
 		wxTimer m_focusTimer;
 		wxWindow * m_currentFocus;

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.58 2005/05/13 14:11:03 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.59 2005/05/13 14:34:32 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -310,6 +310,8 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	}
 	m_launch_AbortButton->SetLabel(wxT("Stop"));
 	m_launch_AbortButton->Enable(false);
+	Enable(false);
+
 	wxArrayString hardware;
 	wxArrayString media;
 	wxArrayString patches[5];
@@ -403,7 +405,7 @@ void wxCatapultFrame::SetFPSdisplay(wxString val)
 
 void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 {
-//	m_controller->WriteCommand(m_controller->GetInfoCommand(wxT("fps")));
+	m_controller->WriteCommand(m_controller->GetInfoCommand(wxT("fps")));
 }
 
 void wxCatapultFrame::OnCheckFocus(wxTimerEvent& event)

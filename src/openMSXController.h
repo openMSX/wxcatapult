@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.30 2005/01/06 16:27:23 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.31 2005/05/13 14:11:03 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -116,22 +116,22 @@ class openMSXController
 			LaunchInstructionType instruction,
 			int * sendStep, int loopcount,
 			wxString datalist);
-		int UpdateSetting (wxString data,wxString setting);
-		int FillComboBox (wxString data,wxString setting);
-		int EnableFirmware (wxString dummy, wxString cmd);
-		int EnableRenShaTurbo (wxString data, wxString cmd);
-		int InitConnectors(wxString connectors,wxString dummy);
-		int InitPluggables(wxString pluggables,wxString dummy);
-		int InitSoundDevices (wxString data, wxString dummy);
-		int SetChannelType (wxString data,wxString name);
-		int AddPluggableDescription(wxString data,wxString name);
-		int AddPluggableClass(wxString data,wxString name);
-		int AddConnectorClass(wxString data,wxString name);
-		int AddConnectorContents(wxString data,wxString name);
+		int UpdateSetting (wxString setting,wxString data);
+		int FillComboBox (wxString setting,wxString data);
+		int EnableFirmware (wxString cmd, wxString data);
+		int EnableRenShaTurbo (wxString cmd, wxString data);
+		int InitConnectors(wxString dummy,wxString connectors);
+		int InitPluggables(wxString dummy,wxString pluggables);
+		int InitSoundDevices (wxString dummy, wxString data);
+		int SetChannelType (wxString name,wxString data);
+		int AddPluggableDescription(wxString name,wxString data);
+		int AddPluggableClass(wxString name,wxString data);
+		int AddConnectorClass(wxString name,wxString data);
+		int AddConnectorContents(wxString name,wxString data);
 		int SetSliderDefaults (wxString dummy1, wxString dummy2);
 		int InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
 		int InitConnectorPanel (wxString dummy1, wxString dummy2);
-		int EnableCassettePort (wxString data, wxString cmd);
+		int EnableCassettePort (wxString cmd, wxString data);
 		list<CommandEntry> m_commands;
 };
 

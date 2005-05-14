@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.33 2004/12/25 22:29:34 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.34 2005/01/06 16:27:21 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -37,12 +37,23 @@ CatapultPage::~CatapultPage()
 	delete [] m_settingTable;
 }
 
-wxString CatapultPage::ConvertPath(wxString path, bool ConvertSlash)
+wxString CatapultPage::ConvertPath(wxString path, bool ConvertSlash, bool Backwards)
 {
-	path.Prepend(wxT("\""));
-	path.Append(wxT("\""));
-	if (ConvertSlash)
-		path.Replace(wxT("\\"),wxT("/"),true);
+	if (Backwards){
+		path.Replace(wxT("\""),wxT(""),true);
+	}
+	else{
+		path.Prepend(wxT("\""));
+		path.Append(wxT("\""));
+	}
+	if (ConvertSlash){
+		if (Backwards){
+			path.Replace(wxT("/"),wxT("\\"),true);
+		}
+		else{
+			path.Replace(wxT("\\"),wxT("/"),true);
+		}
+	}
 	return path;
 }
 
@@ -89,13 +100,13 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting(wxT("joyporta"),wxT("Joyport1Selector"),&CatapultPage::UpdatePluggable,0);
 	AddSetting(wxT("joyportb"),wxT("Joyport2Selector"),&CatapultPage::UpdatePluggable,0);
 	AddSetting(wxT("printerport"),wxT("PrinterportSelector"),&CatapultPage::UpdatePluggable,0);
-	AddSetting(wxT("renshaturbo"),wxT("RenShaTurboSlider"),&CatapultPage::UpdateSliderSetting,0);
+	AddSetting(wxT("renshaturbo"),wxT("RenshaTurboSlider"),&CatapultPage::UpdateSliderSetting,0);
 	AddSetting(wxT("diska"),wxT("DiskAContents"),&CatapultPage::UpdateComboSetting,0);
 	AddSetting(wxT("diskb"),wxT("DiskBContents"),&CatapultPage::UpdateComboSetting,0);
 	AddSetting(wxT("cassette"),wxT("CassetteContents"),&CatapultPage::UpdateComboSetting,0);
 	AddSetting(wxT("fullscreen"),wxT("FullScreenButton"),&CatapultPage::UpdateToggleSetting,S_CONVERT);
 	AddSetting(wxT("save_settings_on_exit"),wxT("Save Settings On Exit"),&CatapultPage::UpdateMenuSetting,0);
-	AddSetting(wxT("printerlogfilename"),wxT("PrinterLogFile"),&CatapultPage::UpdateIndicatorSetting,0);
+	AddSetting(wxT("printerlogfilename"),wxT("PrinterLogFile"),&CatapultPage::UpdateIndicatorSetting,S_CONVERT);
 }
 
 void CatapultPage::AddSetting (wxString setting, wxString controlname,
@@ -197,10 +208,15 @@ bool CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString 
 
 bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxString control, int flags)
 {
+	wxString tempData = data;
 	wxTextCtrl * indicator = (wxTextCtrl *)m_parent->FindWindowByName(control);
 	if (indicator != NULL) {
-		if (indicator->GetValue() != data)
-			indicator->SetValue(data);
+		if (flags & S_CONVERT)
+		{
+			tempData = ConvertPath (data,true,true);
+		}
+		if (indicator->GetValue() != tempData)
+			indicator->SetValue(tempData);
 		return true;
 	}
 	return false;
@@ -285,5 +301,3 @@ bool CatapultPage::UpdatePluggable (wxString connector, wxString data, wxString 
 	}
 	return true;
 }
-
-

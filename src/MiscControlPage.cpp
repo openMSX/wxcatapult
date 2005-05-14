@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.41 2005/03/05 11:52:57 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.42 2005/05/13 14:11:02 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -611,7 +611,7 @@ void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent &event)
 	wxString current = ((wxTextCtrl *)event.GetEventObject())->GetValue();
 	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_PRINTERFILE,current);
 	ConfigurationData::instance()->SaveData();
-	m_controller->WriteCommand(wxString(wxT("set printerlogfilename ")) + ConvertPath(current));
+	m_controller->WriteCommand(wxString(wxT("set printerlogfilename ")) + ConvertPath(current,true));
 }
 
 void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent &event)
