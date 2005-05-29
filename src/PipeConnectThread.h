@@ -1,4 +1,4 @@
-// $Id: PipeConnectThread.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id: PipeConnectThread.h,v 1.3 2004/11/11 17:14:59 h_oudejans Exp $
 // PipeConnectThread.h: interface for the PipeConnectThread class.
 //
 //////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.24 2005/01/06 16:27:22 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.25 2005/02/05 09:50:54 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -101,4 +101,3 @@ class MiscControlPage : public CatapultPage
 };
 
 #endif
-

@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.32 2005/05/14 11:17:13 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.33 2005/05/29 11:50:56 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////

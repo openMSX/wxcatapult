@@ -49,4 +49,3 @@ void FullScreenDlg::OnOk(wxCommandEvent &event)
 	config->SaveData();
 	EndModal (wxID_OK);
 }
-

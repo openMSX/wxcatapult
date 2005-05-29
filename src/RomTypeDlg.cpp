@@ -160,4 +160,3 @@ wxString RomTypeDlg::ConvertRomType(wxString source, bool backwards)
 	}
 	return retVal;
 }
-

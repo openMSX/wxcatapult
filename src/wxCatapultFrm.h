@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.20 2005/05/14 11:17:13 h_oudejans Exp $
+// $Id: wxCatapultFrm.h,v 1.21 2005/05/29 11:50:56 h_oudejans Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 

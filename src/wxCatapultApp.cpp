@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.23 2005/05/13 14:11:03 h_oudejans Exp $
+// $Id: wxCatapultApp.cpp,v 1.24 2005/05/14 13:49:04 mthuurne Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -136,4 +136,3 @@ wxString wxCatapultApp::GetResourceDir ()
 	return RESOURCEDIR;
 #endif
 }
-

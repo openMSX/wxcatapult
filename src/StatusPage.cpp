@@ -1,4 +1,4 @@
-// $Id: StatusPage.cpp,v 1.6 2004/05/08 19:08:31 h_oudejans Exp $
+// $Id: StatusPage.cpp,v 1.7 2004/11/11 17:14:59 h_oudejans Exp $
 // StatusPage.cpp: implementation of the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -31,5 +31,3 @@ StatusPage::StatusPage(wxWindow * parent)
 StatusPage::~StatusPage()
 {
 }
-
-

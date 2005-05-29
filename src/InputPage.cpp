@@ -1,4 +1,4 @@
-// $Id: InputPage.cpp,v 1.10 2005/02/08 19:50:23 h_oudejans Exp $
+// $Id: InputPage.cpp,v 1.11 2005/02/09 19:29:37 h_oudejans Exp $
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -80,5 +80,3 @@ void InputPage::SetControlsOnLaunch()
 	launched=true;
 	m_typeTextButton->Enable(m_inputtext->GetValue().Length() != 0);
 }
-
-

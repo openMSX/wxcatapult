@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.9 2004/11/06 13:51:33 manuelbi Exp $
+// $Id: ConfigurationData.cpp,v 1.10 2005/03/01 15:54:53 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -232,4 +232,3 @@ bool ConfigurationData::SaveData()
 //	retVal &= ConfigData->Write(wxT("/connectors/UsedPrinterfile"),m_usedPrinterfile);
 	return retVal;
 }
-
