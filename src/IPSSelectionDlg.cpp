@@ -203,4 +203,3 @@ void IPSSelectionDlg::CheckSelections()
 
 	}
 }
-
