@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.60 2005/05/13 14:11:02 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.61 2005/05/14 14:42:30 mthuurne Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -408,8 +408,6 @@ void SessionPage::OnClickDiskACombo(wxCommandEvent & event)
 		m_controller->WriteCommand(wxT("diska eject"));
 		if (!m_diskA->contents.IsEmpty()) {
 			m_controller->WriteCommand(wxT("diska ") + ConvertPath(m_diskA->contents,true));
-			AddHistory(m_diskA);
-			SaveHistory();
 		}
 	}
 }
@@ -429,8 +427,6 @@ void SessionPage::OnClickDiskBCombo(wxCommandEvent & event)
 		m_controller->WriteCommand(wxT("diskb eject"));
 		if (!m_diskB->contents.IsEmpty()) {
 			m_controller->WriteCommand(wxT("diskb ") + ConvertPath(m_diskB->contents,true));
-			AddHistory(m_diskA);
-			SaveHistory();
 		}
 	}
 }
@@ -1367,9 +1363,3 @@ bool SessionDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& f
 	}
 	return true;
 }
-
-
-
-
-
-
