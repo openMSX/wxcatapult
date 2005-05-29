@@ -1,24 +1,25 @@
-Release Notes for openMSX Catapult 0.5.1-R1 (2005-03-05)
+Release Notes for openMSX Catapult 0.5.2-R1 (2005-05-21)
 ========================================================
 
-This new release brings you the following improvements:
+This new release doesn't brings the following improvements:
 
 User interface:
 
-Fixed: Some wrong behaviour with speed/throttle settings.
-Added: Popup menus for diskA, diskB, cartA, cartB and cassette
-Added: Mapper selection for cartridges.
-Added: IPS support for disks and cartridges.
-Changed: There are no longer two cassette types.
-Changed: History is now limited to 25 items
-Changed: The input page is no longer capable of displaying formatted text.
+Fixed: The rensha Turbo slider wasn't updated when updated in openMSX.
+Fixed: Choosing a printer log file works now as it should.
+Fixed: In Windows, it was possible to crash openMSX by using F10 or ALT
 
 Compilation:
 
-Added: Mingw compilation support. (Although it works fine it produces a larger
-       executable and it needs the mingw runtime dll).
-Added: wxWidgets 2.5 unicode compile support (Not perfect yet).
-
+Added: MAC Support (using wxWidgets 2.6)
+Added: Experimental en untested support for the following environments:
+	DEC Alpha
+	ARM
+	HP PA-RISC
+	IA-64
+	Motorola 680x0
+	MIPS
+	IBM S/390
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems

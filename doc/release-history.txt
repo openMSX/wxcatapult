@@ -3,6 +3,15 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 0.5.2-R1 (2005-05-21)
+
+Fixed: The rensha Turbo slider wasn't updated when updated in openMSX.
+Fixed: Choosing a printer log file works now as it should.
+Fixed: In Windows, it was possible to crash openMSX by using F10 or ALT
+Added: MAC Support (using wxWidgets 2.6)
+Added: Experimental en untested support for :
+	DEC Alpha, 	ARM, HP PA-RISC, IA-64, Motorola 680x0, MIPS, IBM S/390
+
 openMSX Catapult 0.5.1-R1 (2005-03-05)
 --------------------------------------
 
@@ -52,4 +61,3 @@ This was the first Catapult new style, with the following features:
 - MSX LEDs visualisation
 - Frame rate indicator
 - Full communication with openMSX (back and forth)
-
