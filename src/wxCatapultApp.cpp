@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.24 2005/05/14 13:49:04 mthuurne Exp $
+// $Id: wxCatapultApp.cpp,v 1.25 2005/05/29 12:18:24 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -62,6 +62,7 @@ bool wxCatapultApp::OnInit()
 
 	EVT_CONTROLLER = wxNewEventType();
 	bool succes = true;
+	succes &= LoadXRC (wxT("about.xrc"));
 	succes &= LoadXRC (wxT("config.xrc"));
 	succes &= LoadXRC (wxT("fullscreen.xrc"));
 	succes &= LoadXRC (wxT("screenshot.xrc"));

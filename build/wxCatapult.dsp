@@ -212,6 +212,35 @@ LINK32=link.exe
 # PROP Default_Filter "wxg"
 # Begin Source File
 
+SOURCE=..\dialogs\about.wxg
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\about.wxg
+InputName=about
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\dialogs\audiocontrols.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
@@ -1281,6 +1310,36 @@ InputPath=.\version.mk
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\resources\bitmaps\Catapult_128.png
+
+!IF  "$(CFG)" == "wxCatapult - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
+
+# Begin Custom Build - Copying Bitmap: $(InputName)
+ProjDir=.
+InputPath=..\resources\bitmaps\Catapult_128.png
+InputName=Catapult_128
+
+"$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 
+	touch -m $(ProjDir)\..\derived\resources\bitmaps\$(InputName).png 
+	
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release Unicode"
+
+!ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug Unicode"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\resources\bitmaps\diskimage.png
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
@@ -1875,6 +1934,14 @@ InputName=tapeimage
 
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=..\src\AboutDlg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\AboutDlg.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\src\AudioControlPage.cpp

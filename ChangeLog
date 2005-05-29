@@ -1,9 +1,10 @@
-$Id: ChangeLog,v 1.123 2005/05/14 11:17:11 h_oudejans Exp $
+$Id: ChangeLog,v 1.124 2005/05/29 12:50:10 h_oudejans Exp $
 
 2005-05-29 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed hang in catapult and/or openMSX when selecting a disk from 
 	   the history.
 	* Fixed a problem with selecting a disk for drive B from the history
+	* Changed the about dialog
 
 2005-05-14 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed rensha turbo update problem

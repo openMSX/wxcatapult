@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.61 2005/05/29 11:50:56 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.62 2005/05/29 12:18:24 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -22,6 +22,7 @@
 #include "MiscControlPage.h"
 #include "InputPage.h"
 #include "Version.h"
+#include "AboutDlg.h"
 #ifdef __WXMSW__
 #include "openMSXWindowsController.h"
 #else
@@ -188,18 +189,20 @@ void wxCatapultFrame::OnMenuQuit(wxCommandEvent& event)
 void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 {
 	// called when help - about is picked from the menu or toolbar
+	AboutDlg dlg(this);
+	wxStaticText * version = (wxStaticText *)FindWindowByName(wxT("AboutProductLabel"));
+	wxStaticText * message = (wxStaticText *)FindWindowByName(wxT("AboutMessageLabel"));
 	wxString msg;
-	msg.Printf(
-		Version::FULL_VERSION 
+	msg.Printf(Version::FULL_VERSION 
 #if OPENMSX_DEMO_CD_VERSION
 		+wxT("(CD Version)") 	
 #endif
-		+wxT("\n\n") +
-		wxT("Created by the openMSX team\n")
-		);
-
-	wxMessageBox(msg, wxT("About openMSX Catapult"),
-		wxOK | wxICON_INFORMATION, this );
+	);
+	version->SetLabel(msg); 
+	message->SetLabel(wxT("Created by the openMSX team\n"));
+	dlg.SetSize(-1,-1,300,270,wxSIZE_AUTO_HEIGHT);
+	dlg.CenterOnParent();
+	dlg.ShowModal();
 }
 
 void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
