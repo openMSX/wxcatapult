@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.31 2005/05/13 14:11:03 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.32 2005/05/14 11:17:13 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -120,6 +120,7 @@ class openMSXController
 		int FillComboBox (wxString setting,wxString data);
 		int EnableFirmware (wxString cmd, wxString data);
 		int EnableRenShaTurbo (wxString cmd, wxString data);
+		int EnableMainWindow (wxString dummy1, wxString dummy2);
 		int InitConnectors(wxString dummy,wxString connectors);
 		int InitPluggables(wxString dummy,wxString pluggables);
 		int InitSoundDevices (wxString dummy, wxString data);

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.85 2005/05/14 11:54:21 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.86 2005/05/14 13:34:17 mthuurne Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -80,7 +80,6 @@ bool openMSXController::PreLaunch()
 bool openMSXController::PostLaunch()
 {
 //	connectSocket (); // disabled since openMSX has also diabled sockets for security reasons
-	m_appWindow->Enable(true);
 	char initial[] = "<openmsx-control>\n";
 	WriteMessage ((unsigned char *)initial,strlen(initial));
 	executeLaunch();
@@ -582,6 +581,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("update enable led"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("set power on"),wxT("e"),wxT("power"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("unset renderer"),wxT("e"),wxT(""),NULL,true);
+	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::EnableMainWindow,false);
 	AddLaunchInstruction (wxT("#info renderer"),wxT(""),wxT("RendererSelector"),&openMSXController::FillComboBox,true);
 	AddLaunchInstruction (wxT("#info scaler"),wxT(""),wxT("ScalerSelector"),&openMSXController::FillComboBox,true);
 	AddLaunchInstruction (wxT("#info accuracy"),wxT(""),wxT("AccuracySelector"),&openMSXController::FillComboBox,false);
@@ -982,6 +982,11 @@ int openMSXController::EnableRenShaTurbo (wxString cmd, wxString data)
 	return 0; // don't skip any lines in the startup script
 }
 
+int openMSXController::EnableMainWindow(wxString dummy1, wxString dummy2)
+{
+	m_appWindow->EnableMainWindow();
+	return 0; // don't skip any lines in the startup script
+}
 
 int openMSXController::InitSoundDevices (wxString dummy, wxString data)
 {

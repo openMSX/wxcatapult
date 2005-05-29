@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.59 2005/05/13 14:34:32 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.60 2005/05/14 11:17:13 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -50,6 +50,7 @@ enum
 
 #define FPS_TIMER 1
 #define FOCUS_TIMER 2
+#define SAFETY_TIMER 3
 #define OPENMSX_SOCKET 1
 
 // ----------------------------------------------------------------------------
@@ -72,6 +73,7 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
 	EVT_TIMER(FPS_TIMER, wxCatapultFrame::OnUpdateFPS)
 	EVT_TIMER(FOCUS_TIMER, wxCatapultFrame::OnCheckFocus)
+	EVT_TIMER(SAFETY_TIMER, wxCatapultFrame::OnEnableMainWindow)
 	EVT_NOTEBOOK_PAGE_CHANGED(XRCID("GlobalTabControl"), wxCatapultFrame::OnChangePage)
 	EVT_ACTIVATE (wxCatapultFrame::OnDeselectCatapult)
 	EVT_MENU_OPEN(wxCatapultFrame::OnMenuOpen)
@@ -94,6 +96,7 @@ END_EVENT_TABLE()
 {
 	m_fpsTimer.SetOwner(this,FPS_TIMER);
 	m_focusTimer.SetOwner(this,FOCUS_TIMER);
+	m_safetyTimer.SetOwner(this,SAFETY_TIMER);
 
 #ifdef __WXMSW__	
 	m_controller = new openMSXWindowsController(this);
@@ -310,6 +313,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	}
 	m_launch_AbortButton->SetLabel(wxT("Stop"));
 	m_launch_AbortButton->Enable(false);
+	m_safetyTimer.Start(2000,true); // max 2 seconds disable (whatever happens)
 	Enable(false);
 
 	wxArrayString hardware;
@@ -407,6 +411,18 @@ void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 {
 	m_controller->WriteCommand(m_controller->GetInfoCommand(wxT("fps")));
 }
+
+void wxCatapultFrame::OnEnableMainWindow(wxTimerEvent & event)
+{
+	EnableMainWindow();	
+}
+
+void wxCatapultFrame::EnableMainWindow ()
+{
+	Enable(true);
+	m_safetyTimer.Stop();
+}
+
 
 void wxCatapultFrame::OnCheckFocus(wxTimerEvent& event)
 {

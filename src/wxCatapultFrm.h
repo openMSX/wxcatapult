@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.19 2005/05/13 14:11:04 h_oudejans Exp $
+// $Id: wxCatapultFrm.h,v 1.20 2005/05/14 11:17:13 h_oudejans Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -46,6 +46,8 @@ class wxCatapultFrame : public wxFrame
 		void StartTimers();
 		void StopTimers();
 		void OnUpdateFPS(wxTimerEvent& event);
+		void OnEnableMainWindow(wxTimerEvent & event);
+		void EnableMainWindow();
 		void OnCheckFocus(wxTimerEvent& event);
 		void OnChangePage(wxNotebookEvent & event);
 		void OnDeselectCatapult(wxActivateEvent & event);
@@ -75,6 +77,7 @@ class wxCatapultFrame : public wxFrame
 		CatapultXMLParser * m_parser;
 		wxTimer m_fpsTimer;
 		wxTimer m_focusTimer;
+		wxTimer m_safetyTimer;
 		wxWindow * m_currentFocus;
 		wxString m_tempStatus;
 		wxString m_settingsfile;
