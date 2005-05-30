@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.62 2005/05/29 12:18:24 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.63 2005/05/29 16:04:42 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ END_EVENT_TABLE()
 	settingsMenu->Append(Catapult_Save_OpenMSX_Settings, wxT("&Save openMSX Settings"), wxT("Save All openMSX settings"));
 	settingsMenu->Append(Catapult_Save_OpenMSX_Settings_As, wxT("Save openMSX Settings &As..."), wxT("Save All openMSX settings to a specified file"));
 	settingsMenu->AppendCheckItem(Catapult_Save_On_Exit, wxT("Save openMSX Settings On &Exit"), wxT("Save All openMSX settings as soon as openMSX is closed"));
-	helpMenu->Append(Catapult_About, wxT("&About Catapult...\tCtrl-A"), wxT("Show about dialog"));
+	helpMenu->Append(Catapult_About, wxT("&About\tCtrl-A"), wxT("Show about dialog"));
 
 	// now append the freshly created menu to the menu bar...
 	wxMenuBar *menuBar = new wxMenuBar();
@@ -190,7 +190,8 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 {
 	// called when help - about is picked from the menu or toolbar
 	AboutDlg dlg(this);
-	wxStaticText * version = (wxStaticText *)FindWindowByName(wxT("AboutProductLabel"));
+	wxStaticText * version = (wxStaticText *)FindWindowByName(wxT("AboutProductNameLabel"));
+	wxStaticText * description = (wxStaticText *)FindWindowByName(wxT("AboutProductDescriptionLabel"));
 	wxStaticText * message = (wxStaticText *)FindWindowByName(wxT("AboutMessageLabel"));
 	wxString msg;
 	msg.Printf(Version::FULL_VERSION 
@@ -199,8 +200,9 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 #endif
 	);
 	version->SetLabel(msg); 
-	message->SetLabel(wxT("Created by the openMSX team\n"));
-	dlg.SetSize(-1,-1,300,270,wxSIZE_AUTO_HEIGHT);
+	description->SetLabel(wxT("The official GUI for openMSX"));
+	message->SetLabel(wxT("\251 2003-2005 The openMSX Team\n<openmsx-devel@lists.sourceforge.net>\n"));
+	dlg.SetSize(-1,-1,400,300,wxSIZE_AUTO_HEIGHT);
 	dlg.CenterOnParent();
 	dlg.ShowModal();
 }

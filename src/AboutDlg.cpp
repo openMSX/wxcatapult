@@ -12,7 +12,7 @@
 
 IMPLEMENT_CLASS(AboutDlg, wxDialog)
 BEGIN_EVENT_TABLE(AboutDlg, wxDialog)
-	EVT_BUTTON(XRCID("AboutOkButton"),AboutDlg::OnOk)
+	EVT_BUTTON(XRCID("AboutCloseButton"),AboutDlg::OnClose)
 END_EVENT_TABLE()
 
 
@@ -30,7 +30,7 @@ AboutDlg::~AboutDlg()
 
 }
 
-void AboutDlg::OnOk(wxCommandEvent &event)
+void AboutDlg::OnClose(wxCommandEvent &event)
 {
 	EndModal (wxID_OK);
 }

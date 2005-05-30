@@ -13,7 +13,7 @@ class AboutDlg : public wxDialog
 {
 public:
 	AboutDlg(wxWindow * parent = NULL);
-	void OnOk(wxCommandEvent& event);
+	void OnClose(wxCommandEvent& event);
 	virtual ~AboutDlg();
 
 private:
