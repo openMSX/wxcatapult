@@ -1310,7 +1310,7 @@ InputPath=.\version.mk
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\resources\bitmaps\Catapult_128.png
+SOURCE=..\resources\bitmaps\about.png
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
@@ -1322,8 +1322,8 @@ SOURCE=..\resources\bitmaps\Catapult_128.png
 
 # Begin Custom Build - Copying Bitmap: $(InputName)
 ProjDir=.
-InputPath=..\resources\bitmaps\Catapult_128.png
-InputName=Catapult_128
+InputPath=..\resources\bitmaps\about.png
+InputName=about
 
 "$(ProjDir)\..\derived\resources\bitmaps\$(InputName)" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	copy $(InputPath) $(ProjDir)\..\derived\resources\bitmaps > NUL 

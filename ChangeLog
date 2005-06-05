@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.124 2005/05/29 12:50:10 h_oudejans Exp $
+$Id: ChangeLog,v 1.125 2005/05/29 16:05:37 h_oudejans Exp $
+
+2005-06-05 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed some about dialog sizes
+	* Fixed placing of child dialogs
 
 2005-05-29 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed hang in catapult and/or openMSX when selecting a disk from 

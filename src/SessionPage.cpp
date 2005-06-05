@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.61 2005/05/14 14:42:30 mthuurne Exp $
+// $Id: SessionPage.cpp,v 1.62 2005/05/29 12:50:10 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -202,10 +202,9 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 
 	RestoreHistory();
 	m_cassettePortState = wxT("disabled");
-
-	m_romTypeDialog = new RomTypeDlg (this);
+	m_romTypeDialog = new RomTypeDlg (wxGetTopLevelParent(this));
 	GetRomTypes();
-	m_ipsDialog = new IPSSelectionDlg (this);
+	m_ipsDialog = new IPSSelectionDlg (wxGetTopLevelParent(this));
 	m_diskA->control->SetDropTarget(new SessionDropTarget(m_diskA->control));
 	m_diskB->control->SetDropTarget(new SessionDropTarget(m_diskB->control));
 	m_cartA->control->SetDropTarget(new SessionDropTarget(m_cartA->control));
@@ -1210,6 +1209,7 @@ void SessionPage::OnSelectMapper(wxCommandEvent & event)
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
 		wxString value = target->type;
+		m_romTypeDialog->CenterOnParent();
 		if (m_romTypeDialog->ShowModal(value) == wxID_OK){
 			target->type = m_romTypeDialog->GetSelectedType();
 			UpdateMenuMapperLabel(target);
@@ -1222,6 +1222,7 @@ void SessionPage::OnSelectIPS(wxCommandEvent & event)
 	wxString item = wxT("Select IPS Patches (None selected)");
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
+		m_ipsDialog->CenterOnParent();
 		if (m_ipsDialog->ShowModal(target->ips,target->ipsdir) == wxID_OK){
 			m_ipsDialog->GetIPSList(target->ips);
 			int count = target->ips.GetCount();
@@ -1239,6 +1240,7 @@ void SessionPage::OnBrowseDiskIps(wxCommandEvent & event)
 	wxString item = wxT("Select IPS Patches (None selected)");
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
+		m_ipsDialog->CenterOnParent();
 		if (m_ipsDialog->ShowModal(target->ips,target->ipsdir) == wxID_OK){
 			m_ipsDialog->GetIPSList(target->ips);
 			int count = target->ips.GetCount();
