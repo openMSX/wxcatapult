@@ -1,8 +1,8 @@
-// $Id: wxCatapultApp.h,v 1.9 2005/02/03 17:47:28 h_oudejans Exp $
+// $Id: wxCatapultApp.h,v 1.10 2005/06/05 19:38:59 h_oudejans Exp $
 #ifndef wxCatapultApp_H
 #define wxCatapultApp_H
 
-#define OPENMSX_DEMO_CD_VERSION	1 // set to 1 to make a special cd-version (oss 2004)
+#define OPENMSX_DEMO_CD_VERSION	0 // set to 1 to make a special cd-version (oss 2004)
 #define FORCE_UNNAMED_PIPES 0
 
 #include "wx/wxprec.h"
