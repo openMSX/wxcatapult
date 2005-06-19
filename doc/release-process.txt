@@ -85,7 +85,7 @@ Put the release on SourceForge:
 - Select the uploaded file from the file list and choose "Add Files and/or
   Refresh View".
 - File info for the source tarball:
-    Processor: "Platform Independent", File Type: "Source .gz"
+    Processor: "Any", File Type: "Source .gz"
   File info for the Win32 update installer:
     Processor: "i386", File Type: ".exe (32-bit Windows)"
   Finally, choose "Update/Refresh".
