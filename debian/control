@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 4), docbook-to-man, autotools-dev, libwxgtk2.4-dev,
 Standards-Version: 3.6.1
 
 Package: openmsx-catapult
-Architecture: i386
+Architecture: any
 Depends: ${shlibs:Depends}, openmsx
 Description: GUI for openMSX
  openMSX catapult is a graphical frontend for the openMSX emulator
