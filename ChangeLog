@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.125 2005/05/29 16:05:37 h_oudejans Exp $
+$Id: ChangeLog,v 1.126 2005/06/05 19:39:54 h_oudejans Exp $
+
+2005-06-23 Manuel Bilderbeek <manuel@msxnet.org>
+	* There is a bug in wxGTK making ListBox::GetSelections() not work
+	  when it is disabled. Fixed it by doing the disable a bit later,
+	  after the GetSelections() stuff is done
 
 2005-06-05 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed some about dialog sizes

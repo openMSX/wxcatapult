@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.64 2005/05/30 19:25:17 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.65 2005/06/05 19:38:59 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -323,7 +323,6 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_launch_AbortButton->SetLabel(wxT("Stop"));
 	m_launch_AbortButton->Enable(false);
 	m_safetyTimer.Start(2000,true); // max 2 seconds disable (whatever happens)
-	Enable(false);
 
 	wxArrayString hardware;
 	wxArrayString media;
@@ -335,6 +334,8 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_sessionPage->getPatches(patches);
 	m_sessionPage->getTypes(types);
 
+	Enable(false); // Disable this frame only after getting the selections
+	
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	if (hardware[0] != wxT(" <default> "))
