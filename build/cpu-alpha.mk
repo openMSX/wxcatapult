@@ -1,4 +1,4 @@
-# $Id: cpu-alpha.mk,v 1.1 2005/04/24 21:14:21 manuelbi Exp $
+# $Id: cpu-alpha.mk,v 1.1 2005/04/25 21:13:33 manuelbi Exp $
 #
 # Configuration for Alpha CPUs. EXPERIMENTAL AND UNTESTED
 
@@ -6,5 +6,5 @@
 BIG_ENDIAN:=false
 
 # Default build flavour.
-OPENMSX_FLAVOUR?=opt
+CATAPULT_FLAVOUR?=opt
 
