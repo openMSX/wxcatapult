@@ -3,6 +3,17 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 0.5.2-R2 (2005-06-26)
+--------------------------------------
+
+This second release of openMSX Catapult 0.5.2 is only a bug fix release.
+We found that on platforms that use wxGTK, the extensions didn't work anymore.
+This is due to some bug in wxGTK, but we implemented a work around for it in
+this release, which should make Catapult usable again. Also, we made some
+errors in the new CPU build files, which are corrected in this release.
+Note: none of these changes affect Win32 users, so we will not release a new
+Win32 binary.
+
 openMSX Catapult 0.5.2-R1 (2005-06-18)
 --------------------------------------
 
