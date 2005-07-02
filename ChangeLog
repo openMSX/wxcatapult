@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.126 2005/06/05 19:39:54 h_oudejans Exp $
+$Id: ChangeLog,v 1.127 2005/06/23 21:09:12 manuelbi Exp $
+
+2005-07-02 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Added support for 2 keyjoysticks
 
 2005-06-23 Manuel Bilderbeek <manuel@msxnet.org>
 	* There is a bug in wxGTK making ListBox::GetSelections() not work

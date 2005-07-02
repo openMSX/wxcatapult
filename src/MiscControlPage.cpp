@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.42 2005/05/13 14:11:02 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.43 2005/05/14 11:17:13 h_oudejans Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -92,42 +92,9 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_frameskipMinLabel = (wxStaticText *)FindWindowByName(wxT("FrameSkipMinLabel"));
 	m_emulationSpeedLabel = (wxStaticText *)FindWindowByName(wxT("EmulationSpeedLabel"));	
 	
-// temporary hardcoded joystick port devices (not for BSD)
+	wxComboBox * box[2];
 	wxString current;
 	int pos;
-
-#ifndef __BSD__ 
-	wxJoystick joy(wxJOYSTICK1);
-	wxString temp;
-#endif
-	int JoySaveID[]={ConfigurationData::CD_JOYPORT1, ConfigurationData::CD_JOYPORT2};
-	wxComboBox * box[2];
-	box[0] = (wxComboBox *)FindWindowByName (wxT("Joyport1Selector"));
-	box[1] = (wxComboBox *)FindWindowByName (wxT("Joyport2Selector"));
-	for (int i=0;i<2;i++) {
-		box[i]->Clear();
-		box[i]->Append(wxT("--empty--"));
-		box[i]->Append(wxT("mouse"));
-		box[i]->Append(wxT("keyjoystick"));
-#ifndef __BSD__
-		for (int j=1;j<=joy.GetNumberJoysticks();j++) {
-			temp.sprintf(wxT("joystick%d"),j);
-			box[i]->Append(temp);
-		}
-#endif
-		ConfigurationData::instance()->GetParameter(JoySaveID[i],current);
-		pos = box[i]->FindString(current);
-		if (pos != -1){
-			box[i]->SetSelection(pos);
-		}		
-		else{	
-			box[i]->SetSelection(0);
-		}	
-	}
-	m_oldJoy1 = box[0]->GetValue();
-	m_oldJoy2 = box[1]->GetValue();
-
-	
 	
 	box[0] = (wxComboBox *)FindWindowByName (wxT("PrinterportSelector"));
 	box[0]->Clear();
@@ -153,6 +120,52 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 
 MiscControlPage::~MiscControlPage()
 {
+}
+
+void MiscControlPage::FillInitialJoystickPortValues (int number_of_keyjoys)
+{
+//  temporary hardcoded joystick port devices (not for BSD)
+	wxString current;
+	int pos;
+
+#ifndef __BSD__ 
+	wxJoystick joy(wxJOYSTICK1);
+	wxString temp;
+#endif
+	int JoySaveID[]={ConfigurationData::CD_JOYPORT1, ConfigurationData::CD_JOYPORT2};
+	wxComboBox * box[2];
+	box[0] = (wxComboBox *)FindWindowByName (wxT("Joyport1Selector"));
+	box[1] = (wxComboBox *)FindWindowByName (wxT("Joyport2Selector"));
+	for (int i=0;i<2;i++) {
+		box[i]->Clear();
+		box[i]->Append(wxT("--empty--"));
+		box[i]->Append(wxT("mouse"));
+		if (number_of_keyjoys == 1){
+			box[i]->Append(wxT("keyjoystick"));
+		}
+		else{
+			box[i]->Append(wxT("keyjoystick1"));
+			box[i]->Append(wxT("keyjoystick2"));		
+		}
+		
+		
+#ifndef __BSD__
+		for (int j=1;j<=joy.GetNumberJoysticks();j++) {
+			temp.sprintf(wxT("joystick%d"),j);
+			box[i]->Append(temp);
+		}
+#endif
+		ConfigurationData::instance()->GetParameter(JoySaveID[i],current);
+		pos = box[i]->FindString(current);
+		if (pos != -1){
+			box[i]->SetSelection(pos);
+		}		
+		else{	
+			box[i]->SetSelection(0);
+		}	
+	}
+	m_oldJoy1 = box[0]->GetValue();
+	m_oldJoy2 = box[1]->GetValue();
 }
 
 void MiscControlPage::OnReset(wxCommandEvent &event)
