@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.127 2005/06/23 21:09:12 manuelbi Exp $
+$Id: ChangeLog,v 1.128 2005/07/02 09:46:24 h_oudejans Exp $
+
+2005-07-16 Maarten ter Huurne <maarten@treewalker.org>
+	* Compile fixes for wxWidgets 2.6.1.
 
 2005-07-02 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added support for 2 keyjoysticks
@@ -13,7 +16,7 @@ $Id: ChangeLog,v 1.127 2005/06/23 21:09:12 manuelbi Exp $
 	* Fixed placing of child dialogs
 
 2005-05-29 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* Fixed hang in catapult and/or openMSX when selecting a disk from 
+	* Fixed hang in catapult and/or openMSX when selecting a disk from
 	   the history.
 	* Fixed a problem with selecting a disk for drive B from the history
 	* Changed the about dialog
@@ -21,10 +24,10 @@ $Id: ChangeLog,v 1.127 2005/06/23 21:09:12 manuelbi Exp $
 2005-05-14 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed rensha turbo update problem
 	* Fixed missing backslashes with printer log file
-	* Fixed pressing F10 (menu) before openMSX shows its screen	
+	* Fixed pressing F10 (menu) before openMSX shows its screen
 
 2005-05-13 Herman Oudejans <hn.oudejans@quicknet.nl>
-	* Added socket support (enable it by uncommenting line 82 of 
+	* Added socket support (enable it by uncommenting line 82 of
 	   openMSXController.cpp)
 	* Replaced bitmaps with png's and removed the masking code.
 
