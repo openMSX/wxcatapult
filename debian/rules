@@ -42,7 +42,7 @@ clean:
 	rm -f build-stamp
 	-$(MAKE) clean
 	- rm -rf derived/
-	- rm -rf debian/tmp
+	- rm -rf debian/openmsx-catapult
 	-rm -f openmsx-catapult.1
 	dh_clean 
 
@@ -53,14 +53,14 @@ install: build
 	dh_installdirs
 
 	$(MAKE) install \
-		INSTALL_BINARY_DIR=$(CURDIR)/debian/tmp/usr/bin \
-		INSTALL_SHARE_DIR=$(CURDIR)/debian/tmp/usr/share/openmsx-catapult \
-		INSTALL_DOC_DIR=$(CURDIR)/debian/tmp/usr/share/doc/openmsx-catapult \
+		INSTALL_BINARY_DIR=$(CURDIR)/debian/openmsx-catapult/usr/bin \
+		INSTALL_SHARE_DIR=$(CURDIR)/debian/openmsx-catapult/usr/share/openmsx-catapult \
+		INSTALL_DOC_DIR=$(CURDIR)/debian/openmsx-catapult/usr/share/doc/openmsx-catapult \
 		SYMLINK_FOR_BINARY=false \
-		CATAPULT_INSTALL=$(CURDIR)/debian/tmp/usr \
+		CATAPULT_INSTALL=$(CURDIR)/debian/openmsx-catapult/usr \
 		CATAPULT_NO_DESKTOP_HOOKS=true
-	@mv $(CURDIR)/debian/tmp/usr/bin/catapult $(CURDIR)/debian/tmp/usr/bin/openmsx-catapult
-	@rm $(CURDIR)/debian/tmp/usr/share/doc/openmsx-catapult/GPL
+	@mv $(CURDIR)/debian/openmsx-catapult/usr/bin/catapult $(CURDIR)/debian/openmsx-catapult/usr/bin/openmsx-catapult
+	@rm $(CURDIR)/debian/openmsx-catapult/usr/share/doc/openmsx-catapult/GPL
 
 
 
