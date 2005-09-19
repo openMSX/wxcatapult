@@ -1,6 +1,6 @@
-# $Id: platform-freebsd5.mk,v 1.2 2004/10/22 21:42:15 mthuurne Exp $
+# $Id: platform-freebsd5.mk,v 1.1 2004/11/14 18:34:26 h_oudejans Exp $
 #
 # Configuration for FreeBSD 5.x.
 
-include build/platform-x86-freebsd4.mk
+include build/platform-freebsd4.mk
 
