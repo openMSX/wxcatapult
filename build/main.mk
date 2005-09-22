@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.38 2005/05/13 14:37:46 manuelbi Exp $
+# $Id: main.mk,v 1.39 2005/05/29 16:04:36 h_oudejans Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
