@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.h,v 1.7 2004/04/17 18:50:51 h_oudejans Exp $
+// $Id: openMSXLinuxController.h,v 1.8 2005/01/06 16:27:23 h_oudejans Exp $
 // openMSXLinuxController.h: interface for the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,6 +24,7 @@ class openMSXLinuxController : public openMSXController
 		bool WriteMessage(xmlChar * msg,size_t length);
 		virtual bool Launch (wxString cmdline);
 		virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
+		virtual bool CheckOpenMSXConfig (wxString cmd, wxString machine, wxString Extension);
 		virtual void HandleNativeEndProcess ();
 		openMSXLinuxController(wxWindow * target);
 		virtual ~openMSXLinuxController();

@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.62 2005/05/29 12:50:10 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.63 2005/06/05 19:38:59 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -620,6 +620,8 @@ void SessionPage::fillExtensions (wxArrayString & extensionArray)
 
 void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArray, bool optional)
 {
+	wxString cmd;
+	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	if (!::wxDirExists(sharepath + wxT("/machines"))) {
 		if (!optional) {
 			wxString msg;
@@ -1346,6 +1348,24 @@ void SessionPage::SetupRomType(wxString type, wxString fullname)
 {
 	AddRomType (type);
 	SetRomTypeFullName(type,fullname);
+}
+
+void SessionPage::GetDetectedMachines (wxArrayString &machines)
+{
+	machines = m_machineArray;
+//	machines.clear();
+//	int n = m_machineList.GetCount();
+//	for (int index=0;index <n;index++){
+//		machines.Add(m_mac
+///	
+//	
+//	
+//	}
+}
+
+void SessionPage::GetDetectedExtensions (wxArrayString &extensions)
+{
+	extensions = m_extensionArray;
 }
 
 SessionDropTarget::SessionDropTarget(wxComboBox * target)

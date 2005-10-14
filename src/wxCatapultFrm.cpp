@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.65 2005/06/05 19:38:59 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.66 2005/06/23 21:09:12 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -23,6 +23,7 @@
 #include "InputPage.h"
 #include "Version.h"
 #include "AboutDlg.h"
+#include "AuditDlg.h"
 #ifdef __WXMSW__
 #include "openMSXWindowsController.h"
 #else
@@ -41,12 +42,13 @@ enum
 {
 	// menu items and controls
 	Catapult_Quit = 1,
+	Catapult_Audit,
 	Catapult_About,
 	Catapult_Edit_Config,
 	Catapult_Load_OpenMSX_Settings,
 	Catapult_Save_OpenMSX_Settings,
 	Catapult_Save_OpenMSX_Settings_As,
-	Catapult_Save_On_Exit,
+	Catapult_Save_On_Exit,	
 };
 
 #define FPS_TIMER 1
@@ -64,6 +66,7 @@ enum
 IMPLEMENT_CLASS(wxCatapultFrame, wxFrame)
 BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Quit,  wxCatapultFrame::OnMenuQuit)
+	EVT_MENU(Catapult_Audit, wxCatapultFrame::OnMenuAudit)
 	EVT_MENU(Catapult_About, wxCatapultFrame::OnMenuAbout)
 	EVT_MENU(Catapult_Edit_Config, wxCatapultFrame::OnMenuEditConfig)
 	EVT_MENU(Catapult_Save_OpenMSX_Settings, wxCatapultFrame::OnMenuSaveSettings)
@@ -99,6 +102,10 @@ END_EVENT_TABLE()
 	m_focusTimer.SetOwner(this,FOCUS_TIMER);
 	m_safetyTimer.SetOwner(this,SAFETY_TIMER);
 
+	int * testke = NULL;
+	delete testke;
+
+
 #ifdef __WXMSW__	
 	m_controller = new openMSXWindowsController(this);
 #else
@@ -114,6 +121,7 @@ END_EVENT_TABLE()
 	settingsMenu = new wxMenu(wxT(""), 0);
 	wxMenu *helpMenu = new wxMenu(wxT(""), 0);
 
+	fileMenu->Append(Catapult_Audit, wxT("&Check openMSX hardware"), wxT("Check if the machines and extensions installed are actually usable"));
 	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), wxT("Quit this program"));
 	settingsMenu->Append(Catapult_Edit_Config, wxT("Edit &Configuration\tCtrl-E"), wxT("Adjust Catapult Configuration"));
 	settingsMenu->Append(Catapult_Load_OpenMSX_Settings, wxT("&Load openMSX Settings..."), wxT("Load specified settings into openMSX"));
@@ -184,6 +192,43 @@ void wxCatapultFrame::OnMenuQuit(wxCommandEvent& event)
 {
 	// TRUE is to force the frame to close
 	Close(TRUE);
+}
+
+void wxCatapultFrame::OnMenuAudit(wxCommandEvent& event)
+{
+	wxArrayString machines;
+	wxArrayString extensions;
+	wxString cmd;
+	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+	m_sessionPage->GetDetectedMachines(machines);
+	m_sessionPage->GetDetectedExtensions(extensions);
+	AuditDlg dlg(this);
+	dlg.CenterOnParent();
+	if (dlg.ShowModal(cmd,machines,extensions) == wxID_OK){
+		ConfigurationData * config = ConfigurationData::instance();
+		wxString machineString = "";
+		
+		unsigned int j;
+		for (j=0;j<machines.GetCount();j++) {
+			machineString += machines[j];
+			machineString += wxT("::");
+			
+		}
+		wxString extensionString = "";
+		for (j=0;j<extensions.GetCount();j++){
+			extensionString += extensions[j];
+			extensionString += wxT("::");
+		}
+		config->SetParameter(ConfigurationData::CD_MACHINES,machineString);
+		config->SetParameter(ConfigurationData::CD_EXTENSIONS,extensionString);
+		bool result;
+		result = ConfigurationData::instance()->SaveData();
+#if !OPENMSX_DEMO_CD_VERSION
+		if (!result) {
+			wxMessageBox (wxT("Error saving configuration data"));
+		}
+#endif	
+	}
 }
 
 void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)

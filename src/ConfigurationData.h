@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.h,v 1.8 2004/11/06 13:51:33 manuelbi Exp $
+// $Id: ConfigurationData.h,v 1.9 2005/03/01 15:54:53 h_oudejans Exp $
 // onfigurationData.h: interface for the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ class ConfigurationData
 		static ConfigurationData * instance();
 		bool GetParameter (int p_iId, wxString & p_data);
 		bool GetParameter (int p_iId, int * p_data);
-		enum ID {CD_EXECPATH, CD_SHAREPATH,CD_HISTDISKA, CD_HISTDISKB, CD_HISTCARTA, CD_HISTCARTB,
+		enum ID {CD_EXECPATH, CD_SHAREPATH,CD_MACHINES,CD_EXTENSIONS,CD_HISTDISKA, CD_HISTDISKB, CD_HISTCARTA, CD_HISTCARTB,
 			CD_HISTCASSETTE, CD_TYPEHISTCARTA, CD_TYPEHISTCARTB, CD_MEDIAINSERTED, CD_USEDMACHINE,
 			CD_USEDEXTENSIONS, CD_FULLSCREENWARN,CD_SCREENSHOTINFO,CD_JOYPORT1,CD_JOYPORT2,
 			CD_PRINTERPORT,CD_PRINTERFILE,
@@ -43,6 +43,8 @@ class ConfigurationData
 			ConfigurationData();
 			wxString m_openMSXSharePath;
 			wxString m_openMSXExecPath;
+			wxString m_installedMachines;
+			wxString m_installedExtensions;
 			wxString m_diskaHistory;
 			wxString m_diskbHistory;
 			wxString m_cartaHistory;

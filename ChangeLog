@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.128 2005/07/02 09:46:24 h_oudejans Exp $
+$Id: ChangeLog,v 1.129 2005/07/16 15:09:18 mthuurne Exp $
+
+2005-10-14 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Added configuration check (WIP).
 
 2005-07-16 Maarten ter Huurne <maarten@treewalker.org>
 	* Compile fixes for wxWidgets 2.6.1.

@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.18 2005/05/13 14:11:03 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.19 2005/05/13 14:29:42 manuelbi Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -130,6 +130,26 @@ wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 	}
 	return wxString (version);
 }
+
+bool openMSXLinuxController::CheckOpenMSXConfig(wxString cmd,wxString machine,wxString extension)
+{
+	bool retVal = true;
+	wxString fullcommand = cmd;
+	fullcommand += " -testconfig -machine ";
+	fullcommand += machine;
+	if (extension != "")
+	{
+		fullcommand += " -ext ";
+		fullcommand += extension;
+	}
+	int code = system ((const char *) (wxConvUTF8.cWX2MB((fullcommand))));
+	if (code == 1)
+	{
+		retVal = false;
+	}
+	return retVal;
+}
+
 
 bool openMSXLinuxController::WriteMessage(xmlChar * msg,size_t length)
 {

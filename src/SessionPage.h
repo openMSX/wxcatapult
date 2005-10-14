@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.26 2005/03/05 11:52:58 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.27 2005/05/29 12:58:09 manuelbi Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -88,6 +88,8 @@ class SessionPage : public CatapultPage
 		void AddRomType (wxString romtype);
 		void SetRomTypeFullName (wxString romtype, wxString fullname);
 		void SetupRomType (wxString romtype, wxString fullname);
+		void GetDetectedMachines (wxArrayString & machines);
+		void GetDetectedExtensions (wxArrayString & extensions);
 
 	private:
 		struct mediaInfo

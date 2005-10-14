@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.25 2005/05/29 12:18:24 h_oudejans Exp $
+// $Id: wxCatapultApp.cpp,v 1.26 2005/05/29 16:04:41 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -61,6 +61,7 @@ bool wxCatapultApp::OnInit()
 #endif
 
 	EVT_CONTROLLER = wxNewEventType();
+	EVT_TESTCONFIG = wxNewEventType();
 	bool succes = true;
 	succes &= LoadXRC (wxT("about.xrc"));
 	succes &= LoadXRC (wxT("config.xrc"));
@@ -75,6 +76,7 @@ bool wxCatapultApp::OnInit()
 	succes &= LoadXRC (wxT("input.xrc"));
 	succes &= LoadXRC (wxT("romtype.xrc"));
 	succes &= LoadXRC (wxT("ipsselect.xrc"));
+	succes &= LoadXRC (wxT("checkconfigs.xrc"));
 
 	if (succes)
 	{

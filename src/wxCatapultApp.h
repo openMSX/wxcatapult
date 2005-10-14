@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.h,v 1.10 2005/06/05 19:38:59 h_oudejans Exp $
+// $Id: wxCatapultApp.h,v 1.11 2005/06/05 19:48:24 h_oudejans Exp $
 #ifndef wxCatapultApp_H
 #define wxCatapultApp_H
 
@@ -20,6 +20,7 @@
 // Globals
 
 SCOPE int EVT_CONTROLLER;
+SCOPE int EVT_TESTCONFIG;
 
 #define MSGID_STDIN 0
 #define MSGID_STDOUT 1

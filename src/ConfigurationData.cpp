@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.10 2005/03/01 15:54:53 h_oudejans Exp $
+// $Id: ConfigurationData.cpp,v 1.11 2005/05/29 12:18:23 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -22,6 +22,8 @@ ConfigurationData::ConfigurationData()
 #endif
 	ConfigData->Read(wxT("/openMSXpaths/ExecPath"),&m_openMSXExecPath);
 	ConfigData->Read(wxT("/openMSXpaths/SharePath"),&m_openMSXSharePath);
+	ConfigData->Read(wxT("/configuration/InstalledMachines"),&m_installedMachines);
+	ConfigData->Read(wxT("/configuration/InstalledExtensions"),&m_installedExtensions);
 	ConfigData->Read(wxT("/history/DiskA"),&m_diskaHistory);
 	ConfigData->Read(wxT("/history/DiskB"),&m_diskbHistory);
 	ConfigData->Read(wxT("/history/CartA"),&m_cartaHistory);
@@ -52,7 +54,7 @@ bool ConfigurationData::HaveRequiredSettings()
 	if (m_openMSXExecPath.IsEmpty() || !::wxFileExists(m_openMSXExecPath))
 		return false;
 	if (m_openMSXSharePath.IsEmpty() || !::wxDirExists(m_openMSXSharePath))
-		return true;
+		return false;
 	return true;
 }
 
@@ -66,6 +68,12 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 			break;
 		case CD_SHAREPATH:
 			m_openMSXSharePath = p_data.GetString();
+			break;
+		case CD_MACHINES:
+			m_installedMachines = p_data.GetString();
+			break;
+		case CD_EXTENSIONS:
+			m_installedExtensions = p_data.GetString();
 			break;
 		case CD_HISTDISKA:
 			m_diskaHistory = p_data.GetString();
@@ -132,6 +140,12 @@ bool ConfigurationData::GetParameter(int p_iId, wxString &p_data)
 			break;
 		case CD_SHAREPATH:
 			p_data = m_openMSXSharePath;
+			break;
+		case CD_MACHINES:
+			p_data = m_installedMachines;
+			break;
+		case CD_EXTENSIONS:
+			p_data = m_installedExtensions;
 			break;
 		case CD_HISTDISKA:
 			p_data = m_diskaHistory;
@@ -213,7 +227,8 @@ bool ConfigurationData::SaveData()
 	// retVal is created as an n-parameter AND function.
 	retVal =  ConfigData->Write(wxT("/openMSXpaths/ExecPath"),m_openMSXExecPath);
 	retVal &= ConfigData->Write(wxT("/openMSXpaths/SharePath"),m_openMSXSharePath);
-
+	retVal &= ConfigData->Write(wxT("/configuration/InstalledMachines"),m_installedMachines);
+	retVal &= ConfigData->Write(wxT("/configuration/InstalledExtensions"),m_installedExtensions);
 	retVal &= ConfigData->Write(wxT("/history/DiskA"),m_diskaHistory);
 	retVal &= ConfigData->Write(wxT("/history/DiskB"),m_diskbHistory);
 	retVal &= ConfigData->Write(wxT("/history/CartA"),m_cartaHistory);
