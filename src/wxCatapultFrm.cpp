@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.66 2005/06/23 21:09:12 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.67 2005/10/14 08:53:04 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -23,7 +23,7 @@
 #include "InputPage.h"
 #include "Version.h"
 #include "AboutDlg.h"
-#include "AuditDlg.h"
+#include "CheckConfigsDlg.h"
 #ifdef __WXMSW__
 #include "openMSXWindowsController.h"
 #else
@@ -206,7 +206,7 @@ void wxCatapultFrame::OnMenuAudit(wxCommandEvent& event)
 	dlg.CenterOnParent();
 	if (dlg.ShowModal(cmd,machines,extensions) == wxID_OK){
 		ConfigurationData * config = ConfigurationData::instance();
-		wxString machineString = "";
+		wxString machineString = wxT("");
 		
 		unsigned int j;
 		for (j=0;j<machines.GetCount();j++) {
@@ -214,7 +214,7 @@ void wxCatapultFrame::OnMenuAudit(wxCommandEvent& event)
 			machineString += wxT("::");
 			
 		}
-		wxString extensionString = "";
+		wxString extensionString = wxT("");
 		for (j=0;j<extensions.GetCount();j++){
 			extensionString += extensions[j];
 			extensionString += wxT("::");

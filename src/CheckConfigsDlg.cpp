@@ -9,7 +9,7 @@
 #endif
 
 #include "wxCatapultApp.h"
-#include "AuditDlg.h"
+#include "CheckConfigsDlg.h"
 
 IMPLEMENT_CLASS(AuditDlg, wxDialog)
 BEGIN_EVENT_TABLE(AuditDlg, wxDialog)
@@ -68,27 +68,27 @@ void AuditDlg::UpdateStats(bool checkmachine, bool succes, int progress)
 	wxString count;
 	if (succes){
 		if (checkmachine){
-			count.sprintf("%d",++m_validmachinecount);
+			count.sprintf(wxT("%d"),++m_validmachinecount);
 			m_completemachines->SetLabel(count);
 		}
 		else{
-			count.sprintf("%d",++m_validextensioncount);
+			count.sprintf(wxT("%d"),++m_validextensioncount);
 			m_workingextensions->SetLabel(count);	
 		}
 	}
 	else{
 		if (checkmachine){
-			count.sprintf("%d",++m_invalidmachinecount);
+			count.sprintf(wxT("%d"),++m_invalidmachinecount);
 			m_incompletemachines->SetLabel(count);
-			m_log->AppendText("machine: ");			
+			m_log->AppendText(wxT("machine: "));			
 		}
 		else{
-			count.sprintf("%d",++m_invalidextensioncount);
+			count.sprintf(wxT("%d"),++m_invalidextensioncount);
 			m_nonworkingextensions->SetLabel(count);	
-			m_log->AppendText("extension: ");					
+			m_log->AppendText(wxT("extension: "));					
 		}
 		m_log->AppendText(m_currentObject);
-		m_log->AppendText("\n");
+		m_log->AppendText(wxT("\n"));
 	}
 	m_progressbar->SetValue(progress);
 }
@@ -122,7 +122,7 @@ AuditDlg::AuditThread::~AuditThread()
 wxThread::ExitCode AuditDlg::AuditThread::Entry()
 {
 	m_abort = false;
-	m_workingmachine = "";
+	m_workingmachine = wxT("");
 	wxString fullCommand;
 	int progress;
 	int numberOfMachines = m_machines->Count();
@@ -136,7 +136,7 @@ wxThread::ExitCode AuditDlg::AuditThread::Entry()
 		progress = (50*(machine+1))/numberOfMachines;
 		m_target->SetCurrentObject(m_machines->Item(machine));
 		if (doAudit (fullCommand, true, progress)){
-			if (m_workingmachine == ""){
+			if (m_workingmachine == wxT("")){
 				m_workingmachine = m_machines->Item(machine);
 			}
 		}
@@ -172,6 +172,7 @@ bool AuditDlg::AuditThread::doAudit (wxString cmd, bool checkmachine, int progre
 	char buffer[1000];
 	strcpy (buffer,(const char *) (wxConvUTF8.cWX2MB((cmd))));
 
+	bool succes;
 #ifdef __WXMSW__
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE;
 	PROCESS_INFORMATION pi;
@@ -182,7 +183,6 @@ bool AuditDlg::AuditThread::doAudit (wxString cmd, bool checkmachine, int progre
 	si.wShowWindow = SW_HIDE;
 	CreateProcessA (NULL,buffer,
 					NULL,NULL,false, dwProcessFlags ,NULL,NULL,&si,&pi);
-	bool succes;
 	WaitForSingleObject (pi.hProcess,INFINITE);
 	GetExitCodeProcess(pi.hProcess, &result);
 #else

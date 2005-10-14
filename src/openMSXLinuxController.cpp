@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.19 2005/05/13 14:29:42 manuelbi Exp $
+// $Id: openMSXLinuxController.cpp,v 1.20 2005/10/14 08:53:04 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -135,11 +135,11 @@ bool openMSXLinuxController::CheckOpenMSXConfig(wxString cmd,wxString machine,wx
 {
 	bool retVal = true;
 	wxString fullcommand = cmd;
-	fullcommand += " -testconfig -machine ";
+	fullcommand += wxT(" -testconfig -machine ");
 	fullcommand += machine;
-	if (extension != "")
+	if (extension != wxT(""))
 	{
-		fullcommand += " -ext ";
+		fullcommand += wxT(" -ext ");
 		fullcommand += extension;
 	}
 	int code = system ((const char *) (wxConvUTF8.cWX2MB((fullcommand))));
