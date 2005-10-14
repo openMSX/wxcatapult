@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.67 2005/10/14 08:53:04 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.68 2005/10/14 09:17:38 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -42,7 +42,7 @@ enum
 {
 	// menu items and controls
 	Catapult_Quit = 1,
-	Catapult_Audit,
+	Catapult_CheckConfigs,
 	Catapult_About,
 	Catapult_Edit_Config,
 	Catapult_Load_OpenMSX_Settings,
@@ -66,7 +66,7 @@ enum
 IMPLEMENT_CLASS(wxCatapultFrame, wxFrame)
 BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Quit,  wxCatapultFrame::OnMenuQuit)
-	EVT_MENU(Catapult_Audit, wxCatapultFrame::OnMenuAudit)
+	EVT_MENU(Catapult_CheckConfigs, wxCatapultFrame::OnMenuCheckConfigs)
 	EVT_MENU(Catapult_About, wxCatapultFrame::OnMenuAbout)
 	EVT_MENU(Catapult_Edit_Config, wxCatapultFrame::OnMenuEditConfig)
 	EVT_MENU(Catapult_Save_OpenMSX_Settings, wxCatapultFrame::OnMenuSaveSettings)
@@ -121,7 +121,7 @@ END_EVENT_TABLE()
 	settingsMenu = new wxMenu(wxT(""), 0);
 	wxMenu *helpMenu = new wxMenu(wxT(""), 0);
 
-	fileMenu->Append(Catapult_Audit, wxT("&Check openMSX hardware"), wxT("Check if the machines and extensions installed are actually usable"));
+	fileMenu->Append(Catapult_CheckConfigs, wxT("&Check openMSX hardware"), wxT("Check if the machines and extensions installed are actually usable"));
 	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), wxT("Quit this program"));
 	settingsMenu->Append(Catapult_Edit_Config, wxT("Edit &Configuration\tCtrl-E"), wxT("Adjust Catapult Configuration"));
 	settingsMenu->Append(Catapult_Load_OpenMSX_Settings, wxT("&Load openMSX Settings..."), wxT("Load specified settings into openMSX"));
@@ -194,7 +194,7 @@ void wxCatapultFrame::OnMenuQuit(wxCommandEvent& event)
 	Close(TRUE);
 }
 
-void wxCatapultFrame::OnMenuAudit(wxCommandEvent& event)
+void wxCatapultFrame::OnMenuCheckConfigs(wxCommandEvent& event)
 {
 	wxArrayString machines;
 	wxArrayString extensions;
@@ -202,7 +202,7 @@ void wxCatapultFrame::OnMenuAudit(wxCommandEvent& event)
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	m_sessionPage->GetDetectedMachines(machines);
 	m_sessionPage->GetDetectedExtensions(extensions);
-	AuditDlg dlg(this);
+	CheckConfigsDlg dlg(this);
 	dlg.CenterOnParent();
 	if (dlg.ShowModal(cmd,machines,extensions) == wxID_OK){
 		ConfigurationData * config = ConfigurationData::instance();

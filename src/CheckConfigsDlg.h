@@ -1,4 +1,4 @@
-// AuditDlg.h: interface for the AuditDlg class.
+// CheckConfigsDlg.h: interface for the CheckConfigsDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -12,30 +12,30 @@
 #define MSGID_TESTCONFIG_SUCCES 1
 #define MSGID_TESTCONFIG_FAILED 2
 
-class AuditDlg : public wxDialog  
+class CheckConfigsDlg : public wxDialog  
 {
 public:
-	AuditDlg(wxWindow * parent = NULL);
+	CheckConfigsDlg(wxWindow * parent = NULL);
 	void OnUserButton(wxCommandEvent& event);
-	virtual ~AuditDlg();
+	virtual ~CheckConfigsDlg();
 	int ShowModal(wxString cmd, wxArrayString &machines, wxArrayString &extensions);
 	void UpdateStats (bool checkmachine, bool succes, int progress);
 	void FinishCheck ();
 	void SetCurrentObject (wxString object);
 private:
-	class AuditThread : public wxThread  
+	class CheckConfigsThread : public wxThread  
 	{
 	public:
-		AuditThread(AuditDlg * target);
-		virtual ~AuditThread();
+		CheckConfigsThread(CheckConfigsDlg * target);
+		virtual ~CheckConfigsThread();
 		wxThread::ExitCode Entry();
 		void SetParameters (wxString cmd, wxArrayString * machines, wxArrayString * extensions);
 		bool m_abort;
 		
 	private:
-		bool doAudit (wxString cmd, bool checkmachine, int progress);
+		bool doCheckConfigs (wxString cmd);
 		
-		AuditDlg * m_target;
+		CheckConfigsDlg * m_target;
 		wxString m_cmd;
 		wxArrayString * m_machines;
 		wxArrayString * m_extensions;
@@ -46,7 +46,7 @@ private:
 	int m_validextensioncount;
 	int m_invalidextensioncount;
 	
-	AuditThread * m_auditThread;
+	CheckConfigsThread * m_auditThread;
 	wxStaticText * m_completemachines;
 	wxStaticText * m_incompletemachines;
 	wxStaticText * m_workingextensions;
@@ -57,7 +57,7 @@ private:
 	wxTextCtrl * m_log;
 	wxString m_currentObject;
 
-	DECLARE_CLASS(AuditDlg)
+	DECLARE_CLASS(CheckConfigsDlg)
 	// any class wishing to process wxWindows events must use this macro
 	DECLARE_EVENT_TABLE()
 };

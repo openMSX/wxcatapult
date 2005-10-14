@@ -1,4 +1,4 @@
-// AuditDlg.cpp: implementation of the RomTypeDlg class.
+// CheckConfigsDlg.cpp: implementation of the CheckConfigsDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
@@ -11,9 +11,9 @@
 #include "wxCatapultApp.h"
 #include "CheckConfigsDlg.h"
 
-IMPLEMENT_CLASS(AuditDlg, wxDialog)
-BEGIN_EVENT_TABLE(AuditDlg, wxDialog)
-	EVT_BUTTON(XRCID("AuditUserButton"),AuditDlg::OnUserButton)
+IMPLEMENT_CLASS(CheckConfigsDlg, wxDialog)
+BEGIN_EVENT_TABLE(CheckConfigsDlg, wxDialog)
+	EVT_BUTTON(XRCID("CheckConfigsUserButton"),CheckConfigsDlg::OnUserButton)
 END_EVENT_TABLE()
 
 
@@ -21,7 +21,7 @@ END_EVENT_TABLE()
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-AuditDlg::AuditDlg(wxWindow * parent)
+CheckConfigsDlg::CheckConfigsDlg(wxWindow * parent)
 {
 	wxXmlResource::Get()->LoadDialog(this, parent, wxT("CheckHardware"));
 	m_completemachines = (wxStaticText *)FindWindowByName(wxT("CompleteMachinesCount"));
@@ -31,7 +31,7 @@ AuditDlg::AuditDlg(wxWindow * parent)
 	m_currentconfig = (wxStaticText *)FindWindowByName(wxT("CheckingObject"));
 	m_progressbar = (wxGauge *)FindWindowByName (wxT("ProgressGauge"));
 	m_progressbar->SetRange(100);
-	m_userbutton = (wxButton *)FindWindowByName (wxT("AuditUserButton"));
+	m_userbutton = (wxButton *)FindWindowByName (wxT("CheckConfigsUserButton"));
 	m_log = (wxTextCtrl *)FindWindowByName (wxT("MissingObjects"));
 	m_validmachinecount = 0;
 	m_invalidmachinecount = 0;
@@ -39,23 +39,22 @@ AuditDlg::AuditDlg(wxWindow * parent)
 	m_invalidextensioncount = 0;
 }	
 
-AuditDlg::~AuditDlg()
+CheckConfigsDlg::~CheckConfigsDlg()
 {
-
 }
 
-int AuditDlg::ShowModal(wxString cmd, wxArrayString &machines, wxArrayString &extensions)
+int CheckConfigsDlg::ShowModal(wxString cmd, wxArrayString &machines, wxArrayString &extensions)
 {
-	m_auditThread = new AuditDlg::AuditThread (this);
+	m_auditThread = new CheckConfigsDlg::CheckConfigsThread (this);
 	m_auditThread->Create();
 	m_auditThread->SetParameters(cmd,&machines, &extensions);
 	m_auditThread->Run();
 	return wxDialog::ShowModal();
 }
 
-void AuditDlg::OnUserButton(wxCommandEvent &event)
+void CheckConfigsDlg::OnUserButton(wxCommandEvent &event)
 {
-	if (m_userbutton->GetLabel() == wxT("Ok")){
+	if (m_userbutton->GetLabel() == wxT("Ok")) { // FIXME: this is ugly!
 		EndModal(wxID_OK);
 	}
 	else{
@@ -63,11 +62,11 @@ void AuditDlg::OnUserButton(wxCommandEvent &event)
 	}
 }
 
-void AuditDlg::UpdateStats(bool checkmachine, bool succes, int progress)
+void CheckConfigsDlg::UpdateStats(bool checkmachine, bool succes, int progress)
 {
 	wxString count;
-	if (succes){
-		if (checkmachine){
+	if (succes) {
+		if (checkmachine) {
 			count.sprintf(wxT("%d"),++m_validmachinecount);
 			m_completemachines->SetLabel(count);
 		}
@@ -77,7 +76,7 @@ void AuditDlg::UpdateStats(bool checkmachine, bool succes, int progress)
 		}
 	}
 	else{
-		if (checkmachine){
+		if (checkmachine) {
 			count.sprintf(wxT("%d"),++m_invalidmachinecount);
 			m_incompletemachines->SetLabel(count);
 			m_log->AppendText(wxT("machine: "));			
@@ -93,33 +92,33 @@ void AuditDlg::UpdateStats(bool checkmachine, bool succes, int progress)
 	m_progressbar->SetValue(progress);
 }
 
-void AuditDlg::FinishCheck()
+void CheckConfigsDlg::FinishCheck()
 {
-	if (m_auditThread->m_abort){
+	if (m_auditThread->m_abort) {
 		EndModal(wxID_CANCEL);		
 	}
 	else{	
-	m_userbutton->SetLabel (wxT("Ok"));
-	m_currentconfig->SetLabel(wxT("Done"));
+		m_userbutton->SetLabel (wxT("Ok"));
+		m_currentconfig->SetLabel(wxT("Done"));
 	}
 }
 
-void AuditDlg::SetCurrentObject(wxString object)
+void CheckConfigsDlg::SetCurrentObject(wxString object)
 {
 	m_currentObject = object;
 	m_currentconfig->SetLabel(object);
 }
 
-AuditDlg::AuditThread::AuditThread (AuditDlg * target)
+CheckConfigsDlg::CheckConfigsThread::CheckConfigsThread (CheckConfigsDlg * target)
 {
 	m_target = target;
 }
 
-AuditDlg::AuditThread::~AuditThread()
+CheckConfigsDlg::CheckConfigsThread::~CheckConfigsThread()
 {
 }
 
-wxThread::ExitCode AuditDlg::AuditThread::Entry()
+wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 {
 	m_abort = false;
 	m_workingmachine = wxT("");
@@ -128,22 +127,24 @@ wxThread::ExitCode AuditDlg::AuditThread::Entry()
 	int numberOfMachines = m_machines->Count();
 	int numberOfExtensions = m_extensions->Count();
 	int machine = 0;
-	while ((machine < numberOfMachines) && !m_abort){
+	while ((machine < numberOfMachines) && !m_abort) {
 		fullCommand = m_cmd;
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
 		fullCommand += m_machines->Item(machine);
-		progress = (50*(machine+1))/numberOfMachines;
 		m_target->SetCurrentObject(m_machines->Item(machine));
-		if (doAudit (fullCommand, true, progress)){
-			if (m_workingmachine == wxT("")){
+		progress = (50*(machine+1))/numberOfMachines;
+		bool success = doCheckConfigs (fullCommand);
+		if (success) {
+			if (m_workingmachine == wxT("")) {
 				m_workingmachine = m_machines->Item(machine);
 			}
 		}
+		m_target->UpdateStats (true, success, progress);
 		machine++;
 	}
 	int extension = 0;
-	while ((extension < numberOfExtensions) && !m_abort){	
+	while ((extension < numberOfExtensions) && !m_abort) {	
 		fullCommand = m_cmd;
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
@@ -152,24 +153,28 @@ wxThread::ExitCode AuditDlg::AuditThread::Entry()
 		fullCommand += m_extensions->Item(extension);
 		m_target->SetCurrentObject(m_extensions->Item(extension));
 		progress = ((50*(extension+1))/numberOfExtensions)+50;
-		doAudit (fullCommand, false, progress);
+		bool success = doCheckConfigs (fullCommand);
+		m_target->UpdateStats (false, success, progress);
 		extension++;
 	}
 	m_target->FinishCheck();
 	return 0;
 }
 
-void AuditDlg::AuditThread::SetParameters(wxString cmd, wxArrayString * machines, wxArrayString * extensions)
+void CheckConfigsDlg::CheckConfigsThread::SetParameters(wxString cmd, wxArrayString * machines, wxArrayString * extensions)
 {
 	m_machines = machines;
 	m_extensions = extensions;
 	m_cmd = cmd;
 }
 
-bool AuditDlg::AuditThread::doAudit (wxString cmd, bool checkmachine, int progress)
+bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 {
 	unsigned long result;
 	char buffer[1000];
+#ifndef __WXMSW__
+	cmd += wxT(" > /dev/null"); // keep stderr displayed for now
+#endif
 	strcpy (buffer,(const char *) (wxConvUTF8.cWX2MB((cmd))));
 
 	bool succes;
@@ -182,19 +187,18 @@ bool AuditDlg::AuditThread::doAudit (wxString cmd, bool checkmachine, int progre
 	si.dwFlags = STARTF_USESHOWWINDOW;	
 	si.wShowWindow = SW_HIDE;
 	CreateProcessA (NULL,buffer,
-					NULL,NULL,false, dwProcessFlags ,NULL,NULL,&si,&pi);
+			NULL,NULL,false, dwProcessFlags ,NULL,NULL,&si,&pi);
 	WaitForSingleObject (pi.hProcess,INFINITE);
 	GetExitCodeProcess(pi.hProcess, &result);
 #else
 	result = system (buffer);
 #endif	
-	
+
 	if (result == 0)	{
 		succes = true;		
 	}
 	else{
 		succes = false;
 	}
-	m_target->UpdateStats (checkmachine, succes, progress);
 	return succes;
 }

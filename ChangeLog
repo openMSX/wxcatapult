@@ -1,4 +1,13 @@
-$Id: ChangeLog,v 1.129 2005/07/16 15:09:18 mthuurne Exp $
+$Id: ChangeLog,v 1.130 2005/10/14 08:53:04 h_oudejans Exp $
+
+2005-10-14 Manuel Bilderbeek <manuel@msxnet.org>
+	* Updated configuration check to work on my system. :)
+	  - the form needed more space for several stuff to work properly
+	    (Herman, please check if this can be done in a better way.)
+	  - fix compilation issues
+	  - small cleanups (still a lot TODO, though)
+	  - don't output stdout stuff from openMSX to stdout
+	  - still WIP!
 
 2005-10-14 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added configuration check (WIP).
