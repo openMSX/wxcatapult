@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.27 2005/05/29 12:58:09 manuelbi Exp $
+// $Id: SessionPage.h,v 1.28 2005/10/14 08:53:04 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ class SessionPage : public CatapultPage
 		void OnSelectMapper (wxCommandEvent & event);
 		void OnSelectIPS (wxCommandEvent & event);
 		void OnCloseMenu (wxMenuEvent & event);
-		void SetupHardware (bool initial);
+		void SetupHardware (bool initial, bool reset);
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 		void SetControlsOnLaunch();
 		void SetControlsOnEnd();

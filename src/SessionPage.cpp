@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.63 2005/06/05 19:38:59 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.64 2005/10/14 08:53:04 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -166,7 +166,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_lastDiskB = wxT("");
 	m_lastCassette = wxT("");
 
-	SetupHardware(true);
+	SetupHardware(true,false);
 
 
 	// Adjust the minimum size of the extension and listbox
@@ -516,7 +516,7 @@ void SessionPage::OnChangeCassetteContents(wxCommandEvent &event)
 	}
 }
 
-void SessionPage::SetupHardware (bool initial)
+void SessionPage::SetupHardware (bool initial, bool reset)
 {
 	wxString currentMachine;
 	wxArrayString currentExtensions;
@@ -531,28 +531,52 @@ void SessionPage::SetupHardware (bool initial)
 		}
 	}
 	ConfigurationData * config = ConfigurationData::instance();
-	wxString sharepath;
-	config->GetParameter(ConfigurationData::CD_SHAREPATH,sharepath);
+	m_machineArray.Clear();
+	m_extensionArray.Clear();
 	m_machineList->Clear();
 	m_machineList->Append(wxT(" <default> "));
 	m_extensionList->Clear();
-
-	m_machineArray.Clear();
-	m_extensionArray.Clear();
-
-	prepareExtensions (sharepath, m_extensionArray);
-	prepareMachines (sharepath, m_machineArray);
-	wxString personalShare;
+	wxString checkedMachines;
+	wxString checkedExtensions;
+	config->GetParameter(ConfigurationData::CD_MACHINES, checkedMachines);
+	config->GetParameter(ConfigurationData::CD_EXTENSIONS, checkedExtensions);
+	if (!checkedMachines.IsEmpty() && !checkedExtensions.IsEmpty() && !reset){
+		int pos;
+		do
+		{
+			pos = checkedMachines.Find(wxT("::"));
+			if (pos != -1)
+			{
+				m_machineArray.Add(checkedMachines.Left(pos));
+				checkedMachines = checkedMachines.Mid(pos + 2);
+			}
+		}while (pos !=-1);	
+		do
+		{
+			pos = checkedExtensions.Find(wxT("::"));
+			if (pos != -1)
+			{
+				m_extensionArray.Add(checkedExtensions.Left(pos));
+				checkedExtensions = checkedExtensions.Mid(pos + 2);
+			}
+		}while (pos !=-1);	
+	}
+	else{
+		wxString sharepath;
+		config->GetParameter(ConfigurationData::CD_SHAREPATH,sharepath);
+		prepareExtensions (sharepath, m_extensionArray);
+		prepareMachines (sharepath, m_machineArray);
+		wxString personalShare;
 #ifdef __UNIX__
-	personalShare = ::wxGetHomeDir() +wxT("/.openMSX/share");
+		personalShare = ::wxGetHomeDir() +wxT("/.openMSX/share");
 #else
-	TCHAR temp[MAX_PATH + 1];
-	SHGetSpecialFolderPath(0,temp,CSIDL_PERSONAL, 1);
-	personalShare = wxString((const wxChar *)temp) +wxT("/openMSX/share");
+		TCHAR temp[MAX_PATH + 1];
+		SHGetSpecialFolderPath(0,temp,CSIDL_PERSONAL, 1);
+		personalShare = wxString((const wxChar *)temp) +wxT("/openMSX/share");
 #endif
-	prepareExtensions (personalShare, m_extensionArray, true);
-	prepareMachines (personalShare, m_machineArray, true);
-
+		prepareExtensions (personalShare, m_extensionArray, true);
+		prepareMachines (personalShare, m_machineArray, true);
+	}	
 	m_extensionArray.Sort(SessionPage::CompareCaseInsensitive);
 	m_machineArray.Sort(SessionPage::CompareCaseInsensitive);
 	fillExtensions (m_extensionArray);
@@ -984,7 +1008,9 @@ void SessionPage::RestoreHistory()
 		if (pos != -1){
 			temp = value.Left(pos);
 			temp.Replace(wxT("_"),wxT(" "),true);
-			m_extensionList->SetStringSelection (temp);
+			if (m_extensionList->FindString(temp) != -1){
+				m_extensionList->SetStringSelection (temp);
+			}
 			value = value.Mid(pos + 2);
 		}
 	} while (pos !=-1);

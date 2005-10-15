@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.68 2005/10/14 09:17:38 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.69 2005/10/14 10:28:11 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -196,6 +196,12 @@ void wxCatapultFrame::OnMenuQuit(wxCommandEvent& event)
 
 void wxCatapultFrame::OnMenuCheckConfigs(wxCommandEvent& event)
 {
+	CheckConfigs();
+}
+
+void wxCatapultFrame::CheckConfigs()
+{
+	m_sessionPage->SetupHardware(false,true);
 	wxArrayString machines;
 	wxArrayString extensions;
 	wxString cmd;
@@ -229,6 +235,7 @@ void wxCatapultFrame::OnMenuCheckConfigs(wxCommandEvent& event)
 		}
 #endif	
 	}
+	m_sessionPage->SetupHardware(false,false);
 }
 
 void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
@@ -268,7 +275,7 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 			wxMessageBox (wxT("Error saving configuration data!"));
 		}
 #endif
-		m_sessionPage->SetupHardware(false);
+		m_sessionPage->SetupHardware(false,false);
 		ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 		
 		m_controller->StartOpenMSX(cmd,true);
@@ -330,7 +337,6 @@ void wxCatapultFrame::OnMenuSaveOnExit(wxCommandEvent &event)
 		m_controller->WriteCommand(wxT("set save_settings_on_exit false"));
 	}
 }
-
 
 void wxCatapultFrame::EnableSaveSettings(bool enabled)
 {

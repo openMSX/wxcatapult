@@ -126,25 +126,33 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 	int progress;
 	int numberOfMachines = m_machines->Count();
 	int numberOfExtensions = m_extensions->Count();
+	int config = 0;
 	int machine = 0;
-	while ((machine < numberOfMachines) && !m_abort) {
+	while ((machine < (int)m_machines->Count()) && !m_abort) {
 		fullCommand = m_cmd;
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
 		fullCommand += m_machines->Item(machine);
 		m_target->SetCurrentObject(m_machines->Item(machine));
-		progress = (50*(machine+1))/numberOfMachines;
+		progress = (50*(config+1))/numberOfMachines;
 		bool success = doCheckConfigs (fullCommand);
 		if (success) {
 			if (m_workingmachine == wxT("")) {
 				m_workingmachine = m_machines->Item(machine);
+
 			}
+			machine++;
 		}
+		else{
+			m_machines->Remove(machine);
+		}
+		config ++;
 		m_target->UpdateStats (true, success, progress);
-		machine++;
+		
 	}
 	int extension = 0;
-	while ((extension < numberOfExtensions) && !m_abort) {	
+	config = 0;
+	while ((extension < (int)m_extensions->Count()) && !m_abort) {	
 		fullCommand = m_cmd;
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
@@ -152,10 +160,16 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		fullCommand += wxT(" -ext ");
 		fullCommand += m_extensions->Item(extension);
 		m_target->SetCurrentObject(m_extensions->Item(extension));
-		progress = ((50*(extension+1))/numberOfExtensions)+50;
+		progress = ((50*(config+1))/numberOfExtensions)+50;
 		bool success = doCheckConfigs (fullCommand);
+		if (!success){
+			m_extensions->Remove(extension);
+		}
+		else{
+			extension++;
+		}
+		config++;
 		m_target->UpdateStats (false, success, progress);
-		extension++;
 	}
 	m_target->FinishCheck();
 	return 0;

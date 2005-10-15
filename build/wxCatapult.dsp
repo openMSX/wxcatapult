@@ -107,7 +107,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlibd.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib wxxrcds.lib libxml2.lib winmm.lib shell32.lib /nologo /subsystem:windows /debug /debugtype:cv /machine:I386 /out:"..\derived\bin\catapultd.exe"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlibd.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib wxxrcds.lib libxml2.lib winmm.lib shell32.lib /nologo /subsystem:windows /debug /machine:I386 /out:"..\derived\bin\catapultd.exe"
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Release wx24"
@@ -399,14 +399,14 @@ InputName=catapult
 # End Source File
 # Begin Source File
 
-SOURCE=..\dialogs\checkhardware.wxg
+SOURCE=..\dialogs\checkconfigs.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
-InputPath=..\dialogs\checkhardware.wxg
-InputName=checkhardware
+InputPath=..\dialogs\checkconfigs.wxg
+InputName=checkconfigs
 
 "$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
@@ -417,8 +417,8 @@ InputName=checkhardware
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
-InputPath=..\dialogs\checkhardware.wxg
-InputName=checkhardware
+InputPath=..\dialogs\checkconfigs.wxg
+InputName=checkconfigs
 
 "$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
@@ -429,8 +429,8 @@ InputName=checkhardware
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
-InputPath=..\dialogs\checkhardware.wxg
-InputName=checkhardware
+InputPath=..\dialogs\checkconfigs.wxg
+InputName=checkconfigs
 
 "$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
@@ -441,8 +441,8 @@ InputName=checkhardware
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
-InputPath=..\dialogs\checkhardware.wxg
-InputName=checkhardware
+InputPath=..\dialogs\checkconfigs.wxg
+InputName=checkconfigs
 
 "$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
@@ -453,8 +453,8 @@ InputName=checkhardware
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
-InputPath=..\dialogs\checkhardware.wxg
-InputName=checkhardware
+InputPath=..\dialogs\checkconfigs.wxg
+InputName=checkconfigs
 
 "$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
@@ -465,8 +465,8 @@ InputName=checkhardware
 
 # Begin Custom Build - Translating XRC Resource: $(InputName)
 ProjDir=.
-InputPath=..\dialogs\checkhardware.wxg
-InputName=checkhardware
+InputPath=..\dialogs\checkconfigs.wxg
+InputName=checkconfigs
 
 "$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
@@ -2027,10 +2027,6 @@ SOURCE=..\src\AudioControlPage.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\AuditDlg.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\catapult.rc
 # End Source File
 # Begin Source File
@@ -2044,6 +2040,10 @@ SOURCE=..\src\CatapultPage.cpp
 # Begin Source File
 
 SOURCE=..\src\CatapultXMLParser.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\CheckConfigsDlg.cpp
 # End Source File
 # Begin Source File
 
@@ -2162,10 +2162,6 @@ SOURCE=..\src\AudioControlPage.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\AuditDlg.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\CatapultConfigDlg.h
 # End Source File
 # Begin Source File
@@ -2175,6 +2171,10 @@ SOURCE=..\src\CatapultPage.h
 # Begin Source File
 
 SOURCE=..\src\CatapultXMLParser.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\CheckConfigsDlg.h
 # End Source File
 # Begin Source File
 

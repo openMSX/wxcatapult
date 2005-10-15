@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.130 2005/10/14 08:53:04 h_oudejans Exp $
+$Id: ChangeLog,v 1.131 2005/10/14 10:28:10 manuelbi Exp $
+
+2005-10-15 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Machine and Extensionlists are now updated and saved.
 
 2005-10-14 Manuel Bilderbeek <manuel@msxnet.org>
 	* Updated configuration check to work on my system. :)

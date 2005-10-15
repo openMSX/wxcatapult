@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.23 2005/10/14 08:53:04 h_oudejans Exp $
+// $Id: wxCatapultFrm.h,v 1.24 2005/10/14 10:28:11 manuelbi Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -56,6 +56,7 @@ class wxCatapultFrame : public wxFrame
 		void UpdateLed(wxString ledname, wxString ledstate);
 		void UpdateState (wxString statename, wxString state);
 		void EnableSaveSettings(bool enabled);
+		void CheckConfigs();
 		SessionPage * m_sessionPage;
 		StatusPage * m_statusPage;
 		VideoControlPage * m_videoControlPage;
