@@ -19,6 +19,7 @@ public:
 	void OnUserButton(wxCommandEvent& event);
 	virtual ~CheckConfigsDlg();
 	int ShowModal(wxString cmd, wxArrayString &machines, wxArrayString &extensions);
+	void EndModal(int retCode);
 	void UpdateStats (bool checkmachine, bool succes, int progress);
 	void FinishCheck ();
 	void SetCurrentObject (wxString object);
@@ -30,7 +31,7 @@ private:
 		virtual ~CheckConfigsThread();
 		wxThread::ExitCode Entry();
 		void SetParameters (wxString cmd, wxArrayString * machines, wxArrayString * extensions);
-		bool m_abort;
+		bool m_running;
 		
 	private:
 		bool doCheckConfigs (wxString cmd);

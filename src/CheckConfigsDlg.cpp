@@ -23,7 +23,7 @@ END_EVENT_TABLE()
 
 CheckConfigsDlg::CheckConfigsDlg(wxWindow * parent)
 {
-	wxXmlResource::Get()->LoadDialog(this, parent, wxT("CheckHardware"));
+	wxXmlResource::Get()->LoadDialog(this, parent, wxT("CheckConfigs"));
 	m_completemachines = (wxStaticText *)FindWindowByName(wxT("CompleteMachinesCount"));
 	m_incompletemachines = (wxStaticText *)FindWindowByName(wxT("IncompleteMachinesCount"));
 	m_workingextensions = (wxStaticText *)FindWindowByName(wxT("CompleteExtensionsCount"));
@@ -41,6 +41,7 @@ CheckConfigsDlg::CheckConfigsDlg(wxWindow * parent)
 
 CheckConfigsDlg::~CheckConfigsDlg()
 {
+	delete m_auditThread;
 }
 
 int CheckConfigsDlg::ShowModal(wxString cmd, wxArrayString &machines, wxArrayString &extensions)
@@ -52,13 +53,22 @@ int CheckConfigsDlg::ShowModal(wxString cmd, wxArrayString &machines, wxArrayStr
 	return wxDialog::ShowModal();
 }
 
+void CheckConfigsDlg::EndModal(int retCode)		// TODO: check if this is also called for posix systems
+{
+	m_auditThread->m_running = false;		
+	m_auditThread->Wait();
+	wxDialog::EndModal(retCode);
+}
+
 void CheckConfigsDlg::OnUserButton(wxCommandEvent &event)
 {
-	if (m_userbutton->GetLabel() == wxT("Ok")) { // FIXME: this is ugly!
+	if (!m_auditThread->m_running){
 		EndModal(wxID_OK);
 	}
 	else{
-		m_auditThread->m_abort = true;
+		m_auditThread->m_running = false;
+		m_auditThread->Wait();
+		EndModal(wxID_CANCEL);
 	}
 }
 
@@ -94,13 +104,8 @@ void CheckConfigsDlg::UpdateStats(bool checkmachine, bool succes, int progress)
 
 void CheckConfigsDlg::FinishCheck()
 {
-	if (m_auditThread->m_abort) {
-		EndModal(wxID_CANCEL);		
-	}
-	else{	
-		m_userbutton->SetLabel (wxT("Ok"));
-		m_currentconfig->SetLabel(wxT("Done"));
-	}
+	m_userbutton->SetLabel (wxT("Ok"));
+	m_currentconfig->SetLabel(wxT("Done"));
 }
 
 void CheckConfigsDlg::SetCurrentObject(wxString object)
@@ -109,7 +114,8 @@ void CheckConfigsDlg::SetCurrentObject(wxString object)
 	m_currentconfig->SetLabel(object);
 }
 
-CheckConfigsDlg::CheckConfigsThread::CheckConfigsThread (CheckConfigsDlg * target)
+CheckConfigsDlg::CheckConfigsThread::CheckConfigsThread (CheckConfigsDlg * target):
+	wxThread(wxTHREAD_JOINABLE)
 {
 	m_target = target;
 }
@@ -120,7 +126,7 @@ CheckConfigsDlg::CheckConfigsThread::~CheckConfigsThread()
 
 wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 {
-	m_abort = false;
+	m_running = true;
 	m_workingmachine = wxT("");
 	wxString fullCommand;
 	int progress;
@@ -128,7 +134,7 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 	int numberOfExtensions = m_extensions->Count();
 	int config = 0;
 	int machine = 0;
-	while ((machine < (int)m_machines->Count()) && !m_abort) {
+	while ((machine < (int)m_machines->Count()) && m_running) {
 		fullCommand = m_cmd;
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
@@ -147,12 +153,14 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 			m_machines->Remove(machine);
 		}
 		config ++;
-		m_target->UpdateStats (true, success, progress);
+		if (m_running){
+			m_target->UpdateStats (true, success, progress);
+		}
 		
 	}
 	int extension = 0;
 	config = 0;
-	while ((extension < (int)m_extensions->Count()) && !m_abort) {	
+	while ((extension < (int)m_extensions->Count()) && m_running) {	
 		fullCommand = m_cmd;
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
@@ -169,9 +177,14 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 			extension++;
 		}
 		config++;
-		m_target->UpdateStats (false, success, progress);
+		if (m_running){
+			m_target->UpdateStats (false, success, progress);
+		}
 	}
-	m_target->FinishCheck();
+	if (m_running){
+		m_target->FinishCheck();
+	}
+	m_running = false;
 	return 0;
 }
 
