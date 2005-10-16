@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.18 2005/05/29 12:18:24 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.19 2005/10/14 08:53:04 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -312,27 +312,6 @@ wxString openMSXWindowsController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 		version = output[0];
 	}
 	return wxString (version);
-}
-
-bool openMSXWindowsController::CheckOpenMSXConfig(wxString cmd,wxString machine,wxString extension)
-{
-	wxArrayString output;
-	bool retVal = true;
-	wxString fullcommand = cmd;
-	fullcommand += " -testconfig -machine ";
-	fullcommand += machine;
-	if (extension != "")
-	{
-		fullcommand += " -ext ";
-		fullcommand += extension;
-	}
-	int code = wxExecute(fullcommand,output);
-	if (code == 1)
-	{
-		retVal = false;
-	}
-	wxString msg;
-	return retVal;
 }
 
 void openMSXWindowsController::RaiseOpenMSX()
