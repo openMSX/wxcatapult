@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.28 2005/10/14 08:53:04 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.29 2005/10/15 16:53:59 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////

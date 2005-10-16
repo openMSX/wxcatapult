@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.21 2005/10/14 09:17:38 manuelbi Exp $
+// $Id: openMSXLinuxController.cpp,v 1.22 2005/10/15 16:53:59 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////

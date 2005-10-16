@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.64 2005/10/14 08:53:04 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.65 2005/10/15 16:53:59 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
