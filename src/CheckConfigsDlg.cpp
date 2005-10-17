@@ -150,7 +150,7 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 			machine++;
 		}
 		else{
-			m_machines->Remove(machine);
+			m_machines->RemoveAt(machine);
 		}
 		config ++;
 		if (m_running){
@@ -171,7 +171,7 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		progress = ((50*(config+1))/numberOfExtensions)+50;
 		bool success = doCheckConfigs (fullCommand);
 		if (!success){
-			m_extensions->Remove(extension);
+			m_extensions->RemoveAt(extension);
 		}
 		else{
 			extension++;
