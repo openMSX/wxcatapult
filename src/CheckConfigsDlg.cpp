@@ -11,9 +11,14 @@
 #include "wxCatapultApp.h"
 #include "CheckConfigsDlg.h"
 
+#define MSGID_SETCURRENTOBJECT 0
+#define MSGID_UPDATESTATS 1
+
+
 IMPLEMENT_CLASS(CheckConfigsDlg, wxDialog)
 BEGIN_EVENT_TABLE(CheckConfigsDlg, wxDialog)
 	EVT_BUTTON(XRCID("CheckConfigsUserButton"),CheckConfigsDlg::OnUserButton)
+	EVT_COMMAND (-1, EVT_TESTCONFIG, CheckConfigsDlg::OnTestConfigEvent)
 END_EVENT_TABLE()
 
 
@@ -72,7 +77,23 @@ void CheckConfigsDlg::OnUserButton(wxCommandEvent &event)
 	}
 }
 
-void CheckConfigsDlg::UpdateStats(bool checkmachine, bool succes, int progress)
+void CheckConfigsDlg::OnTestConfigEvent (wxCommandEvent & event)
+{
+	CheckConfigsData * data = (CheckConfigsData *)event.GetClientData();
+	int id = event.GetId();
+	switch (id)
+	{
+	case MSGID_SETCURRENTOBJECT:
+		HandleSetCurrentObject (data->m_currentObject);
+		break;
+	case MSGID_UPDATESTATS:
+		HandleUpdateStats(data->m_checkmachine, data->m_succes, data->m_progress);
+		break;
+	}
+	delete data;
+}
+
+void CheckConfigsDlg::HandleUpdateStats(bool checkmachine, bool succes, int progress)
 {
 	wxString count;
 	if (succes) {
@@ -102,16 +123,17 @@ void CheckConfigsDlg::UpdateStats(bool checkmachine, bool succes, int progress)
 	m_progressbar->SetValue(progress);
 }
 
+void CheckConfigsDlg::HandleSetCurrentObject(wxString object)
+{
+	m_currentObject = object;
+	m_currentconfig->SetLabel(object);
+}
+
+
 void CheckConfigsDlg::FinishCheck()
 {
 	m_userbutton->SetLabel (wxT("Ok"));
 	m_currentconfig->SetLabel(wxT("Done"));
-}
-
-void CheckConfigsDlg::SetCurrentObject(wxString object)
-{
-	m_currentObject = object;
-	m_currentconfig->SetLabel(object);
 }
 
 CheckConfigsDlg::CheckConfigsThread::CheckConfigsThread (CheckConfigsDlg * target):
@@ -139,7 +161,7 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
 		fullCommand += m_machines->Item(machine);
-		m_target->SetCurrentObject(m_machines->Item(machine));
+		SetCurrentObject(m_machines->Item(machine));
 		progress = (50*(config+1))/numberOfMachines;
 		bool success = doCheckConfigs (fullCommand);
 		if (success) {
@@ -154,7 +176,7 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		}
 		config ++;
 		if (m_running){
-			m_target->UpdateStats (true, success, progress);
+			UpdateStats (true, success, progress);
 		}
 		
 	}
@@ -167,7 +189,7 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		fullCommand += m_workingmachine;
 		fullCommand += wxT(" -ext ");
 		fullCommand += m_extensions->Item(extension);
-		m_target->SetCurrentObject(m_extensions->Item(extension));
+		SetCurrentObject(m_extensions->Item(extension));
 		progress = ((50*(config+1))/numberOfExtensions)+50;
 		bool success = doCheckConfigs (fullCommand);
 		if (!success){
@@ -178,7 +200,7 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		}
 		config++;
 		if (m_running){
-			m_target->UpdateStats (false, success, progress);
+			UpdateStats (false, success, progress);
 		}
 	}
 	if (m_running){
@@ -186,6 +208,31 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 	}
 	m_running = false;
 	return 0;
+}
+
+void CheckConfigsDlg::CheckConfigsThread::UpdateStats (bool checkmachine, bool succes, int progress)
+{
+	wxCommandEvent checkConfigEvent(EVT_TESTCONFIG);
+	CheckConfigsData * data = new CheckConfigsData;
+	data->m_checkmachine = checkmachine;
+	data->m_succes = succes;
+	data->m_progress = progress;
+	
+	checkConfigEvent.SetClientData ((void *)data);
+	checkConfigEvent.SetId(MSGID_UPDATESTATS);
+	wxPostEvent (m_target, checkConfigEvent);	
+}
+
+
+void CheckConfigsDlg::CheckConfigsThread::SetCurrentObject (wxString object)
+{
+	wxCommandEvent checkConfigEvent(EVT_TESTCONFIG);
+	CheckConfigsData * data = new CheckConfigsData;
+	data->m_currentObject = object;
+	checkConfigEvent.SetClientData ((void *)data);
+	checkConfigEvent.SetId(MSGID_SETCURRENTOBJECT);
+	wxPostEvent (m_target, checkConfigEvent);	
+
 }
 
 void CheckConfigsDlg::CheckConfigsThread::SetParameters(wxString cmd, wxArrayString * machines, wxArrayString * extensions)

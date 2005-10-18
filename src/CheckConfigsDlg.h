@@ -17,13 +17,20 @@ class CheckConfigsDlg : public wxDialog
 public:
 	CheckConfigsDlg(wxWindow * parent = NULL);
 	void OnUserButton(wxCommandEvent& event);
+	void OnTestConfigEvent (wxCommandEvent & event);
+	void HandleUpdateStats(bool checkmachine, bool succes, int progress);
+	void HandleSetCurrentObject(wxString object);
 	virtual ~CheckConfigsDlg();
 	int ShowModal(wxString cmd, wxArrayString &machines, wxArrayString &extensions);
 	void EndModal(int retCode);
-	void UpdateStats (bool checkmachine, bool succes, int progress);
-	void FinishCheck ();
-	void SetCurrentObject (wxString object);
+	void FinishCheck ();	
 private:
+	struct CheckConfigsData{
+		bool m_checkmachine;
+		bool m_succes;
+		int  m_progress;
+		wxString m_currentObject;
+	};
 	class CheckConfigsThread : public wxThread  
 	{
 	public:
@@ -35,6 +42,8 @@ private:
 		
 	private:
 		bool doCheckConfigs (wxString cmd);
+		void UpdateStats (bool checkmachine, bool succes, int progress);
+		void SetCurrentObject (wxString object);
 		
 		CheckConfigsDlg * m_target;
 		wxString m_cmd;
@@ -42,6 +51,7 @@ private:
 		wxArrayString * m_extensions;
 		wxString m_workingmachine;
 	};
+	friend class CheckConfigsThread;
 	int m_validmachinecount;
 	int m_invalidmachinecount;
 	int m_validextensioncount;

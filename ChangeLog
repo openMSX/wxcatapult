@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.131 2005/10/14 10:28:10 manuelbi Exp $
+$Id: ChangeLog,v 1.132 2005/10/15 16:53:58 h_oudejans Exp $
+
+2005-10-18 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Rewrote the communication between CheckConfigsDialog and it's
+	   thread using messages.
 
 2005-10-15 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Machine and Extensionlists are now updated and saved.
