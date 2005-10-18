@@ -126,13 +126,15 @@ void CheckConfigsDlg::HandleUpdateStats(bool checkmachine, bool succes, int prog
 void CheckConfigsDlg::HandleSetCurrentObject(wxString object)
 {
 	m_currentObject = object;
-	m_currentconfig->SetLabel(object);
+	wxString tmp = m_currentObject;
+	tmp.Replace(wxT("_"),wxT(" "),true);
+	m_currentconfig->SetLabel(tmp);
 }
 
 
 void CheckConfigsDlg::FinishCheck()
 {
-	m_userbutton->SetLabel (wxT("Ok"));
+	m_userbutton->SetLabel (wxT("Done"));
 	m_currentconfig->SetLabel(wxT("Done"));
 }
 
