@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.66 2005/10/16 18:41:55 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.67 2005/10/22 19:16:24 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -191,8 +191,12 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_extensionList->GetSize(&dx,&dy); //default size
 	wMax = dx;
 	items = m_extensionList->GetCount();
+	wxString fitString = wxT("W"); // no idea why this is needed :(
+#ifndef _WXMSW_
+	fitString += wxT("W"); // no idea about this either...
+#endif
 	for (index=0;index<items;index++){
-		tempDC->GetTextExtent(wxString(m_extensionList->GetString(index) +wxT("W")),&w,&h);
+		tempDC->GetTextExtent(wxString(m_extensionList->GetString(index) + fitString),&w,&h);
 		if (w > wMax){
 			wMax = w;
 		}
@@ -209,7 +213,6 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cartA->control->SetDropTarget(new SessionDropTarget(m_cartA->control));
 	m_cartB->control->SetDropTarget(new SessionDropTarget(m_cartB->control));
 	m_cassette->control->SetDropTarget(new SessionDropTarget(m_cassette->control));
-//	RestoreHistory();
 }
 
 SessionPage::~SessionPage()
