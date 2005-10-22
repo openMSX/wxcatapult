@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.11 2005/05/29 12:18:23 h_oudejans Exp $
+// $Id: ConfigurationData.cpp,v 1.12 2005/10/14 08:53:04 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -38,6 +38,7 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(wxT("/preferences/ShowScreenshotInfo"),&m_showScreenshotInfo);
 	ConfigData->Read(wxT("/connectors/UsedJoyport1"),&m_usedJoyport1);
 	ConfigData->Read(wxT("/connectors/UsedJoyport2"),&m_usedjoyport2);
+	ConfigData->Read(wxT("/configuration/ViewFlags"),&m_viewFlags);
 //	ConfigData->Read(wxT("/connectors/UsedPrinterport"),&m_usedPrinterport); // saving disabled
 //	ConfigData->Read(wxT("/connectors/UsedPrinterfile"),&m_usedPrinterfile);
 }
@@ -123,6 +124,9 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 		case CD_PRINTERFILE:
 			m_usedPrinterfile = p_data.GetString();
 			break;
+		case CD_VIEWFLAGS:
+			m_viewFlags = p_data.GetLong();
+			break;
 		default:
 			retVal = false; // unknown ID
 			break;
@@ -185,7 +189,7 @@ bool ConfigurationData::GetParameter(int p_iId, wxString &p_data)
 			break;
 		case CD_PRINTERFILE:
 			p_data = m_usedPrinterfile;
-			break;
+			break;		
 		default:
 			retVal = false; // unknown ID
 			break;
@@ -206,6 +210,9 @@ bool ConfigurationData::GetParameter (int p_iId, int * p_data)
 			break;
 		case CD_SCREENSHOTINFO:
 			*p_data = m_showScreenshotInfo;
+			break;
+		case CD_VIEWFLAGS:
+			*p_data = m_viewFlags;
 			break;
 		default:
 			retVal = false;
@@ -243,6 +250,7 @@ bool ConfigurationData::SaveData()
 	retVal &= ConfigData->Write(wxT("/preferences/ShowScreenshotInfo"),m_showScreenshotInfo);
 	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport1"),m_usedJoyport1);
 	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport2"),m_usedjoyport2);
+	retVal &= ConfigData->Write(wxT("/configuration/ViewFlags"),m_viewFlags);
 //	retVal &= ConfigData->Write(wxT("/connectors/UsedPrinterport"),m_usedPrinterport); //saving disabled
 //	retVal &= ConfigData->Write(wxT("/connectors/UsedPrinterfile"),m_usedPrinterfile);
 	return retVal;

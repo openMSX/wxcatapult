@@ -72,7 +72,6 @@ void CheckConfigsDlg::OnUserButton(wxCommandEvent &event)
 	}
 	else{
 		m_auditThread->m_running = false;
-		m_auditThread->Wait();
 		EndModal(wxID_CANCEL);
 	}
 }
@@ -162,7 +161,9 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		fullCommand = m_cmd;
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
+		fullCommand += wxT("\"");
 		fullCommand += m_machines->Item(machine);
+		fullCommand += wxT("\"");
 		SetCurrentObject(m_machines->Item(machine));
 		progress = (50*(config+1))/numberOfMachines;
 		bool success = doCheckConfigs (fullCommand);
@@ -188,9 +189,13 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		fullCommand = m_cmd;
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
+		fullCommand += wxT("\"");
 		fullCommand += m_workingmachine;
+		fullCommand += wxT("\"");
 		fullCommand += wxT(" -ext ");
+		fullCommand += wxT("\"");
 		fullCommand += m_extensions->Item(extension);
+		fullCommand += wxT("\"");
 		SetCurrentObject(m_extensions->Item(extension));
 		progress = ((50*(config+1))/numberOfExtensions)+50;
 		bool success = doCheckConfigs (fullCommand);

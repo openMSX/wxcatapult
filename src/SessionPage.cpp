@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.65 2005/10/15 16:53:59 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.66 2005/10/16 18:41:55 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -200,7 +200,6 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_HSCROLL_ARROW_X),-1);
 	delete tempDC;
 
-	RestoreHistory();
 	m_cassettePortState = wxT("disabled");
 	m_romTypeDialog = new RomTypeDlg (wxGetTopLevelParent(this));
 	GetRomTypes();
@@ -210,7 +209,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cartA->control->SetDropTarget(new SessionDropTarget(m_cartA->control));
 	m_cartB->control->SetDropTarget(new SessionDropTarget(m_cartB->control));
 	m_cassette->control->SetDropTarget(new SessionDropTarget(m_cassette->control));
-
+//	RestoreHistory();
 }
 
 SessionPage::~SessionPage()
@@ -976,7 +975,7 @@ void SessionPage::RestoreHistory()
 				media[i]->typehistory.Add(wxT("auto"));
 			}
 		}
-		if (m_InsertedMedia & (1 << i)) {
+		if ((m_InsertedMedia & (1 << i)) && (media[i]->history.GetCount() >0)) {
 			media[i]->control->SetSelection(0);
 			media[i]->contents=media[i]->history[0];
 			if ((media[i]==m_cartA) || (media[i]==m_cartB)){
@@ -998,6 +997,9 @@ void SessionPage::RestoreHistory()
 
 		if (pos != -1){
 			m_machineList->SetSelection (pos);
+		}
+		else {
+			m_machineList->SetSelection (0);
 		}
 	}
 	config->GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);

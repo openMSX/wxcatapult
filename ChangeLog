@@ -1,4 +1,10 @@
-$Id: ChangeLog,v 1.132 2005/10/15 16:53:58 h_oudejans Exp $
+$Id: ChangeLog,v 1.133 2005/10/18 17:13:48 h_oudejans Exp $
+
+2005-10-22 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed dialog size problem with wx2.6
+	* Fixed several segfaults when the current machine isn't valid.
+	* Fixed configuration check for paths with a space in it
+	* Added menu item for the 'Display Broken Configurations' option.
 
 2005-10-18 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Rewrote the communication between CheckConfigsDialog and it's

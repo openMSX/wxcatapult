@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.25 2005/10/15 16:53:59 h_oudejans Exp $
+// $Id: wxCatapultFrm.h,v 1.26 2005/10/16 18:41:55 h_oudejans Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -37,6 +37,7 @@ class wxCatapultFrame : public wxFrame
 		void OnMenuSaveSettings(wxCommandEvent &event);
 		void OnMenuSaveSettingsAs(wxCommandEvent &event);
 		void OnMenuSaveOnExit(wxCommandEvent &event);
+		void OnMenuDisplayBroken (wxCommandEvent & event);
 		void OnMenuClose (wxMenuEvent &event);
 		void OnMenuOpen (wxMenuEvent &event);
 		void OnMenuHighlight(wxMenuEvent &event);
@@ -75,6 +76,7 @@ class wxCatapultFrame : public wxFrame
 		wxStaticBitmap * m_turboLed;
 		wxStaticBitmap * m_fddLed;
 		wxMenu * settingsMenu;
+		wxMenu * viewMenu;
 		
 		CatapultXMLParser * m_parser;
 		wxTimer m_fpsTimer;

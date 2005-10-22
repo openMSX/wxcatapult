@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.70 2005/10/15 16:53:59 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.71 2005/10/16 18:41:55 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -48,7 +48,8 @@ enum
 	Catapult_Load_OpenMSX_Settings,
 	Catapult_Save_OpenMSX_Settings,
 	Catapult_Save_OpenMSX_Settings_As,
-	Catapult_Save_On_Exit,	
+	Catapult_Save_On_Exit,
+	Catapult_Display_Invalids
 };
 
 #define FPS_TIMER 1
@@ -73,6 +74,7 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_Save_OpenMSX_Settings_As,wxCatapultFrame::OnMenuSaveSettingsAs)
 	EVT_MENU(Catapult_Load_OpenMSX_Settings,wxCatapultFrame::OnMenuLoadSettings)
 	EVT_MENU(Catapult_Save_On_Exit,wxCatapultFrame::OnMenuSaveOnExit)
+	EVT_MENU(Catapult_Display_Invalids, wxCatapultFrame::OnMenuDisplayBroken)
 	EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
 	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
 	EVT_TIMER(FPS_TIMER, wxCatapultFrame::OnUpdateFPS)
@@ -119,6 +121,7 @@ END_EVENT_TABLE()
 
 	wxMenu *fileMenu = new wxMenu(wxT(""), 0);
 	settingsMenu = new wxMenu(wxT(""), 0);
+	viewMenu = new wxMenu(wxT(""), 0);
 	wxMenu *helpMenu = new wxMenu(wxT(""), 0);
 
 	fileMenu->Append(Catapult_CheckConfigs, wxT("&Check openMSX hardware"), wxT("Check if the machines and extensions installed are actually usable"));
@@ -128,13 +131,21 @@ END_EVENT_TABLE()
 	settingsMenu->Append(Catapult_Save_OpenMSX_Settings, wxT("&Save openMSX Settings"), wxT("Save All openMSX settings"));
 	settingsMenu->Append(Catapult_Save_OpenMSX_Settings_As, wxT("Save openMSX Settings &As..."), wxT("Save All openMSX settings to a specified file"));
 	settingsMenu->AppendCheckItem(Catapult_Save_On_Exit, wxT("Save openMSX Settings On &Exit"), wxT("Save All openMSX settings as soon as openMSX is closed"));
+	viewMenu->AppendCheckItem(Catapult_Display_Invalids, wxT("Display Broken Configurations"), wxT("Display all machines and extension even if they don't work"));
 	helpMenu->Append(Catapult_About, wxT("&About\tCtrl-A"), wxT("Show about dialog"));
+
+	ConfigurationData * config = ConfigurationData::instance();
 
 	// now append the freshly created menu to the menu bar...
 	wxMenuBar *menuBar = new wxMenuBar();
 	menuBar->Append(fileMenu, wxT("&File"));
 	menuBar->Append(settingsMenu, wxT("&Settings"));
 	EnableSaveSettings(false);
+	menuBar->Append(viewMenu, wxT("&View"));
+	int viewFlags; 
+	config->GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
+	viewMenu->Check(Catapult_Display_Invalids,(viewFlags & ConfigurationData::VF_BROKEN != 0));	
+
 	menuBar->Append(helpMenu, wxT("&Help"));
 
 	SetMenuBar(menuBar);
@@ -176,9 +187,10 @@ END_EVENT_TABLE()
 	SetControlsOnEnd();
 	m_launch_AbortButton->Enable(false);
 	wxString cmd;
-	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+	config->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	m_controller->StartOpenMSX(cmd,true);
 	m_settingsfile = wxT("");
+	m_sessionPage->RestoreHistory();
 }
 
 // frame destructor
@@ -337,6 +349,13 @@ void wxCatapultFrame::OnMenuSaveOnExit(wxCommandEvent &event)
 		m_controller->WriteCommand(wxT("set save_settings_on_exit false"));
 	}
 }
+
+void wxCatapultFrame::OnMenuDisplayBroken (wxCommandEvent & event)
+{
+	if (viewMenu->IsChecked(Catapult_Display_Invalids)){
+	}		
+}
+
 
 void wxCatapultFrame::EnableSaveSettings(bool enabled)
 {

@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.29 2005/10/15 16:53:59 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.30 2005/10/16 18:41:55 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -90,6 +90,7 @@ class SessionPage : public CatapultPage
 		void SetupRomType (wxString romtype, wxString fullname);
 		void GetDetectedMachines (wxArrayString & machines);
 		void GetDetectedExtensions (wxArrayString & extensions);
+		void RestoreHistory();
 
 	private:
 		struct mediaInfo
@@ -129,7 +130,7 @@ class SessionPage : public CatapultPage
 		void fillExtensions (wxArrayString & extensionArray);
 		void AddHistory (mediaInfo * media);
 		void SaveHistory();
-		void RestoreHistory();
+
 
 		mediaInfo * m_diskA;
 		mediaInfo * m_diskB;

@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.h,v 1.9 2005/03/01 15:54:53 h_oudejans Exp $
+// $Id: ConfigurationData.h,v 1.10 2005/10/14 08:53:04 h_oudejans Exp $
 // onfigurationData.h: interface for the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -28,9 +28,10 @@ class ConfigurationData
 		enum ID {CD_EXECPATH, CD_SHAREPATH,CD_MACHINES,CD_EXTENSIONS,CD_HISTDISKA, CD_HISTDISKB, CD_HISTCARTA, CD_HISTCARTB,
 			CD_HISTCASSETTE, CD_TYPEHISTCARTA, CD_TYPEHISTCARTB, CD_MEDIAINSERTED, CD_USEDMACHINE,
 			CD_USEDEXTENSIONS, CD_FULLSCREENWARN,CD_SCREENSHOTINFO,CD_JOYPORT1,CD_JOYPORT2,
-			CD_PRINTERPORT,CD_PRINTERFILE,
+			CD_PRINTERPORT,CD_PRINTERFILE,CD_VIEWFLAGS
 			};
 			enum MediaBits {MB_DISKA=1, MB_DISKB=2, MB_CARTA=4, MB_CARTB=8, MB_CASSETTE=16};
+			enum ViewFlags {VF_BROKEN=1};
 			bool SetParameter (int p_iId, wxVariant p_data);
 			bool HaveRequiredSettings ();
 
@@ -38,6 +39,7 @@ class ConfigurationData
 
 	private:
 			int m_mediaInserted;
+			int m_viewFlags;
 			int m_showFullScreenWarning;
 			int m_showScreenshotInfo;
 			ConfigurationData();
