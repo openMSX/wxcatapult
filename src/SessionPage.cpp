@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.68 2005/10/22 20:06:46 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.69 2005/10/23 10:24:15 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -191,17 +191,14 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_extensionList->GetSize(&dx,&dy); //default size
 	wMax = dx;
 	items = m_extensionList->GetCount();
-	wxString fitString = wxT("W"); // no idea why this is needed :(
-#ifndef __WXMSW__
-	fitString += wxT("W"); // no idea about this either...
-#endif
 	for (index=0;index<items;index++){
-		tempDC->GetTextExtent(wxString(m_extensionList->GetString(index) + fitString),&w,&h);
+		tempDC->GetTextExtent(wxString(m_extensionList->GetString(index) + wxT("W")),&w,&h); // no idea why we need the extra W...
 		if (w > wMax){
 			wMax = w;
 		}
 	}
-	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_HSCROLL_ARROW_X),-1);
+	if (wMax>300) { wMax = 300; } // just to have some limit
+	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X),-1);
 	delete tempDC;
 
 	m_cassettePortState = wxT("disabled");

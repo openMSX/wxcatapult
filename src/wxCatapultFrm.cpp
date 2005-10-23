@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.72 2005/10/22 19:16:24 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.73 2005/10/23 10:24:15 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -124,11 +124,11 @@ END_EVENT_TABLE()
 	viewMenu = new wxMenu(wxT(""), 0);
 	wxMenu *helpMenu = new wxMenu(wxT(""), 0);
 
-	fileMenu->Append(Catapult_CheckConfigs, wxT("&Check openMSX hardware"), wxT("Check if the machines and extensions installed are actually usable"));
-	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), wxT("Quit this program"));
+	fileMenu->Append(Catapult_CheckConfigs, wxT("&Test MSX Hardware\tCtrl-T"), wxT("Tests which machines and extensions installed are actually working and removes non-working hardware from the lists"));
+	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), wxT("Quit openMSX Catapult"));
 	settingsMenu->Append(Catapult_Edit_Config, wxT("Edit &Configuration\tCtrl-E"), wxT("Adjust Catapult Configuration"));
-	settingsMenu->Append(Catapult_Load_OpenMSX_Settings, wxT("&Load openMSX Settings..."), wxT("Load specified settings into openMSX"));
-	settingsMenu->Append(Catapult_Save_OpenMSX_Settings, wxT("&Save openMSX Settings"), wxT("Save All openMSX settings"));
+	settingsMenu->Append(Catapult_Load_OpenMSX_Settings, wxT("&Load openMSX Settings...\tCtrl-L"), wxT("Load specified settings into openMSX"));
+	settingsMenu->Append(Catapult_Save_OpenMSX_Settings, wxT("&Save openMSX Settings\tCtrl-S"), wxT("Save All openMSX settings"));
 	settingsMenu->Append(Catapult_Save_OpenMSX_Settings_As, wxT("Save openMSX Settings &As..."), wxT("Save All openMSX settings to a specified file"));
 	settingsMenu->AppendCheckItem(Catapult_Save_On_Exit, wxT("Save openMSX Settings On &Exit"), wxT("Save All openMSX settings as soon as openMSX is closed"));
 	viewMenu->AppendCheckItem(Catapult_Display_Invalids, wxT("Display Broken Configurations"), wxT("Display all machines and extension even if they don't work"));
