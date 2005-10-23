@@ -50,7 +50,7 @@ int RomTypeDlg::ShowModal(wxString type)
 				wMax = w;
 			}
 		}
-	m_romTypeList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_HSCROLL_ARROW_X),280);
+	m_romTypeList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X),280);
 	wxString fullName;
 	if (!type.IsEmpty()){
 		fullName = ConvertRomType(type,false);

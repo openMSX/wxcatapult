@@ -69,7 +69,7 @@ int IPSSelectionDlg::ShowModal(wxArrayString & patches, wxString targetDir)
 				wMax = w;
 			}
 		}
-	m_ipsDisplay->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_HSCROLL_ARROW_X),118);
+	m_ipsDisplay->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X),118);
 	this->Fit();
 	return wxDialog::ShowModal();
 }
