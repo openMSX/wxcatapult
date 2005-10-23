@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.30 2005/10/16 18:41:55 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.31 2005/10/22 19:16:24 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -72,7 +72,6 @@ class SessionPage : public CatapultPage
 		void OnEjectCartByMenu (wxCommandEvent & event);
 		void OnSelectMapper (wxCommandEvent & event);
 		void OnSelectIPS (wxCommandEvent & event);
-		void OnCloseMenu (wxMenuEvent & event);
 		void SetupHardware (bool initial, bool reset);
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus);
 		void SetControlsOnLaunch();
@@ -88,8 +87,8 @@ class SessionPage : public CatapultPage
 		void AddRomType (wxString romtype);
 		void SetRomTypeFullName (wxString romtype, wxString fullname);
 		void SetupRomType (wxString romtype, wxString fullname);
-		void GetDetectedMachines (wxArrayString & machines);
-		void GetDetectedExtensions (wxArrayString & extensions);
+		wxArrayString& GetDetectedMachines ();
+		wxArrayString& GetDetectedExtensions ();
 		void RestoreHistory();
 
 	private:

@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.69 2005/10/23 10:24:15 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.70 2005/10/23 11:05:07 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -93,7 +93,6 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_MENU(Cas_Eject,SessionPage::OnClearCassette)
 	EVT_MENU(Cas_Rewind,SessionPage::OnRewind)
 	EVT_MENU(Cas_ForcePlay,SessionPage::OnForcePlayByMenu)
-	EVT_MENU_CLOSE(SessionPage::OnCloseMenu)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -1299,11 +1298,6 @@ void SessionPage::OnBrowseDiskIps(wxCommandEvent & event)
 	}
 }
 
-void SessionPage::OnCloseMenu(wxMenuEvent & event)
-{
-	wxMessageBox(wxT("closed"));
-}
-
 void SessionPage::GetRomTypes ()
 {
 	// TODO get it from openMSX
@@ -1344,7 +1338,7 @@ void SessionPage::GetRomTypes ()
 	SetupRomType(wxT("MSX-AUDIO"),wxT("MSX-Audio"));
 	SetupRomType(wxT("HARRYFOX"),wxT("Harry Fox"));
 	SetupRomType(wxT("HALNOTE"),wxT("Halnote"));
-	SetupRomType(wxT("KOREAN80IN1"),wxT("Korean Multigame 80 in 1"));
+	SetupRomType(wxT("KOREAN80IN1"),wxT("Korean Multigame (80 in 1)"));
 	SetupRomType(wxT("KOREAN90IN1"),wxT("Korean Multigame (90 in 1)"));
 	SetupRomType(wxT("KOREAN126IN1"),wxT("Korean Multigame (126 in 1)"));
 	SetupRomType(wxT("HOLYQURAN"),wxT("Holy Qu'ran"));
@@ -1378,22 +1372,14 @@ void SessionPage::SetupRomType(wxString type, wxString fullname)
 	SetRomTypeFullName(type,fullname);
 }
 
-void SessionPage::GetDetectedMachines (wxArrayString &machines)
+wxArrayString& SessionPage::GetDetectedMachines ()
 {
-	machines = m_machineArray;
-//	machines.clear();
-//	int n = m_machineList.GetCount();
-//	for (int index=0;index <n;index++){
-//		machines.Add(m_mac
-///	
-//	
-//	
-//	}
+	return m_machineArray;
 }
 
-void SessionPage::GetDetectedExtensions (wxArrayString &extensions)
+wxArrayString& SessionPage::GetDetectedExtensions ()
 {
-	extensions = m_extensionArray;
+	return m_extensionArray;
 }
 
 SessionDropTarget::SessionDropTarget(wxComboBox * target)

@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.73 2005/10/23 10:24:15 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.74 2005/10/23 11:05:07 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -217,12 +217,10 @@ void wxCatapultFrame::OnMenuCheckConfigs(wxCommandEvent& event)
 void wxCatapultFrame::CheckConfigs()
 {
 	m_sessionPage->SetupHardware(false,true);
-	wxArrayString machines;
-	wxArrayString extensions;
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-	m_sessionPage->GetDetectedMachines(machines);
-	m_sessionPage->GetDetectedExtensions(extensions);
+	wxArrayString machines = m_sessionPage->GetDetectedMachines();
+	wxArrayString extensions = m_sessionPage->GetDetectedExtensions();
 	CheckConfigsDlg dlg(this);
 	dlg.CenterOnParent();
 	if (dlg.ShowModal(cmd,machines,extensions) == wxID_OK){
