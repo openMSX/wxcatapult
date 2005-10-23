@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.133 2005/10/18 17:13:48 h_oudejans Exp $
+$Id: ChangeLog,v 1.134 2005/10/22 19:16:24 h_oudejans Exp $
+
+2005-10-23 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Implemented 'Hide Broken Configurations'
 
 2005-10-22 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed dialog size problem with wx2.6

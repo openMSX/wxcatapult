@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.71 2005/10/16 18:41:55 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.72 2005/10/22 19:16:24 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -191,6 +191,9 @@ END_EVENT_TABLE()
 	m_controller->StartOpenMSX(cmd,true);
 	m_settingsfile = wxT("");
 	m_sessionPage->RestoreHistory();
+	if (viewMenu->IsChecked(Catapult_Display_Invalids)){
+		m_sessionPage->SetupHardware(false,true);	
+	}
 }
 
 // frame destructor
@@ -352,8 +355,18 @@ void wxCatapultFrame::OnMenuSaveOnExit(wxCommandEvent &event)
 
 void wxCatapultFrame::OnMenuDisplayBroken (wxCommandEvent & event)
 {
+	ConfigurationData * config = ConfigurationData::instance();
+	int viewFlags;
+	config->GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
 	if (viewMenu->IsChecked(Catapult_Display_Invalids)){
+		m_sessionPage->SetupHardware(false,true);
+		config->SetParameter(ConfigurationData::CD_VIEWFLAGS,(long)(viewFlags | ConfigurationData::VF_BROKEN));
 	}		
+	else{
+		m_sessionPage->SetupHardware(false,false);	
+		config->SetParameter(ConfigurationData::CD_VIEWFLAGS,(long)(viewFlags & ~ConfigurationData::VF_BROKEN));
+	}
+	config->SaveData();
 }
 
 

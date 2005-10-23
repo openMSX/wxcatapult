@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.67 2005/10/22 19:16:24 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.68 2005/10/22 20:06:46 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -192,7 +192,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	wMax = dx;
 	items = m_extensionList->GetCount();
 	wxString fitString = wxT("W"); // no idea why this is needed :(
-#ifndef _WXMSW_
+#ifndef __WXMSW__
 	fitString += wxT("W"); // no idea about this either...
 #endif
 	for (index=0;index<items;index++){
