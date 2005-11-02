@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.74 2005/10/23 11:05:07 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.75 2005/10/23 12:24:11 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -248,7 +248,7 @@ void wxCatapultFrame::CheckConfigs()
 		}
 #endif	
 	}
-	m_sessionPage->SetupHardware(false,false);
+	m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
 }
 
 void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
@@ -356,12 +356,11 @@ void wxCatapultFrame::OnMenuDisplayBroken (wxCommandEvent & event)
 	ConfigurationData * config = ConfigurationData::instance();
 	int viewFlags;
 	config->GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
+	m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
 	if (viewMenu->IsChecked(Catapult_Display_Invalids)){
-		m_sessionPage->SetupHardware(false,true);
 		config->SetParameter(ConfigurationData::CD_VIEWFLAGS,(long)(viewFlags | ConfigurationData::VF_BROKEN));
 	}		
 	else{
-		m_sessionPage->SetupHardware(false,false);	
 		config->SetParameter(ConfigurationData::CD_VIEWFLAGS,(long)(viewFlags & ~ConfigurationData::VF_BROKEN));
 	}
 	config->SaveData();
