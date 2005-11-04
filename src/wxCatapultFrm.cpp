@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.75 2005/10/23 12:24:11 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.76 2005/11/02 20:15:19 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -395,11 +395,22 @@ void wxCatapultFrame::OnMenuHighlight(wxMenuEvent &event)
 
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
-	unsigned int i;
 	if (m_launch_AbortButton->GetLabel().IsSameAs(wxT("Stop"))) {
 		m_controller->WriteCommand(wxT("quit"));
 		return;
 	}
+	// check again if openMSX can be found
+	ConfigurationData * config = ConfigurationData::instance();
+	if (!config->HaveRequiredSettings())
+	{
+		CatapultConfigDlg dlg;
+		dlg.Center();
+		if (dlg.ShowModal() != wxID_OK)
+		{
+			return;
+		}
+	}
+
 	m_launch_AbortButton->SetLabel(wxT("Stop"));
 	m_launch_AbortButton->Enable(false);
 	m_safetyTimer.Start(2000,true); // max 2 seconds disable (whatever happens)
@@ -425,6 +436,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	if (m_settingsfile != wxT("")){
 		cmd += wxT(" -setting ") + m_sessionPage->ConvertPath(m_settingsfile,true);
 	}
+	unsigned int i;
 	if (hardware.GetCount() > 1) {
 		for (i=1;i<hardware.GetCount();i++) {
 			cmd += wxT(" -ext ") + hardware[i];

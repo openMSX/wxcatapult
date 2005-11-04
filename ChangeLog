@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.134 2005/10/22 19:16:24 h_oudejans Exp $
+$Id: ChangeLog,v 1.135 2005/10/23 10:24:14 h_oudejans Exp $
+
+2005-11-04 Manuel Bilderbeek <manuel@msxnet.org>
+	* Also check if executable can be found just before starting to
+	  prevent problems if the executable was renamed/moved/deleted in the
+	  mean time
 
 2005-10-23 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Implemented 'Hide Broken Configurations'
