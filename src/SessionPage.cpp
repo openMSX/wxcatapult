@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.70 2005/10/23 11:05:07 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.71 2005/10/23 12:24:09 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -1226,7 +1226,7 @@ void SessionPage::OnEjectCartByMenu (wxCommandEvent & event)
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
 		target->contents = wxT("");
-		target->control->Clear();
+		target->control->SetValue(wxT("")); // Uing Clear() doesn't seem to do the trick properly (?)
 		target->ips.Clear();
 		target->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
 		target->mmenu->SetLabel(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"));
