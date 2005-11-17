@@ -49,7 +49,7 @@
                         <object class="wxListBox" name="ExtensionList" base="EditListBox">
                             <style>wxLB_MULTIPLE</style>
                             <selection>0</selection>
-                            <tooltip>The extensios you want to use with the emulated MSX</tooltip>
+                            <tooltip>The extensions you want to use with the emulated MSX</tooltip>
                             <choices>
                                 <choice></choice>
                             </choices>
