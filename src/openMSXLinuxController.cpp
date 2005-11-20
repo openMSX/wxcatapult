@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.24 2005/10/16 19:22:04 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.25 2005/11/20 16:10:55 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -119,9 +119,9 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 	return true;
 }
 
-bool openMSXLinuxController::connectSocket()
-{
-	bool bRetval = false;
+//bool openMSXLinuxController::connectSocket()
+//{
+//	bool bRetval = false;
 /*	if (m_socket == NULL){ // only if we don't have a socket connection
 		m_socket = new wxSocketClient;
 		m_socket->SetEventHandler(*m_appWindow,OPENMSX_SOCKET);
@@ -138,8 +138,8 @@ bool openMSXLinuxController::connectSocket()
 			bRetval = true; // succes
 		}
 	}*/
-	return bRetval;
-}
+//	return bRetval;
+//}
 
 wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
