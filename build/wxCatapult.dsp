@@ -2126,6 +2126,10 @@ SOURCE=..\src\ScreenShotDlg.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ServerList.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\SessionPage.cpp
 # End Source File
 # Begin Source File
@@ -2223,6 +2227,10 @@ SOURCE=..\src\RomTypeDlg.h
 # Begin Source File
 
 SOURCE=..\src\ScreenshotDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\ServerList.h
 # End Source File
 # Begin Source File
 

@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.16 2004/10/04 16:41:46 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.17 2004/10/08 15:26:40 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -59,6 +59,7 @@ class VideoControlPage : public CatapultPage
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
 		void UpdateBlurControls (int value);
 		void FillComboBox (wxString control, wxString contents);
+		void setNewRenderersAndScalers();
 		
 	private:
 		int FindFirstFreeScreenshotFile (wxString prefix);

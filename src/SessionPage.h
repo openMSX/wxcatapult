@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.31 2005/10/22 19:16:24 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.32 2005/10/23 12:24:11 manuelbi Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -34,19 +34,18 @@ class SessionPage : public CatapultPage
 	public:
 		SessionPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
 		virtual ~SessionPage();
-
 	//	void OnClickCombo(wxCommandEvent &event);
 		void OnBrowseCassette (wxCommandEvent &event);
 		void OnBrowseDiskA (wxCommandEvent& event);
 		void OnBrowseDiskB (wxCommandEvent& event);
 		void OnBrowseCartA (wxCommandEvent& event);
 		void OnBrowseCartB (wxCommandEvent& event);
-
 		void OnClearCassette (wxCommandEvent & event);
-		void OnClearCartB (wxCommandEvent & event);
-		void OnClearCartA (wxCommandEvent & event);
-		void OnClearDiskB (wxCommandEvent & event);
-		void OnClearDiskA (wxCommandEvent & event);
+		void OnEjectCartA (wxCommandEvent & event);
+		void OnEjectCartB (wxCommandEvent & event);
+		void OnEjectCartByMenu (wxCommandEvent & event);
+		void OnEjectDiskB (wxCommandEvent & event);
+		void OnEjectDiskA (wxCommandEvent & event);
 		void OnRewind (wxCommandEvent & event);
 		void OnForcePlay (wxCommandEvent & event);
 		void OnForcePlayByMenu (wxCommandEvent & event);
@@ -69,7 +68,6 @@ class SessionPage : public CatapultPage
 		void OnBrowseDiskDirByMenu (wxCommandEvent &event);
 		void OnBrowseCartByMenu (wxCommandEvent &event);
 		void OnEjectDiskByMenu (wxCommandEvent & event);
-		void OnEjectCartByMenu (wxCommandEvent & event);
 		void OnSelectMapper (wxCommandEvent & event);
 		void OnSelectIPS (wxCommandEvent & event);
 		void SetupHardware (bool initial, bool reset);
@@ -105,6 +103,8 @@ class SessionPage : public CatapultPage
 				mmenu = menu;
 				ipsdir = wxT("");
 				avoid_evt = false;
+				lastContents = wxT("");
+				deviceName = wxT("");
 			};
 			wxString contents;
 			wxString ipsdir;
@@ -115,6 +115,8 @@ class SessionPage : public CatapultPage
 			wxArrayString typehistory;
 			wxMenu * mmenu;
 			bool avoid_evt;
+			wxString lastContents;
+			wxString deviceName;
 		};
 		mediaInfo * GetLastMenuTarget();
 		static int CompareCaseInsensitive(const wxString& first, const wxString& second);
@@ -129,7 +131,8 @@ class SessionPage : public CatapultPage
 		void fillExtensions (wxArrayString & extensionArray);
 		void AddHistory (mediaInfo * media);
 		void SaveHistory();
-
+		void EjectCart (mediaInfo * target);
+		void EjectDisk (mediaInfo * target);
 
 		mediaInfo * m_diskA;
 		mediaInfo * m_diskB;
@@ -156,9 +159,6 @@ class SessionPage : public CatapultPage
 		wxBitmapButton * m_clearDiskA;
 		wxBitmapButton * m_clearDiskB;
 		wxBitmapButton * m_clearCassette;
-		wxString m_lastDiskA;
-		wxString m_lastDiskB;
-		wxString m_lastCassette;
 		wxString m_cassettePortState;
 
 		wxStaticText * m_machineListLabel;

@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.135 2005/10/23 10:24:14 h_oudejans Exp $
+$Id: ChangeLog,v 1.136 2005/11/04 19:28:10 manuelbi Exp $
+
+2005-11-20 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed problems with ejecting media
+	* removed code duplication with ejecting media
 
 2005-11-04 Manuel Bilderbeek <manuel@msxnet.org>
 	* Also check if executable can be found just before starting to

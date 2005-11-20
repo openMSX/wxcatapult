@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.19 2005/10/14 08:53:04 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.20 2005/10/16 19:33:02 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -29,6 +29,7 @@ openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 	m_pipeActive = false;
 	m_openMsxRunning = false;
 	m_namedPipeHandle = INVALID_HANDLE_VALUE;
+	m_socket = NULL;
 }
 
 openMSXWindowsController::~openMSXWindowsController()

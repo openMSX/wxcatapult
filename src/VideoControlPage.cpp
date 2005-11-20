@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.32 2005/05/13 14:11:03 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.33 2005/07/16 15:09:19 mthuurne Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -100,6 +100,8 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_blurLabel = (wxStaticText *)FindWindowByName(wxT("BlurLabel"));
 	m_glowLabel = (wxStaticText *)FindWindowByName(wxT("GlowLabel"));
 	m_gammaLabel = (wxStaticText *)FindWindowByName(wxT("GammaLabel"));
+
+	setNewRenderersAndScalers();
 }
 
 VideoControlPage::~VideoControlPage()
@@ -579,4 +581,12 @@ void VideoControlPage::UpdateScreenshotCounter()
 		countString = countString.Right(4);
 		m_screenShotCounter->SetValue(countString);
 	}
+}
+
+void VideoControlPage::setNewRenderersAndScalers()
+{
+	m_rendererList->Clear();
+	m_scalerList->Clear();
+	m_accuracyList->Clear();
+
 }

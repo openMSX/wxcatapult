@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.88 2005/05/29 12:18:24 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.89 2005/07/02 09:46:24 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -22,11 +22,14 @@
 #include "ScreenShotDlg.h"
 #include <cassert>
 
+
 #if wxCHECK_VERSION(2,5,0)
 #define WX24SIGNCAST
 #else
 #define WX24SIGNCAST (unsigned int)
 #endif
+
+
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -40,7 +43,6 @@ openMSXController::openMSXController(wxWindow * target)
 	m_pluggables.Clear();
 	m_connectors.Clear();
 	InitLaunchScript ();
-	m_socket = NULL;
 }
 
 openMSXController::~openMSXController()

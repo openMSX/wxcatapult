@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.71 2005/10/23 12:24:09 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.72 2005/11/17 21:20:09 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -68,10 +68,10 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_BUTTON(XRCID("BrowseCartA"),SessionPage::OnBrowseCartA)
 	EVT_BUTTON(XRCID("BrowseCartB"),SessionPage::OnBrowseCartB)
 	EVT_BUTTON(XRCID("BrowseCassette"),SessionPage::OnBrowseCassette)
-	EVT_BUTTON(XRCID("ClearDiskA"),SessionPage::OnClearDiskA)
-	EVT_BUTTON(XRCID("ClearDiskB"),SessionPage::OnClearDiskB)
-	EVT_BUTTON(XRCID("ClearCartA"),SessionPage::OnClearCartA)
-	EVT_BUTTON(XRCID("ClearCartB"),SessionPage::OnClearCartB)
+	EVT_BUTTON(XRCID("ClearDiskA"),SessionPage::OnEjectDiskA)
+	EVT_BUTTON(XRCID("ClearDiskB"),SessionPage::OnEjectDiskB)
+	EVT_BUTTON(XRCID("ClearCartA"),SessionPage::OnEjectCartA)
+	EVT_BUTTON(XRCID("ClearCartB"),SessionPage::OnEjectCartB)
 	EVT_BUTTON(XRCID("ClearCassette"),SessionPage::OnClearCassette)
 	EVT_BUTTON(XRCID("RewindButton"),SessionPage::OnRewind)
 	EVT_TOGGLEBUTTON(XRCID("ForcePlayButton"),SessionPage::OnForcePlay)
@@ -133,7 +133,9 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cartA = new mediaInfo(m_cartMenu[0]);
 	m_cartB = new mediaInfo(m_cartMenu[1]);
 	m_cassette = new mediaInfo(m_casMenu);
-
+	m_diskA->deviceName = wxT("diska");
+	m_diskB->deviceName = wxT("diskb");
+	m_cassette->deviceName = wxT("cassetteplayer");
 	m_parent = (wxCatapultFrame *)parent->GetParent()->GetParent();
 	m_diskA->control = (wxComboBox *)FindWindowByName(wxT("DiskAContents"));
 	m_diskB->control = (wxComboBox *)FindWindowByName(wxT("DiskBContents"));
@@ -161,10 +163,6 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cassetteButton = (wxButton *)FindWindowByName(wxT("CassetteButton"));
 	m_machineListLabel = (wxStaticText *)FindWindowByName(wxT("MachineListLabel"));
 	m_extensionListLabel = (wxStaticText *)FindWindowByName(wxT("ExtensionLabel"));
-	m_lastDiskA = wxT("");
-	m_lastDiskB = wxT("");
-	m_lastCassette = wxT("");
-
 	SetupHardware(true,false);
 
 
@@ -218,51 +216,69 @@ SessionPage::~SessionPage()
 	delete m_diskB;
 }
 
-void SessionPage::OnClearDiskA(wxCommandEvent &event)
+void SessionPage::OnEjectDiskA(wxCommandEvent &event)
 {
-	m_diskA->control->SetValue(wxT(""));
-	m_diskA->contents = wxT("");
-	m_diskA->ips.Clear();
-	m_diskA->mmenu->SetLabel(Disk_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	m_lastDiskA = wxT("");
-	m_controller->WriteCommand(wxT("diska eject"));
+	EjectDisk(m_diskA);
 }
 
-void SessionPage::OnClearDiskB(wxCommandEvent &event)
+void SessionPage::OnEjectDiskByMenu(wxCommandEvent & event)
 {
-	m_diskB->control->SetValue(wxT(""));
-	m_diskB->contents = wxT("");
-	m_diskB->ips.Clear();
-	m_diskB->mmenu->SetLabel(Disk_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	m_lastDiskB = wxT("");
-	m_controller->WriteCommand(wxT("diskb eject"));
+	mediaInfo * target = GetLastMenuTarget();
+	if (target != NULL){
+		EjectDisk(target);				
+	}
 }
 
-void SessionPage::OnClearCartA(wxCommandEvent &event)
+void SessionPage::OnEjectDiskB(wxCommandEvent &event)
 {
-	m_cartA->contents = wxT("");
-	m_cartA->ips.Clear();
-	m_cartA->type = wxT("");
-	m_cartA->control->SetValue(wxT(""));
-	m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	m_cartA->mmenu->SetLabel(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"));
+	EjectDisk(m_diskB);
 }
 
-void SessionPage::OnClearCartB(wxCommandEvent &event)
+void SessionPage::EjectDisk (mediaInfo * target)
 {
-	m_cartB->contents = wxT("");
-	m_cartB->ips.Clear();
-	m_cartB->type = wxT("");
-	m_cartB->control->SetValue(wxT(""));
-	m_cartB->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	m_cartB->mmenu->SetLabel(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"));
+	target->control->SetValue(wxT(""));
+	target->control->SetSelection(wxNOT_FOUND);
+	target->contents = wxT("");
+	target->ips.Clear();
+	target->mmenu->SetLabel(Disk_Browse_Ips,wxT("Select IPS Patches (None selected)"));
+	target->lastContents = wxT("");
+	wxString cmd = target->deviceName + wxT(" eject");
+	m_controller->WriteCommand(cmd);
+}
+
+void SessionPage::EjectCart(mediaInfo * target)
+{
+	target->contents = wxT("");
+	target->ips.Clear();
+	target->type = wxT("");
+	target->control->SetValue(wxT(""));
+	target->control->SetSelection(wxNOT_FOUND);
+	target->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
+	target->mmenu->SetLabel(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"));
+}
+
+void SessionPage::OnEjectCartByMenu (wxCommandEvent & event)
+{
+	mediaInfo * target = GetLastMenuTarget();
+	if (target != NULL){
+		EjectCart(target);
+	}
+}
+void SessionPage::OnEjectCartA(wxCommandEvent &event)
+{
+	EjectCart (m_cartA);
+}
+
+void SessionPage::OnEjectCartB(wxCommandEvent &event)
+{
+	EjectCart (m_cartB);
 }
 
 void SessionPage::OnClearCassette(wxCommandEvent &event)
 {
 	m_cassette->contents = wxT("");
 	m_cassette->control->SetValue(wxT(""));
-	m_lastCassette = wxT("");
+	m_cassette->lastContents = wxT("");
 	m_controller->WriteCommand(wxT("cassetteplayer eject"));
 #ifdef __WXMSW__
 	// Bug in wxMSW? On wxGTK this is not necessary
@@ -294,14 +310,14 @@ void SessionPage::OnForcePlayByMenu(wxCommandEvent & event)
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
 {
 	if (BrowseDisk (m_diskA, wxT("diska"), ::wxPathOnly(m_diskA->contents))) {
-		m_lastDiskA = m_diskA->contents;
+		m_diskA->lastContents = m_diskA->contents;
 	}
 }
 
 void SessionPage::OnBrowseDiskB(wxCommandEvent &event)
 {
 	if (BrowseDisk (m_diskB, wxT("diskb"), ::wxPathOnly(m_diskB->contents))) {
-		m_lastDiskB = m_diskB->contents;
+		m_diskB->lastContents = m_diskB->contents;
 	}
 }
 
@@ -392,7 +408,7 @@ void SessionPage::OnBrowseCassette(wxCommandEvent &event)
 				SaveHistory();
 			}
 		}
-		m_lastCassette = m_cassette->contents;
+		m_cassette->lastContents = m_cassette->contents;
 		OnChangeCassetteContents(event);
 	}
 }
@@ -458,7 +474,6 @@ void SessionPage::OnClickCartACombo(wxCommandEvent & event)
 void SessionPage::OnChangeCartAContents(wxCommandEvent & event)
 {
 	if (!m_cartA->avoid_evt){
-		;
 		m_cartA->ips.Clear();
 		m_cartA->type = wxT("");
 		m_cartA->contents = m_cartA->control->GetValue();
@@ -684,35 +699,35 @@ void SessionPage::HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)
 	if (m_controller->IsOpenMSXRunning()){
 		if (oldFocus == m_diskA->control) {
 			contents = m_diskA->contents;
-			if (contents != m_lastDiskA) {
+			if (contents != m_diskA->lastContents) {
 				m_controller->WriteCommand(wxT("diska eject"));
 				if (!contents.IsEmpty()) {
 					m_controller->WriteCommand(wxT("diska ") + ConvertPath(m_diskA->contents,true));
 					AddHistory(m_diskA);
 				}
-				m_lastDiskA = m_diskA->contents;
+				m_diskA->lastContents = m_diskA->contents;
 			}
 		}
 		else if (oldFocus == m_diskB->control) {
 			contents = m_diskB->contents;
-			if (contents != m_lastDiskB) {
+			if (contents != m_diskB->lastContents) {
 				m_controller->WriteCommand(wxT("diskb eject"));
 				if (!contents.IsEmpty()) {
 					m_controller->WriteCommand(wxT("diskb ") + ConvertPath(m_diskB->contents,true));
 					AddHistory(m_diskB);
 				}
-				m_lastDiskB = m_diskB->contents;
+				m_diskB->lastContents = m_diskB->contents;
 			}
 		}
 		else if (oldFocus == m_cassette->control) {
-			if (m_cassette->contents != m_lastCassette) {
+			if (m_cassette->contents != m_cassette->lastContents) {
 				contents = m_cassette->contents;
 				m_controller->WriteCommand(wxT("cassetteplayer eject"));
 				if (!contents.IsEmpty()) {
 					m_controller->WriteCommand(wxT("cassetteplayer ") + ConvertPath(m_cassette->contents,true));
 					AddHistory(m_cassette);
 				}
-				m_lastCassette = m_cassette->contents;
+				m_cassette->lastContents = m_cassette->contents;
 			}
 		}
 		SaveHistory();
@@ -1208,28 +1223,6 @@ void SessionPage::OnBrowseDiskDirByMenu(wxCommandEvent &event)
 			target->contents = dirdlg.GetPath();
 			target->control->SetValue(target->contents);
 		}
-	}
-}
-
-void SessionPage::OnEjectDiskByMenu(wxCommandEvent & event)
-{
-	mediaInfo * target = GetLastMenuTarget();
-	if (target != NULL){
-		target->contents = wxT("");
-		target->control->Clear();
-		target->mmenu->SetLabel(Disk_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	}
-}
-
-void SessionPage::OnEjectCartByMenu (wxCommandEvent & event)
-{
-	mediaInfo * target = GetLastMenuTarget();
-	if (target != NULL){
-		target->contents = wxT("");
-		target->control->SetValue(wxT("")); // Uing Clear() doesn't seem to do the trick properly (?)
-		target->ips.Clear();
-		target->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-		target->mmenu->SetLabel(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"));
 	}
 }
 

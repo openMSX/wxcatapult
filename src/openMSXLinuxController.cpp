@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.22 2005/10/15 16:53:59 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.24 2005/10/16 19:22:04 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -117,6 +117,28 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 		fdErr = pipeStderr[PIPE_READ];
 	}
 	return true;
+}
+
+bool openMSXLinuxController::connectSocket()
+{
+	bool bRetval = false;
+/*	if (m_socket == NULL){ // only if we don't have a socket connection
+		m_socket = new wxSocketClient;
+		m_socket->SetEventHandler(*m_appWindow,OPENMSX_SOCKET);
+		m_socket->SetNotify (wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
+		m_socket->Notify(true);
+
+		wxIPV4address addr; // wx implemented only ipv4 so far
+		addr.Hostname (wxT("localhost")); // only localhost for now
+		addr.Service (9938); // openMSX port
+        if (!m_socket->Connect(addr,true)){ // don't wait, openMSX should be available allready
+			wxMessageBox (wxT("Error: openMSX not available for socket connection !"));
+		}
+		else{
+			bRetval = true; // succes
+		}
+	}*/
+	return bRetval;
 }
 
 wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)

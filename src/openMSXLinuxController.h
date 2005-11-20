@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.h,v 1.10 2005/10/15 16:53:59 h_oudejans Exp $
+// $Id: openMSXLinuxController.h,v 1.12 2005/10/16 19:22:04 h_oudejans Exp $
 // openMSXLinuxController.h: interface for the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -34,6 +34,7 @@ class openMSXLinuxController : public openMSXController
 		int m_openMSXstderr;
 		PipeReadThread * m_stdErrThread;
 		PipeReadThread * m_stdOutThread;
+		int m_socket;
 };
 
 #endif // !defined(AFX_OPENMSXLINUXCONTROLLER_H__25F18E15_838A_453A_A819_B48FDFE01E28__INCLUDED_)

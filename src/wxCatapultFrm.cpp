@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.76 2005/11/02 20:15:19 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.77 2005/11/04 19:28:10 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -245,7 +245,7 @@ void wxCatapultFrame::CheckConfigs()
 #if !OPENMSX_DEMO_CD_VERSION
 		if (!result) {
 			wxMessageBox (wxT("Error saving configuration data"));
-		}
+		}	
 #endif	
 	}
 	m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
