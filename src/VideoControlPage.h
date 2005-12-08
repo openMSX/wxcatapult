@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.17 2004/10/08 15:26:40 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.18 2005/11/20 16:10:55 h_oudejans Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -41,17 +41,20 @@ class VideoControlPage : public CatapultPage
 		void OnFullScreen (wxCommandEvent &event);
 		void OnDeInterlace (wxCommandEvent &event);
 		void OnChangeAccuracy (wxCommandEvent &event);
-		void OnChangeScaler (wxCommandEvent &event);
+		void OnChangeScalerAlgo (wxCommandEvent &event);
+		void OnChangeScalerFactor (wxCommandEvent &event);
 		void OnChangeRenderer(wxCommandEvent &event);
 		void OnBrowseScreenShot(wxCommandEvent &event);
 		void OnTakeScreenShot(wxCommandEvent &event);
 		void OnChangeScreenshotFilename(wxCommandEvent & event);
 		void UpdateScreenshotCounter();
 		void FillRenderers (wxString renderers);
-		void FillScalers (wxString scalers);
+		void FillScalerAlgos (wxString scalerAlgos);
+		void FillScalerFactors (wxString scalerFactors);
 		void FillAccuracy(wxString accuracy);
 		void SetRenderer (wxString value);
-		void SetScaler (wxString value);
+		void SetScalerAlgo (wxString value);
+		void SetScalerFactor (wxString value);
 		void SetAccuracy (wxString value);
 		void SetDeinterlace (wxString value);
 		void SetLimitSprites (wxString value);
@@ -67,7 +70,8 @@ class VideoControlPage : public CatapultPage
 		
 		wxComboBox * m_accuracyList;
 		wxComboBox * m_rendererList;
-		wxComboBox * m_scalerList;
+		wxComboBox * m_scalerAlgoList;
+		wxComboBox * m_scalerFactorList;
 		
 		wxBitmapButton * m_browseScreenshotButton;
 		wxButton * m_defaultGammaButton;

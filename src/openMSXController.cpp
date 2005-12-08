@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.89 2005/07/02 09:46:24 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.90 2005/11/20 16:10:55 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -586,13 +586,15 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("unset renderer"),wxT("e"),wxT(""),NULL,true);
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::EnableMainWindow,false);
 	AddLaunchInstruction (wxT("#info renderer"),wxT(""),wxT("RendererSelector"),&openMSXController::FillComboBox,true);
-	AddLaunchInstruction (wxT("#info scaler"),wxT(""),wxT("ScalerSelector"),&openMSXController::FillComboBox,true);
+	AddLaunchInstruction (wxT("#info scale_algorithm"),wxT(""),wxT("ScalerAlgoSelector"),&openMSXController::FillComboBox,true);
+	AddLaunchInstruction (wxT("#info scale_factor"),wxT(""),wxT("ScalerFactorSelector"),&openMSXController::FillComboBox,true);
 	AddLaunchInstruction (wxT("#info accuracy"),wxT(""),wxT("AccuracySelector"),&openMSXController::FillComboBox,false);
 	AddLaunchInstruction (wxT("update enable media"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("info exist frontswitch"),wxT(""),wxT("#"),&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction (wxT("info exist firmwareswitch"),wxT(""),wxT("#"),&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction (wxT("set renderer"),wxT(""),wxT("renderer"),&openMSXController::UpdateSetting,true);
-	AddLaunchInstruction (wxT("set scaler"),wxT(""),wxT("scaler"),&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction (wxT("set scale_algorithm"),wxT(""),wxT("scale_algorithm"),&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction (wxT("set scale_factor"),wxT(""),wxT("scale_factor"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("set accuracy"),wxT(""),wxT("accuracy"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("set deinterlace"),wxT(""),wxT("deinterlace"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("set limitsprites"),wxT(""),wxT("limitsprites"),&openMSXController::UpdateSetting,true);

@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.33 2005/07/16 15:09:19 mthuurne Exp $
+// $Id: VideoControlPage.cpp,v 1.34 2005/11/20 16:10:55 h_oudejans Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -25,10 +25,12 @@
 IMPLEMENT_CLASS(VideoControlPage, wxPanel)
 BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_COMBOBOX(XRCID("RendererSelector"),CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(XRCID("ScalerSelector"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("ScalerAlgoSelector"),CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(XRCID("ScalerFactorSelector"),CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(XRCID("AccuracySelector"),CatapultPage::OnClickCombo)
 	EVT_TEXT(XRCID("RendererSelector"),VideoControlPage::OnChangeRenderer)
-	EVT_TEXT(XRCID("ScalerSelector"),VideoControlPage::OnChangeScaler)
+	EVT_TEXT(XRCID("ScalerAlgoSelector"),VideoControlPage::OnChangeScalerAlgo)
+	EVT_TEXT(XRCID("ScalerFactorSelector"),VideoControlPage::OnChangeScalerFactor)
 	EVT_TEXT(XRCID("AccuracySelector"),VideoControlPage::OnChangeAccuracy)
 	EVT_TOGGLEBUTTON(XRCID("DeInterlaceButton"),VideoControlPage::OnDeInterlace)
 	EVT_TOGGLEBUTTON(XRCID("LimitSpriteButton"),VideoControlPage::OnLimitSprites)
@@ -60,7 +62,8 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("VideoControlPage"));
 	m_controller = controller;
 	m_rendererList = (wxComboBox *)FindWindowByName(wxT("RendererSelector"));;
-	m_scalerList = (wxComboBox *)FindWindowByName(wxT("ScalerSelector"));
+	m_scalerAlgoList = (wxComboBox *)FindWindowByName(wxT("ScalerAlgoSelector"));
+	m_scalerFactorList = (wxComboBox *)FindWindowByName(wxT("ScalerFactorSelector"));
 	m_accuracyList = (wxComboBox*)FindWindowByName(wxT("AccuracySelector"));
 	m_deinterlaceButton = (wxToggleButton*)FindWindowByName(wxT("DeInterlaceButton"));
 	m_limitSpritesButton = (wxToggleButton*)FindWindowByName(wxT("LimitSpriteButton"));
@@ -113,9 +116,14 @@ void VideoControlPage::OnChangeRenderer(wxCommandEvent &event)
 	m_controller->WriteCommand(wxString(wxT("set renderer ") + m_rendererList->GetValue()));
 }
 
-void VideoControlPage::OnChangeScaler(wxCommandEvent &event)
+void VideoControlPage::OnChangeScalerAlgo(wxCommandEvent &event)
 {
-	m_controller->WriteCommand(wxString(wxT("set scaler ") + m_scalerList->GetValue().Lower()));
+	m_controller->WriteCommand(wxString(wxT("set scale_algorithm ") + m_scalerAlgoList->GetValue().Lower()));
+}
+
+void VideoControlPage::OnChangeScalerFactor(wxCommandEvent &event)
+{
+	m_controller->WriteCommand(wxString(wxT("set scale_factor ") + m_scalerFactorList->GetValue().Lower()));
 }
 
 void VideoControlPage::OnChangeAccuracy(wxCommandEvent &event)
@@ -349,7 +357,8 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_scanlineIndicator->Enable(true);
 	m_defaultScanlineButton->Enable(true);
 	m_rendererList->Enable(true);
-	m_scalerList->Enable(true);
+	m_scalerAlgoList->Enable(true);
+	m_scalerFactorList->Enable(true);
 	m_accuracyList->Enable(true);
 	m_deinterlaceButton->Enable(true);
 	m_limitSpritesButton->Enable(true);
@@ -391,7 +400,8 @@ void VideoControlPage::SetControlsOnEnd()
 	m_scanlineIndicator->Enable(false);
 	m_defaultScanlineButton->Enable(false);
 	m_rendererList->Enable(false);
-	m_scalerList->Enable(false);
+	m_scalerAlgoList->Enable(false);
+	m_scalerFactorList->Enable(false);
 	m_accuracyList->Enable(false);
 	m_deinterlaceButton->Enable(false);
 	m_limitSpritesButton->Enable(false);
@@ -422,9 +432,14 @@ void VideoControlPage::FillRenderers(wxString renderers)
 	FillComboBox (wxT("RendererSelector"), renderers);
 }
 
-void VideoControlPage::FillScalers(wxString scalers)
+void VideoControlPage::FillScalerAlgos(wxString scalerAlgos)
 {
-	FillComboBox (wxT("ScalerSelector"), scalers);
+	FillComboBox (wxT("ScalerAlgoSelector"), scalerAlgos);
+}
+
+void VideoControlPage::FillScalerFactors(wxString scalerFactors)
+{
+	FillComboBox (wxT("ScalerFactorSelector"), scalerFactors);
 }
 
 void VideoControlPage::FillAccuracy(wxString accuracy)
@@ -458,9 +473,14 @@ void VideoControlPage::SetRenderer (wxString value)
 	m_rendererList->SetSelection(m_rendererList->FindString(value));
 }
 
-void VideoControlPage::SetScaler (wxString value)
+void VideoControlPage::SetScalerAlgo (wxString value)
 {
-	m_scalerList->SetSelection(m_scalerList->FindString(value));
+	m_scalerAlgoList->SetSelection(m_scalerAlgoList->FindString(value));
+}
+
+void VideoControlPage::SetScalerFactor (wxString value)
+{
+	m_scalerFactorList->SetSelection(m_scalerFactorList->FindString(value));
 }
 
 void VideoControlPage::SetAccuracy(wxString value)
@@ -586,7 +606,8 @@ void VideoControlPage::UpdateScreenshotCounter()
 void VideoControlPage::setNewRenderersAndScalers()
 {
 	m_rendererList->Clear();
-	m_scalerList->Clear();
+	m_scalerAlgoList->Clear();
+	m_scalerFactorList->Clear();
 	m_accuracyList->Clear();
 
 }

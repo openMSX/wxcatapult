@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.34 2005/01/06 16:27:21 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.35 2005/05/14 11:17:12 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -72,7 +72,8 @@ void CatapultPage::InitSettingsTable ()
 	m_settingTableSize = 0;
 	m_settingTable = new SettingTableElementType [SETTINGTABLE_MAXSIZE];
 	AddSetting(wxT("renderer"),wxT("RendererSelector"),&CatapultPage::UpdateComboSetting,0);
-	AddSetting(wxT("scaler"),wxT("ScalerSelector"),&CatapultPage::UpdateComboSetting,0);
+	AddSetting(wxT("scale_algorithm"),wxT("ScalerAlgoSelector"),&CatapultPage::UpdateComboSetting,0);
+	AddSetting(wxT("scale_factor"),wxT("ScalerFactorSelector"),&CatapultPage::UpdateComboSetting,0);
 	AddSetting(wxT("accuracy"),wxT("AccuracySelector"),&CatapultPage::UpdateComboSetting,0);
 	AddSetting(wxT("deinterlace"),wxT("DeInterlaceButton"),&CatapultPage::UpdateToggleSetting,S_CONVERT);
 	AddSetting(wxT("limitsprites"),wxT("LimitSpriteButton"),&CatapultPage::UpdateToggleSetting,S_CONVERT);
