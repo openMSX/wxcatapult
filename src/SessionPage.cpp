@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.75 2005/12/10 15:38:08 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.76 2005/12/10 17:29:03 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -596,7 +596,7 @@ void SessionPage::HandleCassetteChange ()
 		m_rewindButton->Enable(false);
 		m_cassetteControlEnabled = false;
 	}
-	SetCassetteMode ("play");
+	SetCassetteMode (wxT("play"));
 	
 }
 
