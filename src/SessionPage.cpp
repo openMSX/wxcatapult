@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.73 2005/11/20 16:10:54 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.74 2005/12/10 14:14:41 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -333,7 +333,7 @@ void SessionPage::OnModeRecord (wxCommandEvent & event)
 							path ,wxSAVE | wxOVERWRITE_PROMPT);
 		if (filedlg.ShowModal() == wxID_OK){
 			changeMode = true;
-			tapeImage += " ";
+			tapeImage += wxT(" ");
 			tapeImage += ConvertPath(filedlg.GetPath(),true);
 		}
 	}

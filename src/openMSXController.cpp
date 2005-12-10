@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.91 2005/12/08 18:14:41 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.92 2005/12/10 14:14:41 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -1005,7 +1005,7 @@ int openMSXController::InitRomTypes (wxString dummy, wxString data)
 {
 	wxArrayString types;
 	tokenize (data, wxT("\n"),types);
-	for (int index=0;index < types.GetCount();index++)
+	for (unsigned int index=0;index < types.GetCount();index++)
 	{
 		m_appWindow->m_sessionPage->AddRomType (types[index]);
 	}
@@ -1104,7 +1104,7 @@ int openMSXController::EnableCassettePort (wxString dummy, wxString data)
 int openMSXController::SetCassetteMode (wxString dummy, wxString data)
 {
 	wxArrayString arrayData;
-	tokenize(data,"\n",arrayData);
+	tokenize(data,wxT("\n"),arrayData);
 	m_appWindow->m_sessionPage->SetCassetteMode (arrayData[1]); 
 	return 0;
 }
