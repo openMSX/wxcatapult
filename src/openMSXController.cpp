@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.92 2005/12/10 14:14:41 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.93 2005/12/10 15:38:09 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -159,7 +159,6 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 void openMSXController::HandleStdOut(wxCommandEvent &event)
 {
 	wxString * data = (wxString *)event.GetClientData();
-	m_appWindow->m_statusPage->m_outputtext->AppendText(*data);
 	m_parser->ParseXmlInput(*data,m_openMSXID);
 	delete data;
 }
@@ -643,7 +642,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("set *_mode"),wxT(""),wxT("*_mode"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("set mute"),wxT(""),wxT("mute"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("plug cassetteport"),wxT(""),wxT("cassetteport"),&openMSXController::EnableCassettePort,false);
-	AddLaunchInstruction (wxT("join [cassetteplayer] \\n"),wxT(""),wxT(""),&openMSXController::SetCassetteMode,true);
+	AddLaunchInstruction (wxT("join [cassetteplayer] \\n"),wxT(""),wxT(""),&openMSXController::SetCassetteMode,false);
 	AddLaunchInstruction (wxT("update enable plug"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("update enable unplug"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("update enable status"),wxT(""),wxT(""),NULL,false);
@@ -1104,8 +1103,8 @@ int openMSXController::EnableCassettePort (wxString dummy, wxString data)
 int openMSXController::SetCassetteMode (wxString dummy, wxString data)
 {
 	wxArrayString arrayData;
-	tokenize(data,wxT("\n"),arrayData);
-	m_appWindow->m_sessionPage->SetCassetteMode (arrayData[1]); 
+	int args = tokenize(data,wxT("\n"),arrayData);
+	m_appWindow->m_sessionPage->SetCassetteMode (arrayData[args-1]); 
 	return 0;
 }
 

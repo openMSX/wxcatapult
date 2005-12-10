@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.74 2005/12/10 14:14:41 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.75 2005/12/10 15:38:08 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -336,6 +336,10 @@ void SessionPage::OnModeRecord (wxCommandEvent & event)
 			tapeImage += wxT(" ");
 			tapeImage += ConvertPath(filedlg.GetPath(),true);
 		}
+		else{
+			m_recordButton->SetValue(false);			
+		}
+		
 	}
 	if (changeMode){
 		m_recordButton->SetValue(true);
@@ -585,13 +589,15 @@ void SessionPage::HandleCassetteChange ()
 		(m_cassette->contents != wxT("")))
 	{
 		m_rewindButton->Enable(true);
-		m_cassetteControlEnabled = true;
+		m_cassetteControlEnabled = true;	
 	}
 	else
 	{
 		m_rewindButton->Enable(false);
 		m_cassetteControlEnabled = false;
 	}
+	SetCassetteMode ("play");
+	
 }
 
 void SessionPage::SetupHardware (bool initial, bool reset)
@@ -972,7 +978,6 @@ void SessionPage::UpdateSessionData()
 		}
 	}
 	SaveHistory();
-//	HandleCassetteChange();
 }
 
 void SessionPage::AddHistory(mediaInfo *media)
@@ -1011,7 +1016,6 @@ void SessionPage::AddHistory(mediaInfo *media)
 	for (i=0;i<media->history.GetCount();i++){
 		media->control->Append(media->history[i]);
 	}
-//	media->control->SetValue(currentItem);
 	media->control->SetSelection(0);
 }
 
@@ -1167,6 +1171,10 @@ void SessionPage::SetCassetteMode (wxString data)
 	{
 		m_playButton->SetValue(state);
 		m_playButton->Enable (!state);
+	}
+	else{
+		m_playButton->SetValue(false);
+		m_playButton->Enable(false);
 	}
 	state = (data == wxT("record"));
 	m_recordButton->SetValue(state);
