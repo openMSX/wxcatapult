@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.90 2005/11/20 16:10:55 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.91 2005/12/08 18:14:41 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -159,6 +159,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent &event)
 void openMSXController::HandleStdOut(wxCommandEvent &event)
 {
 	wxString * data = (wxString *)event.GetClientData();
+	m_appWindow->m_statusPage->m_outputtext->AppendText(*data);
 	m_parser->ParseXmlInput(*data,m_openMSXID);
 	delete data;
 }
@@ -196,7 +197,12 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				m_appWindow->UpdateLed (data->name, data->contents);
 			}
 			if (data->updateType == CatapultXMLParser::UPDATE_STATE) {
-				m_appWindow->UpdateState (data->name, data->contents);
+				if (data->name == wxT("cassetteplayer")){
+					m_appWindow->m_sessionPage->SetCassetteMode(data->contents);				
+				}
+				else{
+					m_appWindow->UpdateState (data->name, data->contents);
+				}
 			}
 			if (data->updateType == CatapultXMLParser::UPDATE_SETTING) {
 				wxString lastcmd = PeekPendingCommand();
@@ -229,9 +235,10 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					eject = true;
 				}
 				if ((lastcmd.Mid(0,data->name.Len()+1) != wxString(data->name + wxT(" "))) ||
-					(!eject && (lastcmd.Mid(space+1) != (wxString (wxT("\"")) + data->contents + wxString(wxT("\"")))))){
+					(!eject && (lastcmd.Mid(space+1) != (wxString (wxT("\"")) + data->contents + wxString(wxT("\""))))) ||
+					(lastcmd.Left(18) == wxT("cassetteplayer new"))){
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
-						m_appWindow->m_sessionPage->UpdateSessionData();
+						m_appWindow->m_sessionPage->UpdateSessionData();						
 				}
 			}
 			break;
@@ -627,6 +634,8 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("set audio-inputfilename"),wxT(""),wxT("audio-inputfilename"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::InitConnectorPanel,false);
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::InitAudioConnectorPanel,false);
+//	AddLaunchInstruction (wxT("#info romtype"),wxT(""),wxT(""),&openMSXController::InitRomTypes,true);
+//	AddLaunchInstruction (wxT("#info_nostore romtype *"),wxT(""),wxT("*"),&openMSXController::SetRomDescription,true);
 	AddLaunchInstruction (wxT("#info sounddevice"),wxT("5"),wxT(""),&openMSXController::InitSoundDevices,true);
 	AddLaunchInstruction (wxT("#info_nostore sounddevice *"),wxT(""),wxT("*"),&openMSXController::SetChannelType,true);
 	AddLaunchInstruction (wxT("set master_volume"),wxT(""),wxT("master_volume"),&openMSXController::UpdateSetting,false);
@@ -634,11 +643,10 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("set *_mode"),wxT(""),wxT("*_mode"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("set mute"),wxT(""),wxT("mute"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("plug cassetteport"),wxT(""),wxT("cassetteport"),&openMSXController::EnableCassettePort,false);
+	AddLaunchInstruction (wxT("join [cassetteplayer] \\n"),wxT(""),wxT(""),&openMSXController::SetCassetteMode,true);
 	AddLaunchInstruction (wxT("update enable plug"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("update enable unplug"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("update enable status"),wxT(""),wxT(""),NULL,false);
-
-
 }
 
 void openMSXController::AddLaunchInstruction (wxString cmd, wxString action,
@@ -993,6 +1001,23 @@ int openMSXController::EnableMainWindow(wxString dummy1, wxString dummy2)
 	return 0; // don't skip any lines in the startup script
 }
 
+int openMSXController::InitRomTypes (wxString dummy, wxString data)
+{
+	wxArrayString types;
+	tokenize (data, wxT("\n"),types);
+	for (int index=0;index < types.GetCount();index++)
+	{
+		m_appWindow->m_sessionPage->AddRomType (types[index]);
+	}
+	return 0;
+}
+
+int openMSXController::SetRomDescription(wxString name, wxString data)
+{
+	m_appWindow->m_sessionPage->SetRomTypeFullName(name,data);
+	return 0;
+}
+
 int openMSXController::InitSoundDevices (wxString dummy, wxString data)
 {
 	wxArrayString channels;
@@ -1074,6 +1099,14 @@ int openMSXController::EnableCassettePort (wxString dummy, wxString data)
 {
 	m_appWindow->m_sessionPage->EnableCassettePort(data);
 	return 0; // don't skip any lines in the startup script
+}
+
+int openMSXController::SetCassetteMode (wxString dummy, wxString data)
+{
+	wxArrayString arrayData;
+	tokenize(data,"\n",arrayData);
+	m_appWindow->m_sessionPage->SetCassetteMode (arrayData[1]); 
+	return 0;
 }
 
 void openMSXController::UpdateMixer()

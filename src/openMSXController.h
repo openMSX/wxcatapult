@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.36 2005/10/16 19:33:01 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.37 2005/11/20 16:10:55 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -104,9 +104,7 @@ class openMSXController
 		wxString PeekPendingCommand();
 		enum TargetType PeekPendingCommandTarget();
 				
-	
 		void HandleNormalLaunchReply(wxCommandEvent &event);
-		
 		void newLaunchReply (wxCommandEvent & event);
 		void executeLaunch (wxCommandEvent * event = NULL, int startLine = 0);
 		void FinishLaunch ();
@@ -124,6 +122,8 @@ class openMSXController
 		int InitConnectors(wxString dummy,wxString connectors);
 		int InitPluggables(wxString dummy,wxString pluggables);
 		int InitSoundDevices (wxString dummy, wxString data);
+		int InitRomTypes (wxString dummy, wxString data);
+		int SetRomDescription (wxString name, wxString data);
 		int SetChannelType (wxString name,wxString data);
 		int AddPluggableDescription(wxString name,wxString data);
 		int AddPluggableClass(wxString name,wxString data);
@@ -133,6 +133,7 @@ class openMSXController
 		int InitAudioConnectorPanel (wxString dummy1, wxString dummy2);
 		int InitConnectorPanel (wxString dummy1, wxString dummy2);
 		int EnableCassettePort (wxString cmd, wxString data);
+		int SetCassetteMode (wxString cmd, wxString data);
 		bool connectSocket();
 
 		list<CommandEntry> m_commands;

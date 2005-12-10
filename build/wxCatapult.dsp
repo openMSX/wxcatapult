@@ -216,7 +216,27 @@ SOURCE=..\dialogs\about.wxg
 
 !IF  "$(CFG)" == "wxCatapult - Win32 Release"
 
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\about.wxg
+InputName=about
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug"
+
+# Begin Custom Build - Translating XRC Resource: $(InputName)
+ProjDir=.
+InputPath=..\dialogs\about.wxg
+InputName=about
+
+"$(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	sed -f $(ProjDir)\wxg2xrc.sed $(InputPath) > $(ProjDir)\..\derived\resources\dialogs\$(InputName).xrc
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "wxCatapult - Win32 Debug wx24"
 
@@ -2126,10 +2146,6 @@ SOURCE=..\src\ScreenShotDlg.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ServerList.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\SessionPage.cpp
 # End Source File
 # Begin Source File
@@ -2227,10 +2243,6 @@ SOURCE=..\src\RomTypeDlg.h
 # Begin Source File
 
 SOURCE=..\src\ScreenshotDlg.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\ServerList.h
 # End Source File
 # Begin Source File
 

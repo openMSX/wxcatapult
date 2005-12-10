@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.35 2005/05/14 11:17:12 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.36 2005/12/08 18:14:40 manuelbi Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting(wxT("renshaturbo"),wxT("RenshaTurboSlider"),&CatapultPage::UpdateSliderSetting,0);
 	AddSetting(wxT("diska"),wxT("DiskAContents"),&CatapultPage::UpdateComboSetting,0);
 	AddSetting(wxT("diskb"),wxT("DiskBContents"),&CatapultPage::UpdateComboSetting,0);
-	AddSetting(wxT("cassette"),wxT("CassetteContents"),&CatapultPage::UpdateComboSetting,0);
+	AddSetting(wxT("cassetteplayer"),wxT("CassetteContents"),&CatapultPage::UpdateComboSetting,0);
 	AddSetting(wxT("fullscreen"),wxT("FullScreenButton"),&CatapultPage::UpdateToggleSetting,S_CONVERT);
 	AddSetting(wxT("save_settings_on_exit"),wxT("Save Settings On Exit"),&CatapultPage::UpdateMenuSetting,0);
 	AddSetting(wxT("printerlogfilename"),wxT("PrinterLogFile"),&CatapultPage::UpdateIndicatorSetting,S_CONVERT);

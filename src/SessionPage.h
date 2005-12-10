@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.32 2005/10/23 12:24:11 manuelbi Exp $
+// $Id: SessionPage.h,v 1.33 2005/11/20 16:10:55 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -47,8 +47,10 @@ class SessionPage : public CatapultPage
 		void OnEjectDiskB (wxCommandEvent & event);
 		void OnEjectDiskA (wxCommandEvent & event);
 		void OnRewind (wxCommandEvent & event);
-		void OnForcePlay (wxCommandEvent & event);
-		void OnForcePlayByMenu (wxCommandEvent & event);
+		void OnMotorControl (wxCommandEvent & event);
+		void OnModePlay (wxCommandEvent & event);
+		void OnModeRecord (wxCommandEvent & event);
+		void OnAutoCassettefile (wxCommandEvent & event);
 		void OnClickDiskACombo (wxCommandEvent & event);
 		void OnClickDiskBCombo (wxCommandEvent & event);
 		void OnClickCartACombo (wxCommandEvent & event);
@@ -59,6 +61,7 @@ class SessionPage : public CatapultPage
 		void OnChangeCartAContents (wxCommandEvent & event);
 		void OnChangeCartBContents (wxCommandEvent & event);
 		void OnChangeCassetteContents (wxCommandEvent & event);
+		void HandleCassetteChange ();
 		void OnClickDiskMenu (wxCommandEvent & event);
 		void OnClickCartMenu (wxCommandEvent & event);
 		void OnClickCasMenu (wxCommandEvent & event);
@@ -81,10 +84,12 @@ class SessionPage : public CatapultPage
 		void getHardware(wxArrayString & hardware);
 		void UpdateSessionData();
 		void EnableCassettePort (wxString data);
+		void SetCassetteMode (wxString data);
 		void AutoPlugCassette ();
 		void AddRomType (wxString romtype);
 		void SetRomTypeFullName (wxString romtype, wxString fullname);
 		void SetupRomType (wxString romtype, wxString fullname);
+		void SetOldStyleCassetteControls();
 		wxArrayString& GetDetectedMachines ();
 		wxArrayString& GetDetectedExtensions ();
 		void RestoreHistory();
@@ -140,7 +145,10 @@ class SessionPage : public CatapultPage
 		mediaInfo * m_cartB;
 		mediaInfo * m_cassette;
 
+		wxToggleButton * m_playButton;
+		wxToggleButton * m_recordButton;
 		wxButton * m_rewindButton;
+
 		wxButton * m_diskAButton;
 		wxButton * m_diskBButton;
 		wxButton * m_cartAButton;
@@ -152,7 +160,6 @@ class SessionPage : public CatapultPage
 		wxBitmapButton * m_clearCartA;
 		wxBitmapButton * m_clearCartB;
 		
-		wxToggleButton * m_forcePlayButton;
 		wxBitmapButton * m_browseDiskA;
 		wxBitmapButton * m_browseDiskB;
 		wxBitmapButton * m_browseCassette;
@@ -179,6 +186,15 @@ class SessionPage : public CatapultPage
 		wxButton * m_lastUsedPopup;
 		RomTypeDlg * m_romTypeDialog;
 		IPSSelectionDlg * m_ipsDialog;
+		bool m_cassetteControl;
+		bool m_cassetteControlEnabled;
+		bool m_cassetteAutoCreate;
+
+// old style compatability
+		
+		wxString m_casInsertCommand;
+		wxString m_motorControlOnCommand;
+		wxString m_motorControlOffCommand;
 
 		DECLARE_CLASS(SessionPage)
 			// any class wishing to process wxWindows events must use this macro

@@ -9,6 +9,7 @@
 #endif
 
 #include "AboutDlg.h"
+#include <wx/image.h>
 
 IMPLEMENT_CLASS(AboutDlg, wxDialog)
 BEGIN_EVENT_TABLE(AboutDlg, wxDialog)
@@ -23,6 +24,14 @@ END_EVENT_TABLE()
 AboutDlg::AboutDlg(wxWindow * parent)
 {
 	wxXmlResource::Get()->LoadDialog(this, parent, wxT("AboutDialog"));
+//	wxBitmapButton * aboutButton = (wxBitmapButton *)FindWindowByName(wxT("AboutButton"));
+	wxStaticBitmap * aboutBitmap = (wxStaticBitmap *)FindWindowByName(wxT("AboutBitmap"));
+//	wxBitmap bmp = aboutButton->GetBitmapLabel();
+	wxBitmap bmp = aboutBitmap->GetBitmap();	
+	wxImage img = bmp.ConvertToImage();
+	img.ConvertAlphaToMask(100);
+	wxBitmap bmp2(img);
+	aboutBitmap->SetBitmap(bmp2);
 }
 
 AboutDlg::~AboutDlg()

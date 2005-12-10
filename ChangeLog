@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.137 2005/11/20 16:10:51 h_oudejans Exp $
+$Id: ChangeLog,v 1.138 2005/12/08 18:14:40 manuelbi Exp $
+
+2005-12-10 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Added recordmode to the cassette controls
+	* Fixed the aboutbox in windows (due to a bug in wxWidgets 2.6)
 
 2005-12-08 Manuel Bilderbeek <manuel@msxnet.org>
 	* Add controls for separate scaler factor and scaler algorithm. WIP,

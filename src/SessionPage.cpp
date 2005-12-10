@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.72 2005/11/17 21:20:09 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.73 2005/11/20 16:10:54 h_oudejans Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -48,7 +48,8 @@ enum
 	Cas_Browse_File,
 	Cas_Eject,
 	Cas_Rewind,
-	Cas_ForcePlay
+	Cas_MotorControl,
+	Cas_AutoCreateFile
 };
 
 IMPLEMENT_CLASS(SessionPage, wxPanel)
@@ -58,6 +59,8 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_COMBOBOX(XRCID("CartAContents"),SessionPage::OnClickCartACombo)
 	EVT_COMBOBOX(XRCID("CartBContents"),SessionPage::OnClickCartBCombo)
 	EVT_COMBOBOX(XRCID("CassetteContents"),SessionPage::OnClickCassetteCombo)
+	EVT_TOGGLEBUTTON(XRCID("PlayButton"),SessionPage::OnModePlay)
+	EVT_TOGGLEBUTTON(XRCID("RecordButton"),SessionPage::OnModeRecord)
 	EVT_BUTTON(XRCID("DiskA_Button"),SessionPage::OnClickDiskMenu)
 	EVT_BUTTON(XRCID("DiskB_Button"),SessionPage::OnClickDiskMenu)
 	EVT_BUTTON(XRCID("CartA_Button"),SessionPage::OnClickCartMenu)
@@ -74,7 +77,6 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_BUTTON(XRCID("ClearCartB"),SessionPage::OnEjectCartB)
 	EVT_BUTTON(XRCID("ClearCassette"),SessionPage::OnClearCassette)
 	EVT_BUTTON(XRCID("RewindButton"),SessionPage::OnRewind)
-	EVT_TOGGLEBUTTON(XRCID("ForcePlayButton"),SessionPage::OnForcePlay)
 	EVT_TEXT(XRCID("DiskAContents"),SessionPage::OnChangeDiskAContents)
 	EVT_TEXT(XRCID("DiskBContents"),SessionPage::OnChangeDiskBContents)
 	EVT_TEXT(XRCID("CartAContents"),SessionPage::OnChangeCartAContents)
@@ -92,7 +94,8 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_MENU(Cas_Browse_File,SessionPage::OnBrowseCassette)
 	EVT_MENU(Cas_Eject,SessionPage::OnClearCassette)
 	EVT_MENU(Cas_Rewind,SessionPage::OnRewind)
-	EVT_MENU(Cas_ForcePlay,SessionPage::OnForcePlayByMenu)
+	EVT_MENU(Cas_MotorControl,SessionPage::OnMotorControl)
+	EVT_MENU(Cas_AutoCreateFile, SessionPage::OnAutoCassettefile)
 END_EVENT_TABLE()
 
 	//////////////////////////////////////////////////////////////////////
@@ -125,8 +128,8 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_casMenu->Append(Cas_Browse_File,wxT("Browse cassette image"),wxT(""),wxITEM_NORMAL);
 	m_casMenu->Append(Cas_Eject,wxT("Eject cassette"),wxT(""),wxITEM_NORMAL);
 	m_casMenu->Append(Cas_Rewind,wxT("Rewind cassette"),wxT(""),wxITEM_NORMAL);
-	m_casMenu->Append(Cas_ForcePlay,wxT("Force play"),wxT(""),wxITEM_CHECK);
-
+	m_casMenu->Append(Cas_MotorControl,wxT("Motor control"),wxT(""),wxITEM_CHECK);
+	m_casMenu->Append(Cas_AutoCreateFile,wxT("Auto create Cassette file for recording"),wxT(""),wxITEM_CHECK);
 
 	m_diskA = new mediaInfo(m_diskMenu[0]);
 	m_diskB = new mediaInfo(m_diskMenu[1]);
@@ -154,7 +157,8 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_clearCartA = (wxBitmapButton *)FindWindowByName(wxT("ClearCartA"));
 	m_clearCartB = (wxBitmapButton *)FindWindowByName(wxT("ClearCartB"));
 	m_clearCassette = (wxBitmapButton *)FindWindowByName(wxT("ClearCassette"));
-    m_forcePlayButton = (wxToggleButton *)FindWindowByName(wxT("ForcePlayButton"));
+	m_playButton = (wxToggleButton *)FindWindowByName(wxT("PlayButton"));
+	m_recordButton = (wxToggleButton *)FindWindowByName(wxT("RecordButton"));	
 	m_rewindButton = (wxButton *)FindWindowByName(wxT("RewindButton"));
 	m_diskAButton = (wxButton *)FindWindowByName(wxT("DiskA_Button"));
 	m_diskBButton = (wxButton *)FindWindowByName(wxT("DiskB_Button"));
@@ -207,6 +211,13 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cartA->control->SetDropTarget(new SessionDropTarget(m_cartA->control));
 	m_cartB->control->SetDropTarget(new SessionDropTarget(m_cartB->control));
 	m_cassette->control->SetDropTarget(new SessionDropTarget(m_cassette->control));
+	
+	int autorecord;
+	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_AUTORECORD, &autorecord);
+	m_cassetteAutoCreate = (autorecord == 1);
+	m_casInsertCommand = wxT("insert ");
+	m_motorControlOnCommand = wxT("motorcontrol on");
+	m_motorControlOffCommand = wxT("motorcontrol off");
 }
 
 SessionPage::~SessionPage()
@@ -289,22 +300,71 @@ void SessionPage::OnClearCassette(wxCommandEvent &event)
 void SessionPage::OnRewind(wxCommandEvent &event)
 {
 	m_controller->WriteCommand(wxT("cassetteplayer rewind"));
+	if (m_recordButton->GetValue()){
+		OnModePlay (event); 
+	}
 }
 
-void SessionPage::OnForcePlay(wxCommandEvent &event)
+void SessionPage::OnModePlay (wxCommandEvent & event)
 {
-	if (m_forcePlayButton->GetValue()){
-		m_controller->WriteCommand(wxT("cassetteplayer force_play"));
+	m_playButton->SetValue(true);
+	m_playButton->Enable(false);
+	m_recordButton->Enable(true);
+	m_recordButton->SetValue(false);
+	m_controller->WriteCommand(wxT("cassetteplayer play"));
+}
+
+void SessionPage::OnModeRecord (wxCommandEvent & event)
+{
+	wxString path;
+	wxString tapeImage = wxT("");
+#ifndef __MOTIF__
+	path = wxT("Cassette files (*.wav)|*.wav|All files|*.*||");
+#else
+	path = wxT("*.*");
+#endif
+	bool changeMode = false;
+	if (m_cassetteAutoCreate){
+		changeMode = true;		
+	}
+	else{
+		wxFileDialog filedlg(this,wxT("Select Cassettefile to save to"), 
+							::wxPathOnly(m_cassette->contents), wxT(""), 
+							path ,wxSAVE | wxOVERWRITE_PROMPT);
+		if (filedlg.ShowModal() == wxID_OK){
+			changeMode = true;
+			tapeImage += " ";
+			tapeImage += ConvertPath(filedlg.GetPath(),true);
+		}
+	}
+	if (changeMode){
+		m_recordButton->SetValue(true);
+		m_recordButton->Enable(false);
+		m_playButton->Enable(true);
+		m_playButton->SetValue(false);
+		m_controller->WriteCommand(wxT("cassetteplayer new") + tapeImage);
+	}	
+}
+
+
+
+void SessionPage::OnMotorControl(wxCommandEvent & event)
+{
+	m_cassetteControl = !m_cassetteControl;
+	if (m_cassetteControl){
+		m_controller->WriteCommand(wxString(wxT("cassetteplayer ")) + m_motorControlOnCommand);
 	}
 	else {
-		m_controller->WriteCommand(wxT("cassetteplayer no_force_play"));
+		m_controller->WriteCommand(wxString(wxT("cassetteplayer ")) + m_motorControlOffCommand);
 	}
 }
 
-void SessionPage::OnForcePlayByMenu(wxCommandEvent & event)
+void SessionPage::OnAutoCassettefile(wxCommandEvent & event)
 {
-	m_forcePlayButton->SetValue(!m_forcePlayButton->GetValue());
-	OnForcePlay(event);
+	m_cassetteAutoCreate = !m_cassetteAutoCreate;
+	ConfigurationData * config = ConfigurationData::instance();
+	config->SetParameter(ConfigurationData::CD_AUTORECORD,(long)(m_cassetteAutoCreate?1:0));
+	config->SaveData();
 }
 
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
@@ -514,18 +574,23 @@ void SessionPage::OnClickCassetteCombo(wxCommandEvent & event)
 
 void SessionPage::OnChangeCassetteContents(wxCommandEvent &event)
 {
+	HandleCassetteChange();
+}
+
+void SessionPage::HandleCassetteChange ()
+{
 	m_cassette->contents = m_cassette->control->GetValue();
 	if ((m_cassettePortState != wxT("disabled")) &&
 		(m_cassettePortState != wxT("cassetteplayers")) &&
 		(m_cassette->contents != wxT("")))
 	{
 		m_rewindButton->Enable(true);
-		m_forcePlayButton->Enable(true);
+		m_cassetteControlEnabled = true;
 	}
 	else
 	{
 		m_rewindButton->Enable(false);
-		m_forcePlayButton->Enable(false);
+		m_cassetteControlEnabled = false;
 	}
 }
 
@@ -772,7 +837,11 @@ void SessionPage::SetControlsOnEnd()
 	m_cartAButton->Enable(true);
 	m_cartBButton->Enable(true);
 	m_rewindButton->Enable(false);
-	m_forcePlayButton->Enable(false);
+	m_playButton->SetValue(false);
+	m_playButton->Enable(false);
+	m_recordButton->SetValue(false);
+	m_recordButton->Enable(false);
+	m_cassetteControlEnabled = false;
 	m_cassetteButton->Enable(true);
 	m_clearCassette->Enable(true);
 	m_browseCassette->Enable(true);
@@ -794,18 +863,18 @@ void SessionPage::SetCassetteControl()
 		(m_cassettePortState != wxT("cassetteplayers"))) {
 		if (m_cassette->contents != wxT("")) {
 			m_rewindButton->Enable(true);
-			m_forcePlayButton->Enable(true);
+			m_cassetteControlEnabled = true;
 		}
 		else{
 			m_rewindButton->Enable(false);
-			m_forcePlayButton->Enable(false);
+			m_cassetteControlEnabled = false;
 		}
-		state = true;
+		state = true;		
 	}
 	else {
 		state = false;
 		m_rewindButton->Enable(false);
-		m_forcePlayButton->Enable(false);
+		m_cassetteControlEnabled = false;
 	}
 	m_cassetteButton->Enable(state);
 	m_clearCassette->Enable(state);
@@ -884,6 +953,8 @@ void SessionPage::UpdateSessionData()
 	m_InsertedMedia = 0;
 	i=0;
 	FOREACH(i,media){
+		media[i]->contents = media[i]->control->GetValue();
+		media[i]->lastContents = media[i]->contents;
 		if (!media[i]->contents.IsEmpty()) {
 			AddHistory (media[i]);
 			m_InsertedMedia |= flags [i];
@@ -901,6 +972,7 @@ void SessionPage::UpdateSessionData()
 		}
 	}
 	SaveHistory();
+//	HandleCassetteChange();
 }
 
 void SessionPage::AddHistory(mediaInfo *media)
@@ -1088,6 +1160,19 @@ void SessionPage::EnableCassettePort (wxString data)
 	m_cassettePortState = data;
 }
 
+void SessionPage::SetCassetteMode (wxString data)
+{
+	bool state = (data == wxT("play"));
+	if (!m_cassette->contents.IsEmpty())
+	{
+		m_playButton->SetValue(state);
+		m_playButton->Enable (!state);
+	}
+	state = (data == wxT("record"));
+	m_recordButton->SetValue(state);
+	m_recordButton->Enable(!state);
+}
+
 void SessionPage::AutoPlugCassette ()
 {
 	if (m_cassette->contents != wxT("")) {
@@ -1125,8 +1210,9 @@ void SessionPage::OnClickCasMenu (wxCommandEvent & event)
 	m_lastUsedPopup = (wxButton *)event.GetEventObject();
 	wxRect myRect = ((wxWindow *)event.GetEventObject())->GetRect();
 	m_casMenu->Enable(Cas_Rewind,m_rewindButton->IsEnabled());
-	m_casMenu->Enable(Cas_ForcePlay,m_forcePlayButton->IsEnabled());
-	m_casMenu->Check(Cas_ForcePlay,m_forcePlayButton->GetValue());
+	m_casMenu->Enable(Cas_MotorControl,m_cassetteControlEnabled);
+	m_casMenu->Check(Cas_MotorControl,m_cassetteControl);
+	m_casMenu->Check(Cas_AutoCreateFile,m_cassetteAutoCreate);
 	PopupMenu(m_casMenu,myRect.GetLeft(),myRect.GetBottom());
 }
 
@@ -1391,4 +1477,11 @@ bool SessionDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& f
 		m_target->Append(filenames[0]); // just the first for starters
 	}
 	return true;
+}
+
+void SessionPage::SetOldStyleCassetteControls()
+{
+	m_casInsertCommand = wxT("");
+	m_motorControlOnCommand = wxT("force_play");
+	m_motorControlOffCommand = wxT("no_force_play");
 }

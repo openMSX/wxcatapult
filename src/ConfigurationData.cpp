@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.12 2005/10/14 08:53:04 h_oudejans Exp $
+// $Id: ConfigurationData.cpp,v 1.13 2005/10/22 19:16:24 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -36,6 +36,7 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(wxT("/history/UsedExtensions"), &m_usedExtensions);
 	ConfigData->Read(wxT("/preferences/ShowFullScreenWarning"),&m_showFullScreenWarning);
 	ConfigData->Read(wxT("/preferences/ShowScreenshotInfo"),&m_showScreenshotInfo);
+	ConfigData->Read(wxT("/preferences/AutoCreateCassetteRecordFile"),&m_cassetteAutoCreate);
 	ConfigData->Read(wxT("/connectors/UsedJoyport1"),&m_usedJoyport1);
 	ConfigData->Read(wxT("/connectors/UsedJoyport2"),&m_usedjoyport2);
 	ConfigData->Read(wxT("/configuration/ViewFlags"),&m_viewFlags);
@@ -108,6 +109,9 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 			break;
 		case CD_FULLSCREENWARN:
 			m_showFullScreenWarning = p_data.GetLong();
+			break;
+		case CD_AUTORECORD:
+			m_cassetteAutoCreate = p_data.GetLong();
 			break;
 		case CD_SCREENSHOTINFO:
 			m_showScreenshotInfo = p_data.GetLong();
@@ -208,6 +212,9 @@ bool ConfigurationData::GetParameter (int p_iId, int * p_data)
 		case CD_FULLSCREENWARN:
 			*p_data = m_showFullScreenWarning;
 			break;
+		case CD_AUTORECORD:
+			*p_data = m_cassetteAutoCreate;
+			break;
 		case CD_SCREENSHOTINFO:
 			*p_data = m_showScreenshotInfo;
 			break;
@@ -248,6 +255,7 @@ bool ConfigurationData::SaveData()
 	retVal &= ConfigData->Write(wxT("/history/UsedExtensions"),m_usedExtensions);
 	retVal &= ConfigData->Write(wxT("/preferences/ShowFullScreenWarning"),m_showFullScreenWarning);
 	retVal &= ConfigData->Write(wxT("/preferences/ShowScreenshotInfo"),m_showScreenshotInfo);
+	retVal &= ConfigData->Write(wxT("/preferences/AutoCreateCassetteRecordFile"),m_cassetteAutoCreate);
 	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport1"),m_usedJoyport1);
 	retVal &= ConfigData->Write(wxT("/connectors/UsedJoyport2"),m_usedjoyport2);
 	retVal &= ConfigData->Write(wxT("/configuration/ViewFlags"),m_viewFlags);
