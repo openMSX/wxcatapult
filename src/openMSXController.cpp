@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.93 2005/12/10 15:38:09 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.94 2005/12/10 17:29:04 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -593,7 +593,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::EnableMainWindow,false);
 	AddLaunchInstruction (wxT("#info renderer"),wxT(""),wxT("RendererSelector"),&openMSXController::FillComboBox,true);
 	AddLaunchInstruction (wxT("#info scale_algorithm"),wxT(""),wxT("ScalerAlgoSelector"),&openMSXController::FillComboBox,true);
-	AddLaunchInstruction (wxT("#info scale_factor"),wxT(""),wxT("ScalerFactorSelector"),&openMSXController::FillComboBox,true);
+	AddLaunchInstruction (wxT("lindex [openmsx_info setting scale_factor] 2"),wxT(""),wxT("ScalerFactorSelector"),&openMSXController::FillRangeComboBox,true);
 	AddLaunchInstruction (wxT("#info accuracy"),wxT(""),wxT("AccuracySelector"),&openMSXController::FillComboBox,false);
 	AddLaunchInstruction (wxT("update enable media"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("info exist frontswitch"),wxT(""),wxT("#"),&openMSXController::EnableFirmware,false);
@@ -970,6 +970,25 @@ int openMSXController::UpdateSetting (wxString setting,wxString data)
 int openMSXController::FillComboBox (wxString setting,wxString data)
 {
 	m_appWindow->m_videoControlPage->FillComboBox(setting,data); // Just use any instance of CatapultPage
+	return 0; // don't skip any lines in the startup script
+}
+
+int openMSXController::FillRangeComboBox (wxString setting, wxString data)
+{
+	long min;
+	long max;
+	wxString range = wxT("");
+	int pos = data.Find(' ');
+	if (pos != -1){
+		data.Left(pos).ToLong(&min);
+		data.Mid(pos+1).ToLong(&max);
+		for (int index=min;index<=max;index++){
+			range << index;
+			range += wxT("\n");
+		}
+	}
+	
+	m_appWindow->m_videoControlPage->FillComboBox(setting,range); // Just use any instance of CatapultPage
 	return 0; // don't skip any lines in the startup script
 }
 

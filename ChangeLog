@@ -1,5 +1,8 @@
-$Id: ChangeLog,v 1.138 2005/12/08 18:14:40 manuelbi Exp $
+$Id: ChangeLog,v 1.139 2005/12/10 14:14:40 h_oudejans Exp $
 
+2005-12-11 Herman Oudejans <hn.oudejans@quicknet.nl>
+	* Fixed scale_factor in videocontrols
+	
 2005-12-10 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added recordmode to the cassette controls
 	* Fixed the aboutbox in windows (due to a bug in wxWidgets 2.6)
