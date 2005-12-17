@@ -1,4 +1,4 @@
-// $Id: InputPage.cpp,v 1.11 2005/02/09 19:29:37 h_oudejans Exp $
+// $Id: InputPage.cpp,v 1.12 2005/05/29 12:18:23 h_oudejans Exp $
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -54,7 +54,17 @@ void InputPage::OnTypeText (wxCommandEvent &event)
 	test.Replace(wxT("]"),wxT("\\]"),true);
 	test.Replace(wxT("}"),wxT("\\}"),true);
 	test.Replace(wxT("{"),wxT("\\{"),true);
-	m_controller->WriteCommand(wxString(wxT("type \"")) + test + wxT("\""));	
+
+	// remove chars >= 128
+	wxString tmp;
+	for (size_t i = 0; i < test.length(); ++i) {
+		signed char c = test[i];
+		if (c > 0) {
+			tmp += c;
+		}
+	}
+
+	m_controller->WriteCommand(wxString(wxT("type \"")) + tmp + wxT("\""));
 }
 
 void InputPage::OnClearText(wxCommandEvent &event)
