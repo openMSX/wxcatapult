@@ -1,9 +1,11 @@
-$Id: ChangeLog,v 1.141 2005/12/28 16:27:00 manuelbi Exp $
+$Id: ChangeLog,v 1.142 2005/12/28 17:12:35 manuelbi Exp $
 
 2005-12-28 Manuel Bilderbeek <manuel@msxnet.org>
 	* Start check configs dialog after editing configuration, unless you
 	  uncheck the checkbox.
-	* Only use alternative way to show icon in about dialog on wxMSW 2.6
+	* Only use alternative way to show icon in about dialog on wxMSW 2.6.
+	* Fixed placement and greying out of "x" between scaler algo and
+	  factor.
 
 2005-12-11 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed scale_factor in videocontrols

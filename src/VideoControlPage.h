@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.18 2005/11/20 16:10:55 h_oudejans Exp $
+// $Id: VideoControlPage.h,v 1.19 2005/12/08 18:14:41 manuelbi Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -90,6 +90,7 @@ class VideoControlPage : public CatapultPage
 		wxStaticText * m_blurLabel;
 		wxStaticText * m_glowLabel;
 		wxStaticText * m_gammaLabel;
+		wxStaticText * m_timesLabel;
 
 		wxToggleButton * m_limitSpritesButton;
 		wxToggleButton * m_deinterlaceButton;

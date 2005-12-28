@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.34 2005/11/20 16:10:55 h_oudejans Exp $
+// $Id: VideoControlPage.cpp,v 1.35 2005/12/08 18:14:41 manuelbi Exp $
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -63,6 +63,7 @@ VideoControlPage::VideoControlPage(wxWindow * parent, openMSXController * contro
 	m_controller = controller;
 	m_rendererList = (wxComboBox *)FindWindowByName(wxT("RendererSelector"));;
 	m_scalerAlgoList = (wxComboBox *)FindWindowByName(wxT("ScalerAlgoSelector"));
+	m_timesLabel = (wxStaticText *)FindWindowByName(wxT("times"));
 	m_scalerFactorList = (wxComboBox *)FindWindowByName(wxT("ScalerFactorSelector"));
 	m_accuracyList = (wxComboBox*)FindWindowByName(wxT("AccuracySelector"));
 	m_deinterlaceButton = (wxToggleButton*)FindWindowByName(wxT("DeInterlaceButton"));
@@ -358,6 +359,7 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_defaultScanlineButton->Enable(true);
 	m_rendererList->Enable(true);
 	m_scalerAlgoList->Enable(true);
+	m_timesLabel->Enable(true);
 	m_scalerFactorList->Enable(true);
 	m_accuracyList->Enable(true);
 	m_deinterlaceButton->Enable(true);
@@ -401,6 +403,7 @@ void VideoControlPage::SetControlsOnEnd()
 	m_defaultScanlineButton->Enable(false);
 	m_rendererList->Enable(false);
 	m_scalerAlgoList->Enable(false);
+	m_timesLabel->Enable(false);
 	m_scalerFactorList->Enable(false);
 	m_accuracyList->Enable(false);
 	m_deinterlaceButton->Enable(false);
