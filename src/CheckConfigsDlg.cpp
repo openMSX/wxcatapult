@@ -3,6 +3,9 @@
 //////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
+#ifdef __WXMSW__
+#include <windows.h>
+#endif
 
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
