@@ -3,16 +3,16 @@
 //////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
-#ifdef __WXMSW__
-#include <windows.h>
-#endif
-
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
 #endif
 
 #include "wxCatapultApp.h"
 #include "CheckConfigsDlg.h"
+
+#ifdef __WXMSW__
+#include <windows.h>
+#endif
 
 #define MSGID_SETCURRENTOBJECT 0
 #define MSGID_UPDATESTATS 1
