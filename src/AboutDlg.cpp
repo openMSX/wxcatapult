@@ -24,6 +24,7 @@ END_EVENT_TABLE()
 AboutDlg::AboutDlg(wxWindow * parent)
 {
 	wxXmlResource::Get()->LoadDialog(this, parent, wxT("AboutDialog"));
+#if (wxCHECK_VERSION(2,6,0) && defined(__WXMSW__))
 //	wxBitmapButton * aboutButton = (wxBitmapButton *)FindWindowByName(wxT("AboutButton"));
 	wxStaticBitmap * aboutBitmap = (wxStaticBitmap *)FindWindowByName(wxT("AboutBitmap"));
 //	wxBitmap bmp = aboutButton->GetBitmapLabel();
@@ -32,6 +33,7 @@ AboutDlg::AboutDlg(wxWindow * parent)
 	img.ConvertAlphaToMask(100);
 	wxBitmap bmp2(img);
 	aboutBitmap->SetBitmap(bmp2);
+#endif
 }
 
 AboutDlg::~AboutDlg()
