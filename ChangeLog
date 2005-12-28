@@ -1,8 +1,12 @@
-$Id: ChangeLog,v 1.139 2005/12/10 14:14:40 h_oudejans Exp $
+$Id: ChangeLog,v 1.140 2005/12/11 13:05:06 h_oudejans Exp $
+
+2005-12-28 Manuel Bilderbeek <manuel@msxnet.org>
+	* Start check configs dialog after editing configuration, unless you
+	  uncheck the checkbox.
 
 2005-12-11 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Fixed scale_factor in videocontrols
-	
+
 2005-12-10 Herman Oudejans <hn.oudejans@quicknet.nl>
 	* Added recordmode to the cassette controls
 	* Fixed the aboutbox in windows (due to a bug in wxWidgets 2.6)

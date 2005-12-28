@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.14 2004/12/25 22:29:34 h_oudejans Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.15 2005/01/06 16:27:21 h_oudejans Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,6 +12,7 @@
 
 #include "CatapultConfigDlg.h"
 #include "ConfigurationData.h"
+#include "wxCatapultFrm.h"
 
 #ifndef __WXMSW__
 #include "config.h"
@@ -29,12 +30,13 @@ END_EVENT_TABLE()
 	// Construction/Destruction
 	//////////////////////////////////////////////////////////////////////
 
-CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent)
+CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent) : m_parent(parent)
 {
 	wxString guess = wxT("");
-	wxXmlResource::Get()->LoadDialog(this, parent, wxT("ConfigurationDialog"));
+	wxXmlResource::Get()->LoadDialog(this, m_parent, wxT("ConfigurationDialog"));
 	m_ExecPath = (wxTextCtrl *)FindWindowByName(wxT("ConfigExecData"));
 	m_SharePath = (wxTextCtrl *)FindWindowByName(wxT("ConfigShareData"));
+	m_ConfigCheck = (wxCheckBox *)FindWindowByName(wxT("configCheck"));
 	wxTextCtrl * OkButton = (wxTextCtrl *)FindWindowByName(wxT("ConfigOk"));
 	wxString temp;
 	ConfigurationData * config = ConfigurationData::instance();
@@ -113,6 +115,10 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 			config->SetParameter(ConfigurationData::CD_SHAREPATH,tempShare);
 			config->SaveData();
 			EndModal (wxID_OK);
+			if (m_ConfigCheck->IsChecked()) {
+				// TODO: make this cleaner... (It works though...)
+				((wxCatapultFrame*) m_parent)->CheckConfigs();
+        		}
 		}
 	}
 }

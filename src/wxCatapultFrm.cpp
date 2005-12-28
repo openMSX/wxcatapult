@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.77 2005/11/04 19:28:10 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.78 2005/11/20 16:10:55 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -279,7 +279,7 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 {
 	wxString cmd;
-	CatapultConfigDlg dlg;
+	CatapultConfigDlg dlg(this);
 	dlg.Center();
 	if (dlg.ShowModal() == wxID_OK) {
 		bool result = ConfigurationData::instance()->SaveData();

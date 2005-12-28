@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.h,v 1.2 2004/02/04 22:01:04 manuelbi Exp $
+// $Id: CatapultConfigDlg.h,v 1.3 2004/04/18 08:43:19 h_oudejans Exp $
 // CatapultConfigDlg.h: interface for the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -23,6 +23,8 @@ class CatapultConfigDlg : public wxDialog
 	private:
 		wxTextCtrl * m_ExecPath;
 		wxTextCtrl * m_SharePath;
+		wxCheckBox * m_ConfigCheck;
+		wxWindow * m_parent;
 
 
 		DECLARE_CLASS(CatapultConfigDlg)
