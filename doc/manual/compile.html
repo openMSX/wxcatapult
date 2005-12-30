@@ -106,7 +106,7 @@ Catapult was compiled successfully on FreeBSD 4 and 5. FreeBSD is not a platform
 </dd>
 <dt>Mac OS X</dt>
 <dd>
-Unfortunately, we have not been able to get Catapult working on Mac OS X. There is a port of wxWidgets (the base of Catapult), but version 2.4 doesn't support toggle buttons yet and any program we compiled with version 2.5 doesn't react on most events including button clicks. If you can get it (even partially) working, please let us know. 
+Unfortunately, we have not been able to get Catapult working on Mac OS X. There is a port of wxWidgets (the base of Catapult), but version 2.4 doesn't support toggle buttons yet and we did not get the menu working (amongst other things) with version 2.6.
 </dd>
 <dt>other operating systems</dt>
 <dd>
@@ -160,6 +160,8 @@ Schaap and Maarten ter Huurne.</dd>
 <dd>Added touch.exe to the compilation packages</dd>
 <dt>2005-02-06 Herman Oudejans</dt>
 <dd>Updated this manual for compilation with wxWidgets 2.5 and for compilation with MinGW32.</dd>
+<dt>2005-12-30 Manuel Bilderbeek</dt>
+<dd>Updates for compilation with wxWidgets 2.6.</dd>
 
 </dl>
 
@@ -233,7 +235,7 @@ You can find the Compilation Guide in the directory
 You can download a released version of Catapult from <a class="external"
 href="http://sourceforge.net/project/showfiles.php?group_id=38274"
 >the download page at SourceForge</a>.
-The latest version is probably the best one.
+The latest version is probably the best one. At least try to get one matching the version of openMSX you are using.
 </p>
 
 <p>
@@ -349,7 +351,7 @@ is called the <em>top of the source tree</em>.
 
 <p>
 Before you can start compiling Catapult, you have to make sure your system has
-all the necessary build tools installed, as well as the libraries Catapults
+all the necessary build tools installed, as well as the libraries Catapult
 depends upon. The former you have probably already done if you have compiled
 openMSX itself before Catapult.
 The following sections list the packages you need.
@@ -371,9 +373,9 @@ Make interprets rules that define how a project should be built.</dd>
 
 <dt>g++</dt>
 <dd>The GNU C++ compiler.
-Version 3.2 or later is recommended;
+Version 3.2 or later is necessary;
 2.95 is not supported for openMSX, so we also don't support it for
-Catapult.</dd>
+Catapult. To be on the safe side: we recommend 3.4 or later.</dd>
 
 </dl>
 
@@ -425,11 +427,11 @@ On a Debian testing system, the packages are called:
 </p>
 
 <dl>
-<dt>libwxgtk-2.4 or libwxgtk2.5.3</dt>
+<dt>libwxgtk-2.4 or libwxgtk2.6-0</dt>
 <dd>wxWindows Cross-platform C++ GUI toolkit (GTK+ runtime). This is the 
 main runtime wxWidgets library</dd>
 
-<dt>libwxgtk-2.4-dev or libwxgtk2.5-dev</dt>
+<dt>libwxgtk-2.4-dev or libwxgtk2.6-dev</dt>
 <dd>This package contains the necessary headers to compile.</dd>
 
 <dt>libwxgtk-2.4-contrib</dt>
@@ -442,7 +444,7 @@ main runtime wxWidgets library</dd>
 <p>
 Some Linux distributions do not package the 'contrib' part of wxWidgets 2.4, 
 if that is the case for your distribution, you will either have to compile both 
-the wxWindows core and contrib from source or switch to version 2.5 (if it's available).
+the wxWindows core and contrib from source or switch to version 2.6 (if it's available). We recommend to use 2.6 anyway, as it has less bugs and gives a lot better graphical UI on non-Windows systems.
 Also for Windows there are no binary releases available.
 Please read the next section for instructions for compiling wxWidgets from source.
 </p>
@@ -470,14 +472,15 @@ wxWidgets Home</a> and the libxml2 sources are available at
 <p>Building the libxml2 library should be easy enough with the docs available.
 </p>
 
-<p>Compilation of wxWidgets 2.5 couldn't be more straightforward. The docs provided
+<p>Compilation of wxWidgets 2.6 couldn't be more straightforward. The docs provided
 are easy to follow and it takes only a few steps. There is no need to give 
-any pointers here about this library. Don't worry if a few libraries called 
-<code>wxmswuniv253*</code> give errors during compilation, you won't need them.
+any pointers here about this library.
 </p>
 
+<p>The remainder of this section is about compilation of wxWidgets 2.4. As said earlier, we recommend to use 2.6, so this is a bit outdated.</p>
+
 <p>
-In Linux, the compilation of wxWidgets 2.4 is quite straightforward. Just follow the
+In Linux, the compilation of wxWidgets 2.4 is quite straightforward, but it is of course a lot easier to just grab some packages for your favourite distribution. Anyway, just follow the
 docs provided with the library and the wxgtk library should be created. 
 Don't forget to change to the directory <code>/wxGTK-2.4.2/contrib</code> and 
 build those libraries too. You'll need the XRC library for Catapult.
@@ -681,7 +684,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.14 2005/02/06 12:34:36 h_oudejans Exp $
+$Id: compile.html,v 1.15 2005/02/06 13:52:11 manuelbi Exp $
 </p>
 
 </body>
