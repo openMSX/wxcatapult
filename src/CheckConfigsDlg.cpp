@@ -257,11 +257,10 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 	unsigned long result;
 	char buffer[1000];
 #ifndef __WXMSW__
-	cmd += wxT(" > /dev/null"); // keep stderr displayed for now
+	cmd += wxT(" > /dev/null 2>&1");
 #endif
 	strcpy (buffer,(const char *) (wxConvUTF8.cWX2MB((cmd))));
 
-	bool succes;
 #ifdef __WXMSW__
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE;
 	PROCESS_INFORMATION pi;
@@ -277,12 +276,5 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 #else
 	result = system (buffer);
 #endif	
-
-	if (result == 0)	{
-		succes = true;		
-	}
-	else{
-		succes = false;
-	}
-	return succes;
+	return (result == 0);
 }
