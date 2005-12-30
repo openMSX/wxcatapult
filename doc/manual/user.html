@@ -182,7 +182,14 @@ share (default: <code>/opt/openMSX/share</code> in Linux and the
 in Windows) and the personal share (default: <code> ~/.openMSX/share</code> 
 in Linux and <code>My Documents\openMSX\share</code> in Windows). 
 You'll need to fill in the system share directory, because the personal share directory is 
-scanned anyway. After you press the OK button, Catapult's main screen appears, as shown in the picture below.
+scanned anyway.
+</p>
+
+<p>At the bottom you can uncheck the check box if you don't want to run the hardware configuration test. We recommend to leave this on though: it will check which MSX systems will work with openMSX and which will not. The ones that are not working are probably missing some system ROMs. See the <a class="external" href="http://openmsx.sourceforge.net/manual/setup.html">openMSX Setup Guide</a> on how to deal with that. By default, the list of extensions and MSX machines that can be emulated, will only show hardware that is found to be working. You can change that in the View menu. After having installed more ROMs, you can always run the test again via the "File - Test MSX Hardware" menu option.
+</p>
+
+<p>
+After you press the OK button, Catapult's main screen appears, as shown in the picture below.
 </p>
 
 <p class="image">
@@ -302,7 +309,7 @@ should exist and that it should contain the <code>hardwareconfig.xml</code> file
 Directories not containing that file, will not appear in the list. This doesn't
 mean that each machine actually runs. If a machine needs system ROM images and they are not available,
 that particular machine just won't run. Catapult won't detect this
-lack of ROMs. You will see the error message showing up in the Status Page.
+lack of ROMs. You will see the error message showing up in the Status Page. However, you can let Catapult run a test on all found hardware configurations via the "File - Test MSX Hardware" menu option. After testing, only working configurations will be shown, unless you change this in the "View - Display Broken Configurations" menu option.
 </p>
 
 <p>
@@ -320,11 +327,12 @@ the number of cartridge slots by also selecting the slot expander extension.</li
 <li>two or more selected extensions are basically the same. This will cause 
 I/O port conflicts in the MSX machine, which you will be warned for by openMSX 
 in the Status Page.</li> 
+<li>some extensions need system ROMs; the same counts here as for the machines, see above.</li>
 </ul>
 
 <p>
 Note that with Catapult it is not possible to select one extension multiple
-times. We don't expect this to be a problem however.
+times. We don't expect this to be a problem, however. 
 </p>
 
 <h3><a id="software">4.2. Selecting Software</a></h3>
@@ -355,10 +363,10 @@ Most MSX1 computers depend on a tape recorder (or data recorder) and almost
 all other MSX computers support cassette as well. Like using disks, when a machine
 doesn't support cassette you can still fill in this field. openMSX will just
 ignore it. In this field you can input wav-files (cassette sounds) or cas-files
-(a binary representation of the cassette). Both require plugging in a cassette 
-player, but Catapult takes care of that automatically. Below the cassette input, there 
-are two more buttons. 'Rewind' simply lets you rewind the tape to the start and
-'Force Play' controls the cassette motor. Normally, an MSX uses the 'remote control' system of a good MSX cassette recorder. This means that the tape is only played when the MSX is actually loading something from it. By disconnecting the 'remote' plug of such a cassette recorder, the recorder will always play if the play button is pressed.  If 'Force Play' is enabled, this means that the 'remote' connector of the virtual cassette recorder is unplugged, making the tape run even if the emulated MSX is not loading something. See the 
+(a binary representation of the cassette). Below the cassette input, there 
+are three more buttons. 'Rewind' simply lets you rewind the tape to the start. 'Record' will set the cassette recorder in recording mode. Currently, openMSX only supports recording to a fresh WAV image, so you will be prompted to input a new file name. You can also let openMSX generate a name automatically via the menu under the 'Cassette' button. The 'Play' button switches the cassette recorder back to play mode. This will end any recording and close the recorded WAV file, if any. It will also rewind the current cassette, so that you can load from it, if you like. You can of course also select another cassette image.
+<br/>
+In the cassette menu, you can also disable Motor Control. Normally, an MSX uses the 'remote control' system of a good MSX cassette recorder. This means that the tape is only played when the MSX is actually loading something from it. By disconnecting the 'remote' plug of such a cassette recorder, the recorder will always play if the play button is pressed.  If 'Motor Control' is disabled, this means that the 'remote' connector of the virtual cassette recorder is unplugged, making the tape run even if the emulated MSX is not loading something. See the 
 <a class="external" href="http://openmsx.sourceforge.net/manual/user.html#tape">openMSX User's Manual</a> 
 for more information about using cassettes.
 </dd>
@@ -411,8 +419,10 @@ for this. This menu item always shows a short representation of the type selecte
 </dd>
 <dt>Rewind cassette (cassette only)</dt>
 <dd>Choosing this option is the same as pressing the 'Rewind' button</dd>
-<dt>Force play (cassette only)</dt>
-<dd>This option is the same as pressing the 'Force play' button</dd>
+<dt>Motor Control (cassette only)</dt>
+<dd>See above for an explanation of this.</dd>
+<dt>Auto create Cassette file for recording (cassette only)</dt>
+<dd>See above for an explanation of this.</dd>
 </dl>
 
 <h3><a id="updating">4.3. Updating Media</a></h3>
@@ -460,13 +470,13 @@ openMSX is not running, all controls will be disabled.
 </p>
 
 <p>
-The top section of this page consist of a number of controls with which you can
+The top section of this page consists of a number of controls with which you can
 influence the speed and frame skip setting of openMSX. The upper row controls
 the speed percentage of openMSX. You can use the slider to select a speed
 between 1 and 500%. You can also directly input the speed into the input box.
 Finally, the buttons on the right are to set the speed to respectively 100% and
 the maximum. If the Max Speed Button is used, all limits are removed. Very useful
-to fast forward demo's or loading screens. If the selected speed is higher than your 
+to fast forward demos or loading screens. If the selected speed is higher than your 
 PC can manage, openMSX will try to go as fast as possible. The next rows selects how 
 many frames may be maximally skipped to maintain the chosen speed and how many frames 
 are minimally skipped.
@@ -479,14 +489,14 @@ or off. When Catapult starts openMSX, the power is always on. The Reset button
 resets the MSX. There's not much more that can be said about that. The Pause 
 button pauses the emulation completely. Finally, the firmware button lets you 
 choose whether or not you want to enable the firmware in the MSX you are
-emulating.
+emulating (if available).
 </p>
 
 <p> 
 The bottom of the page allows you to hook devices to the MSX connectors. 
 </p>
 <p>
-For each joystick port, you can choose between a mouse, keyjoystick and any joysticks 
+For each joystick port, you can choose between a mouse, keyjoysticks, some dongles and any joysticks 
 hooked up to the PC. If you select the same device for both ports, you get a 
 warning and a request for confirmation. This allows you to choose which port the 
 selected device should be in. These are the only controls that can be modified 
@@ -517,9 +527,9 @@ In the top-left corner, you can select which renderer is used by openMSX.
 </p>
 
 <p>
-With the top-centre control you can select which scaler should be used. A 
-scaler only works if the renderer is set to SDL and determines how the picture 
-is scaled to 640&times;480 (or, after openMSX 0.5.2, to 320&times;240). Beware that some scalers can be really slow. The 
+With the top-centre control you can select which scaler should be used. You can select both the scaling factor and the scaling algorithm.
+Scalers only work if the renderer is set to SDL and determine how the picture 
+is scaled to higher resolutions than 320&times;240 (if you use a factor greater than 1). Beware that some scalers can be really slow. The 
 algorithms are sometimes quite complex.
 </p>
 
@@ -715,6 +725,13 @@ are a few options only available through the pull down menu. These options are d
 in this section.</p>
 <dl>
 <dt>
+Test MSX Hardware
+</dt>
+<dd>
+This will start the hardware configuration test. Use it to check which openMSX hardware configurations are actually working. See also 
+<a href="#starting">2. Starting Catapult</a> and <a href="#hardware">4.1. Selecting Hardware</a>.
+</dd>
+<dt>
 Quit
 </dt>
 <dd>
@@ -726,7 +743,8 @@ Edit Configuration
 </dt>
 <dd>
 Here you can change which openMSX version Catapult is to start, if you installed more than one. It also lets you choose were the 
-shared openMSX settings can be found.
+shared openMSX settings can be found. See also 
+<a href="#starting">2. Starting Catapult</a>.
 </dd>
 <dt>
 Load openMSX Settings
@@ -753,8 +771,14 @@ a specified file.
 Save openMSX Settings On Exit
 </dt>
 <dd>
-When is option is on (indicated by a checkmark in front of it), openMSX will save its settings as 
+When is option is on (indicated by a check mark in front of it), openMSX will save its settings as 
 soon as it closes. Keep in mind that Full Speed and Mute settings e.g., will also be saved!
+</dd>
+<dt>
+Display Broken Configurations
+</dt>
+<dd>
+Check this if you want Catapult to display openMSX hardware configurations (machines and extensions) which were found to be not working when the Test MSX Hardware feature was last used. By default it is unchecked, which means the broken configurations are hidden, so that you cannot accidentally select one.
 </dd>
 <dt>
 About
@@ -813,7 +837,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: user.html,v 1.12 2005/02/07 17:55:39 manuelbi Exp $
+$Id: user.html,v 1.13 2005/09/10 16:15:35 manuelbi Exp $
 </p>
 
 </body>
