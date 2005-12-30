@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.78 2005/11/20 16:10:55 h_oudejans Exp $
+// $Id: wxCatapultFrm.cpp,v 1.79 2005/12/28 16:27:02 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -104,8 +104,8 @@ END_EVENT_TABLE()
 	m_focusTimer.SetOwner(this,FOCUS_TIMER);
 	m_safetyTimer.SetOwner(this,SAFETY_TIMER);
 
-	int * testke = NULL;
-	delete testke;
+//	int * testke = NULL;
+//	delete testke;
 
 
 #ifdef __WXMSW__	
@@ -186,14 +186,28 @@ END_EVENT_TABLE()
 
 	SetControlsOnEnd();
 	m_launch_AbortButton->Enable(false);
-	wxString cmd;
-	config->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-	m_controller->StartOpenMSX(cmd,true);
 	m_settingsfile = wxT("");
-	m_sessionPage->RestoreHistory();
-	if (viewMenu->IsChecked(Catapult_Display_Invalids)){
-		m_sessionPage->SetupHardware(false,true);	
+	// Now, let's find out if we have a path to openMSX
+	bool configOK = true;
+	if (!config->HaveRequiredSettings())
+	{
+		configOK = EditConfig(true);
 	}
+	if (configOK)
+	{
+		wxString cmd;
+		config->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+		if (!(m_controller->StartOpenMSX(cmd,true)))
+		{
+			configOK = EditConfig(true);
+		}
+		if (configOK)
+		{
+			m_sessionPage->RestoreHistory();
+			m_sessionPage->SetupHardware(true, viewMenu->IsChecked(Catapult_Display_Invalids));
+		} else Close(TRUE);
+	} else Close(TRUE);
+			
 }
 
 // frame destructor
@@ -278,8 +292,13 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 
 void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 {
-	wxString cmd;
-	CatapultConfigDlg dlg(this);
+	EditConfig(false);
+}
+
+bool wxCatapultFrame::EditConfig(bool fatalIfFails)
+{
+	bool retval = true;
+	CatapultConfigDlg dlg(this, m_controller);
 	dlg.Center();
 	if (dlg.ShowModal() == wxID_OK) {
 		bool result = ConfigurationData::instance()->SaveData();
@@ -289,10 +308,10 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 		}
 #endif
 		m_sessionPage->SetupHardware(false,false);
-		ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-		
-		m_controller->StartOpenMSX(cmd,true);
+	} else {
+		retval = !fatalIfFails;
 	}
+	return retval;
 }
 
 void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent &event)
@@ -403,12 +422,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	ConfigurationData * config = ConfigurationData::instance();
 	if (!config->HaveRequiredSettings())
 	{
-		CatapultConfigDlg dlg;
-		dlg.Center();
-		if (dlg.ShowModal() != wxID_OK)
-		{
-			return;
-		}
+		EditConfig();
 	}
 
 	m_launch_AbortButton->SetLabel(wxT("Stop"));

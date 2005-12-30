@@ -1,4 +1,12 @@
-$Id: ChangeLog,v 1.142 2005/12/28 17:12:35 manuelbi Exp $
+$Id: ChangeLog,v 1.143 2005/12/28 17:37:54 manuelbi Exp $
+
+2005-12-30 Manuel Bilderbeek <manuel@msxnet.org>
+	* Check exit status of version test, handle failure.
+	* Upgrade version check: only 0.6.0 or higher is allowed now.
+	* Give the Edit Configuration dialog if the wrong version is found
+	* Do not start Catapult if the right version cannot be found at all or
+	  if the dialog was cancelled.
+	* Removed some code duplication.
 
 2005-12-28 Manuel Bilderbeek <manuel@msxnet.org>
 	* Start check configs dialog after editing configuration, unless you

@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.15 2005/01/06 16:27:21 h_oudejans Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.16 2005/12/28 16:27:02 manuelbi Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -13,6 +13,7 @@
 #include "CatapultConfigDlg.h"
 #include "ConfigurationData.h"
 #include "wxCatapultFrm.h"
+#include "openMSXController.h"
 
 #ifndef __WXMSW__
 #include "config.h"
@@ -30,7 +31,7 @@ END_EVENT_TABLE()
 	// Construction/Destruction
 	//////////////////////////////////////////////////////////////////////
 
-CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent) : m_parent(parent)
+CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent, openMSXController* controller) : m_parent(parent), m_controller(controller)
 {
 	wxString guess = wxT("");
 	wxXmlResource::Get()->LoadDialog(this, m_parent, wxT("ConfigurationDialog"));
@@ -108,7 +109,7 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 		{
 			wxMessageBox(wxT("That's not a valid share path..."));
 		}
-		else
+		else if (m_controller->StartOpenMSX(tempExec, true)) 
 		{
 			ConfigurationData * config = ConfigurationData::instance();
 			config->SetParameter(ConfigurationData::CD_EXECPATH,tempExec);

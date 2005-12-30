@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.94 2005/12/10 17:29:04 h_oudejans Exp $
+// $Id: openMSXController.cpp,v 1.95 2005/12/11 13:05:09 h_oudejans Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -395,13 +395,14 @@ enum openMSXController::TargetType openMSXController::PeekPendingCommandTarget()
 	return pending;
 }
 
-void openMSXController::StartOpenMSX(wxString cmd, bool getversion)
+bool openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 {
 	m_openMSXID++;
+	bool retval = true;
 	if (getversion) {
 		m_appWindow->SetStatusText(wxT("Initializing..."));
 		wxString versioninfo = GetOpenMSXVersionInfo(cmd);
-		SetupOpenMSXParameters(versioninfo);
+		retval = SetupOpenMSXParameters(versioninfo);
 		m_appWindow->SetStatusText(wxT("Ready"));
 	}
 	else {
@@ -409,6 +410,7 @@ void openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 		m_appWindow->EnableSaveSettings(true);
 		Launch(cmd);
 	}
+	return retval;
 }
 
 void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
@@ -562,12 +564,13 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 			}
 		}
 	}
+	// printf ("Detected openMSX version: %d\n", ver);
 	if (ver == -1) {
-		wxMessageBox (wxT("Unable to determine openMSX version!\nPlease upgrade to 0.5.0 or higher."),wxT("Error"));
+		wxMessageBox (wxT("Unable to determine openMSX version!\nPlease upgrade to 0.5.0 or higher.\n(Or contact the authors.)"),wxT("Error"));
 		return false;
 	}
-	if (ver < 500) {
-		wxMessageBox (wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.5.0 or higher."),wxT("Error"));
+	if (ver < 600) {
+		wxMessageBox (wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.6.0 or higher."),wxT("Error"));
 		return false;
 	}
 	if ((version.Find(wxT("-dev")) != -1) || (ver > 502)) {

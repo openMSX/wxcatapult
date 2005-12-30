@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.26 2005/11/20 17:41:14 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.27 2005/11/20 17:45:58 h_oudejans Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -144,11 +144,13 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
 	wxString version = wxT("");
-	system ((const char*) (wxConvUTF8.cWX2MB((openmsxCmd +wxT(" -v > /tmp/catapult.tmp")))));
-	wxTextFile tempfile (wxT("/tmp/catapult.tmp"));
-	if (tempfile.Open()) {
-		version = tempfile.GetFirstLine();
-		tempfile.Close();
+	if (system ((const char*) (wxConvUTF8.cWX2MB((openmsxCmd +wxT(" -v > /tmp/catapult.tmp"))))) == 0)
+	{
+		wxTextFile tempfile (wxT("/tmp/catapult.tmp"));
+		if (tempfile.Open()) {
+			version = tempfile.GetFirstLine();
+			tempfile.Close();
+		}
 	}
 	return wxString (version);
 }

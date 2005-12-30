@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.38 2005/12/10 14:14:41 h_oudejans Exp $
+// $Id: openMSXController.h,v 1.39 2005/12/11 13:05:09 h_oudejans Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@ class openMSXController
 		void GetPluggables (wxArrayString & pluggables);
 		void GetPluggableDescriptions (wxArrayString & descriptions);
 		void GetPluggableClasses (wxArrayString & classes);
-		void StartOpenMSX (wxString cmd, bool getversion=false);
+		bool StartOpenMSX (wxString cmd, bool getversion=false);
 		bool WriteCommand(wxString msg, TargetType target = TARGET_INTERACTIVE);
 		void HandleParsedOutput (wxCommandEvent &event);
 		void HandleStdErr (wxCommandEvent & event);

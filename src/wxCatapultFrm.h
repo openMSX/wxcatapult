@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.26 2005/10/16 18:41:55 h_oudejans Exp $
+// $Id: wxCatapultFrm.h,v 1.27 2005/10/22 19:16:24 h_oudejans Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -86,6 +86,7 @@ class wxCatapultFrame : public wxFrame
 		wxString m_tempStatus;
 		wxString m_settingsfile;
 		bool WriteMessage (wxString msg);
+		bool EditConfig(bool fatalIfFailed = false);
 
 		DECLARE_CLASS(wxCatapultFrame)
 		// any class wishing to process wxWindows events must use this macro

@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.76 2005/12/10 17:29:03 h_oudejans Exp $
+// $Id: SessionPage.cpp,v 1.77 2005/12/10 17:34:32 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -167,11 +167,9 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cassetteButton = (wxButton *)FindWindowByName(wxT("CassetteButton"));
 	m_machineListLabel = (wxStaticText *)FindWindowByName(wxT("MachineListLabel"));
 	m_extensionListLabel = (wxStaticText *)FindWindowByName(wxT("ExtensionLabel"));
-	SetupHardware(true,false);
-
+	//SetupHardware(true,false); // No need to do this, it's done in wxCatapultFrm's constructor
 
 	// Adjust the minimum size of the extension and listbox
-
 	wxFont myFont = m_machineList->GetFont();
 	wxMemoryDC * tempDC= new wxMemoryDC();
 	tempDC->SetFont(myFont);

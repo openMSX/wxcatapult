@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.h,v 1.3 2004/04/18 08:43:19 h_oudejans Exp $
+// $Id: CatapultConfigDlg.h,v 1.4 2005/12/28 16:27:02 manuelbi Exp $
 // CatapultConfigDlg.h: interface for the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,6 +10,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+class openMSXController;
+
 class CatapultConfigDlg : public wxDialog  
 {
 	public:
@@ -17,7 +19,7 @@ class CatapultConfigDlg : public wxDialog
 		void OnBrowseShare (wxCommandEvent& event);
 		void OnCancel(wxCommandEvent& event);
 		void OnOk(wxCommandEvent& event);
-		CatapultConfigDlg(wxWindow * parent = NULL);
+		CatapultConfigDlg(wxWindow * parent, openMSXController* controller);
 		virtual ~CatapultConfigDlg();
 
 	private:
@@ -25,7 +27,7 @@ class CatapultConfigDlg : public wxDialog
 		wxTextCtrl * m_SharePath;
 		wxCheckBox * m_ConfigCheck;
 		wxWindow * m_parent;
-
+                openMSXController * m_controller;
 
 		DECLARE_CLASS(CatapultConfigDlg)
 		// any class wishing to process wxWindows events must use this macro

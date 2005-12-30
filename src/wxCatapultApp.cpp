@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.26 2005/05/29 16:04:41 h_oudejans Exp $
+// $Id: wxCatapultApp.cpp,v 1.27 2005/10/14 08:53:04 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -80,22 +80,9 @@ bool wxCatapultApp::OnInit()
 
 	if (succes)
 	{
-		// We'll set the appication and vendorname before the first call to 'Get'
-
+		// We'll set the application and vendorname before the first call to 'Get'
 		SetVendorName(wxT("openMSX team"));
 		SetAppName(wxT("Catapult"));
-
-		// Now, let's find out if we have a path to openMSX
-		ConfigurationData * config = ConfigurationData::instance();
-		if (!config->HaveRequiredSettings())
-		{
-			CatapultConfigDlg dlg;
-			dlg.Center();
-			if (dlg.ShowModal() != wxID_OK)
-			{
-				return FALSE;
-			}
-		}
 
 		// create our custom frame with the all the event handlers
 		wxCatapultFrame *frame = new wxCatapultFrame();
@@ -103,7 +90,7 @@ bool wxCatapultApp::OnInit()
 		// Show the frame.
 		frame->Show(TRUE);
 	}
-	else{
+	else {
 		wxMessageBox (wxT("Unable to load resources!\nThere is something wrong with your installation.\n"),wxT("error"));
 		return FALSE;
 	}
