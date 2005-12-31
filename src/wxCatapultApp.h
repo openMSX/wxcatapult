@@ -1,7 +1,8 @@
-// $Id: wxCatapultApp.h,v 1.11 2005/06/05 19:48:24 h_oudejans Exp $
+// $Id: wxCatapultApp.h,v 1.12 2005/10/14 08:53:04 h_oudejans Exp $
 #ifndef wxCatapultApp_H
 #define wxCatapultApp_H
 
+#define wxUSE_CMDLINE_PARSER 1
 #define OPENMSX_DEMO_CD_VERSION	0 // set to 1 to make a special cd-version (oss 2004)
 #define FORCE_UNNAMED_PIPES 0
 
@@ -36,7 +37,10 @@ class wxCatapultApp : public wxApp
 	public:
 		wxCatapultApp();
 		wxString GetResourceDir ();
-		bool OnCmdLineHelp(wxCmdLineParser& parser) {return TRUE;};
+		virtual bool OnCmdLineHelp(wxCmdLineParser& parser);
+		virtual void OnInitCmdLine(wxCmdLineParser& parser);
+		virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
+		void ShowVersion();
 		virtual ~wxCatapultApp();
 
 		// override base class virtuals

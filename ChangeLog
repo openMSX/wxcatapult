@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.143 2005/12/28 17:37:54 manuelbi Exp $
+$Id: ChangeLog,v 1.144 2005/12/30 19:04:08 manuelbi Exp $
+
+2005-12-31  Arnold Metselaar  <arnold.metselaar@planet.nl>
+	* Add support for standard options --version and --help, closes 
+	  bug 1394202.
 
 2005-12-30 Manuel Bilderbeek <manuel@msxnet.org>
 	* Check exit status of version test, handle failure.

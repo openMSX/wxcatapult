@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.27 2005/10/14 08:53:04 h_oudejans Exp $
+// $Id: wxCatapultApp.cpp,v 1.28 2005/12/30 19:04:09 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -14,6 +14,8 @@
 #include "wx/cmdline.h"
 #include "ConfigurationData.h"
 #include "CatapultConfigDlg.h"
+#include <cstdio>
+#include "Version.h"
 
 #if !wxCHECK_VERSION(2,5,0)
 #include "wxToggleButtonXmlHandler.h"
@@ -52,7 +54,7 @@ wxCatapultApp::~wxCatapultApp()
 // 'Main program' equivalent: the program execution "starts" here
 bool wxCatapultApp::OnInit()
 {
-	wxApp::OnInit();
+	if (!wxApp::OnInit()) return FALSE;
 	wxImage::AddHandler(new wxPNGHandler());
 	wxXmlResource::Get()->InitAllHandlers();
 
@@ -95,6 +97,43 @@ bool wxCatapultApp::OnInit()
 		return FALSE;
 	}
 	return TRUE;
+}
+
+static wxString ver    (wxT("V"));
+static wxString ver_lng(wxT("version"));
+static wxString ver_dsc(wxT("show version information"));
+
+void wxCatapultApp::OnInitCmdLine(wxCmdLineParser& parser)
+{
+    wxApp::OnInitCmdLine(parser);
+    parser.AddSwitch(ver, ver_lng, ver_dsc);
+}
+
+bool wxCatapultApp::OnCmdLineHelp(wxCmdLineParser& parser)
+{
+    parser.Usage();
+    puts("\nopenMSX Catapult is the GUI for openMSX ");
+    puts("openMSX is the MSX emulator that aims for perfection");
+    return false;
+}
+
+
+bool wxCatapultApp::OnCmdLineParsed(wxCmdLineParser& parser)
+{
+    bool res = true;
+    if (parser.Found(ver_lng)) {
+	if (res) ShowVersion();
+	res = false;
+    }
+    return wxApp::OnCmdLineParsed(parser) && res;
+}
+
+void wxCatapultApp::ShowVersion()
+{
+    for (unsigned int i = 0 ; i < Version::FULL_VERSION.Len() ; ++i) {
+	putchar(Version::FULL_VERSION.GetChar(i));
+    }
+    putchar('\n');
 }
 
 bool wxCatapultApp::LoadXRC(wxString XrcFile)
