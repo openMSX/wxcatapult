@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.79 2005/12/28 16:27:02 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.80 2005/12/30 19:04:09 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -88,8 +88,8 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_SOCKET (OPENMSX_SOCKET,wxCatapultFrame::OnSocketEvent)
 END_EVENT_TABLE()
 
-	// include icon for any non-unix version
-#if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
+	// include icon if we're not compiling with Visual Studio
+#if !defined(_MSC_VER) 
 #include "catapult.xpm"
 #endif
 
@@ -115,7 +115,12 @@ END_EVENT_TABLE()
 #endif
 
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("CatapultFrame"));
-	SetIcon (wxICON(catapult));
+	// use icon resources for MS Visual Studio, else the XPM
+#if defined (_MSC_VER)
+	SetIcon ("catapult");
+#else
+	SetIcon (catapult_xpm);
+#endif
 
 	// create menu bars
 
