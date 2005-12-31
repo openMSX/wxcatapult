@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.44 2005/07/02 09:46:24 h_oudejans Exp $
+// $Id: MiscControlPage.cpp,v 1.45 2005/07/16 15:09:19 mthuurne Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -92,30 +92,31 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_frameskipMinLabel = (wxStaticText *)FindWindowByName(wxT("FrameSkipMinLabel"));
 	m_emulationSpeedLabel = (wxStaticText *)FindWindowByName(wxT("EmulationSpeedLabel"));
 
-	wxComboBox * box[2];
-	wxString current;
-	int pos;
 
-	box[0] = (wxComboBox *)FindWindowByName (wxT("PrinterportSelector"));
-	box[0]->Clear();
-	box[0]->Append(wxT("--empty--"));
-	box[0]->Append(wxT("logger"));
-	box[0]->Append(wxT("simpl"));
+	
+	wxComboBox* box = (wxComboBox *)FindWindowByName (wxT("PrinterportSelector"));
+	box->Clear();
+	box->Append(wxT("--empty--"));
+	box->Append(wxT("logger"));
+	box->Append(wxT("simpl"));
 
+	/* This doesn't do anything, because it is "disabled" according to a comment in ConfigurationData 
 	wxString filename;
 	wxTextCtrl * text = (wxTextCtrl *)FindWindowByName(wxT("PrinterLogFile"));
+	wxString current;
+	int pos;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_PRINTERPORT,current);
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_PRINTERFILE,filename);
 	text->SetValue(filename);
 
-	pos = box[0]->FindString(current);
+	pos = box->FindString(current);
 	if (pos != -1){
-			box[0]->SetSelection(pos);
+			box->SetSelection(pos);
 		}
 		else{
-			box[0]->SetSelection(0);
+			box->SetSelection(0);
 		}
-	OnPrinterportChanged(false);
+	OnPrinterportChanged(false); */
 }
 
 MiscControlPage::~MiscControlPage()
@@ -140,6 +141,9 @@ void MiscControlPage::FillInitialJoystickPortValues (int number_of_keyjoys)
 		box[i]->Clear();
 		box[i]->Append(wxT("--empty--"));
 		box[i]->Append(wxT("mouse"));
+		box[i]->Append(wxT("joynet"));
+		box[i]->Append(wxT("tetris2-protection"));
+		box[i]->Append(wxT("magic-key"));
 		if (number_of_keyjoys == 1){
 			box[i]->Append(wxT("keyjoystick"));
 		}
