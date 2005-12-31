@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.77 2005/12/10 17:34:32 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.78 2005/12/30 19:04:08 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -169,6 +169,27 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_extensionListLabel = (wxStaticText *)FindWindowByName(wxT("ExtensionLabel"));
 	//SetupHardware(true,false); // No need to do this, it's done in wxCatapultFrm's constructor
 
+	m_cassettePortState = wxT("disabled");
+	m_romTypeDialog = new RomTypeDlg (wxGetTopLevelParent(this));
+	GetRomTypes();
+	m_ipsDialog = new IPSSelectionDlg (wxGetTopLevelParent(this));
+	m_diskA->control->SetDropTarget(new SessionDropTarget(m_diskA->control));
+	m_diskB->control->SetDropTarget(new SessionDropTarget(m_diskB->control));
+	m_cartA->control->SetDropTarget(new SessionDropTarget(m_cartA->control));
+	m_cartB->control->SetDropTarget(new SessionDropTarget(m_cartB->control));
+	m_cassette->control->SetDropTarget(new SessionDropTarget(m_cassette->control));
+	
+	int autorecord;
+	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_AUTORECORD, &autorecord);
+	m_cassetteAutoCreate = (autorecord == 1);
+	m_casInsertCommand = wxT("insert ");
+	m_motorControlOnCommand = wxT("motorcontrol on");
+	m_motorControlOffCommand = wxT("motorcontrol off");
+}
+
+void SessionPage::FixLayout()
+{
+	// Needs to be called AFTER setuphardware!
 	// Adjust the minimum size of the extension and listbox
 	wxFont myFont = m_machineList->GetFont();
 	wxMemoryDC * tempDC= new wxMemoryDC();
@@ -199,23 +220,6 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	if (wMax>300) { wMax = 300; } // just to have some limit
 	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X),-1);
 	delete tempDC;
-
-	m_cassettePortState = wxT("disabled");
-	m_romTypeDialog = new RomTypeDlg (wxGetTopLevelParent(this));
-	GetRomTypes();
-	m_ipsDialog = new IPSSelectionDlg (wxGetTopLevelParent(this));
-	m_diskA->control->SetDropTarget(new SessionDropTarget(m_diskA->control));
-	m_diskB->control->SetDropTarget(new SessionDropTarget(m_diskB->control));
-	m_cartA->control->SetDropTarget(new SessionDropTarget(m_cartA->control));
-	m_cartB->control->SetDropTarget(new SessionDropTarget(m_cartB->control));
-	m_cassette->control->SetDropTarget(new SessionDropTarget(m_cassette->control));
-	
-	int autorecord;
-	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_AUTORECORD, &autorecord);
-	m_cassetteAutoCreate = (autorecord == 1);
-	m_casInsertCommand = wxT("insert ");
-	m_motorControlOnCommand = wxT("motorcontrol on");
-	m_motorControlOffCommand = wxT("motorcontrol off");
 }
 
 SessionPage::~SessionPage()
@@ -1076,7 +1080,7 @@ void SessionPage::RestoreHistory()
 			media[i]->contents=wxT("");
 		}
 	}
-		config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
+	config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
 	if (!m_usedMachine.IsEmpty()){
 		temp = m_usedMachine;
 		temp.Replace(wxT("_"),wxT(" "),true);

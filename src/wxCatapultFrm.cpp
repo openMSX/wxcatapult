@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.80 2005/12/30 19:04:09 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.81 2005/12/31 10:57:51 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -208,8 +208,9 @@ END_EVENT_TABLE()
 		}
 		if (configOK)
 		{
-			m_sessionPage->RestoreHistory();
 			m_sessionPage->SetupHardware(true, viewMenu->IsChecked(Catapult_Display_Invalids));
+			m_sessionPage->FixLayout();
+			m_sessionPage->RestoreHistory();
 		} else Close(TRUE);
 	} else Close(TRUE);
 			
@@ -444,8 +445,6 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_sessionPage->getPatches(patches);
 	m_sessionPage->getTypes(types);
 
-	Enable(false); // Disable this frame only after getting the selections
-	
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	if (hardware[0] != wxT(" <default> "))
@@ -478,6 +477,9 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	}
 	m_sessionPage->UpdateSessionData();
 	m_statusPage->m_outputtext->Clear();
+	
+	Enable(false); // Disable this frame only after getting the selections (so, also AFTER UpdateSessionData!)
+	
 	m_controller->StartOpenMSX(cmd);
 	SetControlsOnLaunch();
 }

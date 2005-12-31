@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.33 2005/11/20 16:10:55 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.34 2005/12/10 14:14:41 h_oudejans Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -93,6 +93,7 @@ class SessionPage : public CatapultPage
 		wxArrayString& GetDetectedMachines ();
 		wxArrayString& GetDetectedExtensions ();
 		void RestoreHistory();
+		void FixLayout();
 
 	private:
 		struct mediaInfo
