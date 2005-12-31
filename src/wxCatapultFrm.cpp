@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.81 2005/12/31 10:57:51 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.82 2005/12/31 12:35:51 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -181,12 +181,6 @@ END_EVENT_TABLE()
 	m_tabControl->AddPage(m_inputPage,wxT("Input Text"),false);
 	m_tabControl->AddPage(m_statusPage,wxT("Status Info"),false);
 	
-	wxWindow * tempwindow = FindWindowByName(wxT("MainWindowPanel"));
-	wxSize size = tempwindow->GetSizer()->Fit(tempwindow);
-	this->GetSizer()->SetMinSize(size);
-	this->GetSizer()->Fit(this);
-	this->GetSizer()->SetSizeHints(this);
-
 	m_launch_AbortButton = (wxButton *)FindWindowByName(wxT("Launch_AbortButton"));
 
 	SetControlsOnEnd();
@@ -210,6 +204,11 @@ END_EVENT_TABLE()
 		{
 			m_sessionPage->SetupHardware(true, viewMenu->IsChecked(Catapult_Display_Invalids));
 			m_sessionPage->FixLayout();
+			wxWindow * tempwindow = FindWindowByName(wxT("MainWindowPanel"));
+			wxSize size = tempwindow->GetSizer()->Fit(tempwindow);
+			this->GetSizer()->SetMinSize(size);
+			this->GetSizer()->Fit(this);
+			this->GetSizer()->SetSizeHints(this);
 			m_sessionPage->RestoreHistory();
 		} else Close(TRUE);
 	} else Close(TRUE);
