@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.82 2005/12/31 12:35:51 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.83 2005/12/31 12:58:17 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -32,6 +32,8 @@
 #include "openMSXController.h"
 
 #define unisprintf sprintf
+
+class NoOpenMSXBinaryException : public std::exception {};
 
 // ----------------------------------------------------------------------------
 // constants
@@ -210,9 +212,8 @@ END_EVENT_TABLE()
 			this->GetSizer()->Fit(this);
 			this->GetSizer()->SetSizeHints(this);
 			m_sessionPage->RestoreHistory();
-		} else Close(TRUE);
-	} else Close(TRUE);
-			
+		} else throw(NoOpenMSXBinaryException()); 
+	} else throw(NoOpenMSXBinaryException());
 }
 
 // frame destructor
@@ -427,7 +428,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	ConfigurationData * config = ConfigurationData::instance();
 	if (!config->HaveRequiredSettings())
 	{
-		EditConfig();
+		if (!EditConfig(true)) return;
 	}
 
 	m_launch_AbortButton->SetLabel(wxT("Stop"));

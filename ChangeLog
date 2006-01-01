@@ -1,6 +1,10 @@
-$Id: ChangeLog,v 1.144 2005/12/30 19:04:08 manuelbi Exp $
+$Id: ChangeLog,v 1.145 2005/12/31 16:17:30 arnoldmnl Exp $
 
-2005-12-31  Arnold Metselaar  <arnold.metselaar@planet.nl>
+2006-01-01 Manuel Bilderbeek <manuel@msxnet.org>
+	* Do a cleaner exit if the openMSX binary cannot be found at all
+	* Don't continue if the 'check openMSX binary before launch' fails.
+
+2005-12-31 Arnold Metselaar  <arnold.metselaar@planet.nl>
 	* Add support for standard options --version and --help, closes 
 	  bug 1394202.
 

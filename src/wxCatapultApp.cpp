@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.cpp,v 1.28 2005/12/30 19:04:09 manuelbi Exp $
+// $Id: wxCatapultApp.cpp,v 1.29 2005/12/31 16:17:30 arnoldmnl Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -86,11 +86,15 @@ bool wxCatapultApp::OnInit()
 		SetVendorName(wxT("openMSX team"));
 		SetAppName(wxT("Catapult"));
 
-		// create our custom frame with the all the event handlers
-		wxCatapultFrame *frame = new wxCatapultFrame();
+		try {
+			// create our custom frame with the all the event handlers
+			wxCatapultFrame *frame = new wxCatapultFrame();
 
-		// Show the frame.
-		frame->Show(TRUE);
+			// Show the frame.
+			frame->Show(TRUE);
+		} catch (...) {
+			return FALSE;
+		}
 	}
 	else {
 		wxMessageBox (wxT("Unable to load resources!\nThere is something wrong with your installation.\n"),wxT("error"));
