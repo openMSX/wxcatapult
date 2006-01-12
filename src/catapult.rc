@@ -55,15 +55,15 @@ BEGIN
         BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", " \0"
-            VALUE "FileDescription", "catapult\0"
-            VALUE "FileVersion", "0, 5, 2, 1\0"
+            VALUE "FileDescription", "openMSX Catapult\0"
+            VALUE "FileVersion", "0, 6, 0, 1\0"
             VALUE "InternalName", "catapult\0"
-            VALUE "LegalCopyright", "Copyright © 2005\0"
+            VALUE "LegalCopyright", "Copyright © 2006\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "catapult.exe\0"
             VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "catapult\0"
-            VALUE "ProductVersion", "0, 5, 2, 1\0"
+            VALUE "ProductName", "openMSX Catapult\0"
+            VALUE "ProductVersion", "0, 6, 0, 1\0"
             VALUE "SpecialBuild", "\0"
         END
     END
