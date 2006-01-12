@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.83 2005/12/31 12:58:17 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.84 2006/01/01 17:21:39 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -119,7 +119,7 @@ END_EVENT_TABLE()
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("CatapultFrame"));
 	// use icon resources for MS Visual Studio, else the XPM
 #if defined (_MSC_VER)
-	SetIcon ("catapult");
+	SetIcon (wxIcon("catapult"));
 #else
 	SetIcon (catapult_xpm);
 #endif
