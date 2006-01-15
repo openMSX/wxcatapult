@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.41 2005/10/14 08:53:04 h_oudejans Exp $
+# $Id: main.mk,v 1.42 2005/12/28 19:22:19 manuelbi Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -206,6 +206,13 @@ SOURCES+= \
 
 OBJECTS_FULL:=$(addprefix $(OBJECTS_PATH)/, $(addsuffix .o,$(SOURCES)))
 
+ifeq ($(CATAPULT_TARGET_OS),mingw32)
+RESOURCE_SRC:=src/catapult.rc
+RESOURCE_OBJ:=$(OBJECTS_PATH)/resources.o
+else
+RESOURCE_OBJ:=
+endif
+
 XRC_FULL:=$(addprefix $(XRC_PATH)/, \
 	catapult.xrc \
 	config.xrc \
@@ -288,10 +295,10 @@ config:
 	@echo "  Platform: $(PLATFORM)"
 	@echo "  Flavour:  $(CATAPULT_FLAVOUR)"
 
-$(BINARY_FULL): $(OBJECTS_FULL)
+$(BINARY_FULL): $(OBJECTS_FULL) $(RESOURCE_OBJ)
 	@echo "Linking $(BINARY_FILE)..."
 	@mkdir -p $(@D)
-	@$(CXX) -o $@ $(OBJECTS_FULL) $(LINK_FLAGS)
+	@$(CXX) -o $@ $^ $(LINK_FLAGS)
 
 # Compile and generate dependency files in one go.
 DEPEND_SUBST=$(patsubst $(SOURCES_PATH)/%.cpp,$(DEPEND_PATH)/%.d,$<)
@@ -302,6 +309,12 @@ $(OBJECTS_FULL): $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.cpp $(DEPEND_PATH)/%.d
 	@$(CXX) $(DEPEND_FLAGS) -MMD -MF $(DEPEND_SUBST) \
 		-o $@ $(CXXFLAGS) -c $<
 	@touch $@ # Force .o file to be newer than .d file.
+
+ifeq ($(CATAPULT_TARGET_OS),mingw32)
+$(RESOURCE_OBJ): $(RESOURCE_SRC)
+	@echo "Compiling resources..."
+	@windres --include-dir=$(<D) -o $@ -i $^
+endif
 
 $(XRC_FULL): $(XRC_PATH)/%.xrc: $(DIALOGS_PATH)/%.wxg $(SEDSCRIPT)
 	@echo "Converting $(@:$(XRC_PATH)/%=%)..."

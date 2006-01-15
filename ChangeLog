@@ -1,11 +1,15 @@
-$Id: ChangeLog,v 1.145 2005/12/31 16:17:30 arnoldmnl Exp $
+$Id: ChangeLog,v 1.146 2006/01/01 17:21:38 manuelbi Exp $
+
+2006-01-15 Maarten ter Huurne <maarten@treewalker.org>
+	* Compile resources on MinGW32 as part of the build process.
+	  Implemented in cooperation with BiFi.
 
 2006-01-01 Manuel Bilderbeek <manuel@msxnet.org>
 	* Do a cleaner exit if the openMSX binary cannot be found at all
 	* Don't continue if the 'check openMSX binary before launch' fails.
 
 2005-12-31 Arnold Metselaar  <arnold.metselaar@planet.nl>
-	* Add support for standard options --version and --help, closes 
+	* Add support for standard options --version and --help, closes
 	  bug 1394202.
 
 2005-12-30 Manuel Bilderbeek <manuel@msxnet.org>
