@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.6.0-R1 (2005-12-??)
+Release Notes for openMSX Catapult 0.6.0-R1 (2006-01-21)
 ========================================================
 
 This new release brings the following improvements:
