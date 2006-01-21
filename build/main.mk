@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.42 2005/12/28 19:22:19 manuelbi Exp $
+# $Id: main.mk,v 1.43 2006/01/15 08:02:14 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -65,7 +65,8 @@ $(call DEFCHECK,INSTALL_BASE)
 # Version
 # =======
 
-include $(MAKE_PATH)/version.mk
+VERSION_MAKE:=$(MAKE_PATH)/version.mk
+include $(VERSION_MAKE)
 PACKAGE_FULL:=$(PACKAGE_NAME)-$(PACKAGE_VERSION)
 CHANGELOG_REVISION:=\
 	$(shell sed -ne "s/\$$Id: ChangeLog,v \([^ ]*\).*/\1/p" ChangeLog)
@@ -209,6 +210,7 @@ OBJECTS_FULL:=$(addprefix $(OBJECTS_PATH)/, $(addsuffix .o,$(SOURCES)))
 ifeq ($(CATAPULT_TARGET_OS),mingw32)
 RESOURCE_SRC:=src/catapult.rc
 RESOURCE_OBJ:=$(OBJECTS_PATH)/resources.o
+RESOURCE_HEADER:=$(CONFIG_PATH)/resource-info.h
 else
 RESOURCE_OBJ:=
 endif
@@ -311,9 +313,13 @@ $(OBJECTS_FULL): $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.cpp $(DEPEND_PATH)/%.d
 	@touch $@ # Force .o file to be newer than .d file.
 
 ifeq ($(CATAPULT_TARGET_OS),mingw32)
-$(RESOURCE_OBJ): $(RESOURCE_SRC)
+WIN32_FILEVERSION:=$(shell echo $(PACKAGE_VERSION) $(CHANGELOG_REVISION) | sed -ne 's/\([0-9]\)*\.\([0-9]\)*\.\([0-9]\)*[^ ]* [0-9]*\.\([0-9]*\)/\1, \2, \3, \4/p' -)
+$(RESOURCE_HEADER): $(VERSION_MAKE) ChangeLog
+	@echo "#define CATAPULT_VERSION_INT $(WIN32_FILEVERSION)" > $@
+	@echo "#define CATAPULT_VERSION_STR \"$(PACKAGE_VERSION)\0\"" >> $@
+$(RESOURCE_OBJ): $(RESOURCE_SRC) $(RESOURCE_HEADER)
 	@echo "Compiling resources..."
-	@windres --include-dir=$(<D) -o $@ -i $^
+	@windres $(addprefix --include-dir=,$(^D)) -o $@ -i $<
 endif
 
 $(XRC_FULL): $(XRC_PATH)/%.xrc: $(DIALOGS_PATH)/%.wxg $(SEDSCRIPT)

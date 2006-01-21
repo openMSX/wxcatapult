@@ -1,6 +1,10 @@
-//Microsoft Developer Studio generated resource script.
+// Originally a Microsoft Developer Studio generated resource script,
+// but now maintained manually because we want to build with MinGW32+MSYS.
 //
 #include "resource.h"
+
+// Include resource info from the Catapult build process.
+#include "resource-info.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -37,8 +41,8 @@ CATAPULT                ICON    DISCARDABLE     "catapult.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION CATAPULT_VERSION_INT
+ PRODUCTVERSION CATAPULT_VERSION_INT
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -56,14 +60,14 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", " \0"
             VALUE "FileDescription", "openMSX Catapult\0"
-            VALUE "FileVersion", "0, 6, 0, 1\0"
+            VALUE "FileVersion", CATAPULT_VERSION_STR
             VALUE "InternalName", "catapult\0"
-            VALUE "LegalCopyright", "Copyright © 2006\0"
+            VALUE "LegalCopyright", "Copyright  2006\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "catapult.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "openMSX Catapult\0"
-            VALUE "ProductVersion", "0, 6, 0, 1\0"
+            VALUE "ProductVersion", CATAPULT_VERSION_STR
             VALUE "SpecialBuild", "\0"
         END
     END
@@ -94,18 +98,18 @@ LANGUAGE LANG_ENGLISH, 0xC
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE DISCARDABLE
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE DISCARDABLE
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE DISCARDABLE
 BEGIN
     "\r\n"
     "\0"
