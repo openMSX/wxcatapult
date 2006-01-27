@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.84 2006/01/01 17:21:39 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.85 2006/01/12 20:11:29 h_oudejans Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -212,6 +212,7 @@ END_EVENT_TABLE()
 			this->GetSizer()->Fit(this);
 			this->GetSizer()->SetSizeHints(this);
 			m_sessionPage->RestoreHistory();
+			m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
 		} else throw(NoOpenMSXBinaryException()); 
 	} else throw(NoOpenMSXBinaryException());
 }

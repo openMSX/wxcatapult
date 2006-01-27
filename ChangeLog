@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.147 2006/01/15 08:02:13 mthuurne Exp $
+$Id: ChangeLog,v 1.148 2006/01/21 21:24:11 mthuurne Exp $
+
+2006-01-27 Manuel Bilderbeek <manuel@msxnet.org>
+	* Small (yet hacky?) fix for the problem that no MSX Type is selected
+	  at the very first startup... I hope this is my very last commit on
+	  this version of Catapult. Let's go for Qt!
 
 2006-01-21 Maarten ter Huurne <maarten@treewalker.org>
 	* Released 0.6.0-R1.
