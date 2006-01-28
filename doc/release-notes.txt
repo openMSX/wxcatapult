@@ -1,3 +1,16 @@
+Release Notes for openMSX Catapult 0.6.0-R2 (2006-01-29)
+========================================================
+
+This is a bugfix release for Windows users.
+
+One problem was fixed in Catapult itself: no machine was selected at the very
+first startup (after scanning the available machines).
+
+A new Windows binary release is built with a differently configured wxWidgets:
+the FontMap stuff of wxWidgets gives registry problems for some Windows users,
+so we disabled it.
+
+
 Release Notes for openMSX Catapult 0.6.0-R1 (2006-01-21)
 ========================================================
 
