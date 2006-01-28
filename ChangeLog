@@ -1,9 +1,13 @@
-$Id: ChangeLog,v 1.148 2006/01/21 21:24:11 mthuurne Exp $
+$Id: ChangeLog,v 1.149 2006/01/27 19:07:52 manuelbi Exp $
 
 2006-01-27 Manuel Bilderbeek <manuel@msxnet.org>
 	* Small (yet hacky?) fix for the problem that no MSX Type is selected
 	  at the very first startup... I hope this is my very last commit on
 	  this version of Catapult. Let's go for Qt!
+	* Set version to 0.6.0-R2, which includes this fix and a rebuild for
+	  Windows, because the FontMap stuff of wxWidgets gives registry
+	  problems for some Windows users. Note that this release is only
+	  interesting for Windows users.
 
 2006-01-21 Maarten ter Huurne <maarten@treewalker.org>
 	* Released 0.6.0-R1.
