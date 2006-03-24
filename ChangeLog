@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.149 2006/01/27 19:07:52 manuelbi Exp $
+$Id: ChangeLog,v 1.150 2006/01/28 00:09:52 manuelbi Exp $
+
+2006-04-24 Manuel Bilderbeek <manuel@msxnet.org>
+	* Fix compilation for GCC 4.1, thanks to Martin Michlmayr
 
 2006-01-27 Manuel Bilderbeek <manuel@msxnet.org>
 	* Small (yet hacky?) fix for the problem that no MSX Type is selected
