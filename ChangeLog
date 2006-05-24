@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.150 2006/01/28 00:09:52 manuelbi Exp $
+$Id: ChangeLog,v 1.151 2006/03/24 21:29:16 manuelbi Exp $
+
+2006-05-24 Manuel Bilderbeek <manuel@msxnet.org>
+	* Added a hack that puts slotexpander always as first extension, so
+	  that it can work with the post 0.6.0 release of openMSX. Let's hope
+	  this is enough to keep it working.
 
 2006-04-24 Manuel Bilderbeek <manuel@msxnet.org>
 	* Fix compilation for GCC 4.1, thanks to Martin Michlmayr

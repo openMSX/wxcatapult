@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.86 2006/01/27 19:07:53 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.87 2006/01/30 18:17:19 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -448,14 +448,25 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 
 	wxString cmd;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-	if (hardware[0] != wxT(" <default> "))
-	{
-		cmd += wxT(" -machine ") + hardware[0];
-	}
 	if (m_settingsfile != wxT("")){
 		cmd += wxT(" -setting ") + m_sessionPage->ConvertPath(m_settingsfile,true);
 	}
-	unsigned int i;
+	if (hardware[0] != wxT(" <default> ")) // Ooooww.... we're using representation here as useful data! :(
+	{
+		cmd += wxT(" -machine ") + hardware[0];
+	}
+
+	// EXTENSIONS start from index 1 in hardware!
+	
+	// Here's a hack to make sure that slotexpander is always mentioned first. Note that this will break terribly if someone renames the slotexpander extension. Hence the 'hack' remark.
+	unsigned int i = hardware.Index(wxT("slotexpander"), false);
+
+	if ((int)i != wxNOT_FOUND) {
+		// put it at item 1
+		hardware.RemoveAt(i);
+		hardware.Insert(wxT("slotexpander"), 1);
+	}
+
 	if (hardware.GetCount() > 1) {
 		for (i=1;i<hardware.GetCount();i++) {
 			cmd += wxT(" -ext ") + hardware[i];
@@ -480,6 +491,8 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_statusPage->m_outputtext->Clear();
 	
 	Enable(false); // Disable this frame only after getting the selections (so, also AFTER UpdateSessionData!)
+
+	//std::cerr << "Generic command is: " << std::string((const char*)(wxConvUTF8.cWX2MB(cmd))) << std::endl;
 	
 	m_controller->StartOpenMSX(cmd);
 	SetControlsOnLaunch();
