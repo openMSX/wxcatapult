@@ -1,4 +1,10 @@
-$Id: ChangeLog,v 1.151 2006/03/24 21:29:16 manuelbi Exp $
+$Id: ChangeLog,v 1.152 2006/05/24 19:29:36 manuelbi Exp $
+
+2006-05-26 Manuel Bilderbeek <manuel@msxnet.org>
+	* Use 'cart' i.s.o. 'carta' and 'cartb' to specify the cartridges.
+	  openMSX now guarantees to place them in slot order, so if we use the
+	  generic options, we don't have problems with slotexpanders anymore
+	  (which can e.g. take up slot a) and still have the proper order.
 
 2006-05-24 Manuel Bilderbeek <manuel@msxnet.org>
 	* Added a hack that puts slotexpander always as first extension, so
