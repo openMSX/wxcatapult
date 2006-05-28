@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.78 2005/12/30 19:04:08 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.79 2005/12/31 12:35:50 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -158,7 +158,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_clearCartB = (wxBitmapButton *)FindWindowByName(wxT("ClearCartB"));
 	m_clearCassette = (wxBitmapButton *)FindWindowByName(wxT("ClearCassette"));
 	m_playButton = (wxToggleButton *)FindWindowByName(wxT("PlayButton"));
-	m_recordButton = (wxToggleButton *)FindWindowByName(wxT("RecordButton"));	
+	m_recordButton = (wxToggleButton *)FindWindowByName(wxT("RecordButton"));
 	m_rewindButton = (wxButton *)FindWindowByName(wxT("RewindButton"));
 	m_diskAButton = (wxButton *)FindWindowByName(wxT("DiskA_Button"));
 	m_diskBButton = (wxButton *)FindWindowByName(wxT("DiskB_Button"));
@@ -178,7 +178,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cartA->control->SetDropTarget(new SessionDropTarget(m_cartA->control));
 	m_cartB->control->SetDropTarget(new SessionDropTarget(m_cartB->control));
 	m_cassette->control->SetDropTarget(new SessionDropTarget(m_cassette->control));
-	
+
 	int autorecord;
 	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_AUTORECORD, &autorecord);
 	m_cassetteAutoCreate = (autorecord == 1);
@@ -238,7 +238,7 @@ void SessionPage::OnEjectDiskByMenu(wxCommandEvent & event)
 {
 	mediaInfo * target = GetLastMenuTarget();
 	if (target != NULL){
-		EjectDisk(target);				
+		EjectDisk(target);
 	}
 }
 
@@ -303,7 +303,7 @@ void SessionPage::OnRewind(wxCommandEvent &event)
 {
 	m_controller->WriteCommand(wxT("cassetteplayer rewind"));
 	if (m_recordButton->GetValue()){
-		OnModePlay (event); 
+		OnModePlay (event);
 	}
 }
 
@@ -327,11 +327,11 @@ void SessionPage::OnModeRecord (wxCommandEvent & event)
 #endif
 	bool changeMode = false;
 	if (m_cassetteAutoCreate){
-		changeMode = true;		
+		changeMode = true;
 	}
 	else{
-		wxFileDialog filedlg(this,wxT("Select Cassettefile to save to"), 
-							::wxPathOnly(m_cassette->contents), wxT(""), 
+		wxFileDialog filedlg(this,wxT("Select Cassettefile to save to"),
+							::wxPathOnly(m_cassette->contents), wxT(""),
 							path ,wxSAVE | wxOVERWRITE_PROMPT);
 		if (filedlg.ShowModal() == wxID_OK){
 			changeMode = true;
@@ -339,9 +339,9 @@ void SessionPage::OnModeRecord (wxCommandEvent & event)
 			tapeImage += ConvertPath(filedlg.GetPath(),true);
 		}
 		else{
-			m_recordButton->SetValue(false);			
+			m_recordButton->SetValue(false);
 		}
-		
+
 	}
 	if (changeMode){
 		m_recordButton->SetValue(true);
@@ -349,7 +349,7 @@ void SessionPage::OnModeRecord (wxCommandEvent & event)
 		m_playButton->Enable(true);
 		m_playButton->SetValue(false);
 		m_controller->WriteCommand(wxT("cassetteplayer new") + tapeImage);
-	}	
+	}
 }
 
 
@@ -591,7 +591,7 @@ void SessionPage::HandleCassetteChange ()
 		(m_cassette->contents != wxT("")))
 	{
 		m_rewindButton->Enable(true);
-		m_cassetteControlEnabled = true;	
+		m_cassetteControlEnabled = true;
 	}
 	else
 	{
@@ -599,7 +599,7 @@ void SessionPage::HandleCassetteChange ()
 		m_cassetteControlEnabled = false;
 	}
 	SetCassetteMode (wxT("play"));
-	
+
 }
 
 void SessionPage::SetupHardware (bool initial, bool reset)
@@ -636,7 +636,7 @@ void SessionPage::SetupHardware (bool initial, bool reset)
 				m_machineArray.Add(checkedMachines.Left(pos));
 				checkedMachines = checkedMachines.Mid(pos + 2);
 			}
-		}while (pos !=-1);	
+		}while (pos !=-1);
 		do
 		{
 			pos = checkedExtensions.Find(wxT("::"));
@@ -645,7 +645,7 @@ void SessionPage::SetupHardware (bool initial, bool reset)
 				m_extensionArray.Add(checkedExtensions.Left(pos));
 				checkedExtensions = checkedExtensions.Mid(pos + 2);
 			}
-		}while (pos !=-1);	
+		}while (pos !=-1);
 	}
 	else{
 		wxString sharepath;
@@ -662,7 +662,7 @@ void SessionPage::SetupHardware (bool initial, bool reset)
 #endif
 		prepareExtensions (personalShare, m_extensionArray, true);
 		prepareMachines (personalShare, m_machineArray, true);
-	}	
+	}
 	m_extensionArray.Sort(SessionPage::CompareCaseInsensitive);
 	m_machineArray.Sort(SessionPage::CompareCaseInsensitive);
 	fillExtensions (m_extensionArray);
@@ -877,7 +877,7 @@ void SessionPage::SetCassetteControl()
 			m_rewindButton->Enable(false);
 			m_cassetteControlEnabled = false;
 		}
-		state = true;		
+		state = true;
 	}
 	else {
 		state = false;
@@ -1081,7 +1081,9 @@ void SessionPage::RestoreHistory()
 		}
 	}
 	config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
+	// printf("Last used machine: %s....", (const char*)(wxConvUTF8.cWX2MB(m_usedMachine)));
 	if (!m_usedMachine.IsEmpty()){
+		// printf ("OK, it's not empty\n");
 		temp = m_usedMachine;
 		temp.Replace(wxT("_"),wxT(" "),true);
 		temp.Replace(wxT("\""),wxT(""),true);
@@ -1092,6 +1094,7 @@ void SessionPage::RestoreHistory()
 		}
 		else {
 			m_machineList->SetSelection (0);
+			// printf(" Can't find the machine\n");
 		}
 	}
 	config->GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);
