@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.96 2005/12/30 19:04:09 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.97 2005/12/30 20:17:24 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -357,7 +357,7 @@ wxString openMSXController::GetPendingCommand()
 	CommandEntry entry;
 	wxString pending;
 	if (m_commands.empty()){	// TODO: why is assert (!m_commands.empty()) triggered ?
-		pending = wxT("");			// it can only happen if a reply is received without a previous send command
+		pending = wxT("");			// it can only happen if a reply is received without a previously sent command
 	}
 	else{
 		entry = m_commands.front();
