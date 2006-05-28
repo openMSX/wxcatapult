@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.16 2005/12/28 16:27:02 manuelbi Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.17 2005/12/30 19:04:08 manuelbi Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -115,11 +115,11 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 			config->SetParameter(ConfigurationData::CD_EXECPATH,tempExec);
 			config->SetParameter(ConfigurationData::CD_SHAREPATH,tempShare);
 			config->SaveData();
-			EndModal (wxID_OK);
 			if (m_ConfigCheck->IsChecked()) {
 				// TODO: make this cleaner... (It works though...)
 				((wxCatapultFrame*) m_parent)->CheckConfigs();
         		}
+			EndModal (wxID_OK);
 		}
 	}
 }
