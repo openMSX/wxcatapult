@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class AboutDlg : public wxDialog  
+class AboutDlg : public wxDialog
 {
 public:
 	AboutDlg(wxWindow * parent = NULL);

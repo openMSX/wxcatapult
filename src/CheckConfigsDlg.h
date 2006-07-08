@@ -12,7 +12,7 @@
 #define MSGID_TESTCONFIG_SUCCES 1
 #define MSGID_TESTCONFIG_FAILED 2
 
-class CheckConfigsDlg : public wxDialog  
+class CheckConfigsDlg : public wxDialog
 {
 public:
 	CheckConfigsDlg(wxWindow * parent = NULL);
@@ -23,7 +23,7 @@ public:
 	virtual ~CheckConfigsDlg();
 	int ShowModal(wxString cmd, wxArrayString &machines, wxArrayString &extensions);
 	void EndModal(int retCode);
-	void FinishCheck ();	
+	void FinishCheck ();
 private:
 	struct CheckConfigsData{
 		bool m_checkmachine;
@@ -31,7 +31,7 @@ private:
 		int  m_progress;
 		wxString m_currentObject;
 	};
-	class CheckConfigsThread : public wxThread  
+	class CheckConfigsThread : public wxThread
 	{
 	public:
 		CheckConfigsThread(CheckConfigsDlg * target);
@@ -39,12 +39,12 @@ private:
 		wxThread::ExitCode Entry();
 		void SetParameters (wxString cmd, wxArrayString * machines, wxArrayString * extensions);
 		bool m_running;
-		
+
 	private:
 		bool doCheckConfigs (wxString cmd);
 		void UpdateStats (bool checkmachine, bool succes, int progress);
 		void SetCurrentObject (wxString object);
-		
+
 		CheckConfigsDlg * m_target;
 		wxString m_cmd;
 		wxArrayString * m_machines;
@@ -56,7 +56,7 @@ private:
 	int m_invalidmachinecount;
 	int m_validextensioncount;
 	int m_invalidextensioncount;
-	
+
 	CheckConfigsThread * m_auditThread;
 	wxStaticText * m_completemachines;
 	wxStaticText * m_incompletemachines;

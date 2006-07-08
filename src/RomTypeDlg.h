@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class RomTypeDlg : public wxDialog  
+class RomTypeDlg : public wxDialog
 {
 public:
 	RomTypeDlg(wxWindow * parent = NULL);

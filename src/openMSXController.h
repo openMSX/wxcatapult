@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.40 2005/12/30 19:04:09 manuelbi Exp $
+// $Id: openMSXController.h,v 1.41 2006/03/24 21:26:43 manuelbi Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ using std::list;
 
 class wxCatapultFrame;
 class CatapultXMLParser;
-class openMSXController  
+class openMSXController
 {
 	public:
 		enum TargetType{
@@ -38,7 +38,7 @@ class openMSXController
 		void UpdateMixer ();
 		void GetConnectors (wxArrayString & connectors);
 		wxString GetConnectorClass (wxString name);
-		wxString GetConnectorContents (wxString name);		
+		wxString GetConnectorContents (wxString name);
 		void GetPluggables (wxArrayString & pluggables);
 		void GetPluggableDescriptions (wxArrayString & descriptions);
 		void GetPluggableClasses (wxArrayString & classes);
@@ -57,7 +57,7 @@ class openMSXController
 		virtual bool HandleMessage (wxCommandEvent &event);
 		openMSXController(wxWindow * target);
 		virtual ~openMSXController();
-		
+
 		wxString GetInfoCommand (wxString parameter);
 		bool IsOpenMSXRunning() {return m_openMsxRunning;};
 		void InitLaunchScript ();
@@ -79,18 +79,18 @@ class openMSXController
 			wxString command;
 			wxString scriptActions;
 			wxString parameter;
-			int (openMSXController::*p_okfunction)(wxString,wxString); 
+			int (openMSXController::*p_okfunction)(wxString,wxString);
 			bool showError;
 		};
 		struct CommandEntry{
 			wxString command;
 			TargetType target;
 		};
-		
+
 		LaunchInstructionType * m_launchScript;
 		int m_launchScriptSize;
-	
-		void AddLaunchInstruction (wxString cmd, wxString action, wxString parameter, 
+
+		void AddLaunchInstruction (wxString cmd, wxString action, wxString parameter,
 				int (openMSXController::*pfunction)(wxString,wxString),
 				bool showError);
 		unsigned int m_openMSXID;
@@ -103,7 +103,7 @@ class openMSXController
 		wxString GetPendingCommand();
 		wxString PeekPendingCommand();
 		enum TargetType PeekPendingCommandTarget();
-				
+
 		void HandleNormalLaunchReply(wxCommandEvent &event);
 		void newLaunchReply (wxCommandEvent & event);
 		void executeLaunch (wxCommandEvent * event = NULL, int startLine = 0);

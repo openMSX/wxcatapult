@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.h,v 1.11 2005/10/22 19:16:24 h_oudejans Exp $
+// $Id: ConfigurationData.h,v 1.12 2005/12/10 14:14:41 h_oudejans Exp $
 // onfigurationData.h: interface for the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,7 +18,7 @@
 #include "wx/fileconf.h"
 #endif
 
-class ConfigurationData  
+class ConfigurationData
 {
 	public:
 		bool SaveData ();

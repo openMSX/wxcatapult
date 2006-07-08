@@ -1,4 +1,4 @@
-// $Id: StatusPage.h,v 1.7 2004/04/12 13:36:07 h_oudejans Exp $
+// $Id: StatusPage.h,v 1.8 2004/05/09 14:25:51 manuelbi Exp $
 // StatusPage.h: interface for the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class StatusPage : public CatapultPage  
+class StatusPage : public CatapultPage
 {
 	public:
 		StatusPage(wxWindow * parent = (wxWindow *)NULL);
@@ -28,4 +28,4 @@ class StatusPage : public CatapultPage
 			DECLARE_EVENT_TABLE()
 };
 
-#endif 
+#endif

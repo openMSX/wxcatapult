@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.27 2005/10/22 19:16:24 h_oudejans Exp $
+// $Id: wxCatapultFrm.h,v 1.28 2005/12/30 19:04:09 manuelbi Exp $
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 
@@ -64,7 +64,7 @@ class wxCatapultFrame : public wxFrame
 		MiscControlPage * m_miscControlPage;
 		AudioControlPage * m_audioControlPage;
 		InputPage * m_inputPage;
-		
+
 		openMSXController * m_controller;
 		wxNotebook * m_tabControl;
 		wxButton * m_launch_AbortButton;
@@ -77,7 +77,7 @@ class wxCatapultFrame : public wxFrame
 		wxStaticBitmap * m_fddLed;
 		wxMenu * settingsMenu;
 		wxMenu * viewMenu;
-		
+
 		CatapultXMLParser * m_parser;
 		wxTimer m_fpsTimer;
 		wxTimer m_focusTimer;

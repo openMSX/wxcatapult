@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.26 2005/05/29 12:18:23 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.27 2005/07/02 09:46:24 h_oudejans Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@
 
 class wxCatapultFrame;
 class openMSXController;
-class MiscControlPage : public CatapultPage  
+class MiscControlPage : public CatapultPage
 {
 	public:
 		void SetControlsOnEnd();
@@ -25,7 +25,7 @@ class MiscControlPage : public CatapultPage
 		MiscControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
 		virtual ~MiscControlPage();
 		void OnSetThrottle (wxCommandEvent &event);
-		void OnSetCmdTiming (wxCommandEvent &event);	
+		void OnSetCmdTiming (wxCommandEvent &event);
 		void OnSetNormalSpeed (wxCommandEvent & event);
 		void OnSetMaxSpeed (wxCommandEvent & event);
 		void OnSpeedChange (wxScrollEvent & event);
@@ -56,19 +56,19 @@ class MiscControlPage : public CatapultPage
 		void InvalidPrinterLogFilename();
 		void FillInitialJoystickPortValues (int number_of_keyjoys);
 		wxToggleButton * m_powerButton;
-		
+
 	private:
 		void InitJoystickPort (wxString connector, wxString control, wxString connectorClass);
 
 		openMSXController * m_controller;
 		wxBitmapButton * m_browsePrinterLog;
-				
+
 		wxButton * m_resetButton;
 		wxButton * m_speedNormalButton;
 		wxToggleButton * m_speedMaxButton;
 		wxButton * m_defaultMinFrameSkipButton;
 		wxButton * m_defaultMaxFrameSkipButton;
-		
+
 		wxStaticText * m_emulationSpeedLabel;
 		wxStaticText * m_frameskipLabel;
 		wxStaticText * m_frameskipMinLabel;
@@ -93,7 +93,7 @@ class MiscControlPage : public CatapultPage
 		wxComboBox * m_lastUpdatedCombo;
 		wxComboBox * m_printerportSelector;
 
-#ifdef __UNIX__		
+#ifdef __UNIX__
 		wxTimer m_joystick_update_timer; // bad solution for a worse bug in (wx?)gtk
 #endif
 		DECLARE_CLASS(MiscControlPage)

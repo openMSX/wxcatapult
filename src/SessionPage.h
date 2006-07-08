@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.34 2005/12/10 14:14:41 h_oudejans Exp $
+// $Id: SessionPage.h,v 1.35 2005/12/31 12:35:51 manuelbi Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ class wxCatapultFrame;
 
 class SessionDropTarget : public wxFileDropTarget
 {
-public:	
+public:
 	SessionDropTarget (wxComboBox * target);
 	~SessionDropTarget ();
 	bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
@@ -29,7 +29,7 @@ private:
 };
 
 
-class SessionPage : public CatapultPage  
+class SessionPage : public CatapultPage
 {
 	public:
 		SessionPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
@@ -55,7 +55,7 @@ class SessionPage : public CatapultPage
 		void OnClickDiskBCombo (wxCommandEvent & event);
 		void OnClickCartACombo (wxCommandEvent & event);
 		void OnClickCartBCombo (wxCommandEvent & event);
-		void OnClickCassetteCombo (wxCommandEvent & event);		
+		void OnClickCassetteCombo (wxCommandEvent & event);
 		void OnChangeDiskAContents (wxCommandEvent & event);
 		void OnChangeDiskBContents (wxCommandEvent & event);
 		void OnChangeCartAContents (wxCommandEvent & event);
@@ -160,7 +160,7 @@ class SessionPage : public CatapultPage
 		wxBitmapButton * m_browseCartB;
 		wxBitmapButton * m_clearCartA;
 		wxBitmapButton * m_clearCartB;
-		
+
 		wxBitmapButton * m_browseDiskA;
 		wxBitmapButton * m_browseDiskB;
 		wxBitmapButton * m_browseCassette;
@@ -192,7 +192,7 @@ class SessionPage : public CatapultPage
 		bool m_cassetteAutoCreate;
 
 // old style compatability
-		
+
 		wxString m_casInsertCommand;
 		wxString m_motorControlOnCommand;
 		wxString m_motorControlOffCommand;
@@ -208,4 +208,4 @@ class SessionPage : public CatapultPage
 
 };
 
-#endif 
+#endif

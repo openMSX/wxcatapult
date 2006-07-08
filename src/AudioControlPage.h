@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.h,v 1.14 2004/10/08 15:26:40 h_oudejans Exp $
+// $Id: AudioControlPage.h,v 1.15 2005/01/06 16:27:21 h_oudejans Exp $
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,7 +18,7 @@
 
 class openMSXController;
 
-class AudioControlPage : public CatapultPage  
+class AudioControlPage : public CatapultPage
 {
 	public:
 		void SetMidiFilename (wxString value, bool midiIn);
@@ -39,7 +39,7 @@ class AudioControlPage : public CatapultPage
 		void OnChangeSampleInPlug(wxCommandEvent & event);
 		void OnBrowseMidiInFile(wxCommandEvent & event);
 		void OnBrowseMidiOutFile(wxCommandEvent & event);
-		void OnBrowseSampleInFile(wxCommandEvent & event);		
+		void OnBrowseSampleInFile(wxCommandEvent & event);
 		void InitAudioChannels(wxString channels);
 		void AddChannelType(int channel,wxString type);
 		void SetupAudioMixer ();
@@ -60,7 +60,7 @@ class AudioControlPage : public CatapultPage
 		wxString m_midiInFilename;
 		wxString m_midiOutFilename;
 		wxString m_sampleInFilename;
-	
+
 		wxStaticText * m_midiInLabel;
 		wxStaticText * m_midiOutLabel;
 		wxStaticText * m_sampleInLabel;
@@ -78,4 +78,4 @@ class AudioControlPage : public CatapultPage
 
 };
 
-#endif 
+#endif

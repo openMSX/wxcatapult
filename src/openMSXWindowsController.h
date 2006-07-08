@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.h,v 1.11 2005/10/16 19:33:02 h_oudejans Exp $
+// $Id: openMSXWindowsController.h,v 1.12 2005/11/20 16:10:55 h_oudejans Exp $
 // openMSXWindowsController.h: interface for the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,7 +14,7 @@
 #include <windows.h>
 
 class PipeConnectThread;
-class openMSXWindowsController : public openMSXController  
+class openMSXWindowsController : public openMSXController
 {
 	public:
 		void RaiseOpenMSX();
@@ -35,10 +35,10 @@ class openMSXWindowsController : public openMSXController
 			LPPROCESS_INFORMATION ProcessInfo;
 			HWND hWndFound;
 		};
-		
+
 		HWND FindOpenMSXWindow();
 		static BOOL CALLBACK EnumWindowCallBack(HWND hwnd, LPARAM lParam);
-		void CloseHandles (bool useNamedPipes, HANDLE hThread, HANDLE hInputRead, 
+		void CloseHandles (bool useNamedPipes, HANDLE hThread, HANDLE hInputRead,
 				HANDLE hOutputWrite, HANDLE hErrorWrite);
 		void ShowError (wxString msg);
 		bool CreatePipes (bool useNamedPipes,HANDLE * input, HANDLE * output, HANDLE * error,
@@ -52,8 +52,8 @@ class openMSXWindowsController : public openMSXController
 		PROCESS_INFORMATION m_openmsxProcInfo;
 		bool m_pipeActive;
 		unsigned long m_launchCounter;
-		PipeConnectThread * m_connectThread;		
-		
+		PipeConnectThread * m_connectThread;
+
 };
 
 #endif // !defined(AFX_OPENMSXWINDOWSCONTROLLER_H__C26DD0EC_7D83_4421_9DF7_E35B43E7C73D__INCLUDED_)

@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.h,v 1.12 2005/10/16 19:22:04 h_oudejans Exp $
+// $Id: openMSXLinuxController.h,v 1.13 2005/11/20 16:10:55 h_oudejans Exp $
 // openMSXLinuxController.h: interface for the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,13 +12,13 @@
 
 #include <wx/txtstrm.h>
 #include "openMSXController.h"
-#include <string> 
+#include <string>
 
 using std::string;
 
 class PipeReadThread;
 
-class openMSXLinuxController : public openMSXController  
+class openMSXLinuxController : public openMSXController
 {
 	public:
 		bool WriteMessage(xmlChar * msg,size_t length);

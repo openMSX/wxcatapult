@@ -1,4 +1,4 @@
-// $Id: PipeConnectThread.h,v 1.3 2004/11/11 17:14:59 h_oudejans Exp $
+// $Id: PipeConnectThread.h,v 1.4 2005/05/29 12:18:23 h_oudejans Exp $
 // PipeConnectThread.h: interface for the PipeConnectThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -16,7 +16,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class PipeConnectThread : public wxThread  
+class PipeConnectThread : public wxThread
 {
 	public:
 		PipeConnectThread(wxWindow * target);

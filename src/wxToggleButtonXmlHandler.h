@@ -1,4 +1,4 @@
-// $Id$
+// $Id: wxToggleButtonXmlHandler.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
 // wxToggleButtonXmlHandler.h: interface for the wxToggleButtonXmlHandler class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@
 
 #include "wx/xrc/xmlres.h"
 
-class WXXMLDLLEXPORT wxToggleButtonXmlHandler : public wxXmlResourceHandler  
+class WXXMLDLLEXPORT wxToggleButtonXmlHandler : public wxXmlResourceHandler
 {
 	public:
 		bool CanHandle(wxXmlNode *node);

@@ -1,4 +1,4 @@
-// $Id: InputPage.cpp,v 1.12 2005/05/29 12:18:23 h_oudejans Exp $
+// $Id: InputPage.cpp,v 1.13 2005/12/17 13:27:32 m9710797 Exp $
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ void InputPage::OnClearText(wxCommandEvent &event)
 void InputPage::OnTextChange(wxCommandEvent &event)
 {
 	m_clearTextButton->Enable(m_inputtext->GetValue().Length() != 0);
-	m_typeTextButton->Enable(launched && 
+	m_typeTextButton->Enable(launched &&
 				m_inputtext->GetValue().Length() != 0);
 }
 

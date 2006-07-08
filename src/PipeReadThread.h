@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.h,v 1.6 2004/11/11 17:14:59 h_oudejans Exp $
+// $Id: PipeReadThread.h,v 1.7 2004/11/11 17:32:08 h_oudejans Exp $
 // PipeReadThread.h: interface for the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -19,11 +19,11 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class PipeReadThread : public wxThread  
+class PipeReadThread : public wxThread
 {
 	public:
 		PipeReadThread(wxWindow * target, int id, wxThreadKind kind=wxTHREAD_DETACHED);
-#ifdef __WXMSW__	
+#ifdef __WXMSW__
 		void SetHandle (HANDLE hTarget) {m_hTarget=hTarget;}
 #else
 		void SetFileDescriptor (int descriptor) {m_descriptor = descriptor;};
@@ -35,9 +35,9 @@ class PipeReadThread : public wxThread
 		int m_id;
 		wxWindow * m_target;
 
-#ifdef __WXMSW__	
+#ifdef __WXMSW__
 		HANDLE m_hTarget;
-#else 
+#else
 		int m_descriptor;
 #endif
 };

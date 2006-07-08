@@ -1,4 +1,4 @@
-// $Id: openMSXWindowsController.cpp,v 1.20 2005/10/16 19:33:02 h_oudejans Exp $
+// $Id: openMSXWindowsController.cpp,v 1.21 2005/11/20 16:10:55 h_oudejans Exp $
 // openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -34,11 +34,11 @@ openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 
 openMSXWindowsController::~openMSXWindowsController()
 {
-	if (m_openMsxRunning) { 
+	if (m_openMsxRunning) {
 		WriteCommand(wxT("quit"));
 	}
 }
- 
+
 bool openMSXWindowsController::HandleMessage(wxCommandEvent &event)
 {
 	int id = event.GetId();
@@ -56,7 +56,7 @@ bool openMSXWindowsController::HandleMessage(wxCommandEvent &event)
 			}
 			return false; // invalid ID
 	}
-	return true;		
+	return true;
 }
 
 bool openMSXWindowsController::Launch(wxString cmdLine)
@@ -72,11 +72,11 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	WORD wStartupWnd = SW_HIDE;
 
 	STARTUPINFOA si;
-	DWORD dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;	
+	DWORD dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 	ZeroMemory(&si,sizeof(STARTUPINFOA));
 	si.cb = sizeof(STARTUPINFOA);
-	si.dwFlags = dwFlags;	
-	si.hStdInput = hInputRead;	
+	si.dwFlags = dwFlags;
+	si.hStdInput = hInputRead;
 	si.hStdOutput = hOutputWrite;
 	si.hStdError  = hErrorWrite;
 	si.wShowWindow = wStartupWnd;
@@ -84,7 +84,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	strcpy (buffer,(char*)(const char *) (wxConvUTF8.cWX2MB((cmdLine))));
 	CreateProcessA (NULL,buffer,
 					NULL,NULL,true, dwProcessFlags ,NULL,NULL,&si,&m_openmsxProcInfo); //testing suspended
-	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);	
+	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);
 	if (thread->Create() == wxTHREAD_NO_ERROR)
 	{
 		thread->SetHandle(hOutputRead);
@@ -98,7 +98,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	}
 
 	::ResumeThread(m_openmsxProcInfo.hThread);
-	
+
 	if (useNamedPipes)
 	{
 		if (!m_pipeActive)
@@ -117,7 +117,7 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	}
 	m_openMsxRunning = true;
 	CloseHandles (useNamedPipes,m_openmsxProcInfo.hThread, hInputRead, hOutputWrite, hErrorWrite );
-	
+
 	return true;
 }
 
@@ -126,7 +126,7 @@ bool openMSXWindowsController::DetermenNamedPipeUsage()
 	bool useNamedPipes = false;
 	if (!FORCE_UNNAMED_PIPES) {
 		OSVERSIONINFO info;
-		info.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);	
+		info.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
 		if (!GetVersionEx (&info))
 		{
 			wxString msg;
@@ -170,13 +170,13 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 			m_namedPipeHandle = m_outputHandle;
 		}
 	}
-	else 
+	else
 		parameter += wxT(" stdio:");
 	return wxString (parameter);
 }
 
 bool openMSXWindowsController::CreatePipes(bool useNamedPipes,HANDLE * input,
-		HANDLE * output, HANDLE * error, 
+		HANDLE * output, HANDLE * error,
 		HANDLE * outputWrite, HANDLE * errorWrite)
 {
 	HANDLE hOutputReadTmp, hOutputWrite;
@@ -237,14 +237,14 @@ void openMSXWindowsController::ShowError(wxString msg)
 {
 	wxString error;
 	error.sprintf (wxT("%ld"),GetLastError());
-	wxMessageBox (msg + wxString(wxT(": error ")) + error);	
+	wxMessageBox (msg + wxString(wxT(": error ")) + error);
 }
 
 void openMSXWindowsController::CloseHandles(bool useNamedPipes, HANDLE hThread,
 		HANDLE hInputRead, HANDLE hOutputWrite,
 		HANDLE hErrorWrite)
 {
-	if (!CloseHandle(hThread)) 
+	if (!CloseHandle(hThread))
 	{
 		wxMessageBox (wxT("Unable to close thread handle"));
 		return;
@@ -253,12 +253,12 @@ void openMSXWindowsController::CloseHandles(bool useNamedPipes, HANDLE hThread,
 	if (!CloseHandle(hOutputWrite))
 	{
 		wxMessageBox (wxT("Unable to close Output Write"));
-		return;	  
+		return;
 	};
 	if (!CloseHandle(hErrorWrite))
 	{
 		wxMessageBox (wxT("Unable to close Error Write"));
-		return;	  
+		return;
 	};
 
 	if (!useNamedPipes)
@@ -266,9 +266,9 @@ void openMSXWindowsController::CloseHandles(bool useNamedPipes, HANDLE hThread,
 		if (!CloseHandle(hInputRead))
 		{
 			wxMessageBox (wxT("Unable to close Input Read"));
-			return;	  
+			return;
 		};
-	}	
+	}
 }
 
 void openMSXWindowsController::HandlePipeCreated()
@@ -280,7 +280,7 @@ void openMSXWindowsController::HandlePipeCreated()
 
 bool openMSXWindowsController::WriteMessage(xmlChar * msg,size_t length)
 {
-	if (!m_openMsxRunning) 
+	if (!m_openMsxRunning)
 		return false;
 	if ((m_socket) && (m_socket->IsConnected())){
 		m_socket->Write(msg,length);
@@ -291,8 +291,8 @@ bool openMSXWindowsController::WriteMessage(xmlChar * msg,size_t length)
 	}
 	unsigned long BytesWritten;
 	if (!::WriteFile(m_outputHandle,msg,length,&BytesWritten,NULL))
-		return false;	
-	return true;	
+		return false;
+	return true;
 }
 
 void openMSXWindowsController::HandleEndProcess(wxCommandEvent &event)
@@ -350,21 +350,21 @@ HWND openMSXWindowsController::FindOpenMSXWindow()
 	return findInfo.hWndFound;
 }
 
-BOOL CALLBACK openMSXWindowsController::EnumWindowCallBack(HWND hwnd, LPARAM lParam) 
+BOOL CALLBACK openMSXWindowsController::EnumWindowCallBack(HWND hwnd, LPARAM lParam)
 {
-	FindOpenmsxInfo * info = (FindOpenmsxInfo * )lParam; 
-	DWORD ProcessId; 
-	GetWindowThreadProcessId ( hwnd, &ProcessId ); 
+	FindOpenmsxInfo * info = (FindOpenmsxInfo * )lParam;
+	DWORD ProcessId;
+	GetWindowThreadProcessId ( hwnd, &ProcessId );
 	TCHAR title [11];
 	GetWindowText(hwnd, title, 10);
-	if ( ProcessId  == info->ProcessInfo->dwProcessId && _tcslen(title) != 0) 
-	{ 
-		info->hWndFound = hwnd; 
-		return false; 
-	} 
-	else 
-	{ 
-		// Keep enumerating 
-		return true; 
-	} 
+	if ( ProcessId  == info->ProcessInfo->dwProcessId && _tcslen(title) != 0)
+	{
+		info->hWndFound = hwnd;
+		return false;
+	}
+	else
+	{
+		// Keep enumerating
+		return true;
+	}
 }

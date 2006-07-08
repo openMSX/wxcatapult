@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.19 2005/12/08 18:14:41 manuelbi Exp $
+// $Id: VideoControlPage.h,v 1.20 2005/12/28 17:37:55 manuelbi Exp $
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,7 +18,7 @@
 
 class wxCatapultFrame;
 class openMSXController;
-class VideoControlPage : public CatapultPage 
+class VideoControlPage : public CatapultPage
 {
 	public:
 		void SetControlsOnEnd();
@@ -63,23 +63,23 @@ class VideoControlPage : public CatapultPage
 		void UpdateBlurControls (int value);
 		void FillComboBox (wxString control, wxString contents);
 		void setNewRenderersAndScalers();
-		
+
 	private:
 		int FindFirstFreeScreenshotFile (wxString prefix);
 		openMSXController * m_controller;
-		
+
 		wxComboBox * m_accuracyList;
 		wxComboBox * m_rendererList;
 		wxComboBox * m_scalerAlgoList;
 		wxComboBox * m_scalerFactorList;
-		
+
 		wxBitmapButton * m_browseScreenshotButton;
 		wxButton * m_defaultGammaButton;
 		wxButton * m_defaultBlurButton;
 		wxButton * m_defaultGlowButton;
 		wxButton * m_defaultScanlineButton;
 		wxButton * m_screenShotButton;
-	
+
 		wxStaticText * m_rendererLabel;
 		wxStaticText * m_scalerLabel;
 		wxStaticText * m_accuracyLabel;
@@ -107,7 +107,7 @@ class VideoControlPage : public CatapultPage
 		wxTextCtrl * m_scanlineIndicator;
 		wxTextCtrl * m_screenShotFile;
 		wxTextCtrl * m_screenShotCounter;
-		
+
 		wxString m_defaultBlur;
 		wxString m_defaultGlow;
 		wxString m_defaultGamma;

@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.cpp,v 1.17 2005/01/07 19:23:11 h_oudejans Exp $
+// $Id: CatapultXMLParser.cpp,v 1.18 2005/01/26 17:24:14 h_oudejans Exp $
 // CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -138,7 +138,7 @@ void CatapultXMLParser::SendParsedData()
 		result->updateType = parseResult.updateType;
 		break;
 	}
-	
+
 	parseEvent.SetClientData ((void *)result);
 	parseEvent.SetId(MSGID_PARSED);
 	wxPostEvent (m_target, parseEvent);
@@ -148,7 +148,7 @@ void CatapultXMLParser::ParseXmlInput(wxString input,unsigned int ID)
 {
 	parseResult.openMSXID = ID;
 	xmlParseChunk (context, (const char*) (wxConvUTF8.cWX2MB(input)), input.Len(),0);
-} 
+}
 
 void CatapultXMLParser::parseReply(const char** attrs)
 {
@@ -160,7 +160,7 @@ void CatapultXMLParser::parseReply(const char** attrs)
 					parseResult.replyState = REPLY_OK;
 				} else if (strcmp(attrs[1], "nok") == 0) {
 					parseResult.replyState = REPLY_NOK;
-				} 
+				}
 			}
 		}
 	}
@@ -180,7 +180,7 @@ void CatapultXMLParser::parseLog(const char** attrs)
 			}
 		}
 	}
-} 
+}
 
 void CatapultXMLParser::parseUpdate(const char** attrs)
 {
@@ -204,11 +204,11 @@ void CatapultXMLParser::parseUpdate(const char** attrs)
 					parseResult.updateType = UPDATE_MEDIA;
 				}
 				else if (strcmp(attrs[1], "status") == 0){
-					parseResult.updateType = UPDATE_STATE;					
+					parseResult.updateType = UPDATE_STATE;
 				}
 			} else if (strcmp(attrs[0], "name") == 0) {
 				parseResult.name = wxString((const wxChar *)wxCSConv(wxT("ISO8859-1")).cMB2WX(attrs[1]),strlen(attrs[1]));
 			}
 		}
-	} 
-} 
+	}
+}

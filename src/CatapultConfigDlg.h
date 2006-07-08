@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.h,v 1.4 2005/12/28 16:27:02 manuelbi Exp $
+// $Id: CatapultConfigDlg.h,v 1.5 2005/12/30 19:04:08 manuelbi Exp $
 // CatapultConfigDlg.h: interface for the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@
 
 class openMSXController;
 
-class CatapultConfigDlg : public wxDialog  
+class CatapultConfigDlg : public wxDialog
 {
 	public:
 		void OnBrowseExec (wxCommandEvent& event);

@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.97 2005/12/30 20:17:24 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.98 2006/05/28 09:39:48 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -197,7 +197,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 			}
 			if (data->updateType == CatapultXMLParser::UPDATE_STATE) {
 				if (data->name == wxT("cassetteplayer")){
-					m_appWindow->m_sessionPage->SetCassetteMode(data->contents);				
+					m_appWindow->m_sessionPage->SetCassetteMode(data->contents);
 				}
 				else{
 					m_appWindow->UpdateState (data->name, data->contents);
@@ -237,7 +237,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					(!eject && (lastcmd.Mid(space+1) != (wxString (wxT("\"")) + data->contents + wxString(wxT("\""))))) ||
 					(lastcmd.Left(18) == wxT("cassetteplayer new"))){
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
-						m_appWindow->m_sessionPage->UpdateSessionData();						
+						m_appWindow->m_sessionPage->UpdateSessionData();
 				}
 			}
 			break;
@@ -990,7 +990,7 @@ int openMSXController::FillRangeComboBox (wxString setting, wxString data)
 			range += wxT("\n");
 		}
 	}
-	
+
 	m_appWindow->m_videoControlPage->FillComboBox(setting,range); // Just use any instance of CatapultPage
 	return 0; // don't skip any lines in the startup script
 }
@@ -1126,7 +1126,7 @@ int openMSXController::SetCassetteMode (wxString dummy, wxString data)
 {
 	wxArrayString arrayData;
 	int args = tokenize(data,wxT("\n"),arrayData);
-	m_appWindow->m_sessionPage->SetCassetteMode (arrayData[args-1]); 
+	m_appWindow->m_sessionPage->SetCassetteMode (arrayData[args-1]);
 	return 0;
 }
 

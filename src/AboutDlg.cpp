@@ -28,7 +28,7 @@ AboutDlg::AboutDlg(wxWindow * parent)
 //	wxBitmapButton * aboutButton = (wxBitmapButton *)FindWindowByName(wxT("AboutButton"));
 	wxStaticBitmap * aboutBitmap = (wxStaticBitmap *)FindWindowByName(wxT("AboutBitmap"));
 //	wxBitmap bmp = aboutButton->GetBitmapLabel();
-	wxBitmap bmp = aboutBitmap->GetBitmap();	
+	wxBitmap bmp = aboutBitmap->GetBitmap();
 	wxImage img = bmp.ConvertToImage();
 	img.ConvertAlphaToMask(100);
 	wxBitmap bmp2(img);

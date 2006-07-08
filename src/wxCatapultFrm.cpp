@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.88 2006/05/24 19:29:36 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.89 2006/05/26 15:07:28 manuelbi Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -91,7 +91,7 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 END_EVENT_TABLE()
 
 	// include icon if we're not compiling with Visual Studio
-#if !defined(_MSC_VER) 
+#if !defined(_MSC_VER)
 #include "catapult.xpm"
 #endif
 
@@ -110,7 +110,7 @@ END_EVENT_TABLE()
 //	delete testke;
 
 
-#ifdef __WXMSW__	
+#ifdef __WXMSW__
 	m_controller = new openMSXWindowsController(this);
 #else
 	m_controller = new openMSXLinuxController(this);
@@ -149,9 +149,9 @@ END_EVENT_TABLE()
 	menuBar->Append(settingsMenu, wxT("&Settings"));
 	EnableSaveSettings(false);
 	menuBar->Append(viewMenu, wxT("&View"));
-	int viewFlags; 
+	int viewFlags;
 	config->GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
-	viewMenu->Check(Catapult_Display_Invalids,(viewFlags & ConfigurationData::VF_BROKEN != 0));	
+	viewMenu->Check(Catapult_Display_Invalids,(viewFlags & ConfigurationData::VF_BROKEN != 0));
 
 	menuBar->Append(helpMenu, wxT("&Help"));
 
@@ -175,14 +175,14 @@ END_EVENT_TABLE()
 	m_videoControlPage = new VideoControlPage(m_tabControl,m_controller);
 	m_audioControlPage = new AudioControlPage(m_tabControl,m_controller);
 	m_inputPage = new InputPage(m_tabControl,m_controller);
-	
+
 	m_tabControl->AddPage(m_sessionPage,wxT("Session"),true);
 	m_tabControl->AddPage(m_miscControlPage,wxT("Misc Controls"),false);
 	m_tabControl->AddPage(m_videoControlPage,wxT("Video Controls"),false);
 	m_tabControl->AddPage(m_audioControlPage,wxT("Audio Controls"),false);
 	m_tabControl->AddPage(m_inputPage,wxT("Input Text"),false);
 	m_tabControl->AddPage(m_statusPage,wxT("Status Info"),false);
-	
+
 	m_launch_AbortButton = (wxButton *)FindWindowByName(wxT("Launch_AbortButton"));
 
 	SetControlsOnEnd();
@@ -213,7 +213,7 @@ END_EVENT_TABLE()
 			this->GetSizer()->SetSizeHints(this);
 			m_sessionPage->RestoreHistory();
 			m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
-		} else throw NoOpenMSXBinaryException(); 
+		} else throw NoOpenMSXBinaryException();
 	} else throw NoOpenMSXBinaryException();
 }
 
@@ -247,12 +247,12 @@ void wxCatapultFrame::CheckConfigs()
 	if (dlg.ShowModal(cmd,machines,extensions) == wxID_OK){
 		ConfigurationData * config = ConfigurationData::instance();
 		wxString machineString = wxT("");
-		
+
 		unsigned int j;
 		for (j=0;j<machines.GetCount();j++) {
 			machineString += machines[j];
 			machineString += wxT("::");
-			
+
 		}
 		wxString extensionString = wxT("");
 		for (j=0;j<extensions.GetCount();j++){
@@ -266,8 +266,8 @@ void wxCatapultFrame::CheckConfigs()
 #if !OPENMSX_DEMO_CD_VERSION
 		if (!result) {
 			wxMessageBox (wxT("Error saving configuration data"));
-		}	
-#endif	
+		}
+#endif
 	}
 	m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
 }
@@ -280,12 +280,12 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 	wxStaticText * description = (wxStaticText *)FindWindowByName(wxT("AboutProductDescriptionLabel"));
 	wxStaticText * message = (wxStaticText *)FindWindowByName(wxT("AboutMessageLabel"));
 	wxString msg;
-	msg.Printf(Version::FULL_VERSION 
+	msg.Printf(Version::FULL_VERSION
 #if OPENMSX_DEMO_CD_VERSION
-		+wxT("(CD Version)") 	
+		+wxT("(CD Version)")
 #endif
 	);
-	version->SetLabel(msg); 
+	version->SetLabel(msg);
 	description->SetLabel(wxT("The official GUI for openMSX"));
 	message->SetLabel(wxT("\251 2003-2005 The openMSX Team\n<openmsx-devel@lists.sourceforge.net>\n"));
 #ifdef __WXMSW__
@@ -337,7 +337,7 @@ void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent &event)
 		settingsfile = filedlg.GetPath();
 		if (m_controller->IsOpenMSXRunning()){
 			m_controller->WriteCommand(wxString(wxT("load_settings ")) + m_sessionPage->ConvertPath(settingsfile,true));
-		}		
+		}
 		else{
 			m_settingsfile = settingsfile;
 		}
@@ -364,7 +364,7 @@ void wxCatapultFrame::OnMenuSaveSettingsAs (wxCommandEvent & event)
 	{
 		settingsfile = filedlg.GetPath();
 		m_controller->WriteCommand(wxString(wxT("save_settings ")) + m_sessionPage->ConvertPath(settingsfile,true));
-	}	
+	}
 }
 
 void wxCatapultFrame::OnMenuSaveOnExit(wxCommandEvent &event)
@@ -385,7 +385,7 @@ void wxCatapultFrame::OnMenuDisplayBroken (wxCommandEvent & event)
 	m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
 	if (viewMenu->IsChecked(Catapult_Display_Invalids)){
 		config->SetParameter(ConfigurationData::CD_VIEWFLAGS,(long)(viewFlags | ConfigurationData::VF_BROKEN));
-	}		
+	}
 	else{
 		config->SetParameter(ConfigurationData::CD_VIEWFLAGS,(long)(viewFlags & ~ConfigurationData::VF_BROKEN));
 	}
@@ -401,12 +401,12 @@ void wxCatapultFrame::EnableSaveSettings(bool enabled)
 
 void wxCatapultFrame::OnMenuOpen(wxMenuEvent &event)
 {
-	m_tempStatus = GetStatusBar()->GetStatusText(0);	
+	m_tempStatus = GetStatusBar()->GetStatusText(0);
 }
 
 void wxCatapultFrame::OnMenuClose(wxMenuEvent &event)
 {
-	SetStatusText(m_tempStatus,0);	
+	SetStatusText(m_tempStatus,0);
 }
 
 void wxCatapultFrame::OnMenuHighlight(wxMenuEvent &event)
@@ -415,7 +415,7 @@ void wxCatapultFrame::OnMenuHighlight(wxMenuEvent &event)
 		wxFrame::OnMenuHighlight(event);
 	}
 	else{
-		SetStatusText(m_tempStatus,0);	
+		SetStatusText(m_tempStatus,0);
 	}
 }
 
@@ -440,7 +440,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	wxArrayString media;
 	wxArrayString patches[5];
 	wxArrayString types;
-	
+
 	m_sessionPage->getHardware(hardware);
 	m_sessionPage->getMedia(media);
 	m_sessionPage->getPatches(patches);
@@ -457,7 +457,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	}
 
 	// EXTENSIONS start from index 1 in hardware!
-	
+
 	// Here's a hack to make sure that slotexpander is always mentioned first. Note that this will break terribly if someone renames the slotexpander extension. Hence the 'hack' remark.
 	unsigned int i = hardware.Index(wxT("slotexpander"), false);
 
@@ -489,11 +489,11 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	}
 	m_sessionPage->UpdateSessionData();
 	m_statusPage->m_outputtext->Clear();
-	
+
 	Enable(false); // Disable this frame only after getting the selections (so, also AFTER UpdateSessionData!)
 
 	//std::cerr << "Generic command is: " << std::string((const char*)(wxConvUTF8.cWX2MB(cmd))) << std::endl;
-	
+
 	m_controller->StartOpenMSX(cmd);
 	SetControlsOnLaunch();
 }
@@ -516,7 +516,7 @@ void wxCatapultFrame::SetControlsOnEnd()
 
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
 {
-	m_controller->HandleMessage(event);	
+	m_controller->HandleMessage(event);
 }
 
 void wxCatapultFrame::OnSocketEvent(wxSocketEvent & event)
@@ -540,7 +540,7 @@ void wxCatapultFrame::StopTimers()
 void wxCatapultFrame::SetFPSdisplay(wxString val)
 {
 	double valfl = strtod((const char*) (wxConvUTF8.cWX2MB(val)),NULL);
-	val.sprintf(wxT("%2.1f"),valfl);	
+	val.sprintf(wxT("%2.1f"),valfl);
 	SetStatusText(val +wxT(" fps"),1);
 }
 
@@ -551,7 +551,7 @@ void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 
 void wxCatapultFrame::OnEnableMainWindow(wxTimerEvent & event)
 {
-	EnableMainWindow();	
+	EnableMainWindow();
 }
 
 void wxCatapultFrame::EnableMainWindow ()
@@ -581,10 +581,10 @@ void wxCatapultFrame::OnChangePage(wxNotebookEvent &event)
 	int newPageNr = event.GetSelection();
 	if (oldPageNr != -1) {
 		page = (CatapultPage *)m_tabControl->GetPage(oldPageNr);
-		page->HandleFocusChange(m_currentFocus,NULL);	
+		page->HandleFocusChange(m_currentFocus,NULL);
 	}
 	if (newPageNr != -1) {
-		page = (CatapultPage *)m_tabControl->GetPage(newPageNr);	
+		page = (CatapultPage *)m_tabControl->GetPage(newPageNr);
 		wxWindow * newfocus = page->FindFocus();
 		page->HandleFocusChange(NULL,newfocus);
 		m_currentFocus = newfocus;
@@ -595,7 +595,7 @@ void wxCatapultFrame::OnDeselectCatapult(wxActivateEvent & event)
 {
 	int selectedPage = m_tabControl->GetSelection();
 	if (selectedPage != -1) {
-		CatapultPage * page = (CatapultPage *)m_tabControl->GetPage(selectedPage);	
+		CatapultPage * page = (CatapultPage *)m_tabControl->GetPage(selectedPage);
 		page->HandleFocusChange(m_currentFocus,NULL);
 	}
 	m_currentFocus = NULL;

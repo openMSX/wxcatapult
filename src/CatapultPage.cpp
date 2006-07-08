@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.36 2005/12/08 18:14:40 manuelbi Exp $
+// $Id: CatapultPage.cpp,v 1.37 2005/12/10 14:14:41 h_oudejans Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -113,7 +113,7 @@ void CatapultPage::InitSettingsTable ()
 void CatapultPage::AddSetting (wxString setting, wxString controlname,
 	bool (CatapultPage::*pfunction)(wxString,wxString,wxString,int),
 	int flags)
-{	
+{
 	if (m_settingTableSize >= SETTINGTABLE_MAXSIZE) {
 		wxMessageBox (wxT("Not enough space to store the setting table!\nPlease contact the authors."),wxT("Internal Catapult Error"));
 		return;
@@ -154,7 +154,7 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 	if (flags & S_INVERT){
 		active = 0;
 	}
-	
+
 	wxToggleButton * button = (wxToggleButton *)m_parent->FindWindowByName(control);
 	if (button != NULL) {
 		if ((data == wxT("on")) || (data == wxT("true")) || (data == wxT("1")) || (data== wxT("yes"))) {
@@ -162,17 +162,17 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 		}
 		else{
 			sendvalue = 1-active;
-			
+
 		}
-		button->SetValue(value[sendvalue]);	
-		
+		button->SetValue(value[sendvalue]);
+
 		if (flags & S_EVENT){
 			wxCommandEvent event(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED,button->GetId());
 			event.SetInt(active);
 			event.SetEventObject(button);
 			button->ProcessEvent(event);
 		}
-					
+
 		if (flags & S_CONVERT) {
 			if ((data == wxT("false")) || (data == wxT("no")) || (data == wxT("0"))){
 				data = wxT("off");

@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.cpp,v 1.27 2005/11/20 17:45:58 h_oudejans Exp $
+// $Id: openMSXLinuxController.cpp,v 1.28 2005/12/30 19:04:09 manuelbi Exp $
 // openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@
 
 openMSXLinuxController::~openMSXLinuxController()
 {
-	if (m_openMsxRunning) { 
+	if (m_openMsxRunning) {
 		WriteCommand(wxT("quit"));
 		m_stdOutThread->Wait();
 		m_stdErrThread->Wait();
@@ -50,13 +50,13 @@ bool openMSXLinuxController::Launch(wxString cmdline)
 		m_stdOutThread->SetFileDescriptor(m_openMSXstdout);
 		m_stdOutThread->Run();
 	}
-	m_stdErrThread = new PipeReadThread(m_appWindow, MSGID_STDERR,wxTHREAD_JOINABLE);	
+	m_stdErrThread = new PipeReadThread(m_appWindow, MSGID_STDERR,wxTHREAD_JOINABLE);
 	if (m_stdErrThread->Create() == wxTHREAD_NO_ERROR)
 	{
 		m_stdErrThread->SetFileDescriptor(m_openMSXstderr);
 		m_stdErrThread->Run();
 	}
-	
+
 	m_openMsxRunning = true;
 	PostLaunch();
 	m_appWindow->m_launch_AbortButton->Enable(true);
@@ -82,7 +82,7 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 	}
 	if (pid == 0) {
 		// child thread
-		
+
 		// redirect IO
 		close(pipeStdin[PIPE_WRITE]);
 		close(pipeStdout[PIPE_READ]);
@@ -102,7 +102,7 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 		argv[1] = "-c";
 		argv[2] = cmd;
 		argv[3] = 0;
-		
+
 		// really execute command
 		execvp(argv[0], argv);
 
@@ -157,7 +157,7 @@ wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 
 bool openMSXLinuxController::WriteMessage(xmlChar * msg,size_t length)
 {
-	if (!m_openMsxRunning) 
+	if (!m_openMsxRunning)
 		return false;
 //	if ((m_socket) && (m_socket->IsConnected())) {
 //		m_socket->Write(msg,length);

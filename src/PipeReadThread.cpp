@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.cpp,v 1.10 2004/05/09 14:25:51 manuelbi Exp $
+// $Id: PipeReadThread.cpp,v 1.11 2005/01/06 16:27:22 h_oudejans Exp $
 // PipeReadThread.cpp: implementation of the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 			wxCommandEvent event(EVT_CONTROLLER);
 			event.SetId(m_id);
 			event.SetClientData((void *)temp);
-			wxPostEvent(m_target, event);	
+			wxPostEvent(m_target, event);
 		}
 	} while (bytesRead > 0);
 	close (m_descriptor);
@@ -55,7 +55,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 	DWORD dwBytesRead;
 	BOOL bResult;
 	char szBuffer [1001];
-	do 	
+	do
 	{
 		bResult=ReadFile(m_hTarget,szBuffer,1000,&dwBytesRead,NULL);
 		if (bResult) // the bytes could not be read
@@ -70,7 +70,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 
 		}
 	} while (bResult);
-	
+
 #endif
 	wxCommandEvent endEvent(EVT_CONTROLLER);
 	endEvent.SetId(MSGID_ENDPROCESS);

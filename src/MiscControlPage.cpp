@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.45 2005/07/16 15:09:19 mthuurne Exp $
+// $Id: MiscControlPage.cpp,v 1.46 2005/12/31 21:06:33 manuelbi Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -93,14 +93,14 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	m_emulationSpeedLabel = (wxStaticText *)FindWindowByName(wxT("EmulationSpeedLabel"));
 
 
-	
+
 	wxComboBox* box = (wxComboBox *)FindWindowByName (wxT("PrinterportSelector"));
 	box->Clear();
 	box->Append(wxT("--empty--"));
 	box->Append(wxT("logger"));
 	box->Append(wxT("simpl"));
 
-	/* This doesn't do anything, because it is "disabled" according to a comment in ConfigurationData 
+	/* This doesn't do anything, because it is "disabled" according to a comment in ConfigurationData
 	wxString filename;
 	wxTextCtrl * text = (wxTextCtrl *)FindWindowByName(wxT("PrinterLogFile"));
 	wxString current;

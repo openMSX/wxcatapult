@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class FullScreenDlg : public wxDialog  
+class FullScreenDlg : public wxDialog
 {
 public:
 	FullScreenDlg(wxWindow * parent = NULL);

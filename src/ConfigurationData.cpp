@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.13 2005/10/22 19:16:24 h_oudejans Exp $
+// $Id: ConfigurationData.cpp,v 1.14 2005/12/10 14:14:41 h_oudejans Exp $
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ ConfigurationData::ConfigurationData()
 
 ConfigurationData::~ConfigurationData()
 {
-#if OPENMSX_DEMO_CD_VERSION	
+#if OPENMSX_DEMO_CD_VERSION
 	delete ConfigData;
 #endif
 }
@@ -193,7 +193,7 @@ bool ConfigurationData::GetParameter(int p_iId, wxString &p_data)
 			break;
 		case CD_PRINTERFILE:
 			p_data = m_usedPrinterfile;
-			break;		
+			break;
 		default:
 			retVal = false; // unknown ID
 			break;

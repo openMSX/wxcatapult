@@ -1,4 +1,4 @@
-// $Id: ScreenShotDlg.h,v 1.1 2004/10/03 17:02:12 h_oudejans Exp $
+// $Id: ScreenShotDlg.h,v 1.2 2004/10/03 17:17:26 h_oudejans Exp $
 // ScreenshotDlg.h: interface for the FullScreenDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -10,7 +10,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class ScreenshotDlg : public wxDialog  
+class ScreenshotDlg : public wxDialog
 {
 public:
 	ScreenshotDlg(wxWindow * parent = NULL);

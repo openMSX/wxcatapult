@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.14 2004/10/10 11:48:30 h_oudejans Exp $
+// $Id: CatapultPage.h,v 1.15 2005/05/14 11:17:12 h_oudejans Exp $
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@
 #define S_EVENT 2
 #define S_INVERT 4
 
-class CatapultPage : public wxPanel 
+class CatapultPage : public wxPanel
 {
 public:
 	CatapultPage(wxWindow * parent=NULL);
@@ -27,7 +27,7 @@ public:
 	virtual void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus)=0;
 	wxString ConvertPath (wxString path, bool ConvertSlash=false, bool Backwards=false); // need to move somewhere else
 protected:
-	
+
 
 private:
 	struct SettingTableElementType{
@@ -36,7 +36,7 @@ private:
 		bool (CatapultPage::*pfunction)(wxString,wxString,wxString,int);
 		int flags;
 	};
-	
+
 	SettingTableElementType * m_settingTable;
 	int m_settingTableSize;
 	void InitSettingsTable ();
@@ -54,4 +54,4 @@ private:
 	bool UpdatePluggable (wxString connector, wxString data, wxString control, int flags);
 };
 
-#endif 
+#endif

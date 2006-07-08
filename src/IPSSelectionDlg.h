@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class IPSSelectionDlg : public wxDialog  
+class IPSSelectionDlg : public wxDialog
 {
 public:
 	IPSSelectionDlg(wxWindow * parent = NULL);

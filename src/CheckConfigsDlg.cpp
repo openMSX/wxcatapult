@@ -45,7 +45,7 @@ CheckConfigsDlg::CheckConfigsDlg(wxWindow * parent)
 	m_invalidmachinecount = 0;
 	m_validextensioncount = 0;
 	m_invalidextensioncount = 0;
-}	
+}
 
 CheckConfigsDlg::~CheckConfigsDlg()
 {
@@ -63,7 +63,7 @@ int CheckConfigsDlg::ShowModal(wxString cmd, wxArrayString &machines, wxArrayStr
 
 void CheckConfigsDlg::EndModal(int retCode)		// TODO: check if this is also called for posix systems
 {
-	m_auditThread->m_running = false;		
+	m_auditThread->m_running = false;
 	m_auditThread->Wait();
 	wxDialog::EndModal(retCode);
 }
@@ -105,19 +105,19 @@ void CheckConfigsDlg::HandleUpdateStats(bool checkmachine, bool succes, int prog
 		}
 		else{
 			count.sprintf(wxT("%d"),++m_validextensioncount);
-			m_workingextensions->SetLabel(count);	
+			m_workingextensions->SetLabel(count);
 		}
 	}
 	else{
 		if (checkmachine) {
 			count.sprintf(wxT("%d"),++m_invalidmachinecount);
 			m_incompletemachines->SetLabel(count);
-			m_log->AppendText(wxT("machine: "));			
+			m_log->AppendText(wxT("machine: "));
 		}
 		else{
 			count.sprintf(wxT("%d"),++m_invalidextensioncount);
-			m_nonworkingextensions->SetLabel(count);	
-			m_log->AppendText(wxT("extension: "));					
+			m_nonworkingextensions->SetLabel(count);
+			m_log->AppendText(wxT("extension: "));
 		}
 		m_log->AppendText(m_currentObject);
 		m_log->AppendText(wxT("\n"));
@@ -184,11 +184,11 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		if (m_running){
 			UpdateStats (true, success, progress);
 		}
-		
+
 	}
 	int extension = 0;
 	config = 0;
-	while ((extension < (int)m_extensions->Count()) && m_running) {	
+	while ((extension < (int)m_extensions->Count()) && m_running) {
 		fullCommand = m_cmd;
 		fullCommand += wxT(" -testconfig");
 		fullCommand += wxT(" -machine ");
@@ -227,10 +227,10 @@ void CheckConfigsDlg::CheckConfigsThread::UpdateStats (bool checkmachine, bool s
 	data->m_checkmachine = checkmachine;
 	data->m_succes = succes;
 	data->m_progress = progress;
-	
+
 	checkConfigEvent.SetClientData ((void *)data);
 	checkConfigEvent.SetId(MSGID_UPDATESTATS);
-	wxPostEvent (m_target, checkConfigEvent);	
+	wxPostEvent (m_target, checkConfigEvent);
 }
 
 
@@ -241,7 +241,7 @@ void CheckConfigsDlg::CheckConfigsThread::SetCurrentObject (wxString object)
 	data->m_currentObject = object;
 	checkConfigEvent.SetClientData ((void *)data);
 	checkConfigEvent.SetId(MSGID_SETCURRENTOBJECT);
-	wxPostEvent (m_target, checkConfigEvent);	
+	wxPostEvent (m_target, checkConfigEvent);
 
 }
 
@@ -267,7 +267,7 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 	STARTUPINFOA si;
 	ZeroMemory(&si,sizeof(STARTUPINFOA));
 	si.cb = sizeof(STARTUPINFOA);
-	si.dwFlags = STARTF_USESHOWWINDOW;	
+	si.dwFlags = STARTF_USESHOWWINDOW;
 	si.wShowWindow = SW_HIDE;
 	CreateProcessA (NULL,buffer,
 			NULL,NULL,false, dwProcessFlags ,NULL,NULL,&si,&pi);
@@ -275,6 +275,6 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 	GetExitCodeProcess(pi.hProcess, &result);
 #else
 	result = system (buffer);
-#endif	
+#endif
 	return (result == 0);
 }

@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.32 2005/03/05 12:24:53 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.33 2005/05/13 14:11:01 h_oudejans Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ void AudioControlPage::InitAudioChannels(wxString channels)
 		if (pos != -1)
 		{
 			m_audioChannels.Add(temp.Left(pos));
-			temp = temp.Mid(pos + 1);					
+			temp = temp.Mid(pos + 1);
 		}
 	}while (pos !=-1);
 	if (!temp.IsEmpty()) // not everything parsed ?
@@ -113,10 +113,10 @@ void AudioControlPage::DestroyAudioMixer()
 		temp->Enable(false);
 	}
 	wxSizer * AudioSizer = m_audioPanel->GetSizer();
-	wxWindow * child; 
+	wxWindow * child;
 	if (m_audioChannels.GetCount() > 0)
 	{
-		for (unsigned i=m_audioChannels.GetCount();i>0;i--)	
+		for (unsigned i=m_audioChannels.GetCount();i>0;i--)
 		{
 			AudioSizer->Remove(i-1);
 			wxString number;
@@ -203,7 +203,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	wxString chanName =  GetAudioChannelName(channelnumber);
 	wxString chanType =  GetAudioChannelType(channelnumber);
 	wxString chanDesc = chanName;
-	if (chanType !=  chanName) { 
+	if (chanType !=  chanName) {
 		chanDesc += wxT(" (") +chanType +wxT(")");
 	}
 	chanDesc.Replace (wxT("\\ "),wxT(" "),true);
@@ -216,11 +216,11 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 				wxDefaultValidator,wxString(wxT("AudioMode_")+number));
 		combo->SetToolTip(wxT("Channel Mode"));
 	}
-	else if (chanType == wxT("master")) {	
+	else if (chanType == wxT("master")) {
 		button = new wxToggleButton(m_audioPanel,MUTEBUTTONID,wxT("Mute"), wxDefaultPosition,
 				wxDefaultSize,0,wxDefaultValidator,wxString(wxT("MuteButton")));
 	}
-	else {	
+	else {
 		combo = new wxComboBox(m_audioPanel,FIRSTAUDIOCOMBO+channelnumber,
 				wxT("M"), wxDefaultPosition,defaultsize,4,choices1,wxCB_READONLY,
 				wxDefaultValidator,wxString(wxT("AudioMode_")+number));
@@ -231,7 +231,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 
 	sizer->Add(label, 0, wxALIGN_CENTER_HORIZONTAL,0);
 	sizer->Add(slider, 1, wxALIGN_CENTER_HORIZONTAL,0);
-	if (channelnumber !=0) {	
+	if (channelnumber !=0) {
 		sizer->Add(combo,0,wxALIGN_CENTER_HORIZONTAL,0);
 	}
 	else {
@@ -240,7 +240,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	AudioSizer->Add(sizer,0,wxEXPAND | wxRIGHT,10);
 	AudioSizer->Fit(m_audioPanel);
 
-	for (i=wxEVT_SCROLL_TOP;i<=wxEVT_SCROLL_ENDSCROLL;i++) {	
+	for (i=wxEVT_SCROLL_TOP;i<=wxEVT_SCROLL_ENDSCROLL;i++) {
 		Connect(FIRSTAUDIOSLIDER+channelnumber,i,(wxObjectEventFunction)
 				(wxEventFunction)(wxCommandEventFunction)
 				&AudioControlPage::OnChangeVolume);
@@ -348,7 +348,7 @@ wxString AudioControlPage::GetAudioChannelName (int number)
 	else{
 		temp = m_audioChannels[number].Mid(pos+2);
 	}
-	temp.Replace (wxT(" "),wxT("\\ "),true);	
+	temp.Replace (wxT(" "),wxT("\\ "),true);
 	return wxString(temp);
 }
 
@@ -380,9 +380,9 @@ void AudioControlPage::SetChannelVolume (int number, wxString value)
 {
 	long intvalue;
 	wxSlider * slider = (wxSlider *)FindWindowById(number+FIRSTAUDIOSLIDER,this);
-	value.ToLong(&intvalue);	
+	value.ToLong(&intvalue);
 	slider->SetValue (100-intvalue);
-}	
+}
 
 void AudioControlPage::SetChannelMode (int number, wxString value)
 {
@@ -423,7 +423,7 @@ void AudioControlPage::InitAudioIO()
 				wxTextCtrl * miditext = (wxTextCtrl *)FindWindowByName (wxT("MidiInFileInput"));
 				wxButton * midibutton = (wxButton *)FindWindowByName(wxT("BrowseMidiInButton"));
 				miditext->Enable(true);
-				midibutton->Enable(true);				
+				midibutton->Enable(true);
 				child->Append(wxT("--empty--"));
 				for (j=0;j<pluggables.GetCount();j++) {
 					if (pluggables[j].Lower().Mid(0,7) == wxT("midi-in")) {
@@ -436,7 +436,7 @@ void AudioControlPage::InitAudioIO()
 					}
 				}
 				child->SetValue(wxT("--empty--"));
-				
+
 			}
 		}
 		if (connectors[i] == wxT("msx-midi-out")) {
@@ -450,7 +450,7 @@ void AudioControlPage::InitAudioIO()
 				wxTextCtrl * miditext = (wxTextCtrl *)FindWindowByName (wxT("MidiOutFileInput"));
 				wxButton * midibutton = (wxButton *)FindWindowByName(wxT("BrowseMidiOutButton"));
 				miditext->Enable(true);
-				midibutton->Enable(true);				
+				midibutton->Enable(true);
 				child->Append(wxT("--empty--"));
 				for (j=0;j<pluggables.GetCount();j++) {
 					if (pluggables[j].Lower().Mid(0,8) == wxT("midi-out")) {
@@ -462,7 +462,7 @@ void AudioControlPage::InitAudioIO()
 						}
 					}
 				}
-				child->SetValue(wxT("--empty--"));			
+				child->SetValue(wxT("--empty--"));
 			}
 		}
 		if (connectors[i] == wxT("pcminput")) {
@@ -476,14 +476,14 @@ void AudioControlPage::InitAudioIO()
 				wxTextCtrl * sampletext = (wxTextCtrl *)FindWindowByName (wxT("SampleFileInput"));
 				wxButton * samplebutton = (wxButton *)FindWindowByName(wxT("BrowseSampleInputButton"));
 				sampletext->Enable(true);
-				samplebutton->Enable(true);				
+				samplebutton->Enable(true);
 				child->Append(wxT("--empty--"));
 				for (j=0;j<pluggables.GetCount();j++) {
 					if (pluggables[j] == wxT("wavinput")) {
 						child->Append(pluggables[j]);
 					}
 				}
-				child->SetValue(wxT("--empty--"));				
+				child->SetValue(wxT("--empty--"));
 			}
 		}
 	}
@@ -599,7 +599,7 @@ void AudioControlPage::OnBrowseMidiInFile (wxCommandEvent & event)
 		miditext->SetValue (filedlg.GetPath());
 		if (!miditext->GetValue().IsEmpty()) {
 			m_controller->WriteCommand(wxT("set midi-in-readfilename ") + ConvertPath(miditext->GetValue(),true));
-		}		
+		}
 	}
 }
 
@@ -613,7 +613,7 @@ void AudioControlPage::OnBrowseMidiOutFile (wxCommandEvent & event)
 		miditext->SetValue (filedlg.GetPath());
 		if (!miditext->GetValue().IsEmpty()) {
 			m_controller->WriteCommand(wxT("set midi-out-logfilename ") + ConvertPath(miditext->GetValue(),true));
-		}		
+		}
 	}
 }
 
@@ -627,7 +627,7 @@ void AudioControlPage::OnBrowseSampleInFile (wxCommandEvent & event)
 		sampletext->SetValue (filedlg.GetPath());
 		if (!sampletext->GetValue().IsEmpty()) {
 			m_controller->WriteCommand(wxT("set audio-inputfilename ") + ConvertPath(sampletext->GetValue(),true));
-		}		
+		}
 	}
 }
 
@@ -637,7 +637,7 @@ void AudioControlPage::UpdateMidiPlug (wxString connector, wxString data)
 	wxArrayString pluggables;
 	wxArrayString descriptions;
 	m_controller->GetPluggables(pluggables);
-	m_controller->GetPluggableDescriptions(descriptions);	
+	m_controller->GetPluggableDescriptions(descriptions);
 	if (pluggables.GetCount() ==0) {
 		return;
 	}

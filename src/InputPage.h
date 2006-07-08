@@ -1,4 +1,4 @@
-// $Id: InputPage.h,v 1.2 2004/10/02 20:50:45 h_oudejans Exp $
+// $Id: InputPage.h,v 1.3 2004/12/13 22:11:48 manuelbi Exp $
 // InputPage.h: interface for the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,7 +14,7 @@
 
 class openMSXController;
 
-class InputPage : public CatapultPage  
+class InputPage : public CatapultPage
 {
 	public:
 		void SetControlsOnEnd();
@@ -37,4 +37,4 @@ class InputPage : public CatapultPage
 		DECLARE_EVENT_TABLE()
 };
 
-#endif 
+#endif

@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.17 2005/12/30 19:04:08 manuelbi Exp $
+// $Id: CatapultConfigDlg.cpp,v 1.18 2006/05/28 09:48:15 manuelbi Exp $
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent, openMSXController* contr
 		m_ExecPath->SetValue(temp);
 	}
 	if (temp == wxT("")) {
-#ifdef __WXMSW__		
+#ifdef __WXMSW__
 		guess = ((wxCatapultApp &)wxGetApp()).GetResourceDir();
 		guess.Replace (wxT("/"),wxT("\\"),true);
 		for (int i=0;i<2;i++) {
@@ -109,7 +109,7 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 		{
 			wxMessageBox(wxT("That's not a valid share path..."));
 		}
-		else if (m_controller->StartOpenMSX(tempExec, true)) 
+		else if (m_controller->StartOpenMSX(tempExec, true))
 		{
 			ConfigurationData * config = ConfigurationData::instance();
 			config->SetParameter(ConfigurationData::CD_EXECPATH,tempExec);
@@ -141,11 +141,11 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent &event)
 #endif
 
 	wxFileDialog filedlg(this,wxT("Select openMSX executable"),
-			defaultpath, wxT("openmsx") + executable, 
+			defaultpath, wxT("openmsx") + executable,
 			wxT("*") + executable,wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK)
 	{
-		m_ExecPath->SetValue (filedlg.GetPath());	
+		m_ExecPath->SetValue (filedlg.GetPath());
 	}
 }
 

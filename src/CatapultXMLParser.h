@@ -1,4 +1,4 @@
-// $Id: CatapultXMLParser.h,v 1.9 2004/08/26 14:29:46 h_oudejans Exp $
+// $Id: CatapultXMLParser.h,v 1.10 2004/11/06 11:58:09 h_oudejans Exp $
 // CatapultXMLParser.h: interface for the CatapultXMLParser class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@
 
 #include <libxml/parser.h>
 
-class CatapultXMLParser  
+class CatapultXMLParser
 {
 	public:
 		void ParseXmlInput (wxString input, unsigned int ID);
@@ -20,13 +20,13 @@ class CatapultXMLParser
 		virtual ~CatapultXMLParser();
 
 		enum ParseState {
-			STATE_START, 
-			TAG_OPENMSX, 
+			STATE_START,
+			TAG_OPENMSX,
 			TAG_REPLY,
 			TAG_LOG,
 			TAG_UPDATE,
-			
-		};		
+
+		};
 
 		enum ReplyStatus {
 			REPLY_UNKNOWN,
