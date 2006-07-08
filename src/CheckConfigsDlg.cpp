@@ -256,7 +256,9 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 {
 	unsigned long result;
 	char buffer[1000];
-#ifndef __WXMSW__
+#ifdef __WXMSW__
+	cmd += wxT(" > NUL");
+#else
 	cmd += wxT(" > /dev/null 2>&1");
 #endif
 	strcpy (buffer,(const char *) (wxConvUTF8.cWX2MB((cmd))));
@@ -265,14 +267,21 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE;
 	PROCESS_INFORMATION pi;
 	STARTUPINFOA si;
-	ZeroMemory(&si,sizeof(STARTUPINFOA));
+	ZeroMemory(&si, sizeof(STARTUPINFOA));
 	si.cb = sizeof(STARTUPINFOA);
 	si.dwFlags = STARTF_USESHOWWINDOW;
 	si.wShowWindow = SW_HIDE;
-	CreateProcessA (NULL,buffer,
-			NULL,NULL,false, dwProcessFlags ,NULL,NULL,&si,&pi);
-	WaitForSingleObject (pi.hProcess,INFINITE);
-	GetExitCodeProcess(pi.hProcess, &result);
+	BOOL created = CreateProcessA(
+		NULL, buffer, NULL, NULL, false, dwProcessFlags, NULL, NULL, &si, &pi
+		);
+	if (created) {
+		WaitForSingleObject(pi.hProcess, INFINITE);
+		GetExitCodeProcess(pi.hProcess, &result);
+		CloseHandle(pi.hProcess);
+		CloseHandle(pi.hThread);
+	} else {
+		result = 1;
+	}
 #else
 	result = system (buffer);
 #endif
