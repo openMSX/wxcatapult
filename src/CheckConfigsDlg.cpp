@@ -256,9 +256,7 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 {
 	unsigned long result;
 	char buffer[1000];
-#ifdef __WXMSW__
-	cmd += wxT(" > NUL");
-#else
+#ifndef __WXMSW__
 	cmd += wxT(" > /dev/null 2>&1");
 #endif
 	strcpy (buffer,(const char *) (wxConvUTF8.cWX2MB((cmd))));
