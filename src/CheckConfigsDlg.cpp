@@ -271,16 +271,16 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 	si.cb = sizeof(STARTUPINFOA);
 	si.dwFlags = STARTF_USESHOWWINDOW;
 	si.wShowWindow = SW_HIDE;
-	BOOL errCreate = CreateProcessA(
+	BOOL created = CreateProcessA(
 		NULL, buffer, NULL, NULL, false, dwProcessFlags, NULL, NULL, &si, &pi
 		);
-	if (errCreate) {
-		result = 1;
-	} else {
+	if (created) {
 		WaitForSingleObject(pi.hProcess, INFINITE);
 		GetExitCodeProcess(pi.hProcess, &result);
 		CloseHandle(pi.hProcess);
 		CloseHandle(pi.hThread);
+	} else {
+		result = 1;
 	}
 #else
 	result = system (buffer);
