@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.33 2005/05/13 14:11:01 h_oudejans Exp $
+// $Id: AudioControlPage.cpp,v 1.34 2006/07/08 12:45:14 mthuurne Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -267,6 +267,7 @@ void AudioControlPage::ConvertChannelNames(wxArrayString & names)
 	In.Add(wxT("Konami SCC+"));Out.Add(wxT("h SCC+\n"));
 	In.Add(wxT("MSX-AUDIO"));Out.Add(wxT("i AUDIO\nFM"));
 	In.Add(wxT("MSX-AUDIO 13-bit DAC"));Out.Add(wxT("j AUDIO\nDAC"));
+	In.Add(wxT("MSX-AUDIO 8-bit DAC"));Out.Add(wxT("k AUDIO\nDAC2"));
 	In.Add(wxT("MoonSound FM-part"));Out.Add(wxT("l MSnd\nFM"));
 	In.Add(wxT("MoonSound wave-part"));Out.Add(wxT("m MSnd\nWave"));
 	In.Add(wxT("Majutsushi DAC"));Out.Add(wxT("o Majutsu\nDAC"));
