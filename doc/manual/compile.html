@@ -98,7 +98,7 @@ Most openMSX developers run some form of Linux, so this is the platform on which
 </dd>
 <dt>Windows</dt>
 <dd>
-Most Windows users will just download the binary release. But if you want to follow the latest developments or like to play with the code a bit, it is possible to compile Catapult on Windows yourself. The main Catapult developer uses mainly Windows, so compilation is very well supported on this platform as well. This manual gives a few pointers in the right direction for that. 
+Most Windows users will just download the binary release. But if you want to follow the latest developments or like to play with the code a bit, it is possible to compile Catapult on Windows yourself. The former main Catapult developer used mainly Windows, so compilation is very well supported on this platform as well. This manual gives a few pointers in the right direction for that. 
 </dd>
 <dt>FreeBSD</dt>
 <dd>
@@ -477,59 +477,7 @@ are easy to follow and it takes only a few steps. There is no need to give
 any pointers here about this library.
 </p>
 
-<p>The remainder of this section is about compilation of wxWidgets 2.4. As said earlier, we recommend to use 2.6, so this is a bit outdated.</p>
-
-<p>
-In Linux, the compilation of wxWidgets 2.4 is quite straightforward, but it is of course a lot easier to just grab some packages for your favourite distribution. Anyway, just follow the
-docs provided with the library and the wxgtk library should be created. 
-Don't forget to change to the directory <code>/wxGTK-2.4.2/contrib</code> and 
-build those libraries too. You'll need the XRC library for Catapult.
-Compilation of libxml2 is also easy. The libxml2 documentation should give more
-than enough information to build it.
-</p>
-
-<p>
-wxWidgets 2.4 uses a configuration file to be able to select which features should
-be compiled into the library. If these settings are wrong it won't be possible
-to use the Catapult resources, which are essential for running Catapult. 
-This configuration file is called <code>setup.h</code> and can be found in
-<code>/wxWindows-2.4.2/include/wx/msw</code>, for Windows.
-Make sure you adjust the following settings:
-</p>
-
-<ul>
-<li><code>#define wxUSE_PROPSHEET 1</code></li>
-<li><code>#define wxUSE_PROLOGIO 1</code></li>
-<li><code>#define wxUSE_WX_RESOURCES 1</code></li>
-</ul>
-
-<p>
-Without these adjustments the XRC library won't compile. Also, because of the
-<code>PROLOGIO</code> setting, you won't be able to build a Unicode library.
-After changing these settings, compilation should be easy (using the
-<code>wxWindows.dsw</code> file in Visual C++). After compilation you should
-make these libraries available to Visual C++.
-</p>
-
-<p>
-After compiling the wxWidgets library it's time for the XRC extension.
-Its sources can be found in <code>/wxWindows-2.4.2/contrib/src/xrc</code>.
-In Visual C++, open the workspace file (<code>XrcVC.dsw</code>) and go to
-Project Settings-&gt;Library.
-Make sure the DLL-linked version and the statically linked version don't point
-to the same file. Catapult uses the statically linked version and expects it to
-be called:
-</p>
-
-<ul>
-<li><code>wxxrcs.lib</code> (Release version)</li>
-<li><code>wxxrcds.lib</code> (Debug version)</li>
-</ul>
-
-<p>
-After the link targets are changed you can compile the library and make it
-available for Visual C++.
-</p>
+<p>As we recommend to use wxWidgets 2.6, we will not supply info about compilatin of wxWidgets 2.4 anymore.</p>
 
 <h3><a id="compilenow">3.4. Compilation Itself</a></h3>
 
@@ -608,7 +556,7 @@ to make sure it should work:
 or <code>libxml2.dll</code> should be somewhere in your path</li>
 <li>The resources (XRC) should be in the directory (relative from 
 <code>Catapult.exe</code>) <code>..\resources\dialogs</code></li>
-<li>The bitmaps (bmp) should be in the directory (also relative 
+<li>The bitmaps (png) should be in the directory (also relative 
 from <code>Catapult.exe</code>) <code>..\resources\bitmaps</code></li>
 </ul>
 
@@ -684,7 +632,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.16 2005/12/30 21:37:42 manuelbi Exp $
+$Id: compile.html,v 1.17 2006/07/28 21:15:33 manuelbi Exp $
 </p>
 
 </body>
