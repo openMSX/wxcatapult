@@ -474,8 +474,12 @@ wxWidgets Home</a> and the libxml2 sources are available at
 
 <p>Compilation of wxWidgets 2.6 couldn't be more straightforward. The docs provided
 are easy to follow and it takes only a few steps. There is no need to give 
-any pointers here about this library.
+any pointers here about this library. We do give the proper <code>configure</code> command line here:
 </p>
+
+<div class="commandline">
+./configure  --disable-shared --disable-fontmap --disable-unicode --disable-html --enable-xrc --enable-controls --with-msw
+</div>
 
 <p>As we recommend to use wxWidgets 2.6, we will not supply info about compilatin of wxWidgets 2.4 anymore.</p>
 
@@ -632,7 +636,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.17 2006/07/28 21:15:33 manuelbi Exp $
+$Id: compile.html,v 1.18 2006/07/29 15:40:59 manuelbi Exp $
 </p>
 
 </body>
