@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.152 2006/05/24 19:29:36 manuelbi Exp $
+$Id: ChangeLog,v 1.153 2006/05/26 15:07:27 manuelbi Exp $
+
+2006-07-30 Manuel Bilderbeek <manuel@msxnet.org>
+	* Prepared for release of 0.6.1-R1.
 
 2006-05-26 Manuel Bilderbeek <manuel@msxnet.org>
 	* Use 'cart' i.s.o. 'carta' and 'cartb' to specify the cartridges.

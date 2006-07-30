@@ -1,41 +1,17 @@
-Release Notes for openMSX Catapult 0.6.0-R2 (2006-01-29)
+Release Notes for openMSX Catapult 0.6.1-R1 (2006-07-30)
 ========================================================
 
-This is a bugfix release for Windows users.
-
-One problem was fixed in Catapult itself: no machine was selected at the very
-first startup (after scanning the available machines).
-
-A new Windows binary release is built with a differently configured wxWidgets:
-the FontMap stuff of wxWidgets gives registry problems for some Windows users,
-so we disabled it.
-
-
-Release Notes for openMSX Catapult 0.6.0-R1 (2006-01-21)
-========================================================
-
-This new release brings the following improvements:
-
-User interface:
-
-Added: support for 2 keyjoysticks
-Added: dialog to check which openMSX hardware configurations are working.
-Added: menu option to display or hide broken hardware configurations.
-Added: option to disable config check after setup.
-Added: record button for cassette recorder, for new openMSX functionality.
-Added: scaler factor selector, for new openMSX functionality.
-Fixed: several details.
-
-Compilation:
-
-Added: Support for wxWidgets 2.6.x, which is now preferred as well.
+This is a release to make openMSX Catapult compatible with openMSX 0.6.1.
+No features were added, only some minor bugs were fixed. The plan is to work
+on a successor of Catapult as soon as possible.
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
 - the select extension listbox doesn't work properly when using wxWidgets 2.6.x
   Use the spacebar to deselect extensions!
 - typing into openMSX doesn't support language specific characters yet
-- still not complete
+- still not complete, especially for newer features you will have to revert to
+  the openMSX console (press F10)
 
 openMSX Home Page:
   http://openmsx.sourceforge.net/
@@ -45,7 +21,7 @@ Contact options:
 - Send a message to the openmsx-user mailing list.
   Go to the SourceForge project page and look under "Lists".
 - Use the Forums on the project page.
-- Use the new forum on www.openmsx.org.
+- Use the new forum on forum.openmsx.org.
 - Talk to us on #openMSX on irc.freenode.net.
 
 Have fun with your emulated MSX!

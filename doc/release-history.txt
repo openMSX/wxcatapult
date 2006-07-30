@@ -3,6 +3,13 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 0.6.1-R1 (2006-07-30)
+--------------------------------------
+
+This is a release to make openMSX Catapult compatible with openMSX 0.6.1.
+No features were added, only some minor bugs were fixed. The plan is to work
+on a successor of Catapult as soon as possible.
+
 openMSX Catapult 0.6.0-R2 (2006-01-29)
 --------------------------------------
 
