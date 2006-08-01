@@ -44,7 +44,7 @@ clean:
 	- rm -rf derived/
 	- rm -rf debian/openmsx-catapult
 	-rm -f openmsx-catapult.1
-	dh_clean 
+	dh_clean
 
 install: build
 	dh_testdir

@@ -1,3 +1,34 @@
+openmsx-catapult (0.6.1-R1-1) unstable; urgency=low
+  * new upstream release: note that upstream is no longer actively
+    developing openmsx-catapult, but just maintaining it
+  * depend on openmsx >= 0.6.1
+  * bump standards-version
+  * add support for powerpc64 (Closes: #363470)
+    (Note that I do not use dpatch here; it is not needed as
+     the fix is already incorporated in upstream CVS)
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Tue,  1 Aug 2006 20:11:44 +0200
+
+openmsx-catapult (0.6.0-R1-3) unstable; urgency=low
+
+  * gcc-4.1 fix for extra qualification in openMSXController.h
+    (Closes: #358582), also verified with gcc-snapshot
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Sat,  1 Apr 2006 10:31:54 +0200
+
+openmsx-catapult (0.6.0-R1-2) unstable; urgency=low
+
+  * depend on openmsx >= 0.6.0 (needed for control interface protocol)
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Sun, 22 Jan 2006 13:46:27 +0100
+
+openmsx-catapult (0.6.0-R1-1) unstable; urgency=low
+
+  * compat level 5
+  * new upstream release 0.6.0-R1
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Sun, 22 Jan 2006 09:51:56 +0100
+
 openmsx-catapult (0.5.2.2-3) unstable; urgency=low
   * compat level 4
 
