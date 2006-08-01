@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: detectsys.sh,v 1.1 2004/11/14 18:34:26 h_oudejans Exp $
+# $Id: detectsys.sh,v 1.2 2005/04/25 21:13:34 manuelbi Exp $
 
 MYDIR=`dirname $0` || exit
 #MYDIR=/usr/share/automake-1.7
@@ -35,6 +35,8 @@ case "$GUESSED_CPU" in
 		CATAPULT_TARGET_CPU=x86_64;;
 	powerpc)
 		CATAPULT_TARGET_CPU=ppc;;
+	powerpc64)
+		CATAPULT_TARGET_CPU=ppc64;;
 	sparc*)
 		CATAPULT_TARGET_CPU=sparc;;
 	m68k)

@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.153 2006/05/26 15:07:27 manuelbi Exp $
+$Id: ChangeLog,v 1.154 2006/07/30 17:20:59 manuelbi Exp $
+
+2006-08-01 Joost Yervante Damad <joost@lumatec.be>
+	* support for powerpc64
 
 2006-07-30 Manuel Bilderbeek <manuel@msxnet.org>
 	* Prepared for release of 0.6.1-R1.
