@@ -1,4 +1,4 @@
-# $Id: main.mk,v 1.43 2006/01/15 08:02:14 mthuurne Exp $
+# $Id: main.mk,v 1.44 2006/01/21 17:27:00 mthuurne Exp $
 #
 # Makefile for openMSX Catapult
 # =============================
@@ -244,7 +244,7 @@ DEPEND_FLAGS+=-MP
 # Compiler flags
 # ==============
 
-CXXFLAGS+=-pipe -Wall
+CXXFLAGS+=-pipe -Wall --no-strict-aliasing
 CXXFLAGS+=-I$(CONFIG_PATH)
 CXXFLAGS+=$(XRC_CFLAGS) $(XML_CFLAGS)
 LINK_FLAGS+=$(XRC_LDFLAGS) $(XML_LDFLAGS)

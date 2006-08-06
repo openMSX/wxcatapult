@@ -1,4 +1,8 @@
-$Id: ChangeLog,v 1.154 2006/07/30 17:20:59 manuelbi Exp $
+$Id: ChangeLog,v 1.155 2006/08/01 18:03:22 andete Exp $
+
+2006-08-06 Joost Yervante Damad <joost@lumatec.be>
+	* compile with --no-strict-aliasing to avoid possible problems in
+	  wx2.6 library
 
 2006-08-01 Joost Yervante Damad <joost@lumatec.be>
 	* support for powerpc64
