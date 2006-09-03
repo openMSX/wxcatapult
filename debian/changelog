@@ -1,3 +1,8 @@
+openmsx-catapult (0.6.1-R1-2) unstable; urgency=low
+  * build with --no-strict-aliasing to avoid brokenness of wx2.6
+
+ -- Joost Yervante Damad <joost@lumatec.be>  Sat,  5 Aug 2006 17:20:15 +0200
+
 openmsx-catapult (0.6.1-R1-1) unstable; urgency=low
   * new upstream release: note that upstream is no longer actively
     developing openmsx-catapult, but just maintaining it
