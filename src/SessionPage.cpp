@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.81 2007/01/17 20:41:36 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.82 2007/01/17 21:43:46 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -1448,6 +1448,7 @@ void SessionPage::GetRomTypes ()
 	SetupRomType(wxT("KoeiSRAM32"),wxT("Koei with 32kB SRAM"));
 	SetupRomType(wxT("Wizardry"),wxT("Wizardry"));
 	SetupRomType(wxT("GameMaster2"),wxT("Konami Game Master 2"));
+	SetupRomType(wxT("Synthesizer"),wxT("Konami Synthesizer"));
 	SetupRomType(wxT("RC755"),wxT("Konami Game Master 2"));
 	SetupRomType(wxT("Majutsushi"),wxT("Hai no Majutsushi"));
 }
