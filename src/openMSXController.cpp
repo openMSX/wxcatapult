@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.99 2006/07/08 12:45:15 mthuurne Exp $
+// $Id: openMSXController.cpp,v 1.100 2007/01/17 20:52:05 m9710797 Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -590,10 +590,10 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("set power on"),wxT("e"),wxT("power"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("unset renderer"),wxT("e"),wxT(""),NULL,true);
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::EnableMainWindow,false);
-	AddLaunchInstruction (wxT("#info renderer"),wxT(""),wxT("RendererSelector"),&openMSXController::FillComboBox,true);
-	AddLaunchInstruction (wxT("#info scale_algorithm"),wxT(""),wxT("ScalerAlgoSelector"),&openMSXController::FillComboBox,true);
+	AddLaunchInstruction (wxT("@info renderer"),wxT(""),wxT("RendererSelector"),&openMSXController::FillComboBox,true);
+	AddLaunchInstruction (wxT("@info scale_algorithm"),wxT(""),wxT("ScalerAlgoSelector"),&openMSXController::FillComboBox,true);
 	AddLaunchInstruction (wxT("lindex [openmsx_info setting scale_factor] 2"),wxT(""),wxT("ScalerFactorSelector"),&openMSXController::FillRangeComboBox,true);
-	AddLaunchInstruction (wxT("#info accuracy"),wxT(""),wxT("AccuracySelector"),&openMSXController::FillComboBox,false);
+	AddLaunchInstruction (wxT("@info accuracy"),wxT(""),wxT("AccuracySelector"),&openMSXController::FillComboBox,false);
 	AddLaunchInstruction (wxT("update enable media"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("info exist frontswitch"),wxT(""),wxT("#"),&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction (wxT("info exist firmwareswitch"),wxT(""),wxT("#"),&openMSXController::EnableFirmware,false);
@@ -697,6 +697,9 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 		cmd = translate(tokens,recvLoop,lastdata);
 		if (command == cmd) {
 			if (tokens[0] == wxT("#info")) {
+				lastdata = data->contents;
+			}
+			if (tokens[0] == wxT("@info")) {
 				lastdata = data->contents;
 			}
 			HandleLaunchReply (cmd,event,m_launchScript[recvStep],&sendStep,recvLoop,lastdata);
@@ -866,6 +869,21 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 		switch (tokens[token][(size_t)0]) {
 		case '#':
 			if (tokens[token].Mid(0,5)== wxT("#info")) {
+				wxString parameter = wxT("");
+				while (token < (tokens.GetCount()-1)) {
+					parameter += tokens[token+1];
+					parameter += wxT(" ");
+					tokens.RemoveAt(token+1);
+				}
+				parameter.Trim(true);
+				tokens[token] = wxString(wxT("join [openmsx_info ") + parameter + wxT("] \\n"));
+			}
+			else {
+				assert(false); // invalid command
+			}
+			break;
+		case '@':
+			if (tokens[token].Mid(0,5)== wxT("@info")) {
 				wxString parameter = wxT("");
 				while (token < (tokens.GetCount()-1)) {
 					parameter += tokens[token+1];
