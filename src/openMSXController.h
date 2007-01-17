@@ -1,4 +1,4 @@
-// $Id: openMSXController.h,v 1.41 2006/03/24 21:26:43 manuelbi Exp $
+// $Id: openMSXController.h,v 1.42 2006/07/08 12:45:15 mthuurne Exp $
 // openMSXController.h: interface for the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -58,7 +58,6 @@ class openMSXController
 		openMSXController(wxWindow * target);
 		virtual ~openMSXController();
 
-		wxString GetInfoCommand (wxString parameter);
 		bool IsOpenMSXRunning() {return m_openMsxRunning;};
 		void InitLaunchScript ();
 	protected:

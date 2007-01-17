@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.98 2006/05/28 09:39:48 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.99 2006/07/08 12:45:15 mthuurne Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -249,7 +249,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 					}
 					else{
 						wxString command = GetPendingCommand();
-						if (command == GetInfoCommand(wxT("fps"))) {
+						if (command == wxT("openmsx_info fps")) {
 							m_appWindow->SetFPSdisplay(data->contents);
 						}
 						else if (command == wxT("save_settings")){
@@ -418,10 +418,6 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent &event)
 	executeLaunch(&event);
 }
 
-wxString openMSXController::GetInfoCommand (wxString parameter)
-{
-	return wxString (wxT("join [openmsx_info ") + parameter +wxT("] \\n"));
-}
 
 int openMSXController::InitConnectors(wxString dummy, wxString connectors)
 {
@@ -877,7 +873,7 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 					tokens.RemoveAt(token+1);
 				}
 				parameter.Trim(true);
-				tokens[token] = GetInfoCommand(parameter);
+				tokens[token] = wxString(wxT("join [lindex [openmsx_info setting ") + parameter + wxT("] 2] \\n"));
 			}
 			else {
 				assert(false); // invalid command
