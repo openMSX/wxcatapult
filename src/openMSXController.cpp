@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.100 2007/01/17 20:52:05 m9710797 Exp $
+// $Id: openMSXController.cpp,v 1.101 2007/01/17 21:12:36 m9710797 Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -618,11 +618,11 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("set minframeskip"),wxT(""),wxT("minframeskip"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("set throttle"),wxT(""),wxT("throttle"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("set cmdtiming"),wxT(""),wxT("cmdtiming"),&openMSXController::UpdateSetting,true);
-	AddLaunchInstruction (wxT("#info pluggable"),wxT("13"),wxT(""),&openMSXController::InitPluggables,true);
-	AddLaunchInstruction (wxT("#info_nostore pluggable *"),wxT(""),wxT("*"),&openMSXController::AddPluggableDescription,true);
-	AddLaunchInstruction (wxT("#info_nostore connectionclass *"),wxT(""),wxT("*"),&openMSXController::AddPluggableClass,false);
-	AddLaunchInstruction (wxT("#info connector"),wxT("10"),wxT(""),&openMSXController::InitConnectors,true);
-	AddLaunchInstruction (wxT("#info_nostore connectionclass *"),wxT(""),wxT("*"),&openMSXController::AddConnectorClass,false);
+	AddLaunchInstruction (wxT("!info pluggable"),wxT("13"),wxT(""),&openMSXController::InitPluggables,true);
+	AddLaunchInstruction (wxT("!info_nostore pluggable *"),wxT(""),wxT("*"),&openMSXController::AddPluggableDescription,true);
+	AddLaunchInstruction (wxT("!info_nostore connectionclass *"),wxT(""),wxT("*"),&openMSXController::AddPluggableClass,false);
+	AddLaunchInstruction (wxT("!info connector"),wxT("10"),wxT(""),&openMSXController::InitConnectors,true);
+	AddLaunchInstruction (wxT("!info_nostore connectionclass *"),wxT(""),wxT("*"),&openMSXController::AddConnectorClass,false);
 	AddLaunchInstruction (wxT("plug *"),wxT(""),wxT("*"),&openMSXController::AddConnectorContents,true);
 	AddLaunchInstruction (wxT("@checkfor msx-midi-in"),wxT("1"),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("set midi-in-readfilename"),wxT(""),wxT("midi-in-readfilename"),&openMSXController::UpdateSetting,true);
@@ -634,8 +634,8 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::InitAudioConnectorPanel,false);
 //	AddLaunchInstruction (wxT("#info romtype"),wxT(""),wxT(""),&openMSXController::InitRomTypes,true);
 //	AddLaunchInstruction (wxT("#info_nostore romtype *"),wxT(""),wxT("*"),&openMSXController::SetRomDescription,true);
-	AddLaunchInstruction (wxT("#info sounddevice"),wxT("5"),wxT(""),&openMSXController::InitSoundDevices,true);
-	AddLaunchInstruction (wxT("#info_nostore sounddevice *"),wxT(""),wxT("*"),&openMSXController::SetChannelType,true);
+	AddLaunchInstruction (wxT("!info sounddevice"),wxT("5"),wxT(""),&openMSXController::InitSoundDevices,true);
+	AddLaunchInstruction (wxT("!info_nostore sounddevice *"),wxT(""),wxT("*"),&openMSXController::SetChannelType,true);
 	AddLaunchInstruction (wxT("set master_volume"),wxT(""),wxT("master_volume"),&openMSXController::UpdateSetting,false);
 	AddLaunchInstruction (wxT("set *_volume"),wxT(""),wxT("*_volume"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("set *_mode"),wxT(""),wxT("*_mode"),&openMSXController::UpdateSetting,true);
@@ -700,6 +700,9 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 				lastdata = data->contents;
 			}
 			if (tokens[0] == wxT("@info")) {
+				lastdata = data->contents;
+			}
+			if (tokens[0] == wxT("!info")) {
 				lastdata = data->contents;
 			}
 			HandleLaunchReply (cmd,event,m_launchScript[recvStep],&sendStep,recvLoop,lastdata);
@@ -877,6 +880,21 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 				}
 				parameter.Trim(true);
 				tokens[token] = wxString(wxT("join [openmsx_info ") + parameter + wxT("] \\n"));
+			}
+			else {
+				assert(false); // invalid command
+			}
+			break;
+		case '!':
+			if (tokens[token].Mid(0,5)== wxT("!info")) {
+				wxString parameter = wxT("");
+				while (token < (tokens.GetCount()-1)) {
+					parameter += tokens[token+1];
+					parameter += wxT(" ");
+					tokens.RemoveAt(token+1);
+				}
+				parameter.Trim(true);
+				tokens[token] = wxString(wxT("join [machine_info ") + parameter + wxT("] \\n"));
 			}
 			else {
 				assert(false); // invalid command
