@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.79 2005/12/31 12:35:50 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.80 2006/05/28 10:05:01 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -1393,59 +1393,47 @@ void SessionPage::OnBrowseDiskIps(wxCommandEvent & event)
 void SessionPage::GetRomTypes ()
 {
 	// TODO get it from openMSX
+	// NOTE: this list is incomplete! REALLY GET IT FROM OPENMSX!
 	SetupRomType(wxT(""),wxT("Autodetect type"));
 	SetupRomType(wxT("AUTO"),wxT("Autodetect type"));
-	SetupRomType(wxT("PAGE0"),wxT("Plain 16 kB Page 0"));
-	SetupRomType(wxT("PAGE1"),wxT("Plain 16 kB Page 1"));
-	SetupRomType(wxT("PAGE2"),wxT("Plain 16 kB Page 2 (Basic)"));
-	SetupRomType(wxT("ROMBAS"),wxT("Plain 16 kB Page 2 (Basic)"));
-	SetupRomType(wxT("PAGE3"),wxT("Plain 16 kB Page 3"));
-	SetupRomType(wxT("PAGE01"),wxT("Plain 32 kB Page 0-1"));
-	SetupRomType(wxT("PAGE12"),wxT("Plain 32 kB Page 1-2"));
-	SetupRomType(wxT("PAGE23"),wxT("Plain 32 kB Page 2-3"));
-	SetupRomType(wxT("PAGE012"),wxT("Plain 48 kB Page 0-2"));
-	SetupRomType(wxT("PAGE123"),wxT("Plain 48 kB Page 1-3"));
-	SetupRomType(wxT("PAGE0123"),wxT("Plain 64 kB"));
-	SetupRomType(wxT("PLAIN"),wxT("Plain (Any size)"));
-	SetupRomType(wxT("64kB"),wxT("Plain (Any size)"));
-//	SetupRomType(wxT("DRAM"),wxT("DRAM"));
+	SetupRomType(wxT("Page0"),wxT("Plain 16 kB Page 0"));
+	SetupRomType(wxT("Page1"),wxT("Plain 16 kB Page 1"));
+	SetupRomType(wxT("Page2"),wxT("Plain 16 kB Page 2 (Basic)"));
+	SetupRomType(wxT("Normal8000"),wxT("Plain 16 kB Page 2 (Basic)"));
+	SetupRomType(wxT("Page3"),wxT("Plain 16 kB Page 3"));
+	SetupRomType(wxT("Page01"),wxT("Plain 32 kB Page 0-1"));
+	SetupRomType(wxT("Page12"),wxT("Plain 32 kB Page 1-2"));
+	SetupRomType(wxT("Page23"),wxT("Plain 32 kB Page 2-3"));
+	SetupRomType(wxT("Page012"),wxT("Plain 48 kB Page 0-2"));
+	SetupRomType(wxT("Page123"),wxT("Plain 48 kB Page 1-3"));
+	SetupRomType(wxT("Page0123"),wxT("Plain 64 kB"));
+	SetupRomType(wxT("Mirrored"),wxT("Plain (Any size)"));
 	SetupRomType(wxT("8kB"),wxT("Generic 8kB"));
-	SetupRomType(wxT("0"),wxT("Generic 8kB"));
 	SetupRomType(wxT("16kB"),wxT("Generic 16kB"));
-	SetupRomType(wxT("1"),wxT("Generic 16kB"));
-	SetupRomType(wxT("MSXDOS2"),wxT("Generic 16kB"));
-	SetupRomType(wxT("KONAMI4"),wxT("Konami without SCC"));
-	SetupRomType(wxT("3"),wxT("Konami without SCC"));
-	SetupRomType(wxT("KONAMI5"),wxT("Konami with SCC"));
-	SetupRomType(wxT("SCC"),wxT("Konami with SCC"));
-	SetupRomType(wxT("2"),wxT("Konami with SCC"));
+	SetupRomType(wxT("Konami"),wxT("Konami without SCC"));
+	SetupRomType(wxT("KonamiSCC"),wxT("Konami with SCC"));
 	SetupRomType(wxT("ASCII8"),wxT("Ascii 8kB"));
-	SetupRomType(wxT("4"),wxT("Ascii 8kB"));
 	SetupRomType(wxT("ASCII16"),wxT("Ascii 16kB"));
-	SetupRomType(wxT("5"),wxT("Ascii 16kB"));
-	SetupRomType(wxT("RTYPE"),wxT("R-Type"));
-	SetupRomType(wxT("CROSSBLAIM"),wxT("Cross Blaim"));
-//	SetupRomType(wxT("PANASONIC"),wxT("Panasonic"));
-//	SetupRomType(wxT("NATIONAL"),wxT("National"));
+	SetupRomType(wxT("Padial8"),wxT("Padial 8kB"));
+	SetupRomType(wxT("Padial16"),wxT("Padial 16kB"));
+	SetupRomType(wxT("R-Type"),wxT("R-Type"));
+	SetupRomType(wxT("CrossBlaim"),wxT("Cross Blaim"));
 	SetupRomType(wxT("MSX-AUDIO"),wxT("MSX-Audio"));
-	SetupRomType(wxT("HARRYFOX"),wxT("Harry Fox"));
-	SetupRomType(wxT("HALNOTE"),wxT("Halnote"));
-	SetupRomType(wxT("KOREAN80IN1"),wxT("Korean Multigame (80 in 1)"));
-	SetupRomType(wxT("KOREAN90IN1"),wxT("Korean Multigame (90 in 1)"));
-	SetupRomType(wxT("KOREAN126IN1"),wxT("Korean Multigame (126 in 1)"));
-	SetupRomType(wxT("HOLYQURAN"),wxT("Holy Qu'ran"));
-//	SetupRomType(wxT("FSA1FM1"),wxT("Panasonic FS-A1FM Rom1"));
-//	SetupRomType(wxT("FSA1FM2"),wxT("Panasonic FS-A1FM Rom2"));
-	SetupRomType(wxT("ASCII16-2"),wxT("Ascii 16kB with SRAM"));
-	SetupRomType(wxT("HYDLIDE2"),wxT("Ascii 16kB with SRAM"));
-	SetupRomType(wxT("ASCII8-8"),wxT("Ascii 8kB with SRAM"));
-	SetupRomType(wxT("KOEI-8"),wxT("Koei with 8kB SRAM"));
-	SetupRomType(wxT("KOEI-32"),wxT("Koei with 32kB SRAM"));
+	SetupRomType(wxT("HarryFox"),wxT("Harry Fox"));
+	SetupRomType(wxT("Halnote"),wxT("Halnote"));
+	SetupRomType(wxT("Playball"),wxT("Playball"));
+	SetupRomType(wxT("Zemina80in1"),wxT("Zemina Multigame (80 in 1)"));
+	SetupRomType(wxT("Zemina90in1"),wxT("Zemina Multigame (90 in 1)"));
+	SetupRomType(wxT("Zemina126in1"),wxT("Zemina Multigame (126 in 1)"));
+	SetupRomType(wxT("HolyQuran"),wxT("Holy Qu'ran"));
+	SetupRomType(wxT("ASCII16SRAM2"),wxT("Ascii 16kB with SRAM"));
+	SetupRomType(wxT("ASCII8SRAM8"),wxT("Ascii 8kB with SRAM"));
+	SetupRomType(wxT("KoeiSRAM8"),wxT("Koei with 8kB SRAM"));
+	SetupRomType(wxT("KoeiSRAM32"),wxT("Koei with 32kB SRAM"));
 	SetupRomType(wxT("Wizardry"),wxT("Wizardry"));
-	SetupRomType(wxT("GAMEMASTER2"),wxT("Konami Game Master 2"));
+	SetupRomType(wxT("GameMaster2"),wxT("Konami Game Master 2"));
 	SetupRomType(wxT("RC755"),wxT("Konami Game Master 2"));
-	SetupRomType(wxT("SYNTHESIZER"),wxT("Konami Synthesizer"));
-	SetupRomType(wxT("MAJUTSUSHI"),wxT("Hai no Majutsushi"));
+	SetupRomType(wxT("Majutsushi"),wxT("Hai no Majutsushi"));
 }
 
 void SessionPage::AddRomType(wxString type)
