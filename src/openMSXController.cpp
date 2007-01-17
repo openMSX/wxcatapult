@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.101 2007/01/17 21:12:36 m9710797 Exp $
+// $Id: openMSXController.cpp,v 1.102 2007/01/17 21:26:02 m9710797 Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -590,10 +590,10 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("set power on"),wxT("e"),wxT("power"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("unset renderer"),wxT("e"),wxT(""),NULL,true);
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::EnableMainWindow,false);
-	AddLaunchInstruction (wxT("@info renderer"),wxT(""),wxT("RendererSelector"),&openMSXController::FillComboBox,true);
-	AddLaunchInstruction (wxT("@info scale_algorithm"),wxT(""),wxT("ScalerAlgoSelector"),&openMSXController::FillComboBox,true);
+	AddLaunchInstruction (wxT("^info renderer"),wxT(""),wxT("RendererSelector"),&openMSXController::FillComboBox,true);
+	AddLaunchInstruction (wxT("^info scale_algorithm"),wxT(""),wxT("ScalerAlgoSelector"),&openMSXController::FillComboBox,true);
 	AddLaunchInstruction (wxT("lindex [openmsx_info setting scale_factor] 2"),wxT(""),wxT("ScalerFactorSelector"),&openMSXController::FillRangeComboBox,true);
-	AddLaunchInstruction (wxT("@info accuracy"),wxT(""),wxT("AccuracySelector"),&openMSXController::FillComboBox,false);
+	AddLaunchInstruction (wxT("^info accuracy"),wxT(""),wxT("AccuracySelector"),&openMSXController::FillComboBox,false);
 	AddLaunchInstruction (wxT("update enable media"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("info exist frontswitch"),wxT(""),wxT("#"),&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction (wxT("info exist firmwareswitch"),wxT(""),wxT("#"),&openMSXController::EnableFirmware,false);
@@ -699,7 +699,7 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 			if (tokens[0] == wxT("#info")) {
 				lastdata = data->contents;
 			}
-			if (tokens[0] == wxT("@info")) {
+			if (tokens[0] == wxT("^info")) {
 				lastdata = data->contents;
 			}
 			if (tokens[0] == wxT("!info")) {
@@ -900,8 +900,8 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 				assert(false); // invalid command
 			}
 			break;
-		case '@':
-			if (tokens[token].Mid(0,5)== wxT("@info")) {
+		case '^':
+			if (tokens[token].Mid(0,5)== wxT("^info")) {
 				wxString parameter = wxT("");
 				while (token < (tokens.GetCount()-1)) {
 					parameter += tokens[token+1];
