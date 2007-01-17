@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.80 2006/05/28 10:05:01 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.81 2007/01/17 20:41:36 manuelbi Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -481,12 +481,16 @@ void SessionPage::OnBrowseCassette(wxCommandEvent &event)
 
 void SessionPage::OnClickDiskACombo(wxCommandEvent & event)
 {
+	wxComboBox * box = (wxComboBox *)event.GetEventObject();
+	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
-	OnChangeDiskAContents(event);
-	if (m_controller->IsOpenMSXRunning()) {
-		m_controller->WriteCommand(wxT("diska eject"));
-		if (!m_diskA->contents.IsEmpty()) {
-			m_controller->WriteCommand(wxT("diska ") + ConvertPath(m_diskA->contents,true));
+	if (sel != box->GetString(box->GetSelection())) { // HACK to prevent crash
+		OnChangeDiskAContents(event);
+		if (m_controller->IsOpenMSXRunning()) {
+			m_controller->WriteCommand(wxT("diska eject"));
+			if (!m_diskA->contents.IsEmpty()) {
+				m_controller->WriteCommand(wxT("diska ") + ConvertPath(m_diskA->contents,true));
+			}
 		}
 	}
 }
@@ -500,12 +504,16 @@ void SessionPage::OnChangeDiskAContents(wxCommandEvent & event)
 
 void SessionPage::OnClickDiskBCombo(wxCommandEvent & event)
 {
+	wxComboBox * box = (wxComboBox *)event.GetEventObject();
+	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
-	OnChangeDiskBContents(event);
-	if (m_controller->IsOpenMSXRunning()) {
-		m_controller->WriteCommand(wxT("diskb eject"));
-		if (!m_diskB->contents.IsEmpty()) {
-			m_controller->WriteCommand(wxT("diskb ") + ConvertPath(m_diskB->contents,true));
+	if (sel != box->GetString(box->GetSelection())) { // HACK to prevent crash
+		OnChangeDiskBContents(event);
+		if (m_controller->IsOpenMSXRunning()) {
+			m_controller->WriteCommand(wxT("diskb eject"));
+			if (!m_diskB->contents.IsEmpty()) {
+				m_controller->WriteCommand(wxT("diskb ") + ConvertPath(m_diskB->contents,true));
+			}
 		}
 	}
 }
@@ -528,13 +536,17 @@ void SessionPage::UpdateMenuMapperLabel(mediaInfo * target)
 
 void SessionPage::OnClickCartACombo(wxCommandEvent & event)
 {
+	wxComboBox * box = (wxComboBox *)event.GetEventObject();
+	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
-	m_cartA->ips.Clear();
-	m_cartA->contents = m_cartA->control->GetValue();
-	m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	m_cartA->type = m_cartA->typehistory[event.GetInt()];
-	UpdateMenuMapperLabel(m_cartA);
-	m_cartA->avoid_evt = true;
+	if (sel != box->GetString(box->GetSelection())) { // HACK to prevent crash
+		m_cartA->ips.Clear();
+		m_cartA->contents = m_cartA->control->GetValue();
+		m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
+		m_cartA->type = m_cartA->typehistory[event.GetInt()];
+		UpdateMenuMapperLabel(m_cartA);
+		m_cartA->avoid_evt = true;
+	}
 }
 
 void SessionPage::OnChangeCartAContents(wxCommandEvent & event)
@@ -551,13 +563,17 @@ void SessionPage::OnChangeCartAContents(wxCommandEvent & event)
 
 void SessionPage::OnClickCartBCombo(wxCommandEvent & event)
 {
+	wxComboBox * box = (wxComboBox *)event.GetEventObject();
+	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
-	m_cartB->ips.Clear();
-	m_cartB->contents = m_cartB->control->GetValue();
-	m_cartB->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-	m_cartB->type = m_cartB->typehistory[event.GetInt()];
-	UpdateMenuMapperLabel(m_cartB);
-	m_cartB->avoid_evt = true;
+	if (sel != box->GetString(box->GetSelection())) { // HACK to prevent crash
+		m_cartB->ips.Clear();
+		m_cartB->contents = m_cartB->control->GetValue();
+		m_cartB->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
+		m_cartB->type = m_cartB->typehistory[event.GetInt()];
+		UpdateMenuMapperLabel(m_cartB);
+		m_cartB->avoid_evt = true;
+	}
 }
 
 void SessionPage::OnChangeCartBContents(wxCommandEvent & event)
