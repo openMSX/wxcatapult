@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.35 2006/07/15 07:50:11 m9710797 Exp $
+// $Id: AudioControlPage.cpp,v 1.36 2007/02/13 17:45:34 m9710797 Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -273,7 +273,7 @@ void AudioControlPage::ConvertChannelNames(wxArrayString & names)
 	In.Add(wxT("Majutsushi DAC"));Out.Add(wxT("o Majutsu\nDAC"));
 	In.Add(wxT("Konami Synthesizer DAC"));Out.Add(wxT("p Konami\nSynth"));
 	In.Add(wxT("Play samples via your printer port."));Out.Add(wxT("q SIMPL\n"));
-	In.Add(wxT("Sony PlayBall DAC"));Out.Add(wxT("r PlayBall"));
+	In.Add(wxT("Sony PlayBall DAC"));Out.Add(wxT("r PlayBall\n"));
 	In.Add(wxT("Cassetteplayer, use to read .cas or .wav files."));Out.Add(wxT("z cas-\nsette"));
 
 	for (i=0;i<names.GetCount();i++) {
