@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.155 2006/08/01 18:03:22 andete Exp $
+$Id: ChangeLog,v 1.156 2006/08/06 05:41:45 andete Exp $
+
+2007-02-18 Manuel Bilderbeek <manuel@msxnet.org>
+	* Prepared for release 0.6.2-R1, hopefully the last release.
+	  Several compatibility fixes have been done, mostly by Wouter.
+	  Thanks!
 
 2006-08-06 Joost Yervante Damad <joost@lumatec.be>
 	* compile with --no-strict-aliasing to avoid possible problems in
