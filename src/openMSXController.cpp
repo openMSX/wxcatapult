@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.103 2007/01/17 21:32:19 m9710797 Exp $
+// $Id: openMSXController.cpp,v 1.104 2007/03/01 20:18:48 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -565,7 +565,7 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 		wxMessageBox (wxT("Unable to determine openMSX version!\nPlease upgrade to 0.6.2 or higher.\n(Or contact the authors.)"),wxT("Error"));
 		return false;
 	}
-	if (ver < 600) {
+	if (ver < 602) {
 		wxMessageBox (wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.6.2 or higher."),wxT("Error"));
 		return false;
 	}
