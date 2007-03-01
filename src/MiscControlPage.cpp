@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.46 2005/12/31 21:06:33 manuelbi Exp $
+// $Id: MiscControlPage.cpp,v 1.47 2006/07/08 12:45:15 mthuurne Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -99,6 +99,8 @@ MiscControlPage::MiscControlPage(wxWindow * parent, openMSXController * controll
 	box->Append(wxT("--empty--"));
 	box->Append(wxT("logger"));
 	box->Append(wxT("simpl"));
+	box->Append(wxT("msx-printer"));
+	box->Append(wxT("epson-printer"));
 
 	/* This doesn't do anything, because it is "disabled" according to a comment in ConfigurationData
 	wxString filename;
