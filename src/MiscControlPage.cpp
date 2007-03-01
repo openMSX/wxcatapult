@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.47 2006/07/08 12:45:15 mthuurne Exp $
+// $Id: MiscControlPage.cpp,v 1.48 2007/03/01 20:11:22 manuelbi Exp $
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -125,7 +125,7 @@ MiscControlPage::~MiscControlPage()
 {
 }
 
-void MiscControlPage::FillInitialJoystickPortValues (int number_of_keyjoys)
+void MiscControlPage::FillInitialJoystickPortValues ()
 {
 //  temporary hardcoded joystick port devices (not for BSD)
 	wxString current;
@@ -146,14 +146,8 @@ void MiscControlPage::FillInitialJoystickPortValues (int number_of_keyjoys)
 		box[i]->Append(wxT("joynet"));
 		box[i]->Append(wxT("tetris2-protection"));
 		box[i]->Append(wxT("magic-key"));
-		if (number_of_keyjoys == 1){
-			box[i]->Append(wxT("keyjoystick"));
-		}
-		else{
-			box[i]->Append(wxT("keyjoystick1"));
-			box[i]->Append(wxT("keyjoystick2"));
-		}
-
+		box[i]->Append(wxT("keyjoystick1"));
+		box[i]->Append(wxT("keyjoystick2"));
 
 #ifndef __BSD__
 		for (int j=1;j<=joy.GetNumberJoysticks();j++) {

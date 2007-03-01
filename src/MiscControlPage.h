@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.27 2005/07/02 09:46:24 h_oudejans Exp $
+// $Id: MiscControlPage.h,v 1.28 2006/07/08 12:45:15 mthuurne Exp $
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ class MiscControlPage : public CatapultPage
 		void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
 		void InitConnectorPanel ();
 		void InvalidPrinterLogFilename();
-		void FillInitialJoystickPortValues (int number_of_keyjoys);
+		void FillInitialJoystickPortValues ();
 		wxToggleButton * m_powerButton;
 
 	private:

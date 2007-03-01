@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.102 2007/01/17 21:26:02 m9710797 Exp $
+// $Id: openMSXController.cpp,v 1.103 2007/01/17 21:32:19 m9710797 Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -562,21 +562,14 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 	}
 	// printf ("Detected openMSX version: %d\n", ver);
 	if (ver == -1) {
-		wxMessageBox (wxT("Unable to determine openMSX version!\nPlease upgrade to 0.6.0 or higher.\n(Or contact the authors.)"),wxT("Error"));
+		wxMessageBox (wxT("Unable to determine openMSX version!\nPlease upgrade to 0.6.2 or higher.\n(Or contact the authors.)"),wxT("Error"));
 		return false;
 	}
 	if (ver < 600) {
-		wxMessageBox (wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.6.0 or higher."),wxT("Error"));
+		wxMessageBox (wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.6.2 or higher."),wxT("Error"));
 		return false;
 	}
-	if ((version.Find(wxT("-dev")) != -1) || (ver > 502)) {
-		// put specific code for NEW versions here
-		m_appWindow->m_miscControlPage->FillInitialJoystickPortValues(2);
-	}
-	else{
-		// put specific code for OLD supported versions here
-		m_appWindow->m_miscControlPage->FillInitialJoystickPortValues(1);
-	}
+	m_appWindow->m_miscControlPage->FillInitialJoystickPortValues();
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	return true;
 }
