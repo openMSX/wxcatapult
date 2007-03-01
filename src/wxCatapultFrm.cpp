@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.cpp,v 1.91 2006/07/30 17:20:59 manuelbi Exp $
+// $Id: wxCatapultFrm.cpp,v 1.92 2007/01/17 20:52:05 m9710797 Exp $
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
@@ -287,7 +287,7 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 	);
 	version->SetLabel(msg);
 	description->SetLabel(wxT("The official GUI for openMSX"));
-	message->SetLabel(wxT("\251 2003-2006 The openMSX Team\n<openmsx-devel@lists.sourceforge.net>\n"));
+	message->SetLabel(wxT("\251 2003-2007 The openMSX Team\n<openmsx-devel@lists.sourceforge.net>\n"));
 #ifdef __WXMSW__
 		dlg.SetSize(-1,-1,400,307,0);
 #else
