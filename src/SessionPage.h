@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.35 2005/12/31 12:35:51 manuelbi Exp $
+// $Id: SessionPage.h,v 1.36 2006/07/08 12:45:15 mthuurne Exp $
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -121,6 +121,7 @@ class SessionPage : public CatapultPage
 			wxArrayString typehistory;
 			wxMenu * mmenu;
 			bool avoid_evt;
+			wxString oldContents;
 			wxString lastContents;
 			wxString deviceName;
 		};

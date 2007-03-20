@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.82 2007/01/17 21:43:46 manuelbi Exp $
+// $Id: SessionPage.cpp,v 1.83 2007/01/17 22:14:34 m9710797 Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -255,6 +255,7 @@ void SessionPage::EjectDisk (mediaInfo * target)
 	target->ips.Clear();
 	target->mmenu->SetLabel(Disk_Browse_Ips,wxT("Select IPS Patches (None selected)"));
 	target->lastContents = wxT("");
+	target->oldContents = wxT("");
 	wxString cmd = target->deviceName + wxT(" eject");
 	m_controller->WriteCommand(cmd);
 }
@@ -268,6 +269,7 @@ void SessionPage::EjectCart(mediaInfo * target)
 	target->control->SetSelection(wxNOT_FOUND);
 	target->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
 	target->mmenu->SetLabel(Cart_Select_Mapper,wxT("Select cartridge type (AUTO)"));
+	target->oldContents = wxT("");
 }
 
 void SessionPage::OnEjectCartByMenu (wxCommandEvent & event)
@@ -536,16 +538,15 @@ void SessionPage::UpdateMenuMapperLabel(mediaInfo * target)
 
 void SessionPage::OnClickCartACombo(wxCommandEvent & event)
 {
-	wxComboBox * box = (wxComboBox *)event.GetEventObject();
-	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
-	if (sel != box->GetString(box->GetSelection())) { // HACK to prevent crash
+	if (m_cartA->control->GetValue() != m_cartA->oldContents) { // HACK to prevent crash
 		m_cartA->ips.Clear();
 		m_cartA->contents = m_cartA->control->GetValue();
 		m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
 		m_cartA->type = m_cartA->typehistory[event.GetInt()];
 		UpdateMenuMapperLabel(m_cartA);
 		m_cartA->avoid_evt = true;
+		m_cartA->oldContents = m_cartA->contents;
 	}
 }
 
@@ -557,22 +558,22 @@ void SessionPage::OnChangeCartAContents(wxCommandEvent & event)
 		m_cartA->contents = m_cartA->control->GetValue();
 		m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
 		UpdateMenuMapperLabel(m_cartA);
+		m_cartA->oldContents = m_cartA->contents;
 	}
 	m_cartA->avoid_evt = false;
 }
 
 void SessionPage::OnClickCartBCombo(wxCommandEvent & event)
 {
-	wxComboBox * box = (wxComboBox *)event.GetEventObject();
-	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
-	if (sel != box->GetString(box->GetSelection())) { // HACK to prevent crash
+	if (m_cartB->control->GetValue() != m_cartB->oldContents) { // HACK to prevent crash
 		m_cartB->ips.Clear();
 		m_cartB->contents = m_cartB->control->GetValue();
 		m_cartB->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
 		m_cartB->type = m_cartB->typehistory[event.GetInt()];
 		UpdateMenuMapperLabel(m_cartB);
 		m_cartB->avoid_evt = true;
+		m_cartB->oldContents = m_cartB->contents;
 	}
 }
 
@@ -583,7 +584,8 @@ void SessionPage::OnChangeCartBContents(wxCommandEvent & event)
 		m_cartB->type=wxT("");
 		m_cartB->contents = m_cartB->control->GetValue();
 		m_cartB->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
-		UpdateMenuMapperLabel(m_cartA);
+		UpdateMenuMapperLabel(m_cartB);
+		m_cartB->oldContents = m_cartB->contents;
 	}
 	m_cartB->avoid_evt = false;
 }
@@ -1086,6 +1088,7 @@ void SessionPage::RestoreHistory()
 		if ((m_InsertedMedia & (1 << i)) && (media[i]->history.GetCount() >0)) {
 			media[i]->control->SetSelection(0);
 			media[i]->contents=media[i]->history[0];
+			media[i]->oldContents=media[i]->history[0];
 			if ((media[i]==m_cartA) || (media[i]==m_cartB)){
 				media[i]->type=media[i]->typehistory[0];
 				UpdateMenuMapperLabel(media[i]);
@@ -1094,6 +1097,7 @@ void SessionPage::RestoreHistory()
 		else {
 			media[i]->control->SetValue(wxT(""));
 			media[i]->contents=wxT("");
+			media[i]->oldContents=wxT("");
 		}
 	}
 	config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
