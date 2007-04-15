@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.6.2-R1 (2007-02-??)
+Release Notes for openMSX Catapult 0.6.2-R1 (2007-04-15)
 ========================================================
 
 This is a release to make openMSX Catapult compatible with openMSX 0.6.2.
