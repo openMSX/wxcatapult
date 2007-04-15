@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.156 2006/08/06 05:41:45 andete Exp $
+$Id: ChangeLog,v 1.157 2007/02/18 11:11:51 manuelbi Exp $
+
+2007-04-15 Manuel Bilderbeek <manuel@msxnet.org>
+	* Today we released 0.6.2-R1.
 
 2007-02-18 Manuel Bilderbeek <manuel@msxnet.org>
 	* Prepared for release 0.6.2-R1, hopefully the last release.
