@@ -1,4 +1,4 @@
-// $Id: openMSXController.cpp,v 1.104 2007/03/01 20:18:48 manuelbi Exp $
+// $Id: openMSXController.cpp,v 1.105 2007/03/01 20:25:45 manuelbi Exp $
 // openMSXController.cpp: implementation of the openMSXController class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -631,7 +631,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("!info_nostore sounddevice *"),wxT(""),wxT("*"),&openMSXController::SetChannelType,true);
 	AddLaunchInstruction (wxT("set master_volume"),wxT(""),wxT("master_volume"),&openMSXController::UpdateSetting,false);
 	AddLaunchInstruction (wxT("set *_volume"),wxT(""),wxT("*_volume"),&openMSXController::UpdateSetting,true);
-	AddLaunchInstruction (wxT("set *_mode"),wxT(""),wxT("*_mode"),&openMSXController::UpdateSetting,true);
+	AddLaunchInstruction (wxT("set *_balance"),wxT(""),wxT("*_balance"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("set mute"),wxT(""),wxT("mute"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("plug cassetteport"),wxT(""),wxT("cassetteport"),&openMSXController::EnableCassettePort,false);
 	AddLaunchInstruction (wxT("join [cassetteplayer] \\n"),wxT(""),wxT(""),&openMSXController::SetCassetteMode,false);

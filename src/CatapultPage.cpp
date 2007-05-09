@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.37 2005/12/10 14:14:41 h_oudejans Exp $
+// $Id: CatapultPage.cpp,v 1.38 2006/07/08 12:45:14 mthuurne Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ void CatapultPage::InitSettingsTable ()
 	AddSetting(wxT("midi-out-logfilename"),wxT("MidiOutFileInput"),&CatapultPage::UpdateIndicatorSetting,0);
 	AddSetting(wxT("audio-inputfilename"),wxT("SampleFileInput"),&CatapultPage::UpdateIndicatorSetting,0);
 	AddSetting(wxT("*_volume"),wxT("volume"),&CatapultPage::UpdateAudioSetting,0);
-	AddSetting(wxT("*_mode"),wxT("mode"),&CatapultPage::UpdateAudioSetting,0);
+	AddSetting(wxT("*_balance"),wxT("balance"),&CatapultPage::UpdateAudioSetting,0);
 	AddSetting(wxT("msx-midi-in"),wxT("MidiInSelector"),&CatapultPage::UpdateMidiPlug,0);
 	AddSetting(wxT("msx-midi-out"),wxT("MidiOutSelector"),&CatapultPage::UpdateMidiPlug,0);
 	AddSetting(wxT("pcminput"),wxT("SampleInSelector"),&CatapultPage::UpdatePluggable,0);

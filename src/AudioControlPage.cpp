@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.36 2007/02/13 17:45:34 m9710797 Exp $
+// $Id: AudioControlPage.cpp,v 1.37 2007/02/13 19:18:02 m9710797 Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -274,6 +274,7 @@ void AudioControlPage::ConvertChannelNames(wxArrayString & names)
 	In.Add(wxT("Konami Synthesizer DAC"));Out.Add(wxT("p Konami\nSynth"));
 	In.Add(wxT("Play samples via your printer port."));Out.Add(wxT("q SIMPL\n"));
 	In.Add(wxT("Sony PlayBall DAC"));Out.Add(wxT("r PlayBall\n"));
+	In.Add(wxT("Konami Keyboard Master VLM5030"));Out.Add(wxT("s Konami\nVLM5030"));
 	In.Add(wxT("Cassetteplayer, use to read .cas or .wav files."));Out.Add(wxT("z cas-\nsette"));
 
 	for (i=0;i<names.GetCount();i++) {
@@ -314,25 +315,34 @@ void AudioControlPage::OnChangeMode(wxCommandEvent& event)
 	switch (tempval[0])
 	{
 		case 'M':
-			value = wxT("mono");
+			value = wxT("0");
 			break;
 		case 'L':
-			value = wxT("left");
+			value = wxT("-100");
 			break;
 		case 'R':
-			value = wxT("right");
+			value = wxT("100");
 			break;
 		case 'O':
-			value = wxT("off");
+			value = wxT("mute"); // mute
 			break;
 		case 'S':
-			value = wxT("stereo");
+			value = wxT("0"); // unmute
 		default:
 			break;
 	}
 	wxString cmd;
-	cmd.sprintf(wxT("set %s_mode %s"),(char *)channelname.c_str(),(char *)value.c_str());
-	m_controller->WriteCommand(cmd);
+	if (value.IsNumber())
+	{
+		cmd.sprintf(wxT("set %s_balance %s"),(char *)channelname.c_str(),(char *)value.c_str());
+		m_controller->WriteCommand(cmd);
+		cmd.sprintf(wxT("unmute_channels %s"),(char *)channelname.c_str());
+		m_controller->WriteCommand(cmd);
+	}
+	else{
+		cmd.sprintf(wxT("mute_channels %s"),(char *)channelname.c_str());
+		m_controller->WriteCommand(cmd);
+	}
 }
 
 void AudioControlPage::OnMute(wxCommandEvent& event)
@@ -389,11 +399,18 @@ void AudioControlPage::SetChannelVolume (int number, wxString value)
 void AudioControlPage::SetChannelMode (int number, wxString value)
 {
 	wxString val;
-	if (value==wxT("mono")) val = wxT("M");
-	if (value==wxT("left")) val = wxT("L");
-	if (value==wxT("right")) val = wxT("R");
-	if (value==wxT("off")) val = wxT("O");
-	if (value==wxT("stereo")) val = wxT("S");
+	if (value.IsNumber())
+	{
+		long num;
+		value.ToLong(&num);
+		val = wxT("M");
+		if (num <= -33) val = wxT("L");
+		if (num >= 33) val = wxT("R");
+		wxString chanType =  GetAudioChannelType(number);
+		if ((chanType.Mid(0,9) == wxT("MoonSound")) && ((val == wxT("L")) || (val == wxT("M")) || (val == wxT("R")))) val = wxT("S");
+	}
+	//if (value==wxT("off")) val = wxT("O"); // mute
+	//if (value==wxT("stereo")) val = wxT("S");
 	wxComboBox * combo = (wxComboBox *)FindWindowById(number+FIRSTAUDIOCOMBO,this);
 	combo->SetSelection(combo->FindString(val));
 }

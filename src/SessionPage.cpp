@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.83 2007/01/17 22:14:34 m9710797 Exp $
+// $Id: SessionPage.cpp,v 1.84 2007/03/20 20:48:20 bifimsx Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -1455,6 +1455,7 @@ void SessionPage::GetRomTypes ()
 	SetupRomType(wxT("Synthesizer"),wxT("Konami Synthesizer"));
 	SetupRomType(wxT("RC755"),wxT("Konami Game Master 2"));
 	SetupRomType(wxT("Majutsushi"),wxT("Hai no Majutsushi"));
+	SetupRomType(wxT("KeyboardMaster"),wxT("Konami Keyboard Master"));
 }
 
 void SessionPage::AddRomType(wxString type)
