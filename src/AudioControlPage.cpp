@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.37 2007/02/13 19:18:02 m9710797 Exp $
+// $Id: AudioControlPage.cpp,v 1.38 2007/05/09 16:37:13 bifimsx Exp $
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -270,11 +270,11 @@ void AudioControlPage::ConvertChannelNames(wxArrayString & names)
 	In.Add(wxT("MSX-AUDIO 8-bit DAC"));Out.Add(wxT("k AUDIO\nDAC2"));
 	In.Add(wxT("MoonSound FM-part"));Out.Add(wxT("l MSnd\nFM"));
 	In.Add(wxT("MoonSound wave-part"));Out.Add(wxT("m MSnd\nWave"));
-	In.Add(wxT("Majutsushi DAC"));Out.Add(wxT("o Majutsu\nDAC"));
-	In.Add(wxT("Konami Synthesizer DAC"));Out.Add(wxT("p Konami\nSynth"));
+	In.Add(wxT("Hai no Majutsushi's DAC"));Out.Add(wxT("o Majutsu\nDAC"));
+	In.Add(wxT("Konami Synthesizer's DAC"));Out.Add(wxT("p Konami\nSynth"));
 	In.Add(wxT("Play samples via your printer port."));Out.Add(wxT("q SIMPL\n"));
-	In.Add(wxT("Sony PlayBall DAC"));Out.Add(wxT("r PlayBall\n"));
-	In.Add(wxT("Konami Keyboard Master VLM5030"));Out.Add(wxT("s Konami\nVLM5030"));
+	In.Add(wxT("Sony Playball's DAC"));Out.Add(wxT("r Playball\n"));
+	In.Add(wxT("Konami Keyboard Master's VLM5030"));Out.Add(wxT("s Konami\nVLM5030"));
 	In.Add(wxT("Cassetteplayer, use to read .cas or .wav files."));Out.Add(wxT("z cas-\nsette"));
 
 	for (i=0;i<names.GetCount();i++) {
