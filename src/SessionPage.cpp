@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.84 2007/03/20 20:48:20 bifimsx Exp $
+// $Id: SessionPage.cpp,v 1.85 2007/05/09 16:37:13 bifimsx Exp $
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -1429,7 +1429,7 @@ void SessionPage::GetRomTypes ()
 	SetupRomType(wxT("Page0123"),wxT("Plain 64 kB"));
 	SetupRomType(wxT("Mirrored"),wxT("Plain (Any size)"));
 	SetupRomType(wxT("8kB"),wxT("Generic 8kB"));
-	SetupRomType(wxT("16kB"),wxT("Generic 16kB"));
+	SetupRomType(wxT("MSXDOS2"),wxT("MSX-DOS 2"));
 	SetupRomType(wxT("Konami"),wxT("Konami without SCC"));
 	SetupRomType(wxT("KonamiSCC"),wxT("Konami with SCC"));
 	SetupRomType(wxT("ASCII8"),wxT("Ascii 8kB"));
@@ -1453,7 +1453,6 @@ void SessionPage::GetRomTypes ()
 	SetupRomType(wxT("Wizardry"),wxT("Wizardry"));
 	SetupRomType(wxT("GameMaster2"),wxT("Konami Game Master 2"));
 	SetupRomType(wxT("Synthesizer"),wxT("Konami Synthesizer"));
-	SetupRomType(wxT("RC755"),wxT("Konami Game Master 2"));
 	SetupRomType(wxT("Majutsushi"),wxT("Hai no Majutsushi"));
 	SetupRomType(wxT("KeyboardMaster"),wxT("Konami Keyboard Master"));
 }
