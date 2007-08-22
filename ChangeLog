@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.158 2007/04/15 14:44:32 manuelbi Exp $
+$Id: ChangeLog,v 1.159 2007/05/09 16:39:20 bifimsx Exp $
+
+2007-08-22 Manuel Bilderbeek <manuel@msxnet.org>
+	* Prepared for another 'dead' release: 0.6.3-R1...
 
 2007-05-09 Albert Beevendorp
 	* Added Keyboard Master
