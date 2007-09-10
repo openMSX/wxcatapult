@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.38 2006/07/08 12:45:14 mthuurne Exp $
+// $Id: CatapultPage.cpp,v 1.39 2007/05/09 16:37:13 bifimsx Exp $
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -125,8 +125,20 @@ void CatapultPage::AddSetting (wxString setting, wxString controlname,
 	m_settingTableSize ++;
 }
 
+static wxString removeBackslash(const wxString& s)
+{
+	wxString result;
+	int len = s.Length();
+	for (int i = 0; i < len; ++i) {
+		if (s[i] != '\\') {
+			result += s[i];
+		}
+	}
+	return result;
+}
 void CatapultPage::UpdateSetting(wxString name, wxString data)
 {
+	name = removeBackslash(name); // !!! HACK !!!
 	int index = 0;
 	bool found = false;
 	while ((!found) && (index < SETTINGTABLE_MAXSIZE)) {
@@ -264,7 +276,8 @@ bool CatapultPage::UpdateAudioSetting (wxString setting, wxString data, wxString
 		}
 	}
 	for (i=0;i<audiopage->GetNumberOfAudioChannels();i++) {
-		if ((audiopage->GetAudioChannelName(i) + wxT("_") + selection) == setting) {
+		wxString name = removeBackslash(audiopage->GetAudioChannelName(i)); // !!! HACK !!!
+		if ((name + wxT("_") + selection) == setting) {
 			if (selection == wxT("volume")) {
 				audiopage->SetChannelVolume(i,data);
 			}
