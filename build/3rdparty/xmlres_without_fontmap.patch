@@ -1,0 +1,43 @@
+--- xmlres.cpp	Sat Sep 29 19:07:10 2007
++++ xmlresPATCHED.cpp	Thu Aug 30 10:05:16 2007
+@@ -1336,6 +1336,7 @@
+ 
+     wxString facename;
+     bool hasFacename = HasParam(wxT("face"));
++#if wxUSE_FONTMAP
+     if (hasFacename)
+     {
+         wxString faces = GetParamValue(wxT("face"));
+@@ -1352,9 +1353,11 @@
+             }
+         }
+     }
++#endif
+ 
+     // encoding
+     wxFontEncoding enc = wxFONTENCODING_DEFAULT;
++#if wxUSE_FONTMAP
+     bool hasEncoding = HasParam(wxT("encoding"));
+     if (hasEncoding)
+     {
+@@ -1365,6 +1368,7 @@
+         if (enc == wxFONTENCODING_SYSTEM)
+             enc = wxFONTENCODING_DEFAULT;
+     }
++#endif
+ 
+     // is this font based on a system font?
+     wxFont sysfont = GetSystemFont(GetParamValue(wxT("sysfont")));
+@@ -1385,10 +1389,12 @@
+             sysfont.SetUnderlined(underlined);
+         if (hasFamily)
+             sysfont.SetFamily(ifamily);
++#if wxUSE_FONTMAP
+         if (hasFacename)
+             sysfont.SetFaceName(facename);
+         if (hasEncoding)
+             sysfont.SetDefaultEncoding(enc);
++#endif
+ 
+         m_node = oldnode;
+         return sysfont;
