@@ -387,9 +387,9 @@ For compilation in Windows you will need one of the following:
 <dd>Catapult was written with version 6.0. Whether it also compiles on higher 
 versions is unknown at this point. You also need to download <code>sed.exe</code> from
 <a class="external" href="http://www.gnu.org/">GNU Home</a> and <code>touch.exe</code> 
-from <a class="external" href="http://unxutils.sourceforge.net/">UnxUtils</a></dd>
+from <a class="external" href="http://unxutils.sourceforge.net/">UnxUtils</a>. Although this may still work, we haven't test this in ages, so in case of problems, please revert to the MinGW method described below.</dd>
 
-<dt>The combination of Minimal System (msys) and Minimalist GNU for Windows (MinGW32)</dt>
+<dt>The combination of Minimal System (msys) and Minimalist GNU for Windows (MinGW)</dt>
 <dd>This is the same combination that is needed to compile openMSX on Windows.
 Although compilation works, the generated executable will be larger than the
 binary released version (which is compiled with Visual C++) and will also need the MinGW runtime DLL.
@@ -426,25 +426,17 @@ On a Debian testing system, the packages are called:
 </p>
 
 <dl>
-<dt>libwxgtk-2.4 or libwxgtk2.6-0</dt>
+<dt>libwxgtk2.6-0</dt>
 <dd>wxWindows Cross-platform C++ GUI toolkit (GTK+ runtime). This is the 
 main runtime wxWidgets library</dd>
 
-<dt>libwxgtk-2.4-dev or libwxgtk2.6-dev</dt>
+<dt>libwxgtk2.6-dev</dt>
 <dd>This package contains the necessary headers to compile.</dd>
-
-<dt>libwxgtk-2.4-contrib</dt>
-<dd>Needed to be able to use the resources of Catapult. This package is only needed when compiling with wxWidgets 2.4</dd>
-
-<dt>libwxgtk-2.4-contrib-dev</dt>
-<dd>And the accompanied headers. This package is only needed when compiling with wxWidgets 2.4</dd>
 </dl>
 
 <p>
-Some Linux distributions do not package the 'contrib' part of wxWidgets 2.4, 
-if that is the case for your distribution, you will either have to compile both 
-the wxWindows core and contrib from source or switch to version 2.6 (if it's available). We recommend to use 2.6 anyway, as it has less bugs and gives a lot better graphical UI on non-Windows systems.
-Also for Windows there are no binary releases available.
+Although other versions are available, we recommend to use wxWidgets 2.6.
+For Windows there are no binary releases available.
 Please read the next section for instructions for compiling wxWidgets from source.
 </p>
 
@@ -477,10 +469,21 @@ any pointers here about this library. We do give the proper <code>configure</cod
 </p>
 
 <div class="commandline">
-./configure  --disable-shared --disable-fontmap --disable-unicode --disable-html --enable-xrc --enable-controls --with-msw
+./configure  --disable-shared --disable-fontmap --disable-unicode --disable-html --enable-xrc --enable-controls --with-msw --enable-monolithic
 </div>
 
-<p>As we recommend to use wxWidgets 2.6, we will not supply info about compilatin of wxWidgets 2.4 anymore.</p>
+<p>
+Because of bugs in wxWidgets 2.6, you need to patch the source code of wxWidgets if you use the <code>--disable-fontmap</code> option. To do this, do the following in your MSYS terminal:
+</p>
+
+<div class="commandline">
+cd src/xrc<br/>
+patch -p0 &lt; /path/to/Catapult/build/3rdparty/xmlres_without_fontmap.patch
+</div>
+
+<p>
+This patch was written for wxWidgets 2.6.4, the latest stable 2.6 version. If you are using another version, you'll have to adapt the patch manually (which is not hard, but you have to know what you're doing).
+</p>
 
 <h3><a id="compilenow">3.4. Compilation Itself</a></h3>
 
@@ -557,6 +560,7 @@ to make sure it should work:
 <ul>
 <li><code>Catapult.exe</code> and <code>libxml2.dll</code> should be in the same directory
 or <code>libxml2.dll</code> should be somewhere in your path</li>
+<li>The same goes for <code>mingwm10.dll</code></li>
 <li>The resources (XRC) should be in the directory (relative from 
 <code>Catapult.exe</code>) <code>..\resources\dialogs</code></li>
 <li>The bitmaps (png) should be in the directory (also relative 
@@ -635,7 +639,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.19 2006/07/29 16:01:49 manuelbi Exp $
+$Id: compile.html,v 1.20 2006/09/17 09:37:13 manuelbi Exp $
 </p>
 
 </body>
