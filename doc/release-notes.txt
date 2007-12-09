@@ -1,10 +1,10 @@
-Release Notes for openMSX Catapult 0.6.3-R1 (2007-08-xx)
+Release Notes for openMSX Catapult 0.6.3-R1 (2007-12-09)
 ========================================================
 
 This is a release to make openMSX Catapult compatible with openMSX 0.6.3.
 Like previous version, no features were added, only some compatibility issues
-were fixed (added new mapper types and translated channel modes to the new
-balance settings). The plan is still to release a successor for Catapult as
+were fixed: added new mapper types and translated channel modes to the new
+balance settings. The plan is still to release a successor for Catapult as
 soon as possible; unfortunately we didn't make it in time for openMSX 0.6.3.
 
 Known issues / caveats:
@@ -24,7 +24,7 @@ Contact options:
   Go to the SourceForge project page and look under "Lists".
 - Use the Forums on the project page.
 - Use the new forum on forum.openmsx.org.
-- Talk to us on #openMSX on irc.freenode.net.
+- Talk to us on #openmsx on irc.freenode.net.
 
 Have fun with your emulated MSX!
                                         the openMSX developers
