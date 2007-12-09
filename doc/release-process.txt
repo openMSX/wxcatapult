@@ -27,7 +27,7 @@ Creating a release candidate
 - Tag the CVS archive:
     cvs rtag RELEASE_1_2_3_R4_RC1 Catapult
 - Export the tagged code:
-    cvs -d :ext:user@cvs.sourceforge.net:/cvsroot/openmsx \
+    cvs -d :ext:user@openmsx.cvs.sourceforge.net:/cvsroot/openmsx \
     export -r RELEASE_1_2_3_R4_RC1 Catapult
   This step makes sure that exactly the tagged code will be released.
   Export instead of checkout gets rid of the CVS admin directories and
