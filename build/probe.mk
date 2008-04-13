@@ -1,4 +1,4 @@
-# $Id: probe.mk,v 1.11 2005/01/07 14:49:08 h_oudejans Exp $
+# $Id: probe.mk,v 1.12 2005/01/24 02:19:43 mthuurne Exp $
 #
 # Replacement for "configure".
 # Performs some test compiles, to check for headers and functions.
@@ -116,7 +116,7 @@ $(CHECK_HEADERS): init
 # Probe for library:
 # Try to link dummy program to the library.
 $(CHECK_LIBS): init
-	@echo "int main(char **argv, int argc) { return 0; }" > $(OUTDIR)/$@.cc
+	@echo "int main(int argc, char *argv[]) { return 0; }" > $(OUTDIR)/$@.cc
 	@if FLAGS="$($@_LDFLAGS)" && $(COMPILE) $(CXXFLAGS) \
 		$(OUTDIR)/$@.cc -o $(OUTDIR)/$@.exe $(LINK_FLAGS) $$FLAGS 2>> $(LOG); \
 	then echo "Found library: $@" >> $(LOG); \

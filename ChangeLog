@@ -1,4 +1,9 @@
-$Id: ChangeLog,v 1.159 2007/05/09 16:39:20 bifimsx Exp $
+$Id: ChangeLog,v 1.160 2007/08/22 18:26:39 manuelbi Exp $
+
+2008-04-13 Manuel Bilderbeek <manuel@msxnet.org>
+	* Fix in probe.mk: use proper order for argc and argv, to prevent not
+	  finding any libraries with gcc 4.3. Thanks to Lucas Nussbaum of
+	  Debian for reporting it and to Chris Lamb for providing a patch.
 
 2007-08-22 Manuel Bilderbeek <manuel@msxnet.org>
 	* Prepared for another 'dead' release: 0.6.3-R1...
