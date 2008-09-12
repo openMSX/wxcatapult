@@ -98,7 +98,7 @@ Most openMSX developers run some form of Linux, so this is the platform on which
 </dd>
 <dt>Windows</dt>
 <dd>
-Most Windows users will just download the binary release. But if you want to follow the latest developments or like to play with the code a bit, it is possible to compile Catapult on Windows yourself. The former main Catapult developer used mainly Windows, so compilation is very well supported on this platform as well. This manual gives a few pointers in the right direction for that. 
+Most Windows users will just download the binary release. But if you want to follow the latest developments or like to play with the code a bit, it is possible to compile Catapult on Windows yourself. The former main Catapult developer used mainly Windows, so compilation is very well supported on this platform as well. This manual gives a few pointers in the right direction for that.
 </dd>
 <dt>FreeBSD</dt>
 <dd>
@@ -173,7 +173,7 @@ class="external" href="http://www.sourceforge.net/">SourceForge.net</a> freely
 offers to open source projects. The code is stored in CVS, an open source
 version management system.
 Catapult is released at every openMSX release.
-It can be released in between openMSX releases as well, if there is a lot 
+It can be released in between openMSX releases as well, if there is a lot
 of development that we want to share with the users without waiting for the
 next openMSX release.
 </p>
@@ -266,9 +266,7 @@ This package is usually simply named <code>cvs</code>.
 There are graphical front-ends for CVS, but this guide will tell you how to use
 CVS from the command line.
 More information about CVS can be found on the <a class="external"
-href="http://www.cvshome.org/">CVS Home</a> site. On this site you can also find
-a CVS command line tool for Windows.
-</p>
+href="http://www.cvshome.org/">CVS Home</a> site. For Windows, we recommend to use <a class="external" href="http://www.tortoisecvs.org/">TortoiseCVS</a>.</p>
 
 <p>
 With the following line you can login to the openMSX CVS server:
@@ -280,7 +278,7 @@ cvs -d:pserver:anonymous@openmsx.cvs.sourceforge.net:/cvsroot/openmsx login
 In this line you specified where you want to retrieve the files from (host name
 of the CVS server), as who you want to retrieve the stuff (since you're not a
 developer, <code>anonymous</code> will do), and what project you want to
-retrieve (openmsx in this case, since Catapult is a sub-project of openMSX).
+retrieve (openmsx in this case, since Catapult is a sub-project of openMSX). If you use TortoiseCVS, make sure CVSROOT is set to the large string behind the "-d".
 </p>
 
 <p>
@@ -308,10 +306,10 @@ jorrith@jardel openmsx $
 Now you can retrieve the latest sources with the following command:
 </p>
 <div class="commandline">
-cvs -z3 -d:pserver:anonymous@openmsx.cvs.sourceforge.net:/cvsroot/openmsx checkout 
-Catapult
+cvs -z3 -d:pserver:anonymous@openmsx.cvs.sourceforge.net:/cvsroot/openmsx checkout Catapult
 </div>
 <p>
+For TortoiseCVS make sure to checkout the Catapult module.
 This will create a directory called <code>Catapult</code> for you in the current
 directory.
 This directory created by CVS is the called <em>top of the source tree</em>.
@@ -384,9 +382,9 @@ For compilation in Windows you will need one of the following:
 <dl>
 
 <dt>Microsoft Visual C++</dt>
-<dd>Catapult was written with version 6.0. Whether it also compiles on higher 
+<dd>Catapult was written with version 6.0. Whether it also compiles on higher
 versions is unknown at this point. You also need to download <code>sed.exe</code> from
-<a class="external" href="http://www.gnu.org/">GNU Home</a> and <code>touch.exe</code> 
+<a class="external" href="http://www.gnu.org/">GNU Home</a> and <code>touch.exe</code>
 from <a class="external" href="http://unxutils.sourceforge.net/">UnxUtils</a>. Although this may still work, we haven't tested this in ages, so in case of problems, please revert to the MinGW method described below.</dd>
 
 <dt>The combination of Minimal System (msys) and Minimalist GNU for Windows (MinGW)</dt>
@@ -414,8 +412,8 @@ Compiling in Windows means that you also need the lib-files
 </p>
 
 <p>
-If there are no binary versions of the required libraries available for 
-your system or you rather compile them yourself, please see the next section 
+If there are no binary versions of the required libraries available for
+your system or you rather compile them yourself, please see the next section
 for a few hints about compiling them from their sources.
 </p>
 
@@ -427,7 +425,7 @@ On a Debian testing system, the packages are called:
 
 <dl>
 <dt>libwxgtk2.6-0</dt>
-<dd>wxWindows Cross-platform C++ GUI toolkit (GTK+ runtime). This is the 
+<dd>wxWindows Cross-platform C++ GUI toolkit (GTK+ runtime). This is the
 main runtime wxWidgets library</dd>
 
 <dt>libwxgtk2.6-dev</dt>
@@ -435,13 +433,16 @@ main runtime wxWidgets library</dd>
 </dl>
 
 <p>
-Although other versions are available, we recommend to use wxWidgets 2.6.
+Although other versions are available, we recommend to use wxWidgets 2.6, although for Windows we have seen that wxWidgets 2.8.8 (e.g.) also works fine, so we assume you're using that version (it's 2.6 compatible).
+</p>
+
+<p>
 For Windows there are no binary releases available.
 Please read the next section for instructions for compiling wxWidgets from source.
 </p>
 
 <p>
-Furthermore, you need the XML library that is also used in openMSX itself. 
+Furthermore, you need the XML library that is also used in openMSX itself.
 In Debian its packages are called:</p>
 
 <dl>
@@ -452,38 +453,25 @@ In Debian its packages are called:</p>
 <h3><a id="complibs">3.3. Compilation of the Libraries</a></h3>
 
 <p>
-For some distributions it's necessary to manually compile the libraries. This 
-section gives a few pointers to get it to work. It's not intended to be a 
-substitute for the documentation supplied with the libraries. The wxWidgets 
+For some distributions it's necessary to manually compile the libraries. This
+section gives a few pointers to get it to work. It's not intended to be a
+substitute for the documentation supplied with the libraries. The wxWidgets
 sources can be found at <a class="external" href="http://www.wxwidgets.org/">
 wxWidgets Home</a> and the libxml2 sources are available at
 <a class="external" href="http://www.xmlsoft.org">Libxml2 Home</a>.
 </p>
 
-<p>Building the libxml2 library should be easy enough with the docs available.
+<p>Building the libxml2 library should be easy enough with the docs available. You can also use the libraries that are built in openMSX using the staticbindist method.
 </p>
 
-<p>Compilation of wxWidgets 2.6 couldn't be more straightforward. The docs provided
-are easy to follow and it takes only a few steps. There is no need to give 
-any pointers here about this library. We do give the proper <code>configure</code> command line here:
-</p>
-
-<div class="commandline">
-./configure  --disable-shared --disable-fontmap --disable-unicode --disable-html --enable-xrc --enable-controls --with-msw --enable-monolithic
-</div>
-
-<p>
-Because of bugs in wxWidgets 2.6, you need to patch the source code of wxWidgets if you use the <code>--disable-fontmap</code> option. To do this, do the following in your MSYS terminal, in the source directory of wxWidgets:
+<p>Compilation of wxWidgets couldn't be more straightforward. The docs provided
+are easy to follow and it takes only a few steps. There is no need to give
+any pointers here about this library as its documentation says exaclty how to compile it. We do give the proper <code>configure</code> command line here (although some options might be already default):
 </p>
 
 <div class="commandline">
-cd src/xrc<br/>
-patch -p0 &lt; /path/to/Catapult/build/3rdparty/xmlres_without_fontmap.patch
+./configure  --disable-shared --disable-unicode --enable-xrc --enable-controls --with-msw
 </div>
-
-<p>
-This patch was written for wxWidgets 2.6.4, the latest stable 2.6 version. If you are using another version, you'll have to adapt the patch manually (which is not hard, but you have to know what you're doing).
-</p>
 
 <h3><a id="compilenow">3.4. Compilation Itself</a></h3>
 
@@ -517,7 +505,7 @@ The following values are supported:
 </dl>
 
 <p>
-In Visual Studio, just open <code>build\wxCatapult.dsw</code>, choose a target 
+In Visual Studio, just open <code>build\wxCatapult.dsw</code>, choose a target
 and build it.
 </p>
 
@@ -553,17 +541,17 @@ install</code>.
 
 <p>
 Windows doesn't really provide us with an installation system, so it's up to you
-to make sure the files are in the right directory. Please follow these pointers 
+to make sure the files are in the right directory. Please follow these pointers
 to make sure it should work:
 </p>
 
 <ul>
-<li><code>Catapult.exe</code> and <code>libxml2.dll</code> should be in the same directory
+<li><code>Catapult.exe</code> and <code>libxml2.dll</code> (or <code>libxml2-2.dll</code>) should be in the same directory
 or <code>libxml2.dll</code> should be somewhere in your path</li>
 <li>The same goes for <code>mingwm10.dll</code>, when compiling with MinGW</li>
-<li>The resources (XRC) should be in the directory (relative from 
+<li>The resources (XRC) should be in the directory (relative from
 <code>Catapult.exe</code>) <code>..\resources\dialogs</code></li>
-<li>The bitmaps (png) should be in the directory (also relative 
+<li>The bitmaps (png) should be in the directory (also relative
 from <code>Catapult.exe</code>) <code>..\resources\bitmaps</code></li>
 </ul>
 
@@ -639,7 +627,7 @@ bug or request.
 </p>
 
 <p class="version">
-$Id: compile.html,v 1.22 2007/10/22 17:03:20 manuelbi Exp $
+$Id: compile.html,v 1.23 2007/10/22 17:48:25 manuelbi Exp $
 </p>
 
 </body>
