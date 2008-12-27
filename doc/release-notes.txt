@@ -1,16 +1,15 @@
-Release Notes for openMSX Catapult 0.6.3-R1 (2007-12-09)
+Release Notes for openMSX Catapult 0.7.0-R1 (2008-12-27)
 ========================================================
 
-This is a release to make openMSX Catapult compatible with openMSX 0.6.3.
-Like previous version, no features were added, only some compatibility issues
-were fixed: added new mapper types and translated channel modes to the new
-balance settings. The plan is still to release a successor for Catapult as
-soon as possible; unfortunately we didn't make it in time for openMSX 0.6.3.
+This is a release to go with openMSX 0.7.0. The only change is that a bug in
+the build system was fixed, nothing else has changed. The plan is still to
+release a completely new Catapult soon as possible; unfortunately we didn't
+make it in time for openMSX 0.7.0.
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
 - the select extension listbox doesn't work properly when using wxWidgets 2.6.x
-  Use the spacebar to deselect extensions!
+  (and later) Use the spacebar to deselect extensions!
 - typing into openMSX doesn't support language specific characters yet
 - still not complete, especially for newer features you will have to revert to
   the openMSX console (press F10)

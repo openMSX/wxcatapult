@@ -1,4 +1,7 @@
-$Id: ChangeLog,v 1.160 2007/08/22 18:26:39 manuelbi Exp $
+$Id: ChangeLog,v 1.161 2008/04/13 20:16:17 manuelbi Exp $
+
+2008-12-27 Manuel Bilderbeek <manuel@msxnet.org>
+	* Prepared for yet another 'dead' release: 0.7.0-R1...
 
 2008-04-13 Manuel Bilderbeek <manuel@msxnet.org>
 	* Fix in probe.mk: use proper order for argc and argv, to prevent not
