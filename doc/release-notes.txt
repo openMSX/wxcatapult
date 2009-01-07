@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.7.0-R1 (2008-12-27)
+Release Notes for openMSX Catapult 0.7.0-R1 (2009-01-07)
 ========================================================
 
 This is a release to go with openMSX 0.7.0. The only change is that a bug in
