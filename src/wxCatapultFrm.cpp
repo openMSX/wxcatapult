@@ -119,7 +119,7 @@ END_EVENT_TABLE()
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("CatapultFrame"));
 	// use icon resources for MS Visual Studio, else the XPM
 #if defined (_MSC_VER)
-	SetIcon (wxIcon("catapult"));
+	SetIcon (wxIcon(wxT("catapult")));
 #else
 	SetIcon (catapult_xpm);
 #endif
@@ -151,7 +151,7 @@ END_EVENT_TABLE()
 	menuBar->Append(viewMenu, wxT("&View"));
 	int viewFlags;
 	config->GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
-	viewMenu->Check(Catapult_Display_Invalids,(viewFlags & ConfigurationData::VF_BROKEN != 0));
+	viewMenu->Check(Catapult_Display_Invalids,((viewFlags & ConfigurationData::VF_BROKEN) != 0));
 
 	menuBar->Append(helpMenu, wxT("&Help"));
 
@@ -479,9 +479,9 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 			if (!types[i].IsEmpty()){
 				cmd += wxT(" -romtype ") + types[i];
 			}
-			int count = patches[i].GetCount();
+			size_t count = patches[i].GetCount();
 			if (count != 0){
-				for (int j=0;j<count;j++){
+				for (size_t j=0;j<count;j++){
 					cmd += wxT(" -ips \"") + patches[i].Item(j) + wxT("\"");
 				}
 			}
