@@ -30,8 +30,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Generating dialogs..."
-				CommandLine="wxg2xrc.bat &quot;$(OutDir)\dialogs&quot;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -56,7 +55,7 @@
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="&quot;$(CatapultConfigDir)&quot;;&quot;$(3rdPartySrcDir)\$(LibNameWx)\include&quot;;&quot;$(3rdPartySrcDir)\$(LibNameWx)\\include\msvc&quot;;&quot;$(3rdPartySrcDir)\$(LibNameLibXml)\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;LIBXML_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				BrowseInformation="0"
@@ -80,7 +79,7 @@
 				OutputFile="$(OutDir)\catapult.exe"
 				Version="0.1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\derived\$(PlatformName)-VC-$(ConfigurationName)\3rdparty\install\lib&quot;;&quot;..\..\derived\3rdparty\src\wxMSW-2.8.9\lib\vc_lib\$(PlatformName)-VC-$(ConfigurationName)\install\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/catapult.pdb"
 				SubSystem="2"
@@ -123,8 +122,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Generating dialogs..."
-				CommandLine="wxg2xrc.bat &quot;$(OutDir)\dialogs&quot;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -150,7 +148,7 @@
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="&quot;$(CatapultConfigDir)&quot;;&quot;$(3rdPartySrcDir)\$(LibNameWx)\include&quot;;&quot;$(3rdPartySrcDir)\$(LibNameWx)\\include\msvc&quot;;&quot;$(3rdPartySrcDir)\$(LibNameLibXml)\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;LIBXML_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				BrowseInformation="0"
@@ -174,7 +172,7 @@
 				OutputFile="$(OutDir)\catapult.exe"
 				Version="0.1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\derived\$(PlatformName)-VC-$(ConfigurationName)\3rdparty\install\lib&quot;;&quot;..\..\derived\3rdparty\src\wxMSW-2.8.9\lib\vc_lib\$(PlatformName)-VC-$(ConfigurationName)\install\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/catapult.pdb"
 				SubSystem="2"
@@ -217,8 +215,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Generating dialogs..."
-				CommandLine="wxg2xrc.bat &quot;$(OutDir)\dialogs&quot;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -264,7 +261,7 @@
 				OutputFile="$(OutDir)\catapult.exe"
 				Version="0.1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\derived\$(PlatformName)-VC-$(ConfigurationName)\3rdparty\install\lib&quot;;&quot;..\..\derived\3rdparty\src\wxMSW-2.8.9\lib\vc_lib\$(PlatformName)-VC-$(ConfigurationName)\install\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
 				IgnoreDefaultLibraryNames="msvcrt.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/catapult.pdb"
@@ -310,8 +307,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Generating dialogs..."
-				CommandLine="wxg2xrc.bat &quot;$(OutDir)\dialogs&quot;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -358,7 +354,7 @@
 				OutputFile="$(OutDir)\catapult.exe"
 				Version="0.1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\derived\$(PlatformName)-VC-$(ConfigurationName)\3rdparty\install\lib&quot;;&quot;..\..\derived\3rdparty\src\wxMSW-2.8.9\lib\vc_lib\$(PlatformName)-VC-$(ConfigurationName)\install\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
 				IgnoreDefaultLibraryNames="msvcrt.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/catapult.pdb"
@@ -404,8 +400,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Generating dialogs..."
-				CommandLine="wxg2xrc.bat &quot;$(OutDir)\dialogs&quot;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -454,7 +449,7 @@
 				OutputFile="$(OutDir)\catapult.exe"
 				Version="0.1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\derived\$(PlatformName)-VC-$(ConfigurationName)\3rdparty\install\lib&quot;;&quot;..\..\derived\3rdparty\src\wxMSW-2.8.9\lib\vc_lib\$(PlatformName)-VC-$(ConfigurationName)\install\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
 				IgnoreDefaultLibraryNames="wsock32.dll"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/catapult.pdb"
@@ -498,8 +493,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Generating dialogs..."
-				CommandLine="wxg2xrc.bat &quot;$(OutDir)\dialogs&quot;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -549,7 +543,7 @@
 				OutputFile="$(OutDir)\catapult.exe"
 				Version="0.1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\derived\$(PlatformName)-VC-$(ConfigurationName)\3rdparty\install\lib&quot;;&quot;..\..\derived\3rdparty\src\wxMSW-2.8.9\lib\vc_lib\$(PlatformName)-VC-$(ConfigurationName)\install\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
 				IgnoreDefaultLibraryNames="wsock32.dll"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/catapult.pdb"
@@ -593,8 +587,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Generating dialogs..."
-				CommandLine="wxg2xrc.bat &quot;$(OutDir)\dialogs&quot;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -614,10 +607,10 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(CatapultConfigDir)&quot;;&quot;$(3rdPartySrcDir)\$(LibNameWx)\include&quot;;&quot;$(3rdPartySrcDir)\$(LibNameWx)\\include\msvc&quot;;&quot;$(3rdPartySrcDir)\$(LibNameLibXml)\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1;LIBXML_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				BrowseInformation="0"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -636,16 +629,15 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxmsw28_xrc.lib wxbase28_net.lib wxmsw28_html.lib wxmsw28_adv.lib wxmsw28_core.lib wxbase28_xml.lib wxbase28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxexpat.lib wxregex.lib wsock32.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib libxml.lib winmm.lib"
-				OutputFile="$(OutDir)\catapult.exe"
+				AdditionalDependencies="wxbase28ud.lib wxbase28ud_net.lib wxbase28ud_xml.lib wxexpatd.lib wxjpegd.lib wxmsw28ud_adv.lib wxmsw28ud_core.lib wxmsw28ud_html.lib wxpngd.lib wxregexud.lib wxtiffd.lib wxzlibd.lib libxml2.lib comctl32.lib winmm.lib wsock32.lib rpcrt4.lib"
+				OutputFile="$(OutDir)\catapultd.exe"
 				Version="0.1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\derived\$(PlatformName)-VC-$(ConfigurationName)\3rdparty\install\lib&quot;;&quot;..\..\derived\3rdparty\src\wxMSW-2.8.9\lib\vc_lib\$(PlatformName)-VC-$(ConfigurationName)\install\lib&quot;"
-				IgnoreDefaultLibraryNames="msvcrt.lib"
+				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/catapult.pdb"
 				SubSystem="2"
-				LinkTimeCodeGeneration="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
@@ -686,8 +678,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Generating dialogs..."
-				CommandLine="wxg2xrc.bat &quot;$(OutDir)\dialogs&quot;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -708,10 +699,10 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(CatapultConfigDir)&quot;;&quot;$(3rdPartySrcDir)\$(LibNameWx)\include&quot;;&quot;$(3rdPartySrcDir)\$(LibNameWx)\\include\msvc&quot;;&quot;$(3rdPartySrcDir)\$(LibNameLibXml)\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1;LIBXML_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				BrowseInformation="0"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -730,16 +721,15 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxmsw28_xrc.lib wxbase28_net.lib wxmsw28_html.lib wxmsw28_adv.lib wxmsw28_core.lib wxbase28_xml.lib wxbase28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxexpat.lib wxregex.lib wsock32.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib libxml.lib winmm.lib"
-				OutputFile="$(OutDir)\catapult.exe"
+				AdditionalDependencies="wxbase28ud.lib wxbase28ud_net.lib wxbase28ud_xml.lib wxexpatd.lib wxjpegd.lib wxmsw28ud_adv.lib wxmsw28ud_core.lib wxmsw28ud_html.lib wxpngd.lib wxregexud.lib wxtiffd.lib wxzlibd.lib libxml2.lib comctl32.lib winmm.lib wsock32.lib rpcrt4.lib"
+				OutputFile="$(OutDir)\catapultd.exe"
 				Version="0.1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\derived\$(PlatformName)-VC-$(ConfigurationName)\3rdparty\install\lib&quot;;&quot;..\..\derived\3rdparty\src\wxMSW-2.8.9\lib\vc_lib\$(PlatformName)-VC-$(ConfigurationName)\install\lib&quot;"
-				IgnoreDefaultLibraryNames="msvcrt.lib"
+				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/catapult.pdb"
 				SubSystem="2"
-				LinkTimeCodeGeneration="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="17"
@@ -2771,58 +2761,1178 @@
 				<File
 					RelativePath="..\..\dialogs\about.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)&#x0D;&#x0A;..\..\sed.exe -f ..\wxg2xrc.sed &quot;$(InputPath)&quot; &gt; &quot;$(OutDir)\dialogs\$(InputName).xrc&quot;"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)&#x0D;&#x0A;..\..\sed.exe -f ..\wxg2xrc.sed &quot;$(InputPath)&quot; &gt; &quot;$(OutDir)\dialogs\$(InputName).xrc&quot;"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)&#x0D;&#x0A;..\..\sed.exe -f ..\wxg2xrc.sed &quot;$(InputPath)&quot; &gt; &quot;$(OutDir)\dialogs\$(InputName).xrc&quot;"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)&#x0D;&#x0A;..\..\sed.exe -f ..\wxg2xrc.sed &quot;$(InputPath)&quot; &gt; &quot;$(OutDir)\dialogs\$(InputName).xrc&quot;"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)&#x0D;&#x0A;..\..\sed.exe -f ..\wxg2xrc.sed &quot;$(InputPath)&quot; &gt; &quot;$(OutDir)\dialogs\$(InputName).xrc&quot;"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)&#x0D;&#x0A;..\..\sed.exe -f ..\wxg2xrc.sed &quot;$(InputPath)&quot; &gt; &quot;$(OutDir)\dialogs\$(InputName).xrc&quot;"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)&#x0D;&#x0A;..\..\sed.exe -f ..\wxg2xrc.sed &quot;$(InputPath)&quot; &gt; &quot;$(OutDir)\dialogs\$(InputName).xrc&quot;"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)&#x0D;&#x0A;..\..\sed.exe -f ..\wxg2xrc.sed &quot;$(InputPath)&quot; &gt; &quot;$(OutDir)\dialogs\$(InputName).xrc&quot;"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\audiocontrols.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\catapult.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\checkconfigs.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\config.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\fullscreen.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\input.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\ipsselect.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\misccontrols.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\romtype.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\screenshot.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\session.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\status.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\dialogs\videocontrols.wxg"
 					>
+					<FileConfiguration
+						Name="Unicode Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Unicode Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Converting $(InputFileName) to $(InputName).xrc"
+							CommandLine="if not exist &quot;$(OutDir)\dialogs&quot; (@md &quot;$(OutDir)\dialogs&quot;)"
+							Outputs="$(InputName).xrc"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 			<Filter

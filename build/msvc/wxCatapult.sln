@@ -23,8 +23,8 @@ Global
 		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Release|Win32.Build.0 = Release|Win32
 		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Release|x64.ActiveCfg = Release|x64
 		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Release|x64.Build.0 = Release|x64
-		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Unicode Debug|Win32.ActiveCfg = Debug|Win32
-		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Unicode Debug|Win32.Build.0 = Debug|Win32
+		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Unicode Debug|Win32.ActiveCfg = Unicode Debug|Win32
+		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Unicode Debug|Win32.Build.0 = Unicode Debug|Win32
 		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Unicode Debug|x64.ActiveCfg = Unicode Debug|x64
 		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Unicode Debug|x64.Build.0 = Unicode Debug|x64
 		{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}.Unicode Release|Win32.ActiveCfg = Unicode Release|Win32

@@ -32,12 +32,12 @@
 		PerformEnvironmentSet="true"
 	/>
 	<UserMacro
-		Name="3rdpartyIntDir"
-		Value="$(3rdpartyBuildDir)\build"
+		Name="3rdPartyIntDir"
+		Value="$(3rdPartyBuildDir)\build"
 		PerformEnvironmentSet="true"
 	/>
 	<UserMacro
-		Name="3rdpartyOutDir"
+		Name="3rdPartyOutDir"
 		Value="$(3rdPartyBuildDir)\install\lib"
 		PerformEnvironmentSet="true"
 	/>

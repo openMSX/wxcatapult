@@ -19,8 +19,8 @@
 	<Configurations>
 		<Configuration
 			Name="Unicode Debug|Win32"
-			OutputDirectory="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib"
-			IntermediateDirectory=".\vc_mswud\wxtiff"
+			OutputDirectory="$(3rdPartyOutDir)"
+			IntermediateDirectory="$(3rdPartyIntDir)\$(LibNameWx)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC60.vsprops;.\3rdparty.vsprops"
 			UseOfMFC="0"
@@ -48,12 +48,10 @@
 				AdditionalIncludeDirectories="$(3rdPartySrcDir)\$(LibNameWx)\src\zlib;$(3rdPartySrcDir)\$(LibNameWx)\src\jpeg"
 				PreprocessorDefinitions="WIN32;_LIB;_DEBUG"
 				MinimalRebuild="true"
-				RuntimeLibrary="3"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\vc_mswud\wxtiff/wx_wxtiff.pch"
-				AssemblerListingLocation=".\vc_mswud\wxtiff/"
-				ObjectFile=".\vc_mswud\wxtiff/"
-				ProgramDataBaseFileName="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxtiffd.pdb"
+				PrecompiledHeaderFile="$(IntDir)\wxprec_$(ProjectName)lib.pch"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 			/>
@@ -69,7 +67,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxtiffd.lib"
+				OutputFile="$(OutDir)\wxtiffd.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -92,8 +90,8 @@
 		</Configuration>
 		<Configuration
 			Name="Unicode Debug|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="$(3rdPartyOutDir)"
+			IntermediateDirectory="$(3rdPartyIntDir)\$(LibNameWx)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC60.vsprops;.\3rdparty.vsprops"
 			UseOfMFC="0"
@@ -122,12 +120,10 @@
 				AdditionalIncludeDirectories="$(3rdPartySrcDir)\$(LibNameWx)\src\zlib;$(3rdPartySrcDir)\$(LibNameWx)\src\jpeg"
 				PreprocessorDefinitions="WIN32;_LIB;_DEBUG"
 				MinimalRebuild="true"
-				RuntimeLibrary="3"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\vc_mswud\wxtiff/wx_wxtiff.pch"
-				AssemblerListingLocation=".\vc_mswud\wxtiff/"
-				ObjectFile=".\vc_mswud\wxtiff/"
-				ProgramDataBaseFileName="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxtiffd.pdb"
+				PrecompiledHeaderFile="$(IntDir)\wxprec_$(ProjectName)lib.pch"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 			/>
@@ -143,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxtiffd.lib"
+				OutputFile="$(OutDir)\wxtiffd.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool

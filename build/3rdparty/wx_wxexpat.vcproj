@@ -1952,8 +1952,8 @@
 		</Configuration>
 		<Configuration
 			Name="Unicode Debug|Win32"
-			OutputDirectory="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib"
-			IntermediateDirectory=".\vc_mswud\wxexpat"
+			OutputDirectory="$(3rdPartyOutDir)"
+			IntermediateDirectory="$(3rdPartyIntDir)\$(LibNameWx)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC60.vsprops;.\3rdparty.vsprops"
 			UseOfMFC="0"
@@ -1981,12 +1981,10 @@
 				AdditionalIncludeDirectories="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib"
 				PreprocessorDefinitions="WIN32;_LIB;_DEBUG;COMPILED_FROM_DSP"
 				MinimalRebuild="true"
-				RuntimeLibrary="3"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\vc_mswud\wxexpat/wx_wxexpat.pch"
-				AssemblerListingLocation=".\vc_mswud\wxexpat/"
-				ObjectFile=".\vc_mswud\wxexpat/"
-				ProgramDataBaseFileName="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxexpatd.pdb"
+				PrecompiledHeaderFile="$(IntDir)\wxprec_$(ProjectName)lib.pch"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 			/>
@@ -2002,7 +2000,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxexpatd.lib"
+				OutputFile="$(OutDir)\wxexpatd.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -2025,8 +2023,8 @@
 		</Configuration>
 		<Configuration
 			Name="Unicode Debug|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="$(3rdPartyOutDir)"
+			IntermediateDirectory="$(3rdPartyIntDir)\$(LibNameWx)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC60.vsprops;.\3rdparty.vsprops"
 			UseOfMFC="0"
@@ -2055,12 +2053,10 @@
 				AdditionalIncludeDirectories="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib"
 				PreprocessorDefinitions="WIN32;_LIB;_DEBUG;COMPILED_FROM_DSP"
 				MinimalRebuild="true"
-				RuntimeLibrary="3"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\vc_mswud\wxexpat/wx_wxexpat.pch"
-				AssemblerListingLocation=".\vc_mswud\wxexpat/"
-				ObjectFile=".\vc_mswud\wxexpat/"
-				ProgramDataBaseFileName="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxexpatd.pdb"
+				PrecompiledHeaderFile="$(IntDir)\wxprec_$(ProjectName)lib.pch"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 			/>
@@ -2076,7 +2072,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxexpatd.lib"
+				OutputFile="$(OutDir)\wxexpatd.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool

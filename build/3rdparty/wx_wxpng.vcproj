@@ -909,8 +909,8 @@
 		</Configuration>
 		<Configuration
 			Name="Unicode Debug|Win32"
-			OutputDirectory="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib"
-			IntermediateDirectory=".\vc_mswud\wxpng"
+			OutputDirectory="$(3rdPartyOutDir)"
+			IntermediateDirectory="$(3rdPartyIntDir)\$(LibNameWx)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC60.vsprops;.\3rdparty.vsprops"
 			UseOfMFC="0"
@@ -938,12 +938,10 @@
 				AdditionalIncludeDirectories="$(3rdPartySrcDir)\$(LibNameWx)\src\zlib"
 				PreprocessorDefinitions="WIN32;_LIB;_DEBUG"
 				MinimalRebuild="true"
-				RuntimeLibrary="3"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\vc_mswud\wxpng/wx_wxpng.pch"
-				AssemblerListingLocation=".\vc_mswud\wxpng/"
-				ObjectFile=".\vc_mswud\wxpng/"
-				ProgramDataBaseFileName="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxpngd.pdb"
+				PrecompiledHeaderFile="$(IntDir)\wxprec_$(ProjectName)lib.pch"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 			/>
@@ -959,7 +957,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxpngd.lib"
+				OutputFile="$(OutDir)\wxpngd.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -982,8 +980,8 @@
 		</Configuration>
 		<Configuration
 			Name="Unicode Debug|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="$(3rdPartyOutDir)"
+			IntermediateDirectory="$(3rdPartyIntDir)\$(LibNameWx)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC60.vsprops;.\3rdparty.vsprops"
 			UseOfMFC="0"
@@ -1012,12 +1010,10 @@
 				AdditionalIncludeDirectories="$(3rdPartySrcDir)\$(LibNameWx)\src\zlib"
 				PreprocessorDefinitions="WIN32;_LIB;_DEBUG"
 				MinimalRebuild="true"
-				RuntimeLibrary="3"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\vc_mswud\wxpng/wx_wxpng.pch"
-				AssemblerListingLocation=".\vc_mswud\wxpng/"
-				ObjectFile=".\vc_mswud\wxpng/"
-				ProgramDataBaseFileName="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxpngd.pdb"
+				PrecompiledHeaderFile="$(IntDir)\wxprec_$(ProjectName)lib.pch"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 			/>
@@ -1033,7 +1029,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxpngd.lib"
+				OutputFile="$(OutDir)\wxpngd.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool

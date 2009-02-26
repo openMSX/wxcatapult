@@ -1237,8 +1237,8 @@
 		</Configuration>
 		<Configuration
 			Name="Unicode Debug|Win32"
-			OutputDirectory="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib"
-			IntermediateDirectory=".\vc_mswud\net"
+			OutputDirectory="$(3rdPartyOutDir)"
+			IntermediateDirectory="$(3rdPartyIntDir)\$(LibNameWx)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC60.vsprops;.\3rdparty.vsprops"
 			UseOfMFC="0"
@@ -1267,14 +1267,12 @@
 				AdditionalIncludeDirectories="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud;$(3rdPartySrcDir)\$(LibNameWx)\include;$(3rdPartySrcDir)\$(LibNameWx)\src\tiff;$(3rdPartySrcDir)\$(LibNameWx)\src\jpeg;$(3rdPartySrcDir)\$(LibNameWx)\src\png;$(3rdPartySrcDir)\$(LibNameWx)\src\zlib;$(3rdPartySrcDir)\$(LibNameWx)\src\regex;$(3rdPartySrcDir)\$(LibNameWx)\src\expat\lib"
 				PreprocessorDefinitions="WIN32;_LIB;_DEBUG;__WXMSW__;__WXDEBUG__;wxUSE_GUI=0"
 				MinimalRebuild="true"
-				RuntimeLibrary="3"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="wx/wxprec.h"
-				PrecompiledHeaderFile="vc_mswud\wxprec_netlib.pch"
-				AssemblerListingLocation=".\vc_mswud\net/"
-				ObjectFile=".\vc_mswud\net/"
-				ProgramDataBaseFileName="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxbase28ud_net.pdb"
+				PrecompiledHeaderFile="$(IntDir)\wxprec_$(ProjectName)lib.pch"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -1291,7 +1289,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxbase28ud_net.lib"
+				OutputFile="$(OutDir)\wxbase28ud_net.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -1314,8 +1312,8 @@
 		</Configuration>
 		<Configuration
 			Name="Unicode Debug|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="$(3rdPartyOutDir)"
+			IntermediateDirectory="$(3rdPartyIntDir)\$(LibNameWx)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC60.vsprops;.\3rdparty.vsprops"
 			UseOfMFC="0"
@@ -1345,14 +1343,12 @@
 				AdditionalIncludeDirectories="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud;$(3rdPartySrcDir)\$(LibNameWx)\include;$(3rdPartySrcDir)\$(LibNameWx)\src\tiff;$(3rdPartySrcDir)\$(LibNameWx)\src\jpeg;$(3rdPartySrcDir)\$(LibNameWx)\src\png;$(3rdPartySrcDir)\$(LibNameWx)\src\zlib;$(3rdPartySrcDir)\$(LibNameWx)\src\regex;$(3rdPartySrcDir)\$(LibNameWx)\src\expat\lib"
 				PreprocessorDefinitions="WIN32;_LIB;_DEBUG;__WXMSW__;__WXDEBUG__;wxUSE_GUI=0"
 				MinimalRebuild="true"
-				RuntimeLibrary="3"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="wx/wxprec.h"
-				PrecompiledHeaderFile="vc_mswud\wxprec_netlib.pch"
-				AssemblerListingLocation=".\vc_mswud\net/"
-				ObjectFile=".\vc_mswud\net/"
-				ProgramDataBaseFileName="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxbase28ud_net.pdb"
+				PrecompiledHeaderFile="$(IntDir)\wxprec_$(ProjectName)lib.pch"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -1369,7 +1365,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\wxbase28ud_net.lib"
+				OutputFile="$(OutDir)\wxbase28ud_net.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -6991,170 +6987,6 @@
 			Name="Setup Headers"
 			>
 			<File
-				RelativePath="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\setup.h"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Release|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DLL Unicode Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DLL Unicode Debug|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DLL Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DLL Debug|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DLL Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DLL Release|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DLL Unicode Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DLL Unicode Release|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h"
-						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h&#x0D;&#x0A;"
-						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\setup.h"
 				>
 				<FileConfiguration
@@ -7315,6 +7147,170 @@
 						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswunivu\wx\setup.h"
 						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswunivu\wx\setup.h&#x0D;&#x0A;"
 						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswunivu\wx\setup.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\setup.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswd\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswu\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DLL Unicode Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DLL Unicode Debug|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswud\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswud\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DLL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DLL Debug|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DLL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DLL Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\msw\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_lib\msw\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DLL Unicode Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DLL Unicode Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h"
+						CommandLine="copy &quot;$(InputPath)&quot; $(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h&#x0D;&#x0A;"
+						Outputs="$(3rdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswu\wx\setup.h"
 					/>
 				</FileConfiguration>
 			</File>
