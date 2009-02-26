@@ -1,4 +1,4 @@
-# $Id: probe.mk,v 1.12 2005/01/24 02:19:43 mthuurne Exp $
+# $Id$
 #
 # Replacement for "configure".
 # Performs some test compiles, to check for headers and functions.

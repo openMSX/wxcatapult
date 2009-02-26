@@ -1,4 +1,4 @@
-# $Id: cpu-sparc.mk,v 1.1 2005/04/25 21:13:34 manuelbi Exp $
+# $Id$
 #
 # Configuration for sparc and sparc64 CPUs.
 

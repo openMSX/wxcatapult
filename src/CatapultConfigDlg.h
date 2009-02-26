@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.h,v 1.5 2005/12/30 19:04:08 manuelbi Exp $
+// $Id$
 // CatapultConfigDlg.h: interface for the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////

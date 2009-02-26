@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.cpp,v 1.35 2005/12/08 18:14:41 manuelbi Exp $
+// $Id$
 // VideoControlPage.cpp: implementation of the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////

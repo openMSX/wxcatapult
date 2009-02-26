@@ -1,4 +1,4 @@
-// $Id: StatusPage.cpp,v 1.7 2004/11/11 17:14:59 h_oudejans Exp $
+// $Id$
 // StatusPage.cpp: implementation of the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////

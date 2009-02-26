@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: detectsys.sh,v 1.2 2005/04/25 21:13:34 manuelbi Exp $
+# $Id$
 
 MYDIR=`dirname $0` || exit
 #MYDIR=/usr/share/automake-1.7

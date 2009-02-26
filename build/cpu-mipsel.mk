@@ -1,4 +1,4 @@
-# $Id: cpu-mipsel.mk,v 1.1 2005/04/25 21:13:34 manuelbi Exp $
+# $Id$
 #
 # Configuration for MIPS (Little-Endian) CPUs. EXPERIMENTAL AND UNTESTED
 

@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.h,v 1.12 2005/12/10 14:14:41 h_oudejans Exp $
+// $Id$
 // onfigurationData.h: interface for the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////

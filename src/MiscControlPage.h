@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.h,v 1.28 2006/07/08 12:45:15 mthuurne Exp $
+// $Id$
 // MiscControlPage.h: interface for the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////

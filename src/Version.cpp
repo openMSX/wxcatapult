@@ -1,4 +1,4 @@
-// $Id: Version.cpp,v 1.2 2005/01/06 16:27:22 h_oudejans Exp $
+// $Id$
 
 #include "Version.h"
 #include "Version.ii"

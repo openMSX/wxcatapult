@@ -1,4 +1,4 @@
-// $Id: PipeConnectThread.cpp,v 1.4 2004/11/14 18:29:47 h_oudejans Exp $
+// $Id$
 // PipeConnectThread.cpp: implementation of the PipeConnectThread class.
 //
 //////////////////////////////////////////////////////////////////////

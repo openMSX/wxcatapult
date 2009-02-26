@@ -1,4 +1,4 @@
-# $Id: version.mk,v 1.23 2007/08/22 18:26:39 manuelbi Exp $
+# $Id$
 #
 # Version info.
 

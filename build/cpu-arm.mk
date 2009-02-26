@@ -1,4 +1,4 @@
-# $Id: cpu-arm.mk,v 1.1 2005/04/25 21:13:34 manuelbi Exp $
+# $Id$
 #
 # Configuration for ARM CPUs. EXPERIMENTAL AND UNTESTED
 

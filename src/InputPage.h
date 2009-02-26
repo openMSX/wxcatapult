@@ -1,4 +1,4 @@
-// $Id: InputPage.h,v 1.3 2004/12/13 22:11:48 manuelbi Exp $
+// $Id$
 // InputPage.h: interface for the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////

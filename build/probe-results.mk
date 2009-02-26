@@ -1,4 +1,4 @@
-# $Id: probe-results.mk,v 1.3 2004/11/10 21:16:25 andete Exp $
+# $Id$
 #
 # Display probe results, so user can decide whether to start the build,
 # or to change system configuration and rerun "configure".

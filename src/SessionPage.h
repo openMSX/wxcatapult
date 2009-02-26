@@ -1,4 +1,4 @@
-// $Id: SessionPage.h,v 1.36 2006/07/08 12:45:15 mthuurne Exp $
+// $Id$
 // SessionPage.h: interface for the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////

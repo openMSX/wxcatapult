@@ -1,4 +1,4 @@
-# $Id: flavour-debug.mk,v 1.2 2004/11/14 19:05:18 h_oudejans Exp $
+# $Id$
 #
 # Configuration for "debug" flavour:
 # Build with all debugging info, no optimisations.

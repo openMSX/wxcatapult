@@ -1,4 +1,4 @@
-# $Id: platform-linux.mk,v 1.1 2004/07/10 15:25:01 mthuurne Exp $
+# $Id$
 #
 # Configuration for Linux on x86 machines.
 

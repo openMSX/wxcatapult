@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.cpp,v 1.38 2007/05/09 16:37:13 bifimsx Exp $
+// $Id$
 // AudioControlPage.cpp: implementation of the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-# $Id: info2code.mk,v 1.3 2004/11/10 21:16:24 andete Exp $
+# $Id$
 #
 # Write build info to C++ constants, so source can access it.
 # Advantages of this approach:

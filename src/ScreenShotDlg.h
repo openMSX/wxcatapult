@@ -1,4 +1,4 @@
-// $Id: ScreenShotDlg.h,v 1.2 2004/10/03 17:17:26 h_oudejans Exp $
+// $Id$
 // ScreenshotDlg.h: interface for the FullScreenDlg class.
 //
 //////////////////////////////////////////////////////////////////////

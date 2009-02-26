@@ -1,4 +1,4 @@
-# $Id: cpu-ia64.mk,v 1.1 2005/04/25 21:13:34 manuelbi Exp $
+# $Id$
 #
 # Configuration for Intel's 64-bit CPUs. EXPERIMENTAL AND UNTESTED
 

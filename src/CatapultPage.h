@@ -1,4 +1,4 @@
-// $Id: CatapultPage.h,v 1.15 2005/05/14 11:17:12 h_oudejans Exp $
+// $Id$
 // CatapultPage.h: interface for the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-// $Id: InputPage.cpp,v 1.13 2005/12/17 13:27:32 m9710797 Exp $
+// $Id$
 // InputPage.cpp: implementation of the InputPage class.
 //
 //////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-# $Id: cpu-alpha.mk,v 1.1 2005/04/25 21:13:33 manuelbi Exp $
+# $Id$
 #
 # Configuration for Alpha CPUs. EXPERIMENTAL AND UNTESTED
 

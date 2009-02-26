@@ -1,4 +1,4 @@
-// $Id: Version.hh,v 1.2 2004/04/16 21:58:17 mthuurne Exp $
+// $Id$
 
 #ifndef __VERSION_HH__
 #define __VERSION_HH__

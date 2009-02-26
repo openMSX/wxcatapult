@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.cpp,v 1.11 2005/01/06 16:27:22 h_oudejans Exp $
+// $Id$
 // PipeReadThread.cpp: implementation of the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////

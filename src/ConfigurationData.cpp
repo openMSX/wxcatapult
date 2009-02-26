@@ -1,4 +1,4 @@
-// $Id: ConfigurationData.cpp,v 1.14 2005/12/10 14:14:41 h_oudejans Exp $
+// $Id$
 // onfigurationData.cpp: implementation of the ConfigurationData class.
 //
 //////////////////////////////////////////////////////////////////////

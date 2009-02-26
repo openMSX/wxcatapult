@@ -1,4 +1,4 @@
-// $Id: wxToggleButtonXmlHandler.cpp,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id$
 // wxToggleButtonXmlHandler.cpp: implementation of the wxToggleButtonXmlHandler class.
 //
 //////////////////////////////////////////////////////////////////////

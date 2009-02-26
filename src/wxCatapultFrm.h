@@ -1,4 +1,4 @@
-// $Id: wxCatapultFrm.h,v 1.28 2005/12/30 19:04:09 manuelbi Exp $
+// $Id$
 #ifndef wxCatapultFrame_H
 #define wxCatapultFrame_H
 

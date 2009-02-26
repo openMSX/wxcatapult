@@ -1,4 +1,4 @@
-# $Id: custom.mk,v 1.2 2004/11/06 16:05:15 andete Exp $
+# $Id$
 #
 # This file contains user-adjustable settings for the build and installation
 # process.

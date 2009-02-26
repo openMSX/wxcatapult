@@ -1,4 +1,4 @@
-// $Id: wxCatapultApp.h,v 1.12 2005/10/14 08:53:04 h_oudejans Exp $
+// $Id$
 #ifndef wxCatapultApp_H
 #define wxCatapultApp_H
 

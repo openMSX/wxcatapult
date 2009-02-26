@@ -1,4 +1,4 @@
-// $Id: StatusPage.h,v 1.8 2004/05/09 14:25:51 manuelbi Exp $
+// $Id$
 // StatusPage.h: interface for the StatusPage class.
 //
 //////////////////////////////////////////////////////////////////////

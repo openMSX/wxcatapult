@@ -1,4 +1,4 @@
-// $Id: AudioControlPage.h,v 1.15 2005/01/06 16:27:21 h_oudejans Exp $
+// $Id$
 // AudioControlPage.h: interface for the AudioControlPage class.
 //
 //////////////////////////////////////////////////////////////////////

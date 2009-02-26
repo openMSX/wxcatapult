@@ -1,4 +1,4 @@
-// $Id: ScreenShotDlg.cpp,v 1.5 2004/12/03 18:38:20 h_oudejans Exp $
+// $Id$
 // ScreenshotDlg.cpp: implementation of the FullScreenDlg class.
 //
 //////////////////////////////////////////////////////////////////////

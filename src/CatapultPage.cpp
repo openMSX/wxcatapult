@@ -1,4 +1,4 @@
-// $Id: CatapultPage.cpp,v 1.39 2007/05/09 16:37:13 bifimsx Exp $
+// $Id$
 // CatapultPage.cpp: implementation of the CatapultPage class.
 //
 //////////////////////////////////////////////////////////////////////

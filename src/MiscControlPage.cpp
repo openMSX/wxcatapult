@@ -1,4 +1,4 @@
-// $Id: MiscControlPage.cpp,v 1.48 2007/03/01 20:11:22 manuelbi Exp $
+// $Id$
 // MiscControlPage.cpp: implementation of the MiscControlPage class.
 //
 //////////////////////////////////////////////////////////////////////

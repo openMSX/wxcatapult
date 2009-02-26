@@ -1,4 +1,4 @@
-// $Id: openMSXLinuxController.h,v 1.13 2005/11/20 16:10:55 h_oudejans Exp $
+// $Id$
 // openMSXLinuxController.h: interface for the openMSXLinuxController class.
 //
 //////////////////////////////////////////////////////////////////////

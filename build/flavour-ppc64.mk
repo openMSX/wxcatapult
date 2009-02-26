@@ -1,4 +1,4 @@
-# $Id: flavour-ppc.mk,v 1.2 2005/01/26 02:36:57 mthuurne Exp $
+# $Id$
 #
 # Configuration for "ppc64" flavour:
 

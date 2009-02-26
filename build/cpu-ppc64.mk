@@ -1,4 +1,4 @@
-# $Id: cpu-ppc.mk,v 1.1 2004/11/14 18:34:26 h_oudejans Exp $
+# $Id$
 #
 # Configuration for PowerPC64 CPUs.
 

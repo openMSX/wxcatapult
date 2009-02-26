@@ -1,4 +1,4 @@
-# $Id: cpu-m68k.mk,v 1.1 2005/06/25 07:41:53 andete Exp $
+# $Id$
 #
 # Configuration for the Motorola 860x0 family. EXPERIMENTAL AND UNTESTED
 

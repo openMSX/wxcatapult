@@ -1,4 +1,4 @@
-# $Id: flavour-i686.mk,v 1.2 2004/05/09 19:04:58 mthuurne Exp $
+# $Id$
 #
 # Configuration for "i686" flavour:
 # Optimised for Pentium 2 and higher.

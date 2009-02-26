@@ -1,4 +1,4 @@
-// $Id: VideoControlPage.h,v 1.20 2005/12/28 17:37:55 manuelbi Exp $
+// $Id$
 // VideoControlPage.h: interface for the VideoControlPage class.
 //
 //////////////////////////////////////////////////////////////////////

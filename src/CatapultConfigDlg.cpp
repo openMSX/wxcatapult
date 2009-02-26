@@ -1,4 +1,4 @@
-// $Id: CatapultConfigDlg.cpp,v 1.18 2006/05/28 09:48:15 manuelbi Exp $
+// $Id$
 // CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
 //
 //////////////////////////////////////////////////////////////////////

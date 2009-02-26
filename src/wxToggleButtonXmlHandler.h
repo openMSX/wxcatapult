@@ -1,4 +1,4 @@
-// $Id: wxToggleButtonXmlHandler.h,v 1.2 2004/02/04 22:01:15 manuelbi Exp $
+// $Id$
 // wxToggleButtonXmlHandler.h: interface for the wxToggleButtonXmlHandler class.
 //
 //////////////////////////////////////////////////////////////////////

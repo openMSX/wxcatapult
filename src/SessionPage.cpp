@@ -1,4 +1,4 @@
-// $Id: SessionPage.cpp,v 1.85 2007/05/09 16:37:13 bifimsx Exp $
+// $Id$
 // SessionPage.cpp: implementation of the SessionPage class.
 //
 //////////////////////////////////////////////////////////////////////

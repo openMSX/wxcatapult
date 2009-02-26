@@ -1,4 +1,4 @@
-# $Id: components.mk,v 1.1 2004/05/09 15:25:05 mthuurne Exp $
+# $Id$
 # Defines the building blocks of Catapult and their dependencies.
 
 ifneq ($(PROBE_MAKE_INCLUDED),true)

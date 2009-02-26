@@ -1,4 +1,4 @@
-// $Id: PipeReadThread.h,v 1.7 2004/11/11 17:32:08 h_oudejans Exp $
+// $Id$
 // PipeReadThread.h: interface for the PipeReadThread class.
 //
 //////////////////////////////////////////////////////////////////////
