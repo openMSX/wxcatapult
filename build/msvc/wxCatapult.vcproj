@@ -4063,6 +4063,86 @@
 			<File
 				RelativePath="..\..\src\Version.h"
 				>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating config headers..."
+						CommandLine="for /f &quot;delims=&quot; %%d in (&quot;$(CatapultConfigDir)&quot;) do set CONFIG_DIR=%%~fd&#x0D;&#x0D;&#x0A;&#x0A;set MSVC_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set BUILD_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%&#x0D;&#x0A;python %MSVC_DIR%\genconfig.py $(PlatformName) &quot;$(ConfigurationName)&quot;&#x0D; &quot;%CONFIG_DIR%&#x0D;&quot;&#x0D;&#x0A;&#x0A;cd %MSVC_DIR%&#x0D;&#x0A;"
+						Outputs="resource-info.h;Version.ii"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating config headers..."
+						CommandLine="for /f &quot;delims=&quot; %%d in (&quot;$(CatapultConfigDir)&quot;) do set CONFIG_DIR=%%~fd&#x0D;&#x0D;&#x0A;&#x0A;set MSVC_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set BUILD_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%&#x0D;&#x0A;python %MSVC_DIR%\genconfig.py $(PlatformName) &quot;$(ConfigurationName)&quot;&#x0D; &quot;%CONFIG_DIR%&#x0D;&quot;&#x0D;&#x0A;&#x0A;cd %MSVC_DIR%&#x0D;&#x0A;"
+						Outputs="resource-info.h;Version.ii"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating config headers..."
+						CommandLine="for /f &quot;delims=&quot; %%d in (&quot;$(CatapultConfigDir)&quot;) do set CONFIG_DIR=%%~fd&#x0D;&#x0D;&#x0A;&#x0A;set MSVC_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set BUILD_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%&#x0D;&#x0A;python %MSVC_DIR%\genconfig.py $(PlatformName) &quot;$(ConfigurationName)&quot;&#x0D; &quot;%CONFIG_DIR%&#x0D;&quot;&#x0D;&#x0A;&#x0A;cd %MSVC_DIR%&#x0D;&#x0A;"
+						Outputs="resource-info.h;Version.ii"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating config headers..."
+						CommandLine="for /f &quot;delims=&quot; %%d in (&quot;$(CatapultConfigDir)&quot;) do set CONFIG_DIR=%%~fd&#x0D;&#x0D;&#x0A;&#x0A;set MSVC_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set BUILD_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%&#x0D;&#x0A;python %MSVC_DIR%\genconfig.py $(PlatformName) &quot;$(ConfigurationName)&quot;&#x0D; &quot;%CONFIG_DIR%&#x0D;&quot;&#x0D;&#x0A;&#x0A;cd %MSVC_DIR%&#x0D;&#x0A;"
+						Outputs="resource-info.h;Version.ii"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating config headers..."
+						CommandLine="for /f &quot;delims=&quot; %%d in (&quot;$(CatapultConfigDir)&quot;) do set CONFIG_DIR=%%~fd&#x0D;&#x0D;&#x0A;&#x0A;set MSVC_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set BUILD_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%&#x0D;&#x0A;python %MSVC_DIR%\genconfig.py $(PlatformName) &quot;$(ConfigurationName)&quot;&#x0D; &quot;%CONFIG_DIR%&#x0D;&quot;&#x0D;&#x0A;&#x0A;cd %MSVC_DIR%&#x0D;&#x0A;"
+						Outputs="resource-info.h;Version.ii"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating config headers..."
+						CommandLine="for /f &quot;delims=&quot; %%d in (&quot;$(CatapultConfigDir)&quot;) do set CONFIG_DIR=%%~fd&#x0D;&#x0D;&#x0A;&#x0A;set MSVC_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set BUILD_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%&#x0D;&#x0A;python %MSVC_DIR%\genconfig.py $(PlatformName) &quot;$(ConfigurationName)&quot;&#x0D; &quot;%CONFIG_DIR%&#x0D;&quot;&#x0D;&#x0A;&#x0A;cd %MSVC_DIR%&#x0D;&#x0A;"
+						Outputs="resource-info.h;Version.ii"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating config headers..."
+						CommandLine="for /f &quot;delims=&quot; %%d in (&quot;$(CatapultConfigDir)&quot;) do set CONFIG_DIR=%%~fd&#x0D;&#x0D;&#x0A;&#x0A;set MSVC_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set BUILD_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%&#x0D;&#x0A;python %MSVC_DIR%\genconfig.py $(PlatformName) &quot;$(ConfigurationName)&quot;&#x0D; &quot;%CONFIG_DIR%&#x0D;&quot;&#x0D;&#x0A;&#x0A;cd %MSVC_DIR%&#x0D;&#x0A;"
+						Outputs="resource-info.h;Version.ii"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating config headers..."
+						CommandLine="for /f &quot;delims=&quot; %%d in (&quot;$(CatapultConfigDir)&quot;) do set CONFIG_DIR=%%~fd&#x0D;&#x0D;&#x0A;&#x0A;set MSVC_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set BUILD_DIR=%CD%&#x0D;&#x0A;cd ..&#x0D;&#x0A;set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%&#x0D;&#x0A;python %MSVC_DIR%\genconfig.py $(PlatformName) &quot;$(ConfigurationName)&quot;&#x0D; &quot;%CONFIG_DIR%&#x0D;&quot;&#x0D;&#x0A;&#x0A;cd %MSVC_DIR%&#x0D;&#x0A;"
+						Outputs="resource-info.h;Version.ii"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\VideoControlPage.h"

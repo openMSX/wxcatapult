@@ -1,5 +1,8 @@
 $Id$
 
+2009-02-20 Max Feingold <maf6@cornell.edu>
+	* Added VC++ 2008 projects.
+
 2008-12-27 Manuel Bilderbeek <manuel@msxnet.org>
 	* Prepared for yet another 'dead' release: 0.7.0-R1...
 
