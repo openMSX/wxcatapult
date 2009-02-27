@@ -69,7 +69,7 @@ VERSION_MAKE:=$(MAKE_PATH)/version.mk
 include $(VERSION_MAKE)
 PACKAGE_FULL:=$(PACKAGE_NAME)-$(PACKAGE_VERSION)
 CHANGELOG_REVISION:=\
-	$(shell sed -ne "s/\$$Id: ChangeLog,v \([^ ]*\).*/\1/p" ChangeLog)
+	$(shell sed -ne "s/\$$Id: ChangeLog \([^ ]*\).*/\1/p" ChangeLog)
 
 # Platforms
 # =========
