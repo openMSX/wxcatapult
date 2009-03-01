@@ -313,7 +313,7 @@ $(OBJECTS_FULL): $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.cpp $(DEPEND_PATH)/%.d
 ifeq ($(CATAPULT_TARGET_OS),mingw32)
 CHANGELOG_REVISION:=\
 	$(shell sed -ne "s/\$$Id: ChangeLog \([^ ]*\).*/\1/p" ChangeLog)
-WIN32_FILEVERSION:=$(shell echo $(PACKAGE_VERSION) $(CHANGELOG_REVISION) | sed -ne 's/\([0-9]\)*\.\([0-9]\)*\.\([0-9]\)*[^ ]* [0-9]*\.\([0-9]*\)/\1, \2, \3, \4/p' -)
+WIN32_FILEVERSION:=$(shell echo $(PACKAGE_VERSION) $(CHANGELOG_REVISION) | sed -ne 's/\([0-9]\)*\.\([0-9]\)*\.\([0-9]\)*[^ ]* \([0-9]*\)/\1, \2, \3, \4/p' -)
 $(RESOURCE_HEADER): $(VERSION_MAKE) ChangeLog
 	@echo "#define CATAPULT_VERSION_INT $(WIN32_FILEVERSION)" > $@
 	@echo "#define CATAPULT_VERSION_STR \"$(PACKAGE_VERSION)\0\"" >> $@
