@@ -55,16 +55,7 @@ void InputPage::OnTypeText (wxCommandEvent &event)
 	test.Replace(wxT("}"),wxT("\\}"),true);
 	test.Replace(wxT("{"),wxT("\\{"),true);
 
-	// remove chars >= 128
-	wxString tmp;
-	for (size_t i = 0; i < test.length(); ++i) {
-		signed char c = test[i];
-		if (c > 0) {
-			tmp += c;
-		}
-	}
-
-	m_controller->WriteCommand(wxString(wxT("type \"")) + tmp + wxT("\""));
+	m_controller->WriteCommand(wxString(wxT("type \"")) + test + wxT("\""));
 }
 
 void InputPage::OnClearText(wxCommandEvent &event)
