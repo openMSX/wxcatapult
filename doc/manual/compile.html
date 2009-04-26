@@ -154,8 +154,7 @@ only the big picture.
 <dl>
 
 <dt>2004-04-25 Herman Oudejans</dt>
-<dd>Initial version based on the openMSX manuals by Manuel Bilderbeek, Jorrith 
-Schaap and Maarten ter Huurne.</dd>
+<dd>Initial version based on the openMSX manuals by Manuel Bilderbeek, Jorrith Schaap and Maarten ter Huurne.</dd>
 <dt>2004-10-04 Herman Oudejans</dt>
 <dd>Added touch.exe to the compilation packages</dd>
 <dt>2005-02-06 Herman Oudejans</dt>
@@ -188,47 +187,25 @@ There are several options for getting the source code:
 
 <dt><a class="internal" href="#getrelease">Released Version</a></dt>
 <dd>
-These are tested versions, which should give you little problem 
-compiling and running. However, as Catapult development is often quite fast, 
-they may not have all the latest features. Also there could be bugs that 
-have been fixed since the last release. </dd>
+These are tested versions, which should give you little problem compiling and running. However, as Catapult development is often quite fast, they may not have all the latest features. Also there could be bugs that have been fixed since the last release. </dd>
 <dt><a class="internal" href="#getsvn">SVN Checkout</a></dt>
 <dd>
-Through SVN you can get the same development version the Catapult 
-developers are using. This is the bleeding edge: the latest stuff, which may 
-be great or may be horribly broken. Usually Catapult SVN compiles and runs 
-fine, but we're only human, so once in a while it breaks. Also there may be 
-changes that are not documented yet. </dd>
+Through SVN you can get the same development version the Catapult developers are using. This is the bleeding edge: the latest stuff, which may be great or may be horribly broken. Usually Catapult SVN compiles and runs fine, but we're only human, so once in a while it breaks. Also there may be changes that are not documented yet. </dd>
 <dt><a class="internal" href="#getsnapshot">SVN Snapshot</a></dt>
 <dd>
-A snapshot is created from a recent SVN checkout, in a <code>tar.gz</code> 
-archive. A snapshot is therefore quite similar to a SVN checkout, but it 
-doesn't require you to install and use SVN. It may lag a couple of days from 
-the latest SVN sources. Moreover, SF.net turned off cron jobs, which means 
-the snapshots may be updated on a very irregular basis. </dd>
+A snapshot is created from a recent SVN checkout, in a <code>tar.gz</code> archive. A snapshot is therefore quite similar to a SVN checkout, but it doesn't require you to install and use SVN. It may lag a couple of days from the latest SVN sources. Moreover, SF.net turned off cron jobs, which means the snapshots may be updated on a very irregular basis. </dd>
 
 </dl>
 
-<p>Releases are intended for general users, SVN and SVN snapshots are intended 
-for (would be) developers, heavy testers and people who want to follow new 
-developments closely. It might be a good idea to play with a release first. If 
-you like what you see and want to get in deeper, you can switch to SVN later. If 
-you update often, it is best to use a SVN checkout rather than a SVN snapshot, 
-because with a checkout you can do efficient incremental updates, saving network 
-bandwidth and compile time. </p>
-<p>If you downloaded a version that is either a lot older or a lot newer than 
-this guide, it is a good idea to read the guide included in your downloaded 
-version instead of the version you're reading right now. You can find the 
-Compilation Guide in the directory <code>doc/manual</code>. </p>
+<p>Releases are intended for general users, SVN and SVN snapshots are intended for (would be) developers, heavy testers and people who want to follow new developments closely. It might be a good idea to play with a release first. If you like what you see and want to get in deeper, you can switch to SVN later. If you update often, it is best to use a SVN checkout rather than a SVN snapshot, because with a checkout you can do efficient incremental updates, saving network bandwidth and compile time. </p>
+<p>If you downloaded a version that is either a lot older or a lot newer than this guide, it is a good idea to read the guide included in your downloaded version instead of the version you're reading right now. You can find the Compilation Guide in the directory <code>doc/manual</code>. </p>
 
 <h3><a id="getrelease">2.1. Released Version</a></h3>
 
 <p>
 You can download a released version of Catapult from <a class="external"
 href="http://sourceforge.net/project/showfiles.php?group_id=38274"
->the openMSX download page at SourceForge</a>. The latest version is probably 
-the best one. At least try to get one matching the version of openMSX you are 
-using.
+>the openMSX download page at SourceForge</a>. The latest version is probably the best one. At least try to get one matching the version of openMSX you are using.
 </p>
 
 <p>
@@ -251,52 +228,24 @@ utilities are PowerArchiver 6.1 (free), Wiz (free), 7-Zip (free) or WinZip
 
 <h3><a id="getsvn">2.2. SVN Checkout</a></h3>
 
-<p>Getting a SVN checkout means you use SVN to retrieve the latest version of 
-the source code of openMSX. This means you will need to install an SVN client. 
-This package is usually named <code>subversion</code>. There are graphical 
-front-ends for SVN, but this guide will tell you how to use SVN from the command 
-line. More information about SVN can be found on the
-<a class="external" href="http://svnbook.red-bean.com/en/1.1/">Subversion book</a> 
-site.</p>
+<p>Getting a SVN checkout means you use SVN to retrieve the latest version of the source code of Catapult. This means you will need to install an SVN client. This package is usually named <code>subversion</code>. There are graphical front-ends for SVN, but this guide will tell you how to use SVN from the command line. More information about SVN can be found on the
+<a class="external" href="http://svnbook.red-bean.com/en/1.1/">Subversion book</a> site.</p>
 <p>Windows users might want to look at
-<a href="http://www.sliksvn.com/en/download">SlikSVN</a> for a command line 
-tool, <a class="external" href="http://tortoisesvn.tigris.org/">TortoiseSVN</a> 
-for Windows Explorer integration, or <a href="http://ankhsvn.open.collab.net/">
-ankhSVN</a> for Visual Studio integration. </p>
+<a href="http://www.sliksvn.com/en/download">SlikSVN</a> for a command line tool, <a class="external" href="http://tortoisesvn.tigris.org/">TortoiseSVN</a> for Windows Explorer integration, or <a href="http://ankhsvn.open.collab.net/"> ankhSVN</a> for Visual Studio integration. </p>
 <p>With the following line you can retrieve the latest sources: </p>
 <div class="commandline">
-	svn co https://openmsx.svn.sourceforge.net/svnroot/openmsx/wxcatapult/trunk 
-	wxcatapult </div>
-<p>In this line you specified where you want to retrieve the files from (host 
-name of the SVN server), what project you want to retrieve (<em>openmsx</em> in 
-this case), what module you want to get (<em>wxcatapult </em>in this case, which 
-is the module that contains the sources of the main Catapult program), which 
-branch you want to retrieve (<em>trunk</em> in this case, which is the main development 
-branch) and what directory it should be checked out to (we chose <em>wxcatapult
-</em>in this example). </p>
-<p>In TortoiseSVN, use <code>https://openmsx.svn.sourceforge.net/svnroot/openmsx/wxcatapult/trunk</code> 
-as the &quot;URL of repository&quot; and the directory of your choice as the &quot;Checkout 
-directory&quot;. Use the <code>HEAD</code> revision and click OK. When compiling 
-Catapult on Windows with gcc, it's often convenient to use <code>
-C:\msys\1.0\home\&lt;username&gt;\wxcatapult</code> as the checkout directory, as this 
-is easy to reach from an MSYS shell - it's your MSYS home directory. </p>
-<p>If you're a developer, it makes sense to add the following option to the svn 
-commandline as well: </p>
+	svn co https://openmsx.svn.sourceforge.net/svnroot/openmsx/wxcatapult/trunk wxcatapult </div>
+<p>In this line you specified where you want to retrieve the files from (host name of the SVN server), what project you want to retrieve (<em>openmsx</em> in this case), what module you want to get (<em>wxcatapult </em>in this case, which is the module that contains the sources of the main Catapult program), which branch you want to retrieve (<em>trunk</em> in this case, which is the main development branch) and what directory it should be checked out to (we chose <em>wxcatapult </em>in this example). </p>
+
+<p>In TortoiseSVN, use <code>https://openmsx.svn.sourceforge.net/svnroot/openmsx/wxcatapult/trunk</code> as the &quot;URL of repository&quot; and the directory of your choice as the &quot;Checkout directory&quot;. Use the <code>HEAD</code> revision and click OK. When compiling Catapult on Windows with gcc, it's often convenient to use <code> C:\msys\1.0\home\&lt;username&gt;\wxcatapult</code> as the checkout directory, as this is easy to reach from an MSYS shell - it's your MSYS home directory. </p>
+<p>If you're a developer, it makes sense to add the following option to the svn commandline as well: </p>
 <div class="commandline">
 	--username &lt;name-of-your-sourceforge-account&gt; </div>
-<p>The SVN command created a directory called <code>wxcatapult </code>for you in 
-the current directory (or in the &quot;Checkout directory&quot; you specified in 
-TortoiseSVN). In addition to the Catapult code, you will see hidden SVN 
-administration directories which are all called <code>svn</code> or <code>.svn</code>. 
-Do not mess with these (nor move contents of this checkout directory around), 
-otherwise SVN will get confused. This directory created by SVN is what we will 
-call in this manual <em>the top of the source tree</em>. </p>
-<p>If you want to update your source tree later, go to the top of the source 
-tree and type: </p>
+<p>The SVN command created a directory called <code>wxcatapult </code>for you in the current directory (or in the &quot;Checkout directory&quot; you specified in TortoiseSVN). In addition to the Catapult code, you will see hidden SVN administration directories which are all called <code>svn</code> or <code>.svn</code>. Do not mess with these (nor move contents of this checkout directory around), otherwise SVN will get confused. This directory created by SVN is what we will call in this manual <em>the top of the source tree</em>. </p>
+<p>If you want to update your source tree later, go to the top of the source tree and type: </p>
 <div class="commandline">
 	svn up </div>
-<p>or right click on the wxcatapult directory in Windows Explorer and select 
-&quot;SVN Update&quot;. </p>
+<p>or right click on the wxcatapult directory in Windows Explorer and select &quot;SVN Update&quot;. </p>
 
 <h3><a id="getsnapshot">2.3. SVN Snapshot</a></h3>
 
@@ -325,19 +274,11 @@ The following sections list the packages you need.
 
 <h3><a id="tools">3.1. Build Tools</a></h3>
 
-<p>For compilation, you need <a href="http://www.python.org/download/">Python</a>, 
-a C++ compiler, and some compiler-specific programs. If you have compiled 
-packages from source before, you probably some of have these installed already.</p>
+<p>For compilation, you need <a href="http://www.python.org/download/">Python</a>, a C++ compiler, and some compiler-specific programs. If you have compiled packages from source before, you probably some of have these installed already.</p>
 <dl>
 	<dt><a href="http://www.python.org/download/">Python</a></dt>
-	<dd>A compact and dynamic programming language. Version 2.5 or later is 
-	required. However, Python 3.0 contains incompatible changes in the language, 
-	so make sure you install a version from the 2.x series. Eventually Python 
-	will replace Make completely in our build system, but at the moment both are 
-	required.</dd>
-	<dt>There are two compilers that are can be used to build Catapult: gcc and 
-	Visual C++. The gcc compiler builds Catapult on all supported platforms, 
-	while Visual C++ is an alternative option on Windows.</dt>
+	<dd>A compact and dynamic programming language. Version 2.5 or later is required. However, Python 3.0 contains incompatible changes in the language, so make sure you install a version from the 2.x series. Eventually Python will replace Make completely in our build system, but at the moment both are required.</dd>
+	<dt>There are two compilers that are can be used to build Catapult: gcc and Visual C++. The gcc compiler builds Catapult on all supported platforms, while Visual C++ is an alternative option on Windows.</dt>
 </dl>
 <h4>gcc</h4>
 <p>
@@ -361,44 +302,28 @@ Catapult. To be on the safe side: we recommend 3.4 or later.</dd>
 </dl>
 
 <p>
-For compilation in Windows you will need the combination of Minimal System (msys) and Minimalist GNU for Windows (MinGW)</p>
-<dl>
-
-<dd>This is the same combination that is needed to compile openMSX on Windows.
+For compilation in Windows you will need the combination of Minimal System (msys) and Minimalist GNU for Windows (MinGW).
+This is the same combination that is needed to compile openMSX on Windows.
 Although compilation works, the generated executable will be larger than the
 binary released version (which is compiled with Visual C++) and will also need the MinGW runtime DLL.
-</dd>
-</dl>
+</p>
 
 <h4>Visual C++</h4>
 <p>There are three different ways to obtain the Visual C++ compiler:</p>
 <dl>
 	<dt><a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx">Visual 
 	C++ 2008</a></dt>
-	<dd>This is the professional IDE that comes with Visual Studio, as a 
-	standalone purchase, or via an MSDN subscription.</dd>
+	<dd>This is the professional IDE that comes with Visual Studio, as a standalone purchase, or via an MSDN subscription.</dd>
 	<dt><a href="http://msdn.microsoft.com/en-us/windows/bb980924.aspx">Windows 
 	SDK</a></dt>
-	<dd>This is a free (as in beer) command line environment that provides a 
-	full set of compilers, headers and libraries. This is the best option for 
-	people who simply wish to build openMSX with minimal hassle. It is a large 
-	download.</dd>
+	<dd>This is a free (as in beer) command line environment that provides a full set of compilers, headers and libraries. This is the best option for people who simply wish to build openMSX with minimal hassle. It is a large download.</dd>
 	<dt><a href="http://www.microsoft.com/express/vc/">Visual C++ 2008 Express</a></dt>
-	<dd>This is a free (again as in beer) IDE and development environment. It 
-	builds 32-bit binaries out of the box, and can be made to build 64-bit 
-	binaries with some
-	<a href="http://social.msdn.microsoft.com/Forums/en-US/Vsexpressvc/thread/38544c63-d12a-4a05-9ea7-5b4124152801/">coaxing</a>. This is the best option for developers looking to browse the 
-	code or use other benefits of an IDE. It's also a smaller download than the 
-	Windows SDK.</dd></dl>
-	<p>To build with Visual C++ from the command line, you need to open a Visual 
-	Studio command prompt. A shortcut for this can usually be found in your start menu. For Visual C++ 2008, it will be in &quot;Microsoft Visual Studio 
-		2008\Visual Studio Tools&quot; as the &quot;Visual Studio 2008 Command Prompt&quot;. For the Windows SDK, it will be in &quot;Microsoft Windows SDK vX.Y&quot; as 
-		the &quot;CMD Shell&quot;.</p>
-<p>When building with Visual C++, the result is a static executable with minimal 
-dynamic library dependencies. Two platforms are supported:</p>
+	<dd>This is a free (again as in beer) IDE and development environment. It builds 32-bit binaries out of the box, and can be made to build 64-bit binaries with some
+	<a href="http://social.msdn.microsoft.com/Forums/en-US/Vsexpressvc/thread/38544c63-d12a-4a05-9ea7-5b4124152801/">coaxing</a>. This is the best option for developers looking to browse the code or use other benefits of an IDE. It's also a smaller download than the Windows SDK.</dd></dl>
+	<p>To build with Visual C++ from the command line, you need to open a Visual Studio command prompt. A shortcut for this can usually be found in your start menu. For Visual C++ 2008, it will be in &quot;Microsoft Visual Studio 2008\Visual Studio Tools&quot; as the &quot;Visual Studio 2008 Command Prompt&quot;. For the Windows SDK, it will be in &quot;Microsoft Windows SDK vX.Y&quot; as the &quot;CMD Shell&quot;.</p>
+<p>When building with Visual C++, the result is a static executable with minimal dynamic library dependencies. Two platforms are supported:</p>
 <ul>
-	<li>Win32 - a 32-bit binary that runs on both 32 and 64-bit versions of 
-	Windows</li>
+	<li>Win32 - a 32-bit binary that runs on both 32 and 64-bit versions of Windows</li>
 	<li>x64 - a 64-bit binary that runs only on 64-bit versions of Windows</li>
 </ul>
 <p>Three different configurations are supported:</p>
@@ -432,8 +357,7 @@ for a few hints about compiling them from their sources.
 <p>Catapult depends on the following libraries: </p>
 <dl>
 	<dt><a class="external" href="http://www.wxwidgets.org/">wxWidgets</a></dt>
-	<dd>Formerly known as wxWindows, this is a cross-platform C++ GUI toolkit 
-	(GTK+ runtime). </dd>
+	<dd>Formerly known as wxWindows, this is a cross-platform C++ GUI toolkit (GTK+ runtime). </dd>
 	<dt><a class="external" href="http://www.xmlsoft.org/">libxml2</a></dt>
 	<dd>XML C library, originally developed for GNOME.</dd>
 </dl>
@@ -444,8 +368,7 @@ On a Debian testing system, the packages are called:
 
 <dl>
 <dt>libwxgtk2.6-0</dt>
-<dd>This is the
-main runtime wxWidgets library</dd>
+<dd>This is the main runtime wxWidgets library</dd>
 
 <dt>libwxgtk2.6-dev</dt>
 <dd>This package contains the necessary headers to compile.</dd>
@@ -454,16 +377,15 @@ main runtime wxWidgets library</dd>
 </dl>
 
 <p>
-Although other versions are available, we recommend to use wxWidgets 2.6.</p>
+Although other versions are available, we recommend to use wxWidgets 2.6 (but 2.8 will probably also work).</p>
+
 <h5>Microsoft Windows</h5>
 <p>
 For Windows the wxWidgets package is called wxMSW. Version 2.8.9 is recommended (it's 2.6 compatible). Please read the next section for instructions for compiling wxWidgets from source.
 </p>
 
 <p>For Windows, version 2.7.2 of libxml2 is recommended.</p>
-<p>Unzip the source packages into the derived\3rdparty\src directory. This will 
-generate two 
-	subdirectories called libxml2-2.7.2 and wxMSW-2.8.9.</p>
+<p>Unzip the source packages into the derived\3rdparty\src directory. This will generate two subdirectories called libxml2-2.7.2 and wxMSW-2.8.9.</p>
 
 <h3><a id="complibs">3.3. Compilation of the Libraries</a></h3>
 
@@ -493,14 +415,10 @@ any pointers here about this library as its documentation says exaclty how to co
 <ul>
 	<li>Open a Visual Studio command prompt.</li>
 	<li>Go to the <em>top of the Catapult source tree</em></li>
-	<li>Type <code>msbuild -p:Configuration=<strong>Release</strong>;Platform=<strong>Win32</strong> 
-	build\3rdparty\3rdparty.sln</code></li>
+	<li>Type <code>msbuild -p:Configuration=<strong>Release</strong>;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
 </ul>
-<p>To build for other platforms or configurations, simply replace &quot;Release&quot; and 
-&quot;Win32&quot;&nbsp;in the command lines above with the desired options.</p>
-<p>It is worth noting that running msbuild from a command line is exactly 
-equivalent to opening the respective solution files in Visual C++ and compiling 
-the projects inside them using the IDE.</p>
+<p>To build for other platforms or configurations, simply replace &quot;Release&quot; and &quot;Win32&quot;&nbsp;in the command lines above with the desired options.</p>
+<p>It is worth noting that running msbuild from a command line is exactly equivalent to opening the respective solution files in Visual C++ and compiling the projects inside them using the IDE.</p>
 <h3><a id="compilenow">3.4. Compilation Itself</a></h3>
 
 <h4>gcc</h4>
@@ -552,16 +470,12 @@ Make sure you provide us with the error message(s) you got.
 <ul>
 	<li>Open a Visual Studio command prompt.</li>
 	<li>Go to the <em>top of the Catapult source tree</em></li>
-	<li>Type <code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> 
-	build\3rdparty\wxCatapult.sln</code></li>
+	<li>Type <code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\wxCatapult.sln</code></li>
 </ul>
-<p>To build for other platforms or configurations, simply replace &quot;Unicode 
-Release&quot; and &quot;Win32&quot;&nbsp;in the command lines above with the desired options.</p>
-<p>It is worth noting that running msbuild from a command line is exactly 
-equivalent to opening the respective solution files in Visual C++ and compiling 
-the projects inside them using the IDE.</p>
+<p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot;&nbsp;in the command lines above with the desired options.</p>
+<p>It is worth noting that running msbuild from a command line is exactly equivalent to opening the respective solution files in Visual C++ and compiling the projects inside them using the IDE.</p>
 
-<h2><a id="install">4. Installation</h2>
+<h2><a id="install">4. Installation</a></h2>
 
 <p>
 To install Catapult in Linux, run the following command:
