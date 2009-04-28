@@ -333,21 +333,27 @@ bool openMSXController::WriteCommand(wxString msg, TargetType target)
 {
 	if (!m_openMsxRunning)
 		return false;
+
 	CommandEntry temp;
 	temp.command = msg;
 	temp.target = target;
 	m_commands.push_back(temp);
-	char * convertBuffer = new char[msg.Len()+1];
-	strcpy(convertBuffer,(const char*) (wxConvUTF8.cWX2MB(msg)));
-	xmlChar* buffer = xmlEncodeEntitiesReentrant(NULL,(const xmlChar *)convertBuffer);
+
+	xmlChar* buffer = xmlEncodeEntitiesReentrant(NULL,(const xmlChar *)(const char *)(wxConvUTF8.cWX2MB(msg)));
+	if (!buffer)
+		return false;
+
+	bool result = false;
 	char * commandBuffer = new char[strlen((const char *) buffer)+25];
-	strcpy (commandBuffer,"<command>");
-	strcat (commandBuffer,(const char *)buffer);
-	strcat (commandBuffer,"</command>\n");
-	bool result = WriteMessage((xmlChar *)commandBuffer,strlen(commandBuffer));
-	if (buffer != NULL) {
-		xmlFree(buffer);
+	if (commandBuffer) {
+		strcpy (commandBuffer,"<command>");
+		strcat (commandBuffer,(const char *)buffer);
+		strcat (commandBuffer,"</command>\n");
+		result = WriteMessage((xmlChar *)commandBuffer,strlen(commandBuffer));
+		delete [] commandBuffer;
 	}
+
+	xmlFree(buffer);
 	return result;
 }
 
