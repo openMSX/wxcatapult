@@ -534,7 +534,7 @@ contact us. The next chapter will tell you how.
 <h2><a id="contact">6. Contact Info</a></h2>
 
 <p>
-Since Catapult is still in heavy development, feedback and bug reports are very
+Since Catapult is still under heavy development, feedback and bug reports are very
 welcome!
 </p>
 
@@ -544,41 +544,58 @@ If you encounter problems, you have several options:
 
 <ol>
 <li>
-If you're a regular user and want to discuss openMSX and Catapult and possible
-problems, join our <code>openmsx-user</code> mailing list.
-More info on the <a class="external"
-href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing lists</a>,
+If you're a regular user and want to discuss openMSX and possible problems,
+join our <code>openmsx-user</code> mailing list.
+More info on the
+<a class="external" href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing lists</a>,
 including an archive of old messages, can be found at SourceForge.
 </li>
 <li>
 Go to our IRC channel: <code>#openMSX</code> on <code>irc.freenode.net</code>
-and ask your question there.
+and ask your question there. Also reachable via <a href="http://openmsx.sf.net/mibbit.php">Mibbit</a>! If you don't get a reply immediately, please stick around for a while, or ask your question on the mailinglist (see below).
 </li>
 <li>
-If you want to address the openMSX developers directly, post a message to the
-<code>openmsx-devel</code> mailing list.
-More info on the <a class="external"
-href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing lists</a>,
+If you want to address the openMSX developers directly,
+post a message to the <code>openmsx-devel</code> mailing list.
+More info on the
+<a class="external" href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing lists</a>,
 including an archive of old messages, can be found at SourceForge.
 </li>
 <li>
-Use one of the <a class="external"
-href="http://sourceforge.net/tracker/?group_id=38274">openMSX trackers</a> at
-SourceForge.
-At the moment of writing, there are four trackers: Bugs, Support Requests,
-Patches and Feature Requests.
+Use one of the
+<a class="external" href="http://sourceforge.net/tracker/?group_id=38274">openMSX trackers</a>
+at SourceForge.
+At the moment of writing, there are four trackers:
+Bugs, Support Requests, Patches and Feature Requests.
+</li>
+<li>
+Post a message on the forum on <a class="external" href="http://www.openmsx.org/">www.openmsx.org</a>.
 </li>
 </ol>
 
 <p>
-For experienced users: if you get a crash, try to provide a <code>gdb</code>
-backtrace.
-</p>
-
-<p>
-In any case, try to give as much information as possible when you describe your
+In all cases, please provide as much information as possible when you describe your
 bug or request.
 </p>
+
+<h4>gcc</h4><p>For experienced users: if you get a crash or a hang,
+try to provide a <code>gdb</code> backtrace.
+This will only work if you did not strip the openMSX binary
+of its debug symbols.</p>
+
+<p>Another useful thing to do is to install the debug versions of libstdc++ and libc6,
+and then run openmsx with an <code>LD_LIBRARY_PATH=/usr/lib/debug</code> exported in the environment.
+This will give a more detailed stacktrace, especially in optimized code.
+</p>
+
+<h4>Visual C++</h4><p>For experienced users: if you get a crash or a hang,
+try to provide a user dump. This will work for any openMSX binary, including
+pre-built binaries obtained from <a class="external" href="http://www.openmsx.org/">www.openmsx.org</a>.
+For more information on generating a user dump, please read
+<a href="http://support.microsoft.com/kb/286350">KB286350</a>.</p>
+
+<p>
+&nbsp;</p>
 
 <p class="version">
 $Id$
