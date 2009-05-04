@@ -35,7 +35,7 @@ openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 openMSXWindowsController::~openMSXWindowsController()
 {
 	if (m_openMsxRunning) {
-		WriteCommand(wxT("quit"));
+		WriteCommand(wxT("exit"));
 	}
 }
 

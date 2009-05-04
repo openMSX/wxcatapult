@@ -29,7 +29,7 @@
 openMSXLinuxController::~openMSXLinuxController()
 {
 	if (m_openMsxRunning) {
-		WriteCommand(wxT("quit"));
+		WriteCommand(wxT("exit"));
 		m_stdOutThread->Wait();
 		m_stdErrThread->Wait();
 		delete m_stdOutThread;

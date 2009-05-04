@@ -422,7 +422,7 @@ void wxCatapultFrame::OnMenuHighlight(wxMenuEvent &event)
 void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 {
 	if (m_launch_AbortButton->GetLabel().IsSameAs(wxT("Stop"))) {
-		m_controller->WriteCommand(wxT("quit"));
+		m_controller->WriteCommand(wxT("exit"));
 		return;
 	}
 	// check again if openMSX can be found
