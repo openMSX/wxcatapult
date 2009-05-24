@@ -58,7 +58,7 @@
 	/>
 	<UserMacro
 		Name="LibNameLibXml"
-		Value="libxml2-2.7.2"
+		Value="libxml2-2.7.3"
 		PerformEnvironmentSet="true"
 	/>
 	<UserMacro
