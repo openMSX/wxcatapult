@@ -326,7 +326,7 @@ binary released version (which is compiled with Visual C++) and will also need t
 	<li>Win32 - a 32-bit binary that runs on both 32 and 64-bit versions of Windows</li>
 	<li>x64 - a 64-bit binary that runs only on 64-bit versions of Windows</li>
 </ul>
-<p>Three different configurations are supported:</p>
+<p>Two different configurations are supported:</p>
 <ul>
 	<li>Unicode Debug: assertions enabled, no optimization</li>
 	<li>Unicode Release: assertions disabled, full optimization</li>
@@ -381,13 +381,10 @@ Although other versions are available, we recommend to use wxWidgets 2.6 (but 2.
 
 <h5>Microsoft Windows</h5>
 <p>
-For Windows the wxWidgets package is called wxMSW. Version 
-<a href="https://sourceforge.net/project/downloading.php?group_id=9863&amp;filename=wxMSW-2.8.9.zip&amp;a=4722847">2.8.9</a> is recommended (it's compatible 
-with 2.6). Please read the next section for instructions for compiling wxWidgets from source.
+For Windows the wxWidgets package is called wxMSW. Version <a href="https://sourceforge.net/project/downloading.php?group_id=9863&amp;filename=wxMSW-2.8.9.zip&amp;a=4722847">2.8.9</a> is recommended (it's compatible with 2.6). Please read the next section for instructions for compiling wxWidgets from source.
 </p>
 
-<p>For Windows, version 
-<a href="http://www.xmlsoft.org/sources/libxml2-2.7.3.tar.gz">2.7.3</a> of libxml2 is recommended.</p>
+<p>For Windows, version <a href="http://www.xmlsoft.org/sources/libxml2-2.7.3.tar.gz">2.7.3</a> of libxml2 is recommended.</p>
 <p>Unpack the source packages into the derived\3rdparty\src directory. This will generate two subdirectories called libxml2-2.7.3 and wxMSW-2.8.9.</p>
 
 <h3><a id="complibs">3.3. Compilation of the Libraries</a></h3>
@@ -418,10 +415,10 @@ any pointers here about this library as its documentation says exaclty how to co
 <ul>
 	<li>Open a Visual Studio command prompt.</li>
 	<li>Go to the <em>top of the Catapult source tree</em></li>
-	<li>Type <code>msbuild -p:Configuration=<strong>Release</strong>;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
+	<li>Type <code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
 </ul>
-<p>To build for other platforms or configurations, simply replace &quot;Release&quot; and &quot;Win32&quot;&nbsp;in the command lines above with the desired options.</p>
-<p>It is worth noting that running msbuild from a command line is exactly equivalent to opening the respective solution files in Visual C++ and compiling the projects inside them using the IDE.</p>
+<p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options, which are explained above.</p>
+<p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual C++ and compiling the projects inside them using the IDE.</p>
 <h3><a id="compilenow">3.4. Compilation Itself</a></h3>
 
 <h4>gcc</h4>
@@ -475,8 +472,8 @@ Make sure you provide us with the error message(s) you got.
 	<li>Go to the <em>top of the Catapult source tree</em></li>
 	<li>Type <code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\msvc\wxCatapult.sln</code></li>
 </ul>
-<p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot;&nbsp;in the command lines above with the desired options.</p>
-<p>It is worth noting that running msbuild from a command line is exactly equivalent to opening the respective solution files in Visual C++ and compiling the projects inside them using the IDE.</p>
+<p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options. Note: the options should be consistent with the ones you provided for the 3rdparty libraries build, see above!</p>
+<p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual C++ and compiling the projects inside them using the IDE.</p>
 
 <h2><a id="install">4. Installation</a></h2>
 
@@ -596,9 +593,6 @@ try to provide a user dump. This will work for any openMSX binary, including
 pre-built binaries obtained from <a class="external" href="http://www.openmsx.org/">www.openmsx.org</a>.
 For more information on generating a user dump, please read
 <a href="http://support.microsoft.com/kb/286350">KB286350</a>.</p>
-
-<p>
-&nbsp;</p>
 
 <p class="version">
 $Id$
