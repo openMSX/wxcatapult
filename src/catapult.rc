@@ -11,11 +11,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#ifdef _MSC_VER
 #include <windows.h>
-#else
-#include "afxres.h"
-#endif
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
