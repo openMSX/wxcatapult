@@ -1,16 +1,24 @@
-Release Notes for openMSX Catapult 0.7.0-R1 (2009-01-07)
+Release Notes for openMSX Catapult 0.7.1 (2009-06-28)
 ========================================================
 
-This is a release to go with openMSX 0.7.0. The only change is that a bug in
-the build system was fixed, nothing else has changed. The plan is still to
-release a completely new Catapult as soon as possible; unfortunately we didn't
-make it in time for openMSX 0.7.0.
+This release comes mostly with good news for Windows users: we have a brand new
+installer with binaries which have been created in a brand new way, using
+Microsoft Visual C++ 2008. This means smaller binaries and also support for
+64-bit Windows operating systems.
+
+Other Windows-specific changes include:
+  - Catapult is now a static binary, linked with wxWidgets 2.8.9 and libxml2 2.7.3
+  - Unicode is now fully supported (no more problems with localized versions of
+    Windows e.g.). Note: this means Catapult requires Windows 2000 or higher as
+    of this release.
+
+The plan is still to release a completely new Catapult as soon as possible;
+unfortunately we didn't make it in time for openMSX 0.7.1.
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
 - the select extension listbox doesn't work properly when using wxWidgets 2.6.x
   (and later) Use the spacebar to deselect extensions!
-- typing into openMSX doesn't support language specific characters yet
 - still not complete, especially for newer features you will have to revert to
   the openMSX console (press F10)
 
