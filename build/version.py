@@ -7,7 +7,7 @@ from makeutils import filterFile
 packageName = 'catapult'
 
 # Version number.
-packageVersion = '0.7.1-R1'
+packageVersion = '0.7.1'
 
 # Is this a release version ("True") or development version ("False").
 releaseFlag = True
