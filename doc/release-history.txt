@@ -4,7 +4,7 @@ Release History
 This is an overview of the changes that were incorporated into past releases.
 
 openMSX Catapult 0.7.1 (2009-06-28)
---------------------------------------
+-----------------------------------
 
 This release comes mostly with good news for Windows users: we have a brand new
 installer with binaries which have been created in a brand new way, using
@@ -12,7 +12,8 @@ Microsoft Visual C++ 2008. This means smaller binaries and also support for
 64-bit Windows operating systems.
 
 Other Windows-specific changes include:
-  - Catapult is now a static binary, linked with wxWidgets 2.8.9 and libxml2 2.7.3
+  - Catapult is now a stand-alone binary, statically linked with wxWidgets 2.8.9
+    and libxml2 2.7.3.
   - Unicode is now fully supported (no more problems with localized versions of
     Windows e.g.). Note: this means Catapult requires Windows 2000 or higher as
     of this release.
