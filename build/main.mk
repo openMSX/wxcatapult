@@ -343,7 +343,7 @@ clean:
 CATAPULT_PREBUILT?=false
 $(call BOOLCHECK,CATAPULT_PREBUILT)
 
-INSTALL_DOCS:=release-notes.txt release-history.txt
+INSTALL_DOCS:=authors.txt GPL.txt release-history.txt release-notes.txt
 CATAPULT_INSTALL?=$(INSTALL_BASE)
 # Allow full customization of locations, used by Debian packaging.
 INSTALL_BINARY_DIR?=$(CATAPULT_INSTALL)/bin
@@ -373,7 +373,7 @@ endif
 	@cp -rf $(RESOURCES_PATH) $(INSTALL_SHARE_DIR)/
 	@echo "  Documentation..."
 	@mkdir -p $(INSTALL_DOC_DIR)
-	@cp -f README GPL AUTHORS $(INSTALL_DOC_DIR)
+	@cp -f README $(INSTALL_DOC_DIR)
 	@cp -f $(addprefix doc/,$(INSTALL_DOCS)) $(INSTALL_DOC_DIR)
 	@mkdir -p $(INSTALL_DOC_DIR)/manual
 	@cp -f $(addprefix doc/manual/,*.html *.css *.png) \
@@ -423,12 +423,13 @@ DIST_BASE:=$(BUILD_BASE)/dist
 DIST_PATH:=$(DIST_BASE)/$(PACKAGE_FULL)
 
 DIST_FULL:= \
-	GNUmakefile ChangeLog AUTHORS GPL README
+	GNUmakefile ChangeLog README
 DIST_FULL+=$(addprefix $(SOURCES_PATH)/, \
 	*.h *.cpp *.rc *.ico *.xpm \
 	)
 DIST_FULL+=$(addprefix $(MAKE_PATH)/, \
-	*.mk *.sed *.dsp *.dsw config.guess detectsys.sh \
+	*.mk *.sed config.guess detectsys.sh \
+	msvc/*.py msvc/*.sln msvc/*.vcproj \
 	)
 DIST_FULL+=$(DIALOGS_PATH)/*.wxg
 DIST_FULL+=$(BITMAPS_PATH)/*.png
