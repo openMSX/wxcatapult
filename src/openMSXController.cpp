@@ -584,8 +584,18 @@ void openMSXController::InitLaunchScript ()
 {
 	m_launchScriptSize = 0;
 	m_launchScript = new LaunchInstructionType [LAUNCHSCRIPT_MAXSIZE];
-	AddLaunchInstruction (wxT("update enable setting"),wxT(""),wxT(""),NULL,false);
-	AddLaunchInstruction (wxT("update enable led"),wxT(""),wxT(""),NULL,false);
+	// Use __catapult_update to support both old and new openmsx versions
+	AddLaunchInstruction (wxT(
+		"proc __catapult_update { args } {\n"
+		"  if {[info command openmsx_update] != \"\"} {\n"
+		"    eval \"openmsx_update $args\"\n"
+		"  } else {\n"
+		"    eval \"update $args\"\n"
+		"  }\n"
+		"}\n"),
+		wxT(""),wxT(""),NULL,false);
+	AddLaunchInstruction (wxT("__catapult_update enable setting"),wxT(""),wxT(""),NULL,false);
+	AddLaunchInstruction (wxT("__catapult_update enable led"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("set power on"),wxT("e"),wxT("power"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("unset renderer"),wxT("e"),wxT(""),NULL,true);
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::EnableMainWindow,false);
@@ -593,7 +603,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("^info scale_algorithm"),wxT(""),wxT("ScalerAlgoSelector"),&openMSXController::FillComboBox,true);
 	AddLaunchInstruction (wxT("lindex [openmsx_info setting scale_factor] 2"),wxT(""),wxT("ScalerFactorSelector"),&openMSXController::FillRangeComboBox,true);
 	AddLaunchInstruction (wxT("^info accuracy"),wxT(""),wxT("AccuracySelector"),&openMSXController::FillComboBox,false);
-	AddLaunchInstruction (wxT("update enable media"),wxT(""),wxT(""),NULL,false);
+	AddLaunchInstruction (wxT("__catapult_update enable media"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("info exist frontswitch"),wxT(""),wxT("#"),&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction (wxT("info exist firmwareswitch"),wxT(""),wxT("#"),&openMSXController::EnableFirmware,false);
 	AddLaunchInstruction (wxT("set renderer"),wxT(""),wxT("renderer"),&openMSXController::UpdateSetting,true);
@@ -641,9 +651,9 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("set mute"),wxT(""),wxT("mute"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("plug cassetteport"),wxT(""),wxT("cassetteport"),&openMSXController::EnableCassettePort,false);
 	AddLaunchInstruction (wxT("join [cassetteplayer] \\n"),wxT(""),wxT(""),&openMSXController::SetCassetteMode,false);
-	AddLaunchInstruction (wxT("update enable plug"),wxT(""),wxT(""),NULL,false);
-	AddLaunchInstruction (wxT("update enable unplug"),wxT(""),wxT(""),NULL,false);
-	AddLaunchInstruction (wxT("update enable status"),wxT(""),wxT(""),NULL,false);
+	AddLaunchInstruction (wxT("__catapult_update enable plug"),wxT(""),wxT(""),NULL,false);
+	AddLaunchInstruction (wxT("__catapult_update enable unplug"),wxT(""),wxT(""),NULL,false);
+	AddLaunchInstruction (wxT("__catapult_update enable status"),wxT(""),wxT(""),NULL,false);
 }
 
 void openMSXController::AddLaunchInstruction (wxString cmd, wxString action,
