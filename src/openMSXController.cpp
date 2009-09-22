@@ -585,15 +585,7 @@ void openMSXController::InitLaunchScript ()
 	m_launchScriptSize = 0;
 	m_launchScript = new LaunchInstructionType [LAUNCHSCRIPT_MAXSIZE];
 	// Use __catapult_update to support both old and new openmsx versions
-	AddLaunchInstruction (wxT(
-		"proc __catapult_update { args } {\n"
-		"  if {[info command openmsx_update] != \"\"} {\n"
-		"    eval \"openmsx_update $args\"\n"
-		"  } else {\n"
-		"    eval \"update $args\"\n"
-		"  }\n"
-		"}\n"),
-		wxT(""),wxT(""),NULL,false);
+	AddLaunchInstruction (wxT("proc __catapult_update { args } { if {[info command openmsx_update] != \"\"} { eval \"openmsx_update $args\" } else { eval \"update $args\" } }"), wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("__catapult_update enable setting"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("__catapult_update enable led"),wxT(""),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("set power on"),wxT("e"),wxT("power"),&openMSXController::UpdateSetting,true);
