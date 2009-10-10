@@ -114,15 +114,6 @@ endif
 # Note that the include above will force a reload of the Makefile.
 ifneq ($(PLATFORM),)
 
-# Load CPU specific settings.
-$(call DEFCHECK,CATAPULT_TARGET_CPU)
-include $(MAKE_PATH)/cpu-$(CATAPULT_TARGET_CPU).mk
-# Check that all expected variables were defined by OS specific Makefile:
-# - endianess
-$(call BOOLCHECK,BIG_ENDIAN)
-# - flavour (user selectable; platform specific default)
-$(call DEFCHECK,CATAPULT_FLAVOUR)
-
 # Load OS specific settings.
 $(call DEFCHECK,CATAPULT_TARGET_OS)
 include $(MAKE_PATH)/platform-$(CATAPULT_TARGET_OS).mk
@@ -136,6 +127,7 @@ include $(MAKE_PATH)/platform-$(CATAPULT_TARGET_OS).mk
 # ========
 
 # Load flavour specific settings.
+CATAPULT_FLAVOUR?=opt
 include $(MAKE_PATH)/flavour-$(CATAPULT_FLAVOUR).mk
 
 # Paths
