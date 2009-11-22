@@ -5,6 +5,16 @@
 #
 # Uses a similar approach as the openMSX build system.
 
+# Python Interpreter
+# ==================
+
+# We need Python from the 2.x series, version 2.5 or higher.
+# Usually this executable is available as just "python", but on some systems
+# you might have to be more specific, for example "python2" or "python2.6".
+# Or if the Python interpreter is not in the search path, you can specify its
+# full path.
+PYTHON?=python
+
 # Functions
 # =========
 
@@ -91,14 +101,14 @@ else # CATAPULT_TARGET_OS not from environment
 
 DETECTSYS_PATH:=$(BUILD_BASE)/detectsys
 DETECTSYS_MAKE:=$(DETECTSYS_PATH)/detectsys.mk
-DETECTSYS_SCRIPT:=$(MAKE_PATH)/detectsys.sh
+DETECTSYS_SCRIPT:=$(MAKE_PATH)/detectsys.py
 
 -include $(DETECTSYS_MAKE)
 
 $(DETECTSYS_MAKE): $(DETECTSYS_SCRIPT)
 	@echo "Autodetecting native system:"
 	@mkdir -p $(@D)
-	@sh $< > $@
+	@$(PYTHON) $< > $@
 
 endif # CATAPULT_TARGET_OS
 endif # CATAPULT_TARGET_CPU
@@ -420,7 +430,7 @@ DIST_FULL+=$(addprefix $(SOURCES_PATH)/, \
 	*.h *.cpp *.rc *.ico *.xpm \
 	)
 DIST_FULL+=$(addprefix $(MAKE_PATH)/, \
-	*.mk *.sed config.guess detectsys.sh \
+	*.mk *.sed *.py \
 	msvc/*.py msvc/*.sln msvc/*.vcproj \
 	)
 DIST_FULL+=$(DIALOGS_PATH)/*.wxg
@@ -435,7 +445,7 @@ DIST_FULL+=$(addprefix desktop/, \
 	openMSX-Catapult.desktop \
 	)
 
-dist: $(DETECTSYS_SCRIPT)
+dist:
 	@echo "Removing any old distribution files..."
 	@rm -rf $(DIST_PATH)
 	@echo "Gathering files for distribution..."
