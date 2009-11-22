@@ -136,18 +136,13 @@ void IPSSelectionDlg::OnMoveUp(wxCommandEvent & event)
 
 void IPSSelectionDlg::OnMoveDown(wxCommandEvent & event)
 {
-	wxString temp;
 	wxArrayInt selections;
-	int num;
-	num = m_ipsDisplay->GetSelections(selections);
-	if (num != 0)
-	{
-		for (int i=num-1;i>=0;i--){
-			temp = m_ipsDisplay->GetString(selections[i]);
-			m_ipsDisplay->Delete(selections[i]);
-			m_ipsDisplay->InsertItems(1,&temp,selections[i]+1);
-			m_ipsDisplay->SetSelection(selections[i]+1,true);
-		}
+	int num = m_ipsDisplay->GetSelections(selections);
+	for (int i = num - 1; i >= 0; i--) {
+		wxString temp = m_ipsDisplay->GetString(selections[i]);
+		m_ipsDisplay->Delete(selections[i]);
+		m_ipsDisplay->InsertItems(1, &temp, selections[i] + 1);
+		m_ipsDisplay->SetSelection(selections[i] + 1, true);
 	}
 	CheckSelections();
 }
@@ -161,11 +156,8 @@ void IPSSelectionDlg::GetIPSList(wxArrayString & ipsList)
 {
 	ipsList.Clear();
 	int count = m_ipsDisplay->GetCount();
-	if (count != 0){
-		for (int i=0;i<count;i++)
-		{
-			ipsList.Add(m_ipsDisplay->GetString(i));
-		}
+	for (int i = 0; i < count; i++) {
+		ipsList.Add(m_ipsDisplay->GetString(i));
 	}
 }
 
@@ -179,27 +171,15 @@ void IPSSelectionDlg::CheckSelections()
 	wxArrayInt selections;
 	int num;
 	num = m_ipsDisplay->GetSelections(selections);
-	if (num == 0)
-	{
+	if (num == 0) {
 		m_ipsRemoveButton->Enable(false);
 		m_ipsMoveUpButton->Enable(false);
 		m_ipsMoveDownButton->Enable(false);
-	}
-	else{
+	} else {
 		m_ipsRemoveButton->Enable(true);
-		if (selections[0] != 0){
-			m_ipsMoveUpButton->Enable(true);
-		}
-		else{
-			m_ipsMoveUpButton->Enable(false);
-		}
-		if (selections[num-1] != m_ipsDisplay->GetCount()-1)
-		{
-			m_ipsMoveDownButton->Enable(true);
-		}
-		else{
-			m_ipsMoveDownButton->Enable(false);
-		}
-
+		m_ipsMoveUpButton->Enable(selections[0] != 0);
+		m_ipsMoveDownButton->Enable(
+			selections[num - 1] != m_ipsDisplay->GetCount() - 1
+			);
 	}
 }
