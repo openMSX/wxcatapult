@@ -179,7 +179,7 @@ void IPSSelectionDlg::CheckSelections()
 		m_ipsRemoveButton->Enable(true);
 		m_ipsMoveUpButton->Enable(selections[0] != 0);
 		m_ipsMoveDownButton->Enable(
-			selections[num - 1] != m_ipsDisplay->GetCount() - 1
+			selections[num - 1] != int(m_ipsDisplay->GetCount()) - 1
 			);
 	}
 }
