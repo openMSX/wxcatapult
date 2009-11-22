@@ -1,6 +1,6 @@
 # $Id$
 #
-# Configuration for Linux on x86 machines.
+# Configuration for Linux.
 
 # Does platform support symlinks?
 USE_SYMLINK:=true
