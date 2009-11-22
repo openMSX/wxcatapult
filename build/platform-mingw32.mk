@@ -8,7 +8,7 @@ USE_SYMLINK:=false
 # File name extension of executables.
 EXEEXT:=.exe
 
-# The next line is needed to determine the name of the XRC library from wx-config.
+# The next lines are needed to determine the name of the XRC library from wx-config.
 WX2XRC_DYNAMIC:=s/-lwx\\([^0-9]*\\)\\([0-9]\\)\\([0-9]\\)./ -lwx_\\1_xrc-\\2\\.\\3 & /
 WX2XRC_STATIC:=s/\\(\\/[^ ]*\\/\\)libwx\\([^0-9]*\\)\\([0-9]\\)\\([0-9]\\).\\.a/ \\1libwx_\\2_xrc-\\3\\.\\4\\.a & /
 
