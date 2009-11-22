@@ -67,10 +67,8 @@ case "$GUESSED_OS" in
 		CATAPULT_TARGET_OS=linux;;
 	*darwin*)
 		CATAPULT_TARGET_OS=darwin;;
-	*freebsd4*)
-		CATAPULT_TARGET_OS=freebsd4;;
-	*freebsd5*)
-		CATAPULT_TARGET_OS=freebsd5;;
+	*freebsd*)
+		CATAPULT_TARGET_OS=freebsd;;
 	*netbsd*)
 		CATAPULT_TARGET_OS=netbsd;;
 	*mingw*)
