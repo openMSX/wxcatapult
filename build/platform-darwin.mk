@@ -12,8 +12,8 @@ EXEEXT:=
 # I don't know why, but the linker suggests this.
 LINK_FLAGS+=-bind_at_load
 
-# The next line is needed to determen the name of the XRC library from wx-config
+# The next line is needed to determine the name of the XRC library from wx-config.
 WX2XRC_DYNAMIC:=s/-lwx_\\([^-]*\\)-\\([^ ]*\\)/& -lwx_\\1_xrc-\\2/
 
-#platform specific sourcefiles
-SOURCES+= openMSXLinuxController
+# Platform specific source files.
+SOURCES+=openMSXLinuxController
