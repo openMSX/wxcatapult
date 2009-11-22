@@ -131,7 +131,7 @@ void MiscControlPage::FillInitialJoystickPortValues ()
 	wxString current;
 	int pos;
 
-#ifndef __BSD__
+#if wxUSE_JOYSTICK
 	wxJoystick joy(wxJOYSTICK1);
 	wxString temp;
 #endif
@@ -149,7 +149,7 @@ void MiscControlPage::FillInitialJoystickPortValues ()
 		box[i]->Append(wxT("keyjoystick1"));
 		box[i]->Append(wxT("keyjoystick2"));
 
-#ifndef __BSD__
+#if wxUSE_JOYSTICK
 		for (int j=1;j<=joy.GetNumberJoysticks();j++) {
 			temp.sprintf(wxT("joystick%d"),j);
 			box[i]->Append(temp);
