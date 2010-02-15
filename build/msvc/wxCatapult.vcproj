@@ -630,8 +630,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="wxbase28ud.lib wxbase28ud_net.lib wxbase28ud_xml.lib wxexpatd.lib wxjpegd.lib wxmsw28ud_adv.lib wxmsw28ud_core.lib wxmsw28ud_html.lib wxpngd.lib wxregexud.lib wxtiffd.lib wxzlibd.lib libxml2.lib comctl32.lib winmm.lib wsock32.lib rpcrt4.lib"
-				OutputFile="$(OutDir)\catapultd.exe"
-				Version="0.1"
+				OutputFile="$(OutDir)\catapult.exe"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
 				IgnoreDefaultLibraryNames=""
@@ -722,8 +721,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="wxbase28ud.lib wxbase28ud_net.lib wxbase28ud_xml.lib wxexpatd.lib wxjpegd.lib wxmsw28ud_adv.lib wxmsw28ud_core.lib wxmsw28ud_html.lib wxpngd.lib wxregexud.lib wxtiffd.lib wxzlibd.lib libxml2.lib comctl32.lib winmm.lib wsock32.lib rpcrt4.lib"
-				OutputFile="$(OutDir)\catapultd.exe"
-				Version="0.1"
+				OutputFile="$(OutDir)\catapult.exe"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;$(3rdPartyOutDir)&quot;"
 				IgnoreDefaultLibraryNames=""

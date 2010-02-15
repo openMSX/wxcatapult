@@ -71,19 +71,24 @@ bool openMSXWindowsController::Launch(wxString cmdLine)
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE | CREATE_SUSPENDED;
 	WORD wStartupWnd = SW_HIDE;
 
-	STARTUPINFOA si;
+	STARTUPINFO si;
 	DWORD dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-	ZeroMemory(&si,sizeof(STARTUPINFOA));
-	si.cb = sizeof(STARTUPINFOA);
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
 	si.dwFlags = dwFlags;
 	si.hStdInput = hInputRead;
 	si.hStdOutput = hOutputWrite;
 	si.hStdError  = hErrorWrite;
 	si.wShowWindow = wStartupWnd;
-	char buffer[1000];
-	strcpy (buffer,(char*)(const char *) (wxConvUTF8.cWX2MB((cmdLine))));
-	CreateProcessA (NULL,buffer,
-					NULL,NULL,true, dwProcessFlags ,NULL,NULL,&si,&m_openmsxProcInfo); //testing suspended
+
+	LPTSTR szCmdLine = _tcsdup(cmdLine.c_str());
+	if (szCmdLine)
+	{
+		CreateProcess(NULL, szCmdLine,
+					  NULL, NULL, true, dwProcessFlags, NULL, NULL, &si, &m_openmsxProcInfo); //testing suspended
+		free(szCmdLine);
+	}
+
 	PipeReadThread * thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);
 	if (thread->Create() == wxTHREAD_NO_ERROR)
 	{

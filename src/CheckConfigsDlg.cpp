@@ -254,34 +254,34 @@ void CheckConfigsDlg::CheckConfigsThread::SetParameters(wxString cmd, wxArrayStr
 
 bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs (wxString cmd)
 {
-	unsigned long result;
-	char buffer[1000];
+	unsigned long result = 1;
 #ifndef __WXMSW__
+	char buffer[1000];
 	cmd += wxT(" > /dev/null 2>&1");
-#endif
 	strcpy (buffer,(const char *) (wxConvUTF8.cWX2MB((cmd))));
-
-#ifdef __WXMSW__
+	result = system (buffer);
+#else
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE;
 	PROCESS_INFORMATION pi;
-	STARTUPINFOA si;
-	ZeroMemory(&si, sizeof(STARTUPINFOA));
-	si.cb = sizeof(STARTUPINFOA);
+	STARTUPINFO si;
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
 	si.dwFlags = STARTF_USESHOWWINDOW;
 	si.wShowWindow = SW_HIDE;
-	BOOL created = CreateProcessA(
-		NULL, buffer, NULL, NULL, false, dwProcessFlags, NULL, NULL, &si, &pi
-		);
-	if (created) {
-		WaitForSingleObject(pi.hProcess, INFINITE);
-		GetExitCodeProcess(pi.hProcess, &result);
-		CloseHandle(pi.hProcess);
-		CloseHandle(pi.hThread);
-	} else {
-		result = 1;
+
+	LPTSTR szCmdLine = _tcsdup(cmd.c_str());
+	if (szCmdLine != NULL)
+	{
+		BOOL created = CreateProcess(
+			NULL, szCmdLine, NULL, NULL, false, dwProcessFlags, NULL, NULL, &si, &pi
+			);
+		if (created) {
+			WaitForSingleObject(pi.hProcess, INFINITE);
+			GetExitCodeProcess(pi.hProcess, &result);
+			CloseHandle(pi.hProcess);
+			CloseHandle(pi.hThread);
+		}
 	}
-#else
-	result = system (buffer);
 #endif
 	return (result == 0);
 }
