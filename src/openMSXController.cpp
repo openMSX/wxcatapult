@@ -215,7 +215,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				if ((lastcmd.Mid(0,5) != wxT("plug ")) || (lastcmd.Find(' ',true) == 4) ||
 					(lastcmd.Mid(5,lastcmd.Find(' ',true)-5)!= data->name)) {
 						m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
-						executeLaunch(NULL,43);
+						executeLaunch(NULL,m_relaunch);
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG) {
@@ -223,7 +223,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent &event)
 				if ((lastcmd.Mid(0,7) != wxT("unplug ")) || /*(lastcmd.Find(' ',true) == 6)) {*/
 					(lastcmd.Mid(7)!= data->name)) {
 					m_appWindow->m_videoControlPage->UpdateSetting (data->name, data->contents);
-					executeLaunch(NULL,43);
+					executeLaunch(NULL,m_relaunch);
 				}
 			}
 			else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA) {
@@ -632,6 +632,7 @@ void openMSXController::InitLaunchScript ()
 	AddLaunchInstruction (wxT("@checkfor pcminput"),wxT("1"),wxT(""),NULL,false);
 	AddLaunchInstruction (wxT("set audio-inputfilename"),wxT(""),wxT("audio-inputfilename"),&openMSXController::UpdateSetting,true);
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::InitConnectorPanel,false);
+	m_relaunch = m_launchScriptSize; // !!HACK!!
 	AddLaunchInstruction (wxT("@execute"),wxT(""),wxT(""),&openMSXController::InitAudioConnectorPanel,false);
 //	AddLaunchInstruction (wxT("#info romtype"),wxT(""),wxT(""),&openMSXController::InitRomTypes,true);
 //	AddLaunchInstruction (wxT("#info_nostore romtype *"),wxT(""),wxT("*"),&openMSXController::SetRomDescription,true);
@@ -1165,5 +1166,5 @@ int openMSXController::SetCassetteMode (wxString dummy, wxString data)
 
 void openMSXController::UpdateMixer()
 {
-	executeLaunch(NULL,43);
+	executeLaunch(NULL,m_relaunch);
 }

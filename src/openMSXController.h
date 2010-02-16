@@ -88,6 +88,7 @@ class openMSXController
 
 		LaunchInstructionType * m_launchScript;
 		int m_launchScriptSize;
+		int m_relaunch;
 
 		void AddLaunchInstruction (wxString cmd, wxString action, wxString parameter,
 				int (openMSXController::*pfunction)(wxString,wxString),
