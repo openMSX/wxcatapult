@@ -3,6 +3,11 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 0.8.0 (2010-06-02)
+-----------------------------------
+
+Catapult release to match openMSX 0.8.0. No changes in Catapult.
+
 openMSX Catapult 0.7.2 (2009-06-30)
 -----------------------------------
 
