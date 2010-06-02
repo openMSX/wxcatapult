@@ -432,6 +432,8 @@ DIST_FULL+=$(addprefix $(SOURCES_PATH)/, \
 DIST_FULL+=$(addprefix $(MAKE_PATH)/, \
 	*.mk *.sed *.py \
 	msvc/*.py msvc/*.sln msvc/*.vcproj \
+	3rdparty/*.sln 3rdparty/*.vsprops 3rdparty/*.vcproj 3rdparty/*.patch \
+	msvc/sed/* \
 	)
 DIST_FULL+=$(DIALOGS_PATH)/*.wxg
 DIST_FULL+=$(BITMAPS_PATH)/*.png
