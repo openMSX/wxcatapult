@@ -143,7 +143,6 @@ void MiscControlPage::FillInitialJoystickPortValues ()
 		box[i]->Clear();
 		box[i]->Append(wxT("--empty--"));
 		box[i]->Append(wxT("mouse"));
-		box[i]->Append(wxT("joynet"));
 		box[i]->Append(wxT("tetris2-protection"));
 		box[i]->Append(wxT("magic-key"));
 		box[i]->Append(wxT("keyjoystick1"));
