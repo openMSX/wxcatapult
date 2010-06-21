@@ -1,0 +1,2278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common Sources">
+      <UniqueIdentifier>{199bb4b4-635f-4a6c-925e-ff78bc0b128a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MSW Sources">
+      <UniqueIdentifier>{eb3e74d5-b268-4e8e-84b8-1c8373aa46dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic Sources">
+      <UniqueIdentifier>{664b3c17-8e96-4ec3-98d2-d3069fbdc483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxUniv Sources">
+      <UniqueIdentifier>{120748eb-6a4d-4b8a-b516-40612a274a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Setup Headers">
+      <UniqueIdentifier>{5a5af234-7b9d-4f4f-88d8-31ef296c402b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MSW Headers">
+      <UniqueIdentifier>{be7ba771-658b-4cef-be6a-e9a1f201e38f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic Headers">
+      <UniqueIdentifier>{8fd1ab38-6d99-4702-bb19-3608e9978398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxUniv Headers">
+      <UniqueIdentifier>{b0906d69-318b-4620-bb67-9ddd625ddd27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxHTML Headers">
+      <UniqueIdentifier>{1ebc0ada-4f12-4535-99f9-633f508efa12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common Headers">
+      <UniqueIdentifier>{fa5c0b6e-1425-4f02-a7aa-a7b63e01e0e6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\accesscmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\anidecod.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\appcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\artprov.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\artstd.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\bmpbase.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\bookctrl.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\choiccmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\clipcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\clrpickercmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\cmdproc.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\cmndata.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\colourcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\combocmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\containr.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\cshelp.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\ctrlcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\ctrlsub.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\datacmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\dcbase.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\dcbufcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\dcgraph.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\dlgcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\dndcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\dobjcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\docmdi.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\docview.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\dpycmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\dseldlg.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\dummy.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\effects.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\event.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\evtloopcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\fddlgcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\filepickercmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\fldlgcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\fontcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\fontenumcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\fontmap.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\fontpickercmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\framecmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\fs_mem.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\gaugecmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\gbsizer.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\gdicmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\geometry.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\gifdecod.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\graphcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\helpbase.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\iconbndl.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagall.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagbmp.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\image.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagfill.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imaggif.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagiff.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagjpeg.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagpcx.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagpng.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagpnm.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagtga.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagtiff.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\imagxpm.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\layout.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\lboxcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\listctrlcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\matrix.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\menucmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\msgout.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\nbkbase.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\overlaycmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\paper.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\pickerbase.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\popupcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\prntbase.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\quantize.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\radiocmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\rendcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\rgncmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\settcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\sizer.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\srchcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\statbar.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\stockitem.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\tbarbase.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\textcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\timercmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\toplvcmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\treebase.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\utilscmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\valgen.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\validate.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\valtext.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\wincmn.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\common\xpmdecod.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\accel.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\ole\access.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\app.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\ole\automtn.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\bitmap.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\bmpbuttn.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\brush.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\button.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\caret.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\checkbox.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\checklst.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\choice.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\clipbrd.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\colordlg.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\colour.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\combo.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\combobox.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\control.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\cursor.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\data.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\ole\dataobj.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dc.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dcclient.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dcmemory.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dcprint.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dcscreen.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dialog.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dialup.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dib.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dirdlg.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\display.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\dragimag.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\ole\dropsrc.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\ole\droptgt.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\enhmeta.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\evtloop.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\fdrepdlg.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\filedlg.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\font.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\fontdlg.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\fontenum.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\fontutil.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\frame.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\gauge95.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\gdiimage.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\gdiobj.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\graphics.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\gsockmsw.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\helpchm.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\helpwin.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\icon.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\imaglist.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\iniconf.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\listbox.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\listctrl.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\main.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\mdi.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\menu.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\menuitem.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\metafile.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\minifram.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\msgdlg.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\mslu.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\nativdlg.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\notebook.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\ole\oleutils.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\ownerdrw.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\palette.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\pen.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\popupwin.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\printdlg.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\printwin.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\radiobox.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\radiobut.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\region.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\renderer.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\scrolbar.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\settings.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\slider95.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\spinbutt.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\spinctrl.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\statbmp.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\statbox.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\statbr95.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\statline.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\stattext.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\tabctrl.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\tbar95.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\textctrl.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\tglbtn.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\timer.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\tooltip.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\toplevel.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\treectrl.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\utilsgui.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\ole\uuid.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\uxtheme.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\volume.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\window.cpp">
+      <Filter>MSW Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\accel.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\busyinfo.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\buttonbar.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\choicbkg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\choicdgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\clrpickerg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\collpaneg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\colrdlgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\combog.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\dcpsg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\dirctrlg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\dirdlgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\dragimgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\fdrepdlg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\filedlgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\filepickerg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\fontdlgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\fontpickerg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\listbkg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\listctrl.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\logg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\mdig.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\msgdlgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\numdlgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\panelg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\printps.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\prntdlgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\progdlgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\renderg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\scrlwing.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\selstore.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\spinctlg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\splitter.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\srchctlg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\statusbr.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\tabg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\textdlgg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\tipwin.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\toolbkg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\treebkg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\treectlg.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\vlbox.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\generic\vscroll.cpp">
+      <Filter>Generic Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\bmpbuttn.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\button.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\checkbox.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\checklst.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\choice.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\colschem.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\combobox.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\control.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\ctrlrend.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\dialog.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\framuniv.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\gauge.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\themes\gtk.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\inpcons.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\inphand.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\listbox.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\menu.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\themes\metal.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\themes\mono.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\notebook.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\radiobox.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\radiobut.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\scrarrow.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\scrolbar.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\scrthumb.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\slider.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\spinbutt.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\statbmp.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\statbox.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\statline.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\stattext.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\statusbr.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\stdrend.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\textctrl.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\tglbtn.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\theme.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\toolbar.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\topluniv.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\themes\win32.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\univ\winuniv.cpp">
+      <Filter>wxUniv Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\msw\version.rc">
+      <Filter>MSW Sources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\accel.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\access.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\activex.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\app.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\automtn.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\bitmap.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\bmpbuttn.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\brush.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\button.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\caret.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\checkbox.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\checklst.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\choice.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\clipbrd.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\colordlg.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\colour.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\combo.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\combobox.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\control.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\cursor.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\dataform.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\dataobj.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\dataobj2.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\datectrl.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\dc.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\dcclient.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\dcmemory.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\dcprint.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\dcscreen.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\dialog.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\dib.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\dirdlg.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\dragimag.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\dropsrc.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\droptgt.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\enhmeta.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\evtloop.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\fdrepdlg.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\filedlg.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\font.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\fontdlg.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\frame.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\gauge95.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\gdiimage.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\glcanvas.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\helpbest.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\helpchm.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\helpwin.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\htmlhelp.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\icon.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\imaglist.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\iniconf.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\joystick.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\listbox.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\listctrl.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\mdi.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\menu.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\menuitem.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\metafile.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\minifram.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\missing.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\msgdlg.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\msvcrt.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\notebook.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\oleutils.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\palette.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\pen.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\popupwin.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\printdlg.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\printwin.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\radiobox.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\radiobut.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\rcdefs.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\region.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\scrolbar.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\setup0.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\slider95.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\sound.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\spinbutt.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\spinctrl.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\statbmp.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\statbox.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\statbr95.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\statline.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\stattext.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\tabctrl.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\taskbar.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\tbar95.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\textctrl.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\tglbtn.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\timer.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\tooltip.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\toplevel.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\treectrl.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\ole\uuid.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\uxtheme.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\uxthemep.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\window.h">
+      <Filter>MSW Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\aboutdlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\accel.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\animate.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\bmpcbox.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\busyinfo.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\buttonbar.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\calctrl.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\choicdgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\clrpickerg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\collpaneg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\colrdlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\combo.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\dataview.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\datectrl.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\dcpsg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\dirctrlg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\dirdlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\dragimgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\fdrepdlg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\filedlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\filepickerg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\fontdlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\fontpickerg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\grid.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\gridctrl.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\gridsel.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\helpext.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\laywin.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\listctrl.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\logg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\mdig.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\msgdlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\notebook.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\numdlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\panelg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\printps.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\prntdlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\progdlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\propdlg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\sashwin.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\scrolwin.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\spinctlg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\splash.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\splitter.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\srchctlg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\statusbr.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\tabg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\textdlgg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\timer.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\treectlg.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\generic\wizard.h">
+      <Filter>Generic Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\app.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\bmpbuttn.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\button.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\checkbox.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\checklst.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\chkconf.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\choice.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\colschem.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\combobox.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\control.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\dialog.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\frame.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\gauge.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\inpcons.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\inphand.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\listbox.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\menu.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\menuitem.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\notebook.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\radiobox.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\radiobut.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\renderer.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\scrarrow.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\scrolbar.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\scrthumb.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\scrtimer.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\slider.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\spinbutt.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\statbmp.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\statbox.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\statline.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\stattext.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\statusbr.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\stdrend.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\textctrl.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\tglbtn.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\theme.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\toolbar.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\toplevel.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\window.h">
+      <Filter>wxUniv Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\helpctrl.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\helpdata.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\helpdlg.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\helpfrm.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\helpwnd.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\htmlcell.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\htmldefs.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\htmlfilt.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\htmlpars.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\htmlproc.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\htmltag.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\htmlwin.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\htmprint.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\m_templ.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\html\winpars.h">
+      <Filter>wxHTML Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\aboutdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\accel.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\access.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\anidecod.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\animate.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\animdecod.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\artprov.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\aui\aui.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\aui\auibar.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\aui\auibook.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\bitmap.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\bmpbuttn.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\bmpcbox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\bookctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\brush.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\busyinfo.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\button.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\calctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\caret.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\checkbox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\checklst.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\choicdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\choice.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\choicebk.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\clipbrd.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\clrpicker.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\cmdproc.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\cmndata.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\collpane.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\colordlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\colour.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\combo.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\combobox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\control.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\cshelp.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\ctrlsub.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\cursor.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dataobj.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dataview.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\datectrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dateevt.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dbgrid.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dc.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dcbuffer.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dcclient.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dcgraph.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dcmemory.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dcmirror.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dcprint.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dcps.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dcscreen.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\debugrpt.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dialog.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dialup.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dirctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dirdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\display.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\display_impl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dnd.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\aui\dockart.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\docmdi.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\docview.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\dragimag.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\effects.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\encinfo.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\evtloop.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\fdrepdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\filedlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\filepicker.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\aui\floatpane.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\fmappriv.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\font.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\fontdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\fontenum.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\fontpicker.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\fontutil.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\frame.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\aui\framemanager.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\gauge.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\gbsizer.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\gdicmn.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\gdiobj.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\geometry.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\gifdecod.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\glcanvas.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\graphics.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\grid.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\help.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\helpbase.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\helphtml.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\helpwin.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\htmllbox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\hyperlink.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\icon.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\iconbndl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imagbmp.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\image.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imaggif.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imagiff.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imagjpeg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imaglist.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imagpcx.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imagpng.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imagpnm.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imagtga.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imagtiff.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\imagxpm.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\joystick.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\layout.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\laywin.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\listbase.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\listbook.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\listbox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\listctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\matrix.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\mdi.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\mediactrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\menu.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\menuitem.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\metafile.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\minifram.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msgdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\notebook.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\numdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\odcombo.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\overlay.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\ownerdrw.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\palette.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\panel.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\paper.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\pen.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\pickerbase.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\popupwin.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\print.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\printdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\prntbase.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\progdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\propdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\ptr_scpd.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\quantize.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\radiobox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\radiobut.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\rawbmp.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\region.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\renderer.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\richtext\richtextbuffer.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\richtext\richtextctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\richtext\richtextformatdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\richtext\richtexthtml.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\richtext\richtextprint.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\richtext\richtextstyledlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\richtext\richtextstyles.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\richtext\richtextsymboldlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\richtext\richtextxml.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\sashwin.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\scopeguard.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\scrolbar.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\scrolwin.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\selstore.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\settings.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\sizer.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\slider.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\sound.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\spinbutt.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\spinctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\splash.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\splitter.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\srchctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\statbmp.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\statbox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\statline.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\stattext.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\statusbr.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\tab.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\tabctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\aui\tabmdi.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\taskbar.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\tbarbase.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\textctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\textdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\tglbtn.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\tipdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\tipwin.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\toolbar.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\toolbook.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\tooltip.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\toplevel.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\treebase.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\treebook.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\treectrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\valgen.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\validate.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\valtext.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\vidmode.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\vlbox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\vms_x_fix.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\vscroll.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\wave.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\window.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\wizard.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\wupdlock.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\wxhtml.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_all.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_animatctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_bmp.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_bmpbt.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_bmpcbox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_bttn.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_cald.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_chckb.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_chckl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_choic.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_choicbk.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_clrpicker.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_collpane.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_combo.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_datectrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_dirpicker.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_dlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_filepicker.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_fontpicker.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_frame.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_gauge.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_gdctl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_grid.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_html.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_htmllbox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_hyperlink.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_listb.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_listbk.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_listc.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_mdi.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_menu.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_notbk.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_odcombo.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_panel.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_propdlg.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_radbt.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_radbx.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_scrol.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_scwin.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_sizer.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_slidr.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_spin.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_split.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_statbar.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_stbmp.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_stbox.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_stlin.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_sttxt.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_text.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_tglbtn.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_toolb.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_tree.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_treebk.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_unkwn.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xh_wizrd.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xrc\xmlres.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xpmdecod.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\xpmhand.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\setup.h">
+      <Filter>Setup Headers</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\setup.h">
+      <Filter>Setup Headers</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\genrcdefs.h">
+      <Filter>MSW Headers</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

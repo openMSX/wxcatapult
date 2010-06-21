@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Unicode Debug|Win32">
+      <Configuration>Unicode Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Debug|x64">
+      <Configuration>Unicode Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Release|Win32">
+      <Configuration>Unicode Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Release|x64">
+      <Configuration>Unicode Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{459F9609-4CE3-461B-A087-DE03F5140D9D}</ProjectGuid>
+    <RootNamespace>libxml</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="3rdparty.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">$(ThirdPartyOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">$(ThirdPartyIntDir)\$(LibNameLibXml)</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">$(ThirdPartyOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">$(ThirdPartyIntDir)\$(LibNameLibXml)</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">$(ThirdPartyOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">$(ThirdPartyIntDir)\$(LibNameLibXml)</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">$(ThirdPartyOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">$(ThirdPartyIntDir)\$(LibNameLibXml)</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
+    <PreBuildEvent>
+      <Message>Running configure.js...</Message>
+      <Command>pushd "$(ThirdPartySrcDir)\$(LibNameLibXml)\win32"
+cscript configure.js iconv=no zlib=no
+popd
+</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;_REENTRANT;HAVE_COMPILER_TLS;HAVE_WIN32_THREADS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
+    <PreBuildEvent>
+      <Message>Running configure.js...</Message>
+      <Command>pushd "$(ThirdPartySrcDir)\$(LibNameLibXml)\win32"
+cscript configure.js iconv=no zlib=no
+popd
+</Command>
+    </PreBuildEvent>
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;_REENTRANT;HAVE_COMPILER_TLS;HAVE_WIN32_THREADS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">
+    <PreBuildEvent>
+      <Message>Running configure.js...</Message>
+      <Command>pushd "$(ThirdPartySrcDir)\$(LibNameLibXml)\win32"
+cscript configure.js iconv=no zlib=no
+popd
+</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;_REENTRANT;HAVE_COMPILER_TLS;HAVE_WIN32_THREADS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/LTCG %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
+    <PreBuildEvent>
+      <Message>Running configure.js...</Message>
+      <Command>pushd "$(ThirdPartySrcDir)\$(LibNameLibXml)\win32"
+cscript configure.js iconv=no zlib=no
+popd
+</Command>
+    </PreBuildEvent>
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;_REENTRANT;HAVE_COMPILER_TLS;HAVE_WIN32_THREADS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/LTCG %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\c14n.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\catalog.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\chvalid.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\debugXML.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\dict.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\DOCBparser.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\encoding.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\entities.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\error.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\globals.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\hash.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\HTMLparser.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\HTMLtree.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\legacy.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\list.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\nanoftp.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\nanohttp.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\parser.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\parserInternals.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\pattern.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\relaxng.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\SAX.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\SAX2.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\schematron.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\threads.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\tree.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\uri.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\valid.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xinclude.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xlink.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlIO.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlmemory.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlmodule.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlreader.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlregexp.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlsave.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlschemas.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlschemastypes.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlstring.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlunicode.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlwriter.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xpath.c" />
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xpointer.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\acconfig.h" />
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\elfgcchack.h" />
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\libxml.h" />
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\trio.h" />
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\triodef.h" />
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\trionan.h" />
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\triop.h" />
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\triostr.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

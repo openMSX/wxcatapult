@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{708c4866-2a09-4601-9379-ffc5960d2820}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Dialogs">
+      <UniqueIdentifier>{e493b976-1eca-4e2e-ae2a-b664c50d608b}</UniqueIdentifier>
+      <Extensions>wxg</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Version">
+      <UniqueIdentifier>{d5db027b-1ccb-4e44-ad06-e74ee99724ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bitmaps">
+      <UniqueIdentifier>{a63c8af1-44b3-4967-b628-15fe96a0ba5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{79986e8e-5d59-487f-8ab7-31a95371db18}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{f657cb25-9ceb-4795-a61d-9cc189c09421}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\AboutDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\AudioControlPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CatapultConfigDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CatapultPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CatapultXMLParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CheckConfigsDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ConfigurationData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FullScreenDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\InputPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\IPSSelectionDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MiscControlPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\openMSXController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\openMSXLinuxController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\openMSXWindowsController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PipeConnectThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PipeReadThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RomTypeDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ScreenShotDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SessionPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\StatusPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Version.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\VideoControlPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\wxCatapultApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\wxCatapultFrm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\wxToggleButtonXmlHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\AboutDlg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\AudioControlPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CatapultConfigDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CatapultPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CatapultXMLParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CheckConfigsDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ConfigurationData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FullScreenDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\InputPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\IPSSelectionDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MiscControlPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\openMSXController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\openMSXLinuxController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\openMSXWindowsController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PipeConnectThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PipeReadThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RomTypeDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ScreenshotDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SessionPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\StatusPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\VideoControlPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\wxCatapultApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\wxCatapultFrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\wxToggleButtonXmlHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="version.mk">
+      <Filter>Source Files\Version</Filter>
+    </None>
+    <None Include="..\..\resources\bitmaps\about.png">
+      <Filter>Source Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\..\resources\bitmaps\diskimage.png">
+      <Filter>Source Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\..\resources\bitmaps\eject.png">
+      <Filter>Source Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\..\resources\bitmaps\file.png">
+      <Filter>Source Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\..\resources\bitmaps\ledoff.png">
+      <Filter>Source Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\..\resources\bitmaps\ledon.png">
+      <Filter>Source Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\..\resources\bitmaps\romimage.png">
+      <Filter>Source Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\..\resources\bitmaps\tapeimage.png">
+      <Filter>Source Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\..\src\catapult.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\src\catapult.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\dialogs\about.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\audiocontrols.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\catapult.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\checkconfigs.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\config.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\fullscreen.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\input.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\ipsselect.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\misccontrols.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\romtype.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\screenshot.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\session.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\status.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\videocontrols.wxg">
+      <Filter>Source Files\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\src\Version.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

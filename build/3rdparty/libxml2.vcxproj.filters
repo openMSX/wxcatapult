@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\c14n.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\catalog.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\chvalid.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\debugXML.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\dict.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\DOCBparser.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\encoding.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\entities.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\error.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\globals.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\hash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\HTMLparser.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\HTMLtree.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\legacy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\nanoftp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\nanohttp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\parser.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\parserInternals.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\pattern.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\relaxng.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\SAX.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\SAX2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\schematron.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\threads.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\tree.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\uri.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\valid.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xinclude.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xlink.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlIO.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlmemory.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlmodule.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlreader.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlregexp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlsave.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlschemas.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlschemastypes.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlstring.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlunicode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xmlwriter.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xpath.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\derived\3rdparty\src\libxml2-2.7.3\xpointer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\acconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\elfgcchack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\libxml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\trio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\triodef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\trionan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\triop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\derived\3rdparty\src\libxml2-2.7.3\triostr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

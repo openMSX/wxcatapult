@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <CatapultRootDir>..\..</CatapultRootDir>
+    <DerivedDir>..\..\derived</DerivedDir>
+    <BuildFlavor>$(Platform)-VC-$(Configuration)</BuildFlavor>
+    <BuildDir>$(DerivedDir)\$(BuildFlavor)</BuildDir>
+    <ThirdPartySrcDir>$(DerivedDir)\3rdparty\src</ThirdPartySrcDir>
+    <ThirdPartyBuildDir>$(BuildDir)\3rdparty</ThirdPartyBuildDir>
+    <ThirdPartyIntDir>$(ThirdPartyBuildDir)\build</ThirdPartyIntDir>
+    <ThirdPartyOutDir>$(ThirdPartyBuildDir)\install\lib</ThirdPartyOutDir>
+    <CatapultIntDir>$(BuildDir)\build</CatapultIntDir>
+    <CatapultOutDir>$(BuildDir)\install</CatapultOutDir>
+    <CatapultConfigDir>$(BuildDir)\config</CatapultConfigDir>
+    <LibNameLibXml>libxml2-2.7.3</LibNameLibXml>
+    <LibNameWx>wxMSW-2.8.9</LibNameWx>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_PropertySheetDisplayName>Thirdparty</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="CatapultRootDir">
+      <Value>$(CatapultRootDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="DerivedDir">
+      <Value>$(DerivedDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="BuildFlavor">
+      <Value>$(BuildFlavor)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="BuildDir">
+      <Value>$(BuildDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="ThirdPartySrcDir">
+      <Value>$(ThirdPartySrcDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="ThirdPartyBuildDir">
+      <Value>$(ThirdPartyBuildDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="ThirdPartyIntDir">
+      <Value>$(ThirdPartyIntDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="ThirdPartyOutDir">
+      <Value>$(ThirdPartyOutDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="CatapultIntDir">
+      <Value>$(CatapultIntDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="CatapultOutDir">
+      <Value>$(CatapultOutDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="CatapultConfigDir">
+      <Value>$(CatapultConfigDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="LibNameLibXml">
+      <Value>$(LibNameLibXml)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="LibNameWx">
+      <Value>$(LibNameWx)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

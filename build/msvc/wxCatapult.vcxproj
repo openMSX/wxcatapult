@@ -1,0 +1,1808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Debug|Win32">
+      <Configuration>Unicode Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Debug|x64">
+      <Configuration>Unicode Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Release|Win32">
+      <Configuration>Unicode Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Release|x64">
+      <Configuration>Unicode Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DF2143B4-16E7-42BE-B5C4-B077833EB0A7}</ProjectGuid>
+    <RootNamespace>wxCatapult</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\3rdparty\3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\3rdparty\3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\3rdparty\3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\3rdparty\3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\3rdparty\3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\3rdparty\3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\3rdparty\3rdparty.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+    <Import Project="..\3rdparty\3rdparty.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">$(CatapultOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">$(CatapultIntDir)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">$(CatapultOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">$(CatapultIntDir)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(CatapultOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(CatapultIntDir)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CatapultOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CatapultIntDir)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(CatapultOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(CatapultIntDir)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(CatapultOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(CatapultIntDir)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">$(CatapultOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">$(CatapultIntDir)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">$(CatapultOutDir)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">$(CatapultIntDir)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">catapult</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">catapult</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">catapult</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">catapult</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">catapult</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">catapult</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">catapult</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">catapult</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Midl>
+      <TypeLibraryName>.\..\..\derived\bin/wxCatapult.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(CatapultConfigDir);$(ThirdPartySrcDir)\$(LibNameWx)\include;$(ThirdPartySrcDir)\$(LibNameWx)\\include\msvc;$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;LIBXML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BrowseInformation>
+      </BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\derived\$(Platform)-VC-$(Configuration)\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libxml2.lib;ole32.lib;oleaut32.lib;gdi32.lib;shell32.lib;advapi32.lib;user32.lib;comctl32.lib;comdlg32.lib;winmm.lib;wsock32.lib;rpcrt4.lib</AdditionalDependencies>
+      <Version>0.1</Version>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(ThirdPartyOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)catapult.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX86</TargetMachine>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\..\derived\bin/wxCatapult.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\..\..\derived\bin/wxCatapult.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(CatapultConfigDir);$(ThirdPartySrcDir)\$(LibNameWx)\include;$(ThirdPartySrcDir)\$(LibNameWx)\\include\msvc;$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;LIBXML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BrowseInformation>
+      </BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\derived\$(Platform)-VC-$(Configuration)\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libxml2.lib;ole32.lib;oleaut32.lib;gdi32.lib;shell32.lib;advapi32.lib;user32.lib;comctl32.lib;comdlg32.lib;winmm.lib;wsock32.lib;rpcrt4.lib</AdditionalDependencies>
+      <Version>0.1</Version>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(ThirdPartyOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)catapult.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX64</TargetMachine>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\..\derived\bin/wxCatapult.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Midl>
+      <TypeLibraryName>.\..\..\derived\bin/wxCatapult.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(CatapultConfigDir);$(ThirdPartySrcDir)\$(LibNameWx)\include;$(ThirdPartySrcDir)\$(LibNameWx)\\include\msvc;$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BrowseInformation>
+      </BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\derived\$(Platform)-VC-$(Configuration)\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libxml2.lib;ole32.lib;oleaut32.lib;gdi32.lib;shell32.lib;advapi32.lib;user32.lib;comctl32.lib;comdlg32.lib;winmm.lib;wsock32.lib;rpcrt4.lib</AdditionalDependencies>
+      <Version>0.1</Version>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(ThirdPartyOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)catapult.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\..\derived\bin/wxCatapult.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\..\..\derived\bin/wxCatapult.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(CatapultConfigDir);$(ThirdPartySrcDir)\$(LibNameWx)\include;$(ThirdPartySrcDir)\$(LibNameWx)\\include\msvc;$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BrowseInformation>
+      </BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\derived\$(Platform)-VC-$(Configuration)\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libxml2.lib;ole32.lib;oleaut32.lib;gdi32.lib;shell32.lib;advapi32.lib;user32.lib;comctl32.lib;comdlg32.lib;winmm.lib;wsock32.lib;rpcrt4.lib</AdditionalDependencies>
+      <Version>0.1</Version>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(ThirdPartyOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)catapult.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\..\derived\bin/wxCatapult.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Midl>
+      <TypeLibraryName>.\..\..\derived\bin/wxCatapult.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(CatapultConfigDir);$(ThirdPartySrcDir)\$(LibNameWx)\include;$(ThirdPartySrcDir)\$(LibNameWx)\\include\msvc;$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BrowseInformation>
+      </BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\derived\$(Platform)-VC-$(Configuration)\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libxml2.lib;ole32.lib;oleaut32.lib;gdi32.lib;shell32.lib;advapi32.lib;user32.lib;comctl32.lib;comdlg32.lib;winmm.lib;wsock32.lib;rpcrt4.lib</AdditionalDependencies>
+      <Version>0.1</Version>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(ThirdPartyOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)catapult.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\..\derived\bin/wxCatapult.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\..\..\derived\bin/wxCatapult.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(CatapultConfigDir);$(ThirdPartySrcDir)\$(LibNameWx)\include;$(ThirdPartySrcDir)\$(LibNameWx)\\include\msvc;$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BrowseInformation>
+      </BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\derived\$(Platform)-VC-$(Configuration)\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libxml2.lib;ole32.lib;oleaut32.lib;gdi32.lib;shell32.lib;advapi32.lib;user32.lib;comctl32.lib;comdlg32.lib;winmm.lib;wsock32.lib;rpcrt4.lib</AdditionalDependencies>
+      <Version>0.1</Version>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(ThirdPartyOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)catapult.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\..\derived\bin/wxCatapult.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Midl>
+      <TypeLibraryName>.\..\..\derived\bin/wxCatapult.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(CatapultConfigDir);$(ThirdPartySrcDir)\$(LibNameWx)\include;$(ThirdPartySrcDir)\$(LibNameWx)\\include\msvc;$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1;LIBXML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BrowseInformation>
+      </BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\derived\$(Platform)-VC-$(Configuration)\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libxml2.lib;ole32.lib;oleaut32.lib;gdi32.lib;shell32.lib;advapi32.lib;user32.lib;comctl32.lib;comdlg32.lib;winmm.lib;wsock32.lib;rpcrt4.lib</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(ThirdPartyOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)catapult.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\..\derived\bin/wxCatapult.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\..\..\derived\bin/wxCatapult.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(CatapultConfigDir);$(ThirdPartySrcDir)\$(LibNameWx)\include;$(ThirdPartySrcDir)\$(LibNameWx)\\include\msvc;$(ThirdPartySrcDir)\$(LibNameLibXml)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_MBCS;_WINDOWS;WINVER=0x400;_MT;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1;LIBXML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BrowseInformation>
+      </BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\derived\$(Platform)-VC-$(Configuration)\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libxml2.lib;ole32.lib;oleaut32.lib;gdi32.lib;shell32.lib;advapi32.lib;user32.lib;comctl32.lib;comdlg32.lib;winmm.lib;wsock32.lib;rpcrt4.lib</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(ThirdPartyOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)catapult.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\..\derived\bin/wxCatapult.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\AboutDlg.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\AudioControlPage.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CatapultConfigDlg.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CatapultPage.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CatapultXMLParser.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CheckConfigsDlg.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ConfigurationData.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FullScreenDlg.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\InputPage.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\IPSSelectionDlg.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MiscControlPage.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\openMSXController.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\openMSXLinuxController.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\openMSXWindowsController.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PipeConnectThread.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PipeReadThread.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RomTypeDlg.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ScreenShotDlg.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SessionPage.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\StatusPage.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Version.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\VideoControlPage.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\wxCatapultApp.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\wxCatapultFrm.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\wxToggleButtonXmlHandler.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\AboutDlg.h" />
+    <ClInclude Include="..\..\src\AudioControlPage.h" />
+    <ClInclude Include="..\..\src\CatapultConfigDlg.h" />
+    <ClInclude Include="..\..\src\CatapultPage.h" />
+    <ClInclude Include="..\..\src\CatapultXMLParser.h" />
+    <ClInclude Include="..\..\src\CheckConfigsDlg.h" />
+    <ClInclude Include="..\..\src\ConfigurationData.h" />
+    <ClInclude Include="..\..\src\FullScreenDlg.h" />
+    <ClInclude Include="..\..\src\InputPage.h" />
+    <ClInclude Include="..\..\src\IPSSelectionDlg.h" />
+    <ClInclude Include="..\..\src\MiscControlPage.h" />
+    <ClInclude Include="..\..\src\openMSXController.h" />
+    <ClInclude Include="..\..\src\openMSXLinuxController.h" />
+    <ClInclude Include="..\..\src\openMSXWindowsController.h" />
+    <ClInclude Include="..\..\src\PipeConnectThread.h" />
+    <ClInclude Include="..\..\src\PipeReadThread.h" />
+    <ClInclude Include="..\..\src\RomTypeDlg.h" />
+    <ClInclude Include="..\..\src\ScreenshotDlg.h" />
+    <ClInclude Include="..\..\src\SessionPage.h" />
+    <ClInclude Include="..\..\src\StatusPage.h" />
+    <CustomBuild Include="..\..\src\Version.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating config headers...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">for /f "delims=" %%d in ("$(CatapultConfigDir)") do set CONFIG_DIR=%%~fd
+rem echo CONFIG_DIR=%CONFIG_DIR%
+
+for /f "delims=" %%d in ("$(CatapultRootDir)") do set ROOT_DIR=%%~fd
+rem echo ROOT_DIR=%ROOT_DIR%
+
+set BUILD_DIR=%ROOT_DIR%\build
+rem echo BUILD_DIR=%BUILD_DIR%
+
+set MSVC_DIR=%BUILD_DIR%\msvc
+rem echo MSVC_DIR=%MSVC_DIR%
+
+set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
+rem echo PYTHONPATH=%PYTHONPATH%
+
+pushd %ROOT_DIR%
+python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+popd</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">resource-info.h;Version.ii;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating config headers...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">for /f "delims=" %%d in ("$(CatapultConfigDir)") do set CONFIG_DIR=%%~fd
+rem echo CONFIG_DIR=%CONFIG_DIR%
+
+for /f "delims=" %%d in ("$(CatapultRootDir)") do set ROOT_DIR=%%~fd
+rem echo ROOT_DIR=%ROOT_DIR%
+
+set BUILD_DIR=%ROOT_DIR%\build
+rem echo BUILD_DIR=%BUILD_DIR%
+
+set MSVC_DIR=%BUILD_DIR%\msvc
+rem echo MSVC_DIR=%MSVC_DIR%
+
+set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
+rem echo PYTHONPATH=%PYTHONPATH%
+
+pushd %ROOT_DIR%
+python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+popd</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">resource-info.h;Version.ii;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating config headers...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">for /f "delims=" %%d in ("$(CatapultConfigDir)") do set CONFIG_DIR=%%~fd
+rem echo CONFIG_DIR=%CONFIG_DIR%
+
+for /f "delims=" %%d in ("$(CatapultRootDir)") do set ROOT_DIR=%%~fd
+rem echo ROOT_DIR=%ROOT_DIR%
+
+set BUILD_DIR=%ROOT_DIR%\build
+rem echo BUILD_DIR=%BUILD_DIR%
+
+set MSVC_DIR=%BUILD_DIR%\msvc
+rem echo MSVC_DIR=%MSVC_DIR%
+
+set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
+rem echo PYTHONPATH=%PYTHONPATH%
+
+pushd %ROOT_DIR%
+python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+popd</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">resource-info.h;Version.ii;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating config headers...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">for /f "delims=" %%d in ("$(CatapultConfigDir)") do set CONFIG_DIR=%%~fd
+rem echo CONFIG_DIR=%CONFIG_DIR%
+
+for /f "delims=" %%d in ("$(CatapultRootDir)") do set ROOT_DIR=%%~fd
+rem echo ROOT_DIR=%ROOT_DIR%
+
+set BUILD_DIR=%ROOT_DIR%\build
+rem echo BUILD_DIR=%BUILD_DIR%
+
+set MSVC_DIR=%BUILD_DIR%\msvc
+rem echo MSVC_DIR=%MSVC_DIR%
+
+set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
+rem echo PYTHONPATH=%PYTHONPATH%
+
+pushd %ROOT_DIR%
+python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+popd</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">resource-info.h;Version.ii;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Generating config headers...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">for /f "delims=" %%d in ("$(CatapultConfigDir)") do set CONFIG_DIR=%%~fd
+rem echo CONFIG_DIR=%CONFIG_DIR%
+
+for /f "delims=" %%d in ("$(CatapultRootDir)") do set ROOT_DIR=%%~fd
+rem echo ROOT_DIR=%ROOT_DIR%
+
+set BUILD_DIR=%ROOT_DIR%\build
+rem echo BUILD_DIR=%BUILD_DIR%
+
+set MSVC_DIR=%BUILD_DIR%\msvc
+rem echo MSVC_DIR=%MSVC_DIR%
+
+set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
+rem echo PYTHONPATH=%PYTHONPATH%
+
+pushd %ROOT_DIR%
+python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+popd</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">resource-info.h;Version.ii;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Generating config headers...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">for /f "delims=" %%d in ("$(CatapultConfigDir)") do set CONFIG_DIR=%%~fd
+rem echo CONFIG_DIR=%CONFIG_DIR%
+
+for /f "delims=" %%d in ("$(CatapultRootDir)") do set ROOT_DIR=%%~fd
+rem echo ROOT_DIR=%ROOT_DIR%
+
+set BUILD_DIR=%ROOT_DIR%\build
+rem echo BUILD_DIR=%BUILD_DIR%
+
+set MSVC_DIR=%BUILD_DIR%\msvc
+rem echo MSVC_DIR=%MSVC_DIR%
+
+set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
+rem echo PYTHONPATH=%PYTHONPATH%
+
+pushd %ROOT_DIR%
+python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+popd</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">resource-info.h;Version.ii;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Generating config headers...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">for /f "delims=" %%d in ("$(CatapultConfigDir)") do set CONFIG_DIR=%%~fd
+rem echo CONFIG_DIR=%CONFIG_DIR%
+
+for /f "delims=" %%d in ("$(CatapultRootDir)") do set ROOT_DIR=%%~fd
+rem echo ROOT_DIR=%ROOT_DIR%
+
+set BUILD_DIR=%ROOT_DIR%\build
+rem echo BUILD_DIR=%BUILD_DIR%
+
+set MSVC_DIR=%BUILD_DIR%\msvc
+rem echo MSVC_DIR=%MSVC_DIR%
+
+set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
+rem echo PYTHONPATH=%PYTHONPATH%
+
+pushd %ROOT_DIR%
+python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+popd</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">resource-info.h;Version.ii;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Generating config headers...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">for /f "delims=" %%d in ("$(CatapultConfigDir)") do set CONFIG_DIR=%%~fd
+rem echo CONFIG_DIR=%CONFIG_DIR%
+
+for /f "delims=" %%d in ("$(CatapultRootDir)") do set ROOT_DIR=%%~fd
+rem echo ROOT_DIR=%ROOT_DIR%
+
+set BUILD_DIR=%ROOT_DIR%\build
+rem echo BUILD_DIR=%BUILD_DIR%
+
+set MSVC_DIR=%BUILD_DIR%\msvc
+rem echo MSVC_DIR=%MSVC_DIR%
+
+set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
+rem echo PYTHONPATH=%PYTHONPATH%
+
+pushd %ROOT_DIR%
+python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+popd</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">resource-info.h;Version.ii;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="..\..\src\VideoControlPage.h" />
+    <ClInclude Include="..\..\src\wxCatapultApp.h" />
+    <ClInclude Include="..\..\src\wxCatapultFrm.h" />
+    <ClInclude Include="..\..\src\wxToggleButtonXmlHandler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\dialogs\about.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\audiocontrols.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\catapult.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\checkconfigs.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\config.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\fullscreen.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\input.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\ipsselect.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\misccontrols.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\romtype.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\screenshot.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\session.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\status.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\dialogs\videocontrols.wxg">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(Filename).xrc;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Converting %(Filename)%(Extension) to %(Filename).xrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">if not exist "$(OutDir)dialogs" (%40md "$(OutDir)dialogs")
+sed\sed.exe -f ..\wxg2xrc.sed "%(FullPath)" &gt; "$(OutDir)dialogs\%(Filename).xrc"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(Filename).xrc;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="version.mk" />
+    <None Include="..\..\resources\bitmaps\about.png" />
+    <None Include="..\..\resources\bitmaps\diskimage.png" />
+    <None Include="..\..\resources\bitmaps\eject.png" />
+    <None Include="..\..\resources\bitmaps\file.png" />
+    <None Include="..\..\resources\bitmaps\ledoff.png" />
+    <None Include="..\..\resources\bitmaps\ledon.png" />
+    <None Include="..\..\resources\bitmaps\romimage.png" />
+    <None Include="..\..\resources\bitmaps\tapeimage.png" />
+    <None Include="..\..\src\catapult.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\src\catapult.rc">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">\Scratch\Build\catapult\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">\Scratch\Build\catapult\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">\Scratch\Build\catapult\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">\Scratch\Build\catapult\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">\Scratch\Build\catapult\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">\Scratch\Build\catapult\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">\Scratch\Build\catapult\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">\Scratch\Build\catapult\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
