@@ -163,6 +163,8 @@ only the big picture.
 <dd>Updates for compilation with wxWidgets 2.6.</dd>
 <dt>2009-04-26 Max Feingold</dt>
 <dd>Updates for compilation with SVN and Visual C++.</dd>
+<dt>2010-06-20 Max Feingold</dt>
+<dd>Updates for compilation with Visual C++ 2010.</dd>
 
 </dl>
 
@@ -311,16 +313,34 @@ binary released version (which is compiled with Visual C++) and will also need t
 <h4>Visual C++</h4>
 <p>There are three different ways to obtain the Visual C++ compiler:</p>
 <dl>
-	<dt><a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx">Visual 
-	C++ 2008</a></dt>
-	<dd>This is the professional IDE that comes with Visual Studio, as a standalone purchase, or via an MSDN subscription.</dd>
-	<dt><a href="http://msdn.microsoft.com/en-us/windows/bb980924.aspx">Windows 
-	SDK</a></dt>
-	<dd>This is a free (as in beer) command line environment that provides a full set of compilers, headers and libraries. This is the best option for people who simply wish to build openMSX with minimal hassle. It is a large download.</dd>
-	<dt><a href="http://www.microsoft.com/express/vc/">Visual C++ 2008 Express</a></dt>
-	<dd>This is a free (again as in beer) IDE and development environment. It builds 32-bit binaries out of the box, and can be made to build 64-bit binaries with some
-	<a href="http://social.msdn.microsoft.com/Forums/en-US/Vsexpressvc/thread/38544c63-d12a-4a05-9ea7-5b4124152801/">coaxing</a>. This is the best option for developers looking to browse the code or use other benefits of an IDE. It's also a smaller download than the Windows SDK.</dd></dl>
-	<p>To build with Visual C++ from the command line, you need to open a Visual Studio command prompt. A shortcut for this can usually be found in your start menu. For Visual C++ 2008, it will be in &quot;Microsoft Visual Studio 2008\Visual Studio Tools&quot; as the &quot;Visual Studio 2008 Command Prompt&quot;. For the Windows SDK, it will be in &quot;Microsoft Windows SDK vX.Y&quot; as the &quot;CMD Shell&quot;.</p>
+	<dt><a class="external" href="http://msdn.microsoft.com/en-us/vstudio/default.aspx">
+        Visual C++ 20</a><a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx"><span 
+            class="style1">10</span></a></dt>
+    <dd>
+        This is the professional IDE and development environment that comes with Visual 
+        Studio, as a standalone purchase or via an MSDN subscription.</dd>
+    <dt><a class="external" 
+            href="http://msdn.microsoft.com/en-us/windows/bb980924.aspx">Windows SDK</a></dt>
+    <dd>
+        This is a free (as in beer) command line environment that provides a full set of 
+        compilers, headers and libraries. This is the best option for people who wish to 
+        build openMSX with minimal hassle. We recommend using the
+        <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=6b6c21d2-2006-4afa-9702-529fa782d63b&amp;displaylang=en">
+        Microsoft Windows SDK for Windows 7 and .NET Framework 4</a> or newer. (When 
+        installing, the Documentation, Samples and .NET Development Tools options are 
+        not required to build openMSX. This reduces the download size considerably, from 
+        about 1.2GB to about 100MB.)</dd>
+    <dt><a class="external" href="http://www.microsoft.com/express/vc/">Visual C++ 2010 
+        Express</a></dt>
+    <dd>
+        This is a free (as in beer) IDE and development environment. It builds 32-bit 
+        binaries out of the box, and can be made to build 64-bit binaries with some
+        <a class="external" 
+            href="http://msdn.microsoft.com/en-us/library/9yb4317s.aspx">coaxing</a>. 
+        This is the best option for developers looking to browse the source code or use 
+        other benefits of an IDE.</dd>
+    </dl>
+	<p>To build with Visual C++ from the command line, you need to open a Visual Studio command prompt. A shortcut for this can usually be found in your start menu. For Visual C++ 2010, it will be in &quot;Microsoft Visual Studio 2010\Visual Studio Tools&quot; as the &quot;Visual Studio Command Prompt&quot;. For the Windows SDK, it will be in &quot;Microsoft Windows SDK vX.Y&quot; as the &quot;CMD Shell&quot;.</p>
 <p>When building with Visual C++, the result is a static executable with minimal dynamic library dependencies. Two platforms are supported:</p>
 <ul>
 	<li>Win32 - a 32-bit binary that runs on both 32 and 64-bit versions of Windows</li>
