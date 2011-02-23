@@ -271,9 +271,8 @@ can be typed into the emulated MSX including newlines.
 <h3><a id="tour_status">3.6. Status Page</a></h3>
 
 <p>
-This page contains the messages Catapult gets from openMSX. This can be information 
-like what cartridge has been found, which machine is used or where the screen shot has been saved, but it can also 
-show warnings or errors that occur. In case of an error, Catapult automatically 
+This page contains the messages Catapult gets from openMSX. This can be informational messages like where the screen shot has been saved, but it can also
+show warnings or errors that occur. In case of an error, Catapult automatically
 selects this page.
 [<a class="internal" href="#status">status</a>]
 </p>
@@ -682,14 +681,12 @@ The status display of Catapult consists of four different elements:
 </ul>
 
 <p>
-The Status Page displays all messages given by openMSX. This includes 
-machine- and ROM information, warnings, errors and output from the debug device 
+The Status Page displays all messages given by openMSX. This includes informational messages, but also warnings and errors and output from the debug device
 (see the
 <a class="external"
 href="http://openmsx.sourceforge.net/manual/user.html#debugdevice">openMSX User's Manual</a>
-for more information). Informational texts are displayed in black, warnings are displayed
-in dark red while errors can be recognised by their bright red colour. This display is cleared 
-whenever openMSX is started.
+for more information) if it is configured to output to <code>stderr</code>. Informational texts are displayed in black, warnings are displayed
+in dark red while errors can be recognised by their bright red colour. This display is cleared whenever openMSX is started.
 </p>
 
 <p class="image">
