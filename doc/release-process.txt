@@ -17,6 +17,7 @@ Preparing for a release
 Creating a release candidate
 ----------------------------
 
+- Update the release date in the release notes.
 - Edit the version number in build/version.mk:
     VERSION=1.2.3
   The version should be the version of openMSX for which this Catapult
