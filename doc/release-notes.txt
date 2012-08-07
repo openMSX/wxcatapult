@@ -1,14 +1,14 @@
-Release Notes for openMSX Catapult 0.8.2 (2012-01-15)
+Release Notes for openMSX Catapult 0.9.0 (2012-08-xx)
 =====================================================
 
-Catapult release to match openMSX 0.8.2. No changes in Catapult.
+Catapult release to match openMSX 0.9.0. No changes in Catapult.
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
 - the select extension listbox doesn't work properly when using wxWidgets 2.6.x
   (and later) Use the spacebar to deselect extensions!
 - not feature complete, especially for newer features you will have to revert to
-  the openMSX console (press F10)
+  the openMSX console (press F10) or the OSD menu (MENU key)
 
 openMSX Home Page:
   http://openmsx.sourceforge.net/
