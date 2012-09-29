@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.9.1 (2012-09-xx)
+Release Notes for openMSX Catapult 0.9.1 (2012-09-30)
 =====================================================
 
 Catapult release to match openMSX 0.9.1. No changes in Catapult.
@@ -15,10 +15,10 @@ openMSX Home Page:
 Project page on SourceForge:
   http://sourceforge.net/projects/openmsx/
 Contact options:
+- Talk to us on #openmsx on irc.freenode.net.
+- Use the forum on http://www.msx.org/forum/semi-msx-talk/openmsx
 - Send a message to the openmsx-user mailing list.
   Go to the SourceForge project page and look under "Lists".
-- Use the new forum on forum.openmsx.org.
-- Talk to us on #openmsx on irc.freenode.net.
 
 Have fun with your emulated MSX!
                                         the openMSX developers
