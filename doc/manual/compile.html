@@ -236,10 +236,10 @@ utilities are PowerArchiver 6.1 (free), Wiz (free), 7-Zip (free) or WinZip
 <a href="http://www.sliksvn.com/en/download">SlikSVN</a> for a command line tool, <a class="external" href="http://tortoisesvn.tigris.org/">TortoiseSVN</a> for Windows Explorer integration, or <a href="http://ankhsvn.open.collab.net/"> ankhSVN</a> for Visual Studio integration. </p>
 <p>With the following line you can retrieve the latest sources: </p>
 <div class="commandline">
-	svn co https://openmsx.svn.sourceforge.net/svnroot/openmsx/wxcatapult/trunk wxcatapult </div>
+	svn co svn://svn.code.sf.net/p/openmsx/code/wxcatapult/trunk wxcatapult </div>
 <p>In this line you specified where you want to retrieve the files from (host name of the SVN server), what project you want to retrieve (<em>openmsx</em> in this case), what module you want to get (<em>wxcatapult </em>in this case, which is the module that contains the sources of the main Catapult program), which branch you want to retrieve (<em>trunk</em> in this case, which is the main development branch) and what directory it should be checked out to (we chose <em>wxcatapult </em>in this example). </p>
 
-<p>In TortoiseSVN, use <code>https://openmsx.svn.sourceforge.net/svnroot/openmsx/wxcatapult/trunk</code> as the &quot;URL of repository&quot; and the directory of your choice as the &quot;Checkout directory&quot;. Use the <code>HEAD</code> revision and click OK. When compiling Catapult on Windows with gcc, it's often convenient to use <code> C:\msys\1.0\home\&lt;username&gt;\wxcatapult</code> as the checkout directory, as this is easy to reach from an MSYS shell - it's your MSYS home directory. </p>
+<p>In TortoiseSVN, use <code>svn://svn.code.sf.net/p/openmsx/code/wxcatapult/trunk</code> as the &quot;URL of repository&quot; and the directory of your choice as the &quot;Checkout directory&quot;. Use the <code>HEAD</code> revision and click OK. When compiling Catapult on Windows with gcc, it's often convenient to use <code> C:\msys\1.0\home\&lt;username&gt;\wxcatapult</code> as the checkout directory, as this is easy to reach from an MSYS shell - it's your MSYS home directory. </p>
 <p>If you're a developer, it makes sense to add the following option to the svn commandline as well: </p>
 <div class="commandline">
 	--username &lt;name-of-your-sourceforge-account&gt; </div>
