@@ -724,9 +724,15 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString & extensio
 	wxDir sharedir (sharepath + wxT("/extensions"));
 	wxString extension;
 	bool succes = sharedir.GetFirst(&extension);
-	while (succes)
-	{
-		if (::wxFileExists(sharepath + wxT("/extensions/") + extension + wxT("/hardwareconfig.xml"))) {
+	while (succes) {
+		wxString base;
+		if (extension.EndsWith(wxT(".xml"), &base)) {
+			if (::wxFileExists(sharepath + wxT("/extensions/") + extension)) {
+				if (extensionArray.Index(base, true) == wxNOT_FOUND) {
+					extensionArray.Add(base);
+				}
+			}
+		} else if (::wxFileExists(sharepath + wxT("/extensions/") + extension + wxT("/hardwareconfig.xml"))) {
 			if (extensionArray.Index(extension,true) == wxNOT_FOUND){
 				extensionArray.Add(extension);
 			}
@@ -761,9 +767,15 @@ void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArr
 	wxDir sharedir (sharepath + wxT("/machines"));
 	wxString machine;
 	bool succes = sharedir.GetFirst(&machine);
-	while (succes)
-	{
-		if (::wxFileExists(sharepath + wxT("/machines/") + machine + wxT("/hardwareconfig.xml"))) {
+	while (succes) {
+		wxString base;
+		if (machine.EndsWith(wxT(".xml"), &base)) {
+			if (::wxFileExists(sharepath + wxT("/machines/") + machine)) {
+				if (machineArray.Index(base, true) == wxNOT_FOUND) {
+					machineArray.Add(base);
+				}
+			}
+		} else if (::wxFileExists(sharepath + wxT("/machines/") + machine + wxT("/hardwareconfig.xml"))) {
 			if (machineArray.Index(machine,true) == wxNOT_FOUND){
 				machineArray.Add(machine);
 			}
