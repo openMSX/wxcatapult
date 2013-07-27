@@ -1,6 +1,3 @@
-// RomTypeDlg.cpp: implementation of the RomTypeDlg class.
-//
-//////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 

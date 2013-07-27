@@ -1,7 +1,5 @@
-// $Id$
-
-#ifndef __VERSION_HH__
-#define __VERSION_HH__
+#ifndef VERSION_HH
+#define VERSION_HH
 
 #ifndef WX_PRECOMP
 #include "wx/wx.h"
@@ -18,4 +16,4 @@ public:
 	static const wxString FULL_VERSION;
 };
 
-#endif //__VERSION_HH__
+#endif

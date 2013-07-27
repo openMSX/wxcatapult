@@ -1,7 +1,3 @@
-// $Id$
-// wxToggleButtonXmlHandler.cpp: implementation of the wxToggleButtonXmlHandler class.
-//
-//////////////////////////////////////////////////////////////////////
 #include <wx/version.h>
 
 #if wxCHECK_VERSION(2,5,0)

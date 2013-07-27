@@ -1,8 +1,3 @@
-// $Id$
-// MiscControlPage.cpp: implementation of the MiscControlPage class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 

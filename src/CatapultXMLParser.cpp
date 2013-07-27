@@ -1,8 +1,3 @@
-// $Id$
-// CatapultXMLParser.cpp: implementation of the CatapultXMLParser class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP

@@ -1,14 +1,5 @@
-// $Id$
-// ScreenshotDlg.h: interface for the FullScreenDlg class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_SCREENSHOTDLG_H)
-#define AFX_SCREENSHOTDLG_H
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#ifndef SCREENSHOTDLG_H
+#define SCREENSHOTDLG_H
 
 class ScreenshotDlg : public wxDialog
 {

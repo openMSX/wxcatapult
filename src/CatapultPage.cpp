@@ -1,7 +1,3 @@
-// $Id$
-// CatapultPage.cpp: implementation of the CatapultPage class.
-//
-//////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 #include "wx/version.h"

@@ -1,6 +1,3 @@
-// AboutDlg.cpp: implementation of the AboutDlg class.
-//
-//////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 

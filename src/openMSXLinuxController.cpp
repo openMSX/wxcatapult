@@ -1,7 +1,3 @@
-// $Id$
-// openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
-//
-//////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP

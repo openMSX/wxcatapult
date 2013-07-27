@@ -1,7 +1,3 @@
-// $Id$
-// openMSXWindowsController.cpp: implementation of the openMSXWindowsController class.
-//
-//////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP

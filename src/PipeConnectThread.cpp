@@ -1,8 +1,3 @@
-// $Id$
-// PipeConnectThread.cpp: implementation of the PipeConnectThread class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 #include "wxCatapultApp.h"

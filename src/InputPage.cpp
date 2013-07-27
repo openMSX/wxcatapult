@@ -1,8 +1,3 @@
-// $Id$
-// InputPage.cpp: implementation of the InputPage class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 

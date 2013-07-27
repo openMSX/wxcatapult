@@ -1,7 +1,3 @@
-// $Id$
-// onfigurationData.cpp: implementation of the ConfigurationData class.
-//
-//////////////////////////////////////////////////////////////////////
 #include "ConfigurationData.h"
 
 #if OPENMSX_DEMO_CD_VERSION

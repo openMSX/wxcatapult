@@ -1,8 +1,3 @@
-// $Id$
-// PipeReadThread.cpp: implementation of the PipeReadThread class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP

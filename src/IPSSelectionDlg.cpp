@@ -1,6 +1,3 @@
-// IPSSelectionDlg.cpp: implementation of the IPSSelectionDlg class.
-//
-//////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 

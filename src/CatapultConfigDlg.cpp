@@ -1,8 +1,3 @@
-// $Id$
-// CatapultConfigDlg.cpp: implementation of the CatapultConfigDlg class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 

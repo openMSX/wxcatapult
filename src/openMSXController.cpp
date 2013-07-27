@@ -1,8 +1,3 @@
-// $Id$
-// openMSXController.cpp: implementation of the openMSXController class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "wx/wxprec.h"
 #include "wx/version.h"
 

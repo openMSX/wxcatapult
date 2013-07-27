@@ -1,13 +1,5 @@
-// CheckConfigsDlg.h: interface for the CheckConfigsDlg class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AUDITDLG_H_INCLUDED_)
-#define AUDITDLG_H_INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#ifndef CHECKCONFIGSDLG_H
+#define CHECKCONFIGSDLG_H
 
 #define MSGID_TESTCONFIG_SUCCES 1
 #define MSGID_TESTCONFIG_FAILED 2
@@ -73,4 +65,4 @@ private:
 	DECLARE_EVENT_TABLE()
 };
 
-#endif // !defined(AUDITDLG_H_INCLUDED_)
+#endif

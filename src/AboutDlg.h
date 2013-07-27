@@ -1,13 +1,5 @@
-// FullScreenDlg.h: interface for the FullScreenDlg class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_ABOUTDLG_H_INCLUDED_)
-#define AFX_ABOUTDLG_H_INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#ifndef ABOUTDLG_H
+#define ABOUTDLG_H
 
 class AboutDlg : public wxDialog
 {
@@ -22,4 +14,4 @@ private:
 	DECLARE_EVENT_TABLE()
 };
 
-#endif // !defined(AFX_ABOUTDLG_H_INCLUDED_)
+#endif

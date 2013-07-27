@@ -1,13 +1,5 @@
-// RomTypeDlg.h: interface for the RomTypeDlg class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_ROMTYPEDLG_H__09B17758_A791_4F43_AE15_88269673D1D2__INCLUDED_)
-#define AFX_ROMTYPEDLG_H__09B17758_A791_4F43_AE15_88269673D1D2__INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#ifndef ROMTYPEDLG_H
+#define ROMTYPEDLG_H
 
 class RomTypeDlg : public wxDialog
 {
@@ -36,4 +28,4 @@ private:
 	DECLARE_EVENT_TABLE()
 };
 
-#endif // !defined(AFX_ROMTYPEDLG_H__09B17758_A791_4F43_AE15_88269673D1D2__INCLUDED_)
+#endif

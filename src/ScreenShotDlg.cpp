@@ -1,7 +1,3 @@
-// $Id$
-// ScreenshotDlg.cpp: implementation of the FullScreenDlg class.
-//
-//////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 

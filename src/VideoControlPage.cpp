@@ -1,8 +1,3 @@
-// $Id$
-// VideoControlPage.cpp: implementation of the VideoControlPage class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 

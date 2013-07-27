@@ -1,13 +1,5 @@
-// IPSSelectionDlg.h: interface for the IPSSelectionDlg class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(IPSDIALOG_H)
-#define IPSDIALOG_H
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#ifndef IPSSELECTIONDLG_H
+#define IPSSELECTIONDLG_H
 
 class IPSSelectionDlg : public wxDialog
 {
@@ -38,4 +30,4 @@ private:
 	DECLARE_EVENT_TABLE()
 };
 
-#endif // !defined(AFX_ROMTYPEDLG_H__09B17758_A791_4F43_AE15_88269673D1D2__INCLUDED_)
+#endif

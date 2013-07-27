@@ -1,6 +1,3 @@
-// CheckConfigsDlg.cpp: implementation of the CheckConfigsDlg class.
-//
-//////////////////////////////////////////////////////////////////////
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 #ifndef WX_PRECOMP

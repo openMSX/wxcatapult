@@ -1,8 +1,3 @@
-// $Id$
-// AudioControlPage.cpp: implementation of the AudioControlPage class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
 
