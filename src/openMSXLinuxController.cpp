@@ -59,7 +59,7 @@ bool openMSXLinuxController::Launch(wxString cmdline)
 	return true;
 }
 
-bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOut, int& fdErr)
+bool openMSXLinuxController::execute(const std::string& command, int& fdIn, int& fdOut, int& fdErr)
 {
 	// create pipes
 	const int PIPE_READ = 0;
@@ -94,8 +94,8 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 		                alloca((len + 1) * sizeof(char)));
 		memcpy(cmd, (char *)command.c_str(), len + 1);
 		char* argv[4];
-		argv[0] = "sh";
-		argv[1] = "-c";
+		argv[0] = const_cast<char*>("sh");
+		argv[1] = const_cast<char*>("-c");
 		argv[2] = cmd;
 		argv[3] = 0;
 
@@ -159,7 +159,9 @@ bool openMSXLinuxController::WriteMessage(xmlChar * msg,size_t length)
 //		m_socket->Write(msg,length);
 //		return m_socket->LastError();
 //	}
-	write(m_openMSXstdin, msg,length);
+	ssize_t r = write(m_openMSXstdin, msg,length);
+	(void)r; // We really should check this return value, but for now
+	         // just silence the warning.
 	return true;
 }
 

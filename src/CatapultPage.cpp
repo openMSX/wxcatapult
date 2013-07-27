@@ -247,13 +247,11 @@ bool CatapultPage::UpdateSliderSetting(wxString setting, wxString data, wxString
 bool CatapultPage::UpdateMenuSetting (wxString setting, wxString data, wxString control, int flags)
 {
 	bool sendvalue = false;
-	long savedvalue = 0;
 	wxFrame * appwnd = (wxFrame *)GetParent()->GetGrandParent();
 	int menusetting = appwnd->GetMenuBar()->FindMenuItem(wxT("&Settings"),wxT("Save openMSX Settings On &Exit"));
 	if (menusetting != wxNOT_FOUND) {
 		if ((data == wxT("on")) || (data == wxT("true")) || (data == wxT("1")) || (data== wxT("yes"))) {
 			sendvalue = true;
-			savedvalue = 1;
 		}
 		appwnd->GetMenuBar()->Check(menusetting,sendvalue);
 	}

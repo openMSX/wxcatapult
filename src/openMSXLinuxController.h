@@ -5,8 +5,6 @@
 #include "openMSXController.h"
 #include <string>
 
-using std::string;
-
 class PipeReadThread;
 
 class openMSXLinuxController : public openMSXController
@@ -19,7 +17,7 @@ public:
 	openMSXLinuxController(wxWindow * target);
 	virtual ~openMSXLinuxController();
 private:
-	bool execute(const string& command, int& fdIn, int& fdOut, int& fdErr);
+	bool execute(const std::string& command, int& fdIn, int& fdOut, int& fdErr);
 	int m_openMSXstdin;
 	int m_openMSXstdout;
 	int m_openMSXstderr;

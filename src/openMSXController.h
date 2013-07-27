@@ -15,8 +15,6 @@
 #define LAUNCHSCRIPT_MAXSIZE 100
 #define OPENMSX_SOCKET 1
 
-using std::list;
-
 class wxCatapultFrame;
 class CatapultXMLParser;
 class openMSXController
@@ -128,7 +126,7 @@ private:
 	int SetCassetteMode (wxString cmd, wxString data);
 	bool connectSocket();
 
-	list<CommandEntry> m_commands;
+	std::list<CommandEntry> m_commands;
 };
 
 #endif

@@ -1,5 +1,5 @@
 /* XPM */
-static char * catapult_xpm[] = {
+static const char* catapult_xpm[] = {
 "32 32 362 2",
 "  	c None",
 ". 	c #02027F",
