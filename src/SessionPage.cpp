@@ -1,15 +1,3 @@
-#include "wx/wxprec.h"
-#include "wx/xrc/xmlres.h"
-
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
-
-#include <wx/dir.h>
-#include <wx/filedlg.h>
-#include <wx/dnd.h>
-#include <wx/tooltip.h>
-
 #include "SessionPage.h"
 #include "ConfigurationData.h"
 #include "wxCatapultFrm.h"
@@ -20,6 +8,15 @@
 #include "openMSXController.h"
 #include "RomTypeDlg.h"
 #include "IPSSelectionDlg.h"
+#include "wx/wxprec.h"
+#include "wx/xrc/xmlres.h"
+#include <wx/dir.h>
+#include <wx/filedlg.h>
+#include <wx/dnd.h>
+#include <wx/tooltip.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
 
 #ifdef __WXMSW__
 #ifndef __VISUALC__
@@ -28,8 +25,7 @@
 #include <shlobj.h>
 #endif
 
-enum
-{
+enum {
 	// menu items
 	Disk_Insert_New = 10,
 	Disk_Browse_File,
@@ -175,7 +171,7 @@ SessionPage::SessionPage(wxWindow * parent, openMSXController * controller)
 	m_cassette->control->SetDropTarget(new SessionDropTarget(m_cassette->control));
 
 	int autorecord;
-	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_AUTORECORD, &autorecord);
+	ConfigurationData::instance().GetParameter(ConfigurationData::CD_AUTORECORD, &autorecord);
 	m_cassetteAutoCreate = (autorecord == 1);
 	m_casInsertCommand = wxT("insert ");
 	m_motorControlOnCommand = wxT("motorcontrol on");
@@ -365,9 +361,9 @@ void SessionPage::OnMotorControl(wxCommandEvent & event)
 void SessionPage::OnAutoCassettefile(wxCommandEvent & event)
 {
 	m_cassetteAutoCreate = !m_cassetteAutoCreate;
-	ConfigurationData * config = ConfigurationData::instance();
-	config->SetParameter(ConfigurationData::CD_AUTORECORD,(long)(m_cassetteAutoCreate?1:0));
-	config->SaveData();
+	auto& config = ConfigurationData::instance();
+	config.SetParameter(ConfigurationData::CD_AUTORECORD, (long)(m_cassetteAutoCreate?1:0));
+	config.SaveData();
 }
 
 void SessionPage::OnBrowseDiskA(wxCommandEvent &event)
@@ -629,7 +625,7 @@ void SessionPage::SetupHardware (bool initial, bool reset)
 			}
 		}
 	}
-	ConfigurationData * config = ConfigurationData::instance();
+	auto& config = ConfigurationData::instance();
 	m_machineArray.Clear();
 	m_extensionArray.Clear();
 	m_machineList->Clear();
@@ -637,8 +633,8 @@ void SessionPage::SetupHardware (bool initial, bool reset)
 	m_extensionList->Clear();
 	wxString checkedMachines;
 	wxString checkedExtensions;
-	config->GetParameter(ConfigurationData::CD_MACHINES, checkedMachines);
-	config->GetParameter(ConfigurationData::CD_EXTENSIONS, checkedExtensions);
+	config.GetParameter(ConfigurationData::CD_MACHINES, checkedMachines);
+	config.GetParameter(ConfigurationData::CD_EXTENSIONS, checkedExtensions);
 	if (!checkedMachines.IsEmpty() && !checkedExtensions.IsEmpty() && !reset){
 		int pos;
 		do
@@ -662,7 +658,7 @@ void SessionPage::SetupHardware (bool initial, bool reset)
 	}
 	else{
 		wxString sharepath;
-		config->GetParameter(ConfigurationData::CD_SHAREPATH,sharepath);
+		config.GetParameter(ConfigurationData::CD_SHAREPATH,sharepath);
 		prepareExtensions (sharepath, m_extensionArray);
 		prepareMachines (sharepath, m_machineArray);
 		wxString personalShare;
@@ -750,7 +746,7 @@ void SessionPage::fillExtensions (wxArrayString & extensionArray)
 void SessionPage::prepareMachines(wxString sharepath, wxArrayString & machineArray, bool optional)
 {
 	wxString cmd;
-	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+	ConfigurationData::instance().GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	if (!::wxDirExists(sharepath + wxT("/machines"))) {
 		if (!optional) {
 			wxString msg;
@@ -977,15 +973,23 @@ void SessionPage::getHardware(wxArrayString & parameters)
 
 void SessionPage::UpdateSessionData()
 {
-	mediaInfo * media [5] = {m_diskA, m_diskB, m_cartA, m_cartB, m_cassette};
-	int flags [5] = {ConfigurationData::MB_DISKA,
+	mediaInfo* media[] = {
+		m_diskA,
+		m_diskB,
+		m_cartA,
+		m_cartB,
+		m_cassette
+	};
+	int flags[] = {
+		ConfigurationData::MB_DISKA,
 		ConfigurationData::MB_DISKB,
-		ConfigurationData::MB_CARTA,ConfigurationData::MB_CARTB,
-		ConfigurationData::MB_CASSETTE};
-	unsigned int i;
+		ConfigurationData::MB_CARTA,
+		ConfigurationData::MB_CARTB,
+		ConfigurationData::MB_CASSETTE
+	};
+	unsigned int i = 0;
 	m_InsertedMedia = 0;
-	i=0;
-	FOREACH(i,media){
+	FOREACH(i, media) {
 		media[i]->contents = media[i]->control->GetValue();
 		media[i]->lastContents = media[i]->contents;
 		if (!media[i]->contents.IsEmpty()) {
@@ -998,16 +1002,15 @@ void SessionPage::UpdateSessionData()
 	getHardware(hardware);
 	m_usedMachine = hardware[0];
 	m_usedExtensions.Clear();
-	if (hardware.GetCount()>1)
-	{
-		for (i=1;i<hardware.GetCount();i++) {
+	if (hardware.GetCount() > 1) {
+		for (i = 1; i < hardware.GetCount(); ++i) {
 			m_usedExtensions += hardware[i] + wxT("::");
 		}
 	}
 	SaveHistory();
 }
 
-void SessionPage::AddHistory(mediaInfo *media)
+void SessionPage::AddHistory(mediaInfo* media)
 {
 	// wxWindows 2.4 does not support insertion in a wxComboBox
 	// so this is gonna be replaced as soon as 2.6 is stable
@@ -1021,26 +1024,24 @@ void SessionPage::AddHistory(mediaInfo *media)
 	currentItem.Replace(wxT("\\"),wxT("/"),true);
 #endif
 	int pos = media->history.Index(currentItem);
-	if (pos != wxNOT_FOUND)
-	{
+	if (pos != wxNOT_FOUND) {
 		media->history.RemoveAt(pos);
-		if (isCart){
+		if (isCart) {
 			media->typehistory.RemoveAt(pos);
 		}
 	}
 	media->history.Insert(currentItem,0);
-	if (isCart){
+	if (isCart) {
 		media->typehistory.Insert(currentType,0);
 	}
-	while (media->history.GetCount() > HISTORY_SIZE)
-	{
+	while (media->history.GetCount() > HISTORY_SIZE) {
 		media->history.RemoveAt(HISTORY_SIZE);
-		if (isCart){
+		if (isCart) {
 			media->history.RemoveAt(HISTORY_SIZE);
 		}
 	}
 	media->control->Clear();
-	for (i=0;i<media->history.GetCount();i++){
+	for (i = 0; i < media->history.GetCount(); ++i) {
 		media->control->Append(media->history[i]);
 	}
 	media->control->SetSelection(0);
@@ -1048,46 +1049,53 @@ void SessionPage::AddHistory(mediaInfo *media)
 
 void SessionPage::RestoreHistory()
 {
-	wxString temp;
-	mediaInfo * media[5] = {m_diskA, m_diskB, m_cartA, m_cartB, m_cassette};
-	ConfigurationData::ID id[5] = {ConfigurationData::CD_HISTDISKA,
+	mediaInfo* media[] = {
+		m_diskA,
+		m_diskB,
+		m_cartA,
+		m_cartB,
+		m_cassette
+	};
+	ConfigurationData::ID id[] = {
+		ConfigurationData::CD_HISTDISKA,
 		ConfigurationData::CD_HISTDISKB,
 		ConfigurationData::CD_HISTCARTA,
 		ConfigurationData::CD_HISTCARTB,
-		ConfigurationData::CD_HISTCASSETTE};
-	ConfigurationData::ID typeID[2] = {ConfigurationData::CD_TYPEHISTCARTA, ConfigurationData::CD_TYPEHISTCARTB};
-	ConfigurationData * config = ConfigurationData::instance();
-	config->GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
+		ConfigurationData::CD_HISTCASSETTE
+	};
+	ConfigurationData::ID typeID[] = {
+		ConfigurationData::CD_TYPEHISTCARTA,
+		ConfigurationData::CD_TYPEHISTCARTB
+	};
+	auto& config = ConfigurationData::instance();
+	config.GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
+	wxString temp;
 	wxString value;
 	wxString types;
 	int pos;
-	unsigned int i=0;
-	int hist=-1;
-	FOREACH(i,media){
+	unsigned int i = 0;
+	int hist = -1;
+	FOREACH(i, media) {
 		media[i]->control->Clear();
-		config->GetParameter(id[i],value);
-		do
-		{
+		config.GetParameter(id[i],value);
+		do {
 			pos = value.Find(wxT("::"));
-			if (pos != -1)
-			{
+			if (pos != -1) {
 				media[i]->history.Add(value.Left(pos));
 				media[i]->control->Append(value.Left(pos));
 				value = value.Mid(pos + 2);
 			}
-		}while (pos !=-1);
+		} while (pos !=-1);
 		if ((media[i]==m_cartA) || (media[i]==m_cartB)){
 			hist++;
-			config->GetParameter(typeID[hist],types);
-			do
-			{
+			config.GetParameter(typeID[hist],types);
+			do {
 				pos = types.Find(wxT("::"));
-				if (pos != -1)
-				{
+				if (pos != -1) {
 					media[i]->typehistory.Add(types.Left(pos));
 					types = types.Mid(pos + 2);
 				}
-			}while (pos !=-1);
+			} while (pos !=-1);
 			while (media[i]->typehistory.GetCount() < media[i]->history.GetCount()){
 				media[i]->typehistory.Add(wxT("auto"));
 			}
@@ -1100,40 +1108,37 @@ void SessionPage::RestoreHistory()
 				media[i]->type=media[i]->typehistory[0];
 				UpdateMenuMapperLabel(media[i]);
 			}
-		}
-		else {
+		} else {
 			media[i]->control->SetValue(wxT(""));
 			media[i]->contents=wxT("");
 			media[i]->oldContents=wxT("");
 		}
 	}
-	config->GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
+	config.GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
 	// printf("Last used machine: %s....", (const char*)(wxConvUTF8.cWX2MB(m_usedMachine)));
-	if (!m_usedMachine.IsEmpty()){
+	if (!m_usedMachine.IsEmpty()) {
 		// printf ("OK, it's not empty\n");
 		temp = m_usedMachine;
 		temp.Replace(wxT("_"),wxT(" "),true);
 		temp.Replace(wxT("\""),wxT(""),true);
 		int pos = m_machineList->FindString(temp);
 
-		if (pos != -1){
+		if (pos != -1) {
 			m_machineList->SetSelection (pos);
-		}
-		else {
+		} else {
 			m_machineList->SetSelection (0);
 			// printf(" Can't find the machine\n");
 		}
 	}
-	config->GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);
+	config.GetParameter(ConfigurationData::CD_USEDEXTENSIONS,value);
 	m_usedExtensions = value;
-	do
-	{
+	do {
 		pos = value.Find(wxT("::"));
-		if (pos != -1){
+		if (pos != -1) {
 			temp = value.Left(pos);
 			temp.Replace(wxT("_"),wxT(" "),true);
-			if (m_extensionList->FindString(temp) != -1){
-				m_extensionList->SetStringSelection (temp);
+			if (m_extensionList->FindString(temp) != -1) {
+				m_extensionList->SetStringSelection(temp);
 			}
 			value = value.Mid(pos + 2);
 		}
@@ -1142,53 +1147,56 @@ void SessionPage::RestoreHistory()
 
 void SessionPage::SaveHistory()
 {
-	mediaInfo * media[5] = {m_diskA, m_diskB, m_cartA, m_cartB, m_cassette};
-	ConfigurationData::ID id[5] = {ConfigurationData::CD_HISTDISKA,
-			ConfigurationData::CD_HISTDISKB, ConfigurationData::CD_HISTCARTA,
-			ConfigurationData::CD_HISTCARTB, ConfigurationData::CD_HISTCASSETTE
+	mediaInfo* media[] = {
+		m_diskA,
+		m_diskB,
+		m_cartA,
+		m_cartB,
+		m_cassette
 	};
-	ConfigurationData::ID typeID[2] = {ConfigurationData::CD_TYPEHISTCARTA,
-									   ConfigurationData::CD_TYPEHISTCARTB
+	ConfigurationData::ID id[] = {
+		ConfigurationData::CD_HISTDISKA,
+		ConfigurationData::CD_HISTDISKB,
+		ConfigurationData::CD_HISTCARTA,
+		ConfigurationData::CD_HISTCARTB,
+		ConfigurationData::CD_HISTCASSETTE
 	};
-	ConfigurationData * config = ConfigurationData::instance();
+	ConfigurationData::ID typeID[] = {
+		ConfigurationData::CD_TYPEHISTCARTA,
+		ConfigurationData::CD_TYPEHISTCARTB
+	};
+	auto& config = ConfigurationData::instance();
 	wxString temp;
-	unsigned int i=0;
+	unsigned int i = 0;
 	unsigned int j;
-	int hist=-1;
-	FOREACH(i,media){
+	int hist = -1;
+	FOREACH(i, media) {
 		temp.Clear();
-		for (j=0;j<media[i]->history.GetCount();j++) {
+		for (j = 0; j < media[i]->history.GetCount(); ++j) {
 			temp += media[i]->history[j];
 			temp += wxT("::");
 		}
-		config->SetParameter(id[i],temp);
-		if ((media[i] == m_cartA) || (media[i] == m_cartB)){
+		config.SetParameter(id[i],temp);
+		if ((media[i] == m_cartA) || (media[i] == m_cartB)) {
 			hist++;
 			temp.Clear();
-			for (j=0;j<media[i]->typehistory.GetCount();j++) {
+			for (j = 0; j < media[i]->typehistory.GetCount(); ++j) {
 				if (media[i]->typehistory[j] == wxT("")){
 					temp += wxT("auto");
-				}
-				else{
+				} else {
 					temp += media[i]->typehistory[j];
 				}
 				temp += wxT("::");
 			}
-			config->SetParameter(typeID[hist],temp);
+			config.SetParameter(typeID[hist],temp);
 		}
-
-
 	}
-	config->SetParameter(ConfigurationData::CD_MEDIAINSERTED,(long) m_InsertedMedia);
-	config->SetParameter(ConfigurationData::CD_USEDMACHINE,m_usedMachine);
-	config->SetParameter(ConfigurationData::CD_USEDEXTENSIONS,m_usedExtensions);
-	bool result;
-	result = ConfigurationData::instance()->SaveData();
-#if !OPENMSX_DEMO_CD_VERSION
-	if (!result) {
-		wxMessageBox (wxT("Error saving configuration data"));
+	config.SetParameter(ConfigurationData::CD_MEDIAINSERTED, (long)m_InsertedMedia);
+	config.SetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
+	config.SetParameter(ConfigurationData::CD_USEDEXTENSIONS, m_usedExtensions);
+	if (!config.SaveData()) {
+		wxMessageBox(wxT("Error saving configuration data"));
 	}
-#endif
 }
 
 void SessionPage::EnableCassettePort (wxString data)
@@ -1493,10 +1501,6 @@ wxArrayString& SessionPage::GetDetectedExtensions ()
 SessionDropTarget::SessionDropTarget(wxComboBox * target)
 {
 	m_target = target;
-}
-
-SessionDropTarget::~SessionDropTarget()
-{
 }
 
 bool SessionDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)

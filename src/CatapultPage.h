@@ -1,6 +1,7 @@
 #ifndef CATAPULTPAGE_H
 #define CATAPULTPAGE_H
 
+#include <wx/panel.h>
 #include <wx/tglbtn.h>
 #define SETTINGTABLE_MAXSIZE 37
 

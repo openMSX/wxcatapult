@@ -130,11 +130,14 @@ void MiscControlPage::FillInitialJoystickPortValues ()
 	wxJoystick joy(wxJOYSTICK1);
 	wxString temp;
 #endif
-	int JoySaveID[]={ConfigurationData::CD_JOYPORT1, ConfigurationData::CD_JOYPORT2};
-	wxComboBox * box[2];
-	box[0] = (wxComboBox *)FindWindowByName (wxT("Joyport1Selector"));
-	box[1] = (wxComboBox *)FindWindowByName (wxT("Joyport2Selector"));
-	for (int i=0;i<2;i++) {
+	int JoySaveID[] = {
+		ConfigurationData::CD_JOYPORT1,
+		ConfigurationData::CD_JOYPORT2
+	};
+	wxComboBox* box[2];
+	box[0] = (wxComboBox*)FindWindowByName(wxT("Joyport1Selector"));
+	box[1] = (wxComboBox*)FindWindowByName(wxT("Joyport2Selector"));
+	for (int i = 0; i < 2; ++i) {
 		box[i]->Clear();
 		box[i]->Append(wxT("--empty--"));
 		box[i]->Append(wxT("mouse"));
@@ -144,17 +147,16 @@ void MiscControlPage::FillInitialJoystickPortValues ()
 		box[i]->Append(wxT("keyjoystick2"));
 
 #if wxUSE_JOYSTICK
-		for (int j=1;j<=joy.GetNumberJoysticks();j++) {
+		for (int j = 1; j <= joy.GetNumberJoysticks(); ++j) {
 			temp.sprintf(wxT("joystick%d"),j);
 			box[i]->Append(temp);
 		}
 #endif
-		ConfigurationData::instance()->GetParameter(JoySaveID[i],current);
+		ConfigurationData::instance().GetParameter(JoySaveID[i],current);
 		pos = box[i]->FindString(current);
-		if (pos != -1){
+		if (pos != -1) {
 			box[i]->SetSelection(pos);
-		}
-		else{
+		} else {
 			box[i]->SetSelection(0);
 		}
 	}
@@ -162,70 +164,68 @@ void MiscControlPage::FillInitialJoystickPortValues ()
 	m_oldJoy2 = box[1]->GetValue();
 }
 
-void MiscControlPage::OnReset(wxCommandEvent &event)
+void MiscControlPage::OnReset(wxCommandEvent& event)
 {
-	m_controller->WriteCommand (wxT("reset"));
+	m_controller->WriteCommand(wxT("reset"));
 }
 
-void MiscControlPage::OnPause(wxCommandEvent &event)
+void MiscControlPage::OnPause(wxCommandEvent& event)
 {
-	m_controller->WriteCommand (wxT("toggle pause"));
+	m_controller->WriteCommand(wxT("toggle pause"));
 }
 
-void MiscControlPage::OnPower(wxCommandEvent &event)
+void MiscControlPage::OnPower(wxCommandEvent& event)
 {
-	m_controller->WriteCommand (wxT("toggle power"));
-	if (m_powerButton->GetValue())
-	{
-		m_controller->WriteCommand (wxT("set pause off"));
+	m_controller->WriteCommand(wxT("toggle power"));
+	if (m_powerButton->GetValue()) {
+		m_controller->WriteCommand(wxT("set pause off"));
 		m_pauseButton->SetValue(false);
 	}
 }
 
-void MiscControlPage::OnFirmware(wxCommandEvent &event)
+void MiscControlPage::OnFirmware(wxCommandEvent& event)
 {
-	m_controller->WriteCommand (wxString(wxT("toggle ")) + m_firmwareSetting);
+	m_controller->WriteCommand(wxString(wxT("toggle ")) + m_firmwareSetting);
 }
 
-void MiscControlPage::OnSpeedChange(wxScrollEvent &event)
+void MiscControlPage::OnSpeedChange(wxScrollEvent& event)
 {
 	wxString speedText;
 	speedText.sprintf(wxT("%ld"), event.GetInt());
 	m_speedIndicator->SetValue(speedText);
-	m_controller->WriteCommand (wxString(wxT("set speed ")) + speedText);
-	m_controller->WriteCommand (wxT("set throttle on"));
+	m_controller->WriteCommand(wxString(wxT("set speed ")) + speedText);
+	m_controller->WriteCommand(wxT("set throttle on"));
 }
 
-void MiscControlPage::OnSetNormalSpeed(wxCommandEvent &event)
+void MiscControlPage::OnSetNormalSpeed(wxCommandEvent& event)
 {
-	m_controller->WriteCommand (wxT("set speed 100"));
+	m_controller->WriteCommand(wxT("set speed 100"));
 	m_speedIndicator->SetValue(wxT("100"));
-	m_speedSlider->SetValue (100);
-	m_controller->WriteCommand (wxT("set throttle on"));
+	m_speedSlider->SetValue(100);
+	m_controller->WriteCommand(wxT("set throttle on"));
 }
 
-void MiscControlPage::OnSetMaxSpeed(wxCommandEvent &event)
+void MiscControlPage::OnSetMaxSpeed(wxCommandEvent& event)
 {
-	if (m_speedMaxButton->GetValue()){
+	if (m_speedMaxButton->GetValue()) {
 		m_speedSlider->Disable();
 		m_speedIndicator->Disable();
 		m_speedNormalButton->Disable();
-		m_controller->WriteCommand (wxT("set throttle off"));
+		m_controller->WriteCommand(wxT("set throttle off"));
+	} else {
+		m_speedSlider->Enable();
+		m_speedIndicator->Enable();
+		m_speedNormalButton->Enable();
+		m_controller->WriteCommand(wxT("set throttle on"));
 	}
-	else{
-			m_speedSlider->Enable();
-			m_speedIndicator->Enable();
-			m_speedNormalButton->Enable();
-			m_controller->WriteCommand (wxT("set throttle on"));
-		}
 }
 
-void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent &event)
+void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent& event)
 {
 	wxString skipText;
 	skipText.sprintf(wxT("%ld"), event.GetInt());
 	m_maxFrameSkipIndicator->SetValue(skipText);
-	m_controller->WriteCommand (wxString(wxT("set maxframeskip ") + skipText));
+	m_controller->WriteCommand(wxString(wxT("set maxframeskip ") + skipText));
 }
 
 void MiscControlPage::OnMinFrameSkipChange(wxScrollEvent &event)
@@ -521,13 +521,13 @@ void MiscControlPage::OnJoystickChangedTimer(wxTimerEvent & event)
 void MiscControlPage::OnJoystickChanged()
 {
 	static bool MessageActive = false;
-	wxComboBox * box = m_lastUpdatedCombo;
-	if ((box == NULL) || MessageActive) {
+	wxComboBox* box = m_lastUpdatedCombo;
+	if (!box || MessageActive) {
 		return;
 	}
-	wxComboBox * box2 = NULL;
-	wxString * oldValue1 = NULL; // this port
-	wxString * oldValue2 = NULL; // the other port
+	wxComboBox* box2 = nullptr;
+	wxString* oldValue1 = nullptr; // this port
+	wxString* oldValue2 = nullptr; // the other port
 	wxString cmd = wxT("unplug ");
 	wxString connector;
 	wxString connector2;
@@ -538,8 +538,7 @@ void MiscControlPage::OnJoystickChanged()
 		box2 = (wxComboBox *)FindWindowByName (wxT("Joyport2Selector"));
 		oldValue1 = &m_oldJoy1;
 		oldValue2 = &m_oldJoy2;
-	}
-	else if (box->GetName() == wxT("Joyport2Selector")) {
+	} else if (box->GetName() == wxT("Joyport2Selector")) {
 		connector = wxT("joyportb ");
 		connector2 = wxT("joyporta");
 		box2 = (wxComboBox *)FindWindowByName (wxT("Joyport1Selector"));
@@ -564,33 +563,31 @@ This device will then be removed from any other port(s)."),wxT("Warning"),wxOK |
 			*oldValue1 = box->GetValue();
 			m_controller->WriteCommand(wxString(wxT("unplug ") + connector2));
 			m_controller->WriteCommand(wxString(cmd + connector + value));
-		}
-		else{ // cancel
+		} else {
+			// cancel
 			box->SetSelection(box->FindString(*oldValue1));
 		}
-	}
-	else{ // no collision
+	} else {
+		// no collision
 		m_controller->WriteCommand(wxString(cmd + connector + value));
 		*oldValue1 = box->GetValue();
 	}
-	wxComboBox * joy1 = (wxComboBox *)FindWindowByName (wxT("Joyport1Selector"));
-	wxComboBox * joy2 = (wxComboBox *)FindWindowByName (wxT("Joyport2Selector"));
-	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_JOYPORT1,joy1->GetValue());
-	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_JOYPORT2,joy2->GetValue());
-	ConfigurationData::instance()->SaveData();
+	auto* joy1 = (wxComboBox*)FindWindowByName(wxT("Joyport1Selector"));
+	auto* joy2 = (wxComboBox*)FindWindowByName(wxT("Joyport2Selector"));
+	ConfigurationData::instance().SetParameter(ConfigurationData::CD_JOYPORT1, joy1->GetValue());
+	ConfigurationData::instance().SetParameter(ConfigurationData::CD_JOYPORT2, joy2->GetValue());
+	ConfigurationData::instance().SaveData();
 
 }
 
-void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent & event)
+void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent& event)
 {
 	wxString value;
-	value.sprintf (wxT("%ld"),event.GetInt());
-
-
-	m_controller->WriteCommand(wxString (wxT("set renshaturbo ")) + value);
+	value.sprintf(wxT("%ld"),event.GetInt());
+	m_controller->WriteCommand(wxString(wxT("set renshaturbo ")) + value);
 }
 
-void MiscControlPage::OnChangePrinterPort(wxCommandEvent & event)
+void MiscControlPage::OnChangePrinterPort(wxCommandEvent& event)
 {
 	OnPrinterportChanged(true);
 }
@@ -598,30 +595,28 @@ void MiscControlPage::OnChangePrinterPort(wxCommandEvent & event)
 void MiscControlPage::OnPrinterportChanged(bool save)
 {
 	wxString current = m_printerportSelector->GetValue();
-	if (save){
-		ConfigurationData::instance()->SetParameter(ConfigurationData::CD_PRINTERPORT,current);
-		ConfigurationData::instance()->SaveData();
+	if (save) {
+		ConfigurationData::instance().SetParameter(ConfigurationData::CD_PRINTERPORT,current);
+		ConfigurationData::instance().SaveData();
 	}
 	m_controller->WriteCommand(wxT("unplug printerport"));
-	if (current != wxT("--empty--")){
+	if (current != wxT("--empty--")) {
 		m_controller->WriteCommand(wxString(wxT("plug printerport ")) + current);
-
 	}
-	if (m_controller->IsOpenMSXRunning()){
+	if (m_controller->IsOpenMSXRunning()) {
 		m_controller->UpdateMixer();
 	}
-
 }
 
-void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent &event)
+void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent& event)
 {
-	wxString current = ((wxTextCtrl *)event.GetEventObject())->GetValue();
-	ConfigurationData::instance()->SetParameter(ConfigurationData::CD_PRINTERFILE,current);
-	ConfigurationData::instance()->SaveData();
-	m_controller->WriteCommand(wxString(wxT("set printerlogfilename ")) + ConvertPath(current,true));
+	wxString current = ((wxTextCtrl*)event.GetEventObject())->GetValue();
+	ConfigurationData::instance().SetParameter(ConfigurationData::CD_PRINTERFILE, current);
+	ConfigurationData::instance().SaveData();
+	m_controller->WriteCommand(wxString(wxT("set printerlogfilename ")) + ConvertPath(current, true));
 }
 
-void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent &event)
+void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent& event)
 {
 	wxString path;
 #ifndef __MOTIF__
@@ -630,15 +625,15 @@ void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent &event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,wxT("Choose file to save printer log to"),wxT(""), wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
-	if (filedlg.ShowModal() == wxID_OK){
+	wxFileDialog filedlg(this, wxT("Choose file to save printer log to"), wxT(""), wxT(""), path, wxSAVE | wxOVERWRITE_PROMPT);
+	if (filedlg.ShowModal() == wxID_OK) {
 		m_printerLogFile->SetValue(filedlg.GetPath());
 	}
 }
 
 void MiscControlPage::InvalidPrinterLogFilename()
 {
-	wxMessageBox (wxT("Unable to plug in printerport logger!\nPlease select a valid file name first."),wxT("Error"));
+	wxMessageBox(wxT("Unable to plug in printerport logger!\nPlease select a valid file name first."), wxT("Error"));
 	m_printerportSelector->SetValue(wxT("--empty--"));
 	m_controller->WriteCommand(wxT("unplug printerport"));
 }

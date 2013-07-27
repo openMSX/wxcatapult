@@ -6,8 +6,15 @@
 #include <wx/slider.h>
 #include <wx/spinctrl.h>
 
-class wxCatapultFrame;
 class openMSXController;
+class wxCatapultFrame;
+class wxComboBox;
+class wxBitmapButton;
+class wxButton;
+class wxStaticText;
+class wxToggleButton;
+class wxSlider;
+class wxTextCtrl;
 
 class VideoControlPage : public CatapultPage
 {
@@ -56,48 +63,49 @@ public:
 	void setNewRenderersAndScalers();
 
 private:
-	int FindFirstFreeScreenshotFile (wxString prefix);
-	openMSXController * m_controller;
+	int FindFirstFreeScreenshotFile(wxString prefix);
 
-	wxComboBox * m_accuracyList;
-	wxComboBox * m_rendererList;
-	wxComboBox * m_scalerAlgoList;
-	wxComboBox * m_scalerFactorList;
+	openMSXController* m_controller;
 
-	wxBitmapButton * m_browseScreenshotButton;
-	wxButton * m_defaultGammaButton;
-	wxButton * m_defaultBlurButton;
-	wxButton * m_defaultGlowButton;
-	wxButton * m_defaultScanlineButton;
-	wxButton * m_screenShotButton;
+	wxComboBox* m_accuracyList;
+	wxComboBox* m_rendererList;
+	wxComboBox* m_scalerAlgoList;
+	wxComboBox* m_scalerFactorList;
 
-	wxStaticText * m_rendererLabel;
-	wxStaticText * m_scalerLabel;
-	wxStaticText * m_accuracyLabel;
-	wxStaticText * m_deinterlaceLabel;
-	wxStaticText * m_limitSpritesLabel;
-	wxStaticText * m_fullScreenLabel;
-	wxStaticText * m_scanLineLabel;
-	wxStaticText * m_blurLabel;
-	wxStaticText * m_glowLabel;
-	wxStaticText * m_gammaLabel;
-	wxStaticText * m_timesLabel;
+	wxBitmapButton* m_browseScreenshotButton;
+	wxButton* m_defaultGammaButton;
+	wxButton* m_defaultBlurButton;
+	wxButton* m_defaultGlowButton;
+	wxButton* m_defaultScanlineButton;
+	wxButton* m_screenShotButton;
 
-	wxToggleButton * m_limitSpritesButton;
-	wxToggleButton * m_deinterlaceButton;
-	wxToggleButton * m_fullscreenButton;
+	wxStaticText* m_rendererLabel;
+	wxStaticText* m_scalerLabel;
+	wxStaticText* m_accuracyLabel;
+	wxStaticText* m_deinterlaceLabel;
+	wxStaticText* m_limitSpritesLabel;
+	wxStaticText* m_fullScreenLabel;
+	wxStaticText* m_scanLineLabel;
+	wxStaticText* m_blurLabel;
+	wxStaticText* m_glowLabel;
+	wxStaticText* m_gammaLabel;
+	wxStaticText* m_timesLabel;
 
-	wxSlider * m_blurSlider;
-	wxSlider * m_glowSlider;
-	wxSlider * m_gammaSlider;
-	wxSlider * m_scanlineSlider;
+	wxToggleButton* m_limitSpritesButton;
+	wxToggleButton* m_deinterlaceButton;
+	wxToggleButton* m_fullscreenButton;
 
-	wxTextCtrl * m_blurIndicator;
-	wxTextCtrl * m_glowIndicator;
-	wxTextCtrl * m_gammaIndicator;
-	wxTextCtrl * m_scanlineIndicator;
-	wxTextCtrl * m_screenShotFile;
-	wxTextCtrl * m_screenShotCounter;
+	wxSlider* m_blurSlider;
+	wxSlider* m_glowSlider;
+	wxSlider* m_gammaSlider;
+	wxSlider* m_scanlineSlider;
+
+	wxTextCtrl* m_blurIndicator;
+	wxTextCtrl* m_glowIndicator;
+	wxTextCtrl* m_gammaIndicator;
+	wxTextCtrl* m_scanlineIndicator;
+	wxTextCtrl* m_screenShotFile;
+	wxTextCtrl* m_screenShotCounter;
 
 	wxString m_defaultBlur;
 	wxString m_defaultGlow;
@@ -105,7 +113,6 @@ private:
 	wxString m_defaultScanline;
 
 	DECLARE_CLASS(VideoControlPage)
-	// any class wishing to process wxWindows events must use this macro
 	DECLARE_EVENT_TABLE()
 };
 

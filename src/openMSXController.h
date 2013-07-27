@@ -48,14 +48,16 @@ public:
 	virtual ~openMSXController();
 
 	bool IsOpenMSXRunning() {return m_openMsxRunning;};
-	void InitLaunchScript ();
+	void InitLaunchScript();
+
 protected:
-	wxCatapultFrame * m_appWindow;
+	wxCatapultFrame* m_appWindow;
 	bool m_openMsxRunning;
 	bool PostLaunch ();
 	bool PreLaunch();
-	CatapultXMLParser * m_parser;
-	wxSocketClient * m_socket;
+	CatapultXMLParser* m_parser;
+	wxSocketClient* m_socket;
+
 private:
 	bool wait;
 	int sendStep;

@@ -1,16 +1,17 @@
 #ifndef SCREENSHOTDLG_H
 #define SCREENSHOTDLG_H
 
+#include <wx/dialog.h>
+
 class ScreenshotDlg : public wxDialog
 {
 public:
-	ScreenshotDlg(wxWindow * parent = NULL);
+	ScreenshotDlg(wxWindow* parent = nullptr);
+
 	void OnOk(wxCommandEvent& event);
-	virtual ~ScreenshotDlg();
 
 private:
 	DECLARE_CLASS(ScreenshotDlg)
-	// any class wishing to process wxWindows events must use this macro
 	DECLARE_EVENT_TABLE()
 };
 

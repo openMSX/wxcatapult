@@ -1,17 +1,14 @@
 #define SETUP_EXTERNALS
 #include "wxCatapultApp.h"
 #undef SETUP_EXTERNALS
-
-#include "wx/xrc/xmlres.h"
-
 #include "wxCatapultFrm.h"
-
-#include "wx/image.h"
-#include "wx/cmdline.h"
 #include "ConfigurationData.h"
 #include "CatapultConfigDlg.h"
-#include <cstdio>
 #include "Version.h"
+#include <cstdio>
+#include <wx/image.h>
+#include <wx/cmdline.h>
+#include <wx/xrc/xmlres.h>
 
 #if !wxCHECK_VERSION(2,5,0)
 #include "wxToggleButtonXmlHandler.h"
@@ -29,18 +26,6 @@
 // not wxApp)
 IMPLEMENT_APP(wxCatapultApp)
 
-// ============================================================================
-// implementation
-// ============================================================================
-
-// ----------------------------------------------------------------------------
-// the application class
-// ----------------------------------------------------------------------------
-
-wxCatapultApp::wxCatapultApp()
-{
-}
-
 wxCatapultApp::~wxCatapultApp()
 {
 	// clean up the handlers
@@ -50,7 +35,7 @@ wxCatapultApp::~wxCatapultApp()
 // 'Main program' equivalent: the program execution "starts" here
 bool wxCatapultApp::OnInit()
 {
-	if (!wxApp::OnInit()) return FALSE;
+	if (!wxApp::OnInit()) return false;
 	wxImage::AddHandler(new wxPNGHandler());
 	wxXmlResource::Get()->InitAllHandlers();
 
@@ -61,23 +46,22 @@ bool wxCatapultApp::OnInit()
 	EVT_CONTROLLER = wxNewEventType();
 	EVT_TESTCONFIG = wxNewEventType();
 	bool succes = true;
-	succes &= LoadXRC (wxT("about.xrc"));
-	succes &= LoadXRC (wxT("config.xrc"));
-	succes &= LoadXRC (wxT("fullscreen.xrc"));
-	succes &= LoadXRC (wxT("screenshot.xrc"));
-	succes &= LoadXRC (wxT("catapult.xrc"));
-	succes &= LoadXRC (wxT("session.xrc"));
-	succes &= LoadXRC (wxT("status.xrc"));
-	succes &= LoadXRC (wxT("misccontrols.xrc"));
-	succes &= LoadXRC (wxT("videocontrols.xrc"));
-	succes &= LoadXRC (wxT("audiocontrols.xrc"));
-	succes &= LoadXRC (wxT("input.xrc"));
-	succes &= LoadXRC (wxT("romtype.xrc"));
-	succes &= LoadXRC (wxT("ipsselect.xrc"));
-	succes &= LoadXRC (wxT("checkconfigs.xrc"));
+	succes &= LoadXRC(wxT("about.xrc"));
+	succes &= LoadXRC(wxT("config.xrc"));
+	succes &= LoadXRC(wxT("fullscreen.xrc"));
+	succes &= LoadXRC(wxT("screenshot.xrc"));
+	succes &= LoadXRC(wxT("catapult.xrc"));
+	succes &= LoadXRC(wxT("session.xrc"));
+	succes &= LoadXRC(wxT("status.xrc"));
+	succes &= LoadXRC(wxT("misccontrols.xrc"));
+	succes &= LoadXRC(wxT("videocontrols.xrc"));
+	succes &= LoadXRC(wxT("audiocontrols.xrc"));
+	succes &= LoadXRC(wxT("input.xrc"));
+	succes &= LoadXRC(wxT("romtype.xrc"));
+	succes &= LoadXRC(wxT("ipsselect.xrc"));
+	succes &= LoadXRC(wxT("checkconfigs.xrc"));
 
-	if (succes)
-	{
+	if (succes) {
 		// We'll set the application and vendorname before the first call to 'Get'
 		SetVendorName(wxT("openMSX team"));
 		SetAppName(wxT("Catapult"));
@@ -87,16 +71,16 @@ bool wxCatapultApp::OnInit()
 			wxCatapultFrame *frame = new wxCatapultFrame();
 
 			// Show the frame.
-			frame->Show(TRUE);
+			frame->Show(true);
 		} catch (...) {
-			return FALSE;
+			return false;
 		}
+	} else {
+		wxMessageBox(wxT("Unable to load resources!\nThere is something wrong with your installation.\n"),
+		             wxT("error"));
+		return false;
 	}
-	else {
-		wxMessageBox (wxT("Unable to load resources!\nThere is something wrong with your installation.\n"),wxT("error"));
-		return FALSE;
-	}
-	return TRUE;
+	return true;
 }
 
 static wxString ver    (wxT("V"));
@@ -105,35 +89,34 @@ static wxString ver_dsc(wxT("show version information"));
 
 void wxCatapultApp::OnInitCmdLine(wxCmdLineParser& parser)
 {
-    wxApp::OnInitCmdLine(parser);
-    parser.AddSwitch(ver, ver_lng, ver_dsc);
+	wxApp::OnInitCmdLine(parser);
+	parser.AddSwitch(ver, ver_lng, ver_dsc);
 }
 
 bool wxCatapultApp::OnCmdLineHelp(wxCmdLineParser& parser)
 {
-    parser.Usage();
-    puts("\nopenMSX Catapult is the GUI for openMSX ");
-    puts("openMSX is the MSX emulator that aims for perfection");
-    return false;
+	parser.Usage();
+	puts("\nopenMSX Catapult is the GUI for openMSX ");
+	puts("openMSX is the MSX emulator that aims for perfection");
+	return false;
 }
-
 
 bool wxCatapultApp::OnCmdLineParsed(wxCmdLineParser& parser)
 {
-    bool res = true;
-    if (parser.Found(ver_lng)) {
-	if (res) ShowVersion();
-	res = false;
-    }
-    return wxApp::OnCmdLineParsed(parser) && res;
+	bool res = true;
+	if (parser.Found(ver_lng)) {
+		if (res) ShowVersion();
+		res = false;
+	}
+	return wxApp::OnCmdLineParsed(parser) && res;
 }
 
 void wxCatapultApp::ShowVersion()
 {
-    for (unsigned int i = 0 ; i < Version::FULL_VERSION.Len() ; ++i) {
-	putchar(Version::FULL_VERSION.GetChar(i));
-    }
-    putchar('\n');
+	for (unsigned int i = 0; i < Version::FULL_VERSION.Len(); ++i) {
+		putchar(Version::FULL_VERSION.GetChar(i));
+	}
+	putchar('\n');
 }
 
 bool wxCatapultApp::LoadXRC(wxString XrcFile)
@@ -142,23 +125,22 @@ bool wxCatapultApp::LoadXRC(wxString XrcFile)
 	if (::wxFileExists(resourceDir + wxT("/dialogs/") + XrcFile)) {
 		wxXmlResource::Get()->Load(resourceDir + wxT("/dialogs/") + XrcFile);
 		return true;
-	}
-	else{
+	} else {
 		return false;
 	}
 }
 
-wxString wxCatapultApp::GetResourceDir ()
+wxString wxCatapultApp::GetResourceDir()
 {
 #ifdef __WXMSW__
 	wxString temp = ::wxPathOnly(argv[0]);
-	temp.Replace(wxT("/"),wxT("\\"),true);
+	temp.Replace(wxT("/"), wxT("\\"),true);
 	while (temp.Last() == '\\') {
 			temp = temp.Left(temp.Len()-1);
 		}
-		int pos = temp.Find('\\',true);
+		int pos = temp.Find('\\', true);
 		if (pos != -1) {
-			temp = temp.Left(pos+1) + wxT("resources");
+			temp = temp.Left(pos + 1) + wxT("resources");
 		}
 	return wxString(temp);
 #else

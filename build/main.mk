@@ -244,7 +244,7 @@ DEPEND_FLAGS+=-MP
 # Compiler flags
 # ==============
 
-CXXFLAGS+=-pipe -Wall --no-strict-aliasing
+CXXFLAGS+=-pipe -Wall --no-strict-aliasing -std=c++0x
 CXXFLAGS+=-I$(CONFIG_PATH)
 CXXFLAGS+=$(XRC_CFLAGS) $(XML_CFLAGS)
 LINK_FLAGS+=$(XRC_LDFLAGS) $(XML_LDFLAGS)

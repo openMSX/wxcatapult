@@ -1,21 +1,18 @@
+#include "VideoControlPage.h"
+#include "StatusPage.h"
+#include "wxCatapultFrm.h"
+#include "FullScreenDlg.h"
+#include "ConfigurationData.h"
 #include "wx/wxprec.h"
 #include "wx/xrc/xmlres.h"
-
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
-
 #ifdef __WXMSW__
 #include "openMSXWindowsController.h"
 #else
 #include "openMSXController.h"
 #endif
-
-#include "StatusPage.h"
-#include "VideoControlPage.h"
-#include "wxCatapultFrm.h"
-#include "FullScreenDlg.h"
-#include "ConfigurationData.h"
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
 
 IMPLEMENT_CLASS(VideoControlPage, wxPanel)
 BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
@@ -157,45 +154,39 @@ void VideoControlPage::OnLimitSprites(wxCommandEvent &event)
 	}
 }
 
-void VideoControlPage::OnFullScreen(wxCommandEvent &event)
+void VideoControlPage::OnFullScreen(wxCommandEvent&event)
 {
-	wxToggleButton * button = (wxToggleButton *)event.GetEventObject();
+	auto* button = (wxToggleButton*)event.GetEventObject();
 	FullScreenDlg dlg;
 	dlg.Center();
-	ConfigurationData * config = ConfigurationData::instance();
+	auto& config = ConfigurationData::instance();
 	int notwarn;
-	config->GetParameter(ConfigurationData::CD_FULLSCREENWARN,&notwarn);
+	config.GetParameter(ConfigurationData::CD_FULLSCREENWARN, &notwarn);
 	bool doIt = false;
 	if (!notwarn) {
 		if (dlg.ShowModal() == wxID_OK) {
 			doIt = true;
 		}
-	}
-	else{
+	} else {
 		doIt = true;
 	}
 
 	if (doIt) {
-		if (button->GetValue())
-		{
+		if (button->GetValue()) {
 #ifdef __WXMSW__
-			((openMSXWindowsController *)m_controller)->RaiseOpenMSX();
+			((openMSXWindowsController*)m_controller)->RaiseOpenMSX();
 #endif
-			m_controller->WriteCommand (wxT("set fullscreen on"));
+			m_controller->WriteCommand(wxT("set fullscreen on"));
 			button->SetLabel(wxT("On"));
-		}
-		else
-		{
-
-			m_controller->WriteCommand (wxT("set fullscreen off"));
+		} else {
+			m_controller->WriteCommand(wxT("set fullscreen off"));
 			button->SetLabel(wxT("Off"));
 #ifdef __WXMSW__
 			Sleep(500);
-			((openMSXWindowsController *)m_controller)->RestoreOpenMSX();
+			((openMSXWindowsController*)m_controller)->RestoreOpenMSX();
 #endif
 		}
-	}
-	else{
+	} else {
 		button->SetValue(0);
 		button->SetLabel(wxT("Off"));
 	}

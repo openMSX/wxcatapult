@@ -2,11 +2,9 @@
 #define WXCATAPULTAPP_H
 
 #define wxUSE_CMDLINE_PARSER 1
-#define OPENMSX_DEMO_CD_VERSION	0 // set to 1 to make a special cd-version (oss 2004)
 #define FORCE_UNNAMED_PIPES 0
 
 #include "wx/wxprec.h"
-
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
 #endif
@@ -34,13 +32,13 @@ SCOPE int EVT_TESTCONFIG;
 class wxCatapultApp : public wxApp
 {
 public:
-	wxCatapultApp();
-	wxString GetResourceDir ();
+	virtual ~wxCatapultApp();
+
+	wxString GetResourceDir();
 	virtual bool OnCmdLineHelp(wxCmdLineParser& parser);
 	virtual void OnInitCmdLine(wxCmdLineParser& parser);
 	virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
 	void ShowVersion();
-	virtual ~wxCatapultApp();
 
 	// override base class virtuals
 	// ----------------------------

@@ -35,9 +35,9 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent, openMSXController* contr
 	m_ConfigCheck = (wxCheckBox *)FindWindowByName(wxT("configCheck"));
 	wxTextCtrl * OkButton = (wxTextCtrl *)FindWindowByName(wxT("ConfigOk"));
 	wxString temp;
-	ConfigurationData * config = ConfigurationData::instance();
+	auto& config = ConfigurationData::instance();
 	OkButton->SetFocus(); // avoid strange behaviour of the execpath textctrl
-	if (config->GetParameter(ConfigurationData::CD_EXECPATH,temp)) {
+	if (config.GetParameter(ConfigurationData::CD_EXECPATH,temp)) {
 		m_ExecPath->SetValue(temp);
 	}
 	if (temp == wxT("")) {
@@ -61,7 +61,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent, openMSXController* contr
 			m_ExecPath->SetValue(guess);
 		}
 	}
-	if (config->GetParameter(ConfigurationData::CD_SHAREPATH,temp))
+	if (config.GetParameter(ConfigurationData::CD_SHAREPATH,temp))
 		m_SharePath->SetValue(temp);
 	if (temp==wxT("") && (m_ExecPath->GetValue() != wxT(""))) {
 #ifdef __WXMSW__
@@ -96,27 +96,21 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 
 	tempExec = m_ExecPath->GetValue();
 	tempShare = m_SharePath->GetValue();
-	if (!::wxFileExists(tempExec))
-	{
-		wxMessageBox (wxT("That's not a valid executable..."));
-	}
-	else
-	{
-		if (!::wxDirExists(tempShare))
-		{
+	if (!::wxFileExists(tempExec)) {
+		wxMessageBox(wxT("That's not a valid executable..."));
+	} else {
+		if (!::wxDirExists(tempShare)) {
 			wxMessageBox(wxT("That's not a valid share path..."));
-		}
-		else if (m_controller->StartOpenMSX(tempExec, true))
-		{
-			ConfigurationData * config = ConfigurationData::instance();
-			config->SetParameter(ConfigurationData::CD_EXECPATH,tempExec);
-			config->SetParameter(ConfigurationData::CD_SHAREPATH,tempShare);
-			config->SaveData();
+		} else if (m_controller->StartOpenMSX(tempExec, true)) {
+			auto& config = ConfigurationData::instance();
+			config.SetParameter(ConfigurationData::CD_EXECPATH,tempExec);
+			config.SetParameter(ConfigurationData::CD_SHAREPATH,tempShare);
+			config.SaveData();
 			if (m_ConfigCheck->IsChecked()) {
 				// TODO: make this cleaner... (It works though...)
-				((wxCatapultFrame*) m_parent)->CheckConfigs();
-        		}
-			EndModal (wxID_OK);
+				((wxCatapultFrame*)m_parent)->CheckConfigs();
+			}
+			EndModal(wxID_OK);
 		}
 	}
 }
