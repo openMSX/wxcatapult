@@ -100,10 +100,19 @@ void AudioControlPage::SetupAudioMixer()
 	AudioSizer->Remove(0);
 	delete noAudio;
 
+	wxStaticBoxSizer* mixerSizer=(wxStaticBoxSizer*)FindWindowByName(wxT("SoundSizer"));
+	if (mixerSizer && mixerSizer->GetStaticBox()){
+		wxSize size=mixerSizer->GetStaticBox()->GetClientSize();
+		m_audioPanel->SetClientSize(size);
+		AudioSizer->SetMinSize(size);
+	}
+
 	ConvertChannelNames (m_audioChannels);
 	for (unsigned int i=0;i<m_audioChannels.GetCount();i++) {
 		AddChannel (m_audioChannels[i],i);
 	}
+
+	AudioSizer->Layout();
 }
 
 void AudioControlPage::DestroyAudioMixer()
@@ -238,7 +247,6 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 		sizer->Add(button,0,wxALIGN_CENTER_HORIZONTAL,0);
 	}
 	AudioSizer->Add(sizer,0,wxEXPAND | wxRIGHT,10);
-	AudioSizer->Fit(m_audioPanel);
 
 	for (i=wxEVT_SCROLL_TOP;i<=wxEVT_SCROLL_ENDSCROLL;i++) {
 		Connect(FIRSTAUDIOSLIDER+channelnumber,i,(wxObjectEventFunction)

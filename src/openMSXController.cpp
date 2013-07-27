@@ -816,11 +816,11 @@ void openMSXController::executeLaunch (wxCommandEvent * event, int startLine)
 void openMSXController::FinishLaunch()
 {
 	m_appWindow->m_sessionPage->AutoPlugCassette();
+#ifdef __WXMSW__
 	wxSize tempsize = m_appWindow->GetSize();
 	tempsize.SetHeight(tempsize.GetHeight()+1);
 	tempsize.SetWidth(tempsize.GetWidth()+1);
 	m_appWindow->SetSize(tempsize);
-#ifdef __WXMSW__
 	tempsize.SetHeight(tempsize.GetHeight()-1);
 	tempsize.SetWidth(tempsize.GetWidth()-1);
 	m_appWindow->SetSize(tempsize);
