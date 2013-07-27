@@ -1,9 +1,7 @@
 #ifndef VERSION_HH
 #define VERSION_HH
 
-#ifndef WX_PRECOMP
-#include "wx/wx.h"
-#endif
+#include <wx/string.h>
 
 class Version {
 public:

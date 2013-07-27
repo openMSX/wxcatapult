@@ -6,7 +6,7 @@
 class ScreenshotDlg : public wxDialog
 {
 public:
-	ScreenshotDlg(wxWindow* parent = nullptr);
+	ScreenshotDlg(wxWindow* parent);
 
 	void OnOk(wxCommandEvent& event);
 

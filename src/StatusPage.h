@@ -8,7 +8,7 @@ class wxTextCtrl;
 class StatusPage : public CatapultPage
 {
 public:
-	StatusPage(wxWindow* parent = nullptr);
+	StatusPage(wxWindow* parent);
 	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
 
 	wxTextCtrl* m_outputtext;

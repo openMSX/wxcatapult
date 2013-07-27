@@ -6,9 +6,8 @@
 class CatapultXMLParser
 {
 public:
-	void ParseXmlInput (wxString input, unsigned int ID);
-	CatapultXMLParser(wxWindow * target);
-	virtual ~CatapultXMLParser();
+	CatapultXMLParser(wxWindow* target);
+	void ParseXmlInput(wxString input, unsigned id);
 
 	enum ParseState {
 		STATE_START,
@@ -18,19 +17,16 @@ public:
 		TAG_UPDATE,
 
 	};
-
 	enum ReplyStatus {
 		REPLY_UNKNOWN,
 		REPLY_OK,
 		REPLY_NOK
 	};
-
 	enum LogLevel {
 		LOG_UNKNOWN,
 		LOG_INFO,
 		LOG_WARNING
 	};
-
 	enum UpdateType {
 		UPDATE_UNKNOWN,
 		UPDATE_LED,
@@ -41,7 +37,6 @@ public:
 		UPDATE_STATE
 
 	};
-
 	struct ParseResult {
 		ParseState parseState;
 		unsigned unknownLevel;
@@ -50,20 +45,20 @@ public:
 		UpdateType updateType;
 		wxString contents;
 		wxString name;
-		unsigned int openMSXID;
+		unsigned openMSXID;
 	};
 
 private:
-	unsigned int m_openMSXID;
-	static wxWindow * m_target;
+	unsigned m_openMSXID;
+	static wxWindow* m_target;
 	static xmlSAXHandler handler;
-	static xmlParserCtxt * context;
+	static xmlParserCtxt* context;
 	static ParseResult parseResult;
 
-	static void cb_start_element (CatapultXMLParser * parser,  const xmlChar * name, const xmlChar ** attrs);
-	static void cb_end_element (CatapultXMLParser * parser,  const xmlChar * name);
-	static void cb_text (CatapultXMLParser * parser, const xmlChar * chars, int len);
-	static void SendParsedData ();
+	static void cb_start_element(CatapultXMLParser* parser, const xmlChar* name, const xmlChar** attrs);
+	static void cb_end_element(CatapultXMLParser* parser, const xmlChar* name);
+	static void cb_text(CatapultXMLParser* parser, const xmlChar* chars, int len);
+	static void SendParsedData();
 	void parseReply(const char** attrs);
 	void parseLog(const char** attrs);
 	void parseUpdate(const char** attrs);

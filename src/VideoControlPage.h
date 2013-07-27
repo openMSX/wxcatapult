@@ -3,8 +3,6 @@
 
 #include "CatapultPage.h"
 #include <wx/tglbtn.h>
-#include <wx/slider.h>
-#include <wx/spinctrl.h>
 
 class openMSXController;
 class wxCatapultFrame;
@@ -19,47 +17,47 @@ class wxTextCtrl;
 class VideoControlPage : public CatapultPage
 {
 public:
+	VideoControlPage(wxWindow* parent, openMSXController* controller);
+
 	void SetControlsOnEnd();
 	void SetControlsOnLaunch();
-	VideoControlPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller = NULL);
-	virtual ~VideoControlPage();
-	void OnInputScanline (wxCommandEvent & event);
-	void OnInputGamma (wxCommandEvent & event);
-	void OnInputGlow (wxCommandEvent & event);
-	void OnInputBlur (wxCommandEvent & event);
-	void OnDefaultScanlines (wxCommandEvent & event);
-	void OnDefaultGamma (wxCommandEvent & event);
-	void OnDefaultGlow (wxCommandEvent & event);
-	void OnDefaultBlur (wxCommandEvent & event);
-	void OnChangeScanlines (wxScrollEvent & event);
-	void OnChangeGamma (wxScrollEvent & event);
-	void OnChangeGlow (wxScrollEvent &event);
-	void OnChangeBlur (wxScrollEvent &event);
-	void OnLimitSprites(wxCommandEvent &event);
-	void OnFullScreen (wxCommandEvent &event);
-	void OnDeInterlace (wxCommandEvent &event);
-	void OnChangeAccuracy (wxCommandEvent &event);
-	void OnChangeScalerAlgo (wxCommandEvent &event);
-	void OnChangeScalerFactor (wxCommandEvent &event);
-	void OnChangeRenderer(wxCommandEvent &event);
-	void OnBrowseScreenShot(wxCommandEvent &event);
-	void OnTakeScreenShot(wxCommandEvent &event);
-	void OnChangeScreenshotFilename(wxCommandEvent & event);
+	void OnInputScanline(wxCommandEvent& event);
+	void OnInputGamma(wxCommandEvent& event);
+	void OnInputGlow(wxCommandEvent& event);
+	void OnInputBlur(wxCommandEvent& event);
+	void OnDefaultScanlines(wxCommandEvent& event);
+	void OnDefaultGamma(wxCommandEvent& event);
+	void OnDefaultGlow(wxCommandEvent& event);
+	void OnDefaultBlur(wxCommandEvent& event);
+	void OnChangeScanlines(wxScrollEvent& event);
+	void OnChangeGamma(wxScrollEvent& event);
+	void OnChangeGlow(wxScrollEvent& event);
+	void OnChangeBlur(wxScrollEvent& event);
+	void OnLimitSprites(wxCommandEvent& event);
+	void OnFullScreen(wxCommandEvent& event);
+	void OnDeInterlace(wxCommandEvent& event);
+	void OnChangeAccuracy(wxCommandEvent& event);
+	void OnChangeScalerAlgo(wxCommandEvent& event);
+	void OnChangeScalerFactor(wxCommandEvent& event);
+	void OnChangeRenderer(wxCommandEvent& event);
+	void OnBrowseScreenShot(wxCommandEvent& event);
+	void OnTakeScreenShot(wxCommandEvent& event);
+	void OnChangeScreenshotFilename(wxCommandEvent& event);
 	void UpdateScreenshotCounter();
-	void FillRenderers (wxString renderers);
-	void FillScalerAlgos (wxString scalerAlgos);
-	void FillScalerFactors (wxString scalerFactors);
+	void FillRenderers(wxString renderers);
+	void FillScalerAlgos(wxString scalerAlgos);
+	void FillScalerFactors(wxString scalerFactors);
 	void FillAccuracy(wxString accuracy);
-	void SetRenderer (wxString value);
-	void SetScalerAlgo (wxString value);
-	void SetScalerFactor (wxString value);
-	void SetAccuracy (wxString value);
-	void SetDeinterlace (wxString value);
-	void SetLimitSprites (wxString value);
+	void SetRenderer(wxString value);
+	void SetScalerAlgo(wxString value);
+	void SetScalerFactor(wxString value);
+	void SetAccuracy(wxString value);
+	void SetDeinterlace(wxString value);
+	void SetLimitSprites(wxString value);
 	void SetSliderDefaults();
-	void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
-	void UpdateBlurControls (int value);
-	void FillComboBox (wxString control, wxString contents);
+	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
+	void UpdateBlurControls(int value);
+	void FillComboBox(wxString control, wxString contents);
 	void setNewRenderersAndScalers();
 
 private:

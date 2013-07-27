@@ -4,10 +4,9 @@
 #define wxUSE_CMDLINE_PARSER 1
 #define FORCE_UNNAMED_PIPES 0
 
-#include "wx/wxprec.h"
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
+#include <wx/app.h>
+#include <wx/string.h>
+#include <wx/wxprec.h>
 
 #ifdef SETUP_EXTERNALS
 #define SCOPE
@@ -47,8 +46,9 @@ public:
 	// initialization (doing it here and not in the ctor allows to have an error
 	// return: if OnInit() returns false, the application terminates)
 	virtual bool OnInit();
+
 private:
-	bool LoadXRC (wxString XrcFile);
+	bool LoadXRC(wxString XrcFile);
 };
 
 DECLARE_APP(wxCatapultApp)

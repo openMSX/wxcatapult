@@ -11,8 +11,18 @@
 #include <algorithm>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
+#include <wx/button.h>
+#include <wx/bmpbuttn.h>
+#include <wx/combobox.h>
+#include <wx/dcmemory.h>
 #include <wx/dir.h>
+#include <wx/dirdlg.h>
 #include <wx/filedlg.h>
+#include <wx/listbox.h>
+#include <wx/menu.h>
+#include <wx/msgdlg.h>
+#include <wx/settings.h>
+#include <wx/stattext.h>
 #include <wx/dnd.h>
 #include <wx/tooltip.h>
 

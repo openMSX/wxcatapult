@@ -113,7 +113,7 @@ bool wxCatapultApp::OnCmdLineParsed(wxCmdLineParser& parser)
 
 void wxCatapultApp::ShowVersion()
 {
-	for (unsigned int i = 0; i < Version::FULL_VERSION.Len(); ++i) {
+	for (unsigned i = 0; i < Version::FULL_VERSION.Len(); ++i) {
 		putchar(Version::FULL_VERSION.GetChar(i));
 	}
 	putchar('\n');

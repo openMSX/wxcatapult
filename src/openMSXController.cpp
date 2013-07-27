@@ -9,7 +9,10 @@
 #include "wxCatapultApp.h"
 #include "ScreenShotDlg.h"
 #include <cassert>
+#include <wx/button.h>
+#include <wx/msgdlg.h>
 #include <wx/notebook.h>
+#include <wx/textctrl.h>
 #include <wx/wxprec.h>
 #include <wx/version.h>
 

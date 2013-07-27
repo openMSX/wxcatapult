@@ -3,6 +3,13 @@
 #include "wxCatapultFrm.h"
 #include "openMSXController.h"
 #include "ConfigurationData.h"
+#include <wx/bmpbuttn.h>
+#include <wx/button.h>
+#include <wx/combobox.h>
+#include <wx/filedlg.h>
+#include <wx/msgdlg.h>
+#include <wx/stattext.h>
+#include <wx/textctrl.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/joystick.h>
