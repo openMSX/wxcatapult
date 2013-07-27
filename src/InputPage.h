@@ -1,30 +1,33 @@
-#ifndef AFX_INPUTPAGE_H
-#define AFX_INPUTPAGE_H
+#ifndef INPUTPAGE_H
+#define INPUTPAGE_H
 
 #include "CatapultPage.h"
+
+class wxTextCtrl;
+class wxButton;
 
 class openMSXController;
 
 class InputPage : public CatapultPage
 {
 public:
+	InputPage(wxWindow* parent, openMSXController* controller);
+
 	void SetControlsOnEnd();
 	void SetControlsOnLaunch();
-	InputPage(wxWindow * parent = (wxWindow *)NULL, openMSXController * controller=NULL);
-	virtual ~InputPage();
-	wxTextCtrl * m_inputtext;
-	void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
-	void OnTypeText (wxCommandEvent &event);
-	void OnClearText (wxCommandEvent &event);
-	void OnTextChange (wxCommandEvent &event);
+	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
+	void OnTypeText(wxCommandEvent& event);
+	void OnClearText(wxCommandEvent& event);
+	void OnTextChange(wxCommandEvent& event);
+
+	wxTextCtrl* m_inputtext;
 private:
-	openMSXController * m_controller;
-	wxButton * m_typeTextButton;
-	wxButton * m_clearTextButton;
+	openMSXController* m_controller;
+	wxButton* m_typeTextButton;
+	wxButton* m_clearTextButton;
 	bool launched;
 
 	DECLARE_CLASS(InputPage)
-	// any class wishing to process wxWindows events must use this macro
 	DECLARE_EVENT_TABLE()
 };
 
