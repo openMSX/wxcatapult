@@ -101,10 +101,13 @@ void AudioControlPage::SetupAudioMixer()
 	delete noAudio;
 
 	wxStaticBoxSizer* mixerSizer=(wxStaticBoxSizer*)FindWindowByName(wxT("SoundSizer"));
-	if (mixerSizer && mixerSizer->GetStaticBox()){
-		wxSize size=mixerSizer->GetStaticBox()->GetClientSize();
-		m_audioPanel->SetClientSize(size);
-		AudioSizer->SetMinSize(size);
+	if (mixerSizer){
+		wxStaticBox* staticBox=mixerSizer->GetStaticBox();
+		if(staticBox){
+			wxSize size=staticBox->GetClientSize();
+			m_audioPanel->SetClientSize(size);
+			AudioSizer->SetMinSize(size);
+		}
 	}
 
 	ConvertChannelNames (m_audioChannels);
