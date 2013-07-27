@@ -3,17 +3,18 @@
 
 #include "CatapultPage.h"
 
+class wxTextCtrl;
+
 class StatusPage : public CatapultPage
 {
 public:
-	StatusPage(wxWindow * parent = (wxWindow *)NULL);
-	virtual ~StatusPage();
-	wxTextCtrl * m_outputtext;
-	void HandleFocusChange(wxWindow * oldFocus, wxWindow * newFocus) {};
+	StatusPage(wxWindow* parent = nullptr);
+	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
+
+	wxTextCtrl* m_outputtext;
 
 private:
 	DECLARE_CLASS(StatusPage)
-	// any class wishing to process wxWindows events must use this macro
 	DECLARE_EVENT_TABLE()
 };
 
