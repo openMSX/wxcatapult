@@ -10,12 +10,13 @@
 class PipeConnectThread : public wxThread
 {
 public:
-	PipeConnectThread(wxWindow * target);
+	PipeConnectThread(wxWindow* target);
+
 	void SetHandle(HANDLE pipeHandle);
-	virtual ~PipeConnectThread();
 	wxThread::ExitCode Entry();
+
 private:
-	wxWindow * m_target;
+	wxWindow* m_target;
 	bool m_Connected;
 	HANDLE m_pipeHandle;
 };

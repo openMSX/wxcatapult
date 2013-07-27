@@ -12,18 +12,18 @@
 class PipeReadThread : public wxThread
 {
 public:
-	PipeReadThread(wxWindow * target, int id, wxThreadKind kind=wxTHREAD_DETACHED);
+	PipeReadThread(wxWindow* target, int id, wxThreadKind kind = wxTHREAD_DETACHED);
+
 #ifdef __WXMSW__
-	void SetHandle (HANDLE hTarget) {m_hTarget=hTarget;}
+	void SetHandle(HANDLE hTarget) { m_hTarget = hTarget; }
 #else
-	void SetFileDescriptor (int descriptor) {m_descriptor = descriptor;};
+	void SetFileDescriptor(int descriptor) { m_descriptor = descriptor; }
 #endif
 	wxThread::ExitCode Entry();
-	virtual ~PipeReadThread();
 
 private:
 	int m_id;
-	wxWindow * m_target;
+	wxWindow* m_target;
 
 #ifdef __WXMSW__
 	HANDLE m_hTarget;
