@@ -86,6 +86,8 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent, openMSXController* contr
 	if (wxDirExists(guess)) {
 		m_SharePath->SetValue(guess);
 	}
+	SetSize(GetBestSize());
+	Centre();
 }
 
 CatapultConfigDlg::~CatapultConfigDlg()
