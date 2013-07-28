@@ -4,10 +4,11 @@
 #include "wxCatapultFrm.h"
 #include "ConfigurationData.h"
 #include "CatapultConfigDlg.h"
-#include "version.h"
+#include "Version.h"
 #include <cstdio>
 #include <wx/image.h>
 #include <wx/cmdline.h>
+#include <wx/msgdlg.h>
 #include <wx/xrc/xmlres.h>
 
 #if !wxCHECK_VERSION(2,5,0)
@@ -16,7 +17,7 @@
 #endif
 
 #if defined(__UNIX__) || defined(__WXMSW__)
-#include <wx/config.h>
+#include <config.h>
 #endif
 
 // Create a new application object: this macro will allow wxWindows to create
