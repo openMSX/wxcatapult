@@ -10,7 +10,7 @@
 #include <wx/slider.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
-#include <wx/version.h>
+#include "version.h"
 
 #if wxCHECK_VERSION(2,5,0)
 #define WX24SIGNCAST

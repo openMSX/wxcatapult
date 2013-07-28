@@ -516,10 +516,7 @@ void MiscControlPage::OnJoystickChanged()
 
 	if ((box->GetValue() != (wxT("--empty--"))) && (box->GetValue() == box2->GetValue())) {
 		MessageActive = true;
-		int result = wxMessageBox(wxT(
-			"Unable to plug a device in more than one port!\n\n"
-			"Do you still want to plug it into this port?\n"
-			"This device will then be removed from any other port(s)."),
+		int result = wxMessageBox(wxT("Unable to plug a device in more than one port!\n\nDo you still want to plug it into this port?\nThis device will then be removed from any other port(s)."),
 			wxT("Warning"),
 			wxOK | wxCANCEL);
 		MessageActive = false;

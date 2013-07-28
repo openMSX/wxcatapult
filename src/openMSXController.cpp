@@ -532,15 +532,13 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 	// printf ("Detected openMSX version: %d\n", ver);
 	if (ver == -1) {
 		wxMessageBox(
-			wxT("Unable to determine openMSX version!\nPlease upgrade to 0.6.2 or higher.\n"
-			    "(Or contact the authors.)"),
+			wxT("Unable to determine openMSX version!\nPlease upgrade to 0.6.2 or higher.\n(Or contact the authors.)"),
 			wxT("Error"));
 		return false;
 	}
 	if (ver < 602) {
 		wxMessageBox(
-			wxT("The openMSX version you are using is too old!\n"
-			    "Please upgrade to 0.6.2 or higher."),
+			wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.6.2 or higher."),
 			wxT("Error"));
 		return false;
 	}
@@ -624,8 +622,7 @@ void openMSXController::AddLaunchInstruction(
 	bool showError)
 {
 	if (m_launchScriptSize >= LAUNCHSCRIPT_MAXSIZE) {
-		wxMessageBox(wxT("Not enough space to store the Launchscript!\n"
-		                 "Please contact the authors."),
+		wxMessageBox(wxT("Not enough space to store the Launchscript!\nPlease contact the authors."),
 		             wxT("Internal Catapult Error"));
 		return;
 	}
