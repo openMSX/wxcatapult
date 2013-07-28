@@ -27,6 +27,12 @@ def genConfig(platform, configuration, outputPath):
 	generator = version2code.iterVersionInclude()
 	outpututils.rewriteIfChanged(versionHeader, generator)
 
+	#
+	# config.h 
+	#
+	versionHeader = os.path.join(outputPath, 'config.h')
+	outpututils.rewriteIfChanged(versionHeader, '')
+
 if len(sys.argv) == 4:
 	genConfig(sys.argv[1], sys.argv[2], sys.argv[3])
 else:
