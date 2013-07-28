@@ -7,6 +7,7 @@
 #include "wx/txtstrm.h"
 #ifdef __WXMSW__
 #include <windows.h>
+#undef Yield
 #endif
 
 class PipeReadThread : public wxThread

@@ -15,7 +15,7 @@
 #define ADD_TOGGLEBUTTON_HANDLER 1
 #endif
 
-#ifdef __UNIX__
+#if defined(__UNIX__) || defined(__WXMSW__)
 #include "config.h"
 #endif
 

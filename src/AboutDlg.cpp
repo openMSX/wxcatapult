@@ -2,6 +2,7 @@
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/image.h>
+#include <wx/statbmp.h>
 
 IMPLEMENT_CLASS(AboutDlg, wxDialog)
 BEGIN_EVENT_TABLE(AboutDlg, wxDialog)

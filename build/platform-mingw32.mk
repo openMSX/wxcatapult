@@ -14,6 +14,7 @@ WX2XRC_STATIC:=s/\\(\\/[^ ]*\\/\\)libwx\\([^0-9]*\\)\\([0-9]\\)\\([0-9]\\).\\.a/
 
 # Compiler flags.
 CXXFLAGS+= \
+	-std=gnu++0x \
 	-mthreads -mconsole -mms-bitfields \
 	-I/mingw/include -I/mingw/include/w32api \
 	`if test -d /usr/local/include; then echo '-I/usr/local/include'; fi` \

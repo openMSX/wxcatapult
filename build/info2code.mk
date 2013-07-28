@@ -17,9 +17,11 @@ $(CONFIG_HEADER): $(MAKE_PATH)/info2code.mk $(CUSTOM_MAKE)
 	@echo "#include <wx/wx.h>" >> $@
 	@echo "#endif" >> $@
 	@echo "" >> $@
+	@echo "#ifndef __WXMSW__" >> $@
 	@echo "static const wxString RESOURCEDIR = wxT(\"$(INSTALL_BASE)/resources\");" >> $@
 	@echo "static const wxString CATAPULT_OPENMSX_BINARY = wxT(\"$(CATAPULT_OPENMSX_BINARY)\");" >> $@
 	@echo "static const wxString CATAPULT_OPENMSX_SHARE = wxT(\"$(CATAPULT_OPENMSX_SHARE)\");" >> $@
+	@echo "#endif" >> $@
 	@echo "" >> $@
 	@echo "#endif //__CONFIG_H__" >> $@
 

@@ -4,9 +4,7 @@
 #include "openMSXController.h"
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
-#ifndef __WXMSW__
 #include "config.h"
-#endif
 
 IMPLEMENT_CLASS(CatapultConfigDlg, wxDialog)
 BEGIN_EVENT_TABLE(CatapultConfigDlg, wxDialog)
