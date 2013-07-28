@@ -8,7 +8,7 @@ public:
 	// Defined by build system:
 	static const bool RELEASE;
 	static const wxString VERSION;
-	static const wxString CHANGELOG_REVISION;
+	static const wxString REVISION;
 
 	// Computed using constants above:
 	static const wxString FULL_VERSION;

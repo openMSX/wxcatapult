@@ -155,6 +155,9 @@ OBJECTS_PATH:=$(BUILD_PATH)/obj
 BINARY_PATH:=$(BUILD_PATH)/bin
 BINARY_FILE:=catapult$(EXEEXT)
 BINARY_FULL=$(BINARY_PATH)/$(BINARY_FILE) # allow override
+REVISION:=$(shell PYTHONPATH=build $(PYTHON) -c \
+     "import version; print version.extractRevisionString()" \
+     )
 
 LOG_PATH:=$(BUILD_PATH)/log
 RESOURCES_PATH:=$(BUILD_PATH)/resources
@@ -279,6 +282,8 @@ probe: $(PROBE_MAKE)
 .PHONY: $(PROBE_MAKE)
 endif
 
+.PHONY: forceversionextraction
+
 # Probe for libraries.
 # TODO: It would be cleaner to include probe.mk and probe-results.mk,
 #       instead of executing them in a sub-make.
@@ -313,11 +318,8 @@ $(OBJECTS_FULL): $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.cpp $(DEPEND_PATH)/%.d
 	@touch $@ # Force .o file to be newer than .d file.
 
 ifeq ($(CATAPULT_TARGET_OS),mingw32)
-#CHANGELOG_REVISION:=\
-#	$(shell sed -ne "s/\$$Id: ChangeLog \([^ ]*\).*/\1/p" ChangeLog)
-CHANGELOG_REVISION:=0
-WIN32_FILEVERSION:=$(shell echo $(PACKAGE_VERSION) $(CHANGELOG_REVISION) | sed -ne 's/\([0-9]\)*\.\([0-9]\)*\.\([0-9]\)*[^ ]* \([0-9]*\)/\1, \2, \3, \4/p' -)
-$(RESOURCE_HEADER): $(VERSION_MAKE) ChangeLog
+WIN32_FILEVERSION:=$(shell echo $(PACKAGE_VERSION) $(REVISION) | sed -ne 's/\([0-9]\)*\.\([0-9]\)*\.\([0-9]\)*[^ ]* \([0-9]*\)/\1, \2, \3, \4/p' -)
+$(RESOURCE_HEADER): $(VERSION_MAKE) forceversionextraction
 	@echo "#define CATAPULT_VERSION_INT $(WIN32_FILEVERSION)" > $@
 	@echo "#define CATAPULT_VERSION_STR \"$(PACKAGE_VERSION)\0\"" >> $@
 $(RESOURCE_OBJ): $(RESOURCE_SRC) $(RESOURCE_HEADER)

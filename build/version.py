@@ -1,7 +1,13 @@
 # $Id$
 # Contains the Catapult version number and versioning related functions.
 
-from makeutils import filterFile
+from executils import captureStdout
+from makeutils import filterLines
+
+from os import makedirs
+from os.path import isdir
+
+import re
 
 # Name used for packaging.
 packageName = 'catapult'
@@ -20,27 +26,52 @@ releaseFlag = True
 #       include generation steps) but option 1 might be easier to imlement at
 #       first (no need to persist anything).
 
-def extractSVNRevision():
-	return None
-	# `svn info`, re = 'Revision:\s*(\d+)'
-
-def extractSVNGitRevision():
-	return None
-	# `git-log`, re = 'git-svn-id:.*@(\d+)'
-
-def extractChangeLogRevision():
-	for revision, in filterFile('ChangeLog', r'\$Id: ChangeLog (\d+).*\$'):
+def _extractRevisionFromStdout(log, command, regex):
+	text = captureStdout(log, command)
+	if text is None:
+		# Error logging already done by captureStdout().
+		return None
+	# pylint 0.18.0 somehow thinks captureStdout() returns a list, not a string.
+	lines = text.split('\n') # pylint: disable-msg=E1103
+	for revision, in filterLines(lines, regex):
+		print >> log, 'Revision number found by "%s": %s' % (command, revision)
 		return revision
 	else:
+		print >> log, 'Revision number not found in "%s" output:' % command
+		print >> log, text
 		return None
 
-def extractRevision():
-	return (
-		extractSVNRevision() or
-		extractSVNGitRevision() or
-		extractChangeLogRevision() or
-		'unknown'
+def extractGitRevision(log):
+	return _extractRevisionFromStdout(
+		log, 'git describe', r'\S+?-(\S+)$'
 		)
+
+def extractNumberFromGitRevision(revisionStr):
+	if revisionStr is None:
+		return None
+	return re.match(r'(\d+)+', revisionStr).group(0)
+
+def extractRevision():
+	if releaseFlag:
+		# Not necessary, we do not append revision for a release build.
+		return None
+	if not isdir('derived'):
+		makedirs('derived')
+	log = open('derived/version.log', 'w')
+	print >> log, 'Extracting revision info...'
+	try:
+		revision = extractGitRevision(log)
+		print >> log, 'Revision string: %s' % revision
+		print >> log, 'Revision number: %s' % extractNumberFromGitRevision(revision)
+	finally:
+		log.close()
+	return revision
+
+def extractRevisionNumber():
+	return int(extractNumberFromGitRevision(extractRevision()) or 1)
+
+def extractRevisionString():
+	return extractRevision() or 'unknown'
 
 def getVersionedPackageName():
 	if releaseFlag:
