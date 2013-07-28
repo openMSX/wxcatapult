@@ -12,7 +12,7 @@ END_EVENT_TABLE()
 AboutDlg::AboutDlg(wxWindow* parent)
 {
 	wxXmlResource::Get()->LoadDialog(this, parent, wxT("AboutDialog"));
-#if (wxCHECK_VERSION(2,6,0) && defined(__WXMSW__))
+#ifdef __WXMSW__  // why is this windows specific??
 //	auto* aboutButton = (wxBitmapButton*)FindWindowByName(wxT("AboutButton"));
 	auto* aboutBitmap = (wxStaticBitmap*)FindWindowByName(wxT("AboutBitmap"));
 //	wxBitmap bmp = aboutButton->GetBitmapLabel();

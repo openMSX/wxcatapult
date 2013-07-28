@@ -16,12 +16,6 @@
 #include <wx/wxprec.h>
 #include <wx/version.h>
 
-#if wxCHECK_VERSION(2,5,0)
-#define WX24SIGNCAST
-#else
-#define WX24SIGNCAST (unsigned)
-#endif
-
 #define LAUNCHSCRIPT_MAXSIZE 100
 
 openMSXController::openMSXController(wxWindow* target)
@@ -158,7 +152,7 @@ void openMSXController::HandleStdErr(wxCommandEvent &event)
 		delete data;
 		return;
 	}
-	for (unsigned i = 0; i < WX24SIGNCAST(m_appWindow->m_tabControl->GetPageCount()); ++i) {
+	for (unsigned i = 0; i < m_appWindow->m_tabControl->GetPageCount(); ++i) {
 		if (m_appWindow->m_tabControl->GetPageText(i) == wxT("Status Info")) {
 			m_appWindow->m_tabControl->SetSelection(i);
 		}

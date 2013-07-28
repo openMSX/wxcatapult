@@ -191,7 +191,6 @@ SOURCES+= \
 	CatapultConfigDlg \
 	ConfigurationData \
 	PipeReadThread \
-	wxToggleButtonXmlHandler \
 	CatapultXMLParser \
 	SessionPage \
 	InputPage \

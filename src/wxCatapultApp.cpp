@@ -5,20 +5,12 @@
 #include "ConfigurationData.h"
 #include "CatapultConfigDlg.h"
 #include "Version.h"
+#include "config.h"
 #include <cstdio>
 #include <wx/image.h>
 #include <wx/cmdline.h>
 #include <wx/msgdlg.h>
 #include <wx/xrc/xmlres.h>
-
-#if !wxCHECK_VERSION(2,5,0)
-#include "wxToggleButtonXmlHandler.h"
-#define ADD_TOGGLEBUTTON_HANDLER 1
-#endif
-
-#if defined(__UNIX__) || defined(__WXMSW__)
-#include <config.h>
-#endif
 
 // Create a new application object: this macro will allow wxWindows to create
 // the application object during program execution (it's better than using a

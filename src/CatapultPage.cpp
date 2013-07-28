@@ -12,12 +12,6 @@
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
 
-#if wxCHECK_VERSION(2,5,0)
-#define WX24SIGNCAST
-#else
-#define WX24SIGNCAST (unsigned int)
-#endif
-
 #define S_CONVERT 1
 #define S_EVENT 2
 #define S_INVERT 4
@@ -256,7 +250,7 @@ bool CatapultPage::UpdateAudioSetting(wxString setting, wxString data, wxString 
 {
 	auto* notebook = (wxNotebook*)m_parent;
 	AudioControlPage* audiopage = nullptr;
-	for (unsigned i = 0; i < WX24SIGNCAST(notebook->GetPageCount()); ++i) {
+	for (unsigned i = 0; i < notebook->GetPageCount(); ++i) {
 		if (notebook->GetPageText(i) == wxT("Audio Controls")) {
 			audiopage = (AudioControlPage*)notebook->GetPage(i);
 			break;
@@ -280,7 +274,7 @@ bool CatapultPage::UpdateMidiPlug(wxString connector, wxString data, wxString co
 {
 	auto* notebook = (wxNotebook*)m_parent;
 	AudioControlPage* audiopage = nullptr;
-	for (unsigned int i = 0; i < WX24SIGNCAST(notebook->GetPageCount()); ++i) {
+	for (unsigned int i = 0; i < notebook->GetPageCount(); ++i) {
 		if (notebook->GetPageText(i) == wxT("Audio Controls")) {
 			audiopage = (AudioControlPage*)notebook->GetPage(i);
 			break;

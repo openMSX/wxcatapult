@@ -97,9 +97,6 @@
     <ClCompile Include="..\..\src\wxCatapultFrm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\wxToggleButtonXmlHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\AboutDlg.h">
@@ -169,9 +166,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\wxCatapultFrm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\wxToggleButtonXmlHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
