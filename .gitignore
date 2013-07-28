@@ -1,1 +1,8 @@
-/derived
+derived
+/*.diff
+/*.log
+*.swp
+*~
+core.*
+core
+*.pyc
