@@ -1,27 +1,17 @@
-// $Id$
-// openMSXLinuxController.cpp: implementation of the openMSXLinuxController class.
-//
-//////////////////////////////////////////////////////////////////////
-#include "wx/wxprec.h"
-
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
-
-#include <unistd.h>
-#include <wx/process.h>
-#include <wx/textfile.h>
 #include "openMSXLinuxController.h"
 #include "PipeReadThread.h"
 #include "wxCatapultFrm.h"
 #include "wxCatapultApp.h"
+#include <unistd.h>
+#include <wx/process.h>
+#include <wx/textfile.h>
+#include "wx/wxprec.h"
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
 
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
-
-	openMSXLinuxController::openMSXLinuxController(wxWindow * target)
-:openMSXController(target)
+openMSXLinuxController::openMSXLinuxController(wxWindow* target)
+	:openMSXController(target)
 {
 	m_openMSXstdin = m_openMSXstdout = m_openMSXstderr = -1;
 }
@@ -41,18 +31,17 @@ bool openMSXLinuxController::Launch(wxString cmdline)
 {
 	PreLaunch();
 	cmdline += wxT(" -control stdio");
-	if (!execute((const char*) (wxConvUTF8.cWX2MB((cmdline))), m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
+	if (!execute((const char*)(wxConvUTF8.cWX2MB((cmdline))),
+	             m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
 		return false;
 	}
-	m_stdOutThread = new PipeReadThread(m_appWindow, MSGID_STDOUT,wxTHREAD_JOINABLE);
-	if (m_stdOutThread->Create() == wxTHREAD_NO_ERROR)
-	{
+	m_stdOutThread = new PipeReadThread(m_appWindow, MSGID_STDOUT, wxTHREAD_JOINABLE);
+	if (m_stdOutThread->Create() == wxTHREAD_NO_ERROR) {
 		m_stdOutThread->SetFileDescriptor(m_openMSXstdout);
 		m_stdOutThread->Run();
 	}
-	m_stdErrThread = new PipeReadThread(m_appWindow, MSGID_STDERR,wxTHREAD_JOINABLE);
-	if (m_stdErrThread->Create() == wxTHREAD_NO_ERROR)
-	{
+	m_stdErrThread = new PipeReadThread(m_appWindow, MSGID_STDERR, wxTHREAD_JOINABLE);
+	if (m_stdErrThread->Create() == wxTHREAD_NO_ERROR) {
 		m_stdErrThread->SetFileDescriptor(m_openMSXstderr);
 		m_stdErrThread->Run();
 	}
@@ -63,7 +52,7 @@ bool openMSXLinuxController::Launch(wxString cmdline)
 	return true;
 }
 
-bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOut, int& fdErr)
+bool openMSXLinuxController::execute(const std::string& command, int& fdIn, int& fdOut, int& fdErr)
 {
 	// create pipes
 	const int PIPE_READ = 0;
@@ -96,16 +85,15 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 		unsigned len = command.length();
 		char* cmd = static_cast<char*>(
 		                alloca((len + 1) * sizeof(char)));
-		memcpy(cmd, (char *)command.c_str(), len + 1);
+		memcpy(cmd, (char*)command.c_str(), len + 1);
 		char* argv[4];
-		argv[0] = "sh";
-		argv[1] = "-c";
+		argv[0] = const_cast<char*>("sh");
+		argv[1] = const_cast<char*>("-c");
 		argv[2] = cmd;
 		argv[3] = 0;
 
 		// really execute command
 		execvp(argv[0], argv);
-
 	} else {
 		// parent thread
 		close(pipeStdin[PIPE_READ]);
@@ -144,30 +132,31 @@ bool openMSXLinuxController::execute(const string& command, int& fdIn, int& fdOu
 wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
 	wxString version = wxT("");
-	if (system ((const char*) (wxConvUTF8.cWX2MB((openmsxCmd +wxT(" -v > /tmp/catapult.tmp"))))) == 0)
-	{
-		wxTextFile tempfile (wxT("/tmp/catapult.tmp"));
+	if (system((const char*)(wxConvUTF8.cWX2MB((openmsxCmd + wxT(" -v > /tmp/catapult.tmp"))))) == 0) {
+		wxTextFile tempfile(wxT("/tmp/catapult.tmp"));
 		if (tempfile.Open()) {
 			version = tempfile.GetFirstLine();
 			tempfile.Close();
 		}
 	}
-	return wxString (version);
+	return version;
 }
 
-bool openMSXLinuxController::WriteMessage(xmlChar * msg,size_t length)
+bool openMSXLinuxController::WriteMessage(xmlChar* msg, size_t length)
 {
-	if (!m_openMsxRunning)
-		return false;
+	if (!m_openMsxRunning) return false;
+
 //	if ((m_socket) && (m_socket->IsConnected())) {
 //		m_socket->Write(msg,length);
 //		return m_socket->LastError();
 //	}
-	write(m_openMSXstdin, msg,length);
+	ssize_t r = write(m_openMSXstdin, msg, length);
+	(void)r; // We really should check this return value, but for now
+	         // just silence the warning.
 	return true;
 }
 
-void openMSXLinuxController::HandleNativeEndProcess ()
+void openMSXLinuxController::HandleNativeEndProcess()
 {
 	close(m_openMSXstdin);
 }

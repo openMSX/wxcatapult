@@ -1,39 +1,35 @@
-// RomTypeDlg.h: interface for the RomTypeDlg class.
-//
-//////////////////////////////////////////////////////////////////////
+#ifndef ROMTYPEDLG_H
+#define ROMTYPEDLG_H
 
-#if !defined(AFX_ROMTYPEDLG_H__09B17758_A791_4F43_AE15_88269673D1D2__INCLUDED_)
-#define AFX_ROMTYPEDLG_H__09B17758_A791_4F43_AE15_88269673D1D2__INCLUDED_
+#include <wx/dialog.h>
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+class wxListBox;
 
 class RomTypeDlg : public wxDialog
 {
 public:
-	RomTypeDlg(wxWindow * parent = NULL);
+	RomTypeDlg(wxWindow* parent);
+
 	void OnCancel(wxCommandEvent& event);
 	void OnOk(wxCommandEvent& event);
-	virtual ~RomTypeDlg();
 	void SetSelectedType(wxString type);
 	wxString GetSelectedType();
 	wxString GetSelectedFullTypeName();
-	int FindRomType (wxString type);
-	int FindRomFullTypeName (wxString name);
-	void AddRomType (wxString type);
-	void SetRomTypeFullName (wxString type, wxString name);
-	wxString ConvertRomType (wxString source, bool backwards);
+	int FindRomType(wxString type);
+	int FindRomFullTypeName(wxString name);
+	void AddRomType(wxString type);
+	void SetRomTypeFullName(wxString type, wxString name);
+	wxString ConvertRomType(wxString source, bool backwards);
 	int ShowModal(wxString type);
 
 private:
-	wxListBox * m_romTypeList;
+	wxListBox* m_romTypeList;
 	wxArrayString m_romTypes;
 	wxString m_selectedType;
 	wxString m_selectedFullTypeName;
+
 	DECLARE_CLASS(RomTypeDlg)
-	// any class wishing to process wxWindows events must use this macro
 	DECLARE_EVENT_TABLE()
 };
 
-#endif // !defined(AFX_ROMTYPEDLG_H__09B17758_A791_4F43_AE15_88269673D1D2__INCLUDED_)
+#endif

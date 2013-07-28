@@ -1,16 +1,5 @@
-// $Id$
-// ----------------------------------------------------------------------------
-// headers
-// ----------------------------------------------------------------------------
-#include "wx/wxprec.h"
-#include "wx/xrc/xmlres.h"
-
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
-#include <wx/image.h>
-#include "wxCatapultApp.h"
 #include "wxCatapultFrm.h"
+#include "wxCatapultApp.h"
 #include "ConfigurationData.h"
 #include "CatapultConfigDlg.h"
 #include "PipeReadThread.h"
@@ -30,6 +19,13 @@
 #include "openMSXLinuxController.h"
 #endif
 #include "openMSXController.h"
+#include <wx/notebook.h>
+#include <wx/wxprec.h>
+#include <wx/xrc/xmlres.h>
+#include <wx/image.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
 
 #define unisprintf sprintf
 
@@ -40,8 +36,7 @@ class NoOpenMSXBinaryException : public std::exception {};
 // ----------------------------------------------------------------------------
 
 // IDs for the controls and the menu commands
-enum
-{
+enum {
 	// menu items and controls
 	Catapult_Quit = 1,
 	Catapult_CheckConfigs,
@@ -95,18 +90,14 @@ END_EVENT_TABLE()
 #include "catapult.xpm"
 #endif
 
-	// ------------------------------------------------------------------
-	// main frame
-	// ------------------------------------------------------------------
 
-	// frame constructor
-	wxCatapultFrame::wxCatapultFrame(wxWindow * parent)
+wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 {
 	m_fpsTimer.SetOwner(this,FPS_TIMER);
 	m_focusTimer.SetOwner(this,FOCUS_TIMER);
 	m_safetyTimer.SetOwner(this,SAFETY_TIMER);
 
-//	int * testke = NULL;
+//	int * testke = nullptr;
 //	delete testke;
 
 
@@ -119,17 +110,17 @@ END_EVENT_TABLE()
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("CatapultFrame"));
 	// use icon resources for MS Visual Studio, else the XPM
 #if defined (_MSC_VER)
-	SetIcon (wxIcon(wxT("catapult")));
+	SetIcon(wxIcon(wxT("catapult")));
 #else
-	SetIcon (catapult_xpm);
+	SetIcon(catapult_xpm);
 #endif
 
 	// create menu bars
 
-	wxMenu *fileMenu = new wxMenu(wxT(""), 0);
+	wxMenu* fileMenu = new wxMenu(wxT(""), 0);
 	settingsMenu = new wxMenu(wxT(""), 0);
 	viewMenu = new wxMenu(wxT(""), 0);
-	wxMenu *helpMenu = new wxMenu(wxT(""), 0);
+	wxMenu* helpMenu = new wxMenu(wxT(""), 0);
 
 	fileMenu->Append(Catapult_CheckConfigs, wxT("&Test MSX Hardware\tCtrl-T"), wxT("Tests which machines and extensions installed are actually working and removes non-working hardware from the lists"));
 	fileMenu->Append(Catapult_Quit, wxT("&Quit\tCtrl-Q"), wxT("Quit openMSX Catapult"));
@@ -141,16 +132,16 @@ END_EVENT_TABLE()
 	viewMenu->AppendCheckItem(Catapult_Display_Invalids, wxT("Display Broken Configurations"), wxT("Display all machines and extension even if they don't work"));
 	helpMenu->Append(Catapult_About, wxT("&About\tCtrl-A"), wxT("Show about dialog"));
 
-	ConfigurationData * config = ConfigurationData::instance();
+	auto& config = ConfigurationData::instance();
 
 	// now append the freshly created menu to the menu bar...
-	wxMenuBar *menuBar = new wxMenuBar();
+	wxMenuBar* menuBar = new wxMenuBar();
 	menuBar->Append(fileMenu, wxT("&File"));
 	menuBar->Append(settingsMenu, wxT("&Settings"));
 	EnableSaveSettings(false);
 	menuBar->Append(viewMenu, wxT("&View"));
 	int viewFlags;
-	config->GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
+	config.GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
 	viewMenu->Check(Catapult_Display_Invalids,((viewFlags & ConfigurationData::VF_BROKEN) != 0));
 
 	menuBar->Append(helpMenu, wxT("&Help"));
@@ -161,20 +152,20 @@ END_EVENT_TABLE()
 
 	// Fill the membervariables with control pointer for easy access
 
-	m_powerLed = (wxStaticBitmap *)FindWindowByName(wxT("PowerLed"));
-	m_capsLed = (wxStaticBitmap *)FindWindowByName(wxT("CapsLockLed"));
-	m_kanaLed = (wxStaticBitmap *)FindWindowByName(wxT("KanaLed"));
-	m_pauseLed = (wxStaticBitmap *)FindWindowByName(wxT("PauseLed"));
-	m_turboLed = (wxStaticBitmap *)FindWindowByName(wxT("TurboLed"));
-	m_fddLed = (wxStaticBitmap *)FindWindowByName(wxT("FDDLed"));
+	m_powerLed = (wxStaticBitmap*)FindWindowByName(wxT("PowerLed"));
+	m_capsLed  = (wxStaticBitmap*)FindWindowByName(wxT("CapsLockLed"));
+	m_kanaLed  = (wxStaticBitmap*)FindWindowByName(wxT("KanaLed"));
+	m_pauseLed = (wxStaticBitmap*)FindWindowByName(wxT("PauseLed"));
+	m_turboLed = (wxStaticBitmap*)FindWindowByName(wxT("TurboLed"));
+	m_fddLed   = (wxStaticBitmap*)FindWindowByName(wxT("FDDLed"));
 
-	m_tabControl = (wxNotebook *)FindWindowByName(wxT("GlobalTabControl"));
-	m_sessionPage = new SessionPage(m_tabControl,m_controller);
+	m_tabControl = (wxNotebook*)FindWindowByName(wxT("GlobalTabControl"));
+	m_sessionPage = new SessionPage(m_tabControl, m_controller);
 	m_statusPage = new StatusPage(m_tabControl);
-	m_miscControlPage = new MiscControlPage(m_tabControl,m_controller);
-	m_videoControlPage = new VideoControlPage(m_tabControl,m_controller);
-	m_audioControlPage = new AudioControlPage(m_tabControl,m_controller);
-	m_inputPage = new InputPage(m_tabControl,m_controller);
+	m_miscControlPage = new MiscControlPage(m_tabControl, m_controller);
+	m_videoControlPage = new VideoControlPage(m_tabControl, m_controller);
+	m_audioControlPage = new AudioControlPage(m_tabControl, m_controller);
+	m_inputPage = new InputPage(m_tabControl, m_controller);
 
 	m_tabControl->AddPage(m_sessionPage,wxT("Session"),true);
 	m_tabControl->AddPage(m_miscControlPage,wxT("Misc Controls"),false);
@@ -183,27 +174,23 @@ END_EVENT_TABLE()
 	m_tabControl->AddPage(m_inputPage,wxT("Input Text"),false);
 	m_tabControl->AddPage(m_statusPage,wxT("Status Info"),false);
 
-	m_launch_AbortButton = (wxButton *)FindWindowByName(wxT("Launch_AbortButton"));
+	m_launch_AbortButton = (wxButton*)FindWindowByName(wxT("Launch_AbortButton"));
 
 	SetControlsOnEnd();
 	m_launch_AbortButton->Enable(false);
 	m_settingsfile = wxT("");
 	// Now, let's find out if we have a path to openMSX
 	bool configOK = true;
-	if (!config->HaveRequiredSettings())
-	{
+	if (!config.HaveRequiredSettings()) {
 		configOK = EditConfig(true);
 	}
-	if (configOK)
-	{
+	if (configOK) {
 		wxString cmd;
-		config->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-		if (!(m_controller->StartOpenMSX(cmd,true)))
-		{
+		config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+		if (!(m_controller->StartOpenMSX(cmd,true))) {
 			configOK = EditConfig(true);
 		}
-		if (configOK)
-		{
+		if (configOK) {
 			m_sessionPage->SetupHardware(true, viewMenu->IsChecked(Catapult_Display_Invalids));
 			m_sessionPage->FixLayout();
 			wxWindow * tempwindow = FindWindowByName(wxT("MainWindowPanel"));
@@ -237,37 +224,33 @@ void wxCatapultFrame::OnMenuCheckConfigs(wxCommandEvent& event)
 
 void wxCatapultFrame::CheckConfigs()
 {
-	m_sessionPage->SetupHardware(false,true);
+	m_sessionPage->SetupHardware(false, true);
 	wxString cmd;
-	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-	wxArrayString machines = m_sessionPage->GetDetectedMachines();
+	auto& config = ConfigurationData::instance();
+	config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+	wxArrayString machines   = m_sessionPage->GetDetectedMachines();
 	wxArrayString extensions = m_sessionPage->GetDetectedExtensions();
 	CheckConfigsDlg dlg(this);
 	dlg.CenterOnParent();
-	if (dlg.ShowModal(cmd,machines,extensions) == wxID_OK){
-		ConfigurationData * config = ConfigurationData::instance();
+	if (dlg.ShowModal(cmd,machines,extensions) == wxID_OK) {
 		wxString machineString = wxT("");
-
-		unsigned int j;
-		for (j=0;j<machines.GetCount();j++) {
+		for (unsigned j = 0; j < machines.GetCount(); ++j) {
 			machineString += machines[j];
 			machineString += wxT("::");
 
 		}
+
 		wxString extensionString = wxT("");
-		for (j=0;j<extensions.GetCount();j++){
+		for (unsigned j = 0; j < extensions.GetCount(); ++j) {
 			extensionString += extensions[j];
 			extensionString += wxT("::");
 		}
-		config->SetParameter(ConfigurationData::CD_MACHINES,machineString);
-		config->SetParameter(ConfigurationData::CD_EXTENSIONS,extensionString);
-		bool result;
-		result = ConfigurationData::instance()->SaveData();
-#if !OPENMSX_DEMO_CD_VERSION
-		if (!result) {
-			wxMessageBox (wxT("Error saving configuration data"));
+
+		config.SetParameter(ConfigurationData::CD_MACHINES,   machineString);
+		config.SetParameter(ConfigurationData::CD_EXTENSIONS, extensionString);
+		if (!config.SaveData()) {
+			wxMessageBox(wxT("Error saving configuration data"));
 		}
-#endif
 	}
 	m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
 }
@@ -276,15 +259,11 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 {
 	// called when help - about is picked from the menu or toolbar
 	AboutDlg dlg(this);
-	wxStaticText * version = (wxStaticText *)FindWindowByName(wxT("AboutProductNameLabel"));
-	wxStaticText * description = (wxStaticText *)FindWindowByName(wxT("AboutProductDescriptionLabel"));
-	wxStaticText * message = (wxStaticText *)FindWindowByName(wxT("AboutMessageLabel"));
+	auto* version     = (wxStaticText*)FindWindowByName(wxT("AboutProductNameLabel"));
+	auto* description = (wxStaticText*)FindWindowByName(wxT("AboutProductDescriptionLabel"));
+	auto* message     = (wxStaticText*)FindWindowByName(wxT("AboutMessageLabel"));
 	wxString msg;
-	msg.Printf(Version::FULL_VERSION
-#if OPENMSX_DEMO_CD_VERSION
-		+wxT("(CD Version)")
-#endif
-	);
+	msg.Printf(Version::FULL_VERSION);
 	version->SetLabel(msg);
 	description->SetLabel(wxT("The official GUI for openMSX"));
 	message->SetLabel(wxT("\251 2003-2007 The openMSX Team\n<openmsx-devel@lists.sourceforge.net>\n"));
@@ -308,20 +287,17 @@ bool wxCatapultFrame::EditConfig(bool fatalIfFails)
 	CatapultConfigDlg dlg(this, m_controller);
 	dlg.Center();
 	if (dlg.ShowModal() == wxID_OK) {
-		bool result = ConfigurationData::instance()->SaveData();
-#if !OPENMSX_DEMO_CD_VERSION
-		if (!result) {
-			wxMessageBox (wxT("Error saving configuration data!"));
+		if (!ConfigurationData::instance().SaveData()) {
+			wxMessageBox(wxT("Error saving configuration data!"));
 		}
-#endif
-		m_sessionPage->SetupHardware(false,false);
+		m_sessionPage->SetupHardware(false, false);
 	} else {
 		retval = !fatalIfFails;
 	}
 	return retval;
 }
 
-void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent &event)
+void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent& event)
 {
 	wxString settingsfile;
 	wxString path;
@@ -332,24 +308,22 @@ void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent &event)
 #endif
 
 	wxFileDialog filedlg(this,wxT("Select configuration file"),wxT(""), wxT(""), path ,wxOPEN);
-	if (filedlg.ShowModal() == wxID_OK)
-	{
+	if (filedlg.ShowModal() == wxID_OK) {
 		settingsfile = filedlg.GetPath();
 		if (m_controller->IsOpenMSXRunning()){
 			m_controller->WriteCommand(wxString(wxT("load_settings ")) + m_sessionPage->ConvertPath(settingsfile,true));
-		}
-		else{
+		} else {
 			m_settingsfile = settingsfile;
 		}
 	}
 }
 
-void wxCatapultFrame::OnMenuSaveSettings(wxCommandEvent & event)
+void wxCatapultFrame::OnMenuSaveSettings(wxCommandEvent& event)
 {
 	m_controller->WriteCommand(wxT("save_settings"));
 }
 
-void wxCatapultFrame::OnMenuSaveSettingsAs (wxCommandEvent & event)
+void wxCatapultFrame::OnMenuSaveSettingsAs(wxCommandEvent& event)
 {
 	wxString settingsfile;
 	wxString path;
@@ -360,38 +334,34 @@ void wxCatapultFrame::OnMenuSaveSettingsAs (wxCommandEvent & event)
 #endif
 
 	wxFileDialog filedlg(this,wxT("Select file to save to"),wxT(""), wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
-	if (filedlg.ShowModal() == wxID_OK)
-	{
+	if (filedlg.ShowModal() == wxID_OK) {
 		settingsfile = filedlg.GetPath();
 		m_controller->WriteCommand(wxString(wxT("save_settings ")) + m_sessionPage->ConvertPath(settingsfile,true));
 	}
 }
 
-void wxCatapultFrame::OnMenuSaveOnExit(wxCommandEvent &event)
+void wxCatapultFrame::OnMenuSaveOnExit(wxCommandEvent& event)
 {
-	if (GetMenuBar()->IsChecked(Catapult_Save_On_Exit)){
+	if (GetMenuBar()->IsChecked(Catapult_Save_On_Exit)) {
 		m_controller->WriteCommand(wxT("set save_settings_on_exit true"));
-	}
-	else {
+	} else {
 		m_controller->WriteCommand(wxT("set save_settings_on_exit false"));
 	}
 }
 
-void wxCatapultFrame::OnMenuDisplayBroken (wxCommandEvent & event)
+void wxCatapultFrame::OnMenuDisplayBroken(wxCommandEvent& event)
 {
-	ConfigurationData * config = ConfigurationData::instance();
+	auto& config = ConfigurationData::instance();
 	int viewFlags;
-	config->GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
+	config.GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
 	m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
-	if (viewMenu->IsChecked(Catapult_Display_Invalids)){
-		config->SetParameter(ConfigurationData::CD_VIEWFLAGS,(long)(viewFlags | ConfigurationData::VF_BROKEN));
+	if (viewMenu->IsChecked(Catapult_Display_Invalids)) {
+		config.SetParameter(ConfigurationData::CD_VIEWFLAGS, (long)(viewFlags |  ConfigurationData::VF_BROKEN));
+	} else {
+		config.SetParameter(ConfigurationData::CD_VIEWFLAGS, (long)(viewFlags & ~ConfigurationData::VF_BROKEN));
 	}
-	else{
-		config->SetParameter(ConfigurationData::CD_VIEWFLAGS,(long)(viewFlags & ~ConfigurationData::VF_BROKEN));
-	}
-	config->SaveData();
+	config.SaveData();
 }
-
 
 void wxCatapultFrame::EnableSaveSettings(bool enabled)
 {
@@ -399,23 +369,22 @@ void wxCatapultFrame::EnableSaveSettings(bool enabled)
 	settingsMenu->Enable(Catapult_Save_OpenMSX_Settings_As,enabled);
 }
 
-void wxCatapultFrame::OnMenuOpen(wxMenuEvent &event)
+void wxCatapultFrame::OnMenuOpen(wxMenuEvent& event)
 {
 	m_tempStatus = GetStatusBar()->GetStatusText(0);
 }
 
-void wxCatapultFrame::OnMenuClose(wxMenuEvent &event)
+void wxCatapultFrame::OnMenuClose(wxMenuEvent& event)
 {
-	SetStatusText(m_tempStatus,0);
+	SetStatusText(m_tempStatus, 0);
 }
 
-void wxCatapultFrame::OnMenuHighlight(wxMenuEvent &event)
+void wxCatapultFrame::OnMenuHighlight(wxMenuEvent& event)
 {
-	if (event.GetMenuId() != -1){
+	if (event.GetMenuId() != -1) {
 		wxFrame::OnMenuHighlight(event);
-	}
-	else{
-		SetStatusText(m_tempStatus,0);
+	} else {
+		SetStatusText(m_tempStatus, 0);
 	}
 }
 
@@ -426,9 +395,8 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		return;
 	}
 	// check again if openMSX can be found
-	ConfigurationData * config = ConfigurationData::instance();
-	if (!config->HaveRequiredSettings())
-	{
+	auto& config = ConfigurationData::instance();
+	if (!config.HaveRequiredSettings()) {
 		if (!EditConfig(true)) return;
 	}
 
@@ -447,12 +415,11 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_sessionPage->getTypes(types);
 
 	wxString cmd;
-	ConfigurationData::instance()->GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-	if (m_settingsfile != wxT("")){
+	config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+	if (m_settingsfile != wxT("")) {
 		cmd += wxT(" -setting ") + m_sessionPage->ConvertPath(m_settingsfile,true);
 	}
-	if (hardware[0] != wxT(" <default> ")) // Ooooww.... we're using representation here as useful data! :(
-	{
+	if (hardware[0] != wxT(" <default> ")) { // Ooooww.... we're using representation here as useful data! :(
 		cmd += wxT(" -machine ") + hardware[0];
 	}
 
@@ -500,18 +467,18 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 
 void wxCatapultFrame::SetControlsOnLaunch()
 {
-	if (m_miscControlPage) m_miscControlPage->SetControlsOnLaunch();
+	if (m_miscControlPage)  m_miscControlPage ->SetControlsOnLaunch();
 	if (m_videoControlPage) m_videoControlPage->SetControlsOnLaunch();
-	if (m_sessionPage) m_sessionPage->SetControlsOnLaunch();
-	if (m_inputPage) m_inputPage->SetControlsOnLaunch();
+	if (m_sessionPage)      m_sessionPage     ->SetControlsOnLaunch();
+	if (m_inputPage)        m_inputPage       ->SetControlsOnLaunch();
 }
 
 void wxCatapultFrame::SetControlsOnEnd()
 {
-	if (m_miscControlPage) m_miscControlPage->SetControlsOnEnd();
+	if (m_miscControlPage)  m_miscControlPage ->SetControlsOnEnd();
 	if (m_videoControlPage) m_videoControlPage->SetControlsOnEnd();
-	if (m_sessionPage) m_sessionPage->SetControlsOnEnd();
-	if (m_inputPage) m_inputPage->SetControlsOnEnd();
+	if (m_sessionPage)      m_sessionPage     ->SetControlsOnEnd();
+	if (m_inputPage)        m_inputPage       ->SetControlsOnEnd();
 }
 
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
@@ -539,7 +506,7 @@ void wxCatapultFrame::StopTimers()
 
 void wxCatapultFrame::SetFPSdisplay(wxString val)
 {
-	double valfl = strtod((const char*) (wxConvUTF8.cWX2MB(val)),NULL);
+	double valfl = strtod((const char*) (wxConvUTF8.cWX2MB(val)),nullptr);
 	val.sprintf(wxT("%2.1f"),valfl);
 	SetStatusText(val +wxT(" fps"),1);
 }
@@ -549,17 +516,16 @@ void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 	m_controller->WriteCommand(wxT("openmsx_info fps"));
 }
 
-void wxCatapultFrame::OnEnableMainWindow(wxTimerEvent & event)
+void wxCatapultFrame::OnEnableMainWindow(wxTimerEvent& event)
 {
 	EnableMainWindow();
 }
 
-void wxCatapultFrame::EnableMainWindow ()
+void wxCatapultFrame::EnableMainWindow()
 {
 	Enable(true);
 	m_safetyTimer.Stop();
 }
-
 
 void wxCatapultFrame::OnCheckFocus(wxTimerEvent& event)
 {
@@ -574,59 +540,58 @@ void wxCatapultFrame::OnCheckFocus(wxTimerEvent& event)
 	}
 }
 
-void wxCatapultFrame::OnChangePage(wxNotebookEvent &event)
+void wxCatapultFrame::OnChangePage(wxNotebookEvent& event)
 {
-	CatapultPage * page;
 	int oldPageNr = event.GetOldSelection();
 	int newPageNr = event.GetSelection();
 	if (oldPageNr != -1) {
-		page = (CatapultPage *)m_tabControl->GetPage(oldPageNr);
-		page->HandleFocusChange(m_currentFocus,NULL);
+		auto* page = (CatapultPage*)m_tabControl->GetPage(oldPageNr);
+		page->HandleFocusChange(m_currentFocus, nullptr);
 	}
 	if (newPageNr != -1) {
-		page = (CatapultPage *)m_tabControl->GetPage(newPageNr);
-		wxWindow * newfocus = page->FindFocus();
-		page->HandleFocusChange(NULL,newfocus);
+		auto* page = (CatapultPage*)m_tabControl->GetPage(newPageNr);
+		wxWindow* newfocus = page->FindFocus();
+		page->HandleFocusChange(nullptr,newfocus);
 		m_currentFocus = newfocus;
 	}
 }
 
-void wxCatapultFrame::OnDeselectCatapult(wxActivateEvent & event)
+void wxCatapultFrame::OnDeselectCatapult(wxActivateEvent& event)
 {
 	int selectedPage = m_tabControl->GetSelection();
 	if (selectedPage != -1) {
-		CatapultPage * page = (CatapultPage *)m_tabControl->GetPage(selectedPage);
-		page->HandleFocusChange(m_currentFocus,NULL);
+		auto* page = (CatapultPage*)m_tabControl->GetPage(selectedPage);
+		page->HandleFocusChange(m_currentFocus,nullptr);
 	}
-	m_currentFocus = NULL;
+	m_currentFocus = nullptr;
 }
 
 void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 {
-	wxString resourceDir = ((wxCatapultApp &)wxGetApp()).GetResourceDir();
-	wxStaticBitmap * led = NULL;
+	wxString resourceDir = ((wxCatapultApp&)wxGetApp()).GetResourceDir();
+	wxStaticBitmap* led = nullptr;
 	if (ledname == wxT("power")) led = m_powerLed;
-	if (ledname == wxT("caps")) led = m_capsLed;
-	if (ledname == wxT("kana")) led = m_kanaLed;
+	if (ledname == wxT("caps"))  led = m_capsLed;
+	if (ledname == wxT("kana"))  led = m_kanaLed;
 	if (ledname == wxT("pause")) led = m_pauseLed;
 	if (ledname == wxT("turbo")) led = m_turboLed;
-	if (ledname == wxT("FDD")) led = m_fddLed;
+	if (ledname == wxT("FDD"))   led = m_fddLed;
 
-	if (ledstate == wxT("off")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.png"),wxBITMAP_TYPE_PNG));
-	if (ledstate == wxT("on")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.png"),wxBITMAP_TYPE_PNG));
+	if (ledstate == wxT("off")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.png"), wxBITMAP_TYPE_PNG));
+	if (ledstate == wxT("on"))  led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.png"),  wxBITMAP_TYPE_PNG));
 }
 
-void wxCatapultFrame::UpdateState (wxString statename, wxString state)
+void wxCatapultFrame::UpdateState(wxString statename, wxString state)
 {
-	wxString statustext;
-	if (statename != wxT("paused")){  // just one possible type atm, so ignore all else
+	if (statename != wxT("paused")) {
+		// just one possible type atm, so ignore all else
 		return;
 	}
-	if (state == wxT("true")){
+	wxString statustext;
+	if (state == wxT("true")) {
 		statustext = wxT("Paused");
-	}
-	else{
+	} else {
 		statustext = wxT("Running");
 	}
-	SetStatusText(statustext,0);
+	SetStatusText(statustext, 0);
 }

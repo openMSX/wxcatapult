@@ -244,7 +244,7 @@ DEPEND_FLAGS+=-MP
 # Compiler flags
 # ==============
 
-CXXFLAGS+=-pipe -Wall --no-strict-aliasing
+CXXFLAGS+=-pipe -Wall --no-strict-aliasing 
 CXXFLAGS+=-I$(CONFIG_PATH)
 CXXFLAGS+=$(XRC_CFLAGS) $(XML_CFLAGS)
 LINK_FLAGS+=$(XRC_LDFLAGS) $(XML_LDFLAGS)
@@ -313,8 +313,9 @@ $(OBJECTS_FULL): $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.cpp $(DEPEND_PATH)/%.d
 	@touch $@ # Force .o file to be newer than .d file.
 
 ifeq ($(CATAPULT_TARGET_OS),mingw32)
-CHANGELOG_REVISION:=\
-	$(shell sed -ne "s/\$$Id: ChangeLog \([^ ]*\).*/\1/p" ChangeLog)
+#CHANGELOG_REVISION:=\
+#	$(shell sed -ne "s/\$$Id: ChangeLog \([^ ]*\).*/\1/p" ChangeLog)
+CHANGELOG_REVISION:=0
 WIN32_FILEVERSION:=$(shell echo $(PACKAGE_VERSION) $(CHANGELOG_REVISION) | sed -ne 's/\([0-9]\)*\.\([0-9]\)*\.\([0-9]\)*[^ ]* \([0-9]*\)/\1, \2, \3, \4/p' -)
 $(RESOURCE_HEADER): $(VERSION_MAKE) ChangeLog
 	@echo "#define CATAPULT_VERSION_INT $(WIN32_FILEVERSION)" > $@
