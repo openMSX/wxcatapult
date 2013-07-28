@@ -423,12 +423,15 @@ wxWidgets Home</a> and the libxml2 sources are available at
 <h4>gcc</h4>
 <p>Compilation of wxWidgets couldn't be more straightforward. The docs provided
 are easy to follow and it takes only a few steps. There is no need to give
-any pointers here about this library as its documentation says exaclty how to compile it. We do give the proper <code>configure</code> command line here (although some options might be already default):
+any pointers here about this library as its documentation says exaclty how to compile it. 
+We do give the proper <code>configure</code> command line here (although some options might be already default):
 </p>
 
-<div class="commandline">
-./configure  --disable-shared --disable-unicode --enable-xrc --enable-controls --with-msw
-</div>
+<div class="commandline">mkdir build-openmsx-catapult<br/>
+cd build-openmsx-catapult<br/>
+../configure --disable-shared --disable-unicode --enable-xrc --enable-controls --with-msw<br/>
+make<br/>
+make install</div>
 
 <h4>Visual C++</h4>
 <p>The following steps build third-party libraries with Visual C++:</p>
@@ -439,7 +442,7 @@ any pointers here about this library as its documentation says exaclty how to co
 </ul>
 <p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options, which are explained above.</p>
 <p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual C++ and compiling the projects inside them using the IDE.</p>
-<h3><a id="compilenow">3.4. Compilation Itself</a></h3>
+<h3><a id="compilenow">3.4. Compilation of the wxcatapult Itself</a></h3>
 
 <h4>gcc</h4>
 
@@ -449,9 +452,8 @@ Linux or msys users only have to open a shell, go to the top of the source tree 
 type:
 </p>
 
-<div class="commandline">
-make
-</div>
+<div class="commandline">cd src<br/>
+make</div>
 <p>
 You can build different flavours by setting the <code>CATAPULT_FLAVOUR</code> environment variable.
 The following values are supported:
