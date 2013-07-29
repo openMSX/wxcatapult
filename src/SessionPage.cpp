@@ -184,31 +184,30 @@ void SessionPage::FixLayout()
 {
 	// Needs to be called AFTER setuphardware!
 	// Adjust the minimum size of the extension and listbox
-	wxFont myFont = m_machineList->GetFont();
-	auto* tempDC = new wxMemoryDC();
-	tempDC->SetFont(myFont);
+	wxMemoryDC tempDC;
+	tempDC.SetFont(m_machineList->GetFont());
 	int dx, dy;
 	m_machineList->GetSize(&dx, &dy); //default size
-	int w,h,wMax=dx;
+	int wMax = dx;
 	int items = m_machineList->GetCount();
-		for (int i = 0; i < items; ++i) {
-			tempDC->GetTextExtent(m_machineList->GetString(i), &w, &h);
-			wMax = std::max(wMax, w);
-		}
+	for (int i = 0; i < items; ++i) {
+		int w, h;
+		tempDC.GetTextExtent(m_machineList->GetString(i), &w, &h);
+		wMax = std::max(wMax, w);
+	}
 	m_machineList->SetSizeHints(wMax, -1);
 
-	myFont = m_extensionList->GetFont();
-	tempDC->SetFont(myFont);
+	tempDC.SetFont(m_extensionList->GetFont());
 	m_extensionList->GetSize(&dx, &dy); //default size
 	wMax = dx;
 	items = m_extensionList->GetCount();
-	for (int i = 0; i < items; ++i){
-		tempDC->GetTextExtent(wxString(m_extensionList->GetString(i) + wxT("W")), &w, &h); // no idea why we need the extra W...
+	for (int i = 0; i < items; ++i) {
+		int w, h;
+		tempDC.GetTextExtent(wxString(m_extensionList->GetString(i) + wxT("W")), &w, &h); // no idea why we need the extra W...
 		wMax = std::max(wMax, w);
 	}
 	wMax = std::min(wMax, 300); // just to have some limit
 	m_extensionList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X), -1);
-	delete tempDC;
 }
 
 SessionPage::~SessionPage()

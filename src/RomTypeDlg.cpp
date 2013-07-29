@@ -22,21 +22,20 @@ RomTypeDlg::RomTypeDlg(wxWindow* parent)
 
 int RomTypeDlg::ShowModal(wxString type)
 {
-	wxFont myFont = m_romTypeList->GetFont();
-	auto* tempDC = new wxMemoryDC();
-	tempDC->SetFont(myFont);
+	wxMemoryDC tempDC;
+	tempDC.SetFont(m_romTypeList->GetFont());
 	int dx, dy;
 	m_romTypeList->GetSize(&dx, &dy); //default size
-	int w, h, wMax = dx;
+	int wMax = dx;
 	int items = m_romTypeList->GetCount();
 	for (int i = 0; i < items; ++i) {
-		tempDC->GetTextExtent(wxString(m_romTypeList->GetString(i) + wxT("W")), &w, &h);
+		int w, h;
+		tempDC.GetTextExtent(wxString(m_romTypeList->GetString(i) + wxT("W")), &w, &h);
 		wMax = std::max(wMax, w);
 	}
 	m_romTypeList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X), 280);
-	wxString fullName;
 	if (!type.IsEmpty()) {
-		fullName = ConvertRomType(type, false);
+		wxString fullName = ConvertRomType(type, false);
 		int pos = m_romTypeList->FindString(fullName);
 		if (pos != -1) {
 			m_romTypeList->SetSelection(pos, true);
@@ -44,7 +43,7 @@ int RomTypeDlg::ShowModal(wxString type)
 	} else {
 		m_romTypeList->SetSelection(0, true);
 	}
-	this->Fit();
+	Fit();
 	return wxDialog::ShowModal();
 }
 

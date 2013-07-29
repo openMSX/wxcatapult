@@ -41,13 +41,13 @@ int IPSSelectionDlg::ShowModal(wxArrayString& patches, wxString targetDir)
 	for (int i = 0; i < count; ++i) {
 		m_ipsDisplay->Append(patches[i]);
 	}
-	wxFont myFont = m_ipsDisplay->GetFont();
-	auto* tempDC = new wxMemoryDC();
-	tempDC->SetFont(myFont);
-	int w, h, wMax = 392;
+	wxMemoryDC tempDC;
+	tempDC.SetFont(m_ipsDisplay->GetFont());
+	int wMax = 392;
 	int items = m_ipsDisplay->GetCount();
 	for (int index = 0; index < items; ++index) {
-		tempDC->GetTextExtent(wxString(m_ipsDisplay->GetString(index) + wxT("W")), &w, &h);
+		int w, h;
+		tempDC.GetTextExtent(wxString(m_ipsDisplay->GetString(index) + wxT("W")), &w, &h);
 		wMax = std::max(wMax, w);
 	}
 	m_ipsDisplay->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X), 118);
