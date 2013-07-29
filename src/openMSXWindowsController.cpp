@@ -1,4 +1,4 @@
-#include "wx/wxprec.h"
+#include <wx/wxprec.h>
 #include <wx/config.h>
 #include "PipeReadThread.h"
 #include "PipeConnectThread.h"

@@ -1,6 +1,6 @@
 #include "PipeReadThread.h"
 #include "wxCatapultApp.h"
-#include "wx/wxprec.h"
+#include <wx/wxprec.h>
 #ifdef __UNIX__
 #include <unistd.h>
 #endif

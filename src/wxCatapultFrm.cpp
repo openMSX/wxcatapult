@@ -19,13 +19,18 @@
 #include "openMSXLinuxController.h"
 #endif
 #include "openMSXController.h"
+#include <wx/button.h>
+#include <wx/image.h>
+#include <wx/filedlg.h>
+#include <wx/menu.h>
+#include <wx/msgdlg.h>
 #include <wx/notebook.h>
+#include <wx/sizer.h>
+#include <wx/statbmp.h>
+#include <wx/stattext.h>
+#include <wx/statusbr.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
-#include <wx/image.h>
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
 
 #define unisprintf sprintf
 

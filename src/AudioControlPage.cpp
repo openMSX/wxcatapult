@@ -2,9 +2,17 @@
 #include "openMSXController.h"
 #include "StatusPage.h"
 #include "wxCatapultFrm.h"
+#include <wx/combobox.h>
+#include <wx/button.h>
+#include <wx/filedlg.h>
+#include <wx/msgdlg.h>
+#include <wx/sizer.h>
+#include <wx/slider.h>
+#include <wx/statbox.h>
+#include <wx/stattext.h>
+#include <wx/textctrl.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
-#include <wx/wx.h>
 
 IMPLEMENT_CLASS(AudioControlPage, wxPanel)
 BEGIN_EVENT_TABLE(AudioControlPage, wxPanel)

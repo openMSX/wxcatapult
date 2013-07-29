@@ -2,7 +2,7 @@
 #define CONFIGURATIONDATA_H
 
 #include "wxCatapultApp.h"
-#include "wx/variant.h"
+#include <wx/variant.h>
 
 class wxConfigBase;
 

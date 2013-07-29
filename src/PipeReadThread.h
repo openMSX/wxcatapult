@@ -1,10 +1,10 @@
 #ifndef PIPEREADTHREAD_H
 #define PIPEREADTHREAD_H
 
-#include "wx/thread.h"
-#include "wx/process.h"
-#include "wx/window.h"
-#include "wx/txtstrm.h"
+#include <wx/thread.h>
+#include <wx/process.h>
+#include <wx/window.h>
+#include <wx/txtstrm.h>
 #ifdef __WXMSW__
 #include <windows.h>
 #undef Yield

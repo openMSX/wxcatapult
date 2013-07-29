@@ -2,7 +2,7 @@
 #define SESSIONPAGE_H
 
 #include "CatapultPage.h"
-#include "wx/dnd.h"
+#include <wx/dnd.h>
 
 class RomTypeDlg;
 class IPSSelectionDlg;

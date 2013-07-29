@@ -1,11 +1,11 @@
-#include "wx/gauge.h"
 #include "CheckConfigsDlg.h"
 #include "wxCatapultApp.h"
-#include "wx/button.h"
-#include "wx/stattext.h"
-#include "wx/textctrl.h"
-#include "wx/wxprec.h"
-#include "wx/xrc/xmlres.h"
+#include <wx/button.h>
+#include <wx/gauge.h>
+#include <wx/stattext.h>
+#include <wx/textctrl.h>
+#include <wx/wxprec.h>
+#include <wx/xrc/xmlres.h>
 
 #define MSGID_SETCURRENTOBJECT 0
 #define MSGID_UPDATESTATS 1

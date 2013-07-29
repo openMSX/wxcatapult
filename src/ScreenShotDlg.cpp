@@ -1,16 +1,13 @@
 #include "ScreenShotDlg.h"
 #include "ConfigurationData.h"
-#include "wx/wxprec.h"
-#include "wx/xrc/xmlres.h"
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
+#include <wx/checkbox.h>
+#include <wx/wxprec.h>
+#include <wx/xrc/xmlres.h>
 
 IMPLEMENT_CLASS(ScreenshotDlg, wxDialog)
 BEGIN_EVENT_TABLE(ScreenshotDlg, wxDialog)
 	EVT_BUTTON(XRCID("OkButton"), ScreenshotDlg::OnOk)
 END_EVENT_TABLE()
-
 
 ScreenshotDlg::ScreenshotDlg(wxWindow* parent)
 {

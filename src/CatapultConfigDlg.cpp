@@ -3,9 +3,13 @@
 #include "wxCatapultFrm.h"
 #include "openMSXController.h"
 #include "config.h"
+#include <wx/checkbox.h>
+#include <wx/filedlg.h>
+#include <wx/dirdlg.h>
+#include <wx/msgdlg.h>
+#include <wx/textctrl.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
-#include <wx/textctrl.h>
 
 IMPLEMENT_CLASS(CatapultConfigDlg, wxDialog)
 BEGIN_EVENT_TABLE(CatapultConfigDlg, wxDialog)
@@ -15,7 +19,7 @@ BEGIN_EVENT_TABLE(CatapultConfigDlg, wxDialog)
 	EVT_BUTTON(XRCID("ConfigBrowseShare"), CatapultConfigDlg::OnBrowseShare)
 END_EVENT_TABLE()
 
-CatapultConfigDlg::CatapultConfigDlg(wxWindow * parent, openMSXController* controller)
+CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* controller)
 	: m_parent(parent), m_controller(controller)
 {
 	wxString guess = wxT("");

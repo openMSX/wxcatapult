@@ -3,12 +3,10 @@
 #include "wxCatapultFrm.h"
 #include "wxCatapultApp.h"
 #include <unistd.h>
+#include <wx/button.h>
 #include <wx/process.h>
 #include <wx/textfile.h>
-#include "wx/wxprec.h"
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
+#include <wx/wxprec.h>
 
 openMSXLinuxController::openMSXLinuxController(wxWindow* target)
 	:openMSXController(target)

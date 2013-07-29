@@ -1,10 +1,12 @@
 #include "IPSSelectionDlg.h"
 #include <algorithm>
+#include <wx/button.h>
+#include <wx/dcmemory.h>
+#include <wx/listbox.h>
+#include <wx/filedlg.h>
+#include <wx/settings.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
 
 IMPLEMENT_CLASS(IPSSelectionDlg, wxDialog)
 BEGIN_EVENT_TABLE(IPSSelectionDlg, wxDialog)
