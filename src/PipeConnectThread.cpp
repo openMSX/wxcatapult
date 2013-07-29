@@ -1,7 +1,7 @@
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
-#include <wxCatapultApp.h>
 #include <wx/wx.h>
+#include "wxCatapultApp.h"
 #include "PipeConnectThread.h"
 
 PipeConnectThread::PipeConnectThread(wxWindow* target)

@@ -2,9 +2,9 @@
 #define CHECKCONFIGSDLG_H
 
 #include <wx/dialog.h>
+#include <wx/gauge.h> // required here for windows
 
 class wxStaticText;
-class wxGauge;
 class wxButton;
 class wxTextCtrl;
 
