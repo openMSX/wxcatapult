@@ -2,7 +2,7 @@
 #include "AudioControlPage.h"
 #include "VideoControlPage.h"
 #include "ConfigurationData.h"
-#include "Version.h"
+//#include "wx/version.h"
 #include <wx/msgdlg.h>
 #include <wx/combobox.h>
 #include <wx/frame.h>

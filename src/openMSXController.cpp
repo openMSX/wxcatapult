@@ -14,7 +14,7 @@
 #include <wx/notebook.h>
 #include <wx/textctrl.h>
 #include <wx/wxprec.h>
-#include <wx/version.h>
+//#include <wx/version.h>
 
 #define LAUNCHSCRIPT_MAXSIZE 100
 

@@ -1,5 +1,5 @@
 #include <wx/wxprec.h>
-#include <wx/config.h>
+#include <config.h>
 #include "PipeReadThread.h"
 #include "PipeConnectThread.h"
 #include "openMSXWindowsController.h"
