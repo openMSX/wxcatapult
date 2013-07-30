@@ -7,12 +7,12 @@
 <link title="Purple" rel="stylesheet" href="manual-purple.css" type="text/css" />
 <link title="Minty" rel="alternate stylesheet" href="manual-minty.css" type="text/css" />
 <link title="Plain" rel="alternate stylesheet" href="manual.css" type="text/css" />
-<title>openMSX Catapult Compilation Guide</title>
+<title>openMSX wxCatapult Compilation Guide</title>
 </head>
 
 <body>
 
-<h1>Catapult Compilation Guide</h1>
+<h1>wxCatapult Compilation Guide</h1>
 
 <h2>Contents</h2>
 <ol class="toc">
@@ -37,7 +37,7 @@
 			<li><a class="internal" href="#libs">3.2. Libraries</a></li>
 			<li><a class="internal" href="#complibs">3.3. Compilation of the 
             Libraries</a></li>
-			<li><a class="internal" href="#compilenow">3.4. Compilation of the wxcatapult Itself</a></li>
+			<li><a class="internal" href="#compilenow">3.4. Compilation of the wxCatapult Itself</a></li>
 		</ol>
 	</li>
 	<li><a class="internal" href="#install">4. Installation</a></li>
@@ -49,7 +49,7 @@
 
 <h3><a id="newver">1.1. New Versions of this Document</a></h3>
 <p>
-The latest version of the openMSX Catapult manual can be found on the openMSX home page:
+The latest version of the openMSX wxCatapult manual can be found on the openMSX home page:
 </p>
 <p>
 <a class="external" href="http://openmsx.sourceforge.net/catapult-manual/">http://openmsx.sourceforge.net/catapult-manual/</a>
@@ -67,7 +67,7 @@ printed out this manual.
 
 <h3><a id="purpose">1.2. Purpose</a></h3>
 <p>
-This guide is about Catapult, the (optional) GUI for openMSX. You can find more
+This guide is about wxCatapult, the (optional) GUI for openMSX. You can find more
 information about openMSX on the <a class="external"
 href="http://openmsx.sourceforge.net/">openMSX home page</a>.
 You can also download the emulator itself from there.
@@ -80,11 +80,11 @@ Many emulation features are implemented, but in terms of user interface it is
 rather bare bones.
 That's why we decided to create a GUI for it, so most users can use it a little
 bit more comfortably.
-For people who want to (or have to) compile Catapult themselves, we have written
+For people who want to (or have to) compile wxCatapult themselves, we have written
 this guide.
 It explains how you can get it running on your system, i.e. how to get the
 sources and compile them.
-Note that some software distributions may have packaged openMSX Catapult and will enable you to install it directly using package management tools. We refer to the documentation of the tools of the distribution you are using to install openMSX Catapult. If you use such a package, you can skip the largest part of this manual and start reading at chapter <a class="internal" href="#next">5. Next Steps</a>.
+Note that some software distributions may have packaged openMSX wxCatapult and will enable you to install it directly using package management tools. We refer to the documentation of the tools of the distribution you are using to install openMSX wxCatapult. If you use such a package, you can skip the largest part of this manual and start reading at chapter <a class="internal" href="#next">5. Next Steps</a>.
 </p>
 
 <p>
@@ -98,34 +98,34 @@ Most openMSX developers run some form of Linux, so this is the platform on which
 </dd>
 <dt>Windows</dt>
 <dd>
-Most Windows users will just download the binary release. But if you want to follow the latest developments or like to play with the code a bit, it is possible to compile Catapult on Windows yourself. The former main Catapult developer used mainly Windows, so compilation is very well supported on this platform as well. This manual gives a few pointers in the right direction for that.
+Most Windows users will just download the binary release. But if you want to follow the latest developments or like to play with the code a bit, it is possible to compile wxCatapult on Windows yourself. The former main wxCatapult developer used mainly Windows, so compilation is very well supported on this platform as well. This manual gives a few pointers in the right direction for that.
 </dd>
 <dt>FreeBSD</dt>
 <dd>
-Catapult was compiled successfully on FreeBSD 4 and 5. FreeBSD is not a platform we support officially, but whenever a user finds compilation problems on FreeBSD, we fix them, so usually FreeBSD compilation should work.
+wxCatapult was compiled successfully on FreeBSD 4 and 5. FreeBSD is not a platform we support officially, but whenever a user finds compilation problems on FreeBSD, we fix them, so usually FreeBSD compilation should work.
 </dd>
 <dt>Mac OS X</dt>
 <dd>
-Unfortunately, we have not been able to get Catapult working on Mac OS X. There is a port of wxWidgets (the base of Catapult), but version 2.4 doesn't support toggle buttons yet and we did not get the menu working (amongst other things) with version 2.6.
+Unfortunately, we have not been able to get wxCatapult working on Mac OS X. There is a port of wxWidgets (the base of wxCatapult), but version 2.4 doesn't support toggle buttons yet and we did not get the menu working (amongst other things) with version 2.6.
 </dd>
-<dt>other operating systems</dt>
+<dt>Other operating systems</dt>
 <dd>
-Catapult theoretically can compile on every system where you have g++ (the C++ compiler of GCC) and the required libraries are available. However, in practice every system is slightly different and a new operation system will not work out-of-the-box. Still, it shouldn't take much effort to make Catapult build on a new OS.
+wxCatapult theoretically can compile on every system where you have g++ (the C++ compiler of GCC) and the required libraries are available. However, in practice every system is slightly different and a new operation system will not work out-of-the-box. Still, it shouldn't take much effort to make wxCatapult build on a new OS.
 </dd>
 </dl>
 <p>
-If you need help compiling Catapult, please
+If you need help compiling wxCatapult, please
 <a class="internal" href="#contact">contact us</a>.
-If you needed any modifications to make Catapult compile,
+If you needed any modifications to make wxCatapult compile,
 please send those modifications to us,
-so we can make Catapult ever more portable.
+so we can make Catapult more portable.
 </p>
 
 <p>
 <em>Disclaimer:</em>
 We do not claim this guide is complete or even correct.
 What you do with the information in it is entirely at your own risk.
-We just hope it helps you enjoy Catapult (and with that openMSX) more.
+We just hope it helps you enjoy wxCatapult (and with that openMSX) more.
 </p>
 
 <h3><a id="contrib">1.3. Contributors</a></h3>
@@ -171,11 +171,11 @@ only the big picture.
 <h2><a id="getsource">2. Getting the Source Code</a></h2>
 
 <p>
-Catapult is a sub-project of openMSX, developed using the tools <a
+wxCatapult is a sub-project of openMSX, developed using the tools <a
 class="external" href="http://www.sourceforge.net/">SourceForge.net</a> freely
 offers to open source projects. The code is stored in Subversion, an open source
 version management system.
-Catapult is released at every openMSX release.
+wxCatapult is released at every openMSX release.
 It can be released in between openMSX releases as well, if there is a lot
 of development that we want to share with the users without waiting for the
 next openMSX release.
@@ -189,10 +189,10 @@ There are several options for getting the source code:
 
 <dt><a class="internal" href="#getrelease">Released Version</a></dt>
 <dd>
-These are tested versions, which should give you little problem compiling and running. However, as Catapult development is often quite fast, they may not have all the latest features. Also there could be bugs that have been fixed since the last release. </dd>
+These are tested versions, which should give you little problem compiling and running. However, as wxCatapult development is often quite fast, they may not have all the latest features. Also there could be bugs that have been fixed since the last release. </dd>
 <dt><a class="internal" href="#getsvn">SVN Checkout</a></dt>
 <dd>
-Through SVN you can get the same development version the Catapult developers are using. This is the bleeding edge: the latest stuff, which may be great or may be horribly broken. Usually Catapult SVN compiles and runs fine, but we're only human, so once in a while it breaks. Also there may be changes that are not documented yet. </dd>
+Through SVN you can get the same development version the wxCatapult developers are using. This is the bleeding edge: the latest stuff, which may be great or may be horribly broken. Usually wxCatapult SVN compiles and runs fine, but we're only human, so once in a while it breaks. Also there may be changes that are not documented yet. </dd>
 <dt><a class="internal" href="#getsnapshot">SVN Snapshot</a></dt>
 <dd>
 A snapshot is created from a recent SVN checkout, in a <code>tar.gz</code> archive. A snapshot is therefore quite similar to a SVN checkout, but it doesn't require you to install and use SVN. It may lag a couple of days from the latest SVN sources. Moreover, SF.net turned off cron jobs, which means the snapshots may be updated on a very irregular basis. </dd>
@@ -205,7 +205,7 @@ A snapshot is created from a recent SVN checkout, in a <code>tar.gz</code> archi
 <h3><a id="getrelease">2.1. Released Version</a></h3>
 
 <p>
-You can download a released version of Catapult from <a class="external"
+You can download a released version of wxCatapult from <a class="external"
 href="http://sourceforge.net/project/showfiles.php?group_id=38274"
 >the openMSX download page at SourceForge</a>. The latest version is probably the best one. At least try to get one matching the version of openMSX you are using.
 </p>
@@ -215,7 +215,7 @@ After downloading, type:
 </p>
 <div class="commandline">tar xzvf Catapult-VERSION.tar.gz</div>
 <p>
-in which <code>VERSION</code> is the Catapult version you downloaded, or use the
+in which <code>VERSION</code> is the wxCatapult version you downloaded, or use the
 file name you saved the tar.gz file with.
 The directory that is created by uncompressing the <code>tar.gz</code> file is
 called the <em>top of the source tree</em>.
@@ -230,20 +230,20 @@ utilities are PowerArchiver 6.1 (free), Wiz (free), 7-Zip (free) or WinZip
 
 <h3><a id="getsvn">2.2. SVN Checkout</a></h3>
 
-<p>Getting a SVN checkout means you use SVN to retrieve the latest version of the source code of Catapult. This means you will need to install an SVN client. This package is usually named <code>subversion</code>. There are graphical front-ends for SVN, but this guide will tell you how to use SVN from the command line. More information about SVN can be found on the
+<p>Getting a SVN checkout means you use SVN to retrieve the latest version of the source code of wxCatapult. This means you will need to install an SVN client. This package is usually named <code>subversion</code>. There are graphical front-ends for SVN, but this guide will tell you how to use SVN from the command line. More information about SVN can be found on the
 <a class="external" href="http://svnbook.red-bean.com/en/1.1/">Subversion book</a> site.</p>
 <p>Windows users might want to look at
 <a href="http://www.sliksvn.com/en/download">SlikSVN</a> for a command line tool, <a class="external" href="http://tortoisesvn.tigris.org/">TortoiseSVN</a> for Windows Explorer integration, or <a href="http://ankhsvn.open.collab.net/"> ankhSVN</a> for Visual Studio integration. </p>
 <p>With the following line you can retrieve the latest sources: </p>
 <div class="commandline">
 	svn co svn://svn.code.sf.net/p/openmsx/code/wxcatapult/trunk wxcatapult </div>
-<p>In this line you specified where you want to retrieve the files from (host name of the SVN server), what project you want to retrieve (<em>openmsx</em> in this case), what module you want to get (<em>wxcatapult </em>in this case, which is the module that contains the sources of the main Catapult program), which branch you want to retrieve (<em>trunk</em> in this case, which is the main development branch) and what directory it should be checked out to (we chose <em>wxcatapult </em>in this example). </p>
+<p>In this line you specified where you want to retrieve the files from (host name of the SVN server), what project you want to retrieve (<em>openmsx</em> in this case), what module you want to get (<em>wxcatapult </em>in this case, which is the module that contains the sources of the main wxCatapult program), which branch you want to retrieve (<em>trunk</em> in this case, which is the main development branch) and what directory it should be checked out to (we chose <em>wxcatapult </em>in this example). </p>
 
-<p>In TortoiseSVN, use <code>svn://svn.code.sf.net/p/openmsx/code/wxcatapult/trunk</code> as the &quot;URL of repository&quot; and the directory of your choice as the &quot;Checkout directory&quot;. Use the <code>HEAD</code> revision and click OK. When compiling Catapult on Windows with gcc, it's often convenient to use <code> C:\msys\1.0\home\&lt;username&gt;\wxcatapult</code> as the checkout directory, as this is easy to reach from an MSYS shell - it's your MSYS home directory. </p>
+<p>In TortoiseSVN, use <code>svn://svn.code.sf.net/p/openmsx/code/wxcatapult/trunk</code> as the &quot;URL of repository&quot; and the directory of your choice as the &quot;Checkout directory&quot;. Use the <code>HEAD</code> revision and click OK. When compiling wxCatapult on Windows with gcc, it's often convenient to use <code> C:\msys\1.0\home\&lt;username&gt;\wxcatapult</code> as the checkout directory, as this is easy to reach from an MSYS shell - it's your MSYS home directory. </p>
 <p>If you're a developer, it makes sense to add the following option to the svn commandline as well: </p>
 <div class="commandline">
 	--username &lt;name-of-your-sourceforge-account&gt; </div>
-<p>The SVN command created a directory called <code>wxcatapult </code>for you in the current directory (or in the &quot;Checkout directory&quot; you specified in TortoiseSVN). In addition to the Catapult code, you will see hidden SVN administration directories which are all called <code>svn</code> or <code>.svn</code>. Do not mess with these (nor move contents of this checkout directory around), otherwise SVN will get confused. This directory created by SVN is what we will call in this manual <em>the top of the source tree</em>. </p>
+<p>The SVN command created a directory called <code>wxcatapult </code>for you in the current directory (or in the &quot;Checkout directory&quot; you specified in TortoiseSVN). In addition to the wxCatapult code, you will see hidden SVN administration directories which are all called <code>svn</code> or <code>.svn</code>. Do not mess with these (nor move contents of this checkout directory around), otherwise SVN will get confused. This directory created by SVN is what we will call in this manual <em>the top of the source tree</em>. </p>
 <p>If you want to update your source tree later, go to the top of the source tree and type: </p>
 <div class="commandline">
 	svn up </div>
@@ -252,7 +252,7 @@ utilities are PowerArchiver 6.1 (free), Wiz (free), 7-Zip (free) or WinZip
 <h3><a id="getsnapshot">2.3. SVN Snapshot</a></h3>
 
 <p>
-Snapshots for this version of Catapult are not available anymore, because we are working on a total rewrite of Catapult. It doesn't seem useful to provide snapshots for sources that do not change anymore. You can download an SVN snapshot of the Catapult rewrite from <a class="external" href="http://openmsx.sf.net/">the openMSX web site</a>.
+Snapshots for this version of wxCatapult are not available anymore. 
 </p>
 <!--
 <p>
@@ -267,10 +267,10 @@ is called the <em>top of the source tree</em>.
 <h2><a id="compile">3. Compilation</a></h2>
 
 <p>
-Before you can start compiling Catapult, you have to make sure your system has
-all the necessary build tools installed, as well as the libraries Catapult
+Before you can start compiling wxCatapult, you have to make sure your system has
+all the necessary build tools installed, as well as the libraries wxCatapult
 depends upon. The former you have probably already done if you have compiled
-openMSX itself before Catapult.
+openMSX itself before wxCatapult.
 The following sections list the packages you need.
 </p>
 
@@ -280,7 +280,7 @@ The following sections list the packages you need.
 <dl>
 	<dt><a href="http://www.python.org/download/">Python</a></dt>
 	<dd>A compact and dynamic programming language. Version 2.5 or later is required. However, Python 3.0 contains incompatible changes in the language, so make sure you install a version from the 2.x series. Eventually Python will replace Make completely in our build system, but at the moment both are required.</dd>
-	<dt>There are two compilers that are can be used to build Catapult: gcc and Visual C++. The gcc compiler builds Catapult on all supported platforms, while Visual C++ is an alternative option on Windows.</dt>
+	<dt>There are two compilers that are can be used to build wxCatapult: mingw msys's gcc and Visual C++. The gcc compiler builds wxCatapult on all supported platforms, while Visual C++ is an alternative option on Windows.</dt>
 </dl>
 <h4>gcc</h4>
 <p>
@@ -299,7 +299,7 @@ Make interprets rules that define how a project should be built.</dd>
 <dd>The GNU C++ compiler.
 Version 3.2 or later is necessary;
 2.95 is not supported for openMSX, so we also don't support it for
-Catapult. To be on the safe side: we recommend 3.4 or later.</dd>
+wxCatapult. To be on the safe side: we recommend 3.4 or later.</dd>
 
 </dl>
 
@@ -355,16 +355,16 @@ binary released version (which is compiled with Visual C++) and will also need t
 <h3><a id="libs">3.2. Libraries</a></h3>
 
 <p>
-Catapult depends on a few libraries.
+wxCatapult depends on a few libraries.
 Using Linux you must have the runtime packages of these libraries installed to
-be able to run Catapult.
+be able to run wxCatapult.
 The runtime package for the "Foo" library is typically called
 <code>libfoo</code>.
-Also, for compiling Catapult you need the development packages of these
+Also, for compiling wxCatapult you need the development packages of these
 libraries installed as well.
 Development packages are typically named <code>libfoo-dev</code> or
 <code>libfoo-devel</code>. Windows users need to have the proper DLL's installed
-(<code>foo.dll</code>) to be able to run Catapult.
+(<code>foo.dll</code>) to be able to run wxCatapult.
 Compiling in Windows means that you also need the lib-files
 (<code>foo.lib</code>).
 </p>
@@ -374,7 +374,7 @@ If there are no binary versions of the required libraries available for
 your system or you rather compile them yourself, please see the next section
 for a few hints about compiling them from their sources.
 </p>
-<p>Catapult depends on the following libraries: </p>
+<p>wxCatapult depends on the following libraries: </p>
 <dl>
 	<dt><a class="external" href="http://www.wxwidgets.org/">wxWidgets</a></dt>
 	<dd>Formerly known as wxWindows, this is a cross-platform C++ GUI toolkit (GTK+ runtime). </dd>
@@ -437,17 +437,17 @@ make install</div>
 <p>The following steps build third-party libraries with Visual C++:</p>
 <ul>
 	<li>Open a Visual Studio command prompt.</li>
-	<li>Go to the <em>top of the Catapult source tree</em></li>
+	<li>Go to the <em>top of the wxCatapult source tree</em></li>
 	<li>Type <code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
 </ul>
 <p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options, which are explained above.</p>
 <p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual C++ and compiling the projects inside them using the IDE.</p>
-<h3><a id="compilenow">3.4. Compilation of the wxcatapult Itself</a></h3>
+<h3><a id="compilenow">3.4. Compilation of the wxCatapult Itself</a></h3>
 
 <h4>gcc</h4>
 
 <p>
-We have made compilation of Catapult itself as easy as possible. In most cases
+We have made compilation of wxCatapult itself as easy as possible. In most cases
 Linux or msys users only have to open a shell, go to the top of the source tree and
 type:
 </p>
@@ -481,16 +481,16 @@ this may take several seconds to several minutes.
 If you get errors during compilation, verify that you installed <a
 class="internal" href="#libs">all required libraries</a>, both the run time and
 development packages.
-If that doesn't help, or we forgot to list a library Catapult depends on, <a
+If that doesn't help, or we forgot to list a library wxCatapult depends on, <a
 class="internal" href="#contact">contact the openMSX developers</a>.
 Make sure you provide us with the error message(s) you got.
 </p>
 
 <h4>Visual C++</h4>
-<p>The following steps build Catapult with Visual C++:</p>
+<p>The following steps build wxCatapult with Visual C++:</p>
 <ul>
 	<li>Open a Visual Studio command prompt.</li>
-	<li>Go to the <em>top of the Catapult source tree</em></li>
+	<li>Go to the <em>top of the wxCatapult source tree</em></li>
 	<li>Type <code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\msvc\wxCatapult.sln</code></li>
 </ul>
 <p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options. Note: the options should be consistent with the ones you provided for the 3rdparty libraries build, see above!</p>
@@ -499,13 +499,13 @@ Make sure you provide us with the error message(s) you got.
 <h2><a id="install">4. Installation</a></h2>
 
 <p>
-To install Catapult in Linux, run the following command:
+To install wxCatapult in Linux, run the following command:
 </p>
 <div class="commandline">
 make install
 </div>
 <p>
-This installs Catapult, by default in <code>/opt/openMSX-Catapult</code>.
+This installs wxCatapult, by default in <code>/opt/openMSX-Catapult</code>.
 You can change this location by modifying the <code>config.mk</code> file.
 Note that only root has rights to write to system-wide directories such as
 <code>/opt</code>, so you may have to do <code>su</code> before <code>make
@@ -513,7 +513,7 @@ install</code>.
 </p>
 
 <p>
-Catapult has no individual installation system on Windows, so it's up to you
+wxCatapult has no individual installation system on Windows, so it's up to you
 to make sure the files are in the right directory. Please follow these pointers
 to make sure it should work:
 </p>
@@ -533,8 +533,8 @@ or <code>libxml2.dll</code> should be somewhere in your path</li>
 	<h2><a id="next">5. Next Steps</a></h2>
 
 <p>
-If all went well, you should have Catapult installed now.
-You can test it by starting Catapult from the command line:
+If all went well, you should have wxCatapult installed now.
+You can test it by starting wxCatapult from the command line:
 </p>
 <div class="commandline">
 catapult
@@ -542,9 +542,9 @@ catapult
 <p>or by double clicking the icon in Windows.</p>
 
 <p>
-Using Catapult should be intuitive, but if it's not, please read the <a
+Using wxCatapult should be intuitive, but if it's not, please read the <a
 class="external" href="user.html">Catapult User's Manual</a>. This should give a
-complete description on how to use Catapult.
+complete description on how to use wxCatapult.
 </p>
 
 <p>
@@ -555,7 +555,7 @@ contact us. The next chapter will tell you how.
 <h2><a id="contact">6. Contact Info</a></h2>
 
 <p>
-Since Catapult is still under heavy development, feedback and bug reports are very
+Since wxCatapult is still under heavy development, feedback and bug reports are very
 welcome!
 </p>
 
