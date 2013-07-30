@@ -155,9 +155,24 @@ OBJECTS_PATH:=$(BUILD_PATH)/obj
 BINARY_PATH:=$(BUILD_PATH)/bin
 BINARY_FILE:=catapult$(EXEEXT)
 BINARY_FULL=$(BINARY_PATH)/$(BINARY_FILE) # allow override
-REVISION:=$(shell PYTHONPATH=build $(PYTHON) -c \
-     "import version; print version.extractRevisionString()" \
-     )
+# A fix for #484:
+#
+# egp_: This REVISION fix is needed since version.extractRevisionString() doesn't do its job correctly for an int-typed variable "REVISION"
+# egp_: We really need version.extractRevisionAsInt() function; not a function returning a String.
+#
+# Normative documentation:
+# This variable REVISION must have a type int for src/catapult.rc where it includes 
+# a derived resource-info.h, to form a valid define "CATAPULT_VERSION_INT" there, 
+# to specify the following for mingw and MSVC:
+#VS_VERSION_INFO VERSIONINFO
+# FILEVERSION CATAPULT_VERSION_INT
+# PRODUCTVERSION CATAPULT_VERSION_INT
+#
+#REVISION:=$(shell PYTHONPATH=build $(PYTHON) -c \
+#     "import version; print version.extractRevisionString()" \
+#     )
+#The following is a temporary fix until the python code above gets repaired:
+REVISION:=0
 
 LOG_PATH:=$(BUILD_PATH)/log
 RESOURCES_PATH:=$(BUILD_PATH)/resources
@@ -319,6 +334,7 @@ $(OBJECTS_FULL): $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.cpp $(DEPEND_PATH)/%.d
 ifeq ($(CATAPULT_TARGET_OS),mingw32)
 WIN32_FILEVERSION:=$(shell echo $(PACKAGE_VERSION) $(REVISION) | sed -ne 's/\([0-9]\)*\.\([0-9]\)*\.\([0-9]\)*[^ ]* \([0-9]*\)/\1, \2, \3, \4/p' -)
 $(RESOURCE_HEADER): $(VERSION_MAKE) forceversionextraction
+#	@echo REVISION: '$(REVISION)'
 	@echo "#define CATAPULT_VERSION_INT $(WIN32_FILEVERSION)" > $@
 	@echo "#define CATAPULT_VERSION_STR \"$(PACKAGE_VERSION)\0\"" >> $@
 $(RESOURCE_OBJ): $(RESOURCE_SRC) $(RESOURCE_HEADER)

@@ -1,13 +1,15 @@
+#include "openMSXWindowsController.h"
 #include <wx/wxprec.h>
 #include <config.h>
 #include "PipeReadThread.h"
 #include "PipeConnectThread.h"
-#include "openMSXWindowsController.h"
 #include "StatusPage.h"
 #include "wxCatapultFrm.h"
 #include "wxCatapultApp.h"
 #include <process.h>
 #include <wx/textfile.h>
+#include <wx/button.h>
+#include <wx/msgdlg.h>
 
 openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 	: openMSXController(target)
