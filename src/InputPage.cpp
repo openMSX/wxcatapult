@@ -38,7 +38,7 @@ void InputPage::OnTypeText(wxCommandEvent& event)
 	test.Replace(wxT("]"),  wxT("\\]"),  true);
 	test.Replace(wxT("}"),  wxT("\\}"),  true);
 	test.Replace(wxT("{"),  wxT("\\{"),  true);
-	m_controller->WriteCommand(wxString(wxT("type \"")) + test + wxT("\""));
+	m_controller->WriteCommand(wxT("type \"") + test + wxT("\""));
 }
 
 void InputPage::OnClearText(wxCommandEvent& event)

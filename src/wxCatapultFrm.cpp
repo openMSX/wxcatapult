@@ -32,6 +32,7 @@
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
 
+// TODO: why is this define needed?
 #define unisprintf sprintf
 
 class NoOpenMSXBinaryException : public std::exception {};
@@ -192,7 +193,7 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 	if (configOK) {
 		wxString cmd;
 		config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-		if (!(m_controller->StartOpenMSX(cmd,true))) {
+		if (!(m_controller->StartOpenMSX(cmd, true))) {
 			configOK = EditConfig(true);
 		}
 		if (configOK) {
@@ -237,15 +238,15 @@ void wxCatapultFrame::CheckConfigs()
 	wxArrayString extensions = m_sessionPage->GetDetectedExtensions();
 	CheckConfigsDlg dlg(this);
 	dlg.CenterOnParent();
-	if (dlg.ShowModal(cmd,machines,extensions) == wxID_OK) {
-		wxString machineString = wxT("");
+	if (dlg.ShowModal(cmd, machines, extensions) == wxID_OK) {
+		wxString machineString;
 		for (unsigned j = 0; j < machines.GetCount(); ++j) {
 			machineString += machines[j];
 			machineString += wxT("::");
 
 		}
 
-		wxString extensionString = wxT("");
+		wxString extensionString;
 		for (unsigned j = 0; j < extensions.GetCount(); ++j) {
 			extensionString += extensions[j];
 			extensionString += wxT("::");
@@ -267,9 +268,7 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 	auto* version     = (wxStaticText*)FindWindowByName(wxT("AboutProductNameLabel"));
 	auto* description = (wxStaticText*)FindWindowByName(wxT("AboutProductDescriptionLabel"));
 	auto* message     = (wxStaticText*)FindWindowByName(wxT("AboutMessageLabel"));
-	wxString msg;
-	msg.Printf(Version::FULL_VERSION);
-	version->SetLabel(msg);
+	version->SetLabel(Version::FULL_VERSION);
 	description->SetLabel(wxT("The official GUI for openMSX"));
 	message->SetLabel(wxT("\251 2003-2013 The openMSX Team\n<openmsx-devel@lists.sourceforge.net>\n"));
 #ifdef __WXMSW__
@@ -304,7 +303,6 @@ bool wxCatapultFrame::EditConfig(bool fatalIfFails)
 
 void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent& event)
 {
-	wxString settingsfile;
 	wxString path;
 #ifndef __MOTIF__
 	path = wxT("Configuration Files(*.xml)|*.xml;*.XML|All files|*.*||");
@@ -312,11 +310,11 @@ void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent& event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,wxT("Select configuration file"),wxT(""), wxT(""), path ,wxOPEN);
+	wxFileDialog filedlg(this, wxT("Select configuration file"), wxT(""), wxT(""), path, wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
-		settingsfile = filedlg.GetPath();
+		wxString settingsfile = filedlg.GetPath();
 		if (m_controller->IsOpenMSXRunning()){
-			m_controller->WriteCommand(wxString(wxT("load_settings ")) + m_sessionPage->ConvertPath(settingsfile,true));
+			m_controller->WriteCommand(wxT("load_settings ") + m_sessionPage->ConvertPath(settingsfile, true));
 		} else {
 			m_settingsfile = settingsfile;
 		}
@@ -330,7 +328,6 @@ void wxCatapultFrame::OnMenuSaveSettings(wxCommandEvent& event)
 
 void wxCatapultFrame::OnMenuSaveSettingsAs(wxCommandEvent& event)
 {
-	wxString settingsfile;
 	wxString path;
 #ifndef __MOTIF__
 	path = wxT("Configuration Files(*.xml)|*.xml;*.XML|All files|*.*||");
@@ -338,10 +335,10 @@ void wxCatapultFrame::OnMenuSaveSettingsAs(wxCommandEvent& event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this,wxT("Select file to save to"),wxT(""), wxT(""), path ,wxSAVE | wxOVERWRITE_PROMPT);
+	wxFileDialog filedlg(this, wxT("Select file to save to"), wxT(""), wxT(""), path, wxSAVE | wxOVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK) {
-		settingsfile = filedlg.GetPath();
-		m_controller->WriteCommand(wxString(wxT("save_settings ")) + m_sessionPage->ConvertPath(settingsfile,true));
+		wxString settingsfile = filedlg.GetPath();
+		m_controller->WriteCommand(wxT("save_settings ") + m_sessionPage->ConvertPath(settingsfile, true));
 	}
 }
 
@@ -421,8 +418,8 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 
 	wxString cmd;
 	config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-	if (m_settingsfile != wxT("")) {
-		cmd += wxT(" -setting ") + m_sessionPage->ConvertPath(m_settingsfile,true);
+	if (!m_settingsfile.IsEmpty()) {
+		cmd += wxT(" -setting ") + m_sessionPage->ConvertPath(m_settingsfile, true);
 	}
 	if (hardware[0] != wxT(" <default> ")) { // Ooooww.... we're using representation here as useful data! :(
 		cmd += wxT(" -machine ") + hardware[0];
@@ -431,7 +428,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	// EXTENSIONS start from index 1 in hardware!
 
 	// Here's a hack to make sure that slotexpander is always mentioned first. Note that this will break terribly if someone renames the slotexpander extension. Hence the 'hack' remark.
-	unsigned int i = hardware.Index(wxT("slotexpander"), false);
+	unsigned i = hardware.Index(wxT("slotexpander"), false);
 
 	if ((int)i != wxNOT_FOUND) {
 		// put it at item 1
@@ -440,20 +437,23 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	}
 
 	if (hardware.GetCount() > 1) {
-		for (i=1;i<hardware.GetCount();i++) {
+		for (i = 1; i < hardware.GetCount(); ++i) {
 			cmd += wxT(" -ext ") + hardware[i];
 		}
 	}
-	wxString parmname [5]={wxT("diska"),wxT("diskb"),wxT("cart"),wxT("cart"),wxT("cassetteplayer")};
-	FOREACH(i,parmname) {
+	wxString parmname [5] = {
+		wxT("diska"), wxT("diskb"), wxT("cart"), wxT("cart"),
+		wxT("cassetteplayer")
+	};
+	FOREACH(i, parmname) {
 		if (!media[i].IsEmpty()) {
-			cmd += wxT(" -") + parmname[i] +wxT(" \"") + media[i] + wxT("\"");
+			cmd += wxT(" -") + parmname[i] + wxT(" \"") + media[i] + wxT("\"");
 			if (!types[i].IsEmpty()){
 				cmd += wxT(" -romtype ") + types[i];
 			}
 			size_t count = patches[i].GetCount();
-			if (count != 0){
-				for (size_t j=0;j<count;j++){
+			if (count != 0) {
+				for (size_t j = 0; j < count; ++j) {
 					cmd += wxT(" -ips \"") + patches[i].Item(j) + wxT("\"");
 				}
 			}
@@ -506,14 +506,15 @@ void wxCatapultFrame::StopTimers()
 {
 	m_fpsTimer.Stop();
 	m_focusTimer.Stop();
-	SetStatusText(wxT(""),1);
+	SetStatusText(wxT(""), 1);
 }
 
 void wxCatapultFrame::SetFPSdisplay(wxString val)
 {
-	double valfl = strtod((const char*) (wxConvUTF8.cWX2MB(val)),nullptr);
-	val.sprintf(wxT("%2.1f"),valfl);
-	SetStatusText(val +wxT(" fps"),1);
+	double valfl;
+	if (val.ToDouble(&valfl)) {
+		SetStatusText(wxString::Format(wxT("%2.1f fps"), valfl), 1);
+	}
 }
 
 void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
@@ -536,10 +537,10 @@ void wxCatapultFrame::OnCheckFocus(wxTimerEvent& event)
 {
 	int selectedPage = m_tabControl->GetSelection();
 	if (selectedPage != -1) {
-		CatapultPage * page = (CatapultPage *)m_tabControl->GetPage(selectedPage);
-		wxWindow * newfocus = page->FindFocus();
+		auto* page = (CatapultPage*)m_tabControl->GetPage(selectedPage);
+		wxWindow* newfocus = page->FindFocus();
 		if (m_currentFocus != newfocus) {
-			page->HandleFocusChange(m_currentFocus,newfocus);
+			page->HandleFocusChange(m_currentFocus, newfocus);
 			m_currentFocus = newfocus;
 		}
 	}
@@ -592,11 +593,8 @@ void wxCatapultFrame::UpdateState(wxString statename, wxString state)
 		// just one possible type atm, so ignore all else
 		return;
 	}
-	wxString statustext;
-	if (state == wxT("true")) {
-		statustext = wxT("Paused");
-	} else {
-		statustext = wxT("Running");
-	}
+	wxString statustext = (state == wxT("true"))
+	                    ? wxT("Paused")
+	                    : wxT("Running");
 	SetStatusText(statustext, 0);
 }

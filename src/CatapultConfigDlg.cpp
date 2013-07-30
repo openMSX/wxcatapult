@@ -22,7 +22,7 @@ END_EVENT_TABLE()
 CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* controller)
 	: m_parent(parent), m_controller(controller)
 {
-	wxString guess = wxT("");
+	wxString guess;
 	wxXmlResource::Get()->LoadDialog(this, m_parent, wxT("ConfigurationDialog"));
 	m_ExecPath    = (wxTextCtrl*)FindWindowByName(wxT("ConfigExecData"));
 	m_SharePath   = (wxTextCtrl*)FindWindowByName(wxT("ConfigShareData"));
@@ -34,7 +34,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* contro
 	if (config.GetParameter(ConfigurationData::CD_EXECPATH, temp)) {
 		m_ExecPath->SetValue(temp);
 	}
-	if (temp == wxT("")) {
+	if (temp.IsEmpty()) {
 #ifdef __WXMSW__
 		guess = ((wxCatapultApp&)wxGetApp()).GetResourceDir();
 		guess.Replace(wxT("/"), wxT("\\"), true);
@@ -57,7 +57,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* contro
 	}
 	if (config.GetParameter(ConfigurationData::CD_SHAREPATH, temp))
 		m_SharePath->SetValue(temp);
-	if (temp == wxT("") && (m_ExecPath->GetValue() != wxT(""))) {
+	if (temp.IsEmpty() && !m_ExecPath->GetValue().IsEmpty()) {
 #ifdef __WXMSW__
 		guess = m_ExecPath->GetValue();
 		guess.Replace (wxT("/"), wxT("\\"), true);
@@ -127,7 +127,7 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent& event)
 
 void CatapultConfigDlg::OnBrowseShare(wxCommandEvent& event)
 {
-	wxString defaultpath = wxT("");
+	wxString defaultpath;
 	if (!m_SharePath->GetValue().IsEmpty()) {
 		defaultpath = ::wxPathOnly(wxString(m_SharePath->GetValue()) + wxT("/"));
 	} else if (!m_ExecPath->GetValue().IsEmpty()) {

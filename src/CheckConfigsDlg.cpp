@@ -80,23 +80,22 @@ void CheckConfigsDlg::OnTestConfigEvent(wxCommandEvent& event)
 
 void CheckConfigsDlg::HandleUpdateStats(bool checkmachine, bool succes, int progress)
 {
-	wxString count;
 	if (succes) {
 		if (checkmachine) {
-			count.sprintf(wxT("%d"), ++m_validmachinecount);
-			m_completemachines->SetLabel(count);
+			m_completemachines->SetLabel(wxString::Format(
+				wxT("%d"), ++m_validmachinecount));
 		} else {
-			count.sprintf(wxT("%d"), ++m_validextensioncount);
-			m_workingextensions->SetLabel(count);
+			m_workingextensions->SetLabel(wxString::Format(
+				wxT("%d"), ++m_validextensioncount));
 		}
 	} else {
 		if (checkmachine) {
-			count.sprintf(wxT("%d"), ++m_invalidmachinecount);
-			m_incompletemachines->SetLabel(count);
+			m_incompletemachines->SetLabel(wxString::Format(
+				wxT("%d"), ++m_invalidmachinecount));
 			m_log->AppendText(wxT("machine: "));
 		} else {
-			count.sprintf(wxT("%d"), ++m_invalidextensioncount);
-			m_nonworkingextensions->SetLabel(count);
+			m_nonworkingextensions->SetLabel(wxString::Format(
+				wxT("%d"), ++m_invalidextensioncount));
 			m_log->AppendText(wxT("extension: "));
 		}
 		m_log->AppendText(m_currentObject);
@@ -146,7 +145,7 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		progress = (50 * (config + 1)) / numberOfMachines;
 		bool success = doCheckConfigs(fullCommand);
 		if (success) {
-			if (m_workingmachine == wxT("")) {
+			if (m_workingmachine.IsEmpty()) {
 				m_workingmachine = m_machines->Item(machine);
 
 			}

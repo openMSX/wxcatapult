@@ -13,9 +13,8 @@ PipeConnectThread::PipeConnectThread(wxWindow* target)
 wxThread::ExitCode PipeConnectThread::Entry()
 {
 	if (!ConnectNamedPipe(m_pipeHandle, nullptr)) {
-		wxString text;
-		text.sprintf(wxT("Error connection pipe: %ld"), GetLastError());
-		wxMessageBox(text);
+		wxMessageBox(wxString::Format(
+			wxT("Error connection pipe: %ld"), GetLastError()));
 	}
 	wxCommandEvent endEvent(EVT_CONTROLLER);
 	endEvent.SetId(MSGID_PIPECREATED);

@@ -30,7 +30,7 @@ int RomTypeDlg::ShowModal(wxString type)
 	int items = m_romTypeList->GetCount();
 	for (int i = 0; i < items; ++i) {
 		int w, h;
-		tempDC.GetTextExtent(wxString(m_romTypeList->GetString(i) + wxT("W")), &w, &h);
+		tempDC.GetTextExtent(m_romTypeList->GetString(i) + wxT("W"), &w, &h);
 		wMax = std::max(wMax, w);
 	}
 	m_romTypeList->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X), 280);
@@ -61,12 +61,12 @@ void RomTypeDlg::OnOk(wxCommandEvent& event)
 
 wxString RomTypeDlg::GetSelectedType()
 {
-	return wxString(m_selectedType);
+	return m_selectedType;
 }
 
 wxString RomTypeDlg::GetSelectedFullTypeName()
 {
-	return wxString(m_selectedFullTypeName);
+	return m_selectedFullTypeName;
 }
 
 void RomTypeDlg::AddRomType(wxString type)
@@ -119,19 +119,10 @@ int RomTypeDlg::FindRomFullTypeName(wxString name)
 
 wxString RomTypeDlg::ConvertRomType(wxString source, bool backwards)
 {
-	wxString retVal=wxT("");
-	int offset;
-	int index;
-	if (backwards){
-		offset = -1;
-		index = FindRomFullTypeName(source);
-	} else {
-		offset = 1;
-		index = FindRomType(source);
-	}
-	index += offset;
-	if ((index >= 0) && (index <(int)m_romTypes.GetCount())) {
-		retVal = m_romTypes[index];
-	}
-	return retVal;
+	int index = backwards
+	          ? FindRomFullTypeName(source) - 1
+	          : FindRomType(source) + 1;
+	return ((index >= 0) && (index < (int)m_romTypes.GetCount()))
+		? m_romTypes[index]
+		: wxString();
 }

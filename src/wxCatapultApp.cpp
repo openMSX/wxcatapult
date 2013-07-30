@@ -135,7 +135,7 @@ wxString wxCatapultApp::GetResourceDir()
 		if (pos != -1) {
 			temp = temp.Left(pos + 1) + wxT("resources");
 		}
-	return wxString(temp);
+	return temp;
 #else
 	return RESOURCEDIR;
 #endif

@@ -27,7 +27,6 @@ IPSSelectionDlg::IPSSelectionDlg(wxWindow* parent)
 	m_ipsMoveDownButton = (wxButton*)FindWindowByName(wxT("MoveIPSDownButton"));
 	m_ipsMoveUpButton   = (wxButton*)FindWindowByName(wxT("MoveIPSUpButton"));
 	m_ipsDisplay->Clear();
-	m_lastBrowseLocation = wxT("");
 	m_ipsMoveUpButton  ->Enable(false);
 	m_ipsMoveDownButton->Enable(false);
 	m_ipsRemoveButton  ->Enable(false);
@@ -47,7 +46,7 @@ int IPSSelectionDlg::ShowModal(wxArrayString& patches, wxString targetDir)
 	int items = m_ipsDisplay->GetCount();
 	for (int index = 0; index < items; ++index) {
 		int w, h;
-		tempDC.GetTextExtent(wxString(m_ipsDisplay->GetString(index) + wxT("W")), &w, &h);
+		tempDC.GetTextExtent(m_ipsDisplay->GetString(index) + wxT("W"), &w, &h);
 		wMax = std::max(wMax, w);
 	}
 	m_ipsDisplay->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X), 118);
@@ -68,15 +67,14 @@ void IPSSelectionDlg::OnOk(wxCommandEvent& event)
 void IPSSelectionDlg::OnAddIPS(wxCommandEvent& event)
 {
 	wxString path;
-	wxString result;
 #ifndef __MOTIF__
 	path = wxT("All known patchfiles|*.ips;*.IPS;*.gz;*.GZ;*.zip;*.ZIP|Uncompressed patchfiles (*.ips)|*.ips;*.IPS|Compressed patchfiles|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 #else
 	path = wxT("*.*");
 #endif
-	wxFileDialog filedlg(this, wxT("Select ips patchfile"), m_lastBrowseLocation, wxT(""), path ,wxOPEN);
+	wxFileDialog filedlg(this, wxT("Select ips patchfile"), m_lastBrowseLocation, wxT(""), path, wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
-		result = filedlg.GetPath();
+		wxString result = filedlg.GetPath();
 		m_ipsDisplay->Append(result);
 		m_lastBrowseLocation = ::wxPathOnly(result);
 		CheckSelections();

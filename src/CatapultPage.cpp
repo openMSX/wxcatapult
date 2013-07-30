@@ -151,7 +151,6 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 	int active = 1;
 	int sendvalue;
 
-	wxString ButtonText;
 	if (flags & S_INVERT) {
 		active = 0;
 	}
@@ -179,8 +178,7 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 			if ((data == wxT("true")) || (data == wxT("yes")) || (data == wxT("1"))) {
 				data = wxT("on");
 			}
-			ButtonText = data.Mid(0, 1).Upper() + data.Mid(1).Lower();
-			button->SetLabel(ButtonText);
+			button->SetLabel(data.Mid(0, 1).Upper() + data.Mid(1).Lower());
 		}
 		return true;
 	}
@@ -286,12 +284,8 @@ bool CatapultPage::UpdateMidiPlug(wxString connector, wxString data, wxString co
 
 bool CatapultPage::UpdatePluggable(wxString connector, wxString data, wxString control, int flags)
 {
-	wxString valuetext = data;
-	if (data == wxT("")) {
-		valuetext = wxT("--empty--");
-	}
 	if (auto* box = (wxComboBox*)m_parent->FindWindowByName(control)) {
-		box->SetValue(valuetext);
+		box->SetValue(data.IsEmpty() ? wxT("--empty--") : data);
 	}
 	return true;
 }

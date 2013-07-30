@@ -117,9 +117,8 @@ bool openMSXWindowsController::DetermenNamedPipeUsage()
 		OSVERSIONINFO info;
 		info.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
 		if (!GetVersionEx(&info)) {
-			wxString msg;
-			msg.sprintf(wxT("Error getting system info: %ld "), GetLastError());
-			wxMessageBox(msg);
+			wxMessageBox(wxString::Format(
+				wxT("Error getting system info: %ld "), GetLastError()));
 		} else {
 			if (info.dwPlatformId == VER_PLATFORM_WIN32_NT) {
 				useNamedPipes = true; // nt-based only and only if the user wants it
@@ -137,17 +136,16 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 		if (m_connectThread == nullptr) {
 			m_launchCounter++;
 		}
-		wxString pipeName;
-		pipeName.sprintf (wxT("\\\\.\\pipe\\Catapult-%u-%lu"), _getpid(), m_launchCounter);
-		parameter += wxT(" pipe:") + (pipeName.Mid(9));
+		auto pipeName = wxString::Format(
+			wxT("\\\\.\\pipe\\Catapult-%u-%lu"), _getpid(), m_launchCounter);
+		parameter += wxT(" pipe:") + pipeName.Mid(9);
 		if (m_connectThread == nullptr) {
 			m_connectThread = new PipeConnectThread(m_appWindow);
 			m_connectThread->Create();
-			m_namedPipeHandle = CreateNamedPipe (pipeName,PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
+			m_namedPipeHandle = CreateNamedPipe(pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
 			if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {
-				wxString text;
-				text.sprintf(wxT("Error creating pipe: %ld"),GetLastError());
-				wxMessageBox(text);
+				wxMessageBox(wxString::Format(
+					wxT("Error creating pipe: %ld"), GetLastError()));
 			}
 		} else {
 			m_namedPipeHandle = m_outputHandle;
@@ -155,7 +153,7 @@ wxString openMSXWindowsController::CreateControlParameter(bool useNamedPipes)
 	} else {
 		parameter += wxT(" stdio:");
 	}
-	return wxString (parameter);
+	return parameter;
 }
 
 bool openMSXWindowsController::CreatePipes(
@@ -209,9 +207,7 @@ bool openMSXWindowsController::CreatePipes(
 
 void openMSXWindowsController::ShowError(wxString msg)
 {
-	wxString error;
-	error.sprintf(wxT("%ld"), GetLastError());
-	wxMessageBox(msg + wxString(wxT(": error ")) + error);
+	wxMessageBox(msg + wxString::Format(wxT(": error %ld"), GetLastError()));
 }
 
 void openMSXWindowsController::CloseHandles(
@@ -273,7 +269,7 @@ void openMSXWindowsController::HandleEndProcess(wxCommandEvent& event)
 
 wxString openMSXWindowsController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
-	wxString version = wxT("");
+	wxString version;
 	wxArrayString output;
 	int code = wxExecute(openmsxCmd + wxT(" -v"), output);
 	if ((code != -1) && (output.GetCount() > 0)) {

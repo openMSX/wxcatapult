@@ -83,14 +83,13 @@ void CatapultXMLParser::cb_end_element(CatapultXMLParser* parser, const xmlChar*
 
 void CatapultXMLParser::cb_text(CatapultXMLParser* parser, const xmlChar* chars, int len)
 {
-	assert(len>=0);
-	wxString charsAsWxString;
+	assert(len >= 0);
 	switch (parser->parseResult.parseState) {
 	case TAG_UPDATE:
 	case TAG_LOG:
 	case TAG_REPLY:
-		charsAsWxString =  wxString((const char*)chars, wxConvUTF8, (size_t) len);
-		parser->parseResult.contents.Append(charsAsWxString);
+		parser->parseResult.contents.Append(wxString(
+			(const char*)chars, wxConvUTF8, (size_t)len));
 		break;
 	default:
 		break;

@@ -80,10 +80,6 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController* controll
 	m_screenShotCounter = (wxTextCtrl*)FindWindowByName(wxT("ScreenShotCounter"));
 	m_screenShotButton = (wxButton*)FindWindowByName(wxT("ScreenShotButton"));
 	m_browseScreenshotButton = (wxBitmapButton*)FindWindowByName(wxT("BrowseScreenShotButton"));
-	m_defaultBlur = wxT("");
-	m_defaultGlow = wxT("");
-	m_defaultGamma = wxT("");
-	m_defaultScanline = wxT("");
 
 	m_rendererLabel     = (wxStaticText*)FindWindowByName(wxT("RendererLabel"));
 	m_scalerLabel       = (wxStaticText*)FindWindowByName(wxT("ScalerLabel"));
@@ -101,22 +97,22 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController* controll
 
 void VideoControlPage::OnChangeRenderer(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxString(wxT("set renderer ") + m_rendererList->GetValue()));
+	m_controller->WriteCommand(wxT("set renderer ") + m_rendererList->GetValue());
 }
 
 void VideoControlPage::OnChangeScalerAlgo(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxString(wxT("set scale_algorithm ") + m_scalerAlgoList->GetValue().Lower()));
+	m_controller->WriteCommand(wxT("set scale_algorithm ") + m_scalerAlgoList->GetValue().Lower());
 }
 
 void VideoControlPage::OnChangeScalerFactor(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxString(wxT("set scale_factor ") + m_scalerFactorList->GetValue().Lower()));
+	m_controller->WriteCommand(wxT("set scale_factor ") + m_scalerFactorList->GetValue().Lower());
 }
 
 void VideoControlPage::OnChangeAccuracy(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxString(wxT("set accuracy ") + m_accuracyList->GetValue().Lower()));
+	m_controller->WriteCommand(wxT("set accuracy ") + m_accuracyList->GetValue().Lower());
 }
 
 void VideoControlPage::OnDeInterlace(wxCommandEvent& event)
@@ -183,34 +179,30 @@ void VideoControlPage::OnFullScreen(wxCommandEvent& event)
 
 void VideoControlPage::OnChangeBlur(wxScrollEvent& event)
 {
-	wxString text;
-	text.sprintf(wxT("%ld"), event.GetInt());
+	auto text = wxString::Format(wxT("%ld"), event.GetInt());
 	m_blurIndicator->SetValue(text);
-	m_controller->WriteCommand (wxString(wxT("set blur ")) + text);
+	m_controller->WriteCommand(wxT("set blur ") + text);
 }
 
 void VideoControlPage::OnChangeGlow(wxScrollEvent& event)
 {
-	wxString text;
-	text.sprintf(wxT("%ld"), event.GetInt());
+	auto text = wxString::Format(wxT("%ld"), event.GetInt());
 	m_glowIndicator->SetValue(text);
-	m_controller->WriteCommand (wxString(wxT("set glow ")) + text);
+	m_controller->WriteCommand(wxT("set glow ") + text);
 }
 
 void VideoControlPage::OnChangeGamma(wxScrollEvent& event)
 {
-	wxString text;
-	text.sprintf(wxT("%ld.%02ld"), event.GetInt() / 100, event.GetInt() % 100);
+	auto text = wxString::Format(wxT("%.2f"), event.GetInt() / 100.0);
 	m_gammaIndicator->SetValue(text);
-	m_controller->WriteCommand (wxString(wxT("set gamma ")) + text);
+	m_controller->WriteCommand(wxT("set gamma ") + text);
 }
 
 void VideoControlPage::OnChangeScanlines(wxScrollEvent& event)
 {
-	wxString text;
-	text.sprintf(wxT("%ld"), event.GetInt());
+	auto text = wxString::Format(wxT("%ld"), event.GetInt());
 	m_scanlineIndicator->SetValue(text);
-	m_controller->WriteCommand (wxString(wxT("set scanline ")) + text);
+	m_controller->WriteCommand(wxT("set scanline ") + text);
 }
 
  void VideoControlPage::OnDefaultBlur(wxCommandEvent& event)
@@ -245,7 +237,7 @@ void VideoControlPage::OnInputBlur(wxCommandEvent& event)
 			m_blurIndicator->SetValue(text);
 		}
 		if (num >= 0) {
-			m_controller->WriteCommand(wxString(wxT("set blur ")) + text);
+			m_controller->WriteCommand(wxT("set blur ") + text);
 			m_blurSlider->SetValue(num);
 		}
 	}
@@ -263,7 +255,7 @@ void VideoControlPage::OnInputGlow(wxCommandEvent& event)
 			m_glowIndicator->SetValue(text);
 		}
 		if (num >= 0) {
-			m_controller->WriteCommand(wxString(wxT("set glow ")) + text);
+			m_controller->WriteCommand(wxT("set glow ") + text);
 			m_glowSlider->SetValue(num);
 		}
 	}
@@ -282,7 +274,7 @@ void VideoControlPage::OnInputGamma(wxCommandEvent& event)
 			m_gammaIndicator->SetValue(text);
 		}
 		if (num >= 10) {
-			m_controller->WriteCommand(wxString(wxT("set gamma ")) + text);
+			m_controller->WriteCommand(wxT("set gamma ") + text);
 			m_gammaSlider->SetValue(num);
 		}
 	}
@@ -300,7 +292,7 @@ void VideoControlPage::OnInputScanline(wxCommandEvent& event)
 			m_scanlineIndicator->SetValue(text);
 		}
 		if (num >= 0) {
-			m_controller->WriteCommand(wxString(wxT("set scanline ")) + text);
+			m_controller->WriteCommand(wxT("set scanline ") + text);
 			m_scanlineSlider->SetValue(num);
 		}
 	}
@@ -479,8 +471,6 @@ void VideoControlPage::SetSliderDefaults()
 
 void VideoControlPage::OnBrowseScreenShot(wxCommandEvent& event)
 {
-	wxString screenshotpath;
-	wxString screenshotfile;
 	int countersize = 0;
 	wxString path;
 #ifndef __MOTIF__
@@ -491,9 +481,9 @@ void VideoControlPage::OnBrowseScreenShot(wxCommandEvent& event)
 
 	wxFileDialog filedlg(this, wxT("Choose file to save screenshot to"), wxT(""), wxT(""), path, wxSAVE);
 	if (filedlg.ShowModal() == wxID_OK) {
-		screenshotpath = filedlg.GetPath();
+		wxString screenshotpath = filedlg.GetPath();
 		screenshotpath = screenshotpath.Left(screenshotpath.Length() - 4); // remove extension
-		screenshotfile = filedlg.GetFilename();
+		wxString screenshotfile = filedlg.GetFilename();
 		screenshotfile = screenshotfile.Left(screenshotfile.Length() - 4); // idem
 
 		while ((screenshotfile.Right(countersize + 1).IsNumber()) && (countersize < 4)) {
@@ -512,10 +502,10 @@ void VideoControlPage::OnTakeScreenShot(wxCommandEvent& event)
 {
 	wxString screenshotfile = m_screenShotFile->GetValue();
 	wxString counter = m_screenShotCounter->GetValue();
-	if ((screenshotfile == wxT("")) && (counter == wxT(""))) {
+	if (screenshotfile.IsEmpty() && counter.IsEmpty()) {
 		m_controller->WriteCommand(wxT("screenshot"));
 	} else {
-		m_controller->WriteCommand(wxString(wxT("screenshot ")) + ConvertPath(screenshotfile + counter +wxT(".png"), true));
+		m_controller->WriteCommand(wxT("screenshot ") + ConvertPath(screenshotfile + counter + wxT(".png"), true));
 	}
 }
 
@@ -523,13 +513,10 @@ void VideoControlPage::OnTakeScreenShot(wxCommandEvent& event)
 int VideoControlPage::FindFirstFreeScreenshotFile(wxString prefix)
 {
 	int counter = 0;
-	wxString countString;
 	bool found = false;
 	do {
-		++counter;
-		countString.sprintf(wxT("0000%d"), counter);
-		countString = countString.Right(4);
-		if (!wxFileExists(prefix + countString + wxT(".png"))) {
+		auto count = wxString::Format(wxT("%04d"), ++counter);
+		if (!wxFileExists(prefix + count + wxT(".png"))) {
 			found = true;
 		}
 	} while ((counter < 9999) && !found);
@@ -538,7 +525,7 @@ int VideoControlPage::FindFirstFreeScreenshotFile(wxString prefix)
 
 void VideoControlPage::OnChangeScreenshotFilename(wxCommandEvent& event)
 {
-	if (m_screenShotFile->GetValue() == wxT("")) {
+	if (m_screenShotFile->GetValue().IsEmpty()) {
 		m_screenShotCounter->Clear();
 	} else {
 		UpdateScreenshotCounter();
@@ -548,11 +535,10 @@ void VideoControlPage::OnChangeScreenshotFilename(wxCommandEvent& event)
 void VideoControlPage::UpdateScreenshotCounter()
 {
 	wxString prefix = m_screenShotFile->GetValue();
-	if (prefix != wxT("")) {
-		wxString countString;
-		countString.sprintf(wxT("0000%d"), FindFirstFreeScreenshotFile(prefix));
-		countString = countString.Right(4);
-		m_screenShotCounter->SetValue(countString);
+	if (!prefix.IsEmpty()) {
+		auto count = wxString::Format(
+			wxT("%04d"), FindFirstFreeScreenshotFile(prefix));
+		m_screenShotCounter->SetValue(count);
 	}
 }
 

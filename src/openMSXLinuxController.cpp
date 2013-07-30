@@ -129,7 +129,7 @@ bool openMSXLinuxController::execute(const std::string& command, int& fdIn, int&
 
 wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
-	wxString version = wxT("");
+	wxString version;
 	if (system((const char*)(wxConvUTF8.cWX2MB((openmsxCmd + wxT(" -v > /tmp/catapult.tmp"))))) == 0) {
 		wxTextFile tempfile(wxT("/tmp/catapult.tmp"));
 		if (tempfile.Open()) {
