@@ -50,24 +50,12 @@ AudioControlPage::AudioControlPage(wxWindow* parent, openMSXController* controll
 	}
 }
 
-void AudioControlPage::InitAudioChannels(wxString channels)
+void AudioControlPage::InitAudioChannels(const wxArrayString& channels)
 {
-	if (channels.IsEmpty()) return;
-
 	m_audioChannels.Clear();
 	m_audioChannels.Add(wxT("master;;master"));
-	int pos;
-	wxString temp = channels;
-	do {
-		pos = temp.Find(wxT("\n"));
-		if (pos != -1) {
-			m_audioChannels.Add(temp.Left(pos));
-			temp = temp.Mid(pos + 1);
-		}
-	} while (pos != -1);
-	if (!temp.IsEmpty()) {
-		// not everything parsed?
-		m_audioChannels.Add(temp);
+	for (auto& ch : channels) {
+		m_audioChannels.Add(ch);
 	}
 }
 

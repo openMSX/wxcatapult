@@ -10,9 +10,11 @@
 #include "ScreenShotDlg.h"
 #include <cassert>
 #include <wx/button.h>
+#include <wx/combobox.h>
 #include <wx/msgdlg.h>
 #include <wx/notebook.h>
 #include <wx/textctrl.h>
+#include <wx/tokenzr.h>
 #include <wx/wxprec.h>
 //#include <wx/version.h>
 
@@ -383,23 +385,12 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent& event)
 
 int openMSXController::InitConnectors(wxString dummy, wxString connectors)
 {
-	if (connectors.IsEmpty()) return -1;
-
 	m_connectors.Clear();
 	m_connectorclasses.Clear();
 	m_connectorcontents.Clear();
-	int pos;
-	wxString temp = connectors;
-	do {
-		pos = temp.Find(wxT("\n"));
-		if (pos != -1) {
-			m_connectors.Add(temp.Left(pos));
-			temp = temp.Mid(pos + 1);
-		}
-	} while (pos != -1);
-	if (!temp.IsEmpty()) {
-		// not everything parsed ?
-		m_connectors.Add(temp);
+	wxStringTokenizer tkz(connectors, wxT("\n"));
+	while (tkz.HasMoreTokens()) {
+		m_connectors.Add(tkz.GetNextToken());
 	}
 	return 0; // don't skip any lines in the startup script
 }
@@ -440,23 +431,12 @@ wxString openMSXController::GetConnectorContents(wxString name)
 
 int openMSXController::InitPluggables(wxString dummy, wxString pluggables)
 {
-	if (pluggables.IsEmpty()) return -1;
-
 	m_pluggables.Clear();
 	m_pluggabledescriptions.Clear();
 	m_pluggableclasses.Clear();
-	int pos;
-	wxString temp = pluggables;
-	do {
-		pos = temp.Find(wxT("\n"));
-		if (pos != -1) {
-			m_pluggables.Add(temp.Left(pos));
-			temp = temp.Mid(pos + 1);
-		}
-	} while (pos !=-1);
-	if (!temp.IsEmpty()) {
-		// not everything parsed ?
-		m_pluggables.Add(temp);
+	wxStringTokenizer tkz(pluggables, wxT("\n"));
+	while (tkz.HasMoreTokens()) {
+		m_pluggables.Add(tkz.GetNextToken());
 	}
 	return 0; // don't skip any lines in the startup script
 }
@@ -659,7 +639,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 
 			if (recvLoop != -1) {
 				wxArrayString lastvalues;
-				if (recvLoop < (tokenize(lastdata, wxT("\n"), lastvalues) - 1)) {
+				if (recvLoop < int(tokenize(lastdata, wxT("\n"), lastvalues) - 1)) {
 					++recvLoop;
 				} else {
 					recvLoop = -1;
@@ -725,7 +705,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 
 		if (sendLoop != -1) {
 			wxArrayString lastvalues;
-			if (sendLoop < (tokenize(lastdata, wxT("\n"), lastvalues) - 1)) {
+			if (sendLoop < int(tokenize(lastdata, wxT("\n"), lastvalues) - 1)) {
 				++sendLoop;
 			} else {
 				sendLoop = -1;
@@ -751,23 +731,12 @@ void openMSXController::FinishLaunch()
 	m_appWindow->m_sessionPage->SetCassetteControl();
 }
 
-int openMSXController::tokenize(wxString text, wxString seperator, wxArrayString& result)
+size_t openMSXController::tokenize(
+	const wxString& text, const wxString& seperator, wxArrayString& result)
 {
-	int pos;
-	wxString temp = text;
-	do {
-		pos = temp.Find(seperator);
-		if (pos != -1) {
-			if (pos != 0) { // ignore multiple seperators
-				result.Add(temp.Mid(0, pos));
-				temp = temp.Mid(pos + seperator.Len());
-			} else {
-				temp = temp.Mid(seperator.Len());
-			}
-		}
-	} while (pos != -1);
-	if (!temp.IsEmpty()) {
-		result.Add(temp);
+	wxStringTokenizer tkz(text, seperator);
+	while (tkz.HasMoreTokens()) {
+		result.Add(tkz.GetNextToken());
 	}
 	return result.GetCount();
 }
@@ -916,9 +885,13 @@ int openMSXController::UpdateSetting(wxString setting, wxString data)
 	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::FillComboBox (wxString setting, wxString data)
+int openMSXController::FillComboBox(wxString control, wxString data)
 {
-	m_appWindow->m_videoControlPage->FillComboBox(setting, data); // Just use any instance of CatapultPage
+	auto* box = (wxComboBox*)wxWindow::FindWindowByName(control);
+	wxStringTokenizer tkz(data, wxT("\n"));
+	while (tkz.HasMoreTokens()) {
+		box->Append(tkz.GetNextToken());
+	}
 	return 0; // don't skip any lines in the startup script
 }
 
@@ -931,13 +904,11 @@ int openMSXController::FillRangeComboBox(wxString setting, wxString data)
 	if (pos != -1) {
 		data.Left(pos).ToLong(&min);
 		data.Mid(pos + 1).ToLong(&max);
-		for (int index = min; index <= max; ++index) {
-			range << index;
-			range += wxT("\n");
+		for (long index = min; index <= max; ++index) {
+			range << index << wxT("\n");
 		}
 	}
-
-	m_appWindow->m_videoControlPage->FillComboBox(setting, range); // Just use any instance of CatapultPage
+	FillComboBox(setting, range);
 	return 0; // don't skip any lines in the startup script
 }
 
@@ -989,7 +960,7 @@ int openMSXController::InitSoundDevices(wxString dummy, wxString data)
 	tokenize(data, wxT("\n"), channels);
 	if (channels.GetCount() != (m_appWindow->m_audioControlPage->GetNumberOfAudioChannels() - 1)) {
 		m_appWindow->m_audioControlPage->DestroyAudioMixer();
-		m_appWindow->m_audioControlPage->InitAudioChannels(data);
+		m_appWindow->m_audioControlPage->InitAudioChannels(channels);
 		return 0;
 	}
 	return 5; // skip 5 instructions TODO: improve this

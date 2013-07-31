@@ -380,45 +380,6 @@ void VideoControlPage::SetControlsOnEnd()
 	}
 }
 
-void VideoControlPage::FillRenderers(wxString renderers)
-{
-	FillComboBox(wxT("RendererSelector"), renderers);
-}
-
-void VideoControlPage::FillScalerAlgos(wxString scalerAlgos)
-{
-	FillComboBox(wxT("ScalerAlgoSelector"), scalerAlgos);
-}
-
-void VideoControlPage::FillScalerFactors(wxString scalerFactors)
-{
-	FillComboBox(wxT("ScalerFactorSelector"), scalerFactors);
-}
-
-void VideoControlPage::FillAccuracy(wxString accuracy)
-{
-	FillComboBox(wxT("AccuracySelector"), accuracy);
-}
-
-
-void VideoControlPage::FillComboBox(wxString control, wxString contents)
-{
-	auto* box = (wxComboBox*)FindWindowByName(control);
-	int pos;
-	box->Clear();
-	wxString temp = contents;
-	do {
-		pos = temp.Find(wxT("\n"));
-		if (pos != -1) {
-			box->Append(temp.Left(pos));
-			temp = temp.Mid(pos + 1);
-		}
-	} while (pos != -1);
-	if (!temp.IsEmpty()) { // not everything parsed ?
-		box->Append(temp);
-	}
-}
-
 void VideoControlPage::SetRenderer(wxString value)
 {
 	m_rendererList->SetSelection(m_rendererList->FindString(value));

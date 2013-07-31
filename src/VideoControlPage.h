@@ -44,10 +44,6 @@ public:
 	void OnTakeScreenShot(wxCommandEvent& event);
 	void OnChangeScreenshotFilename(wxCommandEvent& event);
 	void UpdateScreenshotCounter();
-	void FillRenderers(wxString renderers);
-	void FillScalerAlgos(wxString scalerAlgos);
-	void FillScalerFactors(wxString scalerFactors);
-	void FillAccuracy(wxString accuracy);
 	void SetRenderer(wxString value);
 	void SetScalerAlgo(wxString value);
 	void SetScalerFactor(wxString value);
@@ -57,7 +53,6 @@ public:
 	void SetSliderDefaults();
 	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
 	void UpdateBlurControls(int value);
-	void FillComboBox(wxString control, wxString contents);
 	void setNewRenderersAndScalers();
 
 private:

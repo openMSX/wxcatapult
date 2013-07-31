@@ -35,7 +35,7 @@ public:
 	void OnBrowseMidiInFile(wxCommandEvent& event);
 	void OnBrowseMidiOutFile(wxCommandEvent& event);
 	void OnBrowseSampleInFile(wxCommandEvent& event);
-	void InitAudioChannels(wxString channels);
+	void InitAudioChannels(const wxArrayString& channels);
 	void AddChannelType(int channel, wxString type);
 	void SetupAudioMixer();
 	void DestroyAudioMixer();

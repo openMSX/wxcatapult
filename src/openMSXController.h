@@ -85,7 +85,8 @@ private:
 	void newLaunchReply(wxCommandEvent& event);
 	void executeLaunch(wxCommandEvent* event = nullptr, int startLine = 0);
 	void FinishLaunch();
-	int tokenize(wxString text, wxString seperator, wxArrayString& result);
+	size_t tokenize(const wxString& text, const wxString& seperator,
+	                wxArrayString& result);
 	wxString translate(wxArrayString tokens, int loop, wxString lastdata);
 	void HandleLaunchReply(wxString cmd, wxCommandEvent* event,
 		LaunchInstructionType instruction,
