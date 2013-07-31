@@ -9,27 +9,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\regex\regcomp.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\regex\regcomp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\regex\regerror.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\regex\regerror.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\regex\regexec.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\regex\regexec.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\regex\regfree.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\regex\regfree.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\genrcdefs.h">
+    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\genrcdefs.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\univ\setup.h">
+    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\univ\setup.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\include\wx\msw\setup.h">
+    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\setup.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

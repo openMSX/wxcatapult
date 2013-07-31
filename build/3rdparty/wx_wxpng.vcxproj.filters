@@ -6,55 +6,55 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\png.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\png.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngerror.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngerror.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pnggccrd.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pnggccrd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngget.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngget.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngmem.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngmem.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngpread.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngpread.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngread.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngread.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngrio.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngrio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngrtran.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngrtran.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngrutil.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngrutil.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngset.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngset.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngtrans.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngtrans.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngvcrd.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngvcrd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngwio.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngwio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngwrite.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngwrite.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngwtran.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngwtran.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\png\pngwutil.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\png\pngwutil.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

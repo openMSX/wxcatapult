@@ -6,13 +6,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\expat\lib\xmlparse.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\expat\lib\xmlparse.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\expat\lib\xmlrole.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\expat\lib\xmlrole.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\expat\lib\xmltok.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\expat\lib\xmltok.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

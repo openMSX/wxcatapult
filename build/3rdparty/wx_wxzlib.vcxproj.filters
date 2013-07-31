@@ -6,40 +6,40 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\adler32.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\adler32.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\compress.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\compress.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\crc32.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\crc32.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\deflate.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\deflate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\gzio.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\gzio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\infback.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\infback.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\inffast.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\inffast.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\inflate.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\inflate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\inftrees.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\inftrees.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\trees.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\trees.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\uncompr.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\uncompr.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.9\src\zlib\zutil.c">
+    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\zutil.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
