@@ -19,7 +19,6 @@ openMSXWindowsController::openMSXWindowsController(wxWindow * target)
 	m_pipeActive = false;
 	m_openMsxRunning = false;
 	m_namedPipeHandle = INVALID_HANDLE_VALUE;
-	m_socket = nullptr;
 }
 
 openMSXWindowsController::~openMSXWindowsController()
@@ -244,14 +243,6 @@ void openMSXWindowsController::HandlePipeCreated()
 bool openMSXWindowsController::WriteMessage(xmlChar* msg, size_t length)
 {
 	if (!m_openMsxRunning) return false;
-
-	if (m_socket && (m_socket->IsConnected())) {
-		m_socket->Write(msg, length);
-		if (!m_socket->LastError()) {
-			return true;
-		}
-		return false;
-	}
 	unsigned long BytesWritten;
 	if (!::WriteFile(m_outputHandle, msg, length, &BytesWritten, nullptr)) {
 		return false;
