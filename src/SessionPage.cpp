@@ -175,9 +175,6 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController* controller)
 	int autorecord;
 	ConfigurationData::instance().GetParameter(ConfigurationData::CD_AUTORECORD, &autorecord);
 	m_cassetteAutoCreate = autorecord == 1;
-	m_casInsertCommand = wxT("insert ");
-	m_motorControlOnCommand = wxT("motorcontrol on");
-	m_motorControlOffCommand = wxT("motorcontrol off");
 }
 
 void SessionPage::FixLayout()
@@ -341,9 +338,9 @@ void SessionPage::OnMotorControl(wxCommandEvent& event)
 {
 	m_cassetteControl = !m_cassetteControl;
 	if (m_cassetteControl) {
-		m_controller->WriteCommand(wxT("cassetteplayer ") + m_motorControlOnCommand);
+		m_controller->WriteCommand(wxT("cassetteplayer motorcontrol on"));
 	} else {
-		m_controller->WriteCommand(wxT("cassetteplayer ") + m_motorControlOffCommand);
+		m_controller->WriteCommand(wxT("cassetteplayer motorcontrol off"));
 	}
 }
 
@@ -593,6 +590,13 @@ void SessionPage::HandleCassetteChange()
 	SetCassetteMode(wxT("play"));
 }
 
+static int CompareCaseInsensitive(const wxString& first, const wxString& second)
+{
+	int result = first.CmpNoCase(second);
+	if (result != 0) return result;
+	return first.Cmp(second);
+}
+
 void SessionPage::SetupHardware(bool initial, bool reset)
 {
 	wxString currentMachine;
@@ -649,8 +653,8 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 		prepareExtensions(personalShare, m_extensionArray, true);
 		prepareMachines(personalShare, m_machineArray, true);
 	}
-	m_extensionArray.Sort(SessionPage::CompareCaseInsensitive);
-	m_machineArray.Sort(SessionPage::CompareCaseInsensitive);
+	m_extensionArray.Sort(CompareCaseInsensitive);
+	m_machineArray.Sort(CompareCaseInsensitive);
 	fillExtensions(m_extensionArray);
 	fillMachines(m_machineArray);
 	if (!initial) {
@@ -667,13 +671,6 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 			}
 		}
 	}
-}
-
-int SessionPage::CompareCaseInsensitive(const wxString& first, const wxString& second)
-{
-	int result = first.CmpNoCase(second);
-	if (result != 0) return result;
-	return first.Cmp(second);
 }
 
 void SessionPage::prepareExtensions(wxString sharepath, wxArrayString& extensionArray, bool optional)
@@ -1440,11 +1437,4 @@ bool SessionDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& f
 		m_target->Append(filenames[0]); // just the first for starters
 	}
 	return true;
-}
-
-void SessionPage::SetOldStyleCassetteControls()
-{
-	m_casInsertCommand = wxT("");
-	m_motorControlOnCommand = wxT("force_play");
-	m_motorControlOffCommand = wxT("no_force_play");
 }

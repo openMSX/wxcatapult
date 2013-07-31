@@ -10,9 +10,6 @@
 #include "CatapultPage.h"
 #include "CatapultXMLParser.h"
 #include <list>
-#include <wx/socket.h>
-
-#define OPENMSX_SOCKET 1
 
 class wxCatapultFrame;
 class CatapultXMLParser;
@@ -30,34 +27,27 @@ public:
 	void UpdateMixer();
 	void GetConnectors(wxArrayString& connectors);
 	wxString GetConnectorClass(wxString name);
-	wxString GetConnectorContents(wxString name);
 	void GetPluggables(wxArrayString& pluggables);
 	void GetPluggableDescriptions(wxArrayString& descriptions);
 	void GetPluggableClasses(wxArrayString& classes);
 	bool StartOpenMSX(wxString cmd, bool getversion = false);
 	bool WriteCommand(wxString msg, TargetType target = TARGET_INTERACTIVE);
-	void HandleParsedOutput(wxCommandEvent& event);
-	void HandleStdErr(wxCommandEvent& event);
-	void HandleStdOut(wxCommandEvent& event);
 	void HandleEndProcess(wxCommandEvent& event);
-	void HandleSocketEvent(wxSocketEvent& event);
-	bool SetupOpenMSXParameters(wxString version);
+	virtual bool HandleMessage(wxCommandEvent& event);
+
+	bool IsOpenMSXRunning() const { return m_openMsxRunning; }
+
+protected:
 	virtual bool WriteMessage(xmlChar* msg, size_t length) = 0;
 	virtual bool Launch(wxString cmdline) = 0;
 	virtual void HandleNativeEndProcess() = 0;
 	virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd) = 0;
-	virtual bool HandleMessage(wxCommandEvent& event);
 
-	bool IsOpenMSXRunning() const { return m_openMsxRunning; }
-	void InitLaunchScript();
-
-protected:
 	wxCatapultFrame* m_appWindow;
 	bool m_openMsxRunning;
 	bool PostLaunch ();
 	bool PreLaunch();
 	CatapultXMLParser* m_parser;
-	wxSocketClient* m_socket;
 
 private:
 	struct LaunchInstructionType {
@@ -72,6 +62,7 @@ private:
 		TargetType target;
 	};
 
+	void InitLaunchScript();
 	void AddLaunchInstruction(
 		wxString cmd, wxString action, wxString parameter,
 		int (openMSXController::*pfunction)(wxString, wxString),
@@ -79,10 +70,13 @@ private:
 
 	wxString GetPendingCommand();
 	wxString PeekPendingCommand();
-	enum TargetType PeekPendingCommandTarget();
+	TargetType PeekPendingCommandTarget();
 
+	bool SetupOpenMSXParameters(wxString version);
+	void HandleParsedOutput(wxCommandEvent& event);
+	void HandleStdErr(wxCommandEvent& event);
+	void HandleStdOut(wxCommandEvent& event);
 	void HandleNormalLaunchReply(wxCommandEvent& event);
-	void newLaunchReply(wxCommandEvent& event);
 	void executeLaunch(wxCommandEvent* event = nullptr, int startLine = 0);
 	void FinishLaunch();
 	size_t tokenize(const wxString& text, const wxString& seperator,
@@ -106,13 +100,11 @@ private:
 	int AddPluggableDescription(wxString name, wxString data);
 	int AddPluggableClass(wxString name, wxString data);
 	int AddConnectorClass(wxString name, wxString data);
-	int AddConnectorContents(wxString name, wxString data);
 	int SetSliderDefaults(wxString dummy1, wxString dummy2);
 	int InitAudioConnectorPanel(wxString dummy1, wxString dummy2);
 	int InitConnectorPanel(wxString dummy1, wxString dummy2);
 	int EnableCassettePort(wxString cmd, wxString data);
 	int SetCassetteMode(wxString cmd, wxString data);
-	bool connectSocket();
 
 	bool wait;
 	int sendStep;
@@ -128,7 +120,6 @@ private:
 	unsigned m_openMSXID;
 	wxArrayString m_connectors;
 	wxArrayString m_connectorclasses;
-	wxArrayString m_connectorcontents;
 	wxArrayString m_pluggables;
 	wxArrayString m_pluggabledescriptions;
 	wxArrayString m_pluggableclasses;

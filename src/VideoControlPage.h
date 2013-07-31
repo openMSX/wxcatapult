@@ -5,9 +5,7 @@
 #include <wx/tglbtn.h>
 
 class openMSXController;
-class wxCatapultFrame;
 class wxComboBox;
-class wxBitmapButton;
 class wxButton;
 class wxStaticText;
 class wxToggleButton;
@@ -21,6 +19,11 @@ public:
 
 	void SetControlsOnEnd();
 	void SetControlsOnLaunch();
+	void UpdateScreenshotCounter();
+	void SetSliderDefaults();
+
+private:
+	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
 	void OnInputScanline(wxCommandEvent& event);
 	void OnInputGamma(wxCommandEvent& event);
 	void OnInputGlow(wxCommandEvent& event);
@@ -43,20 +46,7 @@ public:
 	void OnBrowseScreenShot(wxCommandEvent& event);
 	void OnTakeScreenShot(wxCommandEvent& event);
 	void OnChangeScreenshotFilename(wxCommandEvent& event);
-	void UpdateScreenshotCounter();
-	void SetRenderer(wxString value);
-	void SetScalerAlgo(wxString value);
-	void SetScalerFactor(wxString value);
-	void SetAccuracy(wxString value);
-	void SetDeinterlace(wxString value);
-	void SetLimitSprites(wxString value);
-	void SetSliderDefaults();
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
-	void UpdateBlurControls(int value);
 	void setNewRenderersAndScalers();
-
-private:
-	int FindFirstFreeScreenshotFile(wxString prefix);
 
 	openMSXController* m_controller;
 
@@ -65,7 +55,6 @@ private:
 	wxComboBox* m_scalerAlgoList;
 	wxComboBox* m_scalerFactorList;
 
-	wxBitmapButton* m_browseScreenshotButton;
 	wxButton* m_defaultGammaButton;
 	wxButton* m_defaultBlurButton;
 	wxButton* m_defaultGlowButton;

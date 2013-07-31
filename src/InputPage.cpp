@@ -48,9 +48,9 @@ void InputPage::OnClearText(wxCommandEvent& event)
 
 void InputPage::OnTextChange(wxCommandEvent& event)
 {
-	m_clearTextButton->Enable(m_inputtext->GetValue().Length() != 0);
-	m_typeTextButton->Enable(launched &&
-				m_inputtext->GetValue().Length() != 0);
+	bool anyText = !m_inputtext->GetValue().IsEmpty();
+	m_clearTextButton->Enable(anyText);
+	m_typeTextButton->Enable(launched && anyText);
 }
 
 void InputPage::SetControlsOnEnd()
@@ -62,5 +62,5 @@ void InputPage::SetControlsOnEnd()
 void InputPage::SetControlsOnLaunch()
 {
 	launched = true;
-	m_typeTextButton->Enable(m_inputtext->GetValue().Length() != 0);
+	m_typeTextButton->Enable(!m_inputtext->GetValue().IsEmpty());
 }

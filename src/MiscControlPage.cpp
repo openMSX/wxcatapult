@@ -395,21 +395,6 @@ void MiscControlPage::OnInputMaxFrameskip(wxCommandEvent& event)
 	}
 }
 
-void MiscControlPage::SetSpeed(wxString value)
-{
-	m_speedIndicator->SetValue(value);
-}
-
-void MiscControlPage::SetMinFrameskip(wxString value)
-{
-	m_minFrameSkipIndicator->SetValue(value);
-}
-
-void MiscControlPage::SetMaxFrameskip(wxString value)
-{
-	m_maxFrameSkipIndicator->SetValue(value);
-}
-
 void MiscControlPage::InitConnectorPanel()
 {
 	wxArrayString connectors;

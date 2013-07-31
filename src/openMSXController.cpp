@@ -64,54 +64,11 @@ bool openMSXController::PreLaunch()
 
 bool openMSXController::PostLaunch()
 {
-//	connectSocket (); // disabled since openMSX has also diabled sockets for security reasons
 	char initial[] = "<openmsx-control>\n";
 	WriteMessage((unsigned char*)initial, strlen(initial));
 	executeLaunch();
 	m_appWindow->StartTimers();
 	return true;
-}
-
-bool openMSXController::connectSocket()
-{
-	bool bRetval = false;
-	if (!m_socket) {
-		// only if we don't have a socket connection
-		m_socket = new wxSocketClient;
-		m_socket->SetEventHandler(*m_appWindow, OPENMSX_SOCKET);
-		m_socket->SetNotify(wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
-		m_socket->Notify(true);
-
-		wxIPV4address addr; // wx implemented only ipv4 so far
-		addr.Hostname(wxT("localhost")); // only localhost for now
-		addr.Service(9938); // openMSX port
-		if (!m_socket->Connect(addr, true)) {
-			// don't wait, openMSX should be available allready
-			wxMessageBox(wxT("Error: openMSX not available for socket connection !"));
-		} else {
-			bRetval = true; // succes
-		}
-	}
-	return bRetval;
-}
-
-void openMSXController::HandleSocketEvent(wxSocketEvent& event)
-{
-	switch (event.GetSocketEvent()) {
-	case wxSOCKET_INPUT: {
-		char buffer[1024];
-		event.GetSocket()->Read(buffer, 1024);
-		buffer[event.GetSocket()->LastCount() - 1] = 0;
-		wxString data = wxCSConv(wxT("ISO8859-1")).cMB2WX(buffer);
-		m_parser->ParseXmlInput(data, m_openMSXID);
-	}
-	case wxSOCKET_LOST:
-		break; // not sure what to do yet
-	case wxSOCKET_CONNECTION:
-		break;
-	default:
-		break;
-	}
 }
 
 void openMSXController::HandleEndProcess(wxCommandEvent& event)
@@ -387,7 +344,6 @@ int openMSXController::InitConnectors(wxString dummy, wxString connectors)
 {
 	m_connectors.Clear();
 	m_connectorclasses.Clear();
-	m_connectorcontents.Clear();
 	wxStringTokenizer tkz(connectors, wxT("\n"));
 	while (tkz.HasMoreTokens()) {
 		m_connectors.Add(tkz.GetNextToken());
@@ -412,18 +368,6 @@ wxString openMSXController::GetConnectorClass(wxString name)
 	for (unsigned i = 0; i < m_connectors.GetCount(); ++i) {
 		if (m_connectors[i] == name) {
 			return m_connectorclasses[i];
-		}
-	}
-	assert(false); return wxString();
-}
-
-wxString openMSXController::GetConnectorContents(wxString name)
-{
-	if (m_connectorcontents.IsEmpty()) return wxString();
-
-	for (unsigned i = 0; i < m_connectors.GetCount(); ++i) {
-		if (m_connectors[i] == name) {
-			return m_connectorcontents[i];
 		}
 	}
 	assert(false); return wxString();
@@ -547,7 +491,6 @@ void openMSXController::InitLaunchScript()
 	AddLaunchInstruction(wxT("!info_nostore connectionclass *"), wxT(""), wxT("*"), &openMSXController::AddPluggableClass, false);
 	AddLaunchInstruction(wxT("!info connector"), wxT("10"), wxT(""), &openMSXController::InitConnectors, true);
 	AddLaunchInstruction(wxT("!info_nostore connectionclass *"), wxT(""), wxT("*"), &openMSXController::AddConnectorClass, false);
-	AddLaunchInstruction(wxT("plug *"), wxT(""), wxT("*"), &openMSXController::AddConnectorContents, true);
 	AddLaunchInstruction(wxT("@checkfor msx-midi-in"), wxT("1"), wxT(""), nullptr, false);
 	AddLaunchInstruction(wxT("set midi-in-readfilename"), wxT(""), wxT("midi-in-readfilename"), &openMSXController::UpdateSetting, true);
 	AddLaunchInstruction(wxT("@checkfor msx-midi-out"), wxT("1"), wxT(""), nullptr, false);
@@ -998,12 +941,6 @@ int openMSXController::AddPluggableClass(wxString name, wxString data)
 int openMSXController::AddConnectorClass(wxString name, wxString data)
 {
 	m_connectorclasses.Add(data);
-	return 0; // don't skip any lines in the startup script
-}
-
-int openMSXController::AddConnectorContents(wxString name, wxString data)
-{
-	m_connectorcontents.Add(data);
 	return 0; // don't skip any lines in the startup script
 }
 

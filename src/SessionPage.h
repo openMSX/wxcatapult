@@ -30,6 +30,57 @@ class SessionPage : public CatapultPage
 public:
 	SessionPage(wxWindow* parent = nullptr, openMSXController* controller = nullptr);
 	virtual ~SessionPage();
+
+	void SetupHardware(bool initial, bool reset);
+	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
+	void SetControlsOnLaunch();
+	void SetControlsOnEnd();
+	void SetCassetteControl();
+	void getMedia(wxArrayString& parameters);
+	void getTypes(wxArrayString& parameters);
+	void getPatches(wxArrayString* parameters);
+	void getHardware(wxArrayString& hardware);
+	void UpdateSessionData();
+	void EnableCassettePort(wxString data);
+	void SetCassetteMode(wxString data);
+	void AutoPlugCassette();
+	void AddRomType(wxString romtype);
+	void SetRomTypeFullName(wxString romtype, wxString fullname);
+	wxArrayString& GetDetectedMachines();
+	wxArrayString& GetDetectedExtensions();
+	void RestoreHistory();
+	void FixLayout();
+
+private:
+	struct mediaInfo {
+		mediaInfo(wxMenu* menu)
+		{
+			contents = wxT("");
+			ips.Clear();
+			type = wxT("");
+			control = NULL;
+			history.Clear();
+			typehistory.Clear();
+			mmenu = menu;
+			ipsdir = wxT("");
+			avoid_evt = false;
+			lastContents = wxT("");
+			deviceName = wxT("");
+		};
+		wxString contents;
+		wxString ipsdir;
+		wxArrayString ips;
+		wxString type; // only for carts at the moment
+		wxComboBox* control;
+		wxArrayString history;
+		wxArrayString typehistory;
+		wxMenu* mmenu;
+		bool avoid_evt;
+		wxString oldContents;
+		wxString lastContents;
+		wxString deviceName;
+	};
+
 //	void OnClickCombo(wxCommandEvent& event);
 	void OnBrowseCassette(wxCommandEvent& event);
 	void OnBrowseDiskA(wxCommandEvent& event);
@@ -69,62 +120,11 @@ public:
 	void OnEjectDiskByMenu(wxCommandEvent& event);
 	void OnSelectMapper(wxCommandEvent& event);
 	void OnSelectIPS(wxCommandEvent& event);
-	void SetupHardware(bool initial, bool reset);
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
-	void SetControlsOnLaunch();
-	void SetControlsOnEnd();
-	void SetCassetteControl();
-	void getMedia(wxArrayString& parameters);
-	void getTypes(wxArrayString& parameters);
-	void getPatches(wxArrayString* parameters);
-	void getHardware(wxArrayString& hardware);
-	void UpdateSessionData();
-	void EnableCassettePort(wxString data);
-	void SetCassetteMode(wxString data);
-	void AutoPlugCassette();
-	void AddRomType(wxString romtype);
-	void SetRomTypeFullName(wxString romtype, wxString fullname);
-	void SetupRomType(wxString romtype, wxString fullname);
-	void SetOldStyleCassetteControls();
-	wxArrayString& GetDetectedMachines();
-	wxArrayString& GetDetectedExtensions();
-	void RestoreHistory();
-	void FixLayout();
 
-private:
-	struct mediaInfo {
-		mediaInfo(wxMenu* menu)
-		{
-			contents = wxT("");
-			ips.Clear();
-			type = wxT("");
-			control = NULL;
-			history.Clear();
-			typehistory.Clear();
-			mmenu = menu;
-			ipsdir = wxT("");
-			avoid_evt = false;
-			lastContents = wxT("");
-			deviceName = wxT("");
-		};
-		wxString contents;
-		wxString ipsdir;
-		wxArrayString ips;
-		wxString type; // only for carts at the moment
-		wxComboBox* control;
-		wxArrayString history;
-		wxArrayString typehistory;
-		wxMenu* mmenu;
-		bool avoid_evt;
-		wxString oldContents;
-		wxString lastContents;
-		wxString deviceName;
-	};
+	void SetupRomType(wxString romtype, wxString fullname);
 	mediaInfo* GetLastMenuTarget();
-	static int CompareCaseInsensitive(const wxString& first, const wxString& second);
-	void GetRomTypes ();
+	void GetRomTypes();
 	void UpdateMenuMapperLabel(mediaInfo* target);
-	wxString ConvertRomType(wxString source, bool backwards);
 	bool BrowseDisk(mediaInfo* target, wxString devicename, wxString defaultpath);
 	void BrowseCart(mediaInfo* target, wxString defaultpath);
 	void prepareMachines(wxString sharepath, wxArrayString& machineArray, bool optional = false);
@@ -135,6 +135,9 @@ private:
 	void SaveHistory();
 	void EjectCart(mediaInfo* target);
 	void EjectDisk(mediaInfo* target);
+
+	wxComboBox* m_machineList;
+	wxListBox* m_extensionList;
 
 	mediaInfo* m_diskA;
 	mediaInfo* m_diskB;
@@ -173,8 +176,8 @@ private:
 	int m_InsertedMedia;
 	wxString m_usedMachine;
 	wxString m_usedExtensions;
-	openMSXController * m_controller;
-	wxCatapultFrame * m_parent;
+	openMSXController* m_controller;
+	wxCatapultFrame* m_parent;
 
 	wxMenu* m_diskMenu[2];
 	wxMenu* m_cartMenu[2];
@@ -187,17 +190,8 @@ private:
 	bool m_cassetteControlEnabled;
 	bool m_cassetteAutoCreate;
 
-	// old style compatability
-	wxString m_casInsertCommand;
-	wxString m_motorControlOnCommand;
-	wxString m_motorControlOffCommand;
-
 	DECLARE_CLASS(SessionPage)
 	DECLARE_EVENT_TABLE()
-
-public:
-	wxComboBox* m_machineList;
-	wxListBox* m_extensionList;
 };
 
 #endif

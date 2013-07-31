@@ -8,9 +8,9 @@ class ScreenshotDlg : public wxDialog
 public:
 	ScreenshotDlg(wxWindow* parent);
 
+private:
 	void OnOk(wxCommandEvent& event);
 
-private:
 	DECLARE_CLASS(ScreenshotDlg)
 	DECLARE_EVENT_TABLE()
 };

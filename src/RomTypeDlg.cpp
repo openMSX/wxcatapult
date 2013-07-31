@@ -54,19 +54,14 @@ void RomTypeDlg::OnCancel(wxCommandEvent& event)
 
 void RomTypeDlg::OnOk(wxCommandEvent& event)
 {
-	m_selectedFullTypeName = m_romTypeList->GetStringSelection();
-	m_selectedType = ConvertRomType(m_selectedFullTypeName, true);
+	wxString fullTypeName = m_romTypeList->GetStringSelection();
+	m_selectedType = ConvertRomType(fullTypeName, true);
 	EndModal(wxID_OK);
 }
 
 wxString RomTypeDlg::GetSelectedType()
 {
 	return m_selectedType;
-}
-
-wxString RomTypeDlg::GetSelectedFullTypeName()
-{
-	return m_selectedFullTypeName;
 }
 
 void RomTypeDlg::AddRomType(wxString type)

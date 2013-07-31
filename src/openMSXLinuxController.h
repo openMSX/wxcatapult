@@ -1,7 +1,6 @@
 #ifndef OPENMSXLINUXCONTROLLER_H
 #define OPENMSXLINUXCONTROLLER_H
 
-#include <wx/txtstrm.h>
 #include "openMSXController.h"
 #include <string>
 
@@ -13,13 +12,13 @@ public:
 	openMSXLinuxController(wxWindow* target);
 	virtual ~openMSXLinuxController();
 
-	bool WriteMessage(xmlChar* msg, size_t length);
+private:
+	virtual bool WriteMessage(xmlChar* msg, size_t length);
 	virtual bool Launch(wxString cmdline);
 	virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
 	virtual void HandleNativeEndProcess();
-
-private:
 	bool execute(const std::string& command, int& fdIn, int& fdOut, int& fdErr);
+
 	int m_openMSXstdin;
 	int m_openMSXstdout;
 	int m_openMSXstderr;

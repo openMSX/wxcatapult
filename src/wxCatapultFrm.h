@@ -28,9 +28,30 @@ public:
 	wxCatapultFrame(wxWindow* parent = nullptr);
 	virtual ~wxCatapultFrame();
 
-	void OnControllerEvent(wxCommandEvent& event);
+	void SetControlsOnEnd();
+	void SetControlsOnLaunch();
+	void StartTimers();
+	void StopTimers();
+	void EnableMainWindow();
+	void SetFPSdisplay(wxString val);
+	void UpdateLed(wxString ledname, wxString ledstate);
+	void UpdateState(wxString statename, wxString state);
+	void EnableSaveSettings(bool enabled);
+	void CheckConfigs();
 
+	SessionPage* m_sessionPage;
+	StatusPage* m_statusPage;
+	VideoControlPage* m_videoControlPage;
+	MiscControlPage* m_miscControlPage;
+	AudioControlPage* m_audioControlPage;
+	InputPage* m_inputPage;
+
+	wxNotebook* m_tabControl;
+	wxButton* m_launch_AbortButton;
+
+private:
 	// event handlers (these functions should _not_ be virtual)
+	void OnControllerEvent(wxCommandEvent& event);
 	void OnMenuQuit(wxCommandEvent& event);
 	void OnMenuCheckConfigs(wxCommandEvent& event);
 	void OnMenuAbout(wxCommandEvent& event);
@@ -43,38 +64,15 @@ public:
 	void OnMenuClose (wxMenuEvent& event);
 	void OnMenuOpen (wxMenuEvent& event);
 	void OnMenuHighlight(wxMenuEvent& event);
-	void OnSocketEvent(wxSocketEvent& event);
 	void OnLaunch(wxCommandEvent& event);
-	void SetControlsOnEnd();
-	void SetControlsOnLaunch();
-	void StartTimers();
-	void StopTimers();
 	void OnUpdateFPS(wxTimerEvent& event);
 	void OnEnableMainWindow(wxTimerEvent& event);
-	void EnableMainWindow();
 	void OnCheckFocus(wxTimerEvent& event);
 	void OnChangePage(wxNotebookEvent& event);
 	void OnDeselectCatapult(wxActivateEvent& event);
-	void SetFPSdisplay(wxString val);
-	void UpdateLed(wxString ledname, wxString ledstate);
-	void UpdateState (wxString statename, wxString state);
-	void EnableSaveSettings(bool enabled);
-	void CheckConfigs();
-
-	SessionPage* m_sessionPage;
-	StatusPage* m_statusPage;
-	VideoControlPage* m_videoControlPage;
-	MiscControlPage* m_miscControlPage;
-	AudioControlPage* m_audioControlPage;
-	InputPage* m_inputPage;
+	bool EditConfig(bool fatalIfFailed = false);
 
 	openMSXController* m_controller;
-	wxNotebook* m_tabControl;
-	wxButton* m_launch_AbortButton;
-
-private:
-	bool WriteMessage(wxString msg);
-	bool EditConfig(bool fatalIfFailed = false);
 
 	wxStaticBitmap* m_powerLed;
 	wxStaticBitmap* m_capsLed;
@@ -85,7 +83,6 @@ private:
 	wxMenu* settingsMenu;
 	wxMenu* viewMenu;
 
-	CatapultXMLParser* m_parser;
 	wxTimer m_fpsTimer;
 	wxTimer m_focusTimer;
 	wxTimer m_safetyTimer;

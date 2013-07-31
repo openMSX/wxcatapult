@@ -14,6 +14,10 @@
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
 
+#define MUTEBUTTONID 19999
+#define FIRSTAUDIOSLIDER 20000
+#define FIRSTAUDIOCOMBO 21000
+
 IMPLEMENT_CLASS(AudioControlPage, wxPanel)
 BEGIN_EVENT_TABLE(AudioControlPage, wxPanel)
 	EVT_COMBOBOX(XRCID("MidiInSelector"),          CatapultPage::OnClickCombo)
@@ -341,9 +345,9 @@ wxString AudioControlPage::GetAudioChannelType(int number)
 	return temp;
 }
 
-unsigned int AudioControlPage::GetNumberOfAudioChannels()
+size_t AudioControlPage::GetNumberOfAudioChannels()
 {
-	return (unsigned)m_audioChannels.GetCount();
+	return m_audioChannels.GetCount();
 }
 
 void AudioControlPage::SetChannelVolume(int number, wxString value)
@@ -541,20 +545,6 @@ void AudioControlPage::InvalidSampleFilename()
 	auto* box = (wxComboBox*)FindWindowByName(wxT("SampleInSelector"));
 	box->SetValue(wxT("--empty--"));
 	m_controller->WriteCommand(wxT("unplug pcminput"));
-}
-
-void AudioControlPage::SetMidiFilename(wxString value, bool midiIn)
-{
-	if (midiIn) {
-		m_midiInFilename = value;
-	} else {
-		m_midiOutFilename = value;
-	}
-}
-
-void AudioControlPage::SetSampleFilename(wxString value)
-{
-	m_sampleInFilename = value;
 }
 
 void AudioControlPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)

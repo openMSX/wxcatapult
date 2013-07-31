@@ -14,15 +14,16 @@ public:
 	CheckConfigsDlg(wxWindow* parent);
 	virtual ~CheckConfigsDlg();
 
-	void OnUserButton(wxCommandEvent& event);
-	void OnTestConfigEvent(wxCommandEvent& event);
-	void HandleUpdateStats(bool checkmachine, bool succes, int progress);
-	void HandleSetCurrentObject(wxString object);
 	int ShowModal(wxString cmd, wxArrayString& machines, wxArrayString& extensions);
-	void EndModal(int retCode);
-	void FinishCheck();
 
 private:
+	void HandleUpdateStats(bool checkmachine, bool succes, int progress);
+	void HandleSetCurrentObject(wxString object);
+	void EndModal(int retCode);
+	void FinishCheck();
+	void OnUserButton(wxCommandEvent& event);
+	void OnTestConfigEvent(wxCommandEvent& event);
+
 	struct CheckConfigsData {
 		bool m_checkmachine;
 		bool m_succes;

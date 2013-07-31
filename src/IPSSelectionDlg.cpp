@@ -10,13 +10,13 @@
 
 IMPLEMENT_CLASS(IPSSelectionDlg, wxDialog)
 BEGIN_EVENT_TABLE(IPSSelectionDlg, wxDialog)
-	EVT_BUTTON(XRCID("IPSOkButton"),IPSSelectionDlg::OnOk)
-	EVT_BUTTON(XRCID("IPSCancelButton"),IPSSelectionDlg::OnCancel)
-	EVT_BUTTON(XRCID("AddIPSButton"),IPSSelectionDlg::OnAddIPS)
-	EVT_BUTTON(XRCID("RemoveIPSButton"),IPSSelectionDlg::OnRemoveIPS)
-	EVT_BUTTON(XRCID("MoveIPSUpButton"),IPSSelectionDlg::OnMoveUp)
-	EVT_BUTTON(XRCID("MoveIPSDownButton"),IPSSelectionDlg::OnMoveDown)
-	EVT_LISTBOX(XRCID("IPSList"),IPSSelectionDlg::OnSelectIPS)
+	EVT_BUTTON( XRCID("IPSOkButton"),      IPSSelectionDlg::OnOk)
+	EVT_BUTTON( XRCID("IPSCancelButton"),  IPSSelectionDlg::OnCancel)
+	EVT_BUTTON( XRCID("AddIPSButton"),     IPSSelectionDlg::OnAddIPS)
+	EVT_BUTTON( XRCID("RemoveIPSButton"),  IPSSelectionDlg::OnRemoveIPS)
+	EVT_BUTTON( XRCID("MoveIPSUpButton"),  IPSSelectionDlg::OnMoveUp)
+	EVT_BUTTON( XRCID("MoveIPSDownButton"),IPSSelectionDlg::OnMoveDown)
+	EVT_LISTBOX(XRCID("IPSList"),          IPSSelectionDlg::OnSelectIPS)
 END_EVENT_TABLE()
 
 IPSSelectionDlg::IPSSelectionDlg(wxWindow* parent)
@@ -36,9 +36,8 @@ int IPSSelectionDlg::ShowModal(wxArrayString& patches, wxString targetDir)
 {
 	m_lastBrowseLocation = targetDir;
 	m_ipsDisplay->Clear();
-	int count = patches.GetCount();
-	for (int i = 0; i < count; ++i) {
-		m_ipsDisplay->Append(patches[i]);
+	for (auto& p : patches) {
+		m_ipsDisplay->Append(p);
 	}
 	wxMemoryDC tempDC;
 	tempDC.SetFont(m_ipsDisplay->GetFont());

@@ -58,7 +58,6 @@ enum {
 #define FPS_TIMER 1
 #define FOCUS_TIMER 2
 #define SAFETY_TIMER 3
-#define OPENMSX_SOCKET 1
 
 // ----------------------------------------------------------------------------
 // event tables and other macros for wxWindows
@@ -88,7 +87,6 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU_OPEN(wxCatapultFrame::OnMenuOpen)
 	EVT_MENU_CLOSE(wxCatapultFrame::OnMenuClose)
 	EVT_MENU_HIGHLIGHT_ALL(wxCatapultFrame::OnMenuHighlight)
-	EVT_SOCKET (OPENMSX_SOCKET,wxCatapultFrame::OnSocketEvent)
 END_EVENT_TABLE()
 
 	// include icon if we're not compiling with Visual Studio
@@ -102,10 +100,6 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 	m_fpsTimer.SetOwner(this,FPS_TIMER);
 	m_focusTimer.SetOwner(this,FOCUS_TIMER);
 	m_safetyTimer.SetOwner(this,SAFETY_TIMER);
-
-//	int * testke = nullptr;
-//	delete testke;
-
 
 #ifdef __WXMSW__
 	m_controller = new openMSXWindowsController(this);
@@ -184,7 +178,6 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 
 	SetControlsOnEnd();
 	m_launch_AbortButton->Enable(false);
-	m_settingsfile = wxT("");
 	// Now, let's find out if we have a path to openMSX
 	bool configOK = true;
 	if (!config.HaveRequiredSettings()) {
@@ -404,7 +397,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 
 	m_launch_AbortButton->SetLabel(wxT("Stop"));
 	m_launch_AbortButton->Enable(false);
-	m_safetyTimer.Start(2000,true); // max 2 seconds disable (whatever happens)
+	m_safetyTimer.Start(2000, true); // max 2 seconds disable (whatever happens)
 
 	wxArrayString hardware;
 	wxArrayString media;
@@ -489,11 +482,6 @@ void wxCatapultFrame::SetControlsOnEnd()
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
 {
 	m_controller->HandleMessage(event);
-}
-
-void wxCatapultFrame::OnSocketEvent(wxSocketEvent & event)
-{
-	m_controller->HandleSocketEvent (event);
 }
 
 void wxCatapultFrame::StartTimers()

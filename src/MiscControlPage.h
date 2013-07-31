@@ -6,7 +6,6 @@
 #include <wx/timer.h>
 
 class openMSXController;
-class wxCatapultFrame;
 class wxBitmapButton;
 class wxButton;
 class wxComboBox;
@@ -22,6 +21,13 @@ public:
 	void SetControlsOnLaunch();
 	void EnableFirmware(wxString setting);
 	void EnableRenShaTurbo();
+	void InitConnectorPanel();
+	void InvalidPrinterLogFilename();
+	void FillInitialJoystickPortValues();
+
+private:
+	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
+	void InitJoystickPort(wxString connector, wxString control, wxString connectorClass);
 	void OnSetThrottle(wxCommandEvent& event);
 	void OnSetCmdTiming(wxCommandEvent& event);
 	void OnSetNormalSpeed(wxCommandEvent& event);
@@ -39,25 +45,13 @@ public:
 	void OnInputMaxFrameskip(wxCommandEvent& event);
 	void OnChangeJoystick(wxCommandEvent& event);
 	void OnChangePrinterPort(wxCommandEvent& event);
-	void OnPrinterportChanged(bool save);
 	void OnChangePrinterLogFile(wxCommandEvent& event);
 	void OnBrowsePrinterLogFile(wxCommandEvent& event);
 	void OnChangeRenShaTurbo(wxScrollEvent& event);
 	void OnJoystickChangedTimer(wxTimerEvent& event);
-	void OnJoystickChanged();
 	void OnInputSpeed(wxCommandEvent& event);
-	void SetSpeed(wxString value);
-	void SetMinFrameskip(wxString value);
-	void SetMaxFrameskip(wxString value);
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
-	void InitConnectorPanel();
-	void InvalidPrinterLogFilename();
-	void FillInitialJoystickPortValues();
-
-	wxToggleButton* m_powerButton;
-
-private:
-	void InitJoystickPort(wxString connector, wxString control, wxString connectorClass);
+	void OnPrinterportChanged(bool save);
+	void OnJoystickChanged();
 
 	openMSXController* m_controller;
 	wxBitmapButton* m_browsePrinterLog;
@@ -76,6 +70,7 @@ private:
 	wxStaticText* m_renshaLabel;
 	wxStaticText* m_printerportFileLabel;
 
+	wxToggleButton* m_powerButton;
 	wxToggleButton* m_pauseButton;
 	wxToggleButton* m_firmwareButton;
 	wxSlider* m_speedSlider;

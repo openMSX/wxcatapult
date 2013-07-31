@@ -12,12 +12,12 @@ class CatapultConfigDlg : public wxDialog
 public:
 	CatapultConfigDlg(wxWindow* parent, openMSXController* controller);
 
+private:
 	void OnBrowseExec(wxCommandEvent& event);
 	void OnBrowseShare(wxCommandEvent& event);
 	void OnCancel(wxCommandEvent& event);
 	void OnOk(wxCommandEvent& event);
 
-private:
 	wxTextCtrl* m_ExecPath;
 	wxTextCtrl* m_SharePath;
 	wxCheckBox* m_ConfigCheck;

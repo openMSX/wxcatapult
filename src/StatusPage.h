@@ -9,11 +9,12 @@ class StatusPage : public CatapultPage
 {
 public:
 	StatusPage(wxWindow* parent);
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
 
 	wxTextCtrl* m_outputtext;
 
 private:
+	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
+
 	DECLARE_CLASS(StatusPage)
 	DECLARE_EVENT_TABLE()
 };

@@ -10,23 +10,21 @@ class RomTypeDlg : public wxDialog
 public:
 	RomTypeDlg(wxWindow* parent);
 
-	void OnCancel(wxCommandEvent& event);
-	void OnOk(wxCommandEvent& event);
-	void SetSelectedType(wxString type);
 	wxString GetSelectedType();
-	wxString GetSelectedFullTypeName();
-	int FindRomType(wxString type);
-	int FindRomFullTypeName(wxString name);
 	void AddRomType(wxString type);
 	void SetRomTypeFullName(wxString type, wxString name);
-	wxString ConvertRomType(wxString source, bool backwards);
 	int ShowModal(wxString type);
 
 private:
+	void OnCancel(wxCommandEvent& event);
+	void OnOk(wxCommandEvent& event);
+	int FindRomType(wxString type);
+	int FindRomFullTypeName(wxString name);
+	wxString ConvertRomType(wxString source, bool backwards);
+
 	wxListBox* m_romTypeList;
 	wxArrayString m_romTypes;
 	wxString m_selectedType;
-	wxString m_selectedFullTypeName;
 
 	DECLARE_CLASS(RomTypeDlg)
 	DECLARE_EVENT_TABLE()

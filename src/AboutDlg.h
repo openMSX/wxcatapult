@@ -7,9 +7,10 @@ class AboutDlg : public wxDialog
 {
 public:
 	AboutDlg(wxWindow* parent);
-	void OnClose(wxCommandEvent& event);
 
 private:
+	void OnClose(wxCommandEvent& event);
+
 	DECLARE_CLASS(AboutDlg)
 	DECLARE_EVENT_TABLE()
 };

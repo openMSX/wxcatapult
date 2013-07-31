@@ -3,10 +3,6 @@
 
 #include "CatapultPage.h"
 
-#define MUTEBUTTONID 19999
-#define FIRSTAUDIOSLIDER 20000
-#define FIRSTAUDIOCOMBO 21000
-
 class openMSXController;
 class wxStaticText;
 class wxBitmapButton;
@@ -16,25 +12,13 @@ class AudioControlPage : public CatapultPage
 public:
 	AudioControlPage(wxWindow* parent, openMSXController* controller);
 
-	void SetMidiFilename(wxString value, bool midiIn);
-	void SetSampleFilename(wxString value);
 	void InvalidMidiInReader();
 	void InvalidMidiOutLogger();
 	void InvalidSampleFilename();
 	void SetChannelVolume(int number, wxString value);
 	void SetChannelMode(int number, wxString value);
 	wxString GetAudioChannelName(int number);
-	wxString GetAudioChannelType(int number);
-	unsigned GetNumberOfAudioChannels();
-	void OnChangeVolume(wxScrollEvent& event);
-	void OnChangeMode(wxCommandEvent& event);
-	void OnMute(wxCommandEvent& event);
-	void OnChangeMidiInPlug(wxCommandEvent& event);
-	void OnChangeMidiOutPlug(wxCommandEvent& event);
-	void OnChangeSampleInPlug(wxCommandEvent& event);
-	void OnBrowseMidiInFile(wxCommandEvent& event);
-	void OnBrowseMidiOutFile(wxCommandEvent& event);
-	void OnBrowseSampleInFile(wxCommandEvent& event);
+	size_t GetNumberOfAudioChannels();
 	void InitAudioChannels(const wxArrayString& channels);
 	void AddChannelType(int channel, wxString type);
 	void SetupAudioMixer();
@@ -45,14 +29,22 @@ public:
 	void UpdateMidiPlug(wxString connector, wxString data);
 
 private:
+	wxString GetAudioChannelType(int number);
 	void ConvertChannelNames(wxArrayString& names);
 	void AddChannel(wxString label, int channelnumber);
+	void OnChangeVolume(wxScrollEvent& event);
+	void OnChangeMode(wxCommandEvent& event);
+	void OnMute(wxCommandEvent& event);
+	void OnChangeMidiInPlug(wxCommandEvent& event);
+	void OnChangeMidiOutPlug(wxCommandEvent& event);
+	void OnChangeSampleInPlug(wxCommandEvent& event);
+	void OnBrowseMidiInFile(wxCommandEvent& event);
+	void OnBrowseMidiOutFile(wxCommandEvent& event);
+	void OnBrowseSampleInFile(wxCommandEvent& event);
+
 	openMSXController* m_controller;
 	wxPanel* m_audioPanel;
 	wxArrayString m_audioChannels;
-	wxString m_midiInFilename;
-	wxString m_midiOutFilename;
-	wxString m_sampleInFilename;
 
 	wxStaticText* m_midiInLabel;
 	wxStaticText* m_midiOutLabel;

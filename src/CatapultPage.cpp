@@ -50,8 +50,7 @@ void CatapultPage::OnClickCombo(wxCommandEvent& event)
 {
 	auto* box = (wxComboBox*)event.GetEventObject();
 	wxString sel = box->GetString(box->GetSelection());
-	wxString cursel = box->GetValue();
-	if (sel != cursel) {
+	if (sel != box->GetValue()) {
 		box->SetValue(sel);
 	}
 }

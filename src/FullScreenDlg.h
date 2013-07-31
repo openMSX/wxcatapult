@@ -8,10 +8,10 @@ class FullScreenDlg : public wxDialog
 public:
 	FullScreenDlg(wxWindow* parent = nullptr);
 
+private:
 	void OnCancel(wxCommandEvent& event);
 	void OnOk(wxCommandEvent& event);
 
-private:
 	DECLARE_CLASS(FullScreenDlg)
 	DECLARE_EVENT_TABLE()
 };

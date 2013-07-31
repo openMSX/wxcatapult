@@ -26,15 +26,14 @@ wxCatapultApp::~wxCatapultApp()
 }
 
 // 'Main program' equivalent: the program execution "starts" here
+// this one is called on application startup and is a good place for the app
+// initialization (doing it here and not in the ctor allows to have an error
+// return: if OnInit() returns false, the application terminates)
 bool wxCatapultApp::OnInit()
 {
 	if (!wxApp::OnInit()) return false;
 	wxImage::AddHandler(new wxPNGHandler());
 	wxXmlResource::Get()->InitAllHandlers();
-
-#ifdef ADD_TOGGLEBUTTON_HANDLER
-	wxXmlResource::Get()->AddHandler(new wxToggleButtonXmlHandler);
-#endif
 
 	EVT_CONTROLLER = wxNewEventType();
 	EVT_TESTCONFIG = wxNewEventType();

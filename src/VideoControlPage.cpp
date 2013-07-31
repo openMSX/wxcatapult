@@ -79,7 +79,6 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController* controll
 	m_screenShotFile    = (wxTextCtrl*)FindWindowByName(wxT("ScreenShotFilename"));
 	m_screenShotCounter = (wxTextCtrl*)FindWindowByName(wxT("ScreenShotCounter"));
 	m_screenShotButton = (wxButton*)FindWindowByName(wxT("ScreenShotButton"));
-	m_browseScreenshotButton = (wxBitmapButton*)FindWindowByName(wxT("BrowseScreenShotButton"));
 
 	m_rendererLabel     = (wxStaticText*)FindWindowByName(wxT("RendererLabel"));
 	m_scalerLabel       = (wxStaticText*)FindWindowByName(wxT("ScalerLabel"));
@@ -380,48 +379,6 @@ void VideoControlPage::SetControlsOnEnd()
 	}
 }
 
-void VideoControlPage::SetRenderer(wxString value)
-{
-	m_rendererList->SetSelection(m_rendererList->FindString(value));
-}
-
-void VideoControlPage::SetScalerAlgo(wxString value)
-{
-	m_scalerAlgoList->SetSelection(m_scalerAlgoList->FindString(value));
-}
-
-void VideoControlPage::SetScalerFactor(wxString value)
-{
-	m_scalerFactorList->SetSelection(m_scalerFactorList->FindString(value));
-}
-
-void VideoControlPage::SetAccuracy(wxString value)
-{
-	m_accuracyList->SetSelection(m_accuracyList->FindString(value));
-}
-
-void VideoControlPage::SetDeinterlace(wxString value)
-{
-	if (value == wxT("on")) {
-		m_deinterlaceButton->SetValue(true);
-		m_deinterlaceButton->SetLabel(wxT("On"));
-	} else {
-		m_deinterlaceButton->SetValue(false);
-		m_deinterlaceButton->SetLabel(wxT("Off"));
-	}
-}
-
-void VideoControlPage::SetLimitSprites(wxString value)
-{
-	if (value == wxT("on")) {
-		m_limitSpritesButton->SetValue(true);
-		m_limitSpritesButton->SetLabel(wxT("On"));
-	} else {
-		m_limitSpritesButton->SetValue(false);
-		m_limitSpritesButton->SetLabel(wxT("Off"));
-	}
-}
-
 void VideoControlPage::SetSliderDefaults()
 {
 	m_defaultBlur = m_blurIndicator->GetValue();
@@ -471,7 +428,7 @@ void VideoControlPage::OnTakeScreenShot(wxCommandEvent& event)
 }
 
 
-int VideoControlPage::FindFirstFreeScreenshotFile(wxString prefix)
+static int FindFirstFreeScreenshotFile(wxString prefix)
 {
 	int counter = 0;
 	bool found = false;

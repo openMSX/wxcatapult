@@ -40,7 +40,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* contro
 		guess.Replace(wxT("/"), wxT("\\"), true);
 		for (int i = 0; i < 2; ++i) {
 			while (guess.Last() == '\\') {
-				guess = guess.Left(guess.Len() - 1);
+				guess.RemoveLast();
 			}
 			int pos = guess.Find('\\', true);
 			if (pos != -1) {
@@ -60,7 +60,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* contro
 	if (temp.IsEmpty() && !m_ExecPath->GetValue().IsEmpty()) {
 #ifdef __WXMSW__
 		guess = m_ExecPath->GetValue();
-		guess.Replace (wxT("/"), wxT("\\"), true);
+		guess.Replace(wxT("/"), wxT("\\"), true);
 		int pos = guess.Find('\\', true);
 		if (pos != -1) {
 			guess = guess.Left(pos + 1) + wxT("share");
@@ -117,9 +117,9 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent& event)
 	executable = wxT(".exe");
 #endif
 
-	wxFileDialog filedlg(this, wxT("Select openMSX executable"),
-			defaultpath, wxT("openmsx") + executable,
-			wxT("*") + executable, wxOPEN);
+	wxFileDialog filedlg(
+		this, wxT("Select openMSX executable"), defaultpath,
+		wxT("openmsx") + executable, wxT("*") + executable, wxOPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		m_ExecPath->SetValue(filedlg.GetPath());
 	}
@@ -136,6 +136,6 @@ void CatapultConfigDlg::OnBrowseShare(wxCommandEvent& event)
 
 	wxDirDialog dirdlg(this, wxT("Select openMSX share directory"), defaultpath);
 	if (dirdlg.ShowModal() == wxID_OK) {
-		m_SharePath->SetValue (dirdlg.GetPath());
+		m_SharePath->SetValue(dirdlg.GetPath());
 	}
 }
