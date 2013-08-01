@@ -422,15 +422,15 @@ make install</div>
 </ul>
 <p>for Win32</p>	
 <ul>
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</li>
-	<li><code>set PlatformToolset=v110</code></li>
-	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\3rdparty\3rdparty.sln</code></li>
-</ul>
-<p>for Win64</p>
-<ul>		
 	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86</li>
 	<li><code>set PlatformToolset=v110</code></li>
 	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
+</ul>
+<p>for Win64</p>
+<ul>		
+	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</li>
+	<li><code>set PlatformToolset=v110</code></li>
+	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\3rdparty\3rdparty.sln</code></li>
 </ul>
 	
 	
@@ -490,15 +490,15 @@ Make sure you provide us with the error message(s) you got.
 
 <p>for Win32</p>	
 <ul>
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</li>
-	<li><code>set PlatformToolset=v110</code></li>
-	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\msvc\wxCatapult.sln</code></li>
-</ul>
-<p>for Win64</p>
-<ul>		
 	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86</li>
 	<li><code>set PlatformToolset=v110</code></li>
 	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\msvc\wxCatapult.sln</code></li>
+</ul>
+<p>for Win64</p>
+<ul>		
+	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</li>
+	<li><code>set PlatformToolset=v110</code></li>
+	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\msvc\wxCatapult.sln</code></li>
 </ul>
 
 <p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options. Note: the options should be consistent with the ones you provided for the 3rdparty libraries build, see above!</p>
