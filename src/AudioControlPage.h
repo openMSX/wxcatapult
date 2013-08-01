@@ -2,6 +2,7 @@
 #define AUDIOCONTROLPAGE_H
 
 #include "CatapultPage.h"
+#include <vector>
 
 class openMSXController;
 class wxStaticText;
@@ -15,23 +16,20 @@ public:
 	void InvalidMidiInReader();
 	void InvalidMidiOutLogger();
 	void InvalidSampleFilename();
-	void SetChannelVolume(int number, wxString value);
-	void SetChannelMode(int number, wxString value);
-	wxString GetAudioChannelName(int number);
-	size_t GetNumberOfAudioChannels();
-	void InitAudioChannels(const wxArrayString& channels);
-	void AddChannelType(int channel, wxString type);
+	void SetChannelVolume(const wxString& name, const wxString& value);
+	void SetChannelMode  (const wxString& name, const wxString& value);
+	void InitAudioChannels();
+	void AddChannelType(const wxString& name, const wxString& type);
 	void SetupAudioMixer();
 	void DestroyAudioMixer();
 	void DisableAudioPanel();
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
 	void InitAudioIO();
-	void UpdateMidiPlug(wxString connector, wxString data);
+	void UpdateMidiPlug(const wxString& connector, const wxString& data);
 
 private:
-	wxString GetAudioChannelType(int number);
-	void ConvertChannelNames(wxArrayString& names);
-	void AddChannel(wxString label, int channelnumber);
+	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
+	void AddChannel(int channelnumber);
+	int FindChannel(const wxString& name) const;
 	void OnChangeVolume(wxScrollEvent& event);
 	void OnChangeMode(wxCommandEvent& event);
 	void OnMute(wxCommandEvent& event);
@@ -44,7 +42,13 @@ private:
 
 	openMSXController* m_controller;
 	wxPanel* m_audioPanel;
-	wxArrayString m_audioChannels;
+
+	struct ChannelInfo {
+		wxString name;
+		wxString type;
+		wxString displayType; // includes 2-char sort-id
+	};
+	std::vector<ChannelInfo> m_audioChannels;
 
 	wxStaticText* m_midiInLabel;
 	wxStaticText* m_midiOutLabel;

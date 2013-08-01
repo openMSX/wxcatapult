@@ -13,6 +13,8 @@
 #include <wx/textctrl.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
+#include <algorithm>
+#include <map>
 
 #define MUTEBUTTONID 19999
 #define FIRSTAUDIOSLIDER 20000
@@ -54,18 +56,53 @@ AudioControlPage::AudioControlPage(wxWindow* parent, openMSXController* controll
 	}
 }
 
-void AudioControlPage::InitAudioChannels(const wxArrayString& channels)
+static wxString abbreviateType(const wxString& type)
 {
-	m_audioChannels.Clear();
-	m_audioChannels.Add(wxT("master;;master"));
-	for (auto& ch : channels) {
-		m_audioChannels.Add(ch);
+	static bool init = false;
+	static std::map<wxString, wxString> m;
+	if (!init) {
+		init = true;
+		m[wxT("master")] = wxT("a master\n");
+		m[wxT("1-bit click generator")] = wxT("b key-\nclick");
+		m[wxT("PSG")] = wxT("c PSG\n");
+		m[wxT("Turbo-R PCM")] = wxT("d PCM\n");
+		m[wxT("MSX-MUSIC")] = wxT("e MSX-\nMUSIC");
+		m[wxT("Konami SCC")] = wxT("g SCC\n");
+		m[wxT("Konami SCC+")] = wxT("h SCC+\n");
+		m[wxT("MSX-AUDIO")] = wxT("i AUDIO\nFM");
+		m[wxT("MSX-AUDIO 13-bit DAC")] = wxT("j AUDIO\nDAC");
+		m[wxT("MSX-AUDIO 8-bit DAC")] = wxT("k AUDIO\nDAC2");
+		m[wxT("MoonSound FM-part")] = wxT("l MSnd\nFM");
+		m[wxT("MoonSound wave-part")] = wxT("m MSnd\nWave");
+		m[wxT("Hai no Majutsushi's DAC")] = wxT("o Majutsu\nDAC");
+		m[wxT("Konami Synthesizer's DAC")] = wxT("p Konami\nSynth");
+		m[wxT("Play samples via your printer port.")] = wxT("q SIMPL\n");
+		m[wxT("Sony Playball's DAC")] = wxT("r Playball\n");
+		m[wxT("Konami Keyboard Master's VLM5030")] = wxT("s Konami\nVLM5030");
+		m[wxT("Cassetteplayer, use to read .cas or .wav files.")] = wxT("y cas-\nsette");
 	}
+	auto it = m.find(type);
+	return (it != m.end()) ? it->second          //   known type
+	                       : (wxT("z ") + type); // unknown type
 }
 
-void AudioControlPage::AddChannelType(int channel, wxString type)
+void AudioControlPage::InitAudioChannels()
 {
-	m_audioChannels[channel] = type + wxT(";;") + m_audioChannels[channel];
+	m_audioChannels.clear();
+	AddChannelType(wxT("master"), wxT("master"));
+}
+
+void AudioControlPage::AddChannelType(const wxString& name, const wxString& type_)
+{
+	// Hack: undo transformation from stupid launch script
+	wxString type = type_;
+	type.Replace(wxT("\n"), wxT(" "), true);
+
+	ChannelInfo info;
+	info.name        = name;
+	info.type        = type;
+	info.displayType = abbreviateType(type);
+	m_audioChannels.push_back(info);
 }
 
 void AudioControlPage::SetupAudioMixer()
@@ -86,11 +123,14 @@ void AudioControlPage::SetupAudioMixer()
 		}
 	}
 
-	ConvertChannelNames(m_audioChannels);
-	for (unsigned i = 0; i < m_audioChannels.GetCount(); ++i) {
-		AddChannel(m_audioChannels[i], i);
-	}
+	sort(m_audioChannels.begin(), m_audioChannels.end(),
+		[](const ChannelInfo& lhs, const ChannelInfo& rhs) {
+			return lhs.displayType < rhs.displayType;
+		});
 
+	for (size_t i = 0; i < m_audioChannels.size(); ++i) {
+		AddChannel(i);
+	}
 	audioSizer->Layout();
 }
 
@@ -99,9 +139,9 @@ void AudioControlPage::DestroyAudioMixer()
 	if (auto* temp = FindWindowByLabel(wxT("Mixer"))) {
 		temp->Enable(false);
 	}
-	if (m_audioChannels.GetCount() > 0) {
+	if (!m_audioChannels.empty()) {
 		auto* audioSizer = m_audioPanel->GetSizer();
-		for (unsigned i = m_audioChannels.GetCount(); i > 0; --i) {
+		for (size_t i = m_audioChannels.size(); i > 0; --i) {
 			audioSizer->Remove(i - 1);
 			auto number = wxString::Format(wxT("%u"), i - 1);
 			delete FindWindowByName(wxT("AudioLabel_")  + number);
@@ -116,7 +156,7 @@ void AudioControlPage::DestroyAudioMixer()
 			wxT("NoAudioText"));
 		audioSizer->Add(noAudio, 1, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 0);
 		audioSizer->Layout();
-		m_audioChannels.Clear();
+		m_audioChannels.clear();
 	}
 }
 
@@ -155,7 +195,7 @@ void AudioControlPage::DisableAudioPanel()
 	}
 }
 
-void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
+void AudioControlPage::AddChannel(int channelnumber)
 {
 	wxSize defaultsize;
 #ifdef __WXMSW__
@@ -167,17 +207,17 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 	auto* audioSizer = m_audioPanel->GetSizer();
 	auto number = wxString::Format(wxT("%u"), channelnumber);
 
+	wxString labeltext = m_audioChannels[channelnumber].displayType.Mid(2);
 	auto* label = new wxStaticText(
-		m_audioPanel, -1, labeltext.Mid(0, labeltext.Find(wxT("::"))),
-		wxDefaultPosition, wxDefaultSize, 0,
-		wxT("AudioLabel_") + number);
+		m_audioPanel, -1, labeltext, wxDefaultPosition,
+		wxDefaultSize, 0, wxT("AudioLabel_") + number);
 	auto* slider = new wxSlider(
 		m_audioPanel, FIRSTAUDIOSLIDER + channelnumber, 0, 0, maxvol,
 		wxDefaultPosition, wxDefaultSize, wxSL_VERTICAL,
 		wxDefaultValidator, wxT("AudioSlider_") + number);
 
-	wxString chanName = GetAudioChannelName(channelnumber);
-	wxString chanType = GetAudioChannelType(channelnumber);
+	const wxString& chanName = m_audioChannels[channelnumber].name;
+	const wxString& chanType = m_audioChannels[channelnumber].type;
 	wxString chanDesc = chanName;
 	if (chanType != chanName) {
 		chanDesc += wxT(" (") +chanType +wxT(")");
@@ -187,7 +227,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 
 	wxComboBox* combo = nullptr;
 	wxToggleButton* button = nullptr;
-	if (chanType.Mid(0, 9) == wxT("MoonSound")) {
+	if (chanType.StartsWith(wxT("MoonSound"))) {
 		wxString choices2[] = {wxT("S"), wxT("O")};
 		combo = new wxComboBox(
 			m_audioPanel, FIRSTAUDIOCOMBO + channelnumber,
@@ -195,8 +235,7 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 			wxCB_READONLY, wxDefaultValidator,
 			wxT("AudioMode_") + number);
 		combo->SetToolTip(wxT("Channel Mode"));
-	}
-	else if (chanType == wxT("master")) {
+	} else if (chanType == wxT("master")) {
 		button = new wxToggleButton(
 			m_audioPanel, MUTEBUTTONID, wxT("Mute"),
 			wxDefaultPosition, wxDefaultSize, 0,
@@ -231,53 +270,10 @@ void AudioControlPage::AddChannel(wxString labeltext, int channelnumber)
 		(wxObjectEventFunction)(wxEventFunction)(wxCommandEventFunction)&AudioControlPage::OnMute);
 }
 
-void AudioControlPage::ConvertChannelNames(wxArrayString& names)
-{
-	// TODO WTF is this??
-	//  It seems to want to replace known names with abbreviations, but
-	//  why is it so complicated? What is this extra character in front
-	//  of the abbreviation, to sort the names?
-	wxArrayString In;
-	wxArrayString Out;
-	In.Add(wxT("master")); Out.Add(wxT("a master\n"));
-	In.Add(wxT("1-bit click generator")); Out.Add(wxT("b key-\nclick"));
-	In.Add(wxT("PSG")); Out.Add(wxT("c PSG\n"));
-	In.Add(wxT("Turbo-R PCM")); Out.Add(wxT("d PCM\n"));
-	In.Add(wxT("MSX-MUSIC")); Out.Add(wxT("e MSX-\nMUSIC"));
-	In.Add(wxT("Konami SCC")); Out.Add(wxT("g SCC\n"));
-	In.Add(wxT("Konami SCC+")); Out.Add(wxT("h SCC+\n"));
-	In.Add(wxT("MSX-AUDIO")); Out.Add(wxT("i AUDIO\nFM"));
-	In.Add(wxT("MSX-AUDIO 13-bit DAC")); Out.Add(wxT("j AUDIO\nDAC"));
-	In.Add(wxT("MSX-AUDIO 8-bit DAC")); Out.Add(wxT("k AUDIO\nDAC2"));
-	In.Add(wxT("MoonSound FM-part")); Out.Add(wxT("l MSnd\nFM"));
-	In.Add(wxT("MoonSound wave-part")); Out.Add(wxT("m MSnd\nWave"));
-	In.Add(wxT("Hai no Majutsushi's DAC")); Out.Add(wxT("o Majutsu\nDAC"));
-	In.Add(wxT("Konami Synthesizer's DAC")); Out.Add(wxT("p Konami\nSynth"));
-	In.Add(wxT("Play samples via your printer port.")); Out.Add(wxT("q SIMPL\n"));
-	In.Add(wxT("Sony Playball's DAC")); Out.Add(wxT("r Playball\n"));
-	In.Add(wxT("Konami Keyboard Master's VLM5030")); Out.Add(wxT("s Konami\nVLM5030"));
-	In.Add(wxT("Cassetteplayer, use to read .cas or .wav files.")); Out.Add(wxT("z cas-\nsette"));
-
-	for (unsigned i = 0; i < names.GetCount(); ++i) {
-		unsigned inIndex = 0;
-		while (inIndex < In.GetCount()) {
-			if (GetAudioChannelType(i) == In[inIndex]) {
-				names[i] = Out[inIndex] + wxT("::") + names[i];
-				break;
-			}
-			++inIndex;
-		}
-	}
-	names.Sort();
-	for (unsigned i = 0; i < names.GetCount(); ++i) {
-		names[i] = names[i].substr(2);
-	}
-}
-
 void AudioControlPage::OnChangeVolume(wxScrollEvent& event)
 {
 	int id = event.GetId();
-	wxString channelname = GetAudioChannelName(id - FIRSTAUDIOSLIDER);
+	const wxString& channelname = m_audioChannels[id - FIRSTAUDIOSLIDER].name;
 	int scrollpos = 100 - event.GetPosition();
 	m_controller->WriteCommand(wxString::Format(
 		wxT("set %s_volume %d"), channelname.c_str(), scrollpos));
@@ -287,7 +283,7 @@ void AudioControlPage::OnChangeMode(wxCommandEvent& event)
 {
 	CatapultPage::OnClickCombo(event);
 	int id = event.GetId();
-	wxString channelname = GetAudioChannelName(id - FIRSTAUDIOCOMBO);
+	const wxString& channelname = m_audioChannels[id - FIRSTAUDIOCOMBO].name;
 	const wxString tempval = ((wxComboBox*)event.GetEventObject())->GetValue();
 	wxString value;
 	switch (tempval[0]) {
@@ -320,46 +316,33 @@ void AudioControlPage::OnMute(wxCommandEvent& event)
 	m_controller->WriteCommand(wxT("toggle mute"));
 }
 
-wxString AudioControlPage::GetAudioChannelName(int number)
+int AudioControlPage::FindChannel(const wxString& name_) const
 {
-	int pos = m_audioChannels[number].Find(wxT(";;"));
-	wxString temp = (pos == -1)
-	              ? m_audioChannels[number]
-	              : m_audioChannels[number].Mid(pos + 2);
-	temp.Replace(wxT(" "), wxT("\\ "), true);
-	return temp;
-}
-
-wxString AudioControlPage::GetAudioChannelType(int number)
-{
-	int pos2 = m_audioChannels[number].Find(wxT(";;"));
-	if (pos2 == -1) {
-		return wxString();
+	// HACK!! 'ChannelInfo::name' is Tcl-escaped, but 'name' isn't.
+	wxString name = name_;
+	name.Replace(wxT(" "), wxT("\\ "), true); // This shouldn't be necessary :(
+	for (size_t i = 0; i < m_audioChannels.size(); ++i) {
+		if (m_audioChannels[i].name == name) return i;
 	}
-	int pos = m_audioChannels[number].Find(wxT("::"));
-	wxString temp = (pos == -1)
-	              ? m_audioChannels[number].Mid(0, pos2)
-	              : m_audioChannels[number].Mid(pos + 2, pos2 - pos - 2);
-	temp.Replace(wxT("\n"), wxT(" "), true);
-	temp.Trim();
-	return temp;
+	return -1;
 }
 
-size_t AudioControlPage::GetNumberOfAudioChannels()
+void AudioControlPage::SetChannelVolume(const wxString& name, const wxString& value)
 {
-	return m_audioChannels.GetCount();
-}
+	int channel = FindChannel(name);
+	if (channel == -1) return;
 
-void AudioControlPage::SetChannelVolume(int number, wxString value)
-{
 	long intvalue;
-	auto* slider = (wxSlider*)FindWindowById(number + FIRSTAUDIOSLIDER, this);
+	auto* slider = (wxSlider*)FindWindowById(channel + FIRSTAUDIOSLIDER, this);
 	value.ToLong(&intvalue);
 	slider->SetValue(100 - intvalue);
 }
 
-void AudioControlPage::SetChannelMode(int number, wxString value)
+void AudioControlPage::SetChannelMode(const wxString& name, const wxString& value)
 {
+	int channel = FindChannel(name);
+	if (channel == -1) return;
+
 	wxString val;
 	if (value.IsNumber()) {
 		long num;
@@ -367,15 +350,15 @@ void AudioControlPage::SetChannelMode(int number, wxString value)
 		val = wxT("M");
 		if (num <= -33) val = wxT("L");
 		if (num >=  33) val = wxT("R");
-		wxString chanType = GetAudioChannelType(number);
-		if ((chanType.Mid(0, 9) == wxT("MoonSound")) &&
+		const wxString& chanType = m_audioChannels[channel].type;
+		if ((chanType.StartsWith(wxT("MoonSound"))) &&
 		    ((val == wxT("L")) || (val == wxT("M")) || (val == wxT("R")))) {
 			val = wxT("S");
 		}
 	}
 	//if (value == wxT("off"))    val = wxT("O"); // mute
 	//if (value == wxT("stereo")) val = wxT("S");
-	auto* combo = (wxComboBox*)FindWindowById(number + FIRSTAUDIOCOMBO, this);
+	auto* combo = (wxComboBox*)FindWindowById(channel + FIRSTAUDIOCOMBO, this);
 	combo->SetSelection(combo->FindString(val));
 }
 
@@ -405,7 +388,7 @@ void AudioControlPage::InitAudioIO()
 				midibutton->Enable(true);
 				child->Append(wxT("--empty--"));
 				for (unsigned j = 0; j < pluggables.GetCount(); ++j) {
-					if (pluggables[j].Lower().Mid(0, 7) == wxT("midi-in")) {
+					if (pluggables[j].Lower().StartsWith(wxT("midi-in"))) {
 						if (pluggables[j] == wxT("midi-in-reader")) {
 							child->Append(pluggables[j]);
 						} else {
@@ -430,7 +413,7 @@ void AudioControlPage::InitAudioIO()
 				midibutton->Enable(true);
 				child->Append(wxT("--empty--"));
 				for (unsigned j = 0; j < pluggables.GetCount(); ++j) {
-					if (pluggables[j].Lower().Mid(0, 8) == wxT("midi-out")) {
+					if (pluggables[j].Lower().StartsWith(wxT("midi-out"))) {
 						if (pluggables[j] == wxT("midi-out-logger")) {
 							child->Append(pluggables[j]);
 						} else {
@@ -590,7 +573,7 @@ void AudioControlPage::OnBrowseSampleInFile(wxCommandEvent& event)
 	}
 }
 
-void AudioControlPage::UpdateMidiPlug(wxString connector, wxString data)
+void AudioControlPage::UpdateMidiPlug(const wxString& connector, const wxString& data)
 {
 	wxString value;
 	wxArrayString pluggables;
@@ -600,11 +583,11 @@ void AudioControlPage::UpdateMidiPlug(wxString connector, wxString data)
 	if (pluggables.GetCount() == 0) {
 		return;
 	}
-	if (data.Lower().Mid(0, 7) == wxT("midi-in")) {
+	if (data.Lower().StartsWith(wxT("midi-in"))) {
 		if (data == wxT("midi-in-reader")) {
 			value = data;
 		}
-	} else if (data.Lower().Mid(0, 8) == wxT("midi-out")) {
+	} else if (data.Lower().StartsWith(wxT("midi-out"))) {
 		if (data == wxT("midi-out-logger")) {
 			value = data;
 		}

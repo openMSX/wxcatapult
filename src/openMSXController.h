@@ -97,6 +97,7 @@ private:
 	int InitRomTypes(wxString dummy, wxString data);
 	int SetRomDescription(wxString name, wxString data);
 	int SetChannelType(wxString name, wxString data);
+	int SetChannelTypeDone(wxString name, wxString data);
 	int AddPluggableDescription(wxString name, wxString data);
 	int AddPluggableClass(wxString name, wxString data);
 	int AddConnectorClass(wxString name, wxString data);

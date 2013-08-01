@@ -253,18 +253,15 @@ bool CatapultPage::UpdateAudioSetting(wxString setting, wxString data, wxString 
 			break;
 		}
 	}
-	for (unsigned i = 0; i < audiopage->GetNumberOfAudioChannels(); ++i) {
-		wxString name = removeBackslash(audiopage->GetAudioChannelName(i)); // !!! HACK !!!
-		if ((name + wxT("_") + selection) == setting) {
-			if (selection == wxT("volume")) {
-				audiopage->SetChannelVolume(i, data);
-			} else {
-				audiopage->SetChannelMode(i, data);
-			}
-			return true;
-		}
+
+	wxString channel = setting.Mid(0, setting.Length() - selection.Length() - 1);
+	if (selection == wxT("volume")) {
+		audiopage->SetChannelVolume(channel, data);
+	} else {
+		assert(selection == wxT("balance"));
+		audiopage->SetChannelMode(channel, data);
 	}
-	return false;
+	return true;
 }
 
 bool CatapultPage::UpdateMidiPlug(wxString connector, wxString data, wxString control, int flags)

@@ -504,6 +504,7 @@ void openMSXController::InitLaunchScript()
 //	AddLaunchInstruction(wxT("#info_nostore romtype *"), wxT(""), wxT("*"), &openMSXController::SetRomDescription, true);
 	AddLaunchInstruction(wxT("!info sounddevice"), wxT("5"), wxT(""), &openMSXController::InitSoundDevices, true);
 	AddLaunchInstruction(wxT("!info_nostore sounddevice *"), wxT(""), wxT("*"), &openMSXController::SetChannelType, true);
+	AddLaunchInstruction(wxT("@execute"), wxT(""), wxT(""), &openMSXController::SetChannelTypeDone, false);
 	AddLaunchInstruction(wxT("set master_volume"), wxT(""), wxT("master_volume"), &openMSXController::UpdateSetting, false);
 	AddLaunchInstruction(wxT("set *_volume"), wxT(""), wxT("*_volume"), &openMSXController::UpdateSetting, true);
 	AddLaunchInstruction(wxT("set *_balance"), wxT(""), wxT("*_balance"), &openMSXController::UpdateSetting, true);
@@ -899,31 +900,19 @@ int openMSXController::SetRomDescription(wxString name, wxString data)
 
 int openMSXController::InitSoundDevices(wxString dummy, wxString data)
 {
-	wxArrayString channels;
-	tokenize(data, wxT("\n"), channels);
-	if (channels.GetCount() != (m_appWindow->m_audioControlPage->GetNumberOfAudioChannels() - 1)) {
-		m_appWindow->m_audioControlPage->DestroyAudioMixer();
-		m_appWindow->m_audioControlPage->InitAudioChannels(channels);
-		return 0;
-	}
-	return 5; // skip 5 instructions TODO: improve this
+	m_appWindow->m_audioControlPage->DestroyAudioMixer();
+	m_appWindow->m_audioControlPage->InitAudioChannels();
+	return 0;
 }
-
 int openMSXController::SetChannelType(wxString name, wxString data)
 {
-	int maxchannels = m_appWindow->m_audioControlPage->GetNumberOfAudioChannels();
-	int index = 0;
-	while (index < maxchannels) {
-		if (m_appWindow->m_audioControlPage->GetAudioChannelName(index) == name) break;
-		++index;
-	}
-	assert(index < maxchannels);
-
-	m_appWindow->m_audioControlPage->AddChannelType(index, data);
-	if (index == (maxchannels - 1)) {
-		m_appWindow->m_audioControlPage->SetupAudioMixer();
-	}
-	return 0; // don't skip any lines in the startup script
+	m_appWindow->m_audioControlPage->AddChannelType(name, data);
+	return 0;
+}
+int openMSXController::SetChannelTypeDone(wxString name, wxString data)
+{
+	m_appWindow->m_audioControlPage->SetupAudioMixer();
+	return 0;
 }
 
 int openMSXController::AddPluggableDescription(wxString name, wxString data)
