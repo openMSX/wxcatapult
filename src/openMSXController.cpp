@@ -774,6 +774,8 @@ void openMSXController::HandleLaunchReply(
 			ok = true;
 		}
 	} else {
+		assert(data!=0);
+		if(data==0)throw "ERR1: data==0";
 		if (cmd.Mid(0, 10) == wxT("info exist")) {
 			if (data->contents == wxT("1")) {
 				ok = true;
@@ -800,6 +802,8 @@ void openMSXController::HandleLaunchReply(
 				parameter = cmd;
 			}
 			if (event) {
+				assert(data!=0);
+				if(data==0)throw "ERR2: data==0";
 				contents = data->contents;
 			}
 			int result = (*this.*(instruction.p_okfunction))(parameter, contents);

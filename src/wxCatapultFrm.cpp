@@ -570,6 +570,8 @@ void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
 	if (ledname == wxT("pause")) led = m_pauseLed;
 	if (ledname == wxT("turbo")) led = m_turboLed;
 	if (ledname == wxT("FDD"))   led = m_fddLed;
+	assert(led!=0);
+	if(led==0)throw "led is 0";
 
 	if (ledstate == wxT("off")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.png"), wxBITMAP_TYPE_PNG));
 	if (ledstate == wxT("on"))  led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.png"),  wxBITMAP_TYPE_PNG));

@@ -492,25 +492,40 @@ void MiscControlPage::OnJoystickChanged()
 		cmd = wxT("plug ");
 	}
 
-	if ((box->GetValue() != (wxT("--empty--"))) && (box->GetValue() == box2->GetValue())) {
-		MessageActive = true;
-		int result = wxMessageBox(wxT("Unable to plug a device in more than one port!\n\nDo you still want to plug it into this port?\nThis device will then be removed from any other port(s)."),
-			wxT("Warning"),
-			wxOK | wxCANCEL);
-		MessageActive = false;
-		if (result == wxOK) {
-			box2->SetSelection(0);
-			*oldValue2 = wxT("--empty--");
-			*oldValue1 = box->GetValue();
-			m_controller->WriteCommand(wxT("unplug ") + connector2);
-			m_controller->WriteCommand(cmd + connector + value);
-		} else {
-			// cancel
-			box->SetSelection(box->FindString(*oldValue1));
+	bool flag1=false;
+	if (box->GetValue() != wxT("--empty--")){
+		assert(box2!=0);
+		if(!box2)throw "box2 must not be null, but it is null.";
+
+		if(box->GetValue() == box2->GetValue()){
+			flag1=true;
+			assert(oldValue1!=0);
+			if(!oldValue1)throw "oldValue1 must not be null, but it is null.";
+			MessageActive = true;
+			int result = wxMessageBox(wxT("Unable to plug a device in more than one port!\n\nDo you still want to plug it into this port?\nThis device will then be removed from any other port(s)."),
+				wxT("Warning"),
+				wxOK | wxCANCEL);
+			MessageActive = false;
+			if (result == wxOK) {
+				assert(oldValue2!=0);
+				if(!oldValue2)throw "oldValue2 must not be null, but it is null.";
+
+				box2->SetSelection(0);
+				*oldValue2 = wxT("--empty--");
+				*oldValue1 = box->GetValue();
+				m_controller->WriteCommand(wxT("unplug ") + connector2);
+				m_controller->WriteCommand(cmd + connector + value);
+			} else {
+				// cancel
+				box->SetSelection(box->FindString(*oldValue1));
+			}
 		}
-	} else {
+	}
+	if(!flag1){
 		// no collision
 		m_controller->WriteCommand(cmd + connector + value);
+		assert(oldValue1!=0);
+		if(!oldValue1)throw "oldValue1 must not be null, but it is null.";
 		*oldValue1 = box->GetValue();
 	}
 	auto* joy1 = (wxComboBox*)FindWindowByName(wxT("Joyport1Selector"));

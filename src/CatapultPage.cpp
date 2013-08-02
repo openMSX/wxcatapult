@@ -253,6 +253,8 @@ bool CatapultPage::UpdateAudioSetting(wxString setting, wxString data, wxString 
 			break;
 		}
 	}
+	assert(audiopage!=0);
+	if(!audiopage)throw "audio page must not be null, but it is null.";
 
 	wxString channel = setting.Mid(0, setting.Length() - selection.Length() - 1);
 	if (selection == wxT("volume")) {
