@@ -34,11 +34,6 @@ openMSXController::openMSXController(wxWindow* target)
 	InitLaunchScript();
 }
 
-openMSXController::~openMSXController()
-{
-	delete[] m_launchScript;
-}
-
 bool openMSXController::HandleMessage(wxCommandEvent& event)
 {
 	switch (event.GetId()) {
@@ -453,8 +448,6 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 
 void openMSXController::InitLaunchScript()
 {
-	m_launchScriptSize = 0;
-	m_launchScript = new LaunchInstructionType[LAUNCHSCRIPT_MAXSIZE];
 	// Use __catapult_update to support both old and new openmsx versions
 	AddLaunchInstruction(wxT("proc __catapult_update { args } { if {[info command openmsx_update] != \"\"} { eval \"openmsx_update $args\" } else { eval \"update $args\" } }"), wxT(""), wxT(""), nullptr, false);
 	AddLaunchInstruction(wxT("__catapult_update enable setting"), wxT(""), wxT(""), nullptr, false);
@@ -502,7 +495,7 @@ void openMSXController::InitLaunchScript()
 	AddLaunchInstruction(wxT("@checkfor pcminput"), wxT("1"), wxT(""), nullptr, false);
 	AddLaunchInstruction(wxT("set audio-inputfilename"), wxT(""), wxT("audio-inputfilename"), &openMSXController::UpdateSetting, true);
 	AddLaunchInstruction(wxT("@execute"), wxT(""), wxT(""), &openMSXController::InitConnectorPanel, false);
-	m_relaunch = m_launchScriptSize; // !!HACK!!
+	m_relaunch = m_launchScript.size(); // !!HACK!!
 	AddLaunchInstruction(wxT("@execute"), wxT(""), wxT(""), &openMSXController::InitAudioConnectorPanel, false);
 //	AddLaunchInstruction(wxT("#info romtype"), wxT(""), wxT(""), &openMSXController::InitRomTypes, true);
 //	AddLaunchInstruction(wxT("#info_nostore romtype *"), wxT(""), wxT("*"), &openMSXController::SetRomDescription, true);
@@ -563,18 +556,13 @@ void openMSXController::AddLaunchInstruction(
 	int (openMSXController::*pfunction)(wxString, wxString),
 	bool showError)
 {
-	if (m_launchScriptSize >= LAUNCHSCRIPT_MAXSIZE) {
-		wxMessageBox(wxT("Not enough space to store the Launchscript!\nPlease contact the authors."),
-		             wxT("Internal Catapult Error"));
-		return;
-	}
-	// Add the instruction, parameters and other flags to the launch script
-	m_launchScript[m_launchScriptSize].command = cmd;
-	m_launchScript[m_launchScriptSize].scriptActions = action;
-	m_launchScript[m_launchScriptSize].parameter = parameter;
-	m_launchScript[m_launchScriptSize].p_okfunction = pfunction;
-	m_launchScript[m_launchScriptSize].showError = showError;
-	++m_launchScriptSize;
+	LaunchInstruction instr;
+	instr.command = cmd;
+	instr.action = action;
+	instr.parameter = parameter;
+	instr.p_okfunction = pfunction;
+	instr.showError = showError;
+	m_launchScript.push_back(instr);
 }
 
 void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
@@ -615,7 +603,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 			if ((data->replyState == CatapultXMLParser::REPLY_NOK) ||
 			    ((cmd.StartsWith(wxT("info exist")) && (data->contents == wxT("0"))))) {
 				long displace;
-				m_launchScript[recvStep].scriptActions.ToLong(&displace);
+				m_launchScript[recvStep].action.ToLong(&displace);
 				recvStep += displace;
 			}
 			if (cmd == wxT("!done")) {
@@ -642,7 +630,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 		sendLoop = -1;
 		recvLoop = -1;
 	}
-	if (recvStep >= m_launchScriptSize) {
+	if (recvStep >= int(m_launchScript.size())) {
 		recvStep = 0;
 		FinishLaunch();
 		return;
@@ -656,7 +644,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 		}
 	}
 
-	while ((!wait) && (sendStep < m_launchScriptSize)) {
+	while (!wait && (sendStep < int(m_launchScript.size()))) {
 		wxString instruction = m_launchScript[sendStep].command;
 		if ((sendLoop == -1) && (instruction.Find(wxT("*")) != -1)) {
 			sendLoop = 0;
@@ -680,14 +668,14 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 					++recvStep;
 				}
 				long displace;
-				m_launchScript[sendStep].scriptActions.ToLong(&displace);
+				m_launchScript[sendStep].action.ToLong(&displace);
 				recvStep += displace;
 			}
 			HandleLaunchReply(tokens[0] + result, nullptr, m_launchScript[sendStep], &sendStep, -1, wxT(""));
 		} else {
 			WriteCommand(cmd, TARGET_STARTUP);
 		}
-		wxString action = m_launchScript[sendStep].scriptActions;
+		wxString action = m_launchScript[sendStep].action;
 
 		if (sendLoop != -1) {
 			wxArrayString lastvalues;
@@ -781,9 +769,8 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 	}
 
 	wxString result;
-	for (unsigned token = 0; token < tokens.GetCount(); ++token) {
-		result += tokens[token];
-		result += wxT(" ");
+	for (auto& token : tokens) {
+		result << token << wxT(" ");
 	}
 	result.Trim(true);
 	return result;
@@ -791,7 +778,7 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 
 void openMSXController::HandleLaunchReply(
 	wxString cmd, wxCommandEvent* event,
-	LaunchInstructionType instruction, int* sendStep, int loopcount,
+	LaunchInstruction instruction, int* sendStep, int loopcount,
 	wxString datalist)
 {
 	CatapultXMLParser::ParseResult* data = nullptr;
@@ -816,7 +803,7 @@ void openMSXController::HandleLaunchReply(
 			}
 		}
 	}
-	wxString actions = instruction.scriptActions;
+	wxString actions = instruction.action;
 
 	if (ok) {
 		if (instruction.p_okfunction != nullptr) {
@@ -847,7 +834,7 @@ void openMSXController::HandleLaunchReply(
 		}
 		if (!actions.IsEmpty()) {
 			if (actions == wxT("e")) {
-				*sendStep = m_launchScriptSize;
+				*sendStep = m_launchScript.size();
 			} else {
 				long displace;
 				actions.ToLong(&displace);

@@ -24,7 +24,7 @@ public:
 	};
 
 	openMSXController(wxWindow* target);
-	virtual ~openMSXController();
+	virtual ~openMSXController() {}
 
 	void UpdateMixer();
 	void GetConnectors(wxArrayString& connectors);
@@ -52,9 +52,9 @@ protected:
 	CatapultXMLParser* m_parser;
 
 private:
-	struct LaunchInstructionType {
+	struct LaunchInstruction {
 		wxString command;
-		wxString scriptActions;
+		wxString action;
 		wxString parameter;
 		int (openMSXController::*p_okfunction)(wxString, wxString);
 		bool showError;
@@ -85,7 +85,7 @@ private:
 	                wxArrayString& result);
 	wxString translate(wxArrayString tokens, int loop, wxString lastdata);
 	void HandleLaunchReply(wxString cmd, wxCommandEvent* event,
-		LaunchInstructionType instruction,
+		LaunchInstruction instruction,
 		int* sendStep, int loopcount, wxString datalist);
 	int UpdateSetting(wxString setting, wxString data);
 	int FillComboBox(wxString setting, wxString data);
@@ -139,8 +139,7 @@ private:
 	int recvLoop;
 	wxString lastdata;
 
-	LaunchInstructionType* m_launchScript;
-	int m_launchScriptSize;
+	std::vector<LaunchInstruction> m_launchScript;
 	int m_relaunch;
 
 	unsigned m_openMSXID;
