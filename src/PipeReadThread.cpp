@@ -21,12 +21,10 @@ wxThread::ExitCode PipeReadThread::Entry()
 		bytesRead = read(m_descriptor, szBuffer, 1000);
 		if (bytesRead > 0) {
 			szBuffer[bytesRead] = 0;
-			wxString temp2 = wxCSConv(wxT("ISO8859-1")).cMB2WX(szBuffer);
-			auto* temp = new wxString;
-			*temp = temp2.Left(bytesRead);
+			wxString* eventClientData = new wxString(szBuffer, wxConvUTF8, bytesRead);
 			wxCommandEvent event(EVT_CONTROLLER);
 			event.SetId(m_id);
-			event.SetClientData(temp);
+			event.SetClientData(eventClientData);
 			wxPostEvent(m_target, event);
 		}
 	} while (bytesRead > 0);
@@ -38,9 +36,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 	do {
 		bResult = ReadFile(m_hTarget, szBuffer, 1000, &dwBytesRead, nullptr);
 		if (bResult) { // the bytes could not be read
-			wxString temp2 = wxCSConv(wxT("ISO8859-1")).cMB2WX(szBuffer);
-			auto* temp = new wxString;
-			*temp = temp2.Left(dwBytesRead);
+			wxString* eventClientData = new wxString(szBuffer, wxConvUTF8, dwBytesRead);
 			wxCommandEvent event(EVT_CONTROLLER);
 			event.SetId(m_id);
 			event.SetClientData(temp);

@@ -184,7 +184,7 @@ void CatapultXMLParser::parseUpdate(const char** attrs)
 				parseResult.updateType = UPDATE_STATE;
 			}
 		} else if (strcmp(attrs[0], "name") == 0) {
-			parseResult.name = wxString((const wxChar*)wxCSConv(wxT("ISO8859-1")).cMB2WX(attrs[1]), strlen(attrs[1]));
+			parseResult.name = wxString(attrs[1], wxConvUTF8);
 		}
 	}
 }
