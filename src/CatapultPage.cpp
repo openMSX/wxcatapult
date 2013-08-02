@@ -100,7 +100,7 @@ void CatapultPage::InitSettingsTable ()
 
 void CatapultPage::AddSetting(
 	wxString setting, wxString controlname,
-	bool (CatapultPage::*pfunction)(wxString, wxString, wxString, int),
+	void (CatapultPage::*pfunction)(wxString, wxString, wxString, int),
 	int flags)
 {
 	if (m_settingTableSize >= SETTINGTABLE_MAXSIZE) {
@@ -144,7 +144,7 @@ void CatapultPage::UpdateSetting(wxString name, wxString data)
 	}
 }
 
-bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString control, int flags)
+void CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString control, int flags)
 {
 	bool value[] = {false, true};
 	int active = 1;
@@ -179,12 +179,10 @@ bool CatapultPage::UpdateToggleSetting(wxString setting, wxString data, wxString
 			}
 			button->SetLabel(data.Mid(0, 1).Upper() + data.Mid(1).Lower());
 		}
-		return true;
 	}
-	return false;
 }
 
-bool CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString control, int flags)
+void CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString control, int flags)
 {
 	wxString valuetext = data;
 	if (flags & S_CONVERT) {
@@ -196,12 +194,10 @@ bool CatapultPage::UpdateComboSetting(wxString setting, wxString data, wxString 
 		} else {
 			box->SetValue(valuetext);
 		}
-		return true;
 	}
-	return false;
 }
 
-bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxString control, int flags)
+void CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxString control, int flags)
 {
 	if (auto* indicator = (wxTextCtrl*)m_parent->FindWindowByName(control)) {
 		wxString tempData = data;
@@ -211,25 +207,21 @@ bool CatapultPage::UpdateIndicatorSetting(wxString setting, wxString data, wxStr
 		if (indicator->GetValue() != tempData) {
 			indicator->SetValue(tempData);
 		}
-		return true;
 	}
-	return false;
 }
 
-bool CatapultPage::UpdateSliderSetting(wxString setting, wxString data, wxString control, int flags)
+void CatapultPage::UpdateSliderSetting(wxString setting, wxString data, wxString control, int flags)
 {
-	if (auto* slider = (wxSlider *)m_parent->FindWindowByName(control)) {
+	if (auto* slider = (wxSlider*)m_parent->FindWindowByName(control)) {
 		long value;
 		data.ToLong(&value, 10);
 		if (slider->GetValue() != value) {
 			slider->SetValue(value);
 		}
-		return true;
 	}
-	return false;
 }
 
-bool CatapultPage::UpdateMenuSetting(wxString setting, wxString data, wxString control, int flags)
+void CatapultPage::UpdateMenuSetting(wxString setting, wxString data, wxString control, int flags)
 {
 	bool sendvalue = false;
 	auto* appwnd = (wxFrame*)GetParent()->GetGrandParent();
@@ -240,10 +232,9 @@ bool CatapultPage::UpdateMenuSetting(wxString setting, wxString data, wxString c
 		}
 		appwnd->GetMenuBar()->Check(menusetting, sendvalue);
 	}
-	return false;
 }
 
-bool CatapultPage::UpdateAudioSetting(wxString setting, wxString data, wxString selection, int flags)
+void CatapultPage::UpdateAudioSetting(wxString setting, wxString data, wxString selection, int flags)
 {
 	auto* notebook = (wxNotebook*)m_parent;
 	AudioControlPage* audiopage = nullptr;
@@ -253,8 +244,7 @@ bool CatapultPage::UpdateAudioSetting(wxString setting, wxString data, wxString 
 			break;
 		}
 	}
-	assert(audiopage!=0);
-	if(!audiopage)throw "audio page must not be null, but it is null.";
+	assert(audiopage);
 
 	wxString channel = setting.Mid(0, setting.Length() - selection.Length() - 1);
 	if (selection == wxT("volume")) {
@@ -263,10 +253,9 @@ bool CatapultPage::UpdateAudioSetting(wxString setting, wxString data, wxString 
 		assert(selection == wxT("balance"));
 		audiopage->SetChannelMode(channel, data);
 	}
-	return true;
 }
 
-bool CatapultPage::UpdateMidiPlug(wxString connector, wxString data, wxString control, int flags)
+void CatapultPage::UpdateMidiPlug(wxString connector, wxString data, wxString control, int flags)
 {
 	auto* notebook = (wxNotebook*)m_parent;
 	AudioControlPage* audiopage = nullptr;
@@ -276,16 +265,13 @@ bool CatapultPage::UpdateMidiPlug(wxString connector, wxString data, wxString co
 			break;
 		}
 	}
-	if ( audiopage )  {
-		audiopage->UpdateMidiPlug(control, data);
-	}
-	return true;
+	assert(audiopage);
+	audiopage->UpdateMidiPlug(control, data);
 }
 
-bool CatapultPage::UpdatePluggable(wxString connector, wxString data, wxString control, int flags)
+void CatapultPage::UpdatePluggable(wxString connector, wxString data, wxString control, int flags)
 {
 	if (auto* box = (wxComboBox*)m_parent->FindWindowByName(control)) {
 		box->SetValue(data.IsEmpty() ? wxT("--empty--") : data);
 	}
-	return true;
 }

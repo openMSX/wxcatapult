@@ -19,21 +19,21 @@ private:
 	void InitSettingsTable();
 	void AddSetting(
 		wxString settings, wxString controlname,
-		bool (CatapultPage::*pfunction)(wxString, wxString, wxString, int),
+		void (CatapultPage::*pfunction)(wxString, wxString, wxString, int),
 		int flags);
-	bool UpdateToggleSetting   (wxString setting,   wxString data, wxString control,   int flags);
-	bool UpdateComboSetting    (wxString setting,   wxString data, wxString control,   int flags);
-	bool UpdateIndicatorSetting(wxString setting,   wxString data, wxString control,   int flags);
-	bool UpdateSliderSetting   (wxString setting,   wxString data, wxString control,   int flags);
-	bool UpdateAudioSetting    (wxString setting,   wxString data, wxString selection, int flags);
-	bool UpdateMenuSetting     (wxString setting,   wxString data, wxString selection, int flags);
-	bool UpdateMidiPlug        (wxString connector, wxString data, wxString control,   int flags);
-	bool UpdatePluggable       (wxString connector, wxString data, wxString control,   int flags);
+	void UpdateToggleSetting   (wxString setting,   wxString data, wxString control,   int flags);
+	void UpdateComboSetting    (wxString setting,   wxString data, wxString control,   int flags);
+	void UpdateIndicatorSetting(wxString setting,   wxString data, wxString control,   int flags);
+	void UpdateSliderSetting   (wxString setting,   wxString data, wxString control,   int flags);
+	void UpdateAudioSetting    (wxString setting,   wxString data, wxString selection, int flags);
+	void UpdateMenuSetting     (wxString setting,   wxString data, wxString selection, int flags);
+	void UpdateMidiPlug        (wxString connector, wxString data, wxString control,   int flags);
+	void UpdatePluggable       (wxString connector, wxString data, wxString control,   int flags);
 
 	struct SettingTableElementType {
 		wxString setting;
 		wxString controlname;
-		bool (CatapultPage::*pfunction)(wxString, wxString, wxString, int);
+		void (CatapultPage::*pfunction)(wxString, wxString, wxString, int);
 		int flags;
 	};
 
