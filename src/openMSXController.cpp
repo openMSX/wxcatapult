@@ -145,14 +145,14 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 		}
 		if (data->updateType == CatapultXMLParser::UPDATE_SETTING) {
 			wxString lastcmd = PeekPendingCommand();
-			if ((lastcmd.Mid(0, 4) != wxT("set ")) ||
+			if (!lastcmd.StartsWith(wxT("set ")) ||
 			    (lastcmd.Find(' ', true) == 3) ||
 			    (lastcmd.Mid(4, lastcmd.Find(' ', true) - 4) != data->name)) {
 				m_appWindow->m_videoControlPage->UpdateSetting(data->name, data->contents);
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_PLUG) {
 			wxString lastcmd = PeekPendingCommand();
-			if ((lastcmd.Mid(0, 5) != wxT("plug ")) ||
+			if (!lastcmd.StartsWith(wxT("plug ")) ||
 			    (lastcmd.Find(' ', true) == 4) ||
 			    (lastcmd.Mid(5, lastcmd.Find(' ', true) - 5) != data->name)) {
 				m_appWindow->m_videoControlPage->UpdateSetting(data->name, data->contents);
@@ -160,7 +160,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG) {
 			wxString lastcmd = PeekPendingCommand();
-			if ((lastcmd.Mid(0, 7) != wxT("unplug ")) ||
+			if (!lastcmd.StartsWith(wxT("unplug ")) ||
 			  /*(lastcmd.Find(' ', true) == 6)) {*/
 			    (lastcmd.Mid(7) != data->name)) {
 				m_appWindow->m_videoControlPage->UpdateSetting(data->name, data->contents);
@@ -416,7 +416,7 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 	long minver;
 	long subver;
 	wxString temp = version;
-	if (version.Mid(0, 8) == wxT("openMSX ")) {
+	if (version.StartsWith(wxT("openMSX "))) {
 		int pos = version.Find('.');
 		if (pos != -1) {
 			temp.Mid(8, pos - 8).ToLong(&majver);
@@ -549,7 +549,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 		// handle received command
 		wxString command = GetPendingCommand();
 		wxString instruction  = m_launchScript[recvStep].command;
-		while (instruction.Mid(0, 1) == wxT("@")) {
+		while (instruction.StartsWith(wxT("@"))) {
 			++recvStep;
 			instruction = m_launchScript[recvStep].command;
 		}
@@ -571,7 +571,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 			}
 			HandleLaunchReply(cmd, event, m_launchScript[recvStep], &sendStep, recvLoop, lastdata);
 			if ((data->replyState == CatapultXMLParser::REPLY_NOK) ||
-			    ((cmd.Mid(0, 10) == wxT("info exist")) && (data->contents == wxT("0")))) {
+			    ((cmd.StartsWith(wxT("info exist")) && (data->contents == wxT("0"))))) {
 				long displace;
 				m_launchScript[recvStep].scriptActions.ToLong(&displace);
 				recvStep += displace;
@@ -606,7 +606,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 		return;
 	}
 	if (wait) {
-		while (m_launchScript[recvStep].command.Mid(0, 1) == wxT("@")) {
+		while (m_launchScript[recvStep].command.StartsWith(wxT("@"))) {
 			++recvStep;
 		}
 		if (recvStep >= sendStep) {
@@ -622,7 +622,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 		wxArrayString tokens;
 		tokenize(instruction, wxT(" "), tokens);
 		wxString cmd = translate(tokens, sendLoop, lastdata);
-		if (cmd.Mid(0, 1) == wxT("@")) {
+		if (cmd.StartsWith(wxT("@"))) {
 			wxString result = wxT("0");
 			if (tokens[0] == wxT("@checkfor")) {
 				bool contains = lastdata.Contains(tokens[1]);
@@ -634,7 +634,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 				result = wxT("1");
 			}
 			if (result == wxT("0")) {
-				while (m_launchScript[recvStep].command.Mid(0, 1) == wxT("@")) {
+				while (m_launchScript[recvStep].command.StartsWith(wxT("@"))) {
 					++recvStep;
 				}
 				long displace;
@@ -704,7 +704,7 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 	while (token < tokens.GetCount()) {
 		switch (tokens[token][0]) {
 		case '#':
-			if (tokens[token].Mid(0, 5) == wxT("#info")) {
+			if (tokens[token].StartsWith(wxT("#info"))) {
 				wxString parameter;
 				while (token < (tokens.GetCount() - 1)) {
 					parameter += tokens[token + 1];
@@ -718,7 +718,7 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 			}
 			break;
 		case '!':
-			if (tokens[token].Mid(0, 5) == wxT("!info")) {
+			if (tokens[token].StartsWith(wxT("!info"))) {
 				wxString parameter;
 				while (token < (tokens.GetCount() - 1)) {
 					parameter += tokens[token + 1];
@@ -732,7 +732,7 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 			}
 			break;
 		case '^':
-			if (tokens[token].Mid(0, 5) == wxT("^info")) {
+			if (tokens[token].StartsWith(wxT("^info"))) {
 				wxString parameter;
 				while (token < (tokens.GetCount() - 1)) {
 					parameter += tokens[token + 1];
@@ -769,14 +769,14 @@ void openMSXController::HandleLaunchReply(
 		data = (CatapultXMLParser::ParseResult*)event->GetClientData();
 	}
 	bool ok = false;
-	if (cmd.Mid(0, 1) == wxT("@")) {
+	if (cmd.StartsWith(wxT("@"))) {
 		if (cmd.Mid(cmd.Len() - 1) == wxT("1")) {
 			ok = true;
 		}
 	} else {
 		assert(data!=0);
 		if(data==0)throw "ERR1: data==0";
-		if (cmd.Mid(0, 10) == wxT("info exist")) {
+		if (cmd.StartsWith(wxT("info exist"))) {
 			if (data->contents == wxT("1")) {
 				ok = true;
 			}
@@ -862,7 +862,7 @@ int openMSXController::FillRangeComboBox(wxString setting, wxString data)
 
 int openMSXController::EnableFirmware(wxString cmd, wxString data)
 {
-	if ((data != wxT("0")) || (cmd.Mid(0, 4) == wxT("set "))) {
+	if ((data != wxT("0")) || cmd.StartsWith(wxT("set "))) {
 		if (cmd.Find(wxT("frontswitch")) != -1) {
 			m_appWindow->m_miscControlPage->EnableFirmware(wxT("frontswitch"));
 		} else {
@@ -874,7 +874,7 @@ int openMSXController::EnableFirmware(wxString cmd, wxString data)
 
 int openMSXController::EnableRenShaTurbo(wxString cmd, wxString data)
 {
-	if ((data != wxT("0")) || (cmd.Mid(0, 4) == wxT("set "))) {
+	if ((data != wxT("0")) || cmd.StartsWith(wxT("set "))) {
 		m_appWindow->m_miscControlPage->EnableRenShaTurbo();
 	}
 	return 0; // don't skip any lines in the startup script
