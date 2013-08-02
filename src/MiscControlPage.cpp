@@ -44,8 +44,7 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 END_EVENT_TABLE()
 
 MiscControlPage::MiscControlPage(wxWindow* parent, openMSXController* controller)
-	: CatapultPage(parent)
-	, m_controller(controller)
+	: m_controller(controller)
 {
 #ifdef __UNIX__
 	m_joystick_update_timer.SetOwner(this, -1);

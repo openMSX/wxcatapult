@@ -11,6 +11,7 @@ class wxButton;
 class wxComboBox;
 class wxStaticText;
 class wxTextCtrl;
+class wxToggleButton;
 
 class MiscControlPage : public CatapultPage
 {

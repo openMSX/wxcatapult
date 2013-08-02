@@ -12,6 +12,7 @@ class wxComboBox;
 class wxButton;
 class wxBitmapButton;
 class wxStaticText;
+class wxToggleButton;
 class wxListBox;
 
 class SessionDropTarget : public wxFileDropTarget

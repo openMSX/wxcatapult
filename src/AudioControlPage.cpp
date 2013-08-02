@@ -34,8 +34,7 @@ BEGIN_EVENT_TABLE(AudioControlPage, wxPanel)
 END_EVENT_TABLE()
 
 AudioControlPage::AudioControlPage(wxWindow* parent, openMSXController* controller)
-	: CatapultPage(parent)
-	, m_controller(controller)
+	: m_controller(controller)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("AudioControlPage"));
 	m_audioPanel = (wxPanel*)FindWindowByName (wxT("AudioChannelPanel"));

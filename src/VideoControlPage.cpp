@@ -48,8 +48,7 @@ BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 END_EVENT_TABLE()
 
 VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController* controller)
-	: CatapultPage(parent)
-	, m_controller(controller)
+	: m_controller(controller)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("VideoControlPage"));
 	m_rendererList     = (wxComboBox*)FindWindowByName(wxT("RendererSelector"));;

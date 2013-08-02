@@ -98,8 +98,7 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 END_EVENT_TABLE()
 
 SessionPage::SessionPage(wxWindow* parent, openMSXController* controller)
-	: CatapultPage(parent)
-	, m_controller(controller)
+	: m_controller(controller)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("SessionPage"));
 

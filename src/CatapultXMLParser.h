@@ -2,6 +2,9 @@
 #define CATAPULTXMLPARSER_H
 
 #include <libxml/parser.h>
+#include <wx/string.h>
+
+class wxWindow;
 
 class CatapultXMLParser
 {

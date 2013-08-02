@@ -7,11 +7,13 @@
 #endif
 #endif
 
-#include "CatapultPage.h"
 #include "CatapultXMLParser.h"
+#include <wx/arrstr.h>
 #include <list>
+#include <vector>
 
 class wxCatapultFrame;
+class wxCommandEvent;
 class CatapultXMLParser;
 class openMSXController
 {
@@ -106,6 +108,29 @@ private:
 	int InitConnectorPanel(wxString dummy1, wxString dummy2);
 	int EnableCassettePort(wxString cmd, wxString data);
 	int SetCassetteMode(wxString cmd, wxString data);
+
+	void AddSetting(
+		const wxString& settings, const wxString& control,
+		void (openMSXController::*pfunction)(const wxString&, const wxString&, const wxString&, int),
+		int flags = 0);
+	void UpdateSetting2(const wxString& name, const wxString& data);
+	void UpdateToggle   (const wxString& setting, const wxString& data, const wxString& control, int flags);
+	void UpdateCombo    (const wxString& setting, const wxString& data, const wxString& control, int flags);
+	void UpdateIndicator(const wxString& setting, const wxString& data, const wxString& control, int flags);
+	void UpdateSlider   (const wxString& setting, const wxString& data, const wxString& control, int flags);
+	void UpdateVolume   (const wxString& setting, const wxString& data, const wxString& control, int flags);
+	void UpdateBalance  (const wxString& setting, const wxString& data, const wxString& control, int flags);
+	void UpdateMenu     (const wxString& setting, const wxString& data, const wxString& control, int flags);
+	void UpdateMidiPlug (const wxString& setting, const wxString& data, const wxString& control, int flags);
+	void UpdatePluggable(const wxString& setting, const wxString& data, const wxString& control, int flags);
+
+	struct SettingElement {
+		wxString setting;
+		wxString control;
+		void (openMSXController::*pfunction)(const wxString&, const wxString&, const wxString&, int);
+		int flags;
+	};
+	std::vector<SettingElement> m_settingTable;
 
 	bool wait;
 	int sendStep;
