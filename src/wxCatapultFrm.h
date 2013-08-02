@@ -1,10 +1,10 @@
 #ifndef WXCATAPULTFRAME_H
 #define WXCATAPULTFRAME_H
 
-#include <wx/frame.h>
 #include <wx/tglbtn.h>
 #include <wx/timer.h>
 #include <wx/socket.h>
+#include <wx/frame.h>
 
 class CatapultXMLParser;
 class SessionPage;

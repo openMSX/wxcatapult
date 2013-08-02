@@ -2,9 +2,9 @@
 #define CATAPULTCONFIGDLG_H
 
 #include <wx/dialog.h>
+#include <wx/textctrl.h>
 
 class openMSXController;
-class wxTextCtrl;
 class wxCheckBox;
 
 class CatapultConfigDlg : public wxDialog

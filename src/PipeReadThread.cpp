@@ -39,7 +39,7 @@ wxThread::ExitCode PipeReadThread::Entry()
 			wxString* eventClientData = new wxString(szBuffer, wxConvUTF8, dwBytesRead);
 			wxCommandEvent event(EVT_CONTROLLER);
 			event.SetId(m_id);
-			event.SetClientData(temp);
+			event.SetClientData(eventClientData);
 			wxPostEvent(m_target, event);
 		}
 	} while (bResult);
