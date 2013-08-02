@@ -151,7 +151,7 @@
                                         <object class="wxSlider" name="MinFrameSkipSlider" base="EditSlider">
                                             <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS</style>
                                             <tooltip>Minimum number of frames to skip</tooltip>
-                                            <range>0, 100</range>
+                                            <range>0, 15</range>
                                             <value>0</value>
                                         </object>
                                     </object>
@@ -170,7 +170,7 @@
                                         <object class="wxSlider" name="MaxFrameSkipSlider" base="EditSlider">
                                             <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS</style>
                                             <tooltip>Maximum number of frames that may be skipped</tooltip>
-                                            <range>0, 100</range>
+                                            <range>0, 15</range>
                                             <value>0</value>
                                         </object>
                                     </object>
