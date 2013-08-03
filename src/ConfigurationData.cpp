@@ -88,7 +88,7 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 		m_usedExtensions = p_data.GetString();
 		break;
 	case CD_MEDIAINSERTED:
-		m_mediaInserted =p_data.GetLong();
+		m_mediaInserted = p_data.GetLong();
 		break;
 	case CD_FULLSCREENWARN:
 		m_showFullScreenWarning = p_data.GetLong();

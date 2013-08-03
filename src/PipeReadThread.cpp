@@ -14,36 +14,23 @@ PipeReadThread::PipeReadThread(wxWindow* target, int id, wxThreadKind kind)
 
 wxThread::ExitCode PipeReadThread::Entry()
 {
+	while (true) {
+		char buffer[1000];
 #ifdef __UNIX__
-	ssize_t bytesRead;
-	char szBuffer[1001];
-	do {
-		bytesRead = read(m_descriptor, szBuffer, 1000);
-		if (bytesRead > 0) {
-			szBuffer[bytesRead] = 0;
-			wxString* eventClientData = new wxString(szBuffer, wxConvUTF8, bytesRead);
-			wxCommandEvent event(EVT_CONTROLLER);
-			event.SetId(m_id);
-			event.SetClientData(eventClientData);
-			wxPostEvent(m_target, event);
-		}
-	} while (bytesRead > 0);
-	close (m_descriptor);
+		ssize_t bytesRead = read(m_descriptor, buffer, 1000);
+		if (bytesRead <= 0) break;
 #else
-	DWORD dwBytesRead;
-	BOOL bResult;
-	char szBuffer [1001];
-	do {
-		bResult = ReadFile(m_hTarget, szBuffer, 1000, &dwBytesRead, nullptr);
-		if (bResult) { // the bytes could not be read
-			wxString* eventClientData = new wxString(szBuffer, wxConvUTF8, dwBytesRead);
-			wxCommandEvent event(EVT_CONTROLLER);
-			event.SetId(m_id);
-			event.SetClientData(eventClientData);
-			wxPostEvent(m_target, event);
-		}
-	} while (bResult);
-
+		DWORD bytesRead;
+		if (!ReadFile(m_hTarget, buffer, 1000, &bytesRead, nullptr)) break;
+#endif
+		wxString* eventClientData = new wxString(buffer, wxConvUTF8, bytesRead);
+		wxCommandEvent event(EVT_CONTROLLER);
+		event.SetId(m_id);
+		event.SetClientData(eventClientData);
+		wxPostEvent(m_target, event);
+	}
+#ifdef __UNIX__
+	close(m_descriptor);
 #endif
 	wxCommandEvent endEvent(EVT_CONTROLLER);
 	endEvent.SetId(MSGID_ENDPROCESS);

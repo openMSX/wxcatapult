@@ -126,7 +126,7 @@ wxString wxCatapultApp::GetResourceDir()
 {
 #ifdef __WXMSW__
 	wxString temp = ::wxPathOnly(argv[0]);
-	temp.Replace(wxT("/"), wxT("\\"),true);
+	temp.Replace(wxT("/"), wxT("\\"));
 	while (temp.Last() == '\\') {
 		temp = temp.Left(temp.Len() - 1);
 	}

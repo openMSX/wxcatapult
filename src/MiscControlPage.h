@@ -27,7 +27,6 @@ public:
 	void FillInitialJoystickPortValues();
 
 private:
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
 	void InitJoystickPort(wxString connector, wxString control, wxString connectorClass);
 	void OnSetThrottle(wxCommandEvent& event);
 	void OnSetCmdTiming(wxCommandEvent& event);

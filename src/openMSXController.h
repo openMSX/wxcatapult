@@ -33,14 +33,14 @@ public:
 	void GetPluggableDescriptions(wxArrayString& descriptions);
 	void GetPluggableClasses(wxArrayString& classes);
 	bool StartOpenMSX(wxString cmd, bool getversion = false);
-	bool WriteCommand(wxString msg, TargetType target = TARGET_INTERACTIVE);
+	void WriteCommand(wxString msg, TargetType target = TARGET_INTERACTIVE);
 	void HandleEndProcess(wxCommandEvent& event);
 	virtual bool HandleMessage(wxCommandEvent& event);
 
 	bool IsOpenMSXRunning() const { return m_openMsxRunning; }
 
 protected:
-	virtual bool WriteMessage(xmlChar* msg, size_t length) = 0;
+	virtual void WriteMessage(xmlChar* msg, size_t length) = 0;
 	virtual bool Launch(wxString cmdline) = 0;
 	virtual void HandleNativeEndProcess() = 0;
 	virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd) = 0;

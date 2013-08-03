@@ -22,7 +22,7 @@ private:
 		HWND hWndFound;
 	};
 
-	virtual bool WriteMessage(xmlChar* msg, size_t length);
+	virtual void WriteMessage(xmlChar* msg, size_t length);
 	virtual bool Launch(wxString cmdLine);
 	virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
 	virtual void HandleNativeEndProcess() {};

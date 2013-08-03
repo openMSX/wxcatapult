@@ -37,7 +37,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* contro
 	if (temp.IsEmpty()) {
 #ifdef __WXMSW__
 		guess = ((wxCatapultApp&)wxGetApp()).GetResourceDir();
-		guess.Replace(wxT("/"), wxT("\\"), true);
+		guess.Replace(wxT("/"), wxT("\\"));
 		for (int i = 0; i < 2; ++i) {
 			while (guess.Last() == '\\') {
 				guess.RemoveLast();
@@ -60,7 +60,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* contro
 	if (temp.IsEmpty() && !m_ExecPath->GetValue().IsEmpty()) {
 #ifdef __WXMSW__
 		guess = m_ExecPath->GetValue();
-		guess.Replace(wxT("/"), wxT("\\"), true);
+		guess.Replace(wxT("/"), wxT("\\"));
 		int pos = guess.Find('\\', true);
 		guess = (pos != wxNOT_FOUND)
 		      ? guess.Left(pos + 1) + wxT("share")
@@ -107,12 +107,11 @@ void CatapultConfigDlg::OnCancel(wxCommandEvent& event)
 void CatapultConfigDlg::OnBrowseExec(wxCommandEvent& event)
 {
 	wxString defaultpath = ::wxPathOnly(m_ExecPath->GetValue());
-	wxString executable;
 
-#ifdef __UNIX__
-	executable = wxT("");
+#ifndef __UNIX__
+	wxString executable;
 #else
-	executable = wxT(".exe");
+	wxString executable = wxT(".exe");
 #endif
 
 	wxFileDialog filedlg(

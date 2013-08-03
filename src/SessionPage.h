@@ -33,7 +33,6 @@ public:
 	virtual ~SessionPage();
 
 	void SetupHardware(bool initial, bool reset);
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
 	void SetControlsOnLaunch();
 	void SetControlsOnEnd();
 	void SetCassetteControl();
@@ -82,6 +81,7 @@ private:
 		wxString deviceName;
 	};
 
+	virtual void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
 //	void OnClickCombo(wxCommandEvent& event);
 	void OnBrowseCassette(wxCommandEvent& event);
 	void OnBrowseDiskA(wxCommandEvent& event);

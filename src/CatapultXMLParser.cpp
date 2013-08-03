@@ -99,7 +99,7 @@ void CatapultXMLParser::cb_text(CatapultXMLParser* parser, const xmlChar* chars,
 void CatapultXMLParser::SendParsedData()
 {
 	wxCommandEvent parseEvent(EVT_CONTROLLER);
-	auto * result = new ParseResult;
+	auto* result = new ParseResult;
 	result->contents = parseResult.contents;
 	result->openMSXID = parseResult.openMSXID;
 	// handle both new and deprecated messages

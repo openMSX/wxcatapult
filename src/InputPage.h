@@ -17,7 +17,6 @@ public:
 	void SetControlsOnLaunch();
 
 private:
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {}
 	void OnTypeText(wxCommandEvent& event);
 	void OnClearText(wxCommandEvent& event);
 	void OnTextChange(wxCommandEvent& event);
@@ -26,7 +25,6 @@ private:
 	wxTextCtrl* m_inputtext;
 	wxButton* m_typeTextButton;
 	wxButton* m_clearTextButton;
-	bool launched;
 
 	DECLARE_CLASS(InputPage)
 	DECLARE_EVENT_TABLE()

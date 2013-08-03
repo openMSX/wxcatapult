@@ -105,28 +105,6 @@ bool openMSXLinuxController::execute(const std::string& command, int& fdIn, int&
 	return true;
 }
 
-//bool openMSXLinuxController::connectSocket()
-//{
-//	bool bRetval = false;
-/*	if (m_socket == NULL){ // only if we don't have a socket connection
-		m_socket = new wxSocketClient;
-		m_socket->SetEventHandler(*m_appWindow,OPENMSX_SOCKET);
-		m_socket->SetNotify (wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
-		m_socket->Notify(true);
-
-		wxIPV4address addr; // wx implemented only ipv4 so far
-		addr.Hostname (wxT("localhost")); // only localhost for now
-		addr.Service (9938); // openMSX port
-        if (!m_socket->Connect(addr,true)){ // don't wait, openMSX should be available allready
-			wxMessageBox (wxT("Error: openMSX not available for socket connection !"));
-		}
-		else{
-			bRetval = true; // succes
-		}
-	}*/
-//	return bRetval;
-//}
-
 wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 {
 	wxString version;
@@ -140,18 +118,13 @@ wxString openMSXLinuxController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 	return version;
 }
 
-bool openMSXLinuxController::WriteMessage(xmlChar* msg, size_t length)
+void openMSXLinuxController::WriteMessage(xmlChar* msg, size_t length)
 {
-	if (!m_openMsxRunning) return false;
+	if (!m_openMsxRunning) return;
 
-//	if ((m_socket) && (m_socket->IsConnected())) {
-//		m_socket->Write(msg,length);
-//		return m_socket->LastError();
-//	}
 	ssize_t r = write(m_openMSXstdin, msg, length);
 	(void)r; // We really should check this return value, but for now
 	         // just silence the warning.
-	return true;
 }
 
 void openMSXLinuxController::HandleNativeEndProcess()

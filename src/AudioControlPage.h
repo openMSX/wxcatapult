@@ -27,7 +27,6 @@ public:
 	void UpdateMidiPlug(const wxString& connector, const wxString& data);
 
 private:
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
 	void AddChannel(int channelnumber);
 	int FindChannel(const wxString& name) const;
 	void OnChangeVolume(wxScrollEvent& event);

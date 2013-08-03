@@ -23,21 +23,19 @@ InputPage::InputPage(wxWindow* parent, openMSXController* controller)
 
 	m_typeTextButton->Enable(false);
 	m_clearTextButton->Enable(false);
-
-	launched = false;
 }
 
 void InputPage::OnTypeText(wxCommandEvent& event)
 {
 	wxString test = m_inputtext->GetValue();
-	test.Replace(wxT("\\"), wxT("\\\\"), true);
-	test.Replace(wxT("\n"), wxT("\\r"),  true);
-	test.Replace(wxT("$"),  wxT("\\$"),  true);
-	test.Replace(wxT("\""), wxT("\\\""), true);
-	test.Replace(wxT("["),  wxT("\\["),  true);
-	test.Replace(wxT("]"),  wxT("\\]"),  true);
-	test.Replace(wxT("}"),  wxT("\\}"),  true);
-	test.Replace(wxT("{"),  wxT("\\{"),  true);
+	test.Replace(wxT("\\"), wxT("\\\\"));
+	test.Replace(wxT("\n"), wxT("\\r"));
+	test.Replace(wxT("$"),  wxT("\\$"));
+	test.Replace(wxT("\""), wxT("\\\""));
+	test.Replace(wxT("["),  wxT("\\["));
+	test.Replace(wxT("]"),  wxT("\\]"));
+	test.Replace(wxT("}"),  wxT("\\}"));
+	test.Replace(wxT("{"),  wxT("\\{"));
 	m_controller->WriteCommand(wxT("type \"") + test + wxT("\""));
 }
 
@@ -50,17 +48,15 @@ void InputPage::OnTextChange(wxCommandEvent& event)
 {
 	bool anyText = !m_inputtext->GetValue().IsEmpty();
 	m_clearTextButton->Enable(anyText);
-	m_typeTextButton->Enable(launched && anyText);
+	m_typeTextButton->Enable(m_controller->IsOpenMSXRunning() && anyText);
 }
 
 void InputPage::SetControlsOnEnd()
 {
-	launched = false;
 	m_typeTextButton->Enable(false);
 }
 
 void InputPage::SetControlsOnLaunch()
 {
-	launched = true;
 	m_typeTextButton->Enable(!m_inputtext->GetValue().IsEmpty());
 }

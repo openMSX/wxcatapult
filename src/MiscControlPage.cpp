@@ -398,14 +398,14 @@ void MiscControlPage::InitConnectorPanel()
 {
 	wxArrayString connectors;
 	m_controller->GetConnectors(connectors);
-	for (unsigned i = 0; i < connectors.GetCount(); ++i) {
-		wxString currentClass = m_controller->GetConnectorClass(connectors[i]);
-		if (connectors[i] == wxT("joyporta")) {
-			InitJoystickPort(connectors[i], wxT("Joyport1Selector"), currentClass);
-		} else if (connectors[i] == wxT("joyportb")) {
-			InitJoystickPort(connectors[i], wxT("Joyport2Selector"), currentClass);
-//		} else if (connectors[i] == wxT("printerport")) {
-//			InitJoystickPort(connectors[i], wxT("PrinterportSelector"), currentClass);
+	for (auto& connector : connectors) {
+		wxString currentClass = m_controller->GetConnectorClass(connector);
+		if (connector == wxT("joyporta")) {
+			InitJoystickPort(connector, wxT("Joyport1Selector"), currentClass);
+		} else if (connector == wxT("joyportb")) {
+			InitJoystickPort(connector, wxT("Joyport2Selector"), currentClass);
+//		} else if (connector] == wxT("printerport")) {
+//			InitJoystickPort(connector, wxT("PrinterportSelector"), currentClass);
 		}
 	}
 //	auto* text = (wxTextCtrl*)FindWindowByName("PrinterLogFile");
@@ -414,15 +414,16 @@ void MiscControlPage::InitConnectorPanel()
 
 void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxString connectorClass)
 {
-	wxArrayString pluggables;
 	wxArrayString classes;
 	m_controller->GetPluggableClasses(classes);
-	if (classes.GetCount() == 0) return;
+	if (classes.IsEmpty()) return;
 
 	auto* box = (wxComboBox*)FindWindowByName(control);
 	wxString currentval = box->GetValue();
 	box->Clear();
 	box->Append(wxT("--empty--"));
+
+	wxArrayString pluggables;
 	m_controller->GetPluggables(pluggables);
 	for (unsigned i = 0; i < pluggables.GetCount(); ++i) {
 		if (classes[i] == connectorClass) {
@@ -436,7 +437,7 @@ void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxS
 	wxString cmd = wxT("plug");
 	if (currentval == wxT("--empty--")) {
 		cmd = wxT("unplug");
-		currentval = wxT("");
+		currentval.Clear();
 	}
 	m_controller->WriteCommand(cmd + wxT(" ") + connector + wxT(" ") + currentval);
 }

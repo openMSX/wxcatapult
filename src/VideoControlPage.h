@@ -23,7 +23,6 @@ public:
 	void SetSliderDefaults();
 
 private:
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
 	void OnInputScanline(wxCommandEvent& event);
 	void OnInputGamma(wxCommandEvent& event);
 	void OnInputGlow(wxCommandEvent& event);

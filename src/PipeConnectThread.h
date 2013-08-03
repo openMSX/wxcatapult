@@ -17,7 +17,6 @@ public:
 
 private:
 	wxWindow* m_target;
-	bool m_Connected;
 	HANDLE m_pipeHandle;
 };
 

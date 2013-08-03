@@ -18,11 +18,9 @@
 #include <wx/tokenzr.h>
 #include <wx/wxprec.h>
 
-#define LAUNCHSCRIPT_MAXSIZE 100
 static const int S_CONVERT = 1;
 static const int S_EVENT   = 2;
 static const int S_INVERT  = 4;
-
 
 openMSXController::openMSXController(wxWindow* target)
 {
@@ -74,14 +72,14 @@ void openMSXController::HandleEndProcess(wxCommandEvent& event)
 {
 	if (!m_openMsxRunning) return;
 
-	wxString led[] = {
+	wxString leds[] = {
 		wxT("power"), wxT("caps"),  wxT("kana"),
 		wxT("pause"), wxT("turbo"), wxT("FDD")
 	};
-	unsigned i = 0;
-	FOREACH(i, led) {
-		m_appWindow->UpdateLed(led[i], wxT("off"));
+	for (auto& l : leds) {
+		m_appWindow->UpdateLed(l, wxT("off"));
 	}
+
 	m_appWindow->StopTimers();
 	m_appWindow->SetStatusText(wxT("Ready"));
 	m_appWindow->EnableSaveSettings(false);
@@ -103,7 +101,7 @@ void openMSXController::HandleStdOut(wxCommandEvent& event)
 	delete data;
 }
 
-void openMSXController::HandleStdErr(wxCommandEvent &event)
+void openMSXController::HandleStdErr(wxCommandEvent& event)
 {
 	auto* data = (wxString*)event.GetClientData();
 	if (*data == wxT("\n")) {
@@ -128,7 +126,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 	auto* data = (CatapultXMLParser::ParseResult*)event.GetClientData();
 	if (data->openMSXID != m_openMSXID) {
 		delete data;
-		return; // another instance is allready started, ignore this message
+		return; // another instance is already started, ignore this message
 	}
 	switch (data->parseState) {
 	case CatapultXMLParser::TAG_UPDATE:
@@ -189,9 +187,9 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 				wxString command = GetPendingCommand();
 				if (command == wxT("openmsx_info fps")) {
 					m_appWindow->SetFPSdisplay(data->contents);
-				} else if (command == wxT("save_settings")){
+				} else if (command == wxT("save_settings")) {
 					wxMessageBox(wxT("openMSX settings saved successfully!"));
-				} else if (command.Left(10) == wxT("screenshot")){
+				} else if (command.Left(10) == wxT("screenshot")) {
 					m_appWindow->m_videoControlPage->UpdateScreenshotCounter();
 				}
 			}
@@ -269,9 +267,9 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 	delete data;
 }
 
-bool openMSXController::WriteCommand(wxString msg, TargetType target)
+void openMSXController::WriteCommand(wxString msg, TargetType target)
 {
-	if (!m_openMsxRunning) return false;
+	if (!m_openMsxRunning) return;
 
 	CommandEntry temp;
 	temp.command = msg;
@@ -279,18 +277,16 @@ bool openMSXController::WriteCommand(wxString msg, TargetType target)
 	m_commands.push_back(temp);
 
 	xmlChar* buffer = xmlEncodeEntitiesReentrant(nullptr, (const xmlChar*)(const char*)(wxConvUTF8.cWX2MB(msg)));
-	if (!buffer) return false;
+	if (!buffer) return;
 
-	bool result = false;
 	char* commandBuffer = new char[strlen((const char*)buffer) + 25];
 	strcpy(commandBuffer, "<command>");
 	strcat(commandBuffer, (const char*)buffer);
 	strcat(commandBuffer, "</command>\n");
-	result = WriteMessage((xmlChar*)commandBuffer, strlen(commandBuffer));
+	WriteMessage((xmlChar*)commandBuffer, strlen(commandBuffer));
 	delete[] commandBuffer;
 
 	xmlFree(buffer);
-	return result;
 }
 
 wxString openMSXController::GetPendingCommand()
@@ -337,7 +333,6 @@ void openMSXController::HandleNormalLaunchReply(wxCommandEvent& event)
 {
 	executeLaunch(&event);
 }
-
 
 int openMSXController::InitConnectors(wxString dummy, wxString connectors)
 {
@@ -386,26 +381,17 @@ int openMSXController::InitPluggables(wxString dummy, wxString pluggables)
 
 void openMSXController::GetPluggables(wxArrayString& pluggables)
 {
-	pluggables.Clear();
-	for (unsigned i = 0; i < m_pluggables.GetCount(); ++i) {
-		pluggables.Add(m_pluggables[i]);
-	}
+	pluggables = m_pluggables;
 }
 
 void openMSXController::GetPluggableDescriptions(wxArrayString& descriptions)
 {
-	descriptions.Clear();
-	for (unsigned i = 0; i < m_pluggabledescriptions.GetCount(); ++i) {
-		descriptions.Add(m_pluggabledescriptions[i]);
-	}
+	descriptions = m_pluggabledescriptions;
 }
 
 void openMSXController::GetPluggableClasses(wxArrayString& classes)
 {
-	classes.Clear();
-	for (unsigned i = 0; i < m_pluggableclasses.GetCount(); ++i) {
-		classes.Add(m_pluggableclasses[i]);
-	}
+	classes = m_pluggableclasses;
 }
 
 bool openMSXController::SetupOpenMSXParameters(wxString version)
@@ -448,10 +434,8 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 
 void openMSXController::InitLaunchScript()
 {
-	// Use __catapult_update to support both old and new openmsx versions
-	AddLaunchInstruction(wxT("proc __catapult_update { args } { if {[info command openmsx_update] != \"\"} { eval \"openmsx_update $args\" } else { eval \"update $args\" } }"), wxT(""), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("__catapult_update enable setting"), wxT(""), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("__catapult_update enable led"), wxT(""), wxT(""), nullptr, false);
+	AddLaunchInstruction(wxT("openmsx_update enable setting"), wxT(""), wxT(""), nullptr, false);
+	AddLaunchInstruction(wxT("openmsx_update enable led"), wxT(""), wxT(""), nullptr, false);
 	AddLaunchInstruction(wxT("set power on"), wxT("e"), wxT("power"), &openMSXController::UpdateSetting, true);
 	AddLaunchInstruction(wxT("unset renderer"), wxT("e"), wxT(""), nullptr, true);
 	AddLaunchInstruction(wxT("@execute"), wxT(""), wxT(""), &openMSXController::EnableMainWindow, false);
@@ -459,7 +443,7 @@ void openMSXController::InitLaunchScript()
 	AddLaunchInstruction(wxT("^info scale_algorithm"), wxT(""), wxT("ScalerAlgoSelector"), &openMSXController::FillComboBox, true);
 	AddLaunchInstruction(wxT("lindex [openmsx_info setting scale_factor] 2"), wxT(""), wxT("ScalerFactorSelector"), &openMSXController::FillRangeComboBox, true);
 	AddLaunchInstruction(wxT("^info accuracy"), wxT(""), wxT("AccuracySelector"), &openMSXController::FillComboBox, false);
-	AddLaunchInstruction(wxT("__catapult_update enable media"), wxT(""), wxT(""), nullptr, false);
+	AddLaunchInstruction(wxT("openmsx_update enable media"), wxT(""), wxT(""), nullptr, false);
 	AddLaunchInstruction(wxT("info exist frontswitch"), wxT(""), wxT("#"), &openMSXController::EnableFirmware, false);
 	AddLaunchInstruction(wxT("info exist firmwareswitch"), wxT(""), wxT("#"), &openMSXController::EnableFirmware, false);
 	AddLaunchInstruction(wxT("set renderer"), wxT(""), wxT("renderer"), &openMSXController::UpdateSetting, true);
@@ -508,9 +492,9 @@ void openMSXController::InitLaunchScript()
 	AddLaunchInstruction(wxT("set mute"), wxT(""), wxT("mute"), &openMSXController::UpdateSetting, true);
 	AddLaunchInstruction(wxT("plug cassetteport"), wxT(""), wxT("cassetteport"), &openMSXController::EnableCassettePort, false);
 	AddLaunchInstruction(wxT("join [cassetteplayer] \\n"), wxT(""), wxT(""), &openMSXController::SetCassetteMode, false);
-	AddLaunchInstruction(wxT("__catapult_update enable plug"), wxT(""), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("__catapult_update enable unplug"), wxT(""), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("__catapult_update enable status"), wxT(""), wxT(""), nullptr, false);
+	AddLaunchInstruction(wxT("openmsx_update enable plug"), wxT(""), wxT(""), nullptr, false);
+	AddLaunchInstruction(wxT("openmsx_update enable unplug"), wxT(""), wxT(""), nullptr, false);
+	AddLaunchInstruction(wxT("openmsx_update enable status"), wxT(""), wxT(""), nullptr, false);
 
 	AddSetting(wxT("renderer"), wxT("RendererSelector"), &openMSXController::UpdateCombo);
 	AddSetting(wxT("scale_algorithm"), wxT("ScalerAlgoSelector"), &openMSXController::UpdateCombo);
@@ -548,7 +532,7 @@ void openMSXController::InitLaunchScript()
 	AddSetting(wxT("cassetteplayer"), wxT("CassetteContents"), &openMSXController::UpdateCombo);
 	AddSetting(wxT("fullscreen"), wxT("FullScreenButton"), &openMSXController::UpdateToggle, S_CONVERT);
 	AddSetting(wxT("save_settings_on_exit"), wxT("Save Settings On Exit"), &openMSXController::UpdateMenu);
-	AddSetting(wxT("printerlogfilename"), wxT("PrinterLogFile"),&openMSXController::UpdateIndicator, S_CONVERT);
+	AddSetting(wxT("printerlogfilename"), wxT("PrinterLogFile"), &openMSXController::UpdateIndicator, S_CONVERT);
 }
 
 void openMSXController::AddLaunchInstruction(
@@ -723,8 +707,8 @@ wxString openMSXController::translate(wxArrayString tokens, int loop, wxString l
 			wxArrayString lastvalues;
 			tokenize(lastdata, wxT("\n"), lastvalues);
 			if (loop < (int)lastvalues.GetCount()) {
-				token.Replace(wxT("*"), lastvalues[loop], true);
-				token.Replace(wxT(" "), wxT("\\ "), true);
+				token.Replace(wxT("*"), lastvalues[loop]);
+				token.Replace(wxT(" "), wxT("\\ "));
 			}
 		}
 	}
@@ -811,8 +795,8 @@ void openMSXController::HandleLaunchReply(
 			if (loopcount > -1) {
 				wxArrayString temp;
 				tokenize(datalist, wxT("\n"), temp);
-				parameter.Replace(wxT("*"), temp[loopcount], true);
-				parameter.Replace(wxT(" "), wxT("\\ "), true);
+				parameter.Replace(wxT("*"), temp[loopcount]);
+				parameter.Replace(wxT(" "), wxT("\\ "));
 			}
 			if (parameter == wxT("#")) {
 				parameter = cmd;
@@ -851,7 +835,7 @@ int openMSXController::UpdateSetting(wxString setting, wxString data)
 void openMSXController::UpdateSetting2(const wxString& name_, const wxString& data)
 {
 	wxString name = name_; // TODO HACK: need a proper Tcl parser
-	name.Replace(wxT("\\"), wxT(""), true);
+	name.Replace(wxT("\\"), wxT(""));
 
 	for (auto& elem : m_settingTable) {
 		if (name.Matches(elem.setting.c_str())) {
@@ -1031,8 +1015,8 @@ int openMSXController::InitRomTypes(wxString dummy, wxString data)
 {
 	wxArrayString types;
 	tokenize(data, wxT("\n"), types);
-	for (unsigned i = 0; i < types.GetCount(); ++i) {
-		m_appWindow->m_sessionPage->AddRomType(types[i]);
+	for (auto& t : types) {
+		m_appWindow->m_sessionPage->AddRomType(t);
 	}
 	return 0;
 }

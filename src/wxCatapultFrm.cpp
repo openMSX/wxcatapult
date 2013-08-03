@@ -73,12 +73,12 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU(Catapult_About, wxCatapultFrame::OnMenuAbout)
 	EVT_MENU(Catapult_Edit_Config, wxCatapultFrame::OnMenuEditConfig)
 	EVT_MENU(Catapult_Save_OpenMSX_Settings, wxCatapultFrame::OnMenuSaveSettings)
-	EVT_MENU(Catapult_Save_OpenMSX_Settings_As,wxCatapultFrame::OnMenuSaveSettingsAs)
-	EVT_MENU(Catapult_Load_OpenMSX_Settings,wxCatapultFrame::OnMenuLoadSettings)
-	EVT_MENU(Catapult_Save_On_Exit,wxCatapultFrame::OnMenuSaveOnExit)
+	EVT_MENU(Catapult_Save_OpenMSX_Settings_As, wxCatapultFrame::OnMenuSaveSettingsAs)
+	EVT_MENU(Catapult_Load_OpenMSX_Settings, wxCatapultFrame::OnMenuLoadSettings)
+	EVT_MENU(Catapult_Save_On_Exit, wxCatapultFrame::OnMenuSaveOnExit)
 	EVT_MENU(Catapult_Display_Invalids, wxCatapultFrame::OnMenuDisplayBroken)
 	EVT_COMMAND (-1, EVT_CONTROLLER, wxCatapultFrame::OnControllerEvent)
-	EVT_BUTTON(XRCID("Launch_AbortButton"),wxCatapultFrame::OnLaunch)
+	EVT_BUTTON(XRCID("Launch_AbortButton"), wxCatapultFrame::OnLaunch)
 	EVT_TIMER(FPS_TIMER, wxCatapultFrame::OnUpdateFPS)
 	EVT_TIMER(FOCUS_TIMER, wxCatapultFrame::OnCheckFocus)
 	EVT_TIMER(SAFETY_TIMER, wxCatapultFrame::OnEnableMainWindow)
@@ -97,9 +97,9 @@ END_EVENT_TABLE()
 
 wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 {
-	m_fpsTimer.SetOwner(this,FPS_TIMER);
-	m_focusTimer.SetOwner(this,FOCUS_TIMER);
-	m_safetyTimer.SetOwner(this,SAFETY_TIMER);
+	m_fpsTimer.   SetOwner(this, FPS_TIMER);
+	m_focusTimer. SetOwner(this, FOCUS_TIMER);
+	m_safetyTimer.SetOwner(this, SAFETY_TIMER);
 
 #ifdef __WXMSW__
 	m_controller = new openMSXWindowsController(this);
@@ -141,8 +141,8 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 	EnableSaveSettings(false);
 	menuBar->Append(viewMenu, wxT("&View"));
 	int viewFlags;
-	config.GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
-	viewMenu->Check(Catapult_Display_Invalids,((viewFlags & ConfigurationData::VF_BROKEN) != 0));
+	config.GetParameter(ConfigurationData::CD_VIEWFLAGS, &viewFlags);
+	viewMenu->Check(Catapult_Display_Invalids, (viewFlags & ConfigurationData::VF_BROKEN) != 0);
 
 	menuBar->Append(helpMenu, wxT("&Help"));
 
@@ -167,12 +167,12 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 	m_audioControlPage = new AudioControlPage(m_tabControl, m_controller);
 	m_inputPage = new InputPage(m_tabControl, m_controller);
 
-	m_tabControl->AddPage(m_sessionPage,wxT("Session"),true);
-	m_tabControl->AddPage(m_miscControlPage,wxT("Misc Controls"),false);
-	m_tabControl->AddPage(m_videoControlPage,wxT("Video Controls"),false);
-	m_tabControl->AddPage(m_audioControlPage,wxT("Audio Controls"),false);
-	m_tabControl->AddPage(m_inputPage,wxT("Input Text"),false);
-	m_tabControl->AddPage(m_statusPage,wxT("Status Info"),false);
+	m_tabControl->AddPage(m_sessionPage,      wxT("Session"),        true);
+	m_tabControl->AddPage(m_miscControlPage,  wxT("Misc Controls"),  false);
+	m_tabControl->AddPage(m_videoControlPage, wxT("Video Controls"), false);
+	m_tabControl->AddPage(m_audioControlPage, wxT("Audio Controls"), false);
+	m_tabControl->AddPage(m_inputPage,        wxT("Input Text"),     false);
+	m_tabControl->AddPage(m_statusPage,       wxT("Status Info"),    false);
 
 	m_launch_AbortButton = (wxButton*)FindWindowByName(wxT("Launch_AbortButton"));
 
@@ -265,9 +265,9 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 	description->SetLabel(wxT("The official GUI for openMSX"));
 	message->SetLabel(wxT("\251 2003-2013 The openMSX Team\n<openmsx-devel@lists.sourceforge.net>\n"));
 #ifdef __WXMSW__
-		dlg.SetSize(-1,-1,400,307,0);
+		dlg.SetSize(-1, -1, 400, 307, 0);
 #else
-		dlg.SetSize(-1,-1,400,300,0);
+		dlg.SetSize(-1, -1, 400, 300, 0);
 #endif
 	dlg.CenterOnParent();
 	dlg.ShowModal();
@@ -348,7 +348,7 @@ void wxCatapultFrame::OnMenuDisplayBroken(wxCommandEvent& event)
 {
 	auto& config = ConfigurationData::instance();
 	int viewFlags;
-	config.GetParameter(ConfigurationData::CD_VIEWFLAGS,&viewFlags);
+	config.GetParameter(ConfigurationData::CD_VIEWFLAGS, &viewFlags);
 	m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
 	if (viewMenu->IsChecked(Catapult_Display_Invalids)) {
 		config.SetParameter(ConfigurationData::CD_VIEWFLAGS, (long)(viewFlags |  ConfigurationData::VF_BROKEN));
@@ -360,8 +360,8 @@ void wxCatapultFrame::OnMenuDisplayBroken(wxCommandEvent& event)
 
 void wxCatapultFrame::EnableSaveSettings(bool enabled)
 {
-	settingsMenu->Enable(Catapult_Save_OpenMSX_Settings,enabled);
-	settingsMenu->Enable(Catapult_Save_OpenMSX_Settings_As,enabled);
+	settingsMenu->Enable(Catapult_Save_OpenMSX_Settings,    enabled);
+	settingsMenu->Enable(Catapult_Save_OpenMSX_Settings_As, enabled);
 }
 
 void wxCatapultFrame::OnMenuOpen(wxMenuEvent& event)
@@ -479,7 +479,7 @@ void wxCatapultFrame::SetControlsOnEnd()
 	if (m_inputPage)        m_inputPage       ->SetControlsOnEnd();
 }
 
-void wxCatapultFrame::OnControllerEvent(wxCommandEvent &event)
+void wxCatapultFrame::OnControllerEvent(wxCommandEvent& event)
 {
 	m_controller->HandleMessage(event);
 }
@@ -545,7 +545,7 @@ void wxCatapultFrame::OnChangePage(wxNotebookEvent& event)
 	if (newPageNr != -1) {
 		auto* page = (CatapultPage*)m_tabControl->GetPage(newPageNr);
 		wxWindow* newfocus = page->FindFocus();
-		page->HandleFocusChange(nullptr,newfocus);
+		page->HandleFocusChange(nullptr, newfocus);
 		m_currentFocus = newfocus;
 	}
 }
@@ -555,7 +555,7 @@ void wxCatapultFrame::OnDeselectCatapult(wxActivateEvent& event)
 	int selectedPage = m_tabControl->GetSelection();
 	if (selectedPage != -1) {
 		auto* page = (CatapultPage*)m_tabControl->GetPage(selectedPage);
-		page->HandleFocusChange(m_currentFocus,nullptr);
+		page->HandleFocusChange(m_currentFocus, nullptr);
 	}
 	m_currentFocus = nullptr;
 }

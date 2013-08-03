@@ -234,24 +234,24 @@ void SessionPage::EjectDisk(mediaInfo* target)
 {
 	target->control->SetValue(wxT(""));
 	target->control->SetSelection(wxNOT_FOUND);
-	target->contents = wxT("");
+	target->contents.Clear();
 	target->ips.Clear();
 	target->mmenu->SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
-	target->lastContents = wxT("");
-	target->oldContents = wxT("");
+	target->lastContents.Clear();
+	target->oldContents.Clear();
 	m_controller->WriteCommand(target->deviceName + wxT(" eject"));
 }
 
 void SessionPage::EjectCart(mediaInfo* target)
 {
-	target->contents = wxT("");
+	target->contents.Clear();
 	target->ips.Clear();
-	target->type = wxT("");
+	target->type.Clear();
 	target->control->SetValue(wxT(""));
 	target->control->SetSelection(wxNOT_FOUND);
 	target->mmenu->SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 	target->mmenu->SetLabel(Cart_Select_Mapper, wxT("Select cartridge type (AUTO)"));
-	target->oldContents = wxT("");
+	target->oldContents.Clear();
 }
 
 void SessionPage::OnEjectCartByMenu(wxCommandEvent& event)
@@ -272,9 +272,9 @@ void SessionPage::OnEjectCartB(wxCommandEvent& event)
 
 void SessionPage::OnClearCassette(wxCommandEvent& event)
 {
-	m_cassette->contents = wxT("");
+	m_cassette->contents.Clear();
 	m_cassette->control->SetValue(wxT(""));
-	m_cassette->lastContents = wxT("");
+	m_cassette->lastContents.Clear();
 	m_controller->WriteCommand(wxT("cassetteplayer eject"));
 #ifdef __WXMSW__
 	// Bug in wxMSW? On wxGTK this is not necessary
@@ -417,7 +417,7 @@ void SessionPage::BrowseCart(mediaInfo* target, wxString defaultpath)
 		target->contents = filedlg.GetPath();
 		target->control->SetValue(target->contents);
 		target->ips.Clear();
-		target->type = wxT("");
+		target->type.Clear();
 		target->mmenu->SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 		target->mmenu->SetLabel(Cart_Select_Mapper, wxT("Select cartridge type (AUTO)"));
 	}
@@ -515,7 +515,7 @@ void SessionPage::OnClickCartACombo(wxCommandEvent& event)
 	if (m_cartA->control->GetValue() != m_cartA->oldContents) { // HACK to prevent crash
 		m_cartA->ips.Clear();
 		m_cartA->contents = m_cartA->control->GetValue();
-		m_cartA->mmenu->SetLabel(Cart_Browse_Ips,wxT("Select IPS Patches (None selected)"));
+		m_cartA->mmenu->SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 		m_cartA->type = m_cartA->typehistory[event.GetInt()];
 		UpdateMenuMapperLabel(m_cartA);
 		m_cartA->avoid_evt = true;
@@ -527,7 +527,7 @@ void SessionPage::OnChangeCartAContents(wxCommandEvent& event)
 {
 	if (!m_cartA->avoid_evt) {
 		m_cartA->ips.Clear();
-		m_cartA->type = wxT("");
+		m_cartA->type.Clear();
 		m_cartA->contents = m_cartA->control->GetValue();
 		m_cartA->mmenu->SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 		UpdateMenuMapperLabel(m_cartA);
@@ -542,7 +542,7 @@ void SessionPage::OnClickCartBCombo(wxCommandEvent& event)
 	if (m_cartB->control->GetValue() != m_cartB->oldContents) { // HACK to prevent crash
 		m_cartB->ips.Clear();
 		m_cartB->contents = m_cartB->control->GetValue();
-		m_cartB->mmenu->SetLabel(Cart_Browse_Ips ,wxT("Select IPS Patches (None selected)"));
+		m_cartB->mmenu->SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 		m_cartB->type = m_cartB->typehistory[event.GetInt()];
 		UpdateMenuMapperLabel(m_cartB);
 		m_cartB->avoid_evt = true;
@@ -554,7 +554,7 @@ void SessionPage::OnChangeCartBContents(wxCommandEvent& event)
 {
 	if (!m_cartB->avoid_evt) {
 		m_cartB->ips.Clear();
-		m_cartB->type=wxT("");
+		m_cartB->type.Clear();
 		m_cartB->contents = m_cartB->control->GetValue();
 		m_cartB->mmenu->SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 		UpdateMenuMapperLabel(m_cartB);
@@ -621,21 +621,18 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 	config.GetParameter(ConfigurationData::CD_MACHINES, checkedMachines);
 	config.GetParameter(ConfigurationData::CD_EXTENSIONS, checkedExtensions);
 	if (!checkedMachines.IsEmpty() && !checkedExtensions.IsEmpty() && !reset) {
-		int pos;
-		do {
-			pos = checkedMachines.Find(wxT("::"));
-			if (pos != wxNOT_FOUND) {
-				m_machineArray.Add(checkedMachines.Left(pos));
-				checkedMachines = checkedMachines.Mid(pos + 2);
-			}
-		} while (pos != wxNOT_FOUND);
-		do {
-			pos = checkedExtensions.Find(wxT("::"));
-			if (pos != wxNOT_FOUND) {
-				m_extensionArray.Add(checkedExtensions.Left(pos));
-				checkedExtensions = checkedExtensions.Mid(pos + 2);
-			}
-		} while (pos != wxNOT_FOUND);
+		while (true) {
+			int pos = checkedMachines.Find(wxT("::"));
+			if (pos == wxNOT_FOUND) break;
+			m_machineArray.Add(checkedMachines.Left(pos));
+			checkedMachines = checkedMachines.Mid(pos + 2);
+		}
+		while (true) {
+			int pos = checkedExtensions.Find(wxT("::"));
+			if (pos == wxNOT_FOUND) break;
+			m_extensionArray.Add(checkedExtensions.Left(pos));
+			checkedExtensions = checkedExtensions.Mid(pos + 2);
+		}
 	} else {
 		wxString sharepath;
 		config.GetParameter(ConfigurationData::CD_SHAREPATH, sharepath);
@@ -707,7 +704,7 @@ void SessionPage::fillExtensions(wxArrayString& extensionArray)
 {
 	for (unsigned i = 0; i < extensionArray.GetCount(); ++i) {
 		wxString temp = extensionArray[i];
-		temp.Replace(wxT("_"), wxT(" "), true);
+		temp.Replace(wxT("_"), wxT(" "));
 		m_extensionList->Append(temp);
 	}
 }
@@ -750,47 +747,47 @@ void SessionPage::fillMachines(wxArrayString& machineArray)
 {
 	for (unsigned i = 0; i < machineArray.GetCount(); ++i) {
 		wxString temp = machineArray[i];
-		temp.Replace(wxT("_"), wxT(" "), true);
+		temp.Replace(wxT("_"), wxT(" "));
 		m_machineList->Append(temp);
 	}
 }
 
 void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
 {
-	if (m_controller->IsOpenMSXRunning()) {
-		if (oldFocus == m_diskA->control) {
-			wxString contents = m_diskA->contents;
-			if (contents != m_diskA->lastContents) {
-				m_controller->WriteCommand(wxT("diska eject"));
-				if (!contents.IsEmpty()) {
-					m_controller->WriteCommand(wxT("diska ") + ConvertPath(contents, true));
-					AddHistory(m_diskA);
-				}
-				m_diskA->lastContents = contents;
+	if (!m_controller->IsOpenMSXRunning()) return;
+
+	if (oldFocus == m_diskA->control) {
+		wxString contents = m_diskA->contents;
+		if (contents != m_diskA->lastContents) {
+			m_controller->WriteCommand(wxT("diska eject"));
+			if (!contents.IsEmpty()) {
+				m_controller->WriteCommand(wxT("diska ") + ConvertPath(contents, true));
+				AddHistory(m_diskA);
 			}
-		} else if (oldFocus == m_diskB->control) {
-			wxString contents = m_diskB->contents;
-			if (contents != m_diskB->lastContents) {
-				m_controller->WriteCommand(wxT("diskb eject"));
-				if (!contents.IsEmpty()) {
-					m_controller->WriteCommand(wxT("diskb ") + ConvertPath(contents, true));
-					AddHistory(m_diskB);
-				}
-				m_diskB->lastContents = contents;
-			}
-		} else if (oldFocus == m_cassette->control) {
-			wxString contents = m_cassette->contents;
-			if (contents != m_cassette->lastContents) {
-				m_controller->WriteCommand(wxT("cassetteplayer eject"));
-				if (!contents.IsEmpty()) {
-					m_controller->WriteCommand(wxT("cassetteplayer ") + ConvertPath(contents, true));
-					AddHistory(m_cassette);
-				}
-				m_cassette->lastContents = contents;
-			}
+			m_diskA->lastContents = contents;
 		}
-		SaveHistory();
+	} else if (oldFocus == m_diskB->control) {
+		wxString contents = m_diskB->contents;
+		if (contents != m_diskB->lastContents) {
+			m_controller->WriteCommand(wxT("diskb eject"));
+			if (!contents.IsEmpty()) {
+				m_controller->WriteCommand(wxT("diskb ") + ConvertPath(contents, true));
+				AddHistory(m_diskB);
+			}
+			m_diskB->lastContents = contents;
+		}
+	} else if (oldFocus == m_cassette->control) {
+		wxString contents = m_cassette->contents;
+		if (contents != m_cassette->lastContents) {
+			m_controller->WriteCommand(wxT("cassetteplayer eject"));
+			if (!contents.IsEmpty()) {
+				m_controller->WriteCommand(wxT("cassetteplayer ") + ConvertPath(contents, true));
+				AddHistory(m_cassette);
+			}
+			m_cassette->lastContents = contents;
+		}
 	}
+	SaveHistory();
 }
 
 void SessionPage::SetControlsOnLaunch()
@@ -875,20 +872,16 @@ void SessionPage::SetCassetteControl()
 void SessionPage::getMedia(wxArrayString& parameters)
 {
 	mediaInfo* media[] = { m_diskA, m_diskB, m_cartA, m_cartB, m_cassette };
-	parameters.Clear();
-	unsigned i = 0;
-	FOREACH(i, media) {
-		parameters.Add(media[i]->contents);
+	for (auto* m : media) {
+		parameters.Add(m->contents);
 	}
 }
 
 void SessionPage::getTypes(wxArrayString& parameters)
 {
 	mediaInfo* media[] = { m_diskA, m_diskB, m_cartA, m_cartB, m_cassette };
-	parameters.Clear();
-	unsigned i = 0;
-	FOREACH(i, media) {
-		parameters.Add(media[i]->type);
+	for (auto* m : media) {
+		parameters.Add(m->type);
 	}
 }
 
@@ -903,7 +896,6 @@ void SessionPage::getPatches(wxArrayString* parameters)
 
 void SessionPage::getHardware(wxArrayString& parameters)
 {
-	parameters.Clear();
 	int pos = m_machineList->GetSelection();
 	if (pos == 0) {
 		parameters.Add(wxT(" <default> "));
@@ -941,8 +933,8 @@ void SessionPage::UpdateSessionData()
 		media[i]->contents = media[i]->control->GetValue();
 		media[i]->lastContents = media[i]->contents;
 		if (!media[i]->contents.IsEmpty()) {
-			AddHistory (media[i]);
-			m_InsertedMedia |= flags [i];
+			AddHistory(media[i]);
+			m_InsertedMedia |= flags[i];
 		}
 	}
 
@@ -967,9 +959,9 @@ void SessionPage::AddHistory(mediaInfo* media)
 	wxString currentType = media->type;
 	bool isCart = (media == m_cartA) || (media == m_cartB);
 #ifdef __WXMSW__
-	currentItem.Replace(wxT("/"), wxT("\\"), true);
+	currentItem.Replace(wxT("/"), wxT("\\"));
 #else
-	currentItem.Replace(wxT("\\"), wxT("/"), true);
+	currentItem.Replace(wxT("\\"), wxT("/"));
 #endif
 	int pos = media->history.Index(currentItem);
 	if (pos != wxNOT_FOUND) {
@@ -1054,8 +1046,8 @@ void SessionPage::RestoreHistory()
 			}
 		} else {
 			media[i]->control->SetValue(wxT(""));
-			media[i]->contents = wxT("");
-			media[i]->oldContents = wxT("");
+			media[i]->contents.Clear();
+			media[i]->oldContents.Clear();
 		}
 	}
 	config.GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
@@ -1063,8 +1055,8 @@ void SessionPage::RestoreHistory()
 	if (!m_usedMachine.IsEmpty()) {
 		// printf ("OK, it's not empty\n");
 		wxString temp = m_usedMachine;
-		temp.Replace(wxT("_"), wxT(" "), true);
-		temp.Replace(wxT("\""), wxT(""), true);
+		temp.Replace(wxT("_"), wxT(" "));
+		temp.Replace(wxT("\""), wxT(""));
 		int pos = m_machineList->FindString(temp);
 		if (pos != wxNOT_FOUND) {
 			m_machineList->SetSelection(pos);
@@ -1080,7 +1072,7 @@ void SessionPage::RestoreHistory()
 		int pos = value.Find(wxT("::"));
 		if (pos == wxNOT_FOUND) break;
 		wxString temp = value.Left(pos);
-		temp.Replace(wxT("_"), wxT(" "), true);
+		temp.Replace(wxT("_"), wxT(" "));
 		if (m_extensionList->FindString(temp) != wxNOT_FOUND) {
 			m_extensionList->SetStringSelection(temp);
 		}
@@ -1114,8 +1106,7 @@ void SessionPage::SaveHistory()
 	FOREACH(i, media) {
 		wxString temp;
 		for (unsigned j = 0; j < media[i]->history.GetCount(); ++j) {
-			temp += media[i]->history[j];
-			temp += wxT("::");
+			temp << media[i]->history[j] << wxT("::");
 		}
 		config.SetParameter(id[i], temp);
 		if ((media[i] == m_cartA) || (media[i] == m_cartB)) {
@@ -1147,7 +1138,7 @@ void SessionPage::EnableCassettePort(wxString data)
 
 void SessionPage::SetCassetteMode(wxString data)
 {
-	bool state = (data == wxT("play"));
+	bool state = data == wxT("play");
 	if (!m_cassette->contents.IsEmpty()) {
 		m_playButton->SetValue(state);
 		m_playButton->Enable (!state);
@@ -1216,19 +1207,11 @@ SessionPage::mediaInfo* SessionPage::GetLastMenuTarget()
 
 void SessionPage::OnClickCartMenu(wxCommandEvent& event)
 {
-	int index;
-	bool enable = true;
-	m_lastUsedPopup = (wxButton *)event.GetEventObject();
-	if (m_lastUsedPopup == m_cartAButton) {
-		index = 0;
-	} else {
-		index = 1;
-	}
-	wxRect myRect = ((wxWindow*)event.GetEventObject())->GetRect();
 	if (auto* target = GetLastMenuTarget()) {
-		if (target->contents.IsEmpty()){
-			enable = false;
-		}
+		m_lastUsedPopup = (wxButton*)event.GetEventObject();
+		wxRect myRect = ((wxWindow*)event.GetEventObject())->GetRect();
+		bool enable = !target->contents.IsEmpty();
+		int index = (m_lastUsedPopup == m_cartAButton) ? 0 : 1;
 		m_cartMenu[index]->Enable(Cart_Select_Mapper, enable);
 		m_cartMenu[index]->Enable(Cart_Browse_Ips, enable);
 		PopupMenu(m_cartMenu[index], myRect.GetLeft(), myRect.GetBottom());
@@ -1237,9 +1220,9 @@ void SessionPage::OnClickCartMenu(wxCommandEvent& event)
 
 void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent& event)
 {
-	if (auto * target = GetLastMenuTarget()) {
+	if (auto* target = GetLastMenuTarget()) {
 		wxString devicename = m_lastUsedPopup->GetLabel();
-		devicename.Replace(wxT(" "), wxT(""), TRUE);
+		devicename.Replace(wxT(" "), wxT(""));
 		devicename.LowerCase();
 		wxFileDialog filedlg(this, wxT("Create disk image"),
 		                     ::wxPathOnly(target->contents), wxT(""),
@@ -1291,7 +1274,7 @@ void SessionPage::OnBrowseDiskDirByMenu(wxCommandEvent& event)
 
 void SessionPage::OnSelectMapper(wxCommandEvent& event)
 {
-	if (auto * target = GetLastMenuTarget()) {
+	if (auto* target = GetLastMenuTarget()) {
 		wxString value = target->type;
 		m_romTypeDialog->CenterOnParent();
 		if (m_romTypeDialog->ShowModal(value) == wxID_OK) {
@@ -1310,7 +1293,7 @@ void SessionPage::OnSelectIPS(wxCommandEvent& event)
 			m_ipsDialog->GetIPSList(target->ips);
 			int count = target->ips.GetCount();
 			if (count > 0) {
-				item.Printf(wxT("Select IPS Patches (%d selected)"),count);
+				item.Printf(wxT("Select IPS Patches (%d selected)"), count);
 			}
 			target->mmenu->SetLabel(Cart_Browse_Ips, item);
 			target->ipsdir = m_ipsDialog->GetLastBrowseLocation();
@@ -1428,7 +1411,7 @@ SessionDropTarget::SessionDropTarget(wxComboBox* target)
 
 bool SessionDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
-	if (filenames.GetCount() != 0) {
+	if (!filenames.IsEmpty()) {
 		m_target->Append(filenames[0]); // just the first for starters
 	}
 	return true;

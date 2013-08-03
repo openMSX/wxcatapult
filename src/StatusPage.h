@@ -13,8 +13,6 @@ public:
 	wxTextCtrl* m_outputtext;
 
 private:
-	void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus) {};
-
 	DECLARE_CLASS(StatusPage)
 	DECLARE_EVENT_TABLE()
 };

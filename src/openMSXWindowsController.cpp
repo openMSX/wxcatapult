@@ -240,14 +240,12 @@ void openMSXWindowsController::HandlePipeCreated()
 	PostLaunch();
 }
 
-bool openMSXWindowsController::WriteMessage(xmlChar* msg, size_t length)
+void openMSXWindowsController::WriteMessage(xmlChar* msg, size_t length)
 {
-	if (!m_openMsxRunning) return false;
+	if (!m_openMsxRunning) return;
 	unsigned long BytesWritten;
-	if (!::WriteFile(m_outputHandle, msg, length, &BytesWritten, nullptr)) {
-		return false;
-	}
-	return true;
+	::WriteFile(m_outputHandle, msg, length, &BytesWritten, nullptr);
+	// ignore return value, BytesWritten
 }
 
 void openMSXWindowsController::HandleEndProcess(wxCommandEvent& event)
@@ -263,7 +261,7 @@ wxString openMSXWindowsController::GetOpenMSXVersionInfo(wxString openmsxCmd)
 	wxString version;
 	wxArrayString output;
 	int code = wxExecute(openmsxCmd + wxT(" -v"), output);
-	if ((code != -1) && (output.GetCount() > 0)) {
+	if ((code != -1) && !output.IsEmpty()) {
 		version = output[0];
 	}
 	return version;

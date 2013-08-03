@@ -11,7 +11,7 @@
 
 IMPLEMENT_CLASS(CheckConfigsDlg, wxDialog)
 BEGIN_EVENT_TABLE(CheckConfigsDlg, wxDialog)
-	EVT_BUTTON(XRCID("CheckConfigsUserButton"),CheckConfigsDlg::OnUserButton)
+	EVT_BUTTON(XRCID("CheckConfigsUserButton"), CheckConfigsDlg::OnUserButton)
 	EVT_COMMAND (-1, EVT_TESTCONFIG, CheckConfigsDlg::OnTestConfigEvent)
 END_EVENT_TABLE()
 
@@ -108,7 +108,7 @@ void CheckConfigsDlg::HandleSetCurrentObject(wxString object)
 {
 	m_currentObject = object;
 	wxString tmp = m_currentObject;
-	tmp.Replace(wxT("_"), wxT(" "), true);
+	tmp.Replace(wxT("_"), wxT(" "));
 	m_currentconfig->SetLabel(tmp);
 }
 
@@ -127,27 +127,21 @@ CheckConfigsDlg::CheckConfigsThread::CheckConfigsThread(CheckConfigsDlg* target)
 wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 {
 	m_running = true;
-	m_workingmachine = wxT("");
-	wxString fullCommand;
-	int progress;
+	m_workingmachine.Clear();
 	int numberOfMachines = m_machines->Count();
 	int numberOfExtensions = m_extensions->Count();
 	int config = 0;
 	int machine = 0;
 	while ((machine < (int)m_machines->Count()) && m_running) {
-		fullCommand = m_cmd;
-		fullCommand += wxT(" -testconfig");
-		fullCommand += wxT(" -machine ");
-		fullCommand += wxT("\"");
-		fullCommand += m_machines->Item(machine);
-		fullCommand += wxT("\"");
+		wxString fullCommand;
+		fullCommand << m_cmd << wxT(" -testconfig -machine \"")
+		            << m_machines->Item(machine) << wxT("\"");
 		SetCurrentObject(m_machines->Item(machine));
-		progress = (50 * (config + 1)) / numberOfMachines;
+		int progress = (50 * (config + 1)) / numberOfMachines;
 		bool success = doCheckConfigs(fullCommand);
 		if (success) {
 			if (m_workingmachine.IsEmpty()) {
 				m_workingmachine = m_machines->Item(machine);
-
 			}
 			++machine;
 		} else {
@@ -162,18 +156,12 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 	int extension = 0;
 	config = 0;
 	while ((extension < (int)m_extensions->Count()) && m_running) {
-		fullCommand = m_cmd;
-		fullCommand += wxT(" -testconfig");
-		fullCommand += wxT(" -machine ");
-		fullCommand += wxT("\"");
-		fullCommand += m_workingmachine;
-		fullCommand += wxT("\"");
-		fullCommand += wxT(" -ext ");
-		fullCommand += wxT("\"");
-		fullCommand += m_extensions->Item(extension);
-		fullCommand += wxT("\"");
+		wxString fullCommand;
+		fullCommand << m_cmd << wxT(" -testconfig -machine \"")
+		            << m_workingmachine << wxT("\" -ext \"")
+		            << m_extensions->Item(extension) << wxT("\"");
 		SetCurrentObject(m_extensions->Item(extension));
-		progress = ((50 * (config + 1)) / numberOfExtensions) + 50;
+		int progress = ((50 * (config + 1)) / numberOfExtensions) + 50;
 		bool success = doCheckConfigs(fullCommand);
 		if (!success) {
 			m_extensions->RemoveAt(extension);
@@ -199,7 +187,6 @@ void CheckConfigsDlg::CheckConfigsThread::UpdateStats(bool checkmachine, bool su
 	data->m_checkmachine = checkmachine;
 	data->m_succes = succes;
 	data->m_progress = progress;
-
 	checkConfigEvent.SetClientData(data);
 	checkConfigEvent.SetId(MSGID_UPDATESTATS);
 	wxPostEvent(m_target, checkConfigEvent);
@@ -214,7 +201,6 @@ void CheckConfigsDlg::CheckConfigsThread::SetCurrentObject(wxString object)
 	checkConfigEvent.SetClientData(data);
 	checkConfigEvent.SetId(MSGID_SETCURRENTOBJECT);
 	wxPostEvent(m_target, checkConfigEvent);
-
 }
 
 void CheckConfigsDlg::CheckConfigsThread::SetParameters(
@@ -231,7 +217,7 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs(wxString cmd)
 #ifndef __WXMSW__
 	char buffer[1000];
 	cmd += wxT(" > /dev/null 2>&1");
-	strcpy(buffer, (const char*)(wxConvUTF8.cWX2MB((cmd))));
+	strcpy(buffer, (const char*)(wxConvUTF8.cWX2MB(cmd)));
 	result = system(buffer);
 #else
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE;

@@ -95,7 +95,7 @@ void AudioControlPage::AddChannelType(const wxString& name, const wxString& type
 {
 	// Hack: undo transformation from stupid launch script
 	wxString type = type_;
-	type.Replace(wxT("\n"), wxT(" "), true);
+	type.Replace(wxT("\n"), wxT(" "));
 
 	ChannelInfo info;
 	info.name        = name;
@@ -221,7 +221,7 @@ void AudioControlPage::AddChannel(int channelnumber)
 	if (chanType != chanName) {
 		chanDesc += wxT(" (") +chanType +wxT(")");
 	}
-	chanDesc.Replace(wxT("\\ "), wxT(" "), true);
+	chanDesc.Replace(wxT("\\ "), wxT(" "));
 	slider->SetToolTip(chanDesc + wxT(" volume"));
 
 	wxComboBox* combo = nullptr;
@@ -319,7 +319,7 @@ int AudioControlPage::FindChannel(const wxString& name_) const
 {
 	// HACK!! 'ChannelInfo::name' is Tcl-escaped, but 'name' isn't.
 	wxString name = name_;
-	name.Replace(wxT(" "), wxT("\\ "), true); // This shouldn't be necessary :(
+	name.Replace(wxT(" "), wxT("\\ ")); // This shouldn't be necessary :(
 	for (size_t i = 0; i < m_audioChannels.size(); ++i) {
 		if (m_audioChannels[i].name == name) return i;
 	}
@@ -527,10 +527,6 @@ void AudioControlPage::InvalidSampleFilename()
 	auto* box = (wxComboBox*)FindWindowByName(wxT("SampleInSelector"));
 	box->SetValue(wxT("--empty--"));
 	m_controller->WriteCommand(wxT("unplug pcminput"));
-}
-
-void AudioControlPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
-{
 }
 
 void AudioControlPage::OnBrowseMidiInFile(wxCommandEvent& event)

@@ -6,7 +6,6 @@
 
 PipeConnectThread::PipeConnectThread(wxWindow* target)
 {
-	m_Connected = false;
 	m_target = target;
 }
 

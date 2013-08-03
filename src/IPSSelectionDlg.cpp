@@ -94,7 +94,7 @@ void IPSSelectionDlg::OnMoveUp(wxCommandEvent& event)
 {
 	wxArrayInt selections;
 	int num = m_ipsDisplay->GetSelections(selections);
-	for (int i = 0; i < num; ++i){
+	for (int i = 0; i < num; ++i) {
 		wxString temp = m_ipsDisplay->GetString(selections[i]);
 		m_ipsDisplay->Delete(selections[i]);
 		m_ipsDisplay->InsertItems(1, &temp, selections[i] - 1);
