@@ -71,7 +71,7 @@
             </object>
             <object class="sizeritem">
                 <flag>wxALL|wxALIGN_CENTER_HORIZONTAL</flag>
-                <border>5</border>
+                <border>1</border>
                 <option>0</option>
                 <object class="wxBoxSizer" name="AboutMessageSizer" base="EditBoxSizer">
                     <orient>wxHORIZONTAL</orient>
