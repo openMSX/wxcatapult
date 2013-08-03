@@ -16,7 +16,7 @@ class wxToggleButton;
 class MiscControlPage : public CatapultPage
 {
 public:
-	MiscControlPage(wxWindow* parent, openMSXController* controller);
+	MiscControlPage(wxWindow* parent, openMSXController& controller);
 
 	void SetControlsOnEnd();
 	void SetControlsOnLaunch();
@@ -53,7 +53,7 @@ private:
 	void OnPrinterportChanged(bool save);
 	void OnJoystickChanged();
 
-	openMSXController* m_controller;
+	openMSXController& m_controller;
 	wxBitmapButton* m_browsePrinterLog;
 
 	wxButton* m_resetButton;

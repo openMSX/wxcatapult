@@ -29,7 +29,7 @@ private:
 class SessionPage : public CatapultPage
 {
 public:
-	SessionPage(wxWindow* parent = nullptr, openMSXController* controller = nullptr);
+	SessionPage(wxWindow* parent, openMSXController& controller);
 	virtual ~SessionPage();
 
 	void SetupHardware(bool initial, bool reset);
@@ -177,7 +177,7 @@ private:
 	int m_InsertedMedia;
 	wxString m_usedMachine;
 	wxString m_usedExtensions;
-	openMSXController* m_controller;
+	openMSXController& m_controller;
 	wxCatapultFrame* m_parent;
 
 	wxMenu* m_diskMenu[2];

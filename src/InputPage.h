@@ -11,7 +11,7 @@ class openMSXController;
 class InputPage : public CatapultPage
 {
 public:
-	InputPage(wxWindow* parent, openMSXController* controller);
+	InputPage(wxWindow* parent, openMSXController& controller);
 
 	void SetControlsOnEnd();
 	void SetControlsOnLaunch();
@@ -21,7 +21,7 @@ private:
 	void OnClearText(wxCommandEvent& event);
 	void OnTextChange(wxCommandEvent& event);
 
-	openMSXController* m_controller;
+	openMSXController& m_controller;
 	wxTextCtrl* m_inputtext;
 	wxButton* m_typeTextButton;
 	wxButton* m_clearTextButton;

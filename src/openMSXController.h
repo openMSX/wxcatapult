@@ -11,10 +11,18 @@
 #include <wx/arrstr.h>
 #include <list>
 #include <vector>
+#ifdef __WXMSW__
+#include <windows.h>
+#else
+#include <string>
+#endif
 
 class wxCatapultFrame;
 class wxCommandEvent;
 class CatapultXMLParser;
+class PipeConnectThread;
+class PipeReadThread;
+
 class openMSXController
 {
 public:
@@ -24,7 +32,10 @@ public:
 	};
 
 	openMSXController(wxWindow* target);
-	virtual ~openMSXController() {}
+	~openMSXController();
+
+	void RaiseOpenMSX();
+	void RestoreOpenMSX();
 
 	void UpdateMixer();
 	void GetConnectors(wxArrayString& connectors);
@@ -35,21 +46,9 @@ public:
 	bool StartOpenMSX(wxString cmd, bool getversion = false);
 	void WriteCommand(wxString msg, TargetType target = TARGET_INTERACTIVE);
 	void HandleEndProcess(wxCommandEvent& event);
-	virtual bool HandleMessage(wxCommandEvent& event);
+	bool HandleMessage(wxCommandEvent& event);
 
 	bool IsOpenMSXRunning() const { return m_openMsxRunning; }
-
-protected:
-	virtual void WriteMessage(xmlChar* msg, size_t length) = 0;
-	virtual bool Launch(wxString cmdline) = 0;
-	virtual void HandleNativeEndProcess() = 0;
-	virtual wxString GetOpenMSXVersionInfo(wxString openmsxCmd) = 0;
-
-	wxCatapultFrame* m_appWindow;
-	bool m_openMsxRunning;
-	bool PostLaunch ();
-	bool PreLaunch();
-	CatapultXMLParser* m_parser;
 
 private:
 	struct LaunchInstruction {
@@ -64,6 +63,13 @@ private:
 		TargetType target;
 	};
 
+	void WriteMessage(xmlChar* msg, size_t length);
+	bool Launch(wxString cmdline);
+	void HandleNativeEndProcess();
+	wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
+
+	bool PostLaunch();
+	bool PreLaunch();
 	void InitLaunchScript();
 	void AddLaunchInstruction(
 		wxString cmd, wxString action, wxString parameter,
@@ -150,6 +156,49 @@ private:
 	wxArrayString m_pluggableclasses;
 
 	std::list<CommandEntry> m_commands;
+
+	wxCatapultFrame* m_appWindow;
+	bool m_openMsxRunning;
+	CatapultXMLParser* m_parser;
+
+	// windows or linux specific stuff
+#ifdef __WXMSW__
+	struct FindOpenmsxInfo {
+		LPPROCESS_INFORMATION ProcessInfo;
+		HWND hWndFound;
+	};
+
+	void HandleEndProcess(wxCommandEvent& event);
+	void HandlePipeCreated();
+
+	HWND FindOpenMSXWindow();
+	static BOOL CALLBACK EnumWindowCallBack(HWND hwnd, LPARAM lParam);
+	void CloseHandles(
+		bool useNamedPipes, HANDLE hThread, HANDLE hInputRead,
+		HANDLE hOutputWrite, HANDLE hErrorWrite);
+	void ShowError(wxString msg);
+	bool CreatePipes(
+		bool useNamedPipes, HANDLE* input, HANDLE* output, HANDLE* error,
+		HANDLE* outputWrite, HANDLE* errorWrite);
+	wxString CreateControlParameter(bool useNamedPipes);
+	bool DetermenNamedPipeUsage();
+
+	HANDLE m_outputHandle;
+	HANDLE m_namedPipeHandle;
+	HWND m_catapultWindow;
+	PROCESS_INFORMATION m_openmsxProcInfo;
+	bool m_pipeActive;
+	unsigned long m_launchCounter;
+	PipeConnectThread* m_connectThread;
+#else
+	bool execute(const std::string& command, int& fdIn, int& fdOut, int& fdErr);
+
+	int m_openMSXstdin;
+	int m_openMSXstdout;
+	int m_openMSXstderr;
+	PipeReadThread* m_stdErrThread;
+	PipeReadThread* m_stdOutThread;
+#endif
 };
 
 #endif

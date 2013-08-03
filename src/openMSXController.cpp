@@ -8,6 +8,7 @@
 #include "SessionPage.h"
 #include "wxCatapultApp.h"
 #include "ScreenShotDlg.h"
+#include "PipeReadThread.h"
 #include <cassert>
 #include <wx/button.h>
 #include <wx/combobox.h>
@@ -15,8 +16,17 @@
 #include <wx/msgdlg.h>
 #include <wx/notebook.h>
 #include <wx/textctrl.h>
+#include <wx/textfile.h>
 #include <wx/tokenzr.h>
 #include <wx/wxprec.h>
+#ifdef __WXMSW__
+#include <config.h>
+#include "PipeConnectThread.h"
+#include <process.h>
+#else
+#include <unistd.h>
+#include <wx/process.h>
+#endif
 
 static const int S_CONVERT = 1;
 static const int S_EVENT   = 2;
@@ -24,6 +34,16 @@ static const int S_INVERT  = 4;
 
 openMSXController::openMSXController(wxWindow* target)
 {
+#ifdef __WXMSW__
+	m_launchCounter = 0;
+	m_connectThread = nullptr;
+	m_pipeActive = false;
+	m_openMsxRunning = false;
+	m_namedPipeHandle = INVALID_HANDLE_VALUE;
+#else
+	m_openMSXstdin = m_openMSXstdout = m_openMSXstderr = -1;
+#endif
+
 	m_openMSXID = 0;
 	m_appWindow = (wxCatapultFrame*)target;
 	m_openMsxRunning = false;
@@ -32,9 +52,27 @@ openMSXController::openMSXController(wxWindow* target)
 	InitLaunchScript();
 }
 
+openMSXController::~openMSXController()
+{
+	if (m_openMsxRunning) {
+		WriteCommand(wxT("exit"));
+#ifndef __WXMSW__
+		m_stdOutThread->Wait();
+		m_stdErrThread->Wait();
+		delete m_stdOutThread;
+		delete m_stdErrThread;
+#endif
+	}
+}
+
 bool openMSXController::HandleMessage(wxCommandEvent& event)
 {
 	switch (event.GetId()) {
+#ifdef __WXMSW__
+	case MSGID_PIPECREATED:
+		HandlePipeCreated();
+		break;
+#endif
 	case MSGID_STDOUT:
 		HandleStdOut(event);
 		break;
@@ -1098,3 +1136,394 @@ void openMSXController::UpdateMixer()
 {
 	executeLaunch(nullptr, m_relaunch);
 }
+
+
+void openMSXController::RaiseOpenMSX()
+{
+#ifdef __WXMSW__
+	HWND openmsxWindow = FindOpenMSXWindow();
+	if (openmsxWindow != nullptr) {
+		SetParent(openmsxWindow, m_catapultWindow);
+		SetActiveWindow(openmsxWindow);
+		SetForegroundWindow(openmsxWindow);
+		SetParent(openmsxWindow, nullptr);
+	}
+#else
+	// nothing
+#endif
+}
+
+void openMSXController::RestoreOpenMSX()
+{
+#ifdef __WXMSW__
+	HWND openmsxWindow = FindOpenMSXWindow();
+	if (openmsxWindow != nullptr) {
+		SetParent(openmsxWindow, m_catapultWindow);
+		SetWindowPos(openmsxWindow, HWND_TOP, 0, 0, 640, 480, SWP_NOSIZE || SWP_SHOWWINDOW);
+		SetParent(openmsxWindow, nullptr);
+	}
+#else
+	// nothing
+#endif
+}
+
+void openMSXController::WriteMessage(xmlChar* msg, size_t length)
+{
+	if (!m_openMsxRunning) return;
+#ifdef __WXMSW__
+	unsigned long BytesWritten;
+	::WriteFile(m_outputHandle, msg, length, &BytesWritten, nullptr);
+	// ignore return value, BytesWritten
+#else
+	ssize_t r = write(m_openMSXstdin, msg, length);
+	(void)r; // We really should check this return value, but for now
+	         // just silence the warning.
+#endif
+}
+
+bool openMSXController::Launch(wxString cmdline)
+{
+#ifdef __WXMSW__
+	m_catapultWindow = GetActiveWindow();
+	PreLaunch();
+	bool useNamedPipes = DetermenNamedPipeUsage();
+	cmdLine += CreateControlParameter(useNamedPipes);
+	HANDLE hInputRead, hOutputWrite, hErrorWrite, hErrorRead, hOutputRead;
+	CreatePipes(useNamedPipes, &hInputRead, &hOutputWrite, &hErrorWrite, &hOutputRead, &hErrorRead);
+
+	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE | CREATE_SUSPENDED;
+	WORD wStartupWnd = SW_HIDE;
+
+	STARTUPINFO si;
+	DWORD dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	si.dwFlags = dwFlags;
+	si.hStdInput = hInputRead;
+	si.hStdOutput = hOutputWrite;
+	si.hStdError  = hErrorWrite;
+	si.wShowWindow = wStartupWnd;
+
+	LPTSTR szCmdLine = _tcsdup(cmdLine.c_str());
+	if (szCmdLine) {
+		CreateProcess(
+			nullptr, szCmdLine, nullptr, nullptr, true,
+			dwProcessFlags, nullptr, nullptr, &si,
+			&m_openmsxProcInfo); //testing suspended
+		free(szCmdLine);
+	}
+
+	auto* thread = new PipeReadThread(m_appWindow, MSGID_STDOUT);
+	if (thread->Create() == wxTHREAD_NO_ERROR) {
+		thread->SetHandle(hOutputRead);
+		thread->Run();
+	}
+	auto* thread2 = new PipeReadThread (m_appWindow, MSGID_STDERR);
+	if (thread2->Create() == wxTHREAD_NO_ERROR) {
+		thread2->SetHandle(hErrorRead);
+		thread2->Run();
+	}
+
+	::ResumeThread(m_openmsxProcInfo.hThread);
+
+	if (useNamedPipes) {
+		if (!m_pipeActive) {
+			m_pipeActive = true;
+			m_connectThread->SetHandle(m_namedPipeHandle);
+			m_connectThread->Run();
+		}
+		m_outputHandle = m_namedPipeHandle;
+
+	} else {
+		m_openMsxRunning = true;
+		PostLaunch();
+		m_appWindow->m_launch_AbortButton->Enable(true);
+	}
+	m_openMsxRunning = true;
+	CloseHandles(useNamedPipes, m_openmsxProcInfo.hThread, hInputRead, hOutputWrite, hErrorWrite);
+
+	return true;
+#else
+	PreLaunch();
+	cmdline += wxT(" -control stdio");
+	if (!execute((const char*)(wxConvUTF8.cWX2MB((cmdline))),
+	             m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
+		return false;
+	}
+	m_stdOutThread = new PipeReadThread(m_appWindow, MSGID_STDOUT, wxTHREAD_JOINABLE);
+	if (m_stdOutThread->Create() == wxTHREAD_NO_ERROR) {
+		m_stdOutThread->SetFileDescriptor(m_openMSXstdout);
+		m_stdOutThread->Run();
+	}
+	m_stdErrThread = new PipeReadThread(m_appWindow, MSGID_STDERR, wxTHREAD_JOINABLE);
+	if (m_stdErrThread->Create() == wxTHREAD_NO_ERROR) {
+		m_stdErrThread->SetFileDescriptor(m_openMSXstderr);
+		m_stdErrThread->Run();
+	}
+
+	m_openMsxRunning = true;
+	PostLaunch();
+	m_appWindow->m_launch_AbortButton->Enable(true);
+	return true;
+#endif
+}
+
+void openMSXController::HandleNativeEndProcess()
+{
+#ifdef __WXMSW__
+	// nothing
+#else
+	close(m_openMSXstdin);
+#endif
+}
+
+wxString openMSXController::GetOpenMSXVersionInfo(wxString openmsxCmd)
+{
+	wxString version;
+#ifdef __WXMSW__
+	wxArrayString output;
+	int code = wxExecute(openmsxCmd + wxT(" -v"), output);
+	if ((code != -1) && !output.IsEmpty()) {
+		version = output[0];
+	}
+#else
+	if (system((const char*)(wxConvUTF8.cWX2MB((openmsxCmd + wxT(" -v > /tmp/catapult.tmp"))))) == 0) {
+		wxTextFile tempfile(wxT("/tmp/catapult.tmp"));
+		if (tempfile.Open()) {
+			version = tempfile.GetFirstLine();
+			tempfile.Close();
+		}
+	}
+#endif
+	return version;
+}
+
+// windows or linus specific stuff
+#ifdef __WXMSW__
+
+bool openMSXController::DetermenNamedPipeUsage()
+{
+	bool useNamedPipes = false;
+	if (!FORCE_UNNAMED_PIPES) {
+		OSVERSIONINFO info;
+		info.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
+		if (!GetVersionEx(&info)) {
+			wxMessageBox(wxString::Format(
+				wxT("Error getting system info: %ld "), GetLastError()));
+		} else {
+			if (info.dwPlatformId == VER_PLATFORM_WIN32_NT) {
+				useNamedPipes = true; // nt-based only and only if the user wants it
+			}
+		}
+	}
+	return useNamedPipes;
+}
+
+wxString openMSXController::CreateControlParameter(bool useNamedPipes)
+{
+	wxString parameter = wxT(" -control");
+
+	if (useNamedPipes) {
+		if (m_connectThread == nullptr) {
+			m_launchCounter++;
+		}
+		auto pipeName = wxString::Format(
+			wxT("\\\\.\\pipe\\Catapult-%u-%lu"), _getpid(), m_launchCounter);
+		parameter += wxT(" pipe:") + pipeName.Mid(9);
+		if (m_connectThread == nullptr) {
+			m_connectThread = new PipeConnectThread(m_appWindow);
+			m_connectThread->Create();
+			m_namedPipeHandle = CreateNamedPipe(pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
+			if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {
+				wxMessageBox(wxString::Format(
+					wxT("Error creating pipe: %ld"), GetLastError()));
+			}
+		} else {
+			m_namedPipeHandle = m_outputHandle;
+		}
+	} else {
+		parameter += wxT(" stdio:");
+	}
+	return parameter;
+}
+
+bool openMSXController::CreatePipes(
+	bool useNamedPipes, HANDLE* input, HANDLE* output, HANDLE* error,
+	HANDLE* outputWrite, HANDLE* errorWrite)
+{
+	HANDLE hOutputReadTmp, hOutputWrite;
+	HANDLE hErrorReadTmp, hErrorWrite;
+	HANDLE hInputRead = 0, hInputWriteTmp, hInputWrite;
+	HANDLE hInputHandle = GetStdHandle(STD_INPUT_HANDLE);
+
+	SECURITY_ATTRIBUTES sa;
+	sa.nLength= sizeof(SECURITY_ATTRIBUTES);
+	sa.lpSecurityDescriptor = nullptr;
+	sa.bInheritHandle = TRUE;
+
+	if (!useNamedPipes) {
+		if (!CreatePipe(&hInputRead, &hInputWriteTmp, &sa, 0)) {
+			ShowError(wxT("Error creating pipe for stdin"));
+			return false;
+		}
+		if (!DuplicateHandle(GetCurrentProcess(), hInputWriteTmp,
+		                     GetCurrentProcess(), &hInputWrite, 0,
+		                     FALSE, DUPLICATE_SAME_ACCESS)) {
+			ShowError(wxT("Error Duplicating InputWriteTmp Handle"));
+			return false;
+		}
+		if (!CloseHandle(hInputWriteTmp)) {
+			ShowError(wxT("Error Closing Input Temp Handle"));
+			return false;
+		}
+		m_outputHandle = hInputWrite;
+		hInputHandle = hInputRead;
+	}
+
+	if (!CreatePipe(&hOutputReadTmp, &hOutputWrite, &sa, 0)) {
+		ShowError(wxT("Error creating pipe for stdout"));
+		return false;
+	}
+	if (!CreatePipe(&hErrorReadTmp, &hErrorWrite, &sa, 0)) {
+		ShowError(wxT("Error creating pipe for stderr"));
+		return false;
+	}
+	*input = hInputHandle;
+	*output = hOutputWrite;
+	*error  = hErrorWrite;
+	*outputWrite = hOutputReadTmp;
+	*errorWrite = hErrorReadTmp;
+	return true;
+}
+
+void openMSXController::ShowError(wxString msg)
+{
+	wxMessageBox(msg + wxString::Format(wxT(": error %ld"), GetLastError()));
+}
+
+void openMSXController::CloseHandles(
+	bool useNamedPipes, HANDLE hThread, HANDLE hInputRead,
+	HANDLE hOutputWrite, HANDLE hErrorWrite)
+{
+	if (!CloseHandle(hThread)) {
+		wxMessageBox(wxT("Unable to close thread handle"));
+		return;
+	}
+	if (!CloseHandle(hOutputWrite)) {
+		wxMessageBox(wxT("Unable to close Output Write"));
+		return;
+	}
+	if (!CloseHandle(hErrorWrite)) {
+		wxMessageBox(wxT("Unable to close Error Write"));
+		return;
+	}
+	if (!useNamedPipes) {
+		if (!CloseHandle(hInputRead)) {
+			wxMessageBox(wxT("Unable to close Input Read"));
+			return;
+		}
+	}
+}
+
+void openMSXController::HandlePipeCreated()
+{
+	m_appWindow->m_launch_AbortButton->Enable(true);
+	m_pipeActive = false;
+	PostLaunch();
+}
+
+void openMSXController::HandleEndProcess(wxCommandEvent& event)
+{
+	openMSXController::HandleEndProcess(event);
+	if (!m_pipeActive) {
+		m_connectThread = nullptr;
+	}
+}
+
+HWND openMSXController::FindOpenMSXWindow()
+{
+	if (!m_openMsxRunning) return nullptr;
+
+	FindOpenmsxInfo findInfo;
+	findInfo.hWndFound = nullptr;
+	findInfo.ProcessInfo = &m_openmsxProcInfo;
+
+	WaitForInputIdle(m_openmsxProcInfo.hProcess, INFINITE);
+	EnumWindows(EnumWindowCallBack, (LPARAM)&findInfo);
+	return findInfo.hWndFound;
+}
+
+BOOL CALLBACK openMSXController::EnumWindowCallBack(HWND hwnd, LPARAM lParam)
+{
+	FindOpenmsxInfo* info = (FindOpenmsxInfo*)lParam;
+	DWORD ProcessId;
+	GetWindowThreadProcessId(hwnd, &ProcessId);
+	TCHAR title[11];
+	GetWindowText(hwnd, title, 10);
+	if (ProcessId == info->ProcessInfo->dwProcessId && _tcslen(title) != 0) {
+		info->hWndFound = hwnd;
+		return false;
+	} else {
+		// Keep enumerating
+		return true;
+	}
+}
+
+#else
+
+bool openMSXController::execute(const std::string& command, int& fdIn, int& fdOut, int& fdErr)
+{
+	// create pipes
+	const int PIPE_READ = 0;
+	const int PIPE_WRITE = 1;
+	int pipeStdin[2], pipeStdout[2], pipeStderr[2];
+	if ((pipe(pipeStdin)  == -1) ||
+	    (pipe(pipeStdout) == -1) ||
+	    (pipe(pipeStderr) == -1)) {
+		return false;
+	}
+
+	// create new thread
+	int pid = fork();
+	if (pid == -1) {
+		return false;
+	}
+	if (pid == 0) {
+		// child thread
+
+		// redirect IO
+		close(pipeStdin[PIPE_WRITE]);
+		close(pipeStdout[PIPE_READ]);
+		close(pipeStderr[PIPE_READ]);
+		dup2(pipeStdin[PIPE_READ], STDIN_FILENO);
+		dup2(pipeStdout[PIPE_WRITE], STDOUT_FILENO);
+		dup2(pipeStderr[PIPE_WRITE], STDERR_FILENO);
+
+		// prepare cmdline
+		// HACK: use sh to handle quoting
+		unsigned len = command.length();
+		char* cmd = static_cast<char*>(
+		                alloca((len + 1) * sizeof(char)));
+		memcpy(cmd, (char*)command.c_str(), len + 1);
+		char* argv[4];
+		argv[0] = const_cast<char*>("sh");
+		argv[1] = const_cast<char*>("-c");
+		argv[2] = cmd;
+		argv[3] = 0;
+
+		// really execute command
+		execvp(argv[0], argv);
+	} else {
+		// parent thread
+		close(pipeStdin[PIPE_READ]);
+		close(pipeStdout[PIPE_WRITE]);
+		close(pipeStderr[PIPE_WRITE]);
+
+		fdIn  = pipeStdin[PIPE_WRITE];
+		fdOut = pipeStdout[PIPE_READ];
+		fdErr = pipeStderr[PIPE_READ];
+	}
+	return true;
+}
+
+#endif

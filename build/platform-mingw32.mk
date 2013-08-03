@@ -27,4 +27,4 @@ LINK_FLAGS:=-L/mingw/lib -L/mingw/lib/w32api \
 	$(LINK_FLAGS)
 
 # Platform specific source files.
-SOURCES+=openMSXWindowsController PipeConnectThread
+SOURCES+=PipeConnectThread

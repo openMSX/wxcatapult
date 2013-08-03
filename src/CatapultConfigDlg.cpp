@@ -19,7 +19,7 @@ BEGIN_EVENT_TABLE(CatapultConfigDlg, wxDialog)
 	EVT_BUTTON(XRCID("ConfigBrowseShare"), CatapultConfigDlg::OnBrowseShare)
 END_EVENT_TABLE()
 
-CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* controller)
+CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController& controller)
 	: m_parent(parent), m_controller(controller)
 {
 	wxString guess;
@@ -85,7 +85,7 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 	} else {
 		if (!::wxDirExists(tempShare)) {
 			wxMessageBox(wxT("That's not a valid share path..."));
-		} else if (m_controller->StartOpenMSX(tempExec, true)) {
+		} else if (m_controller.StartOpenMSX(tempExec, true)) {
 			auto& config = ConfigurationData::instance();
 			config.SetParameter(ConfigurationData::CD_EXECPATH,  tempExec);
 			config.SetParameter(ConfigurationData::CD_SHAREPATH, tempShare);

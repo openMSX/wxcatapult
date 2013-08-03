@@ -43,7 +43,7 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 #endif
 END_EVENT_TABLE()
 
-MiscControlPage::MiscControlPage(wxWindow* parent, openMSXController* controller)
+MiscControlPage::MiscControlPage(wxWindow* parent, openMSXController& controller)
 	: m_controller(controller)
 {
 #ifdef __UNIX__
@@ -150,42 +150,42 @@ void MiscControlPage::FillInitialJoystickPortValues()
 
 void MiscControlPage::OnReset(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxT("reset"));
+	m_controller.WriteCommand(wxT("reset"));
 }
 
 void MiscControlPage::OnPause(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxT("toggle pause"));
+	m_controller.WriteCommand(wxT("toggle pause"));
 }
 
 void MiscControlPage::OnPower(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxT("toggle power"));
+	m_controller.WriteCommand(wxT("toggle power"));
 	if (m_powerButton->GetValue()) {
-		m_controller->WriteCommand(wxT("set pause off"));
+		m_controller.WriteCommand(wxT("set pause off"));
 		m_pauseButton->SetValue(false);
 	}
 }
 
 void MiscControlPage::OnFirmware(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxT("toggle ") + m_firmwareSetting);
+	m_controller.WriteCommand(wxT("toggle ") + m_firmwareSetting);
 }
 
 void MiscControlPage::OnSpeedChange(wxScrollEvent& event)
 {
 	auto speedText = wxString::Format(wxT("%ld"), event.GetInt());
 	m_speedIndicator->SetValue(speedText);
-	m_controller->WriteCommand(wxT("set speed ") + speedText);
-	m_controller->WriteCommand(wxT("set throttle on"));
+	m_controller.WriteCommand(wxT("set speed ") + speedText);
+	m_controller.WriteCommand(wxT("set throttle on"));
 }
 
 void MiscControlPage::OnSetNormalSpeed(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxT("set speed 100"));
+	m_controller.WriteCommand(wxT("set speed 100"));
 	m_speedIndicator->SetValue(wxT("100"));
 	m_speedSlider->SetValue(100);
-	m_controller->WriteCommand(wxT("set throttle on"));
+	m_controller.WriteCommand(wxT("set throttle on"));
 }
 
 void MiscControlPage::OnSetMaxSpeed(wxCommandEvent& event)
@@ -194,12 +194,12 @@ void MiscControlPage::OnSetMaxSpeed(wxCommandEvent& event)
 		m_speedSlider->Disable();
 		m_speedIndicator->Disable();
 		m_speedNormalButton->Disable();
-		m_controller->WriteCommand(wxT("set throttle off"));
+		m_controller.WriteCommand(wxT("set throttle off"));
 	} else {
 		m_speedSlider->Enable();
 		m_speedIndicator->Enable();
 		m_speedNormalButton->Enable();
-		m_controller->WriteCommand(wxT("set throttle on"));
+		m_controller.WriteCommand(wxT("set throttle on"));
 	}
 }
 
@@ -207,26 +207,26 @@ void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent& event)
 {
 	auto skipText = wxString::Format(wxT("%ld"), event.GetInt());
 	m_maxFrameSkipIndicator->SetValue(skipText);
-	m_controller->WriteCommand(wxT("set maxframeskip ") + skipText);
+	m_controller.WriteCommand(wxT("set maxframeskip ") + skipText);
 }
 
 void MiscControlPage::OnMinFrameSkipChange(wxScrollEvent& event)
 {
 	auto skipText = wxString::Format(wxT("%ld"), event.GetInt());
 	m_minFrameSkipIndicator->SetValue(skipText);
-	m_controller->WriteCommand(wxT("set minframeskip ") + skipText);
+	m_controller.WriteCommand(wxT("set minframeskip ") + skipText);
 }
 
 void MiscControlPage::OnSetDefaultMaxFrameSkip(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxT("unset maxframeskip"));
+	m_controller.WriteCommand(wxT("unset maxframeskip"));
 	m_maxFrameSkipIndicator->Enable();
 	m_maxFrameSkipSlider->Enable();
 }
 
 void MiscControlPage::OnSetDefaultMinFrameSkip(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxT("unset minframeskip"));
+	m_controller.WriteCommand(wxT("unset minframeskip"));
 	m_minFrameSkipIndicator->Enable();
 	m_minFrameSkipSlider->Enable();
 }
@@ -235,10 +235,10 @@ void MiscControlPage::OnSetThrottle(wxCommandEvent& event)
 {
 	auto* button = (wxToggleButton*)event.GetEventObject();
 	if (button->GetValue()) {
-		m_controller->WriteCommand(wxT("set throttle on"));
+		m_controller.WriteCommand(wxT("set throttle on"));
 		button->SetLabel(wxT("On"));
 	} else {
-		m_controller->WriteCommand(wxT("set throttle off"));
+		m_controller.WriteCommand(wxT("set throttle off"));
 		button->SetLabel(wxT("Off"));
 	}
 }
@@ -247,10 +247,10 @@ void MiscControlPage::OnSetCmdTiming(wxCommandEvent& event)
 {
 	auto* button = (wxToggleButton*)event.GetEventObject();
 	if (button->GetValue()) {
-		m_controller->WriteCommand(wxT("set cmdtiming broken"));
+		m_controller.WriteCommand(wxT("set cmdtiming broken"));
 		button->SetLabel(wxT("Broken"));
 	} else {
-		m_controller->WriteCommand(wxT("set cmdtiming real"));
+		m_controller.WriteCommand(wxT("set cmdtiming real"));
 		button->SetLabel(wxT("Real"));
 	}
 }
@@ -352,7 +352,7 @@ void MiscControlPage::OnInputSpeed(wxCommandEvent& event)
 			m_speedIndicator->SetValue(text);
 		}
 		if (num >= 1) {
-			m_controller->WriteCommand(wxT("set speed ") + text);
+			m_controller.WriteCommand(wxT("set speed ") + text);
 			m_speedSlider->SetValue(num);
 		}
 	}
@@ -370,7 +370,7 @@ void MiscControlPage::OnInputMinFrameskip(wxCommandEvent& event)
 			m_minFrameSkipIndicator->SetValue(text);
 		}
 		if (num >= 0) {
-			m_controller->WriteCommand(wxT("set minframeskip ") + text);
+			m_controller.WriteCommand(wxT("set minframeskip ") + text);
 			m_minFrameSkipSlider->SetValue(num);
 		}
 	}
@@ -388,7 +388,7 @@ void MiscControlPage::OnInputMaxFrameskip(wxCommandEvent& event)
 			m_maxFrameSkipIndicator->SetValue(text);
 		}
 		if (num >= 0) {
-			m_controller->WriteCommand(wxT("set maxframeskip ") + text);
+			m_controller.WriteCommand(wxT("set maxframeskip ") + text);
 			m_maxFrameSkipSlider->SetValue(num);
 		}
 	}
@@ -397,9 +397,9 @@ void MiscControlPage::OnInputMaxFrameskip(wxCommandEvent& event)
 void MiscControlPage::InitConnectorPanel()
 {
 	wxArrayString connectors;
-	m_controller->GetConnectors(connectors);
+	m_controller.GetConnectors(connectors);
 	for (auto& connector : connectors) {
-		wxString currentClass = m_controller->GetConnectorClass(connector);
+		wxString currentClass = m_controller.GetConnectorClass(connector);
 		if (connector == wxT("joyporta")) {
 			InitJoystickPort(connector, wxT("Joyport1Selector"), currentClass);
 		} else if (connector == wxT("joyportb")) {
@@ -409,13 +409,13 @@ void MiscControlPage::InitConnectorPanel()
 		}
 	}
 //	auto* text = (wxTextCtrl*)FindWindowByName("PrinterLogFile");
-//	m_controller->WriteCommand(wxString("set printerlogfilename ") + ConvertPath(text->GetValue()));
+//	m_controller.WriteCommand(wxString("set printerlogfilename ") + ConvertPath(text->GetValue()));
 }
 
 void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxString connectorClass)
 {
 	wxArrayString classes;
-	m_controller->GetPluggableClasses(classes);
+	m_controller.GetPluggableClasses(classes);
 	if (classes.IsEmpty()) return;
 
 	auto* box = (wxComboBox*)FindWindowByName(control);
@@ -424,7 +424,7 @@ void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxS
 	box->Append(wxT("--empty--"));
 
 	wxArrayString pluggables;
-	m_controller->GetPluggables(pluggables);
+	m_controller.GetPluggables(pluggables);
 	for (unsigned i = 0; i < pluggables.GetCount(); ++i) {
 		if (classes[i] == connectorClass) {
 			box->Append(pluggables[i]);
@@ -439,7 +439,7 @@ void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxS
 		cmd = wxT("unplug");
 		currentval.Clear();
 	}
-	m_controller->WriteCommand(cmd + wxT(" ") + connector + wxT(" ") + currentval);
+	m_controller.WriteCommand(cmd + wxT(" ") + connector + wxT(" ") + currentval);
 }
 
 void MiscControlPage::OnChangeJoystick(wxCommandEvent& event)
@@ -513,8 +513,8 @@ void MiscControlPage::OnJoystickChanged()
 				box2->SetSelection(0);
 				*oldValue2 = wxT("--empty--");
 				*oldValue1 = box->GetValue();
-				m_controller->WriteCommand(wxT("unplug ") + connector2);
-				m_controller->WriteCommand(cmd + connector + value);
+				m_controller.WriteCommand(wxT("unplug ") + connector2);
+				m_controller.WriteCommand(cmd + connector + value);
 			} else {
 				// cancel
 				box->SetSelection(box->FindString(*oldValue1));
@@ -523,7 +523,7 @@ void MiscControlPage::OnJoystickChanged()
 	}
 	if(!flag1){
 		// no collision
-		m_controller->WriteCommand(cmd + connector + value);
+		m_controller.WriteCommand(cmd + connector + value);
 		assert(oldValue1!=0);
 		if(!oldValue1)throw "oldValue1 must not be null, but it is null.";
 		*oldValue1 = box->GetValue();
@@ -538,7 +538,7 @@ void MiscControlPage::OnJoystickChanged()
 
 void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent& event)
 {
-	m_controller->WriteCommand(wxString::Format(
+	m_controller.WriteCommand(wxString::Format(
 		wxT("set renshaturbo %ld"), event.GetInt()));
 }
 
@@ -554,12 +554,12 @@ void MiscControlPage::OnPrinterportChanged(bool save)
 		ConfigurationData::instance().SetParameter(ConfigurationData::CD_PRINTERPORT, current);
 		ConfigurationData::instance().SaveData();
 	}
-	m_controller->WriteCommand(wxT("unplug printerport"));
+	m_controller.WriteCommand(wxT("unplug printerport"));
 	if (current != wxT("--empty--")) {
-		m_controller->WriteCommand(wxT("plug printerport ") + current);
+		m_controller.WriteCommand(wxT("plug printerport ") + current);
 	}
-	if (m_controller->IsOpenMSXRunning()) {
-		m_controller->UpdateMixer();
+	if (m_controller.IsOpenMSXRunning()) {
+		m_controller.UpdateMixer();
 	}
 }
 
@@ -568,7 +568,7 @@ void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent& event)
 	wxString current = ((wxTextCtrl*)event.GetEventObject())->GetValue();
 	ConfigurationData::instance().SetParameter(ConfigurationData::CD_PRINTERFILE, current);
 	ConfigurationData::instance().SaveData();
-	m_controller->WriteCommand(wxT("set printerlogfilename ") + ConvertPath(current, true));
+	m_controller.WriteCommand(wxT("set printerlogfilename ") + ConvertPath(current, true));
 }
 
 void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent& event)
@@ -590,5 +590,5 @@ void MiscControlPage::InvalidPrinterLogFilename()
 {
 	wxMessageBox(wxT("Unable to plug in printerport logger!\nPlease select a valid file name first."), wxT("Error"));
 	m_printerportSelector->SetValue(wxT("--empty--"));
-	m_controller->WriteCommand(wxT("unplug printerport"));
+	m_controller.WriteCommand(wxT("unplug printerport"));
 }

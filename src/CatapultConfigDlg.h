@@ -10,7 +10,7 @@ class wxCheckBox;
 class CatapultConfigDlg : public wxDialog
 {
 public:
-	CatapultConfigDlg(wxWindow* parent, openMSXController* controller);
+	CatapultConfigDlg(wxWindow* parent, openMSXController& controller);
 
 private:
 	void OnBrowseExec(wxCommandEvent& event);
@@ -22,7 +22,7 @@ private:
 	wxTextCtrl* m_SharePath;
 	wxCheckBox* m_ConfigCheck;
 	wxWindow* m_parent;
-	openMSXController* m_controller;
+	openMSXController& m_controller;
 
 	DECLARE_CLASS(CatapultConfigDlg)
 	DECLARE_EVENT_TABLE()

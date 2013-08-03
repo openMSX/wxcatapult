@@ -13,11 +13,6 @@
 #include "Version.h"
 #include "AboutDlg.h"
 #include "CheckConfigsDlg.h"
-#ifdef __WXMSW__
-#include "openMSXWindowsController.h"
-#else
-#include "openMSXLinuxController.h"
-#endif
 #include "openMSXController.h"
 #include <wx/button.h>
 #include <wx/image.h>
@@ -101,11 +96,7 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 	m_focusTimer. SetOwner(this, FOCUS_TIMER);
 	m_safetyTimer.SetOwner(this, SAFETY_TIMER);
 
-#ifdef __WXMSW__
-	m_controller = new openMSXWindowsController(this);
-#else
-	m_controller = new openMSXLinuxController(this);
-#endif
+	m_controller.reset(new openMSXController(this));
 
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("CatapultFrame"));
 	// use icon resources for MS Visual Studio, else the XPM
@@ -160,12 +151,12 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 	m_fddLed   = (wxStaticBitmap*)FindWindowByName(wxT("FDDLed"));
 
 	m_tabControl = (wxNotebook*)FindWindowByName(wxT("GlobalTabControl"));
-	m_sessionPage = new SessionPage(m_tabControl, m_controller);
+	m_sessionPage = new SessionPage(m_tabControl, *m_controller);
 	m_statusPage = new StatusPage(m_tabControl);
-	m_miscControlPage = new MiscControlPage(m_tabControl, m_controller);
-	m_videoControlPage = new VideoControlPage(m_tabControl, m_controller);
-	m_audioControlPage = new AudioControlPage(m_tabControl, m_controller);
-	m_inputPage = new InputPage(m_tabControl, m_controller);
+	m_miscControlPage = new MiscControlPage(m_tabControl, *m_controller);
+	m_videoControlPage = new VideoControlPage(m_tabControl, *m_controller);
+	m_audioControlPage = new AudioControlPage(m_tabControl, *m_controller);
+	m_inputPage = new InputPage(m_tabControl, *m_controller);
 
 	m_tabControl->AddPage(m_sessionPage,      wxT("Session"),        true);
 	m_tabControl->AddPage(m_miscControlPage,  wxT("Misc Controls"),  false);
@@ -201,12 +192,6 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 			m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
 		} else throw NoOpenMSXBinaryException();
 	} else throw NoOpenMSXBinaryException();
-}
-
-// frame destructor
-wxCatapultFrame::~wxCatapultFrame()
-{
-	delete m_controller;
 }
 
 // event handlers
@@ -281,7 +266,7 @@ void wxCatapultFrame::OnMenuEditConfig(wxCommandEvent& event)
 bool wxCatapultFrame::EditConfig(bool fatalIfFails)
 {
 	bool retval = true;
-	CatapultConfigDlg dlg(this, m_controller);
+	CatapultConfigDlg dlg(this, *m_controller);
 	dlg.Center();
 	if (dlg.ShowModal() == wxID_OK) {
 		if (!ConfigurationData::instance().SaveData()) {

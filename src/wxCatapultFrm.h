@@ -5,6 +5,7 @@
 #include <wx/timer.h>
 #include <wx/socket.h>
 #include <wx/frame.h>
+#include <memory>
 
 class CatapultXMLParser;
 class SessionPage;
@@ -26,7 +27,6 @@ class wxCatapultFrame : public wxFrame
 {
 public:
 	wxCatapultFrame(wxWindow* parent = nullptr);
-	virtual ~wxCatapultFrame();
 
 	void SetControlsOnEnd();
 	void SetControlsOnLaunch();
@@ -72,7 +72,7 @@ private:
 	void OnDeselectCatapult(wxActivateEvent& event);
 	bool EditConfig(bool fatalIfFailed = false);
 
-	openMSXController* m_controller;
+	std::unique_ptr<openMSXController> m_controller;
 
 	wxStaticBitmap* m_powerLed;
 	wxStaticBitmap* m_capsLed;

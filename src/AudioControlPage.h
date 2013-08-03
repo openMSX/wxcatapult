@@ -11,7 +11,7 @@ class wxBitmapButton;
 class AudioControlPage : public CatapultPage
 {
 public:
-	AudioControlPage(wxWindow* parent, openMSXController* controller);
+	AudioControlPage(wxWindow* parent, openMSXController& controller);
 
 	void InvalidMidiInReader();
 	void InvalidMidiOutLogger();
@@ -39,7 +39,7 @@ private:
 	void OnBrowseMidiOutFile(wxCommandEvent& event);
 	void OnBrowseSampleInFile(wxCommandEvent& event);
 
-	openMSXController* m_controller;
+	openMSXController& m_controller;
 	wxPanel* m_audioPanel;
 
 	struct ChannelInfo {

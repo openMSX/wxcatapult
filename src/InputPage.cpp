@@ -13,13 +13,13 @@ BEGIN_EVENT_TABLE(InputPage, wxPanel)
 	EVT_TEXT(  XRCID("InputText"),       InputPage::OnTextChange)
 END_EVENT_TABLE()
 
-InputPage::InputPage(wxWindow* parent, openMSXController* controller)
+InputPage::InputPage(wxWindow* parent, openMSXController& controller)
+	: m_controller(controller)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("InputPage"));
 	m_inputtext = (wxTextCtrl*)FindWindowByName(wxT("InputText"));
 	m_typeTextButton  = (wxButton*)FindWindowByName(wxT("TypeTextButton"));
 	m_clearTextButton = (wxButton*)FindWindowByName(wxT("ClearTextButton"));
-	m_controller = controller;
 
 	m_typeTextButton->Enable(false);
 	m_clearTextButton->Enable(false);
@@ -36,7 +36,7 @@ void InputPage::OnTypeText(wxCommandEvent& event)
 	test.Replace(wxT("]"),  wxT("\\]"));
 	test.Replace(wxT("}"),  wxT("\\}"));
 	test.Replace(wxT("{"),  wxT("\\{"));
-	m_controller->WriteCommand(wxT("type \"") + test + wxT("\""));
+	m_controller.WriteCommand(wxT("type \"") + test + wxT("\""));
 }
 
 void InputPage::OnClearText(wxCommandEvent& event)
@@ -48,7 +48,7 @@ void InputPage::OnTextChange(wxCommandEvent& event)
 {
 	bool anyText = !m_inputtext->GetValue().IsEmpty();
 	m_clearTextButton->Enable(anyText);
-	m_typeTextButton->Enable(m_controller->IsOpenMSXRunning() && anyText);
+	m_typeTextButton->Enable(m_controller.IsOpenMSXRunning() && anyText);
 }
 
 void InputPage::SetControlsOnEnd()

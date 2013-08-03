@@ -16,6 +16,3 @@ CXXFLAGS+=-D_REENTRANT -D_THREADSAFE \
 
 LINK_FLAGS+=-pthread \
 	`if [ -d /usr/local/lib ]; then echo '-L/usr/local/lib'; fi`
-
-# Platform specific source files.
-SOURCES+=openMSXLinuxController

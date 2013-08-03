@@ -15,7 +15,7 @@ class wxTextCtrl;
 class VideoControlPage : public CatapultPage
 {
 public:
-	VideoControlPage(wxWindow* parent, openMSXController* controller);
+	VideoControlPage(wxWindow* parent, openMSXController& controller);
 
 	void SetControlsOnEnd();
 	void SetControlsOnLaunch();
@@ -47,7 +47,7 @@ private:
 	void OnChangeScreenshotFilename(wxCommandEvent& event);
 	void setNewRenderersAndScalers();
 
-	openMSXController* m_controller;
+	openMSXController& m_controller;
 
 	wxComboBox* m_accuracyList;
 	wxComboBox* m_rendererList;
