@@ -276,7 +276,9 @@ bool CatapultPage::UpdateMidiPlug(wxString connector, wxString data, wxString co
 			break;
 		}
 	}
-	audiopage->UpdateMidiPlug(control, data);
+	if ( audiopage )  {
+		audiopage->UpdateMidiPlug(control, data);
+	}
 	return true;
 }
 
