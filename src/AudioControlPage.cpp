@@ -464,7 +464,7 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent& event)
 	m_controller->GetPluggables(pluggables);
 	m_controller->GetPluggableDescriptions(descriptions);
 	for (unsigned i = 0; i < pluggables.GetCount(); ++i) {
-		if ((value == descriptions[i]) && (pluggables[i].Find(wxT("midi-in")) != -1)) {
+		if ((value == descriptions[i]) && pluggables[i].Contains(wxT("midi-in"))) {
 			value = pluggables[i];
 		}
 	}
@@ -493,7 +493,7 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 	m_controller->GetPluggables(pluggables);
 	m_controller->GetPluggableDescriptions(descriptions);
 	for (unsigned i = 0; i < pluggables.GetCount(); ++i) {
-		if ((value == descriptions[i]) && (pluggables[i].Find(wxT("midi-out")) != -1)) {
+		if ((value == descriptions[i]) && pluggables[i].Contains(wxT("midi-out"))) {
 			value = pluggables[i];
 		}
 	}

@@ -43,7 +43,7 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* contro
 				guess.RemoveLast();
 			}
 			int pos = guess.Find('\\', true);
-			if (pos != -1) {
+			if (pos != wxNOT_FOUND) {
 				guess = guess.Left(pos + 1);
 			}
 		}
@@ -62,11 +62,9 @@ CatapultConfigDlg::CatapultConfigDlg(wxWindow* parent, openMSXController* contro
 		guess = m_ExecPath->GetValue();
 		guess.Replace(wxT("/"), wxT("\\"), true);
 		int pos = guess.Find('\\', true);
-		if (pos != -1) {
-			guess = guess.Left(pos + 1) + wxT("share");
-		} else {
-			guess = wxT("");
-		}
+		guess = (pos != wxNOT_FOUND)
+		      ? guess.Left(pos + 1) + wxT("share")
+		      : wxT("");
 #else
 		guess = CATAPULT_OPENMSX_SHARE;
 #endif

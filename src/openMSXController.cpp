@@ -169,7 +169,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			wxString lastcmd = PeekPendingCommand();
 			bool eject = false;
 			int space = lastcmd.Find(' ', false);
-			if ((space != -1) && (space != (int)lastcmd.Len() - 1)) {
+			if ((space != wxNOT_FOUND) && (space != (int)lastcmd.Len() - 1)) {
 				eject = true;
 			}
 			if ((lastcmd.Mid(0, data->name.Len() + 1) != (data->name + wxT(" "))) ||
@@ -417,11 +417,11 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 	wxString temp = version;
 	if (version.StartsWith(wxT("openMSX "))) {
 		int pos = version.Find('.');
-		if (pos != -1) {
+		if (pos != wxNOT_FOUND) {
 			temp.Mid(8, pos - 8).ToLong(&majver);
 			temp = temp.Mid(pos + 1);
 			pos = temp.Find('.');
-			if (pos != -1) {
+			if (pos != wxNOT_FOUND) {
 				temp.Mid(0, pos).ToLong(&minver);
 				temp.Mid(pos + 1).ToLong(&subver);
 				ver = (((majver * 100) + minver) * 100) + subver;
@@ -583,7 +583,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 			++recvStep;
 			instruction = m_launchScript[recvStep].command;
 		}
-		if ((recvLoop == -1) && (instruction.Find(wxT("*")) != -1)) {
+		if ((recvLoop == -1) && instruction.Contains(wxT("*"))) {
 			recvLoop = 0;
 		}
 		wxArrayString tokens;
@@ -646,7 +646,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 
 	while (!wait && (sendStep < int(m_launchScript.size()))) {
 		wxString instruction = m_launchScript[sendStep].command;
-		if ((sendLoop == -1) && (instruction.Find(wxT("*")) != -1)) {
+		if ((sendLoop == -1) && instruction.Contains(wxT("*"))) {
 			sendLoop = 0;
 		}
 		wxArrayString tokens;
@@ -717,15 +717,14 @@ size_t openMSXController::tokenize(
 
 wxString openMSXController::translate(wxArrayString tokens, int loop, wxString lastdata)
 {
-	for (unsigned token = 0; token < tokens.GetCount(); ++token) {
-		if (tokens[token].Find(wxT("*")) != -1) {
-			if (loop != -1) {
-				wxArrayString lastvalues;
-				tokenize(lastdata, wxT("\n"), lastvalues);
-				if (loop < (int)lastvalues.GetCount()) {
-					tokens[token].Replace(wxT("*"), lastvalues[loop], true);
-					tokens[token].Replace(wxT(" "), wxT("\\ "), true);
-				}
+	if (loop != -1) {
+		for (auto& token : tokens) {
+			if (!token.Contains(wxT("*"))) continue;
+			wxArrayString lastvalues;
+			tokenize(lastdata, wxT("\n"), lastvalues);
+			if (loop < (int)lastvalues.GetCount()) {
+				token.Replace(wxT("*"), lastvalues[loop], true);
+				token.Replace(wxT(" "), wxT("\\ "), true);
 			}
 		}
 	}
@@ -991,7 +990,7 @@ int openMSXController::FillRangeComboBox(wxString setting, wxString data)
 	long max;
 	wxString range;
 	int pos = data.Find(' ');
-	if (pos != -1) {
+	if (pos != wxNOT_FOUND) {
 		data.Left(pos).ToLong(&min);
 		data.Mid(pos + 1).ToLong(&max);
 		for (long index = min; index <= max; ++index) {
@@ -1005,7 +1004,7 @@ int openMSXController::FillRangeComboBox(wxString setting, wxString data)
 int openMSXController::EnableFirmware(wxString cmd, wxString data)
 {
 	if ((data != wxT("0")) || cmd.StartsWith(wxT("set "))) {
-		if (cmd.Find(wxT("frontswitch")) != -1) {
+		if (cmd.Contains(wxT("frontswitch"))) {
 			m_appWindow->m_miscControlPage->EnableFirmware(wxT("frontswitch"));
 		} else {
 			m_appWindow->m_miscControlPage->EnableFirmware(wxT("firmwareswitch"));

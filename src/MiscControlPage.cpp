@@ -100,7 +100,7 @@ MiscControlPage::MiscControlPage(wxWindow* parent, openMSXController* controller
 	text->SetValue(filename);
 
 	int pos = box->FindString(current);
-	if (pos != -1) {
+	if (pos != wxNOT_FOUND) {
 		box->SetSelection(pos);
 	} else {
 		box->SetSelection(0);
@@ -138,7 +138,7 @@ void MiscControlPage::FillInitialJoystickPortValues()
 		wxString current;
 		ConfigurationData::instance().GetParameter(JoySaveID[i], current);
 		int pos = box[i]->FindString(current);
-		if (pos != -1) {
+		if (pos != wxNOT_FOUND) {
 			box[i]->SetSelection(pos);
 		} else {
 			box[i]->SetSelection(0);

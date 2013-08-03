@@ -37,7 +37,7 @@ int RomTypeDlg::ShowModal(wxString type)
 	if (!type.IsEmpty()) {
 		wxString fullName = ConvertRomType(type, false);
 		int pos = m_romTypeList->FindString(fullName);
-		if (pos != -1) {
+		if (pos != wxNOT_FOUND) {
 			m_romTypeList->SetSelection(pos, true);
 		}
 	} else {
@@ -67,7 +67,7 @@ wxString RomTypeDlg::GetSelectedType()
 void RomTypeDlg::AddRomType(wxString type)
 {
 	int index = FindRomType(type);
-	if (index == -1) {
+	if (index == wxNOT_FOUND) {
 		m_romTypes.Add(type);
 		m_romTypes.Add(wxT("_")); // empty name
 	}
@@ -76,9 +76,9 @@ void RomTypeDlg::AddRomType(wxString type)
 void RomTypeDlg::SetRomTypeFullName(wxString type, wxString name)
 {
 	int index = FindRomType(type);
-	if (index != -1) {
+	if (index != wxNOT_FOUND) {
 		m_romTypes[index + 1] = name;
-		if (m_romTypeList->FindString(name) == -1) {
+		if (m_romTypeList->FindString(name) == wxNOT_FOUND) {
 			m_romTypeList->Append(name);
 		}
 	}
@@ -86,30 +86,18 @@ void RomTypeDlg::SetRomTypeFullName(wxString type, wxString name)
 
 int RomTypeDlg::FindRomType(wxString type)
 {
-	int index = -1;
-	size_t numberOfRomTypes = m_romTypes.GetCount();
-	size_t counter = 0;
-	while ((index == -1) && (counter < numberOfRomTypes)) {
-		if (m_romTypes[counter] == type) {
-			index = counter;
-		}
-		counter += 2;
+	for (size_t counter = 0; counter < m_romTypes.GetCount(); counter += 2) {
+		if (m_romTypes[counter] == type) return counter;
 	}
-	return index;
+	return wxNOT_FOUND;
 }
 
 int RomTypeDlg::FindRomFullTypeName(wxString name)
 {
-	int index = -1;
-	size_t numberOfRomTypes = m_romTypes.GetCount();
-	size_t counter = 1;
-	while ((index == -1) && (counter < numberOfRomTypes)) {
-		if (m_romTypes[counter] == name) {
-			index = counter;
-		}
-		counter += 2;
+	for (size_t counter = 1; counter < m_romTypes.GetCount(); counter += 2) {
+		if (m_romTypes[counter] == name) return counter;
 	}
-	return index;
+	return wxNOT_FOUND;
 }
 
 wxString RomTypeDlg::ConvertRomType(wxString source, bool backwards)
@@ -117,7 +105,5 @@ wxString RomTypeDlg::ConvertRomType(wxString source, bool backwards)
 	int index = backwards
 	          ? FindRomFullTypeName(source) - 1
 	          : FindRomType(source) + 1;
-	return ((index >= 0) && (index < (int)m_romTypes.GetCount()))
-		? m_romTypes[index]
-		: wxString();
+	return (index != wxNOT_FOUND) ? m_romTypes[index] : wxString();
 }

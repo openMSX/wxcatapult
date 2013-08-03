@@ -128,12 +128,12 @@ wxString wxCatapultApp::GetResourceDir()
 	wxString temp = ::wxPathOnly(argv[0]);
 	temp.Replace(wxT("/"), wxT("\\"),true);
 	while (temp.Last() == '\\') {
-			temp = temp.Left(temp.Len() - 1);
-		}
-		int pos = temp.Find('\\', true);
-		if (pos != -1) {
-			temp = temp.Left(pos + 1) + wxT("resources");
-		}
+		temp = temp.Left(temp.Len() - 1);
+	}
+	int pos = temp.Find('\\', true);
+	if (pos != wxNOT_FOUND) {
+		temp = temp.Left(pos + 1) + wxT("resources");
+	}
 	return temp;
 #else
 	return RESOURCEDIR;

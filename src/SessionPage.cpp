@@ -624,18 +624,18 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 		int pos;
 		do {
 			pos = checkedMachines.Find(wxT("::"));
-			if (pos != -1) {
+			if (pos != wxNOT_FOUND) {
 				m_machineArray.Add(checkedMachines.Left(pos));
 				checkedMachines = checkedMachines.Mid(pos + 2);
 			}
-		} while (pos != -1);
+		} while (pos != wxNOT_FOUND);
 		do {
 			pos = checkedExtensions.Find(wxT("::"));
-			if (pos != -1) {
+			if (pos != wxNOT_FOUND) {
 				m_extensionArray.Add(checkedExtensions.Left(pos));
 				checkedExtensions = checkedExtensions.Mid(pos + 2);
 			}
-		} while (pos != -1);
+		} while (pos != wxNOT_FOUND);
 	} else {
 		wxString sharepath;
 		config.GetParameter(ConfigurationData::CD_SHAREPATH, sharepath);
@@ -658,14 +658,14 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 	fillMachines(m_machineArray);
 	if (!initial) {
 		int sel = m_machineList->FindString(currentMachine);
-		if (sel != -1) {
+		if (sel != wxNOT_FOUND) {
 			m_machineList->SetSelection(sel);
 		} else {
 			m_machineList->SetSelection(0);
 		}
 		for (unsigned i = 0; i < currentExtensions.GetCount(); ++i) {
 			sel = m_extensionList->FindString(currentExtensions[i]);
-			if (sel != -1) {
+			if (sel != wxNOT_FOUND) {
 				m_extensionList->SetSelection(sel);
 			}
 		}
@@ -1017,32 +1017,29 @@ void SessionPage::RestoreHistory()
 	};
 	auto& config = ConfigurationData::instance();
 	config.GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
-	int pos;
 	unsigned i = 0;
 	int hist = -1;
 	FOREACH(i, media) {
 		media[i]->control->Clear();
 		wxString value;
 		config.GetParameter(id[i], value);
-		do {
-			pos = value.Find(wxT("::"));
-			if (pos != -1) {
-				media[i]->history.Add(value.Left(pos));
-				media[i]->control->Append(value.Left(pos));
-				value = value.Mid(pos + 2);
-			}
-		} while (pos != -1);
+		while (true) {
+			int pos = value.Find(wxT("::"));
+			if (pos == wxNOT_FOUND) break;
+			media[i]->history.Add(value.Left(pos));
+			media[i]->control->Append(value.Left(pos));
+			value = value.Mid(pos + 2);
+		}
 		if ((media[i] == m_cartA) || (media[i] == m_cartB)) {
 			++hist;
 			wxString types;
 			config.GetParameter(typeID[hist], types);
-			do {
-				pos = types.Find(wxT("::"));
-				if (pos != -1) {
-					media[i]->typehistory.Add(types.Left(pos));
-					types = types.Mid(pos + 2);
-				}
-			} while (pos != -1);
+			while (true) {
+				int pos = types.Find(wxT("::"));
+				if (pos == wxNOT_FOUND) break;
+				media[i]->typehistory.Add(types.Left(pos));
+				types = types.Mid(pos + 2);
+			}
 			while (media[i]->typehistory.GetCount() < media[i]->history.GetCount()) {
 				media[i]->typehistory.Add(wxT("auto"));
 			}
@@ -1069,7 +1066,7 @@ void SessionPage::RestoreHistory()
 		temp.Replace(wxT("_"), wxT(" "), true);
 		temp.Replace(wxT("\""), wxT(""), true);
 		int pos = m_machineList->FindString(temp);
-		if (pos != -1) {
+		if (pos != wxNOT_FOUND) {
 			m_machineList->SetSelection(pos);
 		} else {
 			m_machineList->SetSelection(0);
@@ -1079,17 +1076,16 @@ void SessionPage::RestoreHistory()
 	wxString value;
 	config.GetParameter(ConfigurationData::CD_USEDEXTENSIONS, value);
 	m_usedExtensions = value;
-	do {
-		pos = value.Find(wxT("::"));
-		if (pos != -1) {
-			wxString temp = value.Left(pos);
-			temp.Replace(wxT("_"), wxT(" "), true);
-			if (m_extensionList->FindString(temp) != -1) {
-				m_extensionList->SetStringSelection(temp);
-			}
-			value = value.Mid(pos + 2);
+	while (true) {
+		int pos = value.Find(wxT("::"));
+		if (pos == wxNOT_FOUND) break;
+		wxString temp = value.Left(pos);
+		temp.Replace(wxT("_"), wxT(" "), true);
+		if (m_extensionList->FindString(temp) != wxNOT_FOUND) {
+			m_extensionList->SetStringSelection(temp);
 		}
-	} while (pos != -1);
+		value = value.Mid(pos + 2);
+	}
 }
 
 void SessionPage::SaveHistory()
