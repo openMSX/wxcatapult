@@ -168,7 +168,6 @@ private:
 		HWND hWndFound;
 	};
 
-	void HandleEndProcess(wxCommandEvent& event);
 	void HandlePipeCreated();
 
 	HWND FindOpenMSXWindow();

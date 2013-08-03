@@ -130,6 +130,12 @@ void openMSXController::HandleEndProcess(wxCommandEvent& event)
 	m_appWindow->m_launch_AbortButton->SetLabel(wxT("Start"));
 	HandleNativeEndProcess();
 	m_commands.clear();
+
+#ifdef __WXMSW__
+	if (!m_pipeActive) {
+		m_connectThread = nullptr;
+	}
+#endif
 }
 
 void openMSXController::HandleStdOut(wxCommandEvent& event)
@@ -1187,7 +1193,7 @@ bool openMSXController::Launch(wxString cmdline)
 	m_catapultWindow = GetActiveWindow();
 	PreLaunch();
 	bool useNamedPipes = DetermenNamedPipeUsage();
-	cmdLine += CreateControlParameter(useNamedPipes);
+	cmdline += CreateControlParameter(useNamedPipes);
 	HANDLE hInputRead, hOutputWrite, hErrorWrite, hErrorRead, hOutputRead;
 	CreatePipes(useNamedPipes, &hInputRead, &hOutputWrite, &hErrorWrite, &hOutputRead, &hErrorRead);
 
@@ -1204,7 +1210,7 @@ bool openMSXController::Launch(wxString cmdline)
 	si.hStdError  = hErrorWrite;
 	si.wShowWindow = wStartupWnd;
 
-	LPTSTR szCmdLine = _tcsdup(cmdLine.c_str());
+	LPTSTR szCmdLine = _tcsdup(cmdline.c_str());
 	if (szCmdLine) {
 		CreateProcess(
 			nullptr, szCmdLine, nullptr, nullptr, true,
@@ -1430,14 +1436,6 @@ void openMSXController::HandlePipeCreated()
 	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_pipeActive = false;
 	PostLaunch();
-}
-
-void openMSXController::HandleEndProcess(wxCommandEvent& event)
-{
-	openMSXController::HandleEndProcess(event);
-	if (!m_pipeActive) {
-		m_connectThread = nullptr;
-	}
 }
 
 HWND openMSXController::FindOpenMSXWindow()
