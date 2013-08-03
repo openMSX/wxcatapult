@@ -21,79 +21,79 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\dummy.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\dummy.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\richtext\richtextbuffer.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\richtext\richtextbuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\richtext\richtextctrl.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\richtext\richtextctrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\richtext\richtextformatdlg.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\richtext\richtextformatdlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\richtext\richtexthtml.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\richtext\richtexthtml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\richtext\richtextprint.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\richtext\richtextprint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\richtext\richtextstyledlg.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\richtext\richtextstyledlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\richtext\richtextstyles.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\richtext\richtextstyles.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\richtext\richtextsymboldlg.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\richtext\richtextsymboldlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\richtext\richtextxml.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\richtext\richtextxml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\msw\version.rc">
+    <ResourceCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\msw\version.rc">
       <Filter>MSW Sources</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\richtext\richtextbuffer.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\richtext\richtextbuffer.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\richtext\richtextctrl.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\richtext\richtextctrl.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\richtext\richtextformatdlg.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\richtext\richtextformatdlg.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\richtext\richtexthtml.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\richtext\richtexthtml.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\richtext\richtextprint.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\richtext\richtextprint.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\richtext\richtextstyledlg.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\richtext\richtextstyledlg.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\richtext\richtextstyles.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\richtext\richtextstyles.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\richtext\richtextsymboldlg.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\richtext\richtextsymboldlg.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\richtext\richtextxml.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\richtext\richtextxml.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\univ\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\univ\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\genrcdefs.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\genrcdefs.h">
       <Filter>MSW Headers</Filter>
     </CustomBuild>
   </ItemGroup>

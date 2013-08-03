@@ -6,40 +6,40 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\adler32.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\adler32.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\compress.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\compress.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\crc32.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\crc32.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\deflate.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\deflate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\gzio.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\gzio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\infback.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\infback.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\inffast.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\inffast.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\inflate.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\inflate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\inftrees.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\inftrees.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\trees.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\trees.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\uncompr.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\uncompr.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\zlib\zutil.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\zlib\zutil.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,97 +18,97 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\dummy.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\dummy.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\fs_inet.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\fs_inet.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\ftp.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\ftp.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\http.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\http.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\protocol.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\protocol.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\sckaddr.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\sckaddr.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\sckfile.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\sckfile.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\sckipc.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\sckipc.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\sckstrm.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\sckstrm.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\socket.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\socket.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\url.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\url.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\msw\gsocket.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\msw\gsocket.cpp">
       <Filter>MSW Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\msw\urlmsw.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\msw\urlmsw.cpp">
       <Filter>MSW Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\msw\version.rc">
+    <ResourceCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\msw\version.rc">
       <Filter>MSW Sources</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\gsockmsw.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\gsockmsw.h">
       <Filter>MSW Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\protocol\file.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\protocol\file.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\fs_inet.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\fs_inet.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\protocol\ftp.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\protocol\ftp.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\gsocket.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\gsocket.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\protocol\http.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\protocol\http.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\protocol\protocol.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\protocol\protocol.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\sckaddr.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\sckaddr.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\sckipc.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\sckipc.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\sckstrm.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\sckstrm.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\socket.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\socket.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\url.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\url.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\univ\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\univ\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\genrcdefs.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\genrcdefs.h">
       <Filter>MSW Headers</Filter>
     </CustomBuild>
   </ItemGroup>

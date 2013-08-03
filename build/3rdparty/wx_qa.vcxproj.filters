@@ -21,34 +21,34 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\debugrpt.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\debugrpt.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\dummy.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\dummy.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\generic\dbgrptg.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\generic\dbgrptg.cpp">
       <Filter>Generic Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\msw\version.rc">
+    <ResourceCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\msw\version.rc">
       <Filter>MSW Sources</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\debugrpt.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\debugrpt.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\univ\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\univ\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\genrcdefs.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\genrcdefs.h">
       <Filter>MSW Headers</Filter>
     </CustomBuild>
   </ItemGroup>

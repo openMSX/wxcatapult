@@ -21,64 +21,64 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\dummy.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\dummy.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\aui\auibar.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\aui\auibar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\aui\auibook.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\aui\auibook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\aui\dockart.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\aui\dockart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\aui\floatpane.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\aui\floatpane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\aui\framemanager.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\aui\framemanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\aui\tabmdi.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\aui\tabmdi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\msw\version.rc">
+    <ResourceCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\msw\version.rc">
       <Filter>MSW Sources</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\aui\aui.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\aui\aui.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\aui\auibar.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\aui\auibar.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\aui\auibook.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\aui\auibook.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\aui\dockart.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\aui\dockart.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\aui\floatpane.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\aui\floatpane.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\aui\framemanager.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\aui\framemanager.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\aui\tabmdi.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\aui\tabmdi.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\univ\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\univ\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\genrcdefs.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\genrcdefs.h">
       <Filter>MSW Headers</Filter>
     </CustomBuild>
   </ItemGroup>

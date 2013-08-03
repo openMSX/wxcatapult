@@ -6,142 +6,142 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcapimin.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcapimin.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcapistd.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcapistd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jccoefct.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jccoefct.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jccolor.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jccolor.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcdctmgr.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcdctmgr.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jchuff.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jchuff.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcinit.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcinit.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcmainct.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcmainct.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcmarker.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcmarker.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcmaster.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcmaster.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcomapi.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcomapi.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcparam.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcparam.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcphuff.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcphuff.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcprepct.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcprepct.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jcsample.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jcsample.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jctrans.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jctrans.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdapimin.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdapimin.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdapistd.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdapistd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdatadst.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdatadst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdatasrc.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdatasrc.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdcoefct.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdcoefct.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdcolor.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdcolor.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jddctmgr.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jddctmgr.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdhuff.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdhuff.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdinput.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdinput.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdmainct.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdmainct.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdmarker.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdmarker.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdmaster.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdmaster.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdmerge.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdmerge.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdphuff.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdphuff.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdpostct.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdpostct.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdsample.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdsample.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jdtrans.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jdtrans.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jerror.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jerror.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jfdctflt.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jfdctflt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jfdctfst.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jfdctfst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jfdctint.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jfdctint.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jidctflt.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jidctflt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jidctfst.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jidctfst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jidctint.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jidctint.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jidctred.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jidctred.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jmemmgr.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jmemmgr.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jmemnobs.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jmemnobs.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jquant1.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jquant1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jquant2.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jquant2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\jpeg\jutils.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\jpeg\jutils.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1469,7 +1469,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\regex\regcomp.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\regex\regcomp.c">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='DLL Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -1535,7 +1535,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Universal Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Universal Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\regex\regerror.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\regex\regerror.c">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='DLL Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -1601,7 +1601,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Universal Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Universal Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\regex\regexec.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\regex\regexec.c">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='DLL Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -1667,7 +1667,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Universal Unicode Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Universal Unicode Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\regex\regfree.c">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\regex\regfree.c">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='DLL Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -1735,7 +1735,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\genrcdefs.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\genrcdefs.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">Creating $(ThirdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\msw\rcdefs.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">cl /EP /nologo "%(FullPath)" &gt; "$(ThirdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\msw\rcdefs.h"
 </Command>
@@ -1865,7 +1865,7 @@
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Universal Unicode Release|x64'">$(ThirdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswunivu\wx\msw\rcdefs.h;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\univ\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\univ\setup.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='DLL Universal Debug|Win32'">Creating $(ThirdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswunivd\wx\setup.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='DLL Universal Debug|Win32'">copy "%(FullPath)" $(ThirdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswunivd\wx\setup.h
 </Command>
@@ -1931,7 +1931,7 @@
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Universal Unicode Release|x64'">$(ThirdPartySrcDir)\$(LibNameWx)\lib\vc_lib\mswunivu\wx\setup.h;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\setup.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">Creating $(ThirdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">copy "%(FullPath)" $(ThirdPartySrcDir)\$(LibNameWx)\lib\vc_dll\mswd\wx\setup.h
 </Command>

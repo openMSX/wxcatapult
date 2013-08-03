@@ -27,151 +27,151 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\common\dummy.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\common\dummy.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\msw\helpbest.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\msw\helpbest.cpp">
       <Filter>MSW Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\generic\htmllbox.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\generic\htmllbox.cpp">
       <Filter>Generic Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\helpctrl.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\helpctrl.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\helpdata.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\helpdata.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\helpdlg.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\helpdlg.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\helpfrm.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\helpfrm.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\helpwnd.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\helpwnd.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\htmlcell.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\htmlcell.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\htmlfilt.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\htmlfilt.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\htmlpars.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\htmlpars.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\htmltag.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\htmltag.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\htmlwin.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\htmlwin.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\htmprint.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\htmprint.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_dflist.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_dflist.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_fonts.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_fonts.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_hline.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_hline.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_image.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_image.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_layout.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_layout.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_links.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_links.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_list.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_list.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_pre.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_pre.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_style.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_style.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\m_tables.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\m_tables.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\html\winpars.cpp">
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\html\winpars.cpp">
       <Filter>wxHTML Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\src\msw\version.rc">
+    <ResourceCompile Include="$(ThirdPartySrcDir)\$(LibNameWx)\src\msw\version.rc">
       <Filter>MSW Sources</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\helpbest.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\helpbest.h">
       <Filter>MSW Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\helpctrl.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\helpctrl.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\helpdata.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\helpdata.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\helpdlg.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\helpdlg.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\helpfrm.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\helpfrm.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\helpwnd.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\helpwnd.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\htmlcell.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\htmlcell.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\htmldefs.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\htmldefs.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\htmlfilt.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\htmlfilt.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\htmlpars.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\htmlpars.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\htmlproc.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\htmlproc.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\htmltag.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\htmltag.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\htmlwin.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\htmlwin.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\htmprint.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\htmprint.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\m_templ.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\m_templ.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\html\winpars.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\html\winpars.h">
       <Filter>wxHTML Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\htmllbox.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\htmllbox.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\wxhtml.h">
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\wxhtml.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\univ\setup.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\univ\setup.h">
       <Filter>Setup Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\derived\3rdparty\src\wxMSW-2.8.12\include\wx\msw\genrcdefs.h">
+    <CustomBuild Include="$(ThirdPartySrcDir)\$(LibNameWx)\include\wx\msw\genrcdefs.h">
       <Filter>MSW Headers</Filter>
     </CustomBuild>
   </ItemGroup>
