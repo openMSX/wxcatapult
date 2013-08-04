@@ -1005,6 +1005,7 @@ void openMSXController::UpdatePluggable(const wxString& connector, const wxStrin
 int openMSXController::FillComboBox(wxString control, wxString data)
 {
 	auto* box = (wxComboBox*)wxWindow::FindWindowByName(control);
+	box->Clear();
 	wxStringTokenizer tkz(data, wxT("\n"));
 	while (tkz.HasMoreTokens()) {
 		box->Append(tkz.GetNextToken());
