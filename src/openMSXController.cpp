@@ -323,12 +323,13 @@ void openMSXController::WriteCommand(wxString msg, TargetType target)
 	xmlChar* buffer = xmlEncodeEntitiesReentrant(nullptr, (const xmlChar*)(const char*)(wxConvUTF8.cWX2MB(msg)));
 	if (!buffer) return;
 
-	char* commandBuffer = new char[strlen((const char*)buffer) + 25];
-	strcpy(commandBuffer, "<command>");
-	strcat(commandBuffer, (const char*)buffer);
-	strcat(commandBuffer, "</command>\n");
-	WriteMessage((xmlChar*)commandBuffer, strlen(commandBuffer));
-	delete[] commandBuffer;
+	auto len = strlen(reinterpret_cast<const char*>(buffer));
+	auto len2 = 9 + len + 11;
+	char* cmd = static_cast<char*>(alloca(len2));
+	memcpy(cmd, "<command>", 9);
+	memcpy(cmd + 9, buffer, len);
+	memcpy(cmd + 9 + len, "</command>\n", 11);
+	WriteMessage((xmlChar*)cmd, len2);
 
 	xmlFree(buffer);
 }
