@@ -71,11 +71,15 @@ void IPSSelectionDlg::OnAddIPS(wxCommandEvent& event)
 #else
 	path = wxT("*.*");
 #endif
-	wxFileDialog filedlg(this, wxT("Select ips patchfile"), m_lastBrowseLocation, wxT(""), path, wxOPEN);
+	wxFileDialog filedlg(this, wxT("Select ips patchfile"), m_lastBrowseLocation,
+	                     wxT(""), path, wxOPEN | wxMULTIPLE);
 	if (filedlg.ShowModal() == wxID_OK) {
-		wxString result = filedlg.GetPath();
-		m_ipsDisplay->Append(result);
-		m_lastBrowseLocation = ::wxPathOnly(result);
+		wxArrayString results;
+		filedlg.GetPaths(results);
+		for (auto& path: results) {
+			m_ipsDisplay->Append(path);
+			m_lastBrowseLocation = ::wxPathOnly(path);
+		}
 		CheckSelections();
 	}
 }

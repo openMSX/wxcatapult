@@ -19,7 +19,8 @@
                         <border>5</border>
                         <option>1</option>
                         <object class="wxListBox" name="IPSList" base="EditListBox">
-                            <style>wxLB_MULTIPLE</style>
+                            <size>408, 122</size>
+                            <style>wxLB_EXTENDED</style>
                             <selection>0</selection>
                             <choices>
                             </choices>
