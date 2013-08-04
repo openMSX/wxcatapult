@@ -12,6 +12,7 @@
 #include <list>
 #include <vector>
 #ifdef __WXMSW__
+// See: http://wiki.wxwidgets.org/WxMSW_Issues#The_windows.h_Header_File.2C_Macros_and_Compiling_Errors
 #include <windows.h>
 #include <wx/msw/winundef.h>
 #else
@@ -34,7 +35,7 @@ public:
 	};
 
 	openMSXController(wxWindow* target);
-	virtual ~openMSXController();
+	~openMSXController();
 
 	void RaiseOpenMSX();
 	void RestoreOpenMSX();
