@@ -246,7 +246,7 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 	auto* version     = (wxStaticText*)FindWindowByName(wxT("AboutProductNameLabel"));
 	auto* description = (wxStaticText*)FindWindowByName(wxT("AboutProductDescriptionLabel"));
 	auto* message     = (wxStaticText*)FindWindowByName(wxT("AboutMessageLabel"));
-	version->SetLabel(Version::FULL_VERSION);
+	version->SetLabel(wxString(Version::FULL_VERSION.c_str(), wxConvUTF8));
 	description->SetLabel(wxT("The official GUI for openMSX"));
 	message->SetLabel(wxT("\251 2003-2013 The openMSX Team\n<openmsx-devel@lists.sourceforge.net>\n"));
 #ifdef __WXMSW__

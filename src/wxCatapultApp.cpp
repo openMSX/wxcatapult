@@ -6,7 +6,7 @@
 #include "CatapultConfigDlg.h"
 #include "Version.h"
 #include "config.h"
-#include <cstdio>
+#include <iostream>
 #include <wx/image.h>
 #include <wx/cmdline.h>
 #include <wx/msgdlg.h>
@@ -105,10 +105,7 @@ bool wxCatapultApp::OnCmdLineParsed(wxCmdLineParser& parser)
 
 void wxCatapultApp::ShowVersion()
 {
-	for (unsigned i = 0; i < Version::FULL_VERSION.Len(); ++i) {
-		putchar(Version::FULL_VERSION.GetChar(i));
-	}
-	putchar('\n');
+	std::cout << Version::FULL_VERSION << std::endl;
 }
 
 bool wxCatapultApp::LoadXRC(wxString XrcFile)

@@ -1,6 +1,6 @@
 #include "Version.h"
 #include "Version.ii"
 
-const wxString Version::FULL_VERSION =
-	wxT("openMSX Catapult ") + Version::VERSION +
-	(Version::RELEASE ? wxString() : wxT("-") + Version::REVISION);
+const std::string Version::FULL_VERSION =
+	"openMSX Catapult " + Version::VERSION +
+	(Version::RELEASE ? "" : "-" + Version::REVISION);
