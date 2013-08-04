@@ -13,9 +13,11 @@
 #include <vector>
 #ifdef __WXMSW__
 #include <windows.h>
+#include <wx/msw/winundef.h>
 #else
 #include <string>
 #endif
+
 
 class wxCatapultFrame;
 class wxCommandEvent;
@@ -32,7 +34,7 @@ public:
 	};
 
 	openMSXController(wxWindow* target);
-	~openMSXController();
+	virtual ~openMSXController();
 
 	void RaiseOpenMSX();
 	void RestoreOpenMSX();
