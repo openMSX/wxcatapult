@@ -951,6 +951,7 @@
     <ClInclude Include="..\..\src\ScreenshotDlg.h" />
     <ClInclude Include="..\..\src\SessionPage.h" />
     <ClInclude Include="..\..\src\StatusPage.h" />
+    <ClInclude Include="..\..\src\utils.h" />
     <CustomBuild Include="..\..\src\Version.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating config headers...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">for /f "delims=" %%d in ("$(CatapultConfigDir)") do set CONFIG_DIR=%%~fd

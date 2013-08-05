@@ -9,6 +9,7 @@
 #include "wxCatapultApp.h"
 #include "ScreenShotDlg.h"
 #include "PipeReadThread.h"
+#include "utils.h"
 #include <cassert>
 #include <wx/button.h>
 #include <wx/combobox.h>
@@ -325,7 +326,7 @@ void openMSXController::WriteCommand(wxString msg, TargetType target)
 
 	auto len = strlen(reinterpret_cast<const char*>(buffer));
 	auto len2 = 9 + len + 11;
-	char* cmd = static_cast<char*>(alloca(len2));
+	VLA(char, cmd, len2);
 	memcpy(cmd, "<command>", 9);
 	memcpy(cmd + 9, buffer, len);
 	memcpy(cmd + 9 + len, "</command>\n", 11);
@@ -1502,9 +1503,8 @@ bool openMSXController::execute(const std::string& command, int& fdIn, int& fdOu
 		// prepare cmdline
 		// HACK: use sh to handle quoting
 		unsigned len = command.length();
-		char* cmd = static_cast<char*>(
-		                alloca((len + 1) * sizeof(char)));
-		memcpy(cmd, (char*)command.c_str(), len + 1);
+		VLA(char, cmd, len + 1);
+		memcpy(cmd, command.c_str(), len + 1);
 		char* argv[4];
 		argv[0] = const_cast<char*>("sh");
 		argv[1] = const_cast<char*>("-c");
