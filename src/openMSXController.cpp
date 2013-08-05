@@ -23,6 +23,9 @@
 #include <config.h>
 #include "PipeConnectThread.h"
 #include <process.h>
+
+//for malloc
+#include <malloc.h>
 #else
 #include <unistd.h>
 #include <wx/process.h>
@@ -325,7 +328,12 @@ void openMSXController::WriteCommand(wxString msg, TargetType target)
 
 	auto len = strlen(reinterpret_cast<const char*>(buffer));
 	auto len2 = 9 + len + 11;
-	char* cmd = static_cast<char*>(alloca(len2));
+#if !defined(__WXMSW__)
+#define CA_ALLOC(a) alloca(a)
+#else
+#define CA_ALLOC(a) malloc(a)
+#endif
+	char* cmd = static_cast<char*>(CA_ALLOC(len2));
 	memcpy(cmd, "<command>", 9);
 	memcpy(cmd + 9, buffer, len);
 	memcpy(cmd + 9 + len, "</command>\n", 11);
