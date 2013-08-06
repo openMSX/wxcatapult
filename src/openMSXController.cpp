@@ -94,7 +94,7 @@ bool openMSXController::PostLaunch()
 {
 	char initial[] = "<openmsx-control>\n";
 	WriteMessage((unsigned char*)initial, strlen(initial));
-	executeLaunch();
+	ExecuteStart();
 	m_appWindow->StartTimers();
 	return true;
 }
@@ -182,23 +182,23 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			if (!lastcmd.StartsWith(wxT("set ")) ||
 			    (lastcmd.Find(' ', true) == 3) ||
 			    (lastcmd.Mid(4, lastcmd.Find(' ', true) - 4) != data->name)) {
-				UpdateSetting2(data->name, data->contents);
+				UpdateSetting(data->name, data->contents);
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_PLUG) {
 			wxString lastcmd = PeekPendingCommand();
 			if (!lastcmd.StartsWith(wxT("plug ")) ||
 			    (lastcmd.Find(' ', true) == 4) ||
 			    (lastcmd.Mid(5, lastcmd.Find(' ', true) - 5) != data->name)) {
-				UpdateSetting2(data->name, data->contents);
-				executeLaunch(nullptr, m_relaunch);
+				UpdateSetting(data->name, data->contents);
+				ExecuteStart(m_relaunch);
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG) {
 			wxString lastcmd = PeekPendingCommand();
 			if (!lastcmd.StartsWith(wxT("unplug ")) ||
 			  /*(lastcmd.Find(' ', true) == 6)) {*/
 			    (lastcmd.Mid(7) != data->name)) {
-				UpdateSetting2(data->name, data->contents);
-				executeLaunch(nullptr, m_relaunch);
+				UpdateSetting(data->name, data->contents);
+				ExecuteStart(m_relaunch);
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA) {
 			wxString lastcmd = PeekPendingCommand();
@@ -210,7 +210,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			if ((lastcmd.Mid(0, data->name.Len() + 1) != (data->name + wxT(" "))) ||
 			    (!eject && (lastcmd.Mid(space + 1) != (wxT("\"") + data->contents + wxT("\"")))) ||
 			    (lastcmd.Left(18) == wxT("cassetteplayer new"))) {
-				UpdateSetting2(data->name, data->contents);
+				UpdateSetting(data->name, data->contents);
 				m_appWindow->m_sessionPage->UpdateSessionData();
 			}
 		}
@@ -219,7 +219,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 		switch (data->replyState) {
 		case CatapultXMLParser::REPLY_OK:
 			if (PeekPendingCommandTarget() == TARGET_STARTUP) {
-				HandleNormalLaunchReply(event);
+				ExecuteLaunch(event);
 			} else {
 				wxString command = GetPendingCommand();
 				if (command == wxT("openmsx_info fps")) {
@@ -233,7 +233,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			break;
 		case CatapultXMLParser::REPLY_NOK:
 			if (PeekPendingCommandTarget() == TARGET_STARTUP) {
-				HandleNormalLaunchReply(event);
+				ExecuteLaunch(event);
 			} else {
 				wxString command = GetPendingCommand();
 				if (command == wxT("plug msx-midi-in midi-in-reader")) {
@@ -367,17 +367,11 @@ bool openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 	return retval;
 }
 
-void openMSXController::HandleNormalLaunchReply(wxCommandEvent& event)
-{
-	executeLaunch(&event);
-}
-
-int openMSXController::InitConnectors(wxString dummy, wxString connectors)
+void openMSXController::InitConnectors(const wxString&, const wxString& connectors)
 {
 	lastdata = utils::parseTclList(connectors);
 	m_connectors = lastdata;
 	m_connectorclasses.Clear();
-	return 0; // don't skip any lines in the startup script
 }
 
 wxString openMSXController::GetConnectorClass(const wxString& name) const
@@ -392,13 +386,12 @@ wxString openMSXController::GetConnectorClass(const wxString& name) const
 	assert(false); return wxString();
 }
 
-int openMSXController::InitPluggables(wxString dummy, wxString pluggables)
+void openMSXController::InitPluggables(const wxString&, const wxString& pluggables)
 {
 	lastdata = utils::parseTclList(pluggables);
 	m_pluggables = lastdata;
 	m_pluggabledescriptions.Clear();
 	m_pluggableclasses.Clear();
-	return 0; // don't skip any lines in the startup script
 }
 
 const wxArrayString& openMSXController::GetConnectors() const
@@ -513,7 +506,7 @@ void openMSXController::InitLaunchScript()
 	AddLaunchInstruction(wxT("set *_balance"), wxT(""), wxT("*_balance"), &openMSXController::UpdateSetting, true);
 	AddLaunchInstruction(wxT("set mute"), wxT(""), wxT("mute"), &openMSXController::UpdateSetting, true);
 	AddLaunchInstruction(wxT("plug cassetteport"), wxT(""), wxT("cassetteport"), &openMSXController::EnableCassettePort, false);
-	AddLaunchInstruction(wxT("join [cassetteplayer] \\n"), wxT(""), wxT(""), &openMSXController::SetCassetteMode, false);
+	AddLaunchInstruction(wxT("cassetteplayer"), wxT(""), wxT(""), &openMSXController::SetCassetteMode, false);
 	AddLaunchInstruction(wxT("openmsx_update enable plug"), wxT(""), wxT(""), nullptr, false);
 	AddLaunchInstruction(wxT("openmsx_update enable unplug"), wxT(""), wxT(""), nullptr, false);
 	AddLaunchInstruction(wxT("openmsx_update enable status"), wxT(""), wxT(""), nullptr, false);
@@ -559,7 +552,7 @@ void openMSXController::InitLaunchScript()
 
 void openMSXController::AddLaunchInstruction(
 	wxString cmd, wxString action, wxString parameter,
-	int (openMSXController::*pfunction)(wxString, wxString),
+	void (openMSXController::*pfunction)(const wxString&, const wxString&),
 	bool showError)
 {
 	LaunchInstruction instr;
@@ -581,54 +574,57 @@ static wxArrayString tokenize(const wxString& text, const wxString& seperator)
 	return result;
 }
 
-void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
+void openMSXController::ExecuteStart(int startLine)
 {
-	if (event) {
-		auto* data = (CatapultXMLParser::ParseResult*)event->GetClientData();
-		// handle received command
-		wxString command = GetPendingCommand();
-		wxString instruction  = m_launchScript[recvStep].command;
-		while (instruction.StartsWith(wxT("@"))) {
-			++recvStep;
-			instruction = m_launchScript[recvStep].command;
-		}
-		if ((recvLoop == -1) && instruction.Contains(wxT("*"))) {
-			recvLoop = 0;
-		}
-		wxArrayString tokens = tokenize(instruction, wxT(" "));
-		wxString cmd = translate(tokens, recvLoop);
-		if (command == cmd) {
-			HandleLaunchReply(cmd, event, m_launchScript[recvStep], recvLoop);
-			if ((data->replyState == CatapultXMLParser::REPLY_NOK) ||
-			    ((cmd.StartsWith(wxT("info exist")) && (data->contents == wxT("0"))))) {
-				long displace;
-				m_launchScript[recvStep].action.ToLong(&displace);
-				recvStep += displace;
-			}
-			if (cmd == wxT("!done")) {
-				recvStep = -2; // it is gonna be increased in a moment
-				recvLoop = -1;
-			}
+	wait = false;
+	sendStep = startLine;
+	recvStep = startLine;
+	sendLoop = -1;
+	recvLoop = -1;
 
-			if (recvLoop != -1) {
-				if (recvLoop < int(lastdata.GetCount() - 1)) {
-					++recvLoop;
-				} else {
-					recvLoop = -1;
-					++recvStep;
-				}
-			} else {
+	ExecuteNext();
+}
+
+void openMSXController::ExecuteLaunch(wxCommandEvent& event)
+{
+	auto* data = (CatapultXMLParser::ParseResult*)event.GetClientData();
+	// handle received command
+	wxString command = GetPendingCommand();
+	wxString instruction  = m_launchScript[recvStep].command;
+	while (instruction.StartsWith(wxT("@"))) {
+		++recvStep;
+		instruction = m_launchScript[recvStep].command;
+	}
+	if ((recvLoop == -1) && instruction.Contains(wxT("*"))) {
+		recvLoop = 0;
+	}
+	wxArrayString tokens = tokenize(instruction, wxT(" "));
+	wxString cmd = translate(tokens, recvLoop);
+	if (command == cmd) {
+		HandleLaunchReply(cmd, &event, m_launchScript[recvStep], recvLoop);
+		if ((data->replyState == CatapultXMLParser::REPLY_NOK) ||
+		    ((cmd.StartsWith(wxT("info exist")) && (data->contents == wxT("0"))))) {
+			long displace;
+			m_launchScript[recvStep].action.ToLong(&displace);
+			recvStep += displace;
+		}
+
+		if (recvLoop != -1) {
+			++recvLoop;
+			if (recvLoop == int(lastdata.GetCount())) {
+				recvLoop = -1;
 				++recvStep;
 			}
+		} else {
+			++recvStep;
 		}
-	} else {
-		// init chain of events
-		wait = false;
-		sendStep = startLine;
-		recvStep = startLine;
-		sendLoop = -1;
-		recvLoop = -1;
 	}
+
+	ExecuteNext();
+}
+
+void openMSXController::ExecuteNext()
+{
 	if (recvStep >= int(m_launchScript.size())) {
 		recvStep = 0;
 		FinishLaunch();
@@ -735,8 +731,7 @@ void openMSXController::HandleLaunchReply(
 			ok = true;
 		}
 	} else {
-		assert(data!=0);
-		if(data==0)throw "ERR1: data==0";
+		assert(data);
 		if (cmd.StartsWith(wxT("info exist"))) {
 			if (data->contents == wxT("1")) {
 				ok = true;
@@ -761,14 +756,10 @@ void openMSXController::HandleLaunchReply(
 				parameter = cmd;
 			}
 			if (event) {
-				assert(data!=0);
-				if(data==0)throw "ERR2: data==0";
+				assert(data);
 				contents = data->contents;
 			}
-			int result = (*this.*(instruction.p_okfunction))(parameter, contents);
-			if (result > 0) {
-				sendStep += result;
-			}
+			(*this.*(instruction.p_okfunction))(parameter, contents);
 		}
 	} else {
 		if (instruction.showError) {
@@ -786,12 +777,7 @@ void openMSXController::HandleLaunchReply(
 	}
 }
 
-int openMSXController::UpdateSetting(wxString setting, wxString data)
-{
-	UpdateSetting2(setting, data);
-	return 0; // don't skip any lines in the startup script
-}
-void openMSXController::UpdateSetting2(const wxString& name_, const wxString& data)
+void openMSXController::UpdateSetting(const wxString& name_, const wxString& data)
 {
 	wxString name = name_; // TODO HACK: need a proper Tcl parser
 	name.Replace(wxT("\\"), wxT(""));
@@ -917,17 +903,16 @@ void openMSXController::UpdatePluggable(const wxString& connector, const wxStrin
 	}
 }
 
-int openMSXController::FillComboBox(wxString control, wxString data)
+void openMSXController::FillComboBox(const wxString& control, const wxString& data)
 {
 	auto* box = (wxComboBox*)wxWindow::FindWindowByName(control);
 	box->Clear();
 	for (auto& item : utils::parseTclList(data)) {
 		box->Append(item);
 	}
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::FillRangeComboBox(wxString setting, wxString data)
+void openMSXController::FillRangeComboBox(const wxString& setting, const wxString& data)
 {
 	long min;
 	long max;
@@ -941,10 +926,9 @@ int openMSXController::FillRangeComboBox(wxString setting, wxString data)
 		}
 	}
 	FillComboBox(setting, range);
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::EnableFirmware(wxString cmd, wxString data)
+void openMSXController::EnableFirmware(const wxString& cmd, const wxString& data)
 {
 	if ((data != wxT("0")) || cmd.StartsWith(wxT("set "))) {
 		if (cmd.Contains(wxT("frontswitch"))) {
@@ -953,107 +937,79 @@ int openMSXController::EnableFirmware(wxString cmd, wxString data)
 			m_appWindow->m_miscControlPage->EnableFirmware(wxT("firmwareswitch"));
 		}
 	}
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::EnableRenShaTurbo(wxString cmd, wxString data)
+void openMSXController::EnableRenShaTurbo(const wxString& cmd, const wxString& data)
 {
 	if ((data != wxT("0")) || cmd.StartsWith(wxT("set "))) {
 		m_appWindow->m_miscControlPage->EnableRenShaTurbo();
 	}
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::EnableMainWindow(wxString dummy1, wxString dummy2)
+void openMSXController::EnableMainWindow(const wxString&, const wxString&)
 {
 	m_appWindow->EnableMainWindow();
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::InitRomTypes(wxString dummy, wxString data)
-{
-	for (auto& type : tokenize(data, wxT("\n"))) {
-		m_appWindow->m_sessionPage->AddRomType(type);
-	}
-	return 0;
-}
-
-int openMSXController::SetRomDescription(wxString name, wxString data)
-{
-	m_appWindow->m_sessionPage->SetRomTypeFullName(name, data);
-	return 0;
-}
-
-int openMSXController::InitSoundDevices(wxString dummy, wxString data)
+void openMSXController::InitSoundDevices(const wxString&, const wxString& data)
 {
 	lastdata = utils::parseTclList(data);
 	m_appWindow->m_audioControlPage->DestroyAudioMixer();
 	m_appWindow->m_audioControlPage->InitAudioChannels();
-	return 0;
 }
-int openMSXController::SetChannelType(wxString name, wxString data)
+void openMSXController::SetChannelType(const wxString& name, const wxString& data)
 {
 	m_appWindow->m_audioControlPage->AddChannelType(name, data);
-	return 0;
 }
-int openMSXController::SetChannelTypeDone(wxString name, wxString data)
+void openMSXController::SetChannelTypeDone(const wxString&, const wxString&)
 {
 	m_appWindow->m_audioControlPage->SetupAudioMixer();
-	return 0;
 }
 
-int openMSXController::AddPluggableDescription(wxString name, wxString data)
+void openMSXController::AddPluggableDescription(const wxString&, const wxString& data)
 {
 	m_pluggabledescriptions.Add(data);
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::AddPluggableClass(wxString name, wxString data)
+void openMSXController::AddPluggableClass(const wxString&, const wxString& data)
 {
 	m_pluggableclasses.Add(data);
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::AddConnectorClass(wxString name, wxString data)
+void openMSXController::AddConnectorClass(const wxString&, const wxString& data)
 {
 	m_connectorclasses.Add(data);
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::SetSliderDefaults(wxString dummy1, wxString dummy2)
+void openMSXController::SetSliderDefaults(const wxString&, const wxString&)
 {
 	m_appWindow->m_videoControlPage->SetSliderDefaults();
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::InitAudioConnectorPanel(wxString dummy1, wxString dummy2)
+void openMSXController::InitAudioConnectorPanel(const wxString&, const wxString&)
 {
 	m_appWindow->m_audioControlPage->InitAudioIO();
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::InitConnectorPanel(wxString dummy1, wxString dummy2)
+void openMSXController::InitConnectorPanel(const wxString&, const wxString&)
 {
 	m_appWindow->m_miscControlPage->InitConnectorPanel();
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::EnableCassettePort(wxString dummy, wxString data)
+void openMSXController::EnableCassettePort(const wxString&, const wxString& data)
 {
 	m_appWindow->m_sessionPage->EnableCassettePort(data);
-	return 0; // don't skip any lines in the startup script
 }
 
-int openMSXController::SetCassetteMode(wxString dummy, wxString data)
+void openMSXController::SetCassetteMode(const wxString&, const wxString& data)
 {
-	wxArrayString arrayData = tokenize(data, wxT("\n"));
-	m_appWindow->m_sessionPage->SetCassetteMode(arrayData.Last());
-	return 0;
+	wxArrayString info = utils::parseTclList(data);
+	m_appWindow->m_sessionPage->SetCassetteMode(info.Last());
 }
 
 void openMSXController::UpdateMixer()
 {
-	executeLaunch(nullptr, m_relaunch);
+	ExecuteStart(m_relaunch);
 }
 
 

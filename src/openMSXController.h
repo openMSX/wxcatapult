@@ -58,7 +58,7 @@ private:
 		wxString command;
 		wxString action;
 		wxString parameter;
-		int (openMSXController::*p_okfunction)(wxString, wxString);
+		void (openMSXController::*p_okfunction)(const wxString&, const wxString&);
 		bool showError;
 	};
 	struct CommandEntry {
@@ -75,7 +75,7 @@ private:
 	void InitLaunchScript();
 	void AddLaunchInstruction(
 		wxString cmd, wxString action, wxString parameter,
-		int (openMSXController::*pfunction)(wxString, wxString),
+		void (openMSXController::*pfunction)(const wxString&, const wxString&),
 		bool showError);
 
 	wxString GetPendingCommand();
@@ -86,39 +86,37 @@ private:
 	void HandleParsedOutput(wxCommandEvent& event);
 	void HandleStdErr(wxCommandEvent& event);
 	void HandleStdOut(wxCommandEvent& event);
-	void HandleNormalLaunchReply(wxCommandEvent& event);
-	void executeLaunch(wxCommandEvent* event = nullptr, int startLine = 0);
+	void ExecuteStart(int startLine = 0);
+	void ExecuteLaunch(wxCommandEvent& event);
+	void ExecuteNext();
 	void FinishLaunch();
 	wxString translate(wxArrayString tokens, int loop);
 	void HandleLaunchReply(wxString cmd, wxCommandEvent* event,
 		LaunchInstruction instruction, int loopcount);
-	int UpdateSetting(wxString setting, wxString data);
-	int FillComboBox(wxString setting, wxString data);
-	int FillRangeComboBox(wxString setting, wxString data);
-	int EnableFirmware(wxString cmd, wxString data);
-	int EnableRenShaTurbo(wxString cmd, wxString data);
-	int EnableMainWindow(wxString dummy1, wxString dummy2);
-	int InitConnectors(wxString dummy, wxString connectors);
-	int InitPluggables(wxString dummy, wxString pluggables);
-	int InitSoundDevices(wxString dummy, wxString data);
-	int InitRomTypes(wxString dummy, wxString data);
-	int SetRomDescription(wxString name, wxString data);
-	int SetChannelType(wxString name, wxString data);
-	int SetChannelTypeDone(wxString name, wxString data);
-	int AddPluggableDescription(wxString name, wxString data);
-	int AddPluggableClass(wxString name, wxString data);
-	int AddConnectorClass(wxString name, wxString data);
-	int SetSliderDefaults(wxString dummy1, wxString dummy2);
-	int InitAudioConnectorPanel(wxString dummy1, wxString dummy2);
-	int InitConnectorPanel(wxString dummy1, wxString dummy2);
-	int EnableCassettePort(wxString cmd, wxString data);
-	int SetCassetteMode(wxString cmd, wxString data);
+	void UpdateSetting          (const wxString& name, const wxString& data);
+	void FillComboBox           (const wxString& name, const wxString& data);
+	void FillRangeComboBox      (const wxString& name, const wxString& data);
+	void EnableFirmware         (const wxString& name, const wxString& data);
+	void EnableRenShaTurbo      (const wxString& name, const wxString& data);
+	void EnableMainWindow       (const wxString& name, const wxString& data);
+	void InitConnectors         (const wxString& name, const wxString& data);
+	void InitPluggables         (const wxString& name, const wxString& data);
+	void InitSoundDevices       (const wxString& name, const wxString& data);
+	void SetChannelType         (const wxString& name, const wxString& data);
+	void SetChannelTypeDone     (const wxString& name, const wxString& data);
+	void AddPluggableDescription(const wxString& name, const wxString& data);
+	void AddPluggableClass      (const wxString& name, const wxString& data);
+	void AddConnectorClass      (const wxString& name, const wxString& data);
+	void SetSliderDefaults      (const wxString& name, const wxString& data);
+	void InitAudioConnectorPanel(const wxString& name, const wxString& data);
+	void InitConnectorPanel     (const wxString& name, const wxString& data);
+	void EnableCassettePort     (const wxString& name, const wxString& data);
+	void SetCassetteMode        (const wxString& name, const wxString& data);
 
 	void AddSetting(
 		const wxString& settings, const wxString& control,
 		void (openMSXController::*pfunction)(const wxString&, const wxString&, const wxString&, int),
 		int flags = 0);
-	void UpdateSetting2(const wxString& name, const wxString& data);
 	void UpdateToggle   (const wxString& setting, const wxString& data, const wxString& control, int flags);
 	void UpdateCombo    (const wxString& setting, const wxString& data, const wxString& control, int flags);
 	void UpdateIndicator(const wxString& setting, const wxString& data, const wxString& control, int flags);
