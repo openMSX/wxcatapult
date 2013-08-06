@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <wx/string.h>
+#include <wx/arrstr.h>
 #include <cstdlib>
 
 #ifdef __WXMSW__
@@ -21,6 +22,8 @@ namespace utils {
 wxString ConvertPath       (wxString path);
 wxString ConvertPathNoSlash(wxString path);
 wxString ConvertPathBack   (wxString path);
+
+wxArrayString parseTclList(const wxString& str);
 
 }
 

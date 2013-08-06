@@ -92,12 +92,8 @@ void AudioControlPage::InitAudioChannels()
 	AddChannelType(wxT("master"), wxT("master"));
 }
 
-void AudioControlPage::AddChannelType(const wxString& name, const wxString& type_)
+void AudioControlPage::AddChannelType(const wxString& name, const wxString& type)
 {
-	// Hack: undo transformation from stupid launch script
-	wxString type = type_;
-	type.Replace(wxT("\n"), wxT(" "));
-
 	ChannelInfo info;
 	info.name        = name;
 	info.type        = type;

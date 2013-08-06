@@ -72,7 +72,6 @@ private:
 	wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
 
 	bool PostLaunch();
-	bool PreLaunch();
 	void InitLaunchScript();
 	void AddLaunchInstruction(
 		wxString cmd, wxString action, wxString parameter,
@@ -90,10 +89,9 @@ private:
 	void HandleNormalLaunchReply(wxCommandEvent& event);
 	void executeLaunch(wxCommandEvent* event = nullptr, int startLine = 0);
 	void FinishLaunch();
-	wxString translate(wxArrayString tokens, int loop, wxString lastdata);
+	wxString translate(wxArrayString tokens, int loop);
 	void HandleLaunchReply(wxString cmd, wxCommandEvent* event,
-		LaunchInstruction instruction,
-		int* sendStep, int loopcount, wxString datalist);
+		LaunchInstruction instruction, int loopcount);
 	int UpdateSetting(wxString setting, wxString data);
 	int FillComboBox(wxString setting, wxString data);
 	int FillRangeComboBox(wxString setting, wxString data);
@@ -144,7 +142,7 @@ private:
 	int recvStep;
 	int sendLoop;
 	int recvLoop;
-	wxString lastdata;
+	wxArrayString lastdata;
 
 	std::vector<LaunchInstruction> m_launchScript;
 	int m_relaunch;
