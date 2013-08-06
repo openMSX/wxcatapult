@@ -27,14 +27,14 @@
 	<li><a class="internal" href="#getsource">2. Getting the Source Code</a>
 		<ol class="toc">
 			<li><a class="internal" href="#getrelease">2.1. Released Version</a></li>
-			<li><a class="internal" href="#getgit">2.2. GIT Checkout</a></li>
+			<li><a class="internal" href="#getgit">2.2. GIT Clone</a></li>
 		</ol>
 	</li>
 	<li><a class="internal" href="#compile">3. Compilation</a>
 		<ol class="toc">
 			<li><a class="internal" href="#tools">3.1. Build Tools</a></li>
 			<li><a class="internal" href="#libs">3.2. Libraries</a></li>
-			<li><a class="internal" href="#complibs">3.3. Compilation of the 
+			<li><a class="internal" href="#complibs">3.3. Compilation of the
             Libraries</a></li>
 			<li><a class="internal" href="#compilenow">3.4. Compilation of the Catapult Itself</a></li>
 		</ol>
@@ -152,23 +152,20 @@ only the big picture.
 </p>
 
 <dl>
-
-<dt>2004-04-25 Herman Oudejans</dt>
-<dd>Initial version based on the openMSX manuals by Manuel Bilderbeek, Jorrith Schaap and Maarten ter Huurne.</dd>
-<dt>2004-10-04 Herman Oudejans</dt>
-<dd>Added touch.exe to the compilation packages</dd>
-<dt>2005-02-06 Herman Oudejans</dt>
-<dd>Updated this manual for compilation with wxWidgets 2.5 and for compilation with MinGW.</dd>
-<dt>2005-12-30 Manuel Bilderbeek</dt>
-<dd>Updates for compilation with wxWidgets 2.6.</dd>
-<dt>2009-04-26 Max Feingold</dt>
-<dd>Updates for compilation with SVN and Visual C++.</dd>
-<dt>2010-06-20 Max Feingold</dt>
-<dd>Updates for compilation with Visual C++ 2010.</dd>
-<dt>2010-06-20 Patrick van Arkel</dt>
-<dd>Updates for compilation with Visual Studio 2012 and the use of GIT.</dd>
-
-
+	<dt>2004-04-25 Herman Oudejans</dt>
+	<dd>Initial version based on the openMSX manuals by Manuel Bilderbeek, Jorrith Schaap and Maarten ter Huurne.</dd>
+	<dt>2004-10-04 Herman Oudejans</dt>
+	<dd>Added touch.exe to the compilation packages</dd>
+	<dt>2005-02-06 Herman Oudejans</dt>
+	<dd>Updated this manual for compilation with wxWidgets 2.5 and for compilation with MinGW.</dd>
+	<dt>2005-12-30 Manuel Bilderbeek</dt>
+	<dd>Updates for compilation with wxWidgets 2.6.</dd>
+	<dt>2009-04-26 Max Feingold</dt>
+	<dd>Updates for compilation with SVN and Visual C++.</dd>
+	<dt>2010-06-20 Max Feingold</dt>
+	<dd>Updates for compilation with Visual C++ 2010.</dd>
+	<dt>2013-08-05 Patrick van Arkel</dt>
+	<dd>Updates for compilation with Visual Studio 2012 and the use of GIT.</dd>
 </dl>
 
 <h2><a id="getsource">2. Getting the Source Code</a></h2>
@@ -193,12 +190,12 @@ There are several options for getting the source code:
 <dt><a class="internal" href="#getrelease">Released Version</a></dt>
 <dd>
 These are tested versions, which should give you little problem compiling and running. However, as Catapult development is often quite fast, they may not have all the latest features. Also there could be bugs that have been fixed since the last release. </dd>
-<dt><a class="internal" href="#getgit">GIT Checkout</a></dt>
+<dt><a class="internal" href="#getgit">GIT Clone</a></dt>
 <dd>
 Through GIT you can get the same development version the Catapult developers are using. This is the bleeding edge: the latest stuff, which may be great or may be horribly broken. Usually Catapult GIT compiles and runs fine, but we're only human, so once in a while it breaks. Also there may be changes that are not documented yet. </dd>
 <dt><a class="internal" href="#getsnapshot">GIT Snapshot</a></dt>
 <dd>
-A snapshot is created from a recent GIT checkout, in a <code>tar.gz</code> archive. A snapshot is therefore quite similar to a GIT checkout, but it doesn't require you to install and use GIT. It may lag a couple of days from the latest GIT sources. Moreover, SF.net turned off cron jobs, which means the snapshots may be updated on a very irregular basis. </dd>
+A snapshot is created from a recent GIT Clone, in a <code>tar.gz</code> archive. A snapshot is therefore quite similar to a GIT Clone, but it doesn't require you to install and use GIT. It may lag a couple of days from the latest GIT sources. Moreover, SF.net turned off cron jobs, which means the snapshots may be updated on a very irregular basis. </dd>
 
 </dl>
 
@@ -231,21 +228,75 @@ utilities are PowerArchiver 6.1 (free), Wiz (free), 7-Zip (free) or WinZip
 (commercial).
 </p>
 
-<h3><a id="getgit">2.2. GIT Checkout</a></h3>
+<h3><a id="getgit">2.2. GIT Clone</a></h3>
 
-<p>Getting a GIT checkout means you use GIT to retrieve the latest version of the source code of Catapult. This means you will need to install a GIT client. There are graphical front-ends for GIT, but this guide will tell you how to use GIT from the command line. More information about GIT can be found on the
-<a class="external" href="http://git-scm.com/">GIT web site</a>.</p>
-<p>Windows users might want to look at
-<a href="http://git-scm.com/download/win">Git-Gui</a> for Windows</p>
-<p>With the following line you can retrieve the latest sources: </p>
-<div class="commandline">
-	git clone git://git.code.sf.net/p/openmsx/wxcatapult openmsx-wxcatapult </div>
-<p>In this line you specified where you want to retrieve the files from (host name of the GIT server), what project you want to retrieve (<em>openmsx</em> in this case), what module you want to get (<em>wxcatapult </em>in this case, which is the module that contains the sources of the main Catapult program), which branch you want to retrieve (<em>trunk</em> in this case, which is the main development branch) and what directory it should be checked out to (we chose <em>wxcatapult </em>in this example). </p>
+<p>
+Getting a Git clone means you use Git to retrieve the latest version
+of the source code of wxcatapult.
+This means you will need to install a Git client.
+This package is usually named <code>git</code>.
+There are graphical front-ends for Git,
+but this guide will tell you how to use Git from the command line. More information about Git can be found on the <a class="external"
+href="http://git-scm.com/documentation">Git Documentation</a> site.</p>
+<p>
+Windows
+users might want to look at <a class="external" href="http://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git">msysGit</a> for a command line tool, <a class="external" href="http://code.google.com/p/tortoisegit/">TortoiseGit</a> for Windows Explorer integration, or <a class="external" href="http://code.google.com/p/gitextensions/">Git Extensions</a>, which also includes Visual Studio integration.
+</p>
 
-<p>The GIT command created a directory called <code>wxcatapult </code>for you in the current directory (or in the &quot;Checkout directory&quot; you specified in TortoiseGIT). In addition to the Catapult code, you will see hidden GIT administration directories which are all called <code>.git</code>. Do not mess with these (nor move contents of this checkout directory around), otherwise GIT will get confused. This directory created by GIT is what we will call in this manual <em>the top of the source tree</em>. </p>
-<p>If you want to update your source tree later, go to the top of the source tree and type: </p>
+<p>
+With the following line (which is also displayed when you <a class="external" href="https://sourceforge.net/p/openmsx/_list/git">browse an openMSX git repository</a>) you can retrieve the latest sources (also works on Windows when using msysGit):
+</p>
 <div class="commandline">
-	git pull </div>
+git clone git://git.code.sf.net/p/openmsx/wxcatapult openmsx-wxcatapult
+</div>
+<p>
+In this line you specified where you want to retrieve the files from
+(host name of the Git server),
+what project you want to retrieve (<em>openmsx</em> in this case), what
+module you want to get (<em>wxcatapult</em> in this case, which is the module that contains
+the sources of the main wxcatapult program) and what directory it should be
+cloned to (we chose <em>openmsx-wxcatapult</em> in this example).
+</p>
+
+<p>
+When compiling wxcatapult on Windows with GCC, it's often convenient to use <code>C:\MinGW\msys\1.0\home\&lt;username&gt;\openmsx-wxcatapult</code>
+as the target directory, as this is easy to reach from your MinGW Shell - it's
+your MinGW home directory.
+</p>
+
+<p>
+If you're a developer, it makes sense to use this git commandline:
+</p>
+<div class="commandline">
+git clone ssh://&lt;name-of-your-sourceforge-account&gt;@git.code.sf.net/p/openmsx/wxcatapult openmsx-wxcatapult
+</div>
+
+<p>
+The Git command created a directory called <code>openmsx-wxcatapult</code> for you
+in the current directory (or in the directory you specified in TortoiseGit).
+This directory is what we will call in this manual <em>the top
+of the source tree</em>.
+In addition to the wxcatapult code, you will see a hidden
+Git administration directory called <code>.git</code>.
+Do not mess with it (nor move contents of this directory around), otherwise Git will get confused.
+</p>
+
+<p>
+If you want to update your source tree later,
+go to the top of the source tree and type:
+</p>
+<div class="commandline">
+git pull
+</div>
+<p>
+or right click on the openmsx-wxcatapult directory in Windows Explorer and select "TortoiseGit -&gt; Pull...".
+</p>
+
+<h4>SSH Keys</h4>
+For more information on how to store you SSH project keys with SourceForge see: <a class="external" href="https://sourceforge.net/apps/trac/sourceforge/wiki/SSH%20keys">SSH Keys - sourceforge</a>
+
+ 
+
 
 <!--
 <p>
@@ -361,7 +412,7 @@ for a few hints about compiling them from their sources.
 	<dt><a class="external" href="http://www.xmlsoft.org/">libxml2</a></dt>
 	<dd>XML C library, originally developed for GNOME.</dd>
 </dl>
-<h5>Debian Linux</h5>
+<h4>Debian Linux</h4>
 <p>
 On a Debian testing system, the packages are called:
 </p>
@@ -379,7 +430,7 @@ On a Debian testing system, the packages are called:
 <p>
 Although other versions are available, we recommend to use wxWidgets 2.6 (but 2.8 will probably also work).</p>
 
-<h5>Microsoft Windows</h5>
+<h4>Microsoft Windows</h4>
 <p>
 For Windows the wxWidgets package is called wxMSW. Version <a href="http://sourceforge.net/projects/wxwindows/files/2.8.12/">2.8.12</a> is recommended (it's compatible with 2.6). Please read the next section for instructions for compiling wxWidgets from source.
 </p>
@@ -415,26 +466,25 @@ make<br/>
 make install</div>
 
 <h4>Visual Studio 2012</h4>
-<p>The following steps build third-party libraries with Visual C++:</p>
-<ul>
-	<li>Open a Visual Studio command prompt.</li>
-	<li>Go to the <em>top of the Catapult source tree</em></li>
-</ul>
-<p>for Win32</p>	
-<ul>
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86</li>
-	<li><code>set PlatformToolset=v110</code></li>
-	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
-</ul>
-<p>for Win64</p>
-<ul>		
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</li>
-	<li><code>set PlatformToolset=v110</code></li>
-	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\3rdparty\3rdparty.sln</code></li>
-</ul>
-	
-	
-</ul>
+	<p>The following steps build third-party libraries with Visual C++:</p>
+
+		<ul>
+			<li>Open a Visual Studio command prompt.</li>
+			<li>Go to the <em>top of the Catapult source tree</em></li>
+		</ul>
+	<p>for Win32</p>	
+		<ul>
+			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86</code></li>
+			<li><code>set PlatformToolset=v110</code></li>
+			<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
+		</ul>
+	<p>for Win64</p>
+		<ul>		
+			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</code></li>
+			<li><code>set PlatformToolset=v110</code></li>
+			<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\3rdparty\3rdparty.sln</code></li>
+		</ul>
+
 <p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options, which are explained above.</p>
 <p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual Studio 2012 and compiling the projects inside them using the IDE.</p>
 <h3><a id="compilenow">3.4. Compilation of the Catapult Itself</a></h3>
@@ -617,7 +667,7 @@ and then run openmsx with an <code>LD_LIBRARY_PATH=/usr/lib/debug</code> exporte
 This will give a more detailed stacktrace, especially in optimized code.
 </p>
 
-<h4>Visual C++</h4><p>For experienced users: if you get a crash or a hang,
+<h4>Visual Studio 2012 (express)</h4><p>For experienced users: if you get a crash or a hang,
 try to provide a user dump. This will work for any openMSX binary, including
 pre-built binaries obtained from <a class="external" href="http://www.openmsx.org/">www.openmsx.org</a>.
 For more information on generating a user dump, please read
