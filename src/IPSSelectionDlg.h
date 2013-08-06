@@ -11,9 +11,9 @@ class IPSSelectionDlg : public wxDialog
 public:
 	IPSSelectionDlg(wxWindow* parent);
 
-	void GetIPSList(wxArrayString& ipsList);
+	wxArrayString GetIPSList() const;
 	wxString GetLastBrowseLocation();
-	int ShowModal(wxArrayString& patches, wxString targetDir);
+	int ShowModal(const wxArrayString& patches, const wxString& targetDir);
 
 private:
 	void CheckSelections();
@@ -26,7 +26,6 @@ private:
 	void OnMoveDown (wxCommandEvent& event);
 
 	wxListBox* m_ipsDisplay;
-	wxArrayString m_ipsList;
 	wxString m_lastBrowseLocation;
 	wxButton* m_ipsRemoveButton;
 	wxButton* m_ipsMoveUpButton;

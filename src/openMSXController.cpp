@@ -391,17 +391,7 @@ int openMSXController::InitConnectors(wxString dummy, wxString connectors)
 	return 0; // don't skip any lines in the startup script
 }
 
-void openMSXController::GetConnectors(wxArrayString& connectors)
-{
-	connectors.Clear();
-	if (m_connectors.IsEmpty()) return;
-
-	for (unsigned i = 0; i < m_connectors.GetCount(); ++i) {
-		connectors.Add(m_connectors[i]);
-	}
-}
-
-wxString openMSXController::GetConnectorClass(wxString name)
+wxString openMSXController::GetConnectorClass(const wxString& name) const
 {
 	if (m_connectorclasses.IsEmpty()) return wxString();
 
@@ -425,19 +415,21 @@ int openMSXController::InitPluggables(wxString dummy, wxString pluggables)
 	return 0; // don't skip any lines in the startup script
 }
 
-void openMSXController::GetPluggables(wxArrayString& pluggables)
+const wxArrayString& openMSXController::GetConnectors() const
 {
-	pluggables = m_pluggables;
+	return m_connectors;
 }
-
-void openMSXController::GetPluggableDescriptions(wxArrayString& descriptions)
+const wxArrayString& openMSXController::GetPluggables() const
 {
-	descriptions = m_pluggabledescriptions;
+	return m_pluggables;
 }
-
-void openMSXController::GetPluggableClasses(wxArrayString& classes)
+const wxArrayString& openMSXController::GetPluggableDescriptions() const
 {
-	classes = m_pluggableclasses;
+	return m_pluggabledescriptions;
+}
+const wxArrayString& openMSXController::GetPluggableClasses() const
+{
+	return m_pluggableclasses;
 }
 
 bool openMSXController::SetupOpenMSXParameters(wxString version)
@@ -595,6 +587,16 @@ void openMSXController::AddLaunchInstruction(
 	m_launchScript.push_back(instr);
 }
 
+static wxArrayString tokenize(const wxString& text, const wxString& seperator)
+{
+	wxArrayString result;
+	wxStringTokenizer tkz(text, seperator);
+	while (tkz.HasMoreTokens()) {
+		result.Add(tkz.GetNextToken());
+	}
+	return result;
+}
+
 void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 {
 	static bool wait;
@@ -616,8 +618,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 		if ((recvLoop == -1) && instruction.Contains(wxT("*"))) {
 			recvLoop = 0;
 		}
-		wxArrayString tokens;
-		tokenize(instruction, wxT(" "), tokens);
+		wxArrayString tokens = tokenize(instruction, wxT(" "));
 		wxString cmd = translate(tokens, recvLoop, lastdata);
 		if (command == cmd) {
 			if (tokens[0] == wxT("#info")) {
@@ -642,8 +643,8 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 			}
 
 			if (recvLoop != -1) {
-				wxArrayString lastvalues;
-				if (recvLoop < int(tokenize(lastdata, wxT("\n"), lastvalues) - 1)) {
+				wxArrayString values = tokenize(lastdata, wxT("\n"));
+				if (recvLoop < int(values.GetCount() - 1)) {
 					++recvLoop;
 				} else {
 					recvLoop = -1;
@@ -679,8 +680,7 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 		if ((sendLoop == -1) && instruction.Contains(wxT("*"))) {
 			sendLoop = 0;
 		}
-		wxArrayString tokens;
-		tokenize(instruction, wxT(" "), tokens);
+		wxArrayString tokens = tokenize(instruction, wxT(" "));
 		wxString cmd = translate(tokens, sendLoop, lastdata);
 		if (cmd.StartsWith(wxT("@"))) {
 			wxString result = wxT("0");
@@ -708,8 +708,8 @@ void openMSXController::executeLaunch(wxCommandEvent* event, int startLine)
 		wxString action = m_launchScript[sendStep].action;
 
 		if (sendLoop != -1) {
-			wxArrayString lastvalues;
-			if (sendLoop < int(tokenize(lastdata, wxT("\n"), lastvalues) - 1)) {
+			wxArrayString values = tokenize(lastdata, wxT("\n"));
+			if (sendLoop < int(values.GetCount() - 1)) {
 				++sendLoop;
 			} else {
 				sendLoop = -1;
@@ -735,25 +735,14 @@ void openMSXController::FinishLaunch()
 	m_appWindow->m_sessionPage->SetCassetteControl();
 }
 
-size_t openMSXController::tokenize(
-	const wxString& text, const wxString& seperator, wxArrayString& result)
-{
-	wxStringTokenizer tkz(text, seperator);
-	while (tkz.HasMoreTokens()) {
-		result.Add(tkz.GetNextToken());
-	}
-	return result.GetCount();
-}
-
 wxString openMSXController::translate(wxArrayString tokens, int loop, wxString lastdata)
 {
 	if (loop != -1) {
 		for (auto& token : tokens) {
 			if (!token.Contains(wxT("*"))) continue;
-			wxArrayString lastvalues;
-			tokenize(lastdata, wxT("\n"), lastvalues);
-			if (loop < (int)lastvalues.GetCount()) {
-				token.Replace(wxT("*"), lastvalues[loop]);
+			wxArrayString values = tokenize(lastdata, wxT("\n"));
+			if (loop < (int)values.GetCount()) {
+				token.Replace(wxT("*"), values[loop]);
 				token.Replace(wxT(" "), wxT("\\ "));
 			}
 		}
@@ -839,8 +828,7 @@ void openMSXController::HandleLaunchReply(
 			wxString parameter = instruction.parameter;
 			wxString contents;
 			if (loopcount > -1) {
-				wxArrayString temp;
-				tokenize(datalist, wxT("\n"), temp);
+				wxArrayString temp = tokenize(datalist, wxT("\n"));
 				parameter.Replace(wxT("*"), temp[loopcount]);
 				parameter.Replace(wxT(" "), wxT("\\ "));
 			}
@@ -1060,10 +1048,8 @@ int openMSXController::EnableMainWindow(wxString dummy1, wxString dummy2)
 
 int openMSXController::InitRomTypes(wxString dummy, wxString data)
 {
-	wxArrayString types;
-	tokenize(data, wxT("\n"), types);
-	for (auto& t : types) {
-		m_appWindow->m_sessionPage->AddRomType(t);
+	for (auto& type : tokenize(data, wxT("\n"))) {
+		m_appWindow->m_sessionPage->AddRomType(type);
 	}
 	return 0;
 }
@@ -1135,9 +1121,8 @@ int openMSXController::EnableCassettePort(wxString dummy, wxString data)
 
 int openMSXController::SetCassetteMode(wxString dummy, wxString data)
 {
-	wxArrayString arrayData;
-	int args = tokenize(data, wxT("\n"), arrayData);
-	m_appWindow->m_sessionPage->SetCassetteMode(arrayData[args - 1]);
+	wxArrayString arrayData = tokenize(data, wxT("\n"));
+	m_appWindow->m_sessionPage->SetCassetteMode(arrayData.Last());
 	return 0;
 }
 

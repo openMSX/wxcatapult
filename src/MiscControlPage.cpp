@@ -396,9 +396,7 @@ void MiscControlPage::OnInputMaxFrameskip(wxCommandEvent& event)
 
 void MiscControlPage::InitConnectorPanel()
 {
-	wxArrayString connectors;
-	m_controller.GetConnectors(connectors);
-	for (auto& connector : connectors) {
+	for (auto& connector : m_controller.GetConnectors()) {
 		wxString currentClass = m_controller.GetConnectorClass(connector);
 		if (connector == wxT("joyporta")) {
 			InitJoystickPort(connector, wxT("Joyport1Selector"), currentClass);
@@ -414,8 +412,7 @@ void MiscControlPage::InitConnectorPanel()
 
 void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxString connectorClass)
 {
-	wxArrayString classes;
-	m_controller.GetPluggableClasses(classes);
+	const wxArrayString& classes = m_controller.GetPluggableClasses();
 	if (classes.IsEmpty()) return;
 
 	auto* box = (wxComboBox*)FindWindowByName(control);
@@ -423,8 +420,7 @@ void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxS
 	box->Clear();
 	box->Append(wxT("--empty--"));
 
-	wxArrayString pluggables;
-	m_controller.GetPluggables(pluggables);
+	const wxArrayString& pluggables = m_controller.GetPluggables();
 	for (unsigned i = 0; i < pluggables.GetCount(); ++i) {
 		if (classes[i] == connectorClass) {
 			box->Append(pluggables[i]);

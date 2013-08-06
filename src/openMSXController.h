@@ -41,11 +41,11 @@ public:
 	void RestoreOpenMSX();
 
 	void UpdateMixer();
-	void GetConnectors(wxArrayString& connectors);
-	wxString GetConnectorClass(wxString name);
-	void GetPluggables(wxArrayString& pluggables);
-	void GetPluggableDescriptions(wxArrayString& descriptions);
-	void GetPluggableClasses(wxArrayString& classes);
+	wxString GetConnectorClass(const wxString& name) const;
+	const wxArrayString& GetConnectors() const;
+	const wxArrayString& GetPluggables() const;
+	const wxArrayString& GetPluggableDescriptions() const;
+	const wxArrayString& GetPluggableClasses() const;
 	bool StartOpenMSX(wxString cmd, bool getversion = false);
 	void WriteCommand(wxString msg, TargetType target = TARGET_INTERACTIVE);
 	void HandleEndProcess(wxCommandEvent& event);
@@ -90,8 +90,6 @@ private:
 	void HandleNormalLaunchReply(wxCommandEvent& event);
 	void executeLaunch(wxCommandEvent* event = nullptr, int startLine = 0);
 	void FinishLaunch();
-	size_t tokenize(const wxString& text, const wxString& seperator,
-	                wxArrayString& result);
 	wxString translate(wxArrayString tokens, int loop, wxString lastdata);
 	void HandleLaunchReply(wxString cmd, wxCommandEvent* event,
 		LaunchInstruction instruction,

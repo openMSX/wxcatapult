@@ -36,18 +36,18 @@ public:
 	void SetControlsOnLaunch();
 	void SetControlsOnEnd();
 	void SetCassetteControl();
-	void getMedia(wxArrayString& parameters);
-	void getTypes(wxArrayString& parameters);
-	void getPatches(wxArrayString* parameters);
-	void getHardware(wxArrayString& hardware);
+	wxArrayString getMedia() const;
+	wxArrayString getTypes() const;
+	void getPatches(wxArrayString* parameters) const;
+	wxArrayString getHardware() const;
 	void UpdateSessionData();
 	void EnableCassettePort(wxString data);
 	void SetCassetteMode(wxString data);
 	void AutoPlugCassette();
 	void AddRomType(wxString romtype);
 	void SetRomTypeFullName(wxString romtype, wxString fullname);
-	wxArrayString& GetDetectedMachines();
-	wxArrayString& GetDetectedExtensions();
+	const wxArrayString& GetDetectedMachines() const;
+	const wxArrayString& GetDetectedExtensions() const;
 	void RestoreHistory();
 	void FixLayout();
 
@@ -128,10 +128,12 @@ private:
 	void UpdateMenuMapperLabel(mediaInfo* target);
 	bool BrowseDisk(mediaInfo* target, wxString devicename, wxString defaultpath);
 	void BrowseCart(mediaInfo* target, wxString defaultpath);
-	void prepareMachines(wxString sharepath, wxArrayString& machineArray, bool optional = false);
-	void fillMachines(wxArrayString& machineArray);
-	void prepareExtensions(wxString sharepath, wxArrayString& extensionArray, bool optional = false);
-	void fillExtensions(wxArrayString & extensionArray);
+	void prepareMachines(const wxString& sharepath,
+	                     wxArrayString& machineArray, bool optional = false);
+	void fillMachines(const wxArrayString& machineArray);
+	void prepareExtensions(const wxString& sharepath,
+	                       wxArrayString& extensionArray, bool optional = false);
+	void fillExtensions(const wxArrayString& extensionArray);
 	void AddHistory(mediaInfo* media);
 	void SaveHistory();
 	void EjectCart(mediaInfo* target);

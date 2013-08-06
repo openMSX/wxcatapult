@@ -32,7 +32,7 @@ IPSSelectionDlg::IPSSelectionDlg(wxWindow* parent)
 	m_ipsRemoveButton  ->Enable(false);
 }
 
-int IPSSelectionDlg::ShowModal(wxArrayString& patches, wxString targetDir)
+int IPSSelectionDlg::ShowModal(const wxArrayString& patches, const wxString& targetDir)
 {
 	m_lastBrowseLocation = targetDir;
 	m_ipsDisplay->Clear();
@@ -125,13 +125,13 @@ void IPSSelectionDlg::OnSelectIPS(wxCommandEvent& event)
 	CheckSelections();
 }
 
-void IPSSelectionDlg::GetIPSList(wxArrayString& ipsList)
+wxArrayString IPSSelectionDlg::GetIPSList() const
 {
-	ipsList.Clear();
-	int count = m_ipsDisplay->GetCount();
-	for (int i = 0; i < count; ++i) {
-		ipsList.Add(m_ipsDisplay->GetString(i));
+	wxArrayString result;
+	for (size_t i = 0; i < m_ipsDisplay->GetCount(); ++i) {
+		result.Add(m_ipsDisplay->GetString(i));
 	}
+	return result;
 }
 
 wxString IPSSelectionDlg::GetLastBrowseLocation()

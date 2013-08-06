@@ -669,7 +669,7 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 	}
 }
 
-void SessionPage::prepareExtensions(wxString sharepath, wxArrayString& extensionArray, bool optional)
+void SessionPage::prepareExtensions(const wxString& sharepath, wxArrayString& extensionArray, bool optional)
 {
 	wxString extPath = sharepath + wxT("/extensions");
 	if (!::wxDirExists(extPath)) {
@@ -700,16 +700,16 @@ void SessionPage::prepareExtensions(wxString sharepath, wxArrayString& extension
 	}
 }
 
-void SessionPage::fillExtensions(wxArrayString& extensionArray)
+void SessionPage::fillExtensions(const wxArrayString& extensionArray)
 {
-	for (unsigned i = 0; i < extensionArray.GetCount(); ++i) {
-		wxString temp = extensionArray[i];
-		temp.Replace(wxT("_"), wxT(" "));
-		m_extensionList->Append(temp);
+	for (auto tmp : extensionArray) {
+		tmp.Replace(wxT("_"), wxT(" "));
+		m_extensionList->Append(tmp);
 	}
 }
 
-void SessionPage::prepareMachines(wxString sharepath, wxArrayString& machineArray, bool optional)
+void SessionPage::prepareMachines(
+	const wxString& sharepath, wxArrayString& machineArray, bool optional)
 {
 	wxString cmd;
 	ConfigurationData::instance().GetParameter(ConfigurationData::CD_EXECPATH, cmd);
@@ -743,12 +743,11 @@ void SessionPage::prepareMachines(wxString sharepath, wxArrayString& machineArra
 	m_machineList->SetSelection(0);
 }
 
-void SessionPage::fillMachines(wxArrayString& machineArray)
+void SessionPage::fillMachines(const wxArrayString& machineArray)
 {
-	for (unsigned i = 0; i < machineArray.GetCount(); ++i) {
-		wxString temp = machineArray[i];
-		temp.Replace(wxT("_"), wxT(" "));
-		m_machineList->Append(temp);
+	for (auto tmp : machineArray) {
+		tmp.Replace(wxT("_"), wxT(" "));
+		m_machineList->Append(tmp);
 	}
 }
 
@@ -869,23 +868,27 @@ void SessionPage::SetCassetteControl()
 	}
 }
 
-void SessionPage::getMedia(wxArrayString& parameters)
+wxArrayString SessionPage::getMedia() const
 {
+	wxArrayString result;
 	mediaInfo* media[] = { m_diskA, m_diskB, m_cartA, m_cartB, m_cassette };
 	for (auto* m : media) {
-		parameters.Add(m->contents);
+		result.Add(m->contents);
 	}
+	return result;
 }
 
-void SessionPage::getTypes(wxArrayString& parameters)
+wxArrayString SessionPage::getTypes() const
 {
+	wxArrayString result;
 	mediaInfo* media[] = { m_diskA, m_diskB, m_cartA, m_cartB, m_cassette };
 	for (auto* m : media) {
-		parameters.Add(m->type);
+		result.Add(m->type);
 	}
+	return result;
 }
 
-void SessionPage::getPatches(wxArrayString* parameters)
+void SessionPage::getPatches(wxArrayString* parameters) const
 {
 	mediaInfo* media[] = { m_diskA, m_diskB, m_cartA, m_cartB, m_cassette };
 	unsigned i = 0;
@@ -894,21 +897,23 @@ void SessionPage::getPatches(wxArrayString* parameters)
 	}
 }
 
-void SessionPage::getHardware(wxArrayString& parameters)
+wxArrayString SessionPage::getHardware() const
 {
+	wxArrayString result;
 	int pos = m_machineList->GetSelection();
 	if (pos == 0) {
-		parameters.Add(wxT(" <default> "));
+		result.Add(wxT(" <default> "));
 	} else {
-		parameters.Add(ConvertPath(m_machineArray[m_machineList->GetSelection() - 1]));
+		result.Add(ConvertPath(m_machineArray[pos - 1]));
 	}
 
 	wxArrayInt sel;
 	if (m_extensionList->GetSelections(sel) > 0) {
 		for (unsigned i = 0; i < sel.GetCount(); ++i) {
-			parameters.Add(m_extensionArray[sel[i]]);
+			result.Add(m_extensionArray[sel[i]]);
 		}
 	}
+	return result;
 }
 
 void SessionPage::UpdateSessionData()
@@ -938,14 +943,11 @@ void SessionPage::UpdateSessionData()
 		}
 	}
 
-	wxArrayString hardware;
-	getHardware(hardware);
+	wxArrayString hardware = getHardware();
 	m_usedMachine = hardware[0];
 	m_usedExtensions.Clear();
-	if (hardware.GetCount() > 1) {
-		for (i = 1; i < hardware.GetCount(); ++i) {
-			m_usedExtensions += hardware[i] + wxT("::");
-		}
+	for (size_t i = 1; i < hardware.GetCount(); ++i) {
+		m_usedExtensions << hardware[i] << wxT("::");
 	}
 	SaveHistory();
 }
@@ -1289,12 +1291,12 @@ void SessionPage::OnSelectIPS(wxCommandEvent& event)
 	if (auto* target = GetLastMenuTarget()) {
 		m_ipsDialog->CenterOnParent();
 		if (m_ipsDialog->ShowModal(target->ips, target->ipsdir) == wxID_OK) {
-			wxString item = wxT("Select IPS Patches (None selected)");
-			m_ipsDialog->GetIPSList(target->ips);
+			target->ips = m_ipsDialog->GetIPSList();
 			int count = target->ips.GetCount();
-			if (count > 0) {
-				item.Printf(wxT("Select IPS Patches (%d selected)"), count);
-			}
+			wxString item = (count > 0)
+				? wxString::Format(wxT("Select IPS Patches (%d selected)"), count)
+				: wxString(wxT("Select IPS Patches (None selected)"));
+
 			target->mmenu->SetLabel(Cart_Browse_Ips, item);
 			target->ipsdir = m_ipsDialog->GetLastBrowseLocation();
 		}
@@ -1306,12 +1308,11 @@ void SessionPage::OnBrowseDiskIps(wxCommandEvent& event)
 	if (auto* target = GetLastMenuTarget()) {
 		m_ipsDialog->CenterOnParent();
 		if (m_ipsDialog->ShowModal(target->ips, target->ipsdir) == wxID_OK) {
-			wxString item = wxT("Select IPS Patches (None selected)");
-			m_ipsDialog->GetIPSList(target->ips);
+			target->ips = m_ipsDialog->GetIPSList();
 			int count = target->ips.GetCount();
-			if (count > 0) {
-				item.Printf(wxT("Select IPS Patches (%d selected)"), count);
-			}
+			wxString item = (count > 0)
+				? wxString::Format(wxT("Select IPS Patches (%d selected)"), count)
+				: wxString(wxT("Select IPS Patches (None selected)"));
 			target->mmenu->SetLabel(Disk_Browse_Ips, item);
 			if (m_controller.IsOpenMSXRunning()) {
 				wxString devicename;
@@ -1394,12 +1395,11 @@ void SessionPage::SetupRomType(wxString type, wxString fullname)
 	SetRomTypeFullName(type, fullname);
 }
 
-wxArrayString& SessionPage::GetDetectedMachines()
+const wxArrayString& SessionPage::GetDetectedMachines() const
 {
 	return m_machineArray;
 }
-
-wxArrayString& SessionPage::GetDetectedExtensions()
+const wxArrayString& SessionPage::GetDetectedExtensions() const
 {
 	return m_extensionArray;
 }

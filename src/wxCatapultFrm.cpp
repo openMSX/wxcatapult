@@ -384,15 +384,11 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_launch_AbortButton->Enable(false);
 	m_safetyTimer.Start(2000, true); // max 2 seconds disable (whatever happens)
 
-	wxArrayString hardware;
-	wxArrayString media;
 	wxArrayString patches[5];
-	wxArrayString types;
-
-	m_sessionPage->getHardware(hardware);
-	m_sessionPage->getMedia(media);
 	m_sessionPage->getPatches(patches);
-	m_sessionPage->getTypes(types);
+	wxArrayString hardware = m_sessionPage->getHardware();
+	wxArrayString media    = m_sessionPage->getMedia();
+	wxArrayString types    = m_sessionPage->getTypes();
 
 	wxString cmd;
 	config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
