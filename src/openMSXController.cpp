@@ -451,65 +451,297 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 
 void openMSXController::InitLaunchScript()
 {
-	AddLaunchInstruction(wxT("openmsx_update enable setting"), wxT(""), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("openmsx_update enable led"), wxT(""), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("set power on"), wxT("e"), wxT("power"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("unset renderer"), wxT("e"), wxT(""), nullptr, true);
-	AddLaunchInstruction(wxT("@execute"), wxT(""), wxT(""), &openMSXController::EnableMainWindow, false);
-	AddLaunchInstruction(wxT("lindex [openmsx_info setting renderer] 2"), wxT(""), wxT("RendererSelector"), &openMSXController::FillComboBox, true);
-	AddLaunchInstruction(wxT("lindex [openmsx_info setting scale_algorithm] 2"), wxT(""), wxT("ScalerAlgoSelector"), &openMSXController::FillComboBox, true);
-	AddLaunchInstruction(wxT("lindex [openmsx_info setting scale_factor] 2"), wxT(""), wxT("ScalerFactorSelector"), &openMSXController::FillRangeComboBox, true);
-	AddLaunchInstruction(wxT("lindex [openmsx_info setting accuracy] 2"), wxT(""), wxT("AccuracySelector"), &openMSXController::FillComboBox, false);
-	AddLaunchInstruction(wxT("openmsx_update enable media"), wxT(""), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("info exist frontswitch"), wxT(""), wxT("#"), &openMSXController::EnableFirmware, false);
-	AddLaunchInstruction(wxT("info exist firmwareswitch"), wxT(""), wxT("#"), &openMSXController::EnableFirmware, false);
-	AddLaunchInstruction(wxT("set renderer"), wxT(""), wxT("renderer"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set scale_algorithm"), wxT(""), wxT("scale_algorithm"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set scale_factor"), wxT(""), wxT("scale_factor"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set accuracy"), wxT(""), wxT("accuracy"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set deinterlace"), wxT(""), wxT("deinterlace"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set limitsprites"), wxT(""), wxT("limitsprites"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set fullscreen"), wxT(""), wxT("fullscreen"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set blur"), wxT(""), wxT("blur"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set glow"), wxT(""), wxT("glow"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set gamma"), wxT(""), wxT("gamma"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set scanline"), wxT("0"), wxT("scanline"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("info exist renshaturbo"), wxT("1"), wxT("#"), &openMSXController::EnableRenShaTurbo, false);
-	AddLaunchInstruction(wxT("set renshaturbo"), wxT("0"), wxT("renshaturbo"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set save_settings_on_exit"), wxT(""), wxT("save_settings_on_exit"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set printerlogfilename"), wxT(""), wxT("printerlogfilename"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("@execute"), wxT(""), wxT(""), &openMSXController::SetSliderDefaults, false);
-	AddLaunchInstruction(wxT("set speed"), wxT(""), wxT("speed"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set maxframeskip"), wxT(""), wxT("maxframeskip"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set minframeskip"), wxT(""), wxT("minframeskip"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set throttle"), wxT(""), wxT("throttle"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set cmdtiming"), wxT(""), wxT("cmdtiming"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("machine_info pluggable"), wxT("13"), wxT(""), &openMSXController::InitPluggables, true);
-	AddLaunchInstruction(wxT("machine_info pluggable *"), wxT(""), wxT("*"), &openMSXController::AddPluggableDescription, true);
-	AddLaunchInstruction(wxT("machine_info connectionclass *"), wxT(""), wxT("*"), &openMSXController::AddPluggableClass, false);
-	AddLaunchInstruction(wxT("machine_info connector"), wxT("10"), wxT(""), &openMSXController::InitConnectors, true);
-	AddLaunchInstruction(wxT("machine_info connectionclass *"), wxT(""), wxT("*"), &openMSXController::AddConnectorClass, false);
-	AddLaunchInstruction(wxT("@checkfor msx-midi-in"), wxT("1"), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("set midi-in-readfilename"), wxT(""), wxT("midi-in-readfilename"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("@checkfor msx-midi-out"), wxT("1"), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("set midi-out-logfilename"), wxT(""), wxT("midi-out-logfilename"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("@checkfor pcminput"), wxT("1"), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("set audio-inputfilename"), wxT(""), wxT("audio-inputfilename"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("@execute"), wxT(""), wxT(""), &openMSXController::InitConnectorPanel, false);
+	AddLaunchInstruction(
+		wxT("openmsx_update enable setting"),
+		wxT(""),
+		wxT(""),
+		nullptr);
+	AddLaunchInstruction(
+		wxT("openmsx_update enable led"),
+		wxT(""),
+		wxT(""),
+		nullptr);
+	AddLaunchInstruction(
+		wxT("set power on"),
+		wxT("e"),
+		wxT("power"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("unset renderer"),
+		wxT("e"),
+		wxT(""),
+		nullptr);
+	AddLaunchInstruction(
+		wxT("@execute"),
+		wxT(""),
+		wxT(""),
+		&openMSXController::EnableMainWindow);
+	AddLaunchInstruction(
+		wxT("lindex [openmsx_info setting renderer] 2"),
+		wxT(""),
+		wxT("RendererSelector"),
+		&openMSXController::FillComboBox);
+	AddLaunchInstruction(
+		wxT("lindex [openmsx_info setting scale_algorithm] 2"),
+		wxT(""),
+		wxT("ScalerAlgoSelector"),
+		&openMSXController::FillComboBox);
+	AddLaunchInstruction(
+		wxT("lindex [openmsx_info setting scale_factor] 2"),
+		wxT(""),
+		wxT("ScalerFactorSelector"),
+		&openMSXController::FillRangeComboBox);
+	AddLaunchInstruction(
+		wxT("lindex [openmsx_info setting accuracy] 2"),
+		wxT(""),
+		wxT("AccuracySelector"),
+		&openMSXController::FillComboBox);
+	AddLaunchInstruction(
+		wxT("openmsx_update enable media"),
+		wxT(""),
+		wxT(""),
+		nullptr);
+	AddLaunchInstruction(
+		wxT("info exist frontswitch"),
+		wxT(""),
+		wxT("#"),
+		&openMSXController::EnableFirmware);
+	AddLaunchInstruction(
+		wxT("info exist firmwareswitch"),
+		wxT(""),
+		wxT("#"),
+		&openMSXController::EnableFirmware);
+	AddLaunchInstruction(
+		wxT("set renderer"),
+		wxT(""),
+		wxT("renderer"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set scale_algorithm"),
+		wxT(""),
+		wxT("scale_algorithm"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set scale_factor"),
+		wxT(""),
+		wxT("scale_factor"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set accuracy"),
+		wxT(""),
+		wxT("accuracy"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set deinterlace"),
+		wxT(""),
+		wxT("deinterlace"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set limitsprites"),
+		wxT(""),
+		wxT("limitsprites"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set fullscreen"),
+		wxT(""),
+		wxT("fullscreen"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set blur"),
+		wxT(""),
+		wxT("blur"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set glow"),
+		wxT(""),
+		wxT("glow"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set gamma"),
+		wxT(""),
+		wxT("gamma"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set scanline"),
+		wxT("0"),
+		wxT("scanline"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("info exist renshaturbo"),
+		wxT("1"),
+		wxT("#"),
+		&openMSXController::EnableRenShaTurbo);
+	AddLaunchInstruction(
+		wxT("set renshaturbo"),
+		wxT("0"),
+		wxT("renshaturbo"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set save_settings_on_exit"),
+		wxT(""),
+		wxT("save_settings_on_exit"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set printerlogfilename"),
+		wxT(""),
+		wxT("printerlogfilename"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("@execute"),
+		wxT(""),
+		wxT(""),
+		&openMSXController::SetSliderDefaults);
+	AddLaunchInstruction(
+		wxT("set speed"),
+		wxT(""),
+		wxT("speed"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set maxframeskip"),
+		wxT(""),
+		wxT("maxframeskip"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set minframeskip"),
+		wxT(""),
+		wxT("minframeskip"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set throttle"),
+		wxT(""),
+		wxT("throttle"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set cmdtiming"),
+		wxT(""),
+		wxT("cmdtiming"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("machine_info pluggable"),
+		wxT("13"),
+		wxT(""),
+		&openMSXController::InitPluggables);
+	AddLaunchInstruction(
+		wxT("machine_info pluggable *"),
+		wxT(""),
+		wxT("*"),
+		&openMSXController::AddPluggableDescription);
+	AddLaunchInstruction(
+		wxT("machine_info connectionclass *"),
+		wxT(""),
+		wxT("*"),
+		&openMSXController::AddPluggableClass);
+	AddLaunchInstruction(
+		wxT("machine_info connector"),
+		wxT("10"),
+		wxT(""),
+		&openMSXController::InitConnectors);
+	AddLaunchInstruction(
+		wxT("machine_info connectionclass *"),
+		wxT(""),
+		wxT("*"),
+		&openMSXController::AddConnectorClass);
+	AddLaunchInstruction(
+		wxT("@checkfor msx-midi-in"),
+		wxT("1"),
+		wxT(""),
+		nullptr);
+	AddLaunchInstruction(
+		wxT("set midi-in-readfilename"),
+		wxT(""),
+		wxT("midi-in-readfilename"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("@checkfor msx-midi-out"),
+		wxT("1"),
+		wxT(""),
+		nullptr);
+	AddLaunchInstruction(
+		wxT("set midi-out-logfilename"),
+		wxT(""),
+		wxT("midi-out-logfilename"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("@checkfor pcminput"),
+		wxT("1"),
+		wxT(""),
+		nullptr);
+	AddLaunchInstruction(
+		wxT("set audio-inputfilename"),
+		wxT(""),
+		wxT("audio-inputfilename"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("@execute"),
+		wxT(""),
+		wxT(""),
+		&openMSXController::InitConnectorPanel);
 	m_relaunch = m_launchScript.size(); // !!HACK!!
-	AddLaunchInstruction(wxT("@execute"), wxT(""), wxT(""), &openMSXController::InitAudioConnectorPanel, false);
-	AddLaunchInstruction(wxT("machine_info sounddevice"), wxT("5"), wxT(""), &openMSXController::InitSoundDevices, true);
-	AddLaunchInstruction(wxT("machine_info sounddevice *"), wxT(""), wxT("*"), &openMSXController::SetChannelType, true);
-	AddLaunchInstruction(wxT("@execute"), wxT(""), wxT(""), &openMSXController::SetChannelTypeDone, false);
-	AddLaunchInstruction(wxT("set master_volume"), wxT(""), wxT("master_volume"), &openMSXController::UpdateSetting, false);
-	AddLaunchInstruction(wxT("set *_volume"), wxT(""), wxT("*_volume"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set *_balance"), wxT(""), wxT("*_balance"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("set mute"), wxT(""), wxT("mute"), &openMSXController::UpdateSetting, true);
-	AddLaunchInstruction(wxT("plug cassetteport"), wxT(""), wxT("cassetteport"), &openMSXController::EnableCassettePort, false);
-	AddLaunchInstruction(wxT("cassetteplayer"), wxT(""), wxT(""), &openMSXController::SetCassetteMode, false);
-	AddLaunchInstruction(wxT("openmsx_update enable plug"), wxT(""), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("openmsx_update enable unplug"), wxT(""), wxT(""), nullptr, false);
-	AddLaunchInstruction(wxT("openmsx_update enable status"), wxT(""), wxT(""), nullptr, false);
+	AddLaunchInstruction(
+		wxT("@execute"),
+		wxT(""),
+		wxT(""),
+		&openMSXController::InitAudioConnectorPanel);
+	AddLaunchInstruction(
+		wxT("machine_info sounddevice"),
+		wxT("5"),
+		wxT(""),
+		&openMSXController::InitSoundDevices);
+	AddLaunchInstruction(
+		wxT("machine_info sounddevice *"),
+		wxT(""),
+		wxT("*"),
+		&openMSXController::SetChannelType);
+	AddLaunchInstruction(
+		wxT("@execute"),
+		wxT(""),
+		wxT(""),
+		&openMSXController::SetChannelTypeDone);
+	AddLaunchInstruction(
+		wxT("set master_volume"),
+		wxT(""),
+		wxT("master_volume"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set *_volume"),
+		wxT(""),
+		wxT("*_volume"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set *_balance"),
+		wxT(""),
+		wxT("*_balance"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("set mute"),
+		wxT(""),
+		wxT("mute"),
+		&openMSXController::UpdateSetting);
+	AddLaunchInstruction(
+		wxT("plug cassetteport"),
+		wxT(""),
+		wxT("cassetteport"),
+		&openMSXController::EnableCassettePort);
+	AddLaunchInstruction(
+		wxT("cassetteplayer"),
+		wxT(""),
+		wxT(""),
+		&openMSXController::SetCassetteMode);
+	AddLaunchInstruction(
+		wxT("openmsx_update enable plug"),
+		wxT(""),
+		wxT(""),
+		nullptr);
+	AddLaunchInstruction(
+		wxT("openmsx_update enable unplug"),
+		wxT(""),
+		wxT(""),
+		nullptr);
+	AddLaunchInstruction(
+		wxT("openmsx_update enable status"),
+		wxT(""),
+		wxT(""),
+		nullptr);
 
 	AddSetting(wxT("renderer"), wxT("RendererSelector"), &openMSXController::UpdateCombo);
 	AddSetting(wxT("scale_algorithm"), wxT("ScalerAlgoSelector"), &openMSXController::UpdateCombo);
@@ -552,15 +784,13 @@ void openMSXController::InitLaunchScript()
 
 void openMSXController::AddLaunchInstruction(
 	wxString cmd, wxString action, wxString parameter,
-	void (openMSXController::*pfunction)(const wxString&, const wxString&),
-	bool showError)
+	void (openMSXController::*pfunction)(const wxString&, const wxString&))
 {
 	LaunchInstruction instr;
 	instr.command = cmd;
 	instr.action = action;
 	instr.parameter = parameter;
 	instr.p_okfunction = pfunction;
-	instr.showError = showError;
 	m_launchScript.push_back(instr);
 }
 
@@ -592,8 +822,7 @@ void openMSXController::ExecuteLaunch(wxCommandEvent& event)
 	wxString command = GetPendingCommand();
 	wxString instruction  = m_launchScript[recvStep].command;
 	while (instruction.StartsWith(wxT("@"))) {
-		++recvStep;
-		instruction = m_launchScript[recvStep].command;
+		instruction = m_launchScript[++recvStep].command;
 	}
 	if ((recvLoop == -1) && instruction.Contains(wxT("*"))) {
 		recvLoop = 0;
@@ -647,22 +876,16 @@ void openMSXController::ExecuteNext()
 		wxArrayString tokens = tokenize(instruction, wxT(" "));
 		wxString cmd = translate(tokens, sendLoop);
 		if (cmd.StartsWith(wxT("@"))) {
-			wxString result = wxT("0");
-			if (tokens[0] == wxT("@checkfor")) {
-				if (lastdata.Index(tokens[1]) != wxNOT_FOUND) {
-					result = wxT("1");
-				}
-			} else {
-				// @execute
-				result = wxT("1");
-			}
-			if (result == wxT("0")) {
+			wxString result = wxT("1");
+			if (tokens[0] == wxT("@checkfor") &&
+			    (lastdata.Index(tokens[1]) == wxNOT_FOUND)) {
 				while (m_launchScript[recvStep].command.StartsWith(wxT("@"))) {
 					++recvStep;
 				}
 				long displace;
 				m_launchScript[sendStep].action.ToLong(&displace);
 				recvStep += displace;
+				result = wxT("0");
 			}
 			HandleLaunchReply(tokens[0] + result, nullptr, m_launchScript[sendStep], -1);
 		} else {
@@ -727,7 +950,7 @@ void openMSXController::HandleLaunchReply(
 	}
 	bool ok = false;
 	if (cmd.StartsWith(wxT("@"))) {
-		if (cmd.Mid(cmd.Len() - 1) == wxT("1")) {
+		if (cmd.Last() == '1') {
 			ok = true;
 		}
 	} else {
@@ -762,9 +985,6 @@ void openMSXController::HandleLaunchReply(
 			(*this.*(instruction.p_okfunction))(parameter, contents);
 		}
 	} else {
-		if (instruction.showError) {
-			m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Error received on command: ") + cmd + wxT("\n"));
-		}
 		if (!actions.IsEmpty()) {
 			if (actions == wxT("e")) {
 				sendStep = m_launchScript.size();
@@ -930,18 +1150,17 @@ void openMSXController::FillRangeComboBox(const wxString& setting, const wxStrin
 
 void openMSXController::EnableFirmware(const wxString& cmd, const wxString& data)
 {
-	if ((data != wxT("0")) || cmd.StartsWith(wxT("set "))) {
-		if (cmd.Contains(wxT("frontswitch"))) {
-			m_appWindow->m_miscControlPage->EnableFirmware(wxT("frontswitch"));
-		} else {
-			m_appWindow->m_miscControlPage->EnableFirmware(wxT("firmwareswitch"));
-		}
+	if (isTclTrue(data)) {
+		int pos = cmd.Find(' ', true); // last space
+		assert(pos != wxNOT_FOUND);
+		wxString name = cmd.Mid(pos + 1); // firmwareswitch or frontswitch
+		m_appWindow->m_miscControlPage->EnableFirmware(name);
 	}
 }
 
-void openMSXController::EnableRenShaTurbo(const wxString& cmd, const wxString& data)
+void openMSXController::EnableRenShaTurbo(const wxString&, const wxString& data)
 {
-	if ((data != wxT("0")) || cmd.StartsWith(wxT("set "))) {
+	if (isTclTrue(data)) {
 		m_appWindow->m_miscControlPage->EnableRenShaTurbo();
 	}
 }
@@ -1270,7 +1489,7 @@ bool openMSXController::CreatePipes(
 	return true;
 }
 
-void openMSXController::ShowError(wxString msg)
+void openMSXController::ShowError(const wxString& msg)
 {
 	wxMessageBox(msg + wxString::Format(wxT(": error %ld"), GetLastError()));
 }

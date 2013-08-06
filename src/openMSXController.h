@@ -59,7 +59,6 @@ private:
 		wxString action;
 		wxString parameter;
 		void (openMSXController::*p_okfunction)(const wxString&, const wxString&);
-		bool showError;
 	};
 	struct CommandEntry {
 		wxString command;
@@ -75,8 +74,7 @@ private:
 	void InitLaunchScript();
 	void AddLaunchInstruction(
 		wxString cmd, wxString action, wxString parameter,
-		void (openMSXController::*pfunction)(const wxString&, const wxString&),
-		bool showError);
+		void (openMSXController::*pfunction)(const wxString&, const wxString&));
 
 	wxString GetPendingCommand();
 	wxString PeekPendingCommand();
@@ -172,7 +170,7 @@ private:
 	void CloseHandles(
 		bool useNamedPipes, HANDLE hThread, HANDLE hInputRead,
 		HANDLE hOutputWrite, HANDLE hErrorWrite);
-	void ShowError(wxString msg);
+	void ShowError(const wxString& msg);
 	bool CreatePipes(
 		bool useNamedPipes, HANDLE* input, HANDLE* output, HANDLE* error,
 		HANDLE* outputWrite, HANDLE* errorWrite);
