@@ -8,6 +8,7 @@
 #include "openMSXController.h"
 #include "RomTypeDlg.h"
 #include "IPSSelectionDlg.h"
+#include "utils.h"
 #include <algorithm>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
@@ -318,7 +319,7 @@ void SessionPage::OnModeRecord(wxCommandEvent& event)
 		if (filedlg.ShowModal() == wxID_OK) {
 			changeMode = true;
 			tapeImage += wxT(" ");
-			tapeImage += ConvertPath(filedlg.GetPath(), true);
+			tapeImage += utils::ConvertPath(filedlg.GetPath());
 		} else {
 			m_recordButton->SetValue(false);
 		}
@@ -380,7 +381,7 @@ bool SessionPage::BrowseDisk(mediaInfo* target, wxString devicename, wxString de
 		target->control->SetValue (target->contents);
 		m_controller.WriteCommand(devicename + wxT(" eject"));
 		if (!target->contents.IsEmpty()) {
-			m_controller.WriteCommand(devicename + wxT(" ") + ConvertPath(target->contents, true));
+			m_controller.WriteCommand(devicename + wxT(" ") + utils::ConvertPath(target->contents));
 			if (m_controller.IsOpenMSXRunning()) {
 				AddHistory(target);
 				SaveHistory();
@@ -443,7 +444,7 @@ void SessionPage::OnBrowseCassette(wxCommandEvent& event)
 			    (m_cassettePortState != wxT("cassetteplayer"))) {
 				m_controller.WriteCommand(wxT("plug cassetteport cassetteplayer"));
 			}
-			m_controller.WriteCommand(wxT("cassetteplayer ") + ConvertPath(m_cassette->contents, true));
+			m_controller.WriteCommand(wxT("cassetteplayer ") + utils::ConvertPath(m_cassette->contents));
 			if (m_controller.IsOpenMSXRunning()) {
 				AddHistory(m_cassette);
 				SaveHistory();
@@ -464,7 +465,7 @@ void SessionPage::OnClickDiskACombo(wxCommandEvent& event)
 		if (m_controller.IsOpenMSXRunning()) {
 			m_controller.WriteCommand(wxT("diska eject"));
 			if (!m_diskA->contents.IsEmpty()) {
-				m_controller.WriteCommand(wxT("diska ") + ConvertPath(m_diskA->contents, true));
+				m_controller.WriteCommand(wxT("diska ") + utils::ConvertPath(m_diskA->contents));
 			}
 		}
 	}
@@ -487,7 +488,7 @@ void SessionPage::OnClickDiskBCombo(wxCommandEvent& event)
 		if (m_controller.IsOpenMSXRunning()) {
 			m_controller.WriteCommand(wxT("diskb eject"));
 			if (!m_diskB->contents.IsEmpty()) {
-				m_controller.WriteCommand(wxT("diskb ") + ConvertPath(m_diskB->contents, true));
+				m_controller.WriteCommand(wxT("diskb ") + utils::ConvertPath(m_diskB->contents));
 			}
 		}
 	}
@@ -760,7 +761,7 @@ void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
 		if (contents != m_diskA->lastContents) {
 			m_controller.WriteCommand(wxT("diska eject"));
 			if (!contents.IsEmpty()) {
-				m_controller.WriteCommand(wxT("diska ") + ConvertPath(contents, true));
+				m_controller.WriteCommand(wxT("diska ") + utils::ConvertPath(contents));
 				AddHistory(m_diskA);
 			}
 			m_diskA->lastContents = contents;
@@ -770,7 +771,7 @@ void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
 		if (contents != m_diskB->lastContents) {
 			m_controller.WriteCommand(wxT("diskb eject"));
 			if (!contents.IsEmpty()) {
-				m_controller.WriteCommand(wxT("diskb ") + ConvertPath(contents, true));
+				m_controller.WriteCommand(wxT("diskb ") + utils::ConvertPath(contents));
 				AddHistory(m_diskB);
 			}
 			m_diskB->lastContents = contents;
@@ -780,7 +781,7 @@ void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
 		if (contents != m_cassette->lastContents) {
 			m_controller.WriteCommand(wxT("cassetteplayer eject"));
 			if (!contents.IsEmpty()) {
-				m_controller.WriteCommand(wxT("cassetteplayer ") + ConvertPath(contents, true));
+				m_controller.WriteCommand(wxT("cassetteplayer ") + utils::ConvertPath(contents));
 				AddHistory(m_cassette);
 			}
 			m_cassette->lastContents = contents;
@@ -904,7 +905,7 @@ wxArrayString SessionPage::getHardware() const
 	if (pos == 0) {
 		result.Add(wxT(" <default> "));
 	} else {
-		result.Add(ConvertPath(m_machineArray[pos - 1]));
+		result.Add(utils::ConvertPathNoSlash(m_machineArray[pos - 1]));
 	}
 
 	wxArrayInt sel;
@@ -1235,7 +1236,7 @@ void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent& event)
 			if (m_controller.IsOpenMSXRunning()) {
 				m_controller.WriteCommand(devicename + wxT(" eject"));
 				if (!target->contents.IsEmpty()) {
-					m_controller.WriteCommand(devicename + wxT(" ") + ConvertPath(target->contents, true));
+					m_controller.WriteCommand(devicename + wxT(" ") + utils::ConvertPath(target->contents));
 				}
 				AddHistory(target);
 				SaveHistory();
@@ -1321,9 +1322,9 @@ void SessionPage::OnBrowseDiskIps(wxCommandEvent& event)
 				} else if (m_lastUsedPopup == m_diskBButton){
 					devicename = wxT("diskb ");
 				}
-				wxString command = devicename + wxT(" ") + ConvertPath(target->contents, true) + wxT(" ");
+				wxString command = devicename + wxT(" ") + utils::ConvertPath(target->contents) + wxT(" ");
 				for (unsigned i = 0; i < target->ips.GetCount(); ++i) {
-					command += ConvertPath(target->ips[i], true);
+					command += utils::ConvertPath(target->ips[i]);
 				}
 				m_controller.WriteCommand(command);
 			}

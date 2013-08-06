@@ -4,6 +4,7 @@
 #include "FullScreenDlg.h"
 #include "ConfigurationData.h"
 #include "openMSXController.h"
+#include "utils.h"
 #include <wx/button.h>
 #include <wx/combobox.h>
 #include <wx/filedlg.h>
@@ -416,7 +417,7 @@ void VideoControlPage::OnTakeScreenShot(wxCommandEvent& event)
 	if (screenshotfile.IsEmpty() && counter.IsEmpty()) {
 		m_controller.WriteCommand(wxT("screenshot"));
 	} else {
-		m_controller.WriteCommand(wxT("screenshot ") + ConvertPath(screenshotfile + counter + wxT(".png"), true));
+		m_controller.WriteCommand(wxT("screenshot ") + utils::ConvertPath(screenshotfile + counter + wxT(".png")));
 	}
 }
 

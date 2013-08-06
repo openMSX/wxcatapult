@@ -941,7 +941,7 @@ void openMSXController::UpdateIndicator(const wxString& setting, const wxString&
 	if (auto* indicator = (wxTextCtrl*)wxWindow::FindWindowByName(control)) {
 		wxString tempData = data;
 		if (flags & S_CONVERT) {
-			tempData = CatapultPage::ConvertPath(data, true, true);
+			tempData = utils::ConvertPathBack(data);
 		}
 		if (indicator->GetValue() != tempData) {
 			indicator->SetValue(tempData);

@@ -14,6 +14,7 @@
 #include "AboutDlg.h"
 #include "CheckConfigsDlg.h"
 #include "openMSXController.h"
+#include "utils.h"
 #include <wx/button.h>
 #include <wx/image.h>
 #include <wx/filedlg.h>
@@ -292,7 +293,7 @@ void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent& event)
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString settingsfile = filedlg.GetPath();
 		if (m_controller->IsOpenMSXRunning()){
-			m_controller->WriteCommand(wxT("load_settings ") + m_sessionPage->ConvertPath(settingsfile, true));
+			m_controller->WriteCommand(wxT("load_settings ") + utils::ConvertPath(settingsfile));
 		} else {
 			m_settingsfile = settingsfile;
 		}
@@ -316,7 +317,7 @@ void wxCatapultFrame::OnMenuSaveSettingsAs(wxCommandEvent& event)
 	wxFileDialog filedlg(this, wxT("Select file to save to"), wxT(""), wxT(""), path, wxSAVE | wxOVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString settingsfile = filedlg.GetPath();
-		m_controller->WriteCommand(wxT("save_settings ") + m_sessionPage->ConvertPath(settingsfile, true));
+		m_controller->WriteCommand(wxT("save_settings ") + utils::ConvertPath(settingsfile));
 	}
 }
 
@@ -393,7 +394,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	wxString cmd;
 	config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	if (!m_settingsfile.IsEmpty()) {
-		cmd += wxT(" -setting ") + m_sessionPage->ConvertPath(m_settingsfile, true);
+		cmd += wxT(" -setting ") + utils::ConvertPath(m_settingsfile);
 	}
 	if (hardware[0] != wxT(" <default> ")) { // Ooooww.... we're using representation here as useful data! :(
 		cmd += wxT(" -machine ") + hardware[0];

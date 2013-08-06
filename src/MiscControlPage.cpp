@@ -3,6 +3,7 @@
 #include "wxCatapultFrm.h"
 #include "openMSXController.h"
 #include "ConfigurationData.h"
+#include "utils.h"
 #include <wx/bmpbuttn.h>
 #include <wx/button.h>
 #include <wx/combobox.h>
@@ -407,7 +408,7 @@ void MiscControlPage::InitConnectorPanel()
 		}
 	}
 //	auto* text = (wxTextCtrl*)FindWindowByName("PrinterLogFile");
-//	m_controller.WriteCommand(wxString("set printerlogfilename ") + ConvertPath(text->GetValue()));
+//	m_controller.WriteCommand(wxString("set printerlogfilename ") + utils::ConvertPath(text->GetValue()));
 }
 
 void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxString connectorClass)
@@ -564,7 +565,7 @@ void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent& event)
 	wxString current = ((wxTextCtrl*)event.GetEventObject())->GetValue();
 	ConfigurationData::instance().SetParameter(ConfigurationData::CD_PRINTERFILE, current);
 	ConfigurationData::instance().SaveData();
-	m_controller.WriteCommand(wxT("set printerlogfilename ") + ConvertPath(current, true));
+	m_controller.WriteCommand(wxT("set printerlogfilename ") + utils::ConvertPath(current));
 }
 
 void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent& event)

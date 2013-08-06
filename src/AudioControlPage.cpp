@@ -2,6 +2,7 @@
 #include "openMSXController.h"
 #include "StatusPage.h"
 #include "wxCatapultFrm.h"
+#include "utils.h"
 #include <wx/combobox.h>
 #include <wx/button.h>
 #include <wx/filedlg.h>
@@ -526,7 +527,7 @@ void AudioControlPage::OnBrowseMidiInFile(wxCommandEvent& event)
 	if (filedlg.ShowModal() == wxID_OK) {
 		miditext->SetValue (filedlg.GetPath());
 		if (!miditext->GetValue().IsEmpty()) {
-			m_controller.WriteCommand(wxT("set midi-in-readfilename ") + ConvertPath(miditext->GetValue(), true));
+			m_controller.WriteCommand(wxT("set midi-in-readfilename ") + utils::ConvertPath(miditext->GetValue()));
 		}
 	}
 }
@@ -539,7 +540,7 @@ void AudioControlPage::OnBrowseMidiOutFile(wxCommandEvent& event)
 	if (filedlg.ShowModal() == wxID_OK) {
 		miditext->SetValue(filedlg.GetPath());
 		if (!miditext->GetValue().IsEmpty()) {
-			m_controller.WriteCommand(wxT("set midi-out-logfilename ") + ConvertPath(miditext->GetValue(), true));
+			m_controller.WriteCommand(wxT("set midi-out-logfilename ") + utils::ConvertPath(miditext->GetValue()));
 		}
 	}
 }
@@ -552,7 +553,7 @@ void AudioControlPage::OnBrowseSampleInFile(wxCommandEvent& event)
 	if (filedlg.ShowModal() == wxID_OK) {
 		sampletext->SetValue(filedlg.GetPath());
 		if (!sampletext->GetValue().IsEmpty()) {
-			m_controller.WriteCommand(wxT("set audio-inputfilename ") + ConvertPath(sampletext->GetValue(), true));
+			m_controller.WriteCommand(wxT("set audio-inputfilename ") + utils::ConvertPath(sampletext->GetValue()));
 		}
 	}
 }

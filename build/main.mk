@@ -220,7 +220,8 @@ SOURCES+= \
 	RomTypeDlg \
 	IPSSelectionDlg \
 	AboutDlg \
-	CheckConfigsDlg
+	CheckConfigsDlg \
+	utils
 
 OBJECTS_FULL:=$(addprefix $(OBJECTS_PATH)/, $(addsuffix .o,$(SOURCES)))
 
