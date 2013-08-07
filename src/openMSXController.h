@@ -43,10 +43,10 @@ public:
 
 	void UpdateMixer();
 	wxString GetConnectorClass(const wxString& name) const;
-	const wxArrayString& GetConnectors() const;
-	const wxArrayString& GetPluggables() const;
-	const wxArrayString& GetPluggableDescriptions() const;
-	const wxArrayString& GetPluggableClasses() const;
+	const wxArrayString& GetConnectors() const { return m_connectors; }
+	const wxArrayString& GetPluggables() const { return m_pluggables; }
+	const wxArrayString& GetPluggableDescriptions() const { return m_pluggabledescriptions; }
+	const wxArrayString& GetPluggableClasses() const { return m_pluggableclasses; }
 	bool StartOpenMSX(wxString cmd, bool getversion = false);
 	void WriteCommand(wxString msg, TargetType target = TARGET_INTERACTIVE);
 	void HandleEndProcess(wxCommandEvent& event);
@@ -64,12 +64,12 @@ private:
 		TargetType target;
 	};
 
-	void WriteMessage(xmlChar* msg, size_t length);
+	void WriteMessage(const xmlChar* msg, size_t length);
 	bool Launch(wxString cmdline);
 	void HandleNativeEndProcess();
 	wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
 
-	bool PostLaunch();
+	void PostLaunch();
 	void InitLaunchScript();
 	void AddCommand(
 		const wxString& cmd,
@@ -95,24 +95,17 @@ private:
 	void FillRangeComboBox(const wxString& control, const wxString& result);
 
 	void AddSetting(
-		const wxString& settings, const wxString& control,
-		void (openMSXController::*pfunction)(const wxString&, const wxString&, const wxString&, int),
-		int flags = 0);
-	void UpdateToggle   (const wxString& setting, const wxString& data, const wxString& control, int flags);
-	void UpdateCombo    (const wxString& setting, const wxString& data, const wxString& control, int flags);
-	void UpdateIndicator(const wxString& setting, const wxString& data, const wxString& control, int flags);
-	void UpdateSlider   (const wxString& setting, const wxString& data, const wxString& control, int flags);
-	void UpdateVolume   (const wxString& setting, const wxString& data, const wxString& control, int flags);
-	void UpdateBalance  (const wxString& setting, const wxString& data, const wxString& control, int flags);
-	void UpdateMenu     (const wxString& setting, const wxString& data, const wxString& control, int flags);
-	void UpdateMidiPlug (const wxString& setting, const wxString& data, const wxString& control, int flags);
-	void UpdatePluggable(const wxString& setting, const wxString& data, const wxString& control, int flags);
+		const wxString& settings,
+		std::function<void (const wxString&, const wxString&)> callback);
+	void UpdateToggle   (const wxString& v, const wxString& c, int f = 0);
+	void UpdateCombo    (const wxString& v, const wxString& c, int f = 0);
+	void UpdateIndicator(const wxString& v, const wxString& c, int f = 0);
+	void UpdateSlider   (const wxString& v, const wxString& c);
+	void UpdatePluggable(const wxString& v, const wxString& c);
 
 	struct SettingElement {
 		wxString setting;
-		wxString control;
-		void (openMSXController::*pfunction)(const wxString&, const wxString&, const wxString&, int);
-		int flags;
+		std::function<void (const wxString&, const wxString&)> callback;
 	};
 	std::vector<SettingElement> m_settingTable;
 

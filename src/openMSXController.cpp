@@ -90,13 +90,12 @@ bool openMSXController::HandleMessage(wxCommandEvent& event)
 	return true;
 }
 
-bool openMSXController::PostLaunch()
+void openMSXController::PostLaunch()
 {
-	char initial[] = "<openmsx-control>\n";
-	WriteMessage((unsigned char*)initial, strlen(initial));
+	const char* initial = "<openmsx-control>\n";
+	WriteMessage((const xmlChar*)initial, strlen(initial));
 	ExecuteStart();
 	m_appWindow->StartTimers();
-	return true;
 }
 
 void openMSXController::HandleEndProcess(wxCommandEvent& event)
@@ -379,23 +378,6 @@ wxString openMSXController::GetConnectorClass(const wxString& name) const
 	assert(false); return wxString();
 }
 
-const wxArrayString& openMSXController::GetConnectors() const
-{
-	return m_connectors;
-}
-const wxArrayString& openMSXController::GetPluggables() const
-{
-	return m_pluggables;
-}
-const wxArrayString& openMSXController::GetPluggableDescriptions() const
-{
-	return m_pluggabledescriptions;
-}
-const wxArrayString& openMSXController::GetPluggableClasses() const
-{
-	return m_pluggableclasses;
-}
-
 bool openMSXController::SetupOpenMSXParameters(wxString version)
 {
 	long ver = -1;
@@ -416,7 +398,6 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 			}
 		}
 	}
-	// printf ("Detected openMSX version: %d\n", ver);
 	if (ver == -1) {
 		wxMessageBox(
 			wxT("Unable to determine openMSX version!\nPlease upgrade to 0.6.2 or higher.\n(Or contact the authors.)"),
@@ -615,43 +596,127 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("openmsx_update enable unplug"));
 	AddCommand(wxT("openmsx_update enable status"));
 
-	AddSetting(wxT("renderer"), wxT("RendererSelector"), &openMSXController::UpdateCombo);
-	AddSetting(wxT("scale_algorithm"), wxT("ScalerAlgoSelector"), &openMSXController::UpdateCombo);
-	AddSetting(wxT("scale_factor"), wxT("ScalerFactorSelector"), &openMSXController::UpdateCombo);
-	AddSetting(wxT("accuracy"), wxT("AccuracySelector"), &openMSXController::UpdateCombo);
-	AddSetting(wxT("deinterlace"), wxT("DeInterlaceButton"), &openMSXController::UpdateToggle, S_CONVERT);
-	AddSetting(wxT("limitsprites"), wxT("LimitSpriteButton"), &openMSXController::UpdateToggle, S_CONVERT);
-	AddSetting(wxT("blur"), wxT("BlurIndicator"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("glow"), wxT("GlowIndicator"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("gamma"), wxT("GammaIndicator"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("scanline"), wxT("ScanlineIndicator"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("speed"), wxT("SpeedIndicator"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("minframeskip"), wxT("MinFrameSkipIndicator"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("maxframeskip"), wxT("MaxFrameSkipIndicator"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("throttle"), wxT("MaxSpeedButton"), &openMSXController::UpdateToggle, S_INVERT | S_EVENT);
-	AddSetting(wxT("power"), wxT("PowerButton"), &openMSXController::UpdateToggle);
-	AddSetting(wxT("pause"), wxT("PauseButton"), &openMSXController::UpdateToggle);
-	AddSetting(wxT("frontswitch"), wxT("FirmwareButton"), &openMSXController::UpdateToggle);
-	AddSetting(wxT("firmwareswitch"), wxT("FirmwareButton"), &openMSXController::UpdateToggle);
-	AddSetting(wxT("mute"), wxT("MuteButton"), &openMSXController::UpdateToggle);
-	AddSetting(wxT("midi-in-readfilename"), wxT("MidiInFileInput"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("midi-out-logfilename"), wxT("MidiOutFileInput"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("audio-inputfilename"), wxT("SampleFileInput"), &openMSXController::UpdateIndicator);
-	AddSetting(wxT("*_volume"), wxT(""), &openMSXController::UpdateVolume);
-	AddSetting(wxT("*_balance"), wxT(""), &openMSXController::UpdateBalance);
-	AddSetting(wxT("msx-midi-in"), wxT("MidiInSelector"), &openMSXController::UpdateMidiPlug);
-	AddSetting(wxT("msx-midi-out"), wxT("MidiOutSelector"), &openMSXController::UpdateMidiPlug);
-	AddSetting(wxT("pcminput"), wxT("SampleInSelector"), &openMSXController::UpdatePluggable);
-	AddSetting(wxT("joyporta"), wxT("Joyport1Selector"), &openMSXController::UpdatePluggable);
-	AddSetting(wxT("joyportb"), wxT("Joyport2Selector"), &openMSXController::UpdatePluggable);
-	AddSetting(wxT("printerport"), wxT("PrinterportSelector"), &openMSXController::UpdatePluggable);
-	AddSetting(wxT("renshaturbo"), wxT("RenshaTurboSlider"), &openMSXController::UpdateSlider);
-	AddSetting(wxT("diska"), wxT("DiskAContents"), &openMSXController::UpdateCombo);
-	AddSetting(wxT("diskb"), wxT("DiskBContents"), &openMSXController::UpdateCombo);
-	AddSetting(wxT("cassetteplayer"), wxT("CassetteContents"), &openMSXController::UpdateCombo);
-	AddSetting(wxT("fullscreen"), wxT("FullScreenButton"), &openMSXController::UpdateToggle, S_CONVERT);
-	AddSetting(wxT("save_settings_on_exit"), wxT("Save Settings On Exit"), &openMSXController::UpdateMenu);
-	AddSetting(wxT("printerlogfilename"), wxT("PrinterLogFile"), &openMSXController::UpdateIndicator, S_CONVERT);
+	AddSetting(wxT("renderer"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("RendererSelector")); });
+	AddSetting(wxT("scale_algorithm"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("ScalerAlgoSelector")); });
+	AddSetting(wxT("scale_factor"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("ScalerFactorSelector")); });
+	AddSetting(wxT("accuracy"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("AccuracySelector")); });
+	AddSetting(wxT("deinterlace"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("DeInterlaceButton"), S_CONVERT); });
+	AddSetting(wxT("limitsprites"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("LimitSpriteButton"), S_CONVERT); });
+	AddSetting(wxT("blur"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("BlurIndicator")); });
+	AddSetting(wxT("glow"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("GlowIndicator")); });
+	AddSetting(wxT("gamma"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("GammaIndicator")); });
+	AddSetting(wxT("scanline"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("ScanlineIndicator")); });
+	AddSetting(wxT("speed"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("SpeedIndicator")); });
+	AddSetting(wxT("minframeskip"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("MinFrameSkipIndicator")); });
+	AddSetting(wxT("maxframeskip"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("MaxFrameSkipIndicator")); });
+	AddSetting(wxT("throttle"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("MaxSpeedButton"), S_INVERT | S_EVENT); });
+	AddSetting(wxT("power"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("PowerButton")); });
+	AddSetting(wxT("pause"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("PauseButton")); });
+	AddSetting(wxT("frontswitch"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("FirmwareButton")); });
+	AddSetting(wxT("firmwareswitch"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("FirmwareButton")); });
+	AddSetting(wxT("mute"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("MuteButton")); });
+	AddSetting(wxT("midi-in-readfilename"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("MidiInFileInput")); });
+	AddSetting(wxT("midi-out-logfilename"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("MidiOutFileInput")); });
+	AddSetting(wxT("audio-inputfilename"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("SampleFileInput")); });
+	AddSetting(wxT("*_volume"),
+		[&](const wxString& n, const wxString& v) {
+			wxString channel = n.Mid(0, n.Length() - 7); // remove "_volume"
+			m_appWindow->m_audioControlPage->SetChannelVolume(channel, v);
+		});
+	AddSetting(wxT("*_balance"),
+		[&](const wxString& n, const wxString& v) {
+			wxString channel = n.Mid(0, n.Length() - 8); // remove "_balance"
+			m_appWindow->m_audioControlPage->SetChannelMode(channel, v);
+		});
+	AddSetting(wxT("msx-midi-in"),
+		[&](const wxString& n, const wxString& v) {
+			m_appWindow->m_audioControlPage->UpdateMidiPlug(
+				wxT("MidiInSelector"), v); });
+	AddSetting(wxT("msx-midi-out"),
+		[&](const wxString& n, const wxString& v) {
+			m_appWindow->m_audioControlPage->UpdateMidiPlug(
+				wxT("MidiOutSelector"), v); });
+	AddSetting(wxT("pcminput"),
+		[&](const wxString&, const wxString& v) {
+			UpdatePluggable(v, wxT("SampleInSelector")); });
+	AddSetting(wxT("joyporta"),
+		[&](const wxString&, const wxString& v) {
+			UpdatePluggable(v, wxT("Joyport1Selector")); });
+	AddSetting(wxT("joyportb"),
+		[&](const wxString&, const wxString& v) {
+			UpdatePluggable(v, wxT("Joyport2Selector")); });
+	AddSetting(wxT("printerport"),
+		[&](const wxString&, const wxString& v) {
+			UpdatePluggable(v, wxT("PrinterportSelector")); });
+	AddSetting(wxT("renshaturbo"),
+		[&](const wxString&, const wxString& v) {
+			UpdateSlider(v, wxT("RenshaTurboSlider")); });
+	AddSetting(wxT("diska"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("DiskAContents")); });
+	AddSetting(wxT("diskb"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("DiskBContents")); });
+	AddSetting(wxT("cassetteplayer"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("CassetteContents")); });
+	AddSetting(wxT("fullscreen"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("FullScreenButton"), S_CONVERT); });
+	AddSetting(wxT("save_settings_on_exit"),
+		[&](const wxString&, const wxString& v) {
+			int menusetting = m_appWindow->GetMenuBar()->FindMenuItem(
+				wxT("&Settings"), wxT("Save openMSX Settings On &Exit"));
+			assert(menusetting != wxNOT_FOUND);
+			m_appWindow->GetMenuBar()->Check(menusetting, isTclTrue(v));
+		});
+	AddSetting(wxT("printerlogfilename"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("PrinterLogFile"), S_CONVERT); });
 }
 
 void openMSXController::AddCommand(
@@ -659,9 +724,19 @@ void openMSXController::AddCommand(
 	std::function<void (const wxString&, const wxString&)> callback)
 {
 	LaunchInstruction instr;
-	instr.command = cmd;
+	instr.command  = cmd;
 	instr.callback = callback;
 	m_launchScript.push_back(instr);
+}
+
+void openMSXController::AddSetting(
+	const wxString& setting,
+	std::function<void (const wxString&, const wxString&)> callback)
+{
+	SettingElement elem;
+	elem.setting  = setting;
+	elem.callback = callback;
+	m_settingTable.push_back(elem);
 }
 
 static wxArrayString tokenize(const wxString& text, const wxString& seperator)
@@ -796,27 +871,13 @@ void openMSXController::UpdateSetting2(const wxString& name_, const wxString& da
 
 	for (auto& elem : m_settingTable) {
 		if (name.Matches(elem.setting.c_str())) {
-			(*this.*(elem.pfunction))(
-				name, data, elem.control, elem.flags);
+			elem.callback(name, data);
 			break;
 		}
 	}
 }
 
-void openMSXController::AddSetting(
-	const wxString& setting, const wxString& control,
-	void (openMSXController::*pfunction)(const wxString&, const wxString&, const wxString&, int),
-	int flags)
-{
-	SettingElement elem;
-	elem.setting   = setting;
-	elem.control   = control;
-	elem.pfunction = pfunction;
-	elem.flags     = flags;
-	m_settingTable.push_back(elem);
-}
-
-void openMSXController::UpdateToggle(const wxString& setting, const wxString& data, const wxString& control, int flags)
+void openMSXController::UpdateToggle(const wxString& data, const wxString& control, int flags)
 {
 	if (auto* button = (wxToggleButton*)wxWindow::FindWindowByName(control)) {
 		bool active = !(flags & S_INVERT);
@@ -836,7 +897,7 @@ void openMSXController::UpdateToggle(const wxString& setting, const wxString& da
 	}
 }
 
-void openMSXController::UpdateCombo(const wxString& setting, const wxString& data, const wxString& control, int flags)
+void openMSXController::UpdateCombo(const wxString& data, const wxString& control, int flags)
 {
 	wxString valuetext = data;
 	if (flags & S_CONVERT) {
@@ -851,7 +912,7 @@ void openMSXController::UpdateCombo(const wxString& setting, const wxString& dat
 	}
 }
 
-void openMSXController::UpdateIndicator(const wxString& setting, const wxString& data, const wxString& control, int flags)
+void openMSXController::UpdateIndicator(const wxString& data, const wxString& control, int flags)
 {
 	if (auto* indicator = (wxTextCtrl*)wxWindow::FindWindowByName(control)) {
 		wxString tempData = data;
@@ -864,7 +925,7 @@ void openMSXController::UpdateIndicator(const wxString& setting, const wxString&
 	}
 }
 
-void openMSXController::UpdateSlider(const wxString& setting, const wxString& data, const wxString& control, int flags)
+void openMSXController::UpdateSlider(const wxString& data, const wxString& control)
 {
 	if (auto* slider = (wxSlider*)wxWindow::FindWindowByName(control)) {
 		long value;
@@ -875,32 +936,7 @@ void openMSXController::UpdateSlider(const wxString& setting, const wxString& da
 	}
 }
 
-void openMSXController::UpdateMenu(const wxString& setting, const wxString& data, const wxString& control, int flags)
-{
-	int menusetting = m_appWindow->GetMenuBar()->FindMenuItem(wxT("&Settings"), wxT("Save openMSX Settings On &Exit"));
-	if (menusetting != wxNOT_FOUND) {
-		m_appWindow->GetMenuBar()->Check(menusetting, isTclTrue(data));
-	}
-}
-
-void openMSXController::UpdateVolume(const wxString& setting, const wxString& data, const wxString& control, int flags)
-{
-	wxString channel = setting.Mid(0, setting.Length() - 7); // remove "_volume"
-	m_appWindow->m_audioControlPage->SetChannelVolume(channel, data);
-}
-
-void openMSXController::UpdateBalance(const wxString& setting, const wxString& data, const wxString& control, int flags)
-{
-	wxString channel = setting.Mid(0, setting.Length() - 8); // remove "_balance"
-	m_appWindow->m_audioControlPage->SetChannelMode(channel, data);
-}
-
-void openMSXController::UpdateMidiPlug(const wxString& connector, const wxString& data, const wxString& control, int flags)
-{
-	m_appWindow->m_audioControlPage->UpdateMidiPlug(control, data);
-}
-
-void openMSXController::UpdatePluggable(const wxString& connector, const wxString& data, const wxString& control, int flags)
+void openMSXController::UpdatePluggable(const wxString& data, const wxString& control)
 {
 	if (auto* box = (wxComboBox*)wxWindow::FindWindowByName(control)) {
 		box->SetValue(data.IsEmpty() ? wxT("--empty--") : data);
@@ -976,7 +1012,7 @@ void openMSXController::RestoreOpenMSX()
 #endif
 }
 
-void openMSXController::WriteMessage(xmlChar* msg, size_t length)
+void openMSXController::WriteMessage(const xmlChar* msg, size_t length)
 {
 	if (!m_openMsxRunning) return;
 #ifdef __WXMSW__
