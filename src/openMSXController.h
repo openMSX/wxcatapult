@@ -89,7 +89,7 @@ private:
 	void ExecuteNext();
 	void FinishLaunch();
 	wxString translate(wxArrayString tokens, int loop);
-	void HandleLaunchReply(wxString cmd, wxCommandEvent* event,
+	void HandleLaunchReply(wxString cmd, wxCommandEvent& event,
 		LaunchInstruction instruction, int loopcount);
 	void UpdateSetting          (const wxString& name, const wxString& data);
 	void UpdateSetting2         (const wxString& name, const wxString& data);

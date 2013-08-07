@@ -461,7 +461,7 @@ void openMSXController::InitLaunchScript()
 			UpdateSetting(c, r); });
 	AddCommand(wxT("unset renderer"),
 		wxT("e"));
-	AddCommand(wxT("@execute"),
+	AddCommand(wxT(""),
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			EnableMainWindow(c, r); });
@@ -551,7 +551,7 @@ void openMSXController::InitLaunchScript()
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	AddCommand(wxT("@execute"),
+	AddCommand(wxT(""),
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			SetSliderDefaults(c, r); });
@@ -607,12 +607,12 @@ void openMSXController::InitLaunchScript()
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	AddCommand(wxT("@execute"),
+	AddCommand(wxT(""),
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			InitConnectorPanel(c, r); });
 	m_relaunch = m_launchScript.size(); // !!HACK!!
-	AddCommand(wxT("@execute"),
+	AddCommand(wxT(""),
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			InitAudioConnectorPanel(c, r); });
@@ -624,7 +624,7 @@ void openMSXController::InitLaunchScript()
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			SetChannelType(c, r); });
-	AddCommand(wxT("@execute"),
+	AddCommand(wxT(""),
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			SetChannelTypeDone(c, r); });
@@ -736,16 +736,13 @@ void openMSXController::ExecuteLaunch(wxCommandEvent& event)
 	// handle received command
 	wxString command = GetPendingCommand();
 	wxString instruction  = m_launchScript[recvStep].command;
-	while (instruction.StartsWith(wxT("@"))) {
-		instruction = m_launchScript[++recvStep].command;
-	}
 	if ((recvLoop == -1) && instruction.Contains(wxT("*"))) {
 		recvLoop = 0;
 	}
 	wxArrayString tokens = tokenize(instruction, wxT(" "));
 	wxString cmd = translate(tokens, recvLoop);
 	if (command == cmd) {
-		HandleLaunchReply(cmd, &event, m_launchScript[recvStep], recvLoop);
+		HandleLaunchReply(cmd, event, m_launchScript[recvStep], recvLoop);
 		if (data->replyState == CatapultXMLParser::REPLY_NOK) {
 			long displace;
 			m_launchScript[recvStep].action.ToLong(&displace);
@@ -774,9 +771,6 @@ void openMSXController::ExecuteNext()
 		return;
 	}
 	if (wait) {
-		while (m_launchScript[recvStep].command.StartsWith(wxT("@"))) {
-			++recvStep;
-		}
 		if (recvStep >= sendStep) {
 			wait = false;
 		}
@@ -789,11 +783,7 @@ void openMSXController::ExecuteNext()
 		}
 		wxArrayString tokens = tokenize(instruction, wxT(" "));
 		wxString cmd = translate(tokens, sendLoop);
-		if (cmd.StartsWith(wxT("@"))) {
-			HandleLaunchReply(tokens[0], nullptr, m_launchScript[sendStep], -1);
-		} else {
-			WriteCommand(cmd, TARGET_STARTUP);
-		}
+		WriteCommand(cmd, TARGET_STARTUP);
 		wxString action = m_launchScript[sendStep].action;
 
 		if (sendLoop != -1) {
@@ -844,26 +834,13 @@ wxString openMSXController::translate(wxArrayString tokens, int loop)
 }
 
 void openMSXController::HandleLaunchReply(
-	wxString cmd, wxCommandEvent* event,
+	wxString cmd, wxCommandEvent& event,
 	LaunchInstruction instruction, int loopcount)
 {
-	CatapultXMLParser::ParseResult* data = nullptr;
-	if (event) {
-		data = (CatapultXMLParser::ParseResult*)event->GetClientData();
-	}
-	bool ok = false;
-	if (cmd.StartsWith(wxT("@"))) {
-		ok = true;
-	} else {
-		assert(data);
-		if (data->replyState == CatapultXMLParser::REPLY_OK) {
-			ok = true;
-		}
-	}
-	if (ok) {
+	auto* data = (CatapultXMLParser::ParseResult*)event.GetClientData();
+	if (data->replyState == CatapultXMLParser::REPLY_OK) {
 		if (instruction.callback) {
-			wxString contents = event ? data->contents : wxT("");
-			instruction.callback(cmd, contents);
+			instruction.callback(cmd, data->contents);
 		}
 	} else {
 		wxString action = instruction.action;
