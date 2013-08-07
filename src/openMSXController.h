@@ -88,26 +88,11 @@ private:
 	void ExecuteNext();
 	void FinishLaunch();
 	wxString translate(wxArrayString tokens, int loop);
-	void UpdateSetting          (const wxString& name, const wxString& data);
-	void UpdateSetting2         (const wxString& name, const wxString& data);
-	void FillComboBox           (const wxString& name, const wxString& data);
-	void FillRangeComboBox      (const wxString& name, const wxString& data);
-	void EnableFirmware         (const wxString& name, const wxString& data);
-	void EnableRenShaTurbo      (const wxString& name, const wxString& data);
-	void EnableMainWindow       (const wxString& name, const wxString& data);
-	void InitConnectors         (const wxString& name, const wxString& data);
-	void InitPluggables         (const wxString& name, const wxString& data);
-	void InitSoundDevices       (const wxString& name, const wxString& data);
-	void SetChannelType         (const wxString& name, const wxString& data);
-	void SetChannelTypeDone     (const wxString& name, const wxString& data);
-	void AddPluggableDescription(const wxString& name, const wxString& data);
-	void AddPluggableClass      (const wxString& name, const wxString& data);
-	void AddConnectorClass      (const wxString& name, const wxString& data);
-	void SetSliderDefaults      (const wxString& name, const wxString& data);
-	void InitAudioConnectorPanel(const wxString& name, const wxString& data);
-	void InitConnectorPanel     (const wxString& name, const wxString& data);
-	void EnableCassettePort     (const wxString& name, const wxString& data);
-	void SetCassetteMode        (const wxString& name, const wxString& data);
+	void UpdateSetting2   (const wxString& name,    const wxString& result);
+	void UpdateSetting    (const wxString& cmd,     const wxString& result);
+	void EnableFirmware   (const wxString& cmd,     const wxString& result);
+	void FillComboBox     (const wxString& control, const wxString& result);
+	void FillRangeComboBox(const wxString& control, const wxString& result);
 
 	void AddSetting(
 		const wxString& settings, const wxString& control,

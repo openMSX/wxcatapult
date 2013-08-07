@@ -367,13 +367,6 @@ bool openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 	return retval;
 }
 
-void openMSXController::InitConnectors(const wxString&, const wxString& connectors)
-{
-	lastdata = utils::parseTclList(connectors);
-	m_connectors = lastdata;
-	m_connectorclasses.Clear();
-}
-
 wxString openMSXController::GetConnectorClass(const wxString& name) const
 {
 	if (m_connectorclasses.IsEmpty()) return wxString();
@@ -384,14 +377,6 @@ wxString openMSXController::GetConnectorClass(const wxString& name) const
 		}
 	}
 	assert(false); return wxString();
-}
-
-void openMSXController::InitPluggables(const wxString&, const wxString& pluggables)
-{
-	lastdata = utils::parseTclList(pluggables);
-	m_pluggables = lastdata;
-	m_pluggabledescriptions.Clear();
-	m_pluggableclasses.Clear();
 }
 
 const wxArrayString& openMSXController::GetConnectors() const
@@ -449,6 +434,14 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 	return true;
 }
 
+static bool isTclTrue(const wxString& str)
+{
+	return (str == wxT("on"))   ||
+	       (str == wxT("true")) ||
+	       (str == wxT("1"))    ||
+	       (str == wxT("yes"));
+}
+
 void openMSXController::InitLaunchScript()
 {
 	AddCommand(wxT("openmsx_update enable setting"));
@@ -458,19 +451,19 @@ void openMSXController::InitLaunchScript()
 			UpdateSetting(c, r); });
 	AddCommand(wxT("unset renderer"));
 	AddCommand(wxT(""),
-		[&](const wxString& c, const wxString& r) {
-			EnableMainWindow(c, r); });
+		[&](const wxString&, const wxString&) {
+			m_appWindow->EnableMainWindow(); });
 	AddCommand(wxT("lindex [openmsx_info setting renderer] 2"),
-		[&](const wxString& c, const wxString& r) {
+		[&](const wxString&, const wxString& r) {
 			FillComboBox(wxT("RendererSelector"), r); });
 	AddCommand(wxT("lindex [openmsx_info setting scale_algorithm] 2"),
-		[&](const wxString& c, const wxString& r) {
-			FillComboBox(wxT("ScalerAlgoSelector"), r); });
+		[&](const wxString&, const wxString& r) {
+			FillComboBox(wxT("ScalerAlgoSelector"), r) ;});
 	AddCommand(wxT("lindex [openmsx_info setting scale_factor] 2"),
-		[&](const wxString& c, const wxString& r) {
+		[&](const wxString&, const wxString& r) {
 			FillRangeComboBox(wxT("ScalerFactorSelector"), r); });
 	AddCommand(wxT("lindex [openmsx_info setting accuracy] 2"),
-		[&](const wxString& c, const wxString& r) {
+		[&](const wxString&, const wxString& r) {
 			FillComboBox(wxT("AccuracySelector"), r); });
 	AddCommand(wxT("openmsx_update enable media"));
 	AddCommand(wxT("info exist frontswitch"),
@@ -513,8 +506,11 @@ void openMSXController::InitLaunchScript()
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT("info exist renshaturbo"),
-		[&](const wxString& c, const wxString& r) {
-			EnableRenShaTurbo(c, r); });
+		[&](const wxString&, const wxString& r) {
+			if (isTclTrue(r)) {
+				m_appWindow->m_miscControlPage->EnableRenShaTurbo();
+			}
+		});
 	AddCommand(wxT("set renshaturbo"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
@@ -525,8 +521,8 @@ void openMSXController::InitLaunchScript()
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT(""),
-		[&](const wxString& c, const wxString& r) {
-			SetSliderDefaults(c, r); });
+		[&](const wxString&, const wxString&) {
+			m_appWindow->m_videoControlPage->SetSliderDefaults(); });
 	AddCommand(wxT("set speed"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
@@ -543,20 +539,27 @@ void openMSXController::InitLaunchScript()
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT("machine_info pluggable"),
-		[&](const wxString& c, const wxString& r) {
-			InitPluggables(c, r); });
+		[&](const wxString&, const wxString& r) {
+			lastdata = utils::parseTclList(r);
+			m_pluggables = lastdata;
+			m_pluggabledescriptions.Clear();
+			m_pluggableclasses.Clear();
+		});
 	AddCommand(wxT("machine_info pluggable *"),
-		[&](const wxString& c, const wxString& r) {
-			AddPluggableDescription(c, r); });
+		[&](const wxString&, const wxString& r) {
+			m_pluggabledescriptions.Add(r); });
 	AddCommand(wxT("machine_info connectionclass *"),
-		[&](const wxString& c, const wxString& r) {
-			AddPluggableClass(c, r); });
+		[&](const wxString&, const wxString& r) {
+			m_pluggableclasses.Add(r); });
 	AddCommand(wxT("machine_info connector"),
-		[&](const wxString& c, const wxString& r) {
-			InitConnectors(c, r); });
+		[&](const wxString&, const wxString& r) {
+			lastdata = utils::parseTclList(r);
+			m_connectors = lastdata;
+			m_connectorclasses.Clear();
+		});
 	AddCommand(wxT("machine_info connectionclass *"),
-		[&](const wxString& c, const wxString& r) {
-			AddConnectorClass(c, r); });
+		[&](const wxString&, const wxString& r) {
+			m_connectorclasses.Add(r); });
 	AddCommand(wxT("set midi-in-readfilename"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
@@ -567,21 +570,27 @@ void openMSXController::InitLaunchScript()
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT(""),
-		[&](const wxString& c, const wxString& r) {
-			InitConnectorPanel(c, r); });
+		[&](const wxString&, const wxString&) {
+			m_appWindow->m_miscControlPage->InitConnectorPanel(); });
 	m_relaunch = m_launchScript.size(); // !!HACK!!
 	AddCommand(wxT(""),
-		[&](const wxString& c, const wxString& r) {
-			InitAudioConnectorPanel(c, r); });
+		[&](const wxString&, const wxString&) {
+			m_appWindow->m_audioControlPage->InitAudioIO(); });
 	AddCommand(wxT("machine_info sounddevice"),
-		[&](const wxString& c, const wxString& r) {
-			InitSoundDevices(c, r); });
+		[&](const wxString&, const wxString& r) {
+			lastdata = utils::parseTclList(r);
+			m_appWindow->m_audioControlPage->DestroyAudioMixer();
+			m_appWindow->m_audioControlPage->InitAudioChannels();
+		});
 	AddCommand(wxT("machine_info sounddevice *"),
 		[&](const wxString& c, const wxString& r) {
-			SetChannelType(c, r); });
+			auto tokens = utils::parseTclList(c);
+			assert(tokens.GetCount() == 3);
+			m_appWindow->m_audioControlPage->AddChannelType(tokens[2], r);
+		});
 	AddCommand(wxT(""),
-		[&](const wxString& c, const wxString& r) {
-			SetChannelTypeDone(c, r); });
+		[&](const wxString&, const wxString&) {
+			m_appWindow->m_audioControlPage->SetupAudioMixer(); });
 	AddCommand(wxT("set master_volume"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
@@ -595,11 +604,13 @@ void openMSXController::InitLaunchScript()
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT("plug cassetteport"),
-		[&](const wxString& c, const wxString& r) {
-			EnableCassettePort(c, r); });
+		[&](const wxString&, const wxString& r) {
+			m_appWindow->m_sessionPage->EnableCassettePort(r); });
 	AddCommand(wxT("cassetteplayer"),
-		[&](const wxString& c, const wxString& r) {
-			SetCassetteMode(c, r); });
+		[&](const wxString&, const wxString& r) {
+			wxArrayString info = utils::parseTclList(r);
+			m_appWindow->m_sessionPage->SetCassetteMode(info.Last());
+		});
 	AddCommand(wxT("openmsx_update enable plug"));
 	AddCommand(wxT("openmsx_update enable unplug"));
 	AddCommand(wxT("openmsx_update enable status"));
@@ -805,14 +816,6 @@ void openMSXController::AddSetting(
 	m_settingTable.push_back(elem);
 }
 
-static bool isTclTrue(const wxString& str)
-{
-	return (str == wxT("on"))   ||
-	       (str == wxT("true")) ||
-	       (str == wxT("1"))    ||
-	       (str == wxT("yes"));
-}
-
 void openMSXController::UpdateToggle(const wxString& setting, const wxString& data, const wxString& control, int flags)
 {
 	if (auto* button = (wxToggleButton*)wxWindow::FindWindowByName(control)) {
@@ -904,34 +907,34 @@ void openMSXController::UpdatePluggable(const wxString& connector, const wxStrin
 	}
 }
 
-void openMSXController::FillComboBox(const wxString& control, const wxString& data)
+void openMSXController::FillComboBox(const wxString& control, const wxString& result)
 {
 	auto* box = (wxComboBox*)wxWindow::FindWindowByName(control);
 	box->Clear();
-	for (auto& item : utils::parseTclList(data)) {
+	for (auto& item : utils::parseTclList(result)) {
 		box->Append(item);
 	}
 }
 
-void openMSXController::FillRangeComboBox(const wxString& setting, const wxString& data)
+void openMSXController::FillRangeComboBox(const wxString& control, const wxString& result)
 {
 	long min;
 	long max;
 	wxString range;
-	int pos = data.Find(' ');
+	int pos = result.Find(' ');
 	if (pos != wxNOT_FOUND) {
-		data.Left(pos).ToLong(&min);
-		data.Mid(pos + 1).ToLong(&max);
+		result.Left(pos).ToLong(&min);
+		result.Mid(pos + 1).ToLong(&max);
 		for (long index = min; index <= max; ++index) {
 			range << index << wxT(" ");
 		}
 	}
-	FillComboBox(setting, range);
+	FillComboBox(control, range);
 }
 
-void openMSXController::EnableFirmware(const wxString& cmd, const wxString& data)
+void openMSXController::EnableFirmware(const wxString& cmd, const wxString& result)
 {
-	if (isTclTrue(data)) {
+	if (isTclTrue(result)) {
 		int pos = cmd.Find(' ', true); // last space
 		assert(pos != wxNOT_FOUND);
 		wxString name = cmd.Mid(pos + 1); // firmwareswitch or frontswitch
@@ -939,81 +942,10 @@ void openMSXController::EnableFirmware(const wxString& cmd, const wxString& data
 	}
 }
 
-void openMSXController::EnableRenShaTurbo(const wxString&, const wxString& data)
-{
-	if (isTclTrue(data)) {
-		m_appWindow->m_miscControlPage->EnableRenShaTurbo();
-	}
-}
-
-void openMSXController::EnableMainWindow(const wxString&, const wxString&)
-{
-	m_appWindow->EnableMainWindow();
-}
-
-void openMSXController::InitSoundDevices(const wxString&, const wxString& data)
-{
-	lastdata = utils::parseTclList(data);
-	m_appWindow->m_audioControlPage->DestroyAudioMixer();
-	m_appWindow->m_audioControlPage->InitAudioChannels();
-}
-void openMSXController::SetChannelType(const wxString& cmd, const wxString& data)
-{
-	auto tokens = utils::parseTclList(cmd);
-	assert(tokens.GetCount() == 3);
-	m_appWindow->m_audioControlPage->AddChannelType(tokens[2], data);
-}
-void openMSXController::SetChannelTypeDone(const wxString&, const wxString&)
-{
-	m_appWindow->m_audioControlPage->SetupAudioMixer();
-}
-
-void openMSXController::AddPluggableDescription(const wxString&, const wxString& data)
-{
-	m_pluggabledescriptions.Add(data);
-}
-
-void openMSXController::AddPluggableClass(const wxString&, const wxString& data)
-{
-	m_pluggableclasses.Add(data);
-}
-
-void openMSXController::AddConnectorClass(const wxString&, const wxString& data)
-{
-	m_connectorclasses.Add(data);
-}
-
-void openMSXController::SetSliderDefaults(const wxString&, const wxString&)
-{
-	m_appWindow->m_videoControlPage->SetSliderDefaults();
-}
-
-void openMSXController::InitAudioConnectorPanel(const wxString&, const wxString&)
-{
-	m_appWindow->m_audioControlPage->InitAudioIO();
-}
-
-void openMSXController::InitConnectorPanel(const wxString&, const wxString&)
-{
-	m_appWindow->m_miscControlPage->InitConnectorPanel();
-}
-
-void openMSXController::EnableCassettePort(const wxString&, const wxString& data)
-{
-	m_appWindow->m_sessionPage->EnableCassettePort(data);
-}
-
-void openMSXController::SetCassetteMode(const wxString&, const wxString& data)
-{
-	wxArrayString info = utils::parseTclList(data);
-	m_appWindow->m_sessionPage->SetCassetteMode(info.Last());
-}
-
 void openMSXController::UpdateMixer()
 {
 	ExecuteStart(m_relaunch);
 }
-
 
 void openMSXController::RaiseOpenMSX()
 {
