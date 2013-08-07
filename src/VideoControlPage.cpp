@@ -414,13 +414,13 @@ void VideoControlPage::OnTakeScreenShot(wxCommandEvent& event)
 {
 	wxString screenshotfile = m_screenShotFile->GetValue();
 	wxString counter = m_screenShotCounter->GetValue();
-	if (screenshotfile.IsEmpty() && counter.IsEmpty()) {
-		m_controller.WriteCommand(wxT("screenshot"));
-	} else {
-		m_controller.WriteCommand(wxT("screenshot ") + utils::ConvertPath(screenshotfile + counter + wxT(".png")));
+	wxString cmd = wxT("screenshot");
+	if (!screenshotfile.IsEmpty() || !counter.IsEmpty()) {
+		cmd << wxT(" ") << utils::ConvertPath(screenshotfile) << counter << wxT(".png");
 	}
+	m_controller.WriteCommand(cmd,
+		[&](const wxString&, const wxString&) { UpdateScreenshotCounter(); });
 }
-
 
 static int FindFirstFreeScreenshotFile(wxString prefix)
 {

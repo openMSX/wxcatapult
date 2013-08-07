@@ -456,7 +456,13 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent& event)
 			value = pluggables[i];
 		}
 	}
-	m_controller.WriteCommand(wxT("plug msx-midi-in ") + value);
+	m_controller.WriteCommand(wxT("plug msx-midi-in ") + value,
+		nullptr,
+		[&](const wxString& c, const wxString&) {
+			if (c == wxT("plug msx-midi-in midi-in-reader")) {
+				InvalidMidiInReader();
+			}
+		});
 }
 
 void AudioControlPage::InvalidMidiInReader()
@@ -483,7 +489,13 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 			value = pluggables[i];
 		}
 	}
-	m_controller.WriteCommand(wxT("plug msx-midi-out ") + value);
+	m_controller.WriteCommand(wxT("plug msx-midi-out ") + value,
+		nullptr,
+		[&](const wxString& c, const wxString&) {
+			if (c == wxT("plug msx-midi-out midi-out-logger")) {
+				InvalidMidiOutLogger();
+			}
+		});
 }
 
 void AudioControlPage::InvalidMidiOutLogger()
@@ -503,7 +515,13 @@ void AudioControlPage::OnChangeSampleInPlug(wxCommandEvent& event)
 		m_controller.WriteCommand(wxT("unplug pcminput"));
 		return;
 	}
-	m_controller.WriteCommand(wxT("plug pcminput ") + box->GetValue());
+	m_controller.WriteCommand(wxT("plug pcminput ") + box->GetValue(),
+		nullptr,
+		[&](const wxString& c, const wxString&) {
+			if (c == wxT("plug pcminput wavinput")) {
+				InvalidSampleFilename();
+			}
+		});
 }
 
 void AudioControlPage::InvalidSampleFilename()

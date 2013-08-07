@@ -553,7 +553,13 @@ void MiscControlPage::OnPrinterportChanged(bool save)
 	}
 	m_controller.WriteCommand(wxT("unplug printerport"));
 	if (current != wxT("--empty--")) {
-		m_controller.WriteCommand(wxT("plug printerport ") + current);
+		m_controller.WriteCommand(wxT("plug printerport ") + current,
+			nullptr,
+			[&](const wxString& c, const wxString&) {
+				if (c == wxT("plug printerport logger")) {
+					InvalidPrinterLogFilename();
+				}
+			});
 	}
 	if (m_controller.IsOpenMSXRunning()) {
 		m_controller.UpdateMixer();

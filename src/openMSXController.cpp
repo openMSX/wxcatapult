@@ -165,67 +165,64 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 		return; // another instance is already started, ignore this message
 	}
 	switch (data->parseState) {
-	case CatapultXMLParser::TAG_UPDATE:
+	case CatapultXMLParser::TAG_UPDATE: {
+		wxArrayString lastCmd;
+		if (!m_commands.empty()) {
+		        lastCmd = utils::parseTclList(m_commands.front().command);
+		}
+		lastCmd.Add(wxT(""), 2); // make sure there are at least 2 elements
 		if (data->updateType == CatapultXMLParser::UPDATE_LED) {
 			m_appWindow->UpdateLed (data->name, data->contents);
-		}
-		if (data->updateType == CatapultXMLParser::UPDATE_STATE) {
+		} else if (data->updateType == CatapultXMLParser::UPDATE_STATE) {
 			if (data->name == wxT("cassetteplayer")) {
 				m_appWindow->m_sessionPage->SetCassetteMode(data->contents);
 			} else {
 				m_appWindow->UpdateState(data->name, data->contents);
 			}
-		}
-		if (data->updateType == CatapultXMLParser::UPDATE_SETTING) {
-			wxString lastcmd = PeekPendingCommand();
-			if (!lastcmd.StartsWith(wxT("set ")) ||
-			    (lastcmd.Find(' ', true) == 3) ||
-			    (lastcmd.Mid(4, lastcmd.Find(' ', true) - 4) != data->name)) {
+		} else if (data->updateType == CatapultXMLParser::UPDATE_SETTING) {
+			if ((lastCmd[0] != wxT("set")) ||
+			    (lastCmd[1] != data->name)) {
 				UpdateSetting2(data->name, data->contents);
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_PLUG) {
-			wxString lastcmd = PeekPendingCommand();
-			if (!lastcmd.StartsWith(wxT("plug ")) ||
-			    (lastcmd.Find(' ', true) == 4) ||
-			    (lastcmd.Mid(5, lastcmd.Find(' ', true) - 5) != data->name)) {
+			if ((lastCmd[0] != wxT("plug")) ||
+			    (lastCmd[1] != data->name)) {
 				UpdateSetting2(data->name, data->contents);
 				ExecuteStart(m_relaunch); // why?
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG) {
-			wxString lastcmd = PeekPendingCommand();
-			if (!lastcmd.StartsWith(wxT("unplug ")) ||
-			  /*(lastcmd.Find(' ', true) == 6)) {*/
-			    (lastcmd.Mid(7) != data->name)) {
+			if ((lastCmd[0] != wxT("unplug")) ||
+			    (lastCmd[1] != data->name)) {
 				UpdateSetting2(data->name, data->contents);
 				ExecuteStart(m_relaunch); // why?
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA) {
-			wxString lastcmd = PeekPendingCommand();
-			bool eject = false;
-			int space = lastcmd.Find(' ', false);
-			if ((space != wxNOT_FOUND) && (space != (int)lastcmd.Len() - 1)) {
-				eject = true;
-			}
-			if ((lastcmd.Mid(0, data->name.Len() + 1) != (data->name + wxT(" "))) ||
-			    (!eject && (lastcmd.Mid(space + 1) != (wxT("\"") + data->contents + wxT("\"")))) ||
-			    (lastcmd.Left(18) == wxT("cassetteplayer new"))) {
+			if ((lastCmd[0] != data->name) ||
+			    (lastCmd[1] != data->contents)) {
 				UpdateSetting2(data->name, data->contents);
 				m_appWindow->m_sessionPage->UpdateSessionData();
 			}
 		}
 		break;
+	}
 	case CatapultXMLParser::TAG_REPLY:
 		switch (data->replyState) {
 		case CatapultXMLParser::REPLY_OK: {
 			auto cmd = m_commands.front();
 			m_commands.pop_front();
-			cmd.okCallback(cmd.command, data->contents);
+			if (cmd.okCallback) {
+				cmd.okCallback(cmd.command, data->contents);
+			}
 			break;
 		}
 		case CatapultXMLParser::REPLY_NOK: {
 			auto cmd = m_commands.front();
 			m_commands.pop_front();
-			cmd.errorCallback(cmd.command, data->contents);
+			if (cmd.errorCallback) {
+				cmd.errorCallback(cmd.command, data->contents);
+			} else {
+				commandError(cmd.command, data->contents);
+			}
 			break;
 		}
 		case CatapultXMLParser::REPLY_UNKNOWN:
@@ -270,7 +267,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 	delete data;
 }
 
-void openMSXController::WriteCommand2(
+void openMSXController::WriteCommand(
 	const wxString& command,
 	std::function<void (const wxString&, const wxString&)> okCallback,
 	std::function<void (const wxString&, const wxString&)> errorCallback)
@@ -297,56 +294,20 @@ void openMSXController::WriteCommand2(
 	xmlFree(buffer);
 }
 
-void openMSXController::WriteCommand(const wxString& command)
-{
-	WriteCommand2(command,
-		[&](const wxString& c, const wxString& r) {
-			commandOk(c, r); },
-		[&](const wxString& c, const wxString& r) {
-			commandError(c, r); });
-}
-
-void openMSXController::commandOk(const wxString& cmd, const wxString& result)
-{
-	if (cmd == wxT("openmsx_info fps")) {
-		m_appWindow->SetFPSdisplay(result);
-	} else if (cmd == wxT("save_settings")) {
-		wxMessageBox(wxT("openMSX settings saved successfully!"));
-	} else if (cmd.Left(10) == wxT("screenshot")) {
-		m_appWindow->m_videoControlPage->UpdateScreenshotCounter();
-	}
-}
 void openMSXController::commandError(const wxString& cmd, const wxString& result)
 {
-	if (cmd == wxT("plug msx-midi-in midi-in-reader")) {
-		m_appWindow->m_audioControlPage->InvalidMidiInReader();
-	} else if (cmd == wxT("plug msx-midi-out midi-out-logger")) {
-		m_appWindow->m_audioControlPage->InvalidMidiOutLogger();
-	} else if (cmd == wxT("plug pcminput wavinput")) {
-		m_appWindow->m_audioControlPage->InvalidSampleFilename();
-	} else if (cmd == wxT("plug printerport logger")) {
-		m_appWindow->m_miscControlPage->InvalidPrinterLogFilename();
-	} else if (cmd == wxT("save_settings")) {
-		wxMessageBox(wxT("Error saving openMSX settings\n") + result);
-	} else {
-		m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
-			wxColour(174, 0, 0),
-			wxNullColour,
-			wxFont(10, wxMODERN, wxNORMAL, wxBOLD)));
-		m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: NOK received on command: "));
-		m_appWindow->m_statusPage->m_outputtext->AppendText(cmd);
+	m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
+		wxColour(174, 0, 0),
+		wxNullColour,
+		wxFont(10, wxMODERN, wxNORMAL, wxBOLD)));
+	m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: NOK received on command: "));
+	m_appWindow->m_statusPage->m_outputtext->AppendText(cmd);
+	m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
+	if (!result.IsEmpty()) {
+		m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("contents = "));
+		m_appWindow->m_statusPage->m_outputtext->AppendText(result);
 		m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
-		if (!result.IsEmpty()) {
-			m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("contents = "));
-			m_appWindow->m_statusPage->m_outputtext->AppendText(result);
-			m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
-		}
 	}
-}
-
-wxString openMSXController::PeekPendingCommand() const
-{
-	return m_commands.empty() ? wxString() : m_commands.front().command;
 }
 
 bool openMSXController::StartOpenMSX(wxString cmd, bool getversion)
@@ -807,7 +768,7 @@ void openMSXController::ExecuteNext()
 			sendLoop = 0;
 		}
 		wxArrayString tokens = tokenize(instruction, wxT(" "));
-		WriteCommand2(translate(tokens, sendLoop),
+		WriteCommand(translate(tokens, sendLoop),
 			[&](const wxString& c, const wxString& r) {
 				ExecuteLaunch(c, r, true); },
 			[&](const wxString& c, const wxString& r) {

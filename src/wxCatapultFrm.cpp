@@ -302,7 +302,13 @@ void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent& event)
 
 void wxCatapultFrame::OnMenuSaveSettings(wxCommandEvent& event)
 {
-	m_controller->WriteCommand(wxT("save_settings"));
+	m_controller->WriteCommand(wxT("save_settings"),
+		[&](const wxString&, const wxString&) {
+			wxMessageBox(wxT("openMSX settings saved successfully!"));
+		},
+		[&](const wxString&, const wxString& r) {
+			wxMessageBox(wxT("Error saving openMSX settings\n") + r);
+		});
 }
 
 void wxCatapultFrame::OnMenuSaveSettingsAs(wxCommandEvent& event)
@@ -479,17 +485,15 @@ void wxCatapultFrame::StopTimers()
 	SetStatusText(wxT(""), 1);
 }
 
-void wxCatapultFrame::SetFPSdisplay(wxString val)
-{
-	double valfl;
-	if (val.ToDouble(&valfl)) {
-		SetStatusText(wxString::Format(wxT("%2.1f fps"), valfl), 1);
-	}
-}
-
 void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 {
-	m_controller->WriteCommand(wxT("openmsx_info fps"));
+	m_controller->WriteCommand(wxT("openmsx_info fps"),
+		[&](const wxString&, const wxString& r) {
+			double val;
+			if (r.ToDouble(&val)) {
+				SetStatusText(wxString::Format(wxT("%2.1f fps"), val), 1);
+			}
+		});
 }
 
 void wxCatapultFrame::OnEnableMainWindow(wxTimerEvent& event)

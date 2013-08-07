@@ -13,9 +13,6 @@ class AudioControlPage : public CatapultPage
 public:
 	AudioControlPage(wxWindow* parent, openMSXController& controller);
 
-	void InvalidMidiInReader();
-	void InvalidMidiOutLogger();
-	void InvalidSampleFilename();
 	void SetChannelVolume(const wxString& name, const wxString& value);
 	void SetChannelMode  (const wxString& name, const wxString& value);
 	void InitAudioChannels();
@@ -27,6 +24,9 @@ public:
 	void UpdateMidiPlug(const wxString& connector, const wxString& data);
 
 private:
+	void InvalidMidiInReader();
+	void InvalidMidiOutLogger();
+	void InvalidSampleFilename();
 	void AddChannel(int channelnumber);
 	int FindChannel(const wxString& name) const;
 	void OnChangeVolume(wxScrollEvent& event);

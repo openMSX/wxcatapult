@@ -19,10 +19,10 @@ public:
 
 	void SetControlsOnEnd();
 	void SetControlsOnLaunch();
-	void UpdateScreenshotCounter();
 	void SetSliderDefaults();
 
 private:
+	void UpdateScreenshotCounter();
 	void OnInputScanline(wxCommandEvent& event);
 	void OnInputGamma(wxCommandEvent& event);
 	void OnInputGlow(wxCommandEvent& event);

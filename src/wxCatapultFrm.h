@@ -33,7 +33,6 @@ public:
 	void StartTimers();
 	void StopTimers();
 	void EnableMainWindow();
-	void SetFPSdisplay(wxString val);
 	void UpdateLed(wxString ledname, wxString ledstate);
 	void UpdateState(wxString statename, wxString state);
 	void EnableSaveSettings(bool enabled);

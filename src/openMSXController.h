@@ -43,11 +43,10 @@ public:
 	const wxArrayString& GetPluggableDescriptions() const { return m_pluggabledescriptions; }
 	const wxArrayString& GetPluggableClasses() const { return m_pluggableclasses; }
 	bool StartOpenMSX(wxString cmd, bool getversion = false);
-	void WriteCommand2(
+	void WriteCommand(
 		const wxString& command,
 		std::function<void (const wxString&, const wxString&)> okCallback = nullptr,
 		std::function<void (const wxString&, const wxString&)> errorCallback = nullptr);
-	void WriteCommand(const wxString& command);
 	void HandleEndProcess(wxCommandEvent& event);
 	bool HandleMessage(wxCommandEvent& event);
 
@@ -60,8 +59,6 @@ private:
 	};
 
 	void WriteMessage(const xmlChar* msg, size_t length);
-	wxString PeekPendingCommand() const;
-	void commandOk   (const wxString& cmd, const wxString& result);
 	void commandError(const wxString& cmd, const wxString& result);
 	bool Launch(wxString cmdline);
 	void HandleNativeEndProcess();
