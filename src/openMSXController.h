@@ -9,8 +9,8 @@
 
 #include "CatapultXMLParser.h"
 #include <wx/arrstr.h>
+#include <deque>
 #include <functional>
-#include <list>
 #include <vector>
 #ifdef __WXMSW__
 // See: http://wiki.wxwidgets.org/WxMSW_Issues#The_windows.h_Header_File.2C_Macros_and_Compiling_Errors
@@ -30,11 +30,6 @@ class PipeReadThread;
 class openMSXController
 {
 public:
-	enum TargetType {
-		TARGET_STARTUP,
-		TARGET_INTERACTIVE
-	};
-
 	openMSXController(wxWindow* target);
 	~openMSXController();
 
@@ -48,7 +43,11 @@ public:
 	const wxArrayString& GetPluggableDescriptions() const { return m_pluggabledescriptions; }
 	const wxArrayString& GetPluggableClasses() const { return m_pluggableclasses; }
 	bool StartOpenMSX(wxString cmd, bool getversion = false);
-	void WriteCommand(wxString msg, TargetType target = TARGET_INTERACTIVE);
+	void WriteCommand2(
+		const wxString& command,
+		std::function<void (const wxString&, const wxString&)> okCallback = nullptr,
+		std::function<void (const wxString&, const wxString&)> errorCallback = nullptr);
+	void WriteCommand(const wxString& command);
 	void HandleEndProcess(wxCommandEvent& event);
 	bool HandleMessage(wxCommandEvent& event);
 
@@ -59,12 +58,11 @@ private:
 		wxString command;
 		std::function<void (const wxString&, const wxString&)> callback;
 	};
-	struct CommandEntry {
-		wxString command;
-		TargetType target;
-	};
 
 	void WriteMessage(const xmlChar* msg, size_t length);
+	wxString PeekPendingCommand() const;
+	void commandOk   (const wxString& cmd, const wxString& result);
+	void commandError(const wxString& cmd, const wxString& result);
 	bool Launch(wxString cmdline);
 	void HandleNativeEndProcess();
 	wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
@@ -75,16 +73,12 @@ private:
 		const wxString& cmd,
 		std::function<void (const wxString&, const wxString&)> callback = nullptr);
 
-	wxString GetPendingCommand();
-	wxString PeekPendingCommand();
-	TargetType PeekPendingCommandTarget();
-
 	bool SetupOpenMSXParameters(wxString version);
 	void HandleParsedOutput(wxCommandEvent& event);
 	void HandleStdErr(wxCommandEvent& event);
 	void HandleStdOut(wxCommandEvent& event);
 	void ExecuteStart(int startLine = 0);
-	void ExecuteLaunch(wxCommandEvent& event);
+	void ExecuteLaunch(const wxString& command, const wxString& result, bool ok);
 	void ExecuteNext();
 	void FinishLaunch();
 	wxString translate(wxArrayString tokens, int loop);
@@ -126,7 +120,12 @@ private:
 	wxArrayString m_pluggabledescriptions;
 	wxArrayString m_pluggableclasses;
 
-	std::list<CommandEntry> m_commands;
+	struct CommandEntry {
+		wxString command;
+		std::function<void (const wxString&, const wxString&)> okCallback;
+		std::function<void (const wxString&, const wxString&)> errorCallback;
+	};
+	std::deque<CommandEntry> m_commands;
 
 	wxCatapultFrame* m_appWindow;
 	bool m_openMsxRunning;

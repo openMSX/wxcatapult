@@ -189,7 +189,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			    (lastcmd.Find(' ', true) == 4) ||
 			    (lastcmd.Mid(5, lastcmd.Find(' ', true) - 5) != data->name)) {
 				UpdateSetting2(data->name, data->contents);
-				ExecuteStart(m_relaunch);
+				ExecuteStart(m_relaunch); // why?
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG) {
 			wxString lastcmd = PeekPendingCommand();
@@ -197,7 +197,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			  /*(lastcmd.Find(' ', true) == 6)) {*/
 			    (lastcmd.Mid(7) != data->name)) {
 				UpdateSetting2(data->name, data->contents);
-				ExecuteStart(m_relaunch);
+				ExecuteStart(m_relaunch); // why?
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA) {
 			wxString lastcmd = PeekPendingCommand();
@@ -216,51 +216,18 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 		break;
 	case CatapultXMLParser::TAG_REPLY:
 		switch (data->replyState) {
-		case CatapultXMLParser::REPLY_OK:
-			if (PeekPendingCommandTarget() == TARGET_STARTUP) {
-				ExecuteLaunch(event);
-			} else {
-				wxString command = GetPendingCommand();
-				if (command == wxT("openmsx_info fps")) {
-					m_appWindow->SetFPSdisplay(data->contents);
-				} else if (command == wxT("save_settings")) {
-					wxMessageBox(wxT("openMSX settings saved successfully!"));
-				} else if (command.Left(10) == wxT("screenshot")) {
-					m_appWindow->m_videoControlPage->UpdateScreenshotCounter();
-				}
-			}
+		case CatapultXMLParser::REPLY_OK: {
+			auto cmd = m_commands.front();
+			m_commands.pop_front();
+			cmd.okCallback(cmd.command, data->contents);
 			break;
-		case CatapultXMLParser::REPLY_NOK:
-			if (PeekPendingCommandTarget() == TARGET_STARTUP) {
-				ExecuteLaunch(event);
-			} else {
-				wxString command = GetPendingCommand();
-				if (command == wxT("plug msx-midi-in midi-in-reader")) {
-					m_appWindow->m_audioControlPage->InvalidMidiInReader();
-				} else if (command == wxT("plug msx-midi-out midi-out-logger")) {
-					m_appWindow->m_audioControlPage->InvalidMidiOutLogger();
-				} else if (command == wxT("plug pcminput wavinput")) {
-					m_appWindow->m_audioControlPage->InvalidSampleFilename();
-				} else if (command == wxT("plug printerport logger")) {
-					m_appWindow->m_miscControlPage->InvalidPrinterLogFilename();
-				} else if (command == wxT("save_settings")) {
-					wxMessageBox(wxT("Error saving openMSX settings\n") + data->contents);
-				} else {
-					m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
-						wxColour(174, 0, 0),
-						wxNullColour,
-						wxFont(10, wxMODERN, wxNORMAL, wxBOLD)));
-					m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: NOK received on command: "));
-					m_appWindow->m_statusPage->m_outputtext->AppendText(command);
-					m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
-					if (!data->contents.IsEmpty()) {
-						m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("contents = "));
-						m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);
-						m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
-					}
-				}
-			}
+		}
+		case CatapultXMLParser::REPLY_NOK: {
+			auto cmd = m_commands.front();
+			m_commands.pop_front();
+			cmd.errorCallback(cmd.command, data->contents);
 			break;
+		}
 		case CatapultXMLParser::REPLY_UNKNOWN:
 			m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
 				wxColour(174, 0, 0),
@@ -303,17 +270,21 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 	delete data;
 }
 
-void openMSXController::WriteCommand(wxString msg, TargetType target)
+void openMSXController::WriteCommand2(
+	const wxString& command,
+	std::function<void (const wxString&, const wxString&)> okCallback,
+	std::function<void (const wxString&, const wxString&)> errorCallback)
 {
 	if (!m_openMsxRunning) return;
 
-	CommandEntry temp;
-	temp.command = msg;
-	temp.target = target;
-	m_commands.push_back(temp);
-
-	xmlChar* buffer = xmlEncodeEntitiesReentrant(nullptr, (const xmlChar*)(const char*)(wxConvUTF8.cWX2MB(msg)));
+	xmlChar* buffer = xmlEncodeEntitiesReentrant(nullptr, (const xmlChar*)(const char*)(wxConvUTF8.cWX2MB(command)));
 	if (!buffer) return;
+
+	CommandEntry temp;
+	temp.command       = command;
+	temp.okCallback    = okCallback;
+	temp.errorCallback = errorCallback;
+	m_commands.push_back(temp);
 
 	auto len = strlen(reinterpret_cast<const char*>(buffer));
 	auto len2 = 9 + len + 11;
@@ -326,27 +297,56 @@ void openMSXController::WriteCommand(wxString msg, TargetType target)
 	xmlFree(buffer);
 }
 
-wxString openMSXController::GetPendingCommand()
+void openMSXController::WriteCommand(const wxString& command)
 {
-//	assert(!m_commands.empty());
-	if (m_commands.empty()) {  // TODO: why is assert(!m_commands.empty()) triggered ?
-		// can only happen if a reply is received without a previously sent command
-		return wxString();
-	}
-	wxString result = m_commands.front().command;
-	m_commands.pop_front();
-	return result;
+	WriteCommand2(command,
+		[&](const wxString& c, const wxString& r) {
+			commandOk(c, r); },
+		[&](const wxString& c, const wxString& r) {
+			commandError(c, r); });
 }
 
-wxString openMSXController::PeekPendingCommand()
+void openMSXController::commandOk(const wxString& cmd, const wxString& result)
+{
+	if (cmd == wxT("openmsx_info fps")) {
+		m_appWindow->SetFPSdisplay(result);
+	} else if (cmd == wxT("save_settings")) {
+		wxMessageBox(wxT("openMSX settings saved successfully!"));
+	} else if (cmd.Left(10) == wxT("screenshot")) {
+		m_appWindow->m_videoControlPage->UpdateScreenshotCounter();
+	}
+}
+void openMSXController::commandError(const wxString& cmd, const wxString& result)
+{
+	if (cmd == wxT("plug msx-midi-in midi-in-reader")) {
+		m_appWindow->m_audioControlPage->InvalidMidiInReader();
+	} else if (cmd == wxT("plug msx-midi-out midi-out-logger")) {
+		m_appWindow->m_audioControlPage->InvalidMidiOutLogger();
+	} else if (cmd == wxT("plug pcminput wavinput")) {
+		m_appWindow->m_audioControlPage->InvalidSampleFilename();
+	} else if (cmd == wxT("plug printerport logger")) {
+		m_appWindow->m_miscControlPage->InvalidPrinterLogFilename();
+	} else if (cmd == wxT("save_settings")) {
+		wxMessageBox(wxT("Error saving openMSX settings\n") + result);
+	} else {
+		m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
+			wxColour(174, 0, 0),
+			wxNullColour,
+			wxFont(10, wxMODERN, wxNORMAL, wxBOLD)));
+		m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: NOK received on command: "));
+		m_appWindow->m_statusPage->m_outputtext->AppendText(cmd);
+		m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
+		if (!result.IsEmpty()) {
+			m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("contents = "));
+			m_appWindow->m_statusPage->m_outputtext->AppendText(result);
+			m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
+		}
+	}
+}
+
+wxString openMSXController::PeekPendingCommand() const
 {
 	return m_commands.empty() ? wxString() : m_commands.front().command;
-}
-
-enum openMSXController::TargetType openMSXController::PeekPendingCommandTarget()
-{
-	return m_commands.empty() ? TARGET_INTERACTIVE
-	                          : m_commands.front().target;
 }
 
 bool openMSXController::StartOpenMSX(wxString cmd, bool getversion)
@@ -760,10 +760,9 @@ void openMSXController::ExecuteStart(int startLine)
 	ExecuteNext();
 }
 
-void openMSXController::ExecuteLaunch(wxCommandEvent& event)
+void openMSXController::ExecuteLaunch(const wxString& command, const wxString& result, bool ok)
 {
 	// handle received command
-	wxString command = GetPendingCommand();
 	const auto& instruction = m_launchScript[recvStep];
 	const wxString& instr  = m_launchScript[recvStep].command;
 	if ((recvLoop == -1) && instr.Contains(wxT("*"))) {
@@ -772,10 +771,8 @@ void openMSXController::ExecuteLaunch(wxCommandEvent& event)
 	wxArrayString tokens = tokenize(instr, wxT(" "));
 	wxString cmd = translate(tokens, recvLoop);
 	if (command == cmd) {
-		auto* data = (CatapultXMLParser::ParseResult*)event.GetClientData();
-		if ((data->replyState == CatapultXMLParser::REPLY_OK) &&
-		    instruction.callback) {
-			instruction.callback(cmd, data->contents);
+		if (ok && instruction.callback) {
+			instruction.callback(cmd, result);
 		}
 		if (recvLoop != -1) {
 			++recvLoop;
@@ -810,13 +807,15 @@ void openMSXController::ExecuteNext()
 			sendLoop = 0;
 		}
 		wxArrayString tokens = tokenize(instruction, wxT(" "));
-		wxString cmd = translate(tokens, sendLoop);
-		WriteCommand(cmd, TARGET_STARTUP);
+		WriteCommand2(translate(tokens, sendLoop),
+			[&](const wxString& c, const wxString& r) {
+				ExecuteLaunch(c, r, true); },
+			[&](const wxString& c, const wxString& r) {
+				ExecuteLaunch(c, r, false); });
 
 		if (sendLoop != -1) {
-			if (sendLoop < int(lastdata.GetCount() - 1)) {
-				++sendLoop;
-			} else {
+			++sendLoop;
+			if (sendLoop == int(lastdata.GetCount())) {
 				sendLoop = -1;
 				++sendStep;
 				wait = true;
