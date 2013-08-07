@@ -57,7 +57,6 @@ public:
 private:
 	struct LaunchInstruction {
 		wxString command;
-		wxString action;
 		std::function<void (const wxString&, const wxString&)> callback;
 	};
 	struct CommandEntry {
@@ -73,7 +72,7 @@ private:
 	bool PostLaunch();
 	void InitLaunchScript();
 	void AddCommand(
-		wxString cmd, wxString action,
+		const wxString& cmd,
 		std::function<void (const wxString&, const wxString&)> callback = nullptr);
 
 	wxString GetPendingCommand();
@@ -89,8 +88,6 @@ private:
 	void ExecuteNext();
 	void FinishLaunch();
 	wxString translate(wxArrayString tokens, int loop);
-	void HandleLaunchReply(wxString cmd, wxCommandEvent& event,
-		LaunchInstruction instruction, int loopcount);
 	void UpdateSetting          (const wxString& name, const wxString& data);
 	void UpdateSetting2         (const wxString& name, const wxString& data);
 	void FillComboBox           (const wxString& name, const wxString& data);
