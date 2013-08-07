@@ -595,20 +595,14 @@ void openMSXController::InitLaunchScript()
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			AddConnectorClass(c, r); });
-	AddCommand(wxT("@checkfor msx-midi-in"),
-		wxT("1"));
 	AddCommand(wxT("set midi-in-readfilename"),
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	AddCommand(wxT("@checkfor msx-midi-out"),
-		wxT("1"));
 	AddCommand(wxT("set midi-out-logfilename"),
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	AddCommand(wxT("@checkfor pcminput"),
-		wxT("1"));
 	AddCommand(wxT("set audio-inputfilename"),
 		wxT(""),
 		[&](const wxString& c, const wxString& r) {
@@ -796,18 +790,7 @@ void openMSXController::ExecuteNext()
 		wxArrayString tokens = tokenize(instruction, wxT(" "));
 		wxString cmd = translate(tokens, sendLoop);
 		if (cmd.StartsWith(wxT("@"))) {
-			wxString result = wxT("1");
-			if (tokens[0] == wxT("@checkfor") &&
-			    (lastdata.Index(tokens[1]) == wxNOT_FOUND)) {
-				while (m_launchScript[recvStep].command.StartsWith(wxT("@"))) {
-					++recvStep;
-				}
-				long displace;
-				m_launchScript[sendStep].action.ToLong(&displace);
-				recvStep += displace;
-				result = wxT("0");
-			}
-			HandleLaunchReply(tokens[0] + result, nullptr, m_launchScript[sendStep], -1);
+			HandleLaunchReply(tokens[0], nullptr, m_launchScript[sendStep], -1);
 		} else {
 			WriteCommand(cmd, TARGET_STARTUP);
 		}
@@ -870,9 +853,7 @@ void openMSXController::HandleLaunchReply(
 	}
 	bool ok = false;
 	if (cmd.StartsWith(wxT("@"))) {
-		if (cmd.Last() == '1') {
-			ok = true;
-		}
+		ok = true;
 	} else {
 		assert(data);
 		if (data->replyState == CatapultXMLParser::REPLY_OK) {
