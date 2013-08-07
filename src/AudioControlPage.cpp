@@ -95,7 +95,7 @@ void AudioControlPage::InitAudioChannels()
 void AudioControlPage::AddChannelType(const wxString& name, const wxString& type)
 {
 	ChannelInfo info;
-	info.name        = name;
+	info.name        = utils::tclEscapeWord(name); // TODO cleanup
 	info.type        = type;
 	info.displayType = abbreviateType(type);
 	m_audioChannels.push_back(info);
@@ -216,7 +216,7 @@ void AudioControlPage::AddChannel(int channelnumber)
 	const wxString& chanType = m_audioChannels[channelnumber].type;
 	wxString chanDesc = chanName;
 	if (chanType != chanName) {
-		chanDesc += wxT(" (") +chanType +wxT(")");
+		chanDesc += wxT(" (") + chanType + wxT(")");
 	}
 	chanDesc.Replace(wxT("\\ "), wxT(" "));
 	slider->SetToolTip(chanDesc + wxT(" volume"));

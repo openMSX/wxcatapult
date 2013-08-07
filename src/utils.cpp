@@ -122,4 +122,18 @@ wxArrayString parseTclList(const wxString& str)
 	return result;
 }
 
+wxString tclEscapeWord(wxString str)
+{
+	str.Replace(wxT("\\"), wxT("\\\\"));
+	str.Replace(wxT("\n"), wxT("\\r"));
+	str.Replace(wxT("$"),  wxT("\\$"));
+	str.Replace(wxT("\""), wxT("\\\""));
+	str.Replace(wxT("["),  wxT("\\["));
+	str.Replace(wxT("]"),  wxT("\\]"));
+	str.Replace(wxT("}"),  wxT("\\}"));
+	str.Replace(wxT("{"),  wxT("\\{"));
+	str.Replace(wxT(" "),  wxT("\\ "));
+	return str;
+}
+
 }

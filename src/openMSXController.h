@@ -9,6 +9,7 @@
 
 #include "CatapultXMLParser.h"
 #include <wx/arrstr.h>
+#include <functional>
 #include <list>
 #include <vector>
 #ifdef __WXMSW__
@@ -57,8 +58,7 @@ private:
 	struct LaunchInstruction {
 		wxString command;
 		wxString action;
-		wxString parameter;
-		void (openMSXController::*p_okfunction)(const wxString&, const wxString&);
+		std::function<void (const wxString&, const wxString&)> callback;
 	};
 	struct CommandEntry {
 		wxString command;
@@ -72,9 +72,9 @@ private:
 
 	bool PostLaunch();
 	void InitLaunchScript();
-	void AddLaunchInstruction(
-		wxString cmd, wxString action, wxString parameter,
-		void (openMSXController::*pfunction)(const wxString&, const wxString&));
+	void AddCommand(
+		wxString cmd, wxString action,
+		std::function<void (const wxString&, const wxString&)> callback = nullptr);
 
 	wxString GetPendingCommand();
 	wxString PeekPendingCommand();
@@ -92,6 +92,7 @@ private:
 	void HandleLaunchReply(wxString cmd, wxCommandEvent* event,
 		LaunchInstruction instruction, int loopcount);
 	void UpdateSetting          (const wxString& name, const wxString& data);
+	void UpdateSetting2         (const wxString& name, const wxString& data);
 	void FillComboBox           (const wxString& name, const wxString& data);
 	void FillRangeComboBox      (const wxString& name, const wxString& data);
 	void EnableFirmware         (const wxString& name, const wxString& data);

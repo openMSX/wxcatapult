@@ -1,6 +1,7 @@
 #include "InputPage.h"
 #include "wxCatapultApp.h"
 #include "openMSXController.h"
+#include "utils.h"
 #include <wx/button.h>
 #include <wx/textctrl.h>
 #include <wx/wxprec.h>
@@ -27,16 +28,8 @@ InputPage::InputPage(wxWindow* parent, openMSXController& controller)
 
 void InputPage::OnTypeText(wxCommandEvent& event)
 {
-	wxString test = m_inputtext->GetValue();
-	test.Replace(wxT("\\"), wxT("\\\\"));
-	test.Replace(wxT("\n"), wxT("\\r"));
-	test.Replace(wxT("$"),  wxT("\\$"));
-	test.Replace(wxT("\""), wxT("\\\""));
-	test.Replace(wxT("["),  wxT("\\["));
-	test.Replace(wxT("]"),  wxT("\\]"));
-	test.Replace(wxT("}"),  wxT("\\}"));
-	test.Replace(wxT("{"),  wxT("\\{"));
-	m_controller.WriteCommand(wxT("type \"") + test + wxT("\""));
+	wxString text = utils::tclEscapeWord(m_inputtext->GetValue());
+	m_controller.WriteCommand(wxT("type ") + text);
 }
 
 void InputPage::OnClearText(wxCommandEvent& event)
