@@ -11,6 +11,7 @@
 #include <wx/arrstr.h>
 #include <deque>
 #include <functional>
+#include <memory>
 #include <vector>
 #ifdef __WXMSW__
 // See: http://wiki.wxwidgets.org/WxMSW_Issues#The_windows.h_Header_File.2C_Macros_and_Compiling_Errors
@@ -119,7 +120,7 @@ private:
 
 	wxCatapultFrame* m_appWindow;
 	bool m_openMsxRunning;
-	CatapultXMLParser* m_parser;
+	std::unique_ptr<CatapultXMLParser> m_parser;
 
 	// windows or linux specific stuff
 #ifdef __WXMSW__
@@ -148,15 +149,15 @@ private:
 	PROCESS_INFORMATION m_openmsxProcInfo;
 	bool m_pipeActive;
 	unsigned long m_launchCounter;
-	PipeConnectThread* m_connectThread;
+	std::unique_ptr<PipeConnectThread> m_connectThread;
 #else
 	bool execute(const std::string& command, int& fdIn, int& fdOut, int& fdErr);
 
 	int m_openMSXstdin;
 	int m_openMSXstdout;
 	int m_openMSXstderr;
-	PipeReadThread* m_stdErrThread;
-	PipeReadThread* m_stdOutThread;
+	std::unique_ptr<PipeReadThread> m_stdErrThread;
+	std::unique_ptr<PipeReadThread> m_stdOutThread;
 #endif
 };
 

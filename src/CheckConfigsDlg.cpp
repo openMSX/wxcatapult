@@ -33,14 +33,9 @@ CheckConfigsDlg::CheckConfigsDlg(wxWindow* parent)
 	m_invalidextensioncount = 0;
 }
 
-CheckConfigsDlg::~CheckConfigsDlg()
-{
-	delete m_auditThread;
-}
-
 int CheckConfigsDlg::ShowModal(wxString cmd, wxArrayString& machines, wxArrayString& extensions)
 {
-	m_auditThread = new CheckConfigsDlg::CheckConfigsThread(this);
+	m_auditThread.reset(new CheckConfigsDlg::CheckConfigsThread(this));
 	m_auditThread->Create();
 	m_auditThread->SetParameters(cmd, &machines, &extensions);
 	m_auditThread->Run();
@@ -66,7 +61,8 @@ void CheckConfigsDlg::OnUserButton(wxCommandEvent& event)
 
 void CheckConfigsDlg::OnTestConfigEvent(wxCommandEvent& event)
 {
-	auto* data = (CheckConfigsData*)event.GetClientData();
+	std::unique_ptr<CheckConfigsData> data(
+		(CheckConfigsData*)event.GetClientData());
 	switch (event.GetId()) {
 	case MSGID_SETCURRENTOBJECT:
 		HandleSetCurrentObject(data->m_currentObject);
@@ -75,7 +71,6 @@ void CheckConfigsDlg::OnTestConfigEvent(wxCommandEvent& event)
 		HandleUpdateStats(data->m_checkmachine, data->m_succes, data->m_progress);
 		break;
 	}
-	delete data;
 }
 
 void CheckConfigsDlg::HandleUpdateStats(bool checkmachine, bool succes, int progress)

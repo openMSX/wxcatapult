@@ -34,7 +34,6 @@ openMSXController::openMSXController(wxWindow* target)
 {
 #ifdef __WXMSW__
 	m_launchCounter = 0;
-	m_connectThread = nullptr;
 	m_pipeActive = false;
 	m_openMsxRunning = false;
 	m_namedPipeHandle = INVALID_HANDLE_VALUE;
@@ -55,8 +54,6 @@ openMSXController::~openMSXController()
 #ifndef __WXMSW__
 		m_stdOutThread->Wait();
 		m_stdErrThread->Wait();
-		delete m_stdOutThread;
-		delete m_stdErrThread;
 #endif
 	}
 }
@@ -99,13 +96,13 @@ void openMSXController::HandleEndProcess(wxCommandEvent& event)
 	if (!m_openMsxRunning) return;
 	m_openMsxRunning = false;
 
-	delete m_parser;
+	m_parser.reset();
 	m_commands.clear();
 	m_appWindow->OpenMSXStopped();
 
 #ifdef __WXMSW__
 	if (!m_pipeActive) {
-		m_connectThread = nullptr;
+		m_connectThread.reset();
 	}
 #else
 	close(m_openMSXstdin);
@@ -114,32 +111,28 @@ void openMSXController::HandleEndProcess(wxCommandEvent& event)
 
 void openMSXController::HandleStdOut(wxCommandEvent& event)
 {
-	auto* data = (wxString*)event.GetClientData();
+	std::unique_ptr<wxString> data((wxString*)event.GetClientData());
 	m_parser->ParseXmlInput(*data, m_openMSXID);
-	delete data;
 }
 
 void openMSXController::HandleStdErr(wxCommandEvent& event)
 {
-	auto* data = (wxString*)event.GetClientData();
-	if (*data == wxT("\n")) {
-		delete data;
-		return;
-	}
+	std::unique_ptr<wxString> data((wxString*)event.GetClientData());
+	if (*data == wxT("\n")) return;
+
 	for (unsigned i = 0; i < m_appWindow->m_tabControl->GetPageCount(); ++i) {
 		if (m_appWindow->m_tabControl->GetPageText(i) == wxT("Status Info")) {
 			m_appWindow->m_tabControl->SetSelection(i);
 		}
 	}
 	m_appWindow->m_statusPage->Add(wxColour(255, 23, 23), *data);
-	delete data;
 }
 
 void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 {
-	auto* data = (CatapultXMLParser::ParseResult*)event.GetClientData();
+	std::unique_ptr<CatapultXMLParser::ParseResult> data(
+		(CatapultXMLParser::ParseResult*)event.GetClientData());
 	if (data->openMSXID != m_openMSXID) {
-		delete data;
 		return; // another instance is already started, ignore this message
 	}
 	switch (data->parseState) {
@@ -227,7 +220,6 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 	default:
 		break;
 	}
-	delete data;
 }
 
 void openMSXController::WriteCommand(
@@ -878,7 +870,7 @@ void openMSXController::WriteMessage(const xmlChar* msg, size_t length)
 
 bool openMSXController::Launch(wxString cmdline)
 {
-	m_parser = new CatapultXMLParser(m_appWindow);
+	m_parser.reset(new CatapultXMLParser(m_appWindow));
 #ifdef __WXMSW__
 	m_catapultWindow = GetActiveWindow();
 	bool useNamedPipes = DetermenNamedPipeUsage();
@@ -942,12 +934,12 @@ bool openMSXController::Launch(wxString cmdline)
 	             m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
 		return false;
 	}
-	m_stdOutThread = new PipeReadThread(m_appWindow, MSGID_STDOUT, wxTHREAD_JOINABLE);
+	m_stdOutThread.reset(new PipeReadThread(m_appWindow, MSGID_STDOUT, wxTHREAD_JOINABLE));
 	if (m_stdOutThread->Create() == wxTHREAD_NO_ERROR) {
 		m_stdOutThread->SetFileDescriptor(m_openMSXstdout);
 		m_stdOutThread->Run();
 	}
-	m_stdErrThread = new PipeReadThread(m_appWindow, MSGID_STDERR, wxTHREAD_JOINABLE);
+	m_stdErrThread.reset(new PipeReadThread(m_appWindow, MSGID_STDERR, wxTHREAD_JOINABLE));
 	if (m_stdErrThread->Create() == wxTHREAD_NO_ERROR) {
 		m_stdErrThread->SetFileDescriptor(m_openMSXstderr);
 		m_stdErrThread->Run();
@@ -985,14 +977,14 @@ wxString openMSXController::CreateControlParameter(bool useNamedPipes)
 	wxString parameter = wxT(" -control");
 
 	if (useNamedPipes) {
-		if (m_connectThread == nullptr) {
+		if (!m_connectThread) {
 			m_launchCounter++;
 		}
 		auto pipeName = wxString::Format(
 			wxT("\\\\.\\pipe\\Catapult-%u-%lu"), _getpid(), m_launchCounter);
 		parameter += wxT(" pipe:") + pipeName.Mid(9);
-		if (m_connectThread == nullptr) {
-			m_connectThread = new PipeConnectThread(m_appWindow);
+		if (!m_connectThread) {
+			m_connectThread.reset(new PipeConnectThread(m_appWindow));
 			m_connectThread->Create();
 			m_namedPipeHandle = CreateNamedPipe(pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
 			if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {

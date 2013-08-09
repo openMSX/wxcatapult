@@ -1,6 +1,7 @@
 #ifndef CHECKCONFIGSDLG_H
 #define CHECKCONFIGSDLG_H
 
+#include <memory>
 #include <wx/dialog.h>
 #include <wx/gauge.h> // required here for windows
 
@@ -12,7 +13,6 @@ class CheckConfigsDlg : public wxDialog
 {
 public:
 	CheckConfigsDlg(wxWindow* parent);
-	virtual ~CheckConfigsDlg();
 
 	int ShowModal(wxString cmd, wxArrayString& machines, wxArrayString& extensions);
 
@@ -55,7 +55,7 @@ private:
 	int m_validextensioncount;
 	int m_invalidextensioncount;
 
-	CheckConfigsThread* m_auditThread;
+	std::unique_ptr<CheckConfigsThread> m_auditThread;
 	wxStaticText* m_completemachines;
 	wxStaticText* m_incompletemachines;
 	wxStaticText* m_workingextensions;

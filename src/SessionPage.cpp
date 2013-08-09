@@ -163,9 +163,9 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 	//SetupHardware(true, false); // No need to do this, it's done in wxCatapultFrm's constructor
 
 	m_cassettePortState = wxT("disabled");
-	m_romTypeDialog = new RomTypeDlg(wxGetTopLevelParent(this));
+	m_romTypeDialog.reset(new RomTypeDlg(wxGetTopLevelParent(this)));
 	GetRomTypes();
-	m_ipsDialog = new IPSSelectionDlg(wxGetTopLevelParent(this));
+	m_ipsDialog.reset(new IPSSelectionDlg(wxGetTopLevelParent(this)));
 	m_diskA->control->SetDropTarget(new SessionDropTarget(m_diskA->control));
 	m_diskB->control->SetDropTarget(new SessionDropTarget(m_diskB->control));
 	m_cartA->control->SetDropTarget(new SessionDropTarget(m_cartA->control));
@@ -209,7 +209,6 @@ void SessionPage::FixLayout()
 
 SessionPage::~SessionPage()
 {
-	delete m_romTypeDialog;
 	delete m_diskA;
 	delete m_diskB;
 }

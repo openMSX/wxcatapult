@@ -2,6 +2,7 @@
 #define SESSIONPAGE_H
 
 #include "CatapultPage.h"
+#include <memory>
 #include <wx/dnd.h>
 
 class RomTypeDlg;
@@ -187,8 +188,8 @@ private:
 	wxMenu* m_casMenu;
 
 	wxButton* m_lastUsedPopup;
-	RomTypeDlg* m_romTypeDialog;
-	IPSSelectionDlg* m_ipsDialog;
+	std::unique_ptr<RomTypeDlg> m_romTypeDialog;
+	std::unique_ptr<IPSSelectionDlg> m_ipsDialog;
 	bool m_cassetteControl;
 	bool m_cassetteControlEnabled;
 	bool m_cassetteAutoCreate;
