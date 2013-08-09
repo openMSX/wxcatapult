@@ -178,21 +178,26 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 	if (configOK) {
 		wxString cmd;
 		config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-		if (!(m_controller->StartOpenMSX(cmd, true))) {
+		if (!(m_controller->CheckVersion(cmd))) {
 			configOK = EditConfig(true);
 		}
-		if (configOK) {
-			m_sessionPage->SetupHardware(true, viewMenu->IsChecked(Catapult_Display_Invalids));
-			m_sessionPage->FixLayout();
-			wxWindow * tempwindow = FindWindowByName(wxT("MainWindowPanel"));
-			wxSize size = tempwindow->GetSizer()->Fit(tempwindow);
-			this->GetSizer()->SetMinSize(size);
-			this->GetSizer()->Fit(this);
-			this->GetSizer()->SetSizeHints(this);
-			m_sessionPage->RestoreHistory();
-			m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
-		} else throw NoOpenMSXBinaryException();
-	} else throw NoOpenMSXBinaryException();
+	}
+	if (!configOK) {
+		throw NoOpenMSXBinaryException();
+	}
+
+	m_miscControlPage->FillInitialJoystickPortValues();
+	m_launch_AbortButton->Enable(true);
+	m_sessionPage->SetupHardware(true, viewMenu->IsChecked(Catapult_Display_Invalids));
+	m_sessionPage->FixLayout();
+	wxWindow* tempwindow = FindWindowByName(wxT("MainWindowPanel"));
+	wxSize size = tempwindow->GetSizer()->Fit(tempwindow);
+	this->GetSizer()->SetMinSize(size);
+	this->GetSizer()->Fit(this);
+	this->GetSizer()->SetSizeHints(this);
+	m_sessionPage->RestoreHistory();
+	m_sessionPage->SetupHardware(false, viewMenu->IsChecked(Catapult_Display_Invalids));
+	SetStatusText(wxT("Ready"));
 }
 
 // event handlers

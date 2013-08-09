@@ -308,54 +308,26 @@ void openMSXController::commandError(const wxString& cmd, const wxString& result
 	}
 }
 
-bool openMSXController::StartOpenMSX(wxString cmd, bool getversion)
+bool openMSXController::CheckVersion(const wxString& cmd)
 {
-	++m_openMSXID;
-	bool retval = true;
-	if (getversion) {
-		m_appWindow->SetStatusText(wxT("Initializing..."));
-		wxArrayString output;
-		int code = wxExecute(cmd + wxT(" -v"), output);
-		wxString versioninfo = ((code != -1) && !output.IsEmpty())
-			? output[0] : wxString();
-		retval = SetupOpenMSXParameters(versioninfo);
-		m_appWindow->SetStatusText(wxT("Ready"));
-	} else {
-		m_appWindow->SetStatusText(wxT("Running"));
-		m_appWindow->EnableSaveSettings(true);
-		Launch(cmd);
-	}
-	return retval;
-}
+	wxArrayString output;
+	int code = wxExecute(cmd + wxT(" -v"), output);
+	wxString version = ((code != -1) && !output.IsEmpty())
+		? output[0] : wxString();
 
-wxString openMSXController::GetConnectorClass(const wxString& name) const
-{
-	if (m_connectorclasses.IsEmpty()) return wxString();
-
-	for (unsigned i = 0; i < m_connectors.GetCount(); ++i) {
-		if (m_connectors[i] == name) {
-			return m_connectorclasses[i];
-		}
-	}
-	assert(false); return wxString();
-}
-
-bool openMSXController::SetupOpenMSXParameters(wxString version)
-{
 	long ver = -1;
 	long majver;
 	long minver;
 	long subver;
-	wxString temp = version;
 	if (version.StartsWith(wxT("openMSX "))) {
 		int pos = version.Find('.');
 		if (pos != wxNOT_FOUND) {
-			temp.Mid(8, pos - 8).ToLong(&majver);
-			temp = temp.Mid(pos + 1);
-			pos = temp.Find('.');
+			version.Mid(8, pos - 8).ToLong(&majver);
+			version = version.Mid(pos + 1);
+			pos = version.Find('.');
 			if (pos != wxNOT_FOUND) {
-				temp.Mid(0, pos).ToLong(&minver);
-				temp.Mid(pos + 1).ToLong(&subver);
+				version.Mid(0, pos).ToLong(&minver);
+				version.Mid(pos + 1).ToLong(&subver);
 				ver = (((majver * 100) + minver) * 100) + subver;
 			}
 		}
@@ -372,9 +344,27 @@ bool openMSXController::SetupOpenMSXParameters(wxString version)
 			wxT("Error"));
 		return false;
 	}
-	m_appWindow->m_miscControlPage->FillInitialJoystickPortValues();
-	m_appWindow->m_launch_AbortButton->Enable(true);
 	return true;
+}
+
+void openMSXController::StartOpenMSX(const wxString& cmd)
+{
+	++m_openMSXID;
+	m_appWindow->SetStatusText(wxT("Running"));
+	m_appWindow->EnableSaveSettings(true);
+	Launch(cmd);
+}
+
+wxString openMSXController::GetConnectorClass(const wxString& name) const
+{
+	if (m_connectorclasses.IsEmpty()) return wxString();
+
+	for (unsigned i = 0; i < m_connectors.GetCount(); ++i) {
+		if (m_connectors[i] == name) {
+			return m_connectorclasses[i];
+		}
+	}
+	assert(false); return wxString();
 }
 
 static bool isTclTrue(const wxString& str)

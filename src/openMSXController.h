@@ -42,7 +42,8 @@ public:
 	const wxArrayString& GetPluggables() const { return m_pluggables; }
 	const wxArrayString& GetPluggableDescriptions() const { return m_pluggabledescriptions; }
 	const wxArrayString& GetPluggableClasses() const { return m_pluggableclasses; }
-	bool StartOpenMSX(wxString cmd, bool getversion = false);
+	bool CheckVersion(const wxString& cmd);
+	void StartOpenMSX(const wxString& cmd);
 	void WriteCommand(
 		const wxString& command,
 		std::function<void (const wxString&, const wxString&)> okCallback = nullptr,
@@ -69,7 +70,6 @@ private:
 		const wxString& cmd,
 		std::function<void (const wxString&, const wxString&)> callback = nullptr);
 
-	bool SetupOpenMSXParameters(wxString version);
 	void HandleParsedOutput(wxCommandEvent& event);
 	void HandleStdErr(wxCommandEvent& event);
 	void HandleStdOut(wxCommandEvent& event);

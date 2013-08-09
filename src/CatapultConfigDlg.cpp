@@ -85,7 +85,7 @@ void CatapultConfigDlg::OnOk(wxCommandEvent& event)
 	} else {
 		if (!::wxDirExists(tempShare)) {
 			wxMessageBox(wxT("That's not a valid share path..."));
-		} else if (m_controller.StartOpenMSX(tempExec, true)) {
+		} else if (m_controller.CheckVersion(tempExec)) {
 			auto& config = ConfigurationData::instance();
 			config.SetParameter(ConfigurationData::CD_EXECPATH,  tempExec);
 			config.SetParameter(ConfigurationData::CD_SHAREPATH, tempShare);
