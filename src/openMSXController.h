@@ -100,11 +100,8 @@ private:
 	};
 	std::vector<SettingElement> m_settingTable;
 
-	bool wait;
 	int sendStep;
-	int recvStep;
 	int sendLoop;
-	int recvLoop;
 	wxArrayString lastdata;
 
 	std::vector<LaunchInstruction> m_launchScript;

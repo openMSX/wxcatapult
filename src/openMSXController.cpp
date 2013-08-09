@@ -712,11 +712,8 @@ static wxArrayString tokenize(const wxString& text, const wxString& seperator)
 
 void openMSXController::ExecuteStart(int startLine)
 {
-	wait = false;
 	sendStep = startLine;
-	recvStep = startLine;
 	sendLoop = -1;
-	recvLoop = -1;
 
 	ExecuteNext();
 }
@@ -724,26 +721,20 @@ void openMSXController::ExecuteStart(int startLine)
 void openMSXController::ExecuteLaunch(const wxString& command, const wxString& result, bool ok)
 {
 	// handle received command
-	const auto& instruction = m_launchScript[recvStep];
-	const wxString& instr  = m_launchScript[recvStep].command;
-	if ((recvLoop == -1) && instr.Contains(wxT("*"))) {
-		recvLoop = 0;
+	const auto& instruction = m_launchScript[sendStep];
+	if (ok && instruction.callback) {
+		instruction.callback(command, result);
 	}
-	wxArrayString tokens = tokenize(instr, wxT(" "));
-	wxString cmd = translate(tokens, recvLoop);
-	if (command == cmd) {
-		if (ok && instruction.callback) {
-			instruction.callback(cmd, result);
+
+	// move to next command
+	if (sendLoop != -1) {
+		++sendLoop;
+		if (sendLoop == int(lastdata.GetCount())) {
+			sendLoop = -1;
+			++sendStep;
 		}
-		if (recvLoop != -1) {
-			++recvLoop;
-			if (recvLoop == int(lastdata.GetCount())) {
-				recvLoop = -1;
-				++recvStep;
-			}
-		} else {
-			++recvStep;
-		}
+	} else {
+		++sendStep;
 	}
 
 	ExecuteNext();
@@ -751,43 +742,21 @@ void openMSXController::ExecuteLaunch(const wxString& command, const wxString& r
 
 void openMSXController::ExecuteNext()
 {
-	if (recvStep >= int(m_launchScript.size())) {
-		recvStep = 0;
+	if (sendStep >= int(m_launchScript.size())) {
 		FinishLaunch();
 		return;
 	}
-	if (wait) {
-		if (recvStep >= sendStep) {
-			wait = false;
-		}
-	}
 
-	while (!wait && (sendStep < int(m_launchScript.size()))) {
-		wxString instruction = m_launchScript[sendStep].command;
-		if ((sendLoop == -1) && instruction.Contains(wxT("*"))) {
-			sendLoop = 0;
-		}
-		wxArrayString tokens = tokenize(instruction, wxT(" "));
-		WriteCommand(translate(tokens, sendLoop),
-			[&](const wxString& c, const wxString& r) {
-				ExecuteLaunch(c, r, true); },
-			[&](const wxString& c, const wxString& r) {
-				ExecuteLaunch(c, r, false); });
-
-		if (sendLoop != -1) {
-			++sendLoop;
-			if (sendLoop == int(lastdata.GetCount())) {
-				sendLoop = -1;
-				++sendStep;
-				wait = true;
-			}
-		} else {
-			++sendStep;
-		}
-		if (recvStep < sendStep) {
-			wait = true;
-		}
+	wxString instruction = m_launchScript[sendStep].command;
+	if ((sendLoop == -1) && instruction.Contains(wxT("*"))) {
+		sendLoop = 0;
 	}
+	wxArrayString tokens = tokenize(instruction, wxT(" "));
+	WriteCommand(translate(tokens, sendLoop),
+		[&](const wxString& c, const wxString& r) {
+			ExecuteLaunch(c, r, true); },
+		[&](const wxString& c, const wxString& r) {
+			ExecuteLaunch(c, r, false); });
 }
 
 void openMSXController::FinishLaunch()
