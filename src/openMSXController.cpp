@@ -93,38 +93,23 @@ void openMSXController::PostLaunch()
 	const char* initial = "<openmsx-control>\n";
 	WriteMessage((const xmlChar*)initial, strlen(initial));
 	ExecuteStart();
-	m_appWindow->StartTimers();
 }
 
 void openMSXController::HandleEndProcess(wxCommandEvent& event)
 {
 	if (!m_openMsxRunning) return;
-
-	wxString leds[] = {
-		wxT("power"), wxT("caps"),  wxT("kana"),
-		wxT("pause"), wxT("turbo"), wxT("FDD")
-	};
-	for (auto& l : leds) {
-		m_appWindow->UpdateLed(l, wxT("off"));
-	}
-
-	m_appWindow->StopTimers();
-	m_appWindow->SetStatusText(wxT("Ready"));
-	m_appWindow->EnableSaveSettings(false);
-	delete m_parser;
-	m_appWindow->m_audioControlPage->DestroyAudioMixer();
-	m_appWindow->m_audioControlPage->DisableAudioPanel();
 	m_openMsxRunning = false;
-	m_appWindow->m_launch_AbortButton->Enable(true);
-	m_appWindow->SetControlsOnEnd();
-	m_appWindow->m_launch_AbortButton->SetLabel(wxT("Start"));
-	HandleNativeEndProcess();
+
+	delete m_parser;
 	m_commands.clear();
+	m_appWindow->OpenMSXStopped();
 
 #ifdef __WXMSW__
 	if (!m_pipeActive) {
 		m_connectThread = nullptr;
 	}
+#else
+	close(m_openMSXstdin);
 #endif
 }
 
@@ -350,8 +335,6 @@ bool openMSXController::CheckVersion(const wxString& cmd)
 void openMSXController::StartOpenMSX(const wxString& cmd)
 {
 	++m_openMSXID;
-	m_appWindow->SetStatusText(wxT("Running"));
-	m_appWindow->EnableSaveSettings(true);
 	Launch(cmd);
 }
 
@@ -513,8 +496,8 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT(""), // finish launch
 		[&](const wxString&, const wxString&) {
 			m_appWindow->m_sessionPage->AutoPlugCassette();
-			m_appWindow->SetControlsOnLaunch();
 			m_appWindow->m_sessionPage->SetCassetteControl();
+			m_appWindow->OpenMSXStarted();
 		});
 
 	AddSetting(wxT("renderer"),
@@ -971,11 +954,9 @@ bool openMSXController::Launch(wxString cmdline)
 			m_connectThread->Run();
 		}
 		m_outputHandle = m_namedPipeHandle;
-
 	} else {
 		m_openMsxRunning = true;
 		PostLaunch();
-		m_appWindow->m_launch_AbortButton->Enable(true);
 	}
 	m_openMsxRunning = true;
 	CloseHandles(useNamedPipes, m_openmsxProcInfo.hThread, hInputRead, hOutputWrite, hErrorWrite);
@@ -1000,17 +981,7 @@ bool openMSXController::Launch(wxString cmdline)
 
 	m_openMsxRunning = true;
 	PostLaunch();
-	m_appWindow->m_launch_AbortButton->Enable(true);
 	return true;
-#endif
-}
-
-void openMSXController::HandleNativeEndProcess()
-{
-#ifdef __WXMSW__
-	// nothing
-#else
-	close(m_openMSXstdin);
 #endif
 }
 
@@ -1143,7 +1114,6 @@ void openMSXController::CloseHandles(
 
 void openMSXController::HandlePipeCreated()
 {
-	m_appWindow->m_launch_AbortButton->Enable(true);
 	m_pipeActive = false;
 	PostLaunch();
 }

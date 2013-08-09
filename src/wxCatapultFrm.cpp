@@ -450,14 +450,39 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 
 	Enable(false); // Disable this frame only after getting the selections (so, also AFTER UpdateSessionData!)
 
-	//std::cerr << "Generic command is: " << std::string((const char*)(wxConvUTF8.cWX2MB(cmd))) << std::endl;
-
-	m_controller->StartOpenMSX(cmd);
 	SetControlsOnLaunch();
+	m_controller->StartOpenMSX(cmd);
+}
+
+void wxCatapultFrame::OpenMSXStarted()
+{
+	StartTimers();
+	m_launch_AbortButton->Enable(true);
+	EnableSaveSettings(true);
+}
+
+void wxCatapultFrame::OpenMSXStopped()
+{
+	wxString leds[] = {
+		wxT("power"), wxT("caps"),  wxT("kana"),
+		wxT("pause"), wxT("turbo"), wxT("FDD")
+	};
+	for (auto& l : leds) {
+		UpdateLed(l, wxT("off"));
+	}
+
+	StopTimers();
+	EnableSaveSettings(false);
+	m_audioControlPage->DestroyAudioMixer();
+	m_audioControlPage->DisableAudioPanel();
+	m_launch_AbortButton->Enable(true);
+	SetControlsOnEnd();
+	m_launch_AbortButton->SetLabel(wxT("Start"));
 }
 
 void wxCatapultFrame::SetControlsOnLaunch()
 {
+	SetStatusText(wxT("Running"));
 	if (m_miscControlPage)  m_miscControlPage ->SetControlsOnLaunch();
 	if (m_videoControlPage) m_videoControlPage->SetControlsOnLaunch();
 	if (m_sessionPage)      m_sessionPage     ->SetControlsOnLaunch();
@@ -470,6 +495,7 @@ void wxCatapultFrame::SetControlsOnEnd()
 	if (m_videoControlPage) m_videoControlPage->SetControlsOnEnd();
 	if (m_sessionPage)      m_sessionPage     ->SetControlsOnEnd();
 	if (m_inputPage)        m_inputPage       ->SetControlsOnEnd();
+	SetStatusText(wxT("Ready"));
 }
 
 void wxCatapultFrame::OnControllerEvent(wxCommandEvent& event)
@@ -551,24 +577,25 @@ void wxCatapultFrame::OnDeselectCatapult(wxActivateEvent& event)
 	m_currentFocus = nullptr;
 }
 
-void wxCatapultFrame::UpdateLed(wxString ledname, wxString ledstate)
+void wxCatapultFrame::UpdateLed(const wxString& ledname, const wxString& ledstate)
 {
-	wxString resourceDir = ((wxCatapultApp&)wxGetApp()).GetResourceDir();
-	wxStaticBitmap* led = nullptr;
-	if (ledname == wxT("power")) led = m_powerLed;
-	if (ledname == wxT("caps"))  led = m_capsLed;
-	if (ledname == wxT("kana"))  led = m_kanaLed;
-	if (ledname == wxT("pause")) led = m_pauseLed;
-	if (ledname == wxT("turbo")) led = m_turboLed;
-	if (ledname == wxT("FDD"))   led = m_fddLed;
-	assert(led!=0);
-	if(led==0)throw "led is 0";
+	wxStaticBitmap* led;
+	if      (ledname == wxT("power")) led = m_powerLed;
+	else if (ledname == wxT("caps"))  led = m_capsLed;
+	else if (ledname == wxT("kana"))  led = m_kanaLed;
+	else if (ledname == wxT("pause")) led = m_pauseLed;
+	else if (ledname == wxT("turbo")) led = m_turboLed;
+	else if (ledname == wxT("FDD"))   led = m_fddLed;
+	else { assert(false); led = nullptr; }
 
-	if (ledstate == wxT("off")) led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledoff.png"), wxBITMAP_TYPE_PNG));
-	if (ledstate == wxT("on"))  led->SetBitmap(wxBitmap(resourceDir + wxT("/bitmaps/ledon.png"),  wxBITMAP_TYPE_PNG));
+	wxString image = (ledstate == wxT("on"))
+	               ? wxT("/bitmaps/ledon.png")
+	               : wxT("/bitmaps/ledoff.png");
+	wxString resourceDir = ((wxCatapultApp&)wxGetApp()).GetResourceDir();
+	led->SetBitmap(wxBitmap(resourceDir + image, wxBITMAP_TYPE_PNG));
 }
 
-void wxCatapultFrame::UpdateState(wxString statename, wxString state)
+void wxCatapultFrame::UpdateState(const wxString& statename, const wxString& state)
 {
 	if (statename != wxT("paused")) {
 		// just one possible type atm, so ignore all else

@@ -62,7 +62,6 @@ private:
 	void WriteMessage(const xmlChar* msg, size_t length);
 	void commandError(const wxString& cmd, const wxString& result);
 	bool Launch(wxString cmdline);
-	void HandleNativeEndProcess();
 
 	void PostLaunch();
 	void InitLaunchScript();

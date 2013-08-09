@@ -28,14 +28,11 @@ class wxCatapultFrame : public wxFrame
 public:
 	wxCatapultFrame(wxWindow* parent = nullptr);
 
-	void SetControlsOnEnd();
-	void SetControlsOnLaunch();
-	void StartTimers();
-	void StopTimers();
+	void OpenMSXStarted();
+	void OpenMSXStopped();
 	void EnableMainWindow();
-	void UpdateLed(wxString ledname, wxString ledstate);
-	void UpdateState(wxString statename, wxString state);
-	void EnableSaveSettings(bool enabled);
+	void UpdateLed(const wxString& ledname, const wxString& ledstate);
+	void UpdateState(const wxString& statename, const wxString& state);
 	void CheckConfigs();
 
 	SessionPage* m_sessionPage;
@@ -46,9 +43,14 @@ public:
 	InputPage* m_inputPage;
 
 	wxNotebook* m_tabControl;
-	wxButton* m_launch_AbortButton;
 
 private:
+	void StartTimers();
+	void StopTimers();
+	void SetControlsOnLaunch();
+	void SetControlsOnEnd();
+	void EnableSaveSettings(bool enabled);
+
 	// event handlers (these functions should _not_ be virtual)
 	void OnControllerEvent(wxCommandEvent& event);
 	void OnMenuQuit(wxCommandEvent& event);
@@ -72,6 +74,8 @@ private:
 	bool EditConfig(bool fatalIfFailed = false);
 
 	std::unique_ptr<openMSXController> m_controller;
+
+	wxButton* m_launch_AbortButton;
 
 	wxStaticBitmap* m_powerLed;
 	wxStaticBitmap* m_capsLed;
