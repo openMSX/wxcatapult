@@ -78,12 +78,14 @@ private:
 	void ExecuteLaunch(const wxString& command, const wxString& result, bool ok);
 	void ExecuteNext();
 	void FinishLaunch();
-	wxString translate(wxArrayString tokens, int loop);
 	void UpdateSetting2   (const wxString& name,    const wxString& result);
 	void UpdateSetting    (const wxString& cmd,     const wxString& result);
 	void EnableFirmware   (const wxString& cmd,     const wxString& result);
 	void FillComboBox     (const wxString& control, const wxString& result);
 	void FillRangeComboBox(const wxString& control, const wxString& result);
+	void HandlePluggables  (const wxString& result);
+	void HandleConnectors  (const wxString& result);
+	void HandleSoundDevices(const wxString& result);
 
 	void AddSetting(
 		const wxString& settings,
@@ -100,11 +102,8 @@ private:
 	};
 	std::vector<SettingElement> m_settingTable;
 
-	int sendStep;
-	int sendLoop;
-	wxArrayString lastdata;
-
 	std::vector<LaunchInstruction> m_launchScript;
+	int sendStep;
 	int m_relaunch;
 
 	unsigned m_openMSXID;

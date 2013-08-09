@@ -18,7 +18,6 @@
 #include <wx/notebook.h>
 #include <wx/textctrl.h>
 #include <wx/textfile.h>
-#include <wx/tokenzr.h>
 #include <wx/wxprec.h>
 #ifdef __WXMSW__
 #include <config.h>
@@ -482,26 +481,10 @@ void openMSXController::InitLaunchScript()
 			UpdateSetting(c, r); });
 	AddCommand(wxT("machine_info pluggable"),
 		[&](const wxString&, const wxString& r) {
-			lastdata = utils::parseTclList(r);
-			m_pluggables = lastdata;
-			m_pluggabledescriptions.Clear();
-			m_pluggableclasses.Clear();
-		});
-	AddCommand(wxT("machine_info pluggable *"),
-		[&](const wxString&, const wxString& r) {
-			m_pluggabledescriptions.Add(r); });
-	AddCommand(wxT("machine_info connectionclass *"),
-		[&](const wxString&, const wxString& r) {
-			m_pluggableclasses.Add(r); });
+			HandlePluggables(r); });
 	AddCommand(wxT("machine_info connector"),
 		[&](const wxString&, const wxString& r) {
-			lastdata = utils::parseTclList(r);
-			m_connectors = lastdata;
-			m_connectorclasses.Clear();
-		});
-	AddCommand(wxT("machine_info connectionclass *"),
-		[&](const wxString&, const wxString& r) {
-			m_connectorclasses.Add(r); });
+			HandleConnectors(r); });
 	AddCommand(wxT("set midi-in-readfilename"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
@@ -520,28 +503,7 @@ void openMSXController::InitLaunchScript()
 			m_appWindow->m_audioControlPage->InitAudioIO(); });
 	AddCommand(wxT("machine_info sounddevice"),
 		[&](const wxString&, const wxString& r) {
-			lastdata = utils::parseTclList(r);
-			m_appWindow->m_audioControlPage->DestroyAudioMixer();
-			m_appWindow->m_audioControlPage->InitAudioChannels();
-		});
-	AddCommand(wxT("machine_info sounddevice *"),
-		[&](const wxString& c, const wxString& r) {
-			auto tokens = utils::parseTclList(c);
-			assert(tokens.GetCount() == 3);
-			m_appWindow->m_audioControlPage->AddChannelType(tokens[2], r);
-		});
-	AddCommand(wxT(""),
-		[&](const wxString&, const wxString&) {
-			m_appWindow->m_audioControlPage->SetupAudioMixer(); });
-	AddCommand(wxT("set master_volume"),
-		[&](const wxString& c, const wxString& r) {
-			UpdateSetting(c, r); });
-	AddCommand(wxT("set *_volume"),
-		[&](const wxString& c, const wxString& r) {
-			UpdateSetting(c, r); });
-	AddCommand(wxT("set *_balance"),
-		[&](const wxString& c, const wxString& r) {
-			UpdateSetting(c, r); });
+			HandleSoundDevices(r); });
 	AddCommand(wxT("set mute"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
@@ -700,21 +662,9 @@ void openMSXController::AddSetting(
 	m_settingTable.push_back(elem);
 }
 
-static wxArrayString tokenize(const wxString& text, const wxString& seperator)
-{
-	wxArrayString result;
-	wxStringTokenizer tkz(text, seperator);
-	while (tkz.HasMoreTokens()) {
-		result.Add(tkz.GetNextToken());
-	}
-	return result;
-}
-
 void openMSXController::ExecuteStart(int startLine)
 {
 	sendStep = startLine;
-	sendLoop = -1;
-
 	ExecuteNext();
 }
 
@@ -727,15 +677,7 @@ void openMSXController::ExecuteLaunch(const wxString& command, const wxString& r
 	}
 
 	// move to next command
-	if (sendLoop != -1) {
-		++sendLoop;
-		if (sendLoop == int(lastdata.GetCount())) {
-			sendLoop = -1;
-			++sendStep;
-		}
-	} else {
-		++sendStep;
-	}
+	++sendStep;
 
 	ExecuteNext();
 }
@@ -747,12 +689,7 @@ void openMSXController::ExecuteNext()
 		return;
 	}
 
-	wxString instruction = m_launchScript[sendStep].command;
-	if ((sendLoop == -1) && instruction.Contains(wxT("*"))) {
-		sendLoop = 0;
-	}
-	wxArrayString tokens = tokenize(instruction, wxT(" "));
-	WriteCommand(translate(tokens, sendLoop),
+	WriteCommand(m_launchScript[sendStep].command,
 		[&](const wxString& c, const wxString& r) {
 			ExecuteLaunch(c, r, true); },
 		[&](const wxString& c, const wxString& r) {
@@ -764,26 +701,6 @@ void openMSXController::FinishLaunch()
 	m_appWindow->m_sessionPage->AutoPlugCassette();
 	m_appWindow->SetControlsOnLaunch();
 	m_appWindow->m_sessionPage->SetCassetteControl();
-}
-
-wxString openMSXController::translate(wxArrayString tokens, int loop)
-{
-	if (loop != -1) {
-		for (auto& token : tokens) {
-			if (!token.Contains(wxT("*"))) continue;
-			if (loop < (int)lastdata.GetCount()) {
-				token.Replace(wxT("*"), lastdata[loop]);
-				token.Replace(wxT(" "), wxT("\\ "));
-			}
-		}
-	}
-
-	wxString result;
-	for (auto& token : tokens) {
-		result << token << wxT(" ");
-	}
-	result.Trim(true);
-	return result;
 }
 
 void openMSXController::UpdateSetting(const wxString& cmd, const wxString& data)
@@ -910,6 +827,66 @@ void openMSXController::EnableFirmware(const wxString& cmd, const wxString& resu
 void openMSXController::UpdateMixer()
 {
 	ExecuteStart(m_relaunch);
+}
+
+void openMSXController::HandlePluggables(const wxString& result)
+{
+	m_pluggables = utils::parseTclList(result);
+	m_pluggabledescriptions.Clear();
+	m_pluggableclasses.Clear();
+	for (auto& p : m_pluggables) {
+		wxString pluggable = utils::tclEscapeWord(p);
+		WriteCommand(wxT("machine_info pluggable ") + pluggable,
+			[&](const wxString&, const wxString& r) {
+				m_pluggabledescriptions.Add(r); });
+		WriteCommand(wxT("machine_info connectionclass ") + pluggable,
+			[&](const wxString&, const wxString& r) {
+				m_pluggableclasses.Add(r); });
+	}
+}
+
+void openMSXController::HandleConnectors(const wxString& result)
+{
+	m_connectors = utils::parseTclList(result);
+	m_connectorclasses.Clear();
+	for (auto& con : m_connectors) {
+		WriteCommand(wxT("machine_info connectionclass ") +
+		             utils::tclEscapeWord(con),
+			[&](const wxString&, const wxString& r) {
+				m_connectorclasses.Add(r); });
+	}
+}
+
+void openMSXController::HandleSoundDevices(const wxString& result)
+{
+	auto devices = utils::parseTclList(result);
+	for (auto& dev : devices) {
+		dev = utils::tclEscapeWord(dev);
+	}
+	m_appWindow->m_audioControlPage->DestroyAudioMixer();
+	m_appWindow->m_audioControlPage->InitAudioChannels();
+	for (auto& dev : devices) {
+		WriteCommand(wxT("machine_info sounddevice " + dev),
+			[&](const wxString& c, const wxString& r) {
+				auto tokens = utils::parseTclList(c);
+				assert(tokens.GetCount() == 3);
+				m_appWindow->m_audioControlPage->AddChannelType(tokens[2], r);
+			});
+	}
+	WriteCommand(wxT(""),
+		[&](const wxString&, const wxString&) {
+			m_appWindow->m_audioControlPage->SetupAudioMixer(); });
+	WriteCommand(wxT("set master_volume"),
+		[&](const wxString& c, const wxString& r) {
+			UpdateSetting(c, r); });
+	for (auto& dev : devices) {
+		WriteCommand(wxT("set ") + dev + wxT("_volume"),
+			[&](const wxString& c, const wxString& r) {
+				UpdateSetting(c, r); });
+		WriteCommand(wxT("set ") + dev + wxT("_balance"),
+			[&](const wxString& c, const wxString& r) {
+				UpdateSetting(c, r); });
+	}
 }
 
 void openMSXController::RaiseOpenMSX()
