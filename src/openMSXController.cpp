@@ -518,6 +518,12 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("openmsx_update enable plug"));
 	AddCommand(wxT("openmsx_update enable unplug"));
 	AddCommand(wxT("openmsx_update enable status"));
+	AddCommand(wxT(""), // finish launch
+		[&](const wxString&, const wxString&) {
+			m_appWindow->m_sessionPage->AutoPlugCassette();
+			m_appWindow->SetControlsOnLaunch();
+			m_appWindow->m_sessionPage->SetCassetteControl();
+		});
 
 	AddSetting(wxT("renderer"),
 		[&](const wxString&, const wxString& v) {
@@ -668,39 +674,28 @@ void openMSXController::ExecuteStart(int startLine)
 	ExecuteNext();
 }
 
-void openMSXController::ExecuteLaunch(const wxString& command, const wxString& result, bool ok)
+void openMSXController::ExecuteNext()
 {
-	// handle received command
+	WriteCommand(m_launchScript[sendStep].command,
+		[&](const wxString& c, const wxString& r) {
+			HandleLauch(c, r, true); },
+		[&](const wxString& c, const wxString& r) {
+			HandleLauch(c, r, false); });
+}
+
+void openMSXController::HandleLauch(const wxString& command, const wxString& result, bool ok)
+{
+	// Handle received command
 	const auto& instruction = m_launchScript[sendStep];
 	if (ok && instruction.callback) {
 		instruction.callback(command, result);
 	}
 
-	// move to next command
+	// Execute next command
 	++sendStep;
-
-	ExecuteNext();
-}
-
-void openMSXController::ExecuteNext()
-{
-	if (sendStep >= int(m_launchScript.size())) {
-		FinishLaunch();
-		return;
+	if (sendStep < int(m_launchScript.size())) {
+		ExecuteNext();
 	}
-
-	WriteCommand(m_launchScript[sendStep].command,
-		[&](const wxString& c, const wxString& r) {
-			ExecuteLaunch(c, r, true); },
-		[&](const wxString& c, const wxString& r) {
-			ExecuteLaunch(c, r, false); });
-}
-
-void openMSXController::FinishLaunch()
-{
-	m_appWindow->m_sessionPage->AutoPlugCassette();
-	m_appWindow->SetControlsOnLaunch();
-	m_appWindow->m_sessionPage->SetCassetteControl();
 }
 
 void openMSXController::UpdateSetting(const wxString& cmd, const wxString& data)
