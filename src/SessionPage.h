@@ -53,8 +53,9 @@ public:
 	void FixLayout();
 
 private:
-	struct mediaInfo {
-		mediaInfo(wxMenu* menu)
+	struct MediaInfo {
+		MediaInfo(wxMenu& menu_)
+			: menu(menu_)
 		{
 			contents = wxT("");
 			ips.Clear();
@@ -62,12 +63,12 @@ private:
 			control = NULL;
 			history.Clear();
 			typehistory.Clear();
-			mmenu = menu;
 			ipsdir = wxT("");
 			avoid_evt = false;
 			lastContents = wxT("");
 			deviceName = wxT("");
 		};
+		wxMenu& menu;
 		wxString contents;
 		wxString ipsdir;
 		wxArrayString ips;
@@ -75,15 +76,16 @@ private:
 		wxComboBox* control;
 		wxArrayString history;
 		wxArrayString typehistory;
-		wxMenu* mmenu;
 		bool avoid_evt;
 		wxString oldContents;
 		wxString lastContents;
 		wxString deviceName;
+
+		void eject();
 	};
 
 	virtual void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
-//	void OnClickCombo(wxCommandEvent& event);
+	void checkLooseFocus(wxWindow* oldFocus, MediaInfo& media);
 	void OnBrowseCassette(wxCommandEvent& event);
 	void OnBrowseDiskA(wxCommandEvent& event);
 	void OnBrowseDiskB(wxCommandEvent& event);
@@ -124,30 +126,34 @@ private:
 	void OnSelectIPS(wxCommandEvent& event);
 
 	void SetupRomType(wxString romtype, wxString fullname);
-	mediaInfo* GetLastMenuTarget();
+	MediaInfo* GetLastMenuTarget();
 	void GetRomTypes();
-	void UpdateMenuMapperLabel(mediaInfo* target);
-	bool BrowseDisk(mediaInfo* target, wxString devicename, wxString defaultpath);
-	void BrowseCart(mediaInfo* target, wxString defaultpath);
+	void UpdateMenuMapperLabel(MediaInfo& media);
+	void BrowseDisk(MediaInfo& media);
+	void BrowseCart(MediaInfo& media);
+	void ClickDiskCombo(wxCommandEvent& event, MediaInfo& media);
+	void ClickCartCombo(wxCommandEvent& event, MediaInfo& media);
+	void ChangeDiskContents(MediaInfo& media);
+	void ChangeCartContents(MediaInfo& media);
 	void prepareMachines(const wxString& sharepath,
 	                     wxArrayString& machineArray, bool optional = false);
 	void fillMachines(const wxArrayString& machineArray);
 	void prepareExtensions(const wxString& sharepath,
 	                       wxArrayString& extensionArray, bool optional = false);
 	void fillExtensions(const wxArrayString& extensionArray);
-	void AddHistory(mediaInfo* media);
+	void AddHistory(MediaInfo& media);
 	void SaveHistory();
-	void EjectCart(mediaInfo* target);
-	void EjectDisk(mediaInfo* target);
+	void EjectCart(MediaInfo& media);
+	void EjectDisk(MediaInfo& media);
 
 	wxComboBox* m_machineList;
 	wxListBox* m_extensionList;
 
-	mediaInfo* m_diskA;
-	mediaInfo* m_diskB;
-	mediaInfo* m_cartA;
-	mediaInfo* m_cartB;
-	mediaInfo* m_cassette;
+	MediaInfo* m_diskA;
+	MediaInfo* m_diskB;
+	MediaInfo* m_cartA;
+	MediaInfo* m_cartB;
+	MediaInfo* m_cassette;
 
 	wxToggleButton* m_playButton;
 	wxToggleButton* m_recordButton;
