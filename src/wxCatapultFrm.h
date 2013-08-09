@@ -20,8 +20,6 @@ class wxButton;
 class wxNotebookEvent;
 class wxStaticBitmap;
 
-#define FOREACH(x,array) for (x=0;x<sizeof(array)/sizeof(array[0]);x++)
-
 // Define a new frame type: this is going to be our main frame
 class wxCatapultFrame : public wxFrame
 {

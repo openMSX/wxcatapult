@@ -1,6 +1,7 @@
 #ifndef SESSIONPAGE_H
 #define SESSIONPAGE_H
 
+#include "ConfigurationData.h"
 #include "CatapultPage.h"
 #include <memory>
 #include <wx/dnd.h>
@@ -31,7 +32,6 @@ class SessionPage : public CatapultPage
 {
 public:
 	SessionPage(wxWindow* parent, openMSXController& controller);
-	virtual ~SessionPage();
 
 	void SetupHardware(bool initial, bool reset);
 	void SetControlsOnLaunch();
@@ -54,32 +54,35 @@ public:
 
 private:
 	struct MediaInfo {
-		MediaInfo(wxMenu& menu_)
+		MediaInfo(wxMenu& menu_, const wxString& deviceName_,
+		          const wxString& control_,
+			  ConfigurationData::MediaBits bits,
+			  ConfigurationData::ID id,
+			  wxButton* button_, bool isCart_)
 			: menu(menu_)
-		{
-			contents = wxT("");
-			ips.Clear();
-			type = wxT("");
-			control = NULL;
-			history.Clear();
-			typehistory.Clear();
-			ipsdir = wxT("");
-			avoid_evt = false;
-			lastContents = wxT("");
-			deviceName = wxT("");
-		};
+			, deviceName(deviceName_)
+			, control(*(wxComboBox*)FindWindowByName(control_))
+			, mediaBits(bits)
+			, confId(id)
+			, button(button_)
+			, isCart(isCart_)
+			, avoid_evt(false) {}
 		wxMenu& menu;
+		const wxString deviceName;
+		wxComboBox& control;
+		const ConfigurationData::MediaBits mediaBits;
+		const ConfigurationData::ID confId;
+		wxButton* button;
 		wxString contents;
 		wxString ipsdir;
 		wxArrayString ips;
 		wxString type; // only for carts at the moment
-		wxComboBox* control;
 		wxArrayString history;
 		wxArrayString typehistory;
-		bool avoid_evt;
 		wxString oldContents;
 		wxString lastContents;
-		wxString deviceName;
+		const bool isCart;
+		bool avoid_evt;
 
 		void eject();
 	};
@@ -149,11 +152,8 @@ private:
 	wxComboBox* m_machineList;
 	wxListBox* m_extensionList;
 
-	MediaInfo* m_diskA;
-	MediaInfo* m_diskB;
-	MediaInfo* m_cartA;
-	MediaInfo* m_cartB;
-	MediaInfo* m_cassette;
+	enum { DISKA, DISKB, CARTA, CARTB, CAS, NUM_MEDIA };
+	std::unique_ptr<MediaInfo> media[NUM_MEDIA];
 
 	wxToggleButton* m_playButton;
 	wxToggleButton* m_recordButton;
@@ -187,7 +187,6 @@ private:
 	wxString m_usedMachine;
 	wxString m_usedExtensions;
 	openMSXController& m_controller;
-	wxCatapultFrame* m_parent;
 
 	wxMenu* m_diskMenu[2];
 	wxMenu* m_cartMenu[2];

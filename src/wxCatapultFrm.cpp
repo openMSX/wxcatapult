@@ -431,7 +431,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		wxT("diska"), wxT("diskb"), wxT("cart"), wxT("cart"),
 		wxT("cassetteplayer")
 	};
-	FOREACH(i, parmname) {
+	for (unsigned i = 0; i < 5; ++i) {
 		if (!media[i].IsEmpty()) {
 			cmd += wxT(" -") + parmname[i] + wxT(" \"") + media[i] + wxT("\"");
 			if (!types[i].IsEmpty()){
