@@ -17,7 +17,6 @@
 #include <wx/msgdlg.h>
 #include <wx/notebook.h>
 #include <wx/textctrl.h>
-#include <wx/textfile.h>
 #include <wx/wxprec.h>
 #ifdef __WXMSW__
 #include <config.h>
@@ -315,7 +314,10 @@ bool openMSXController::StartOpenMSX(wxString cmd, bool getversion)
 	bool retval = true;
 	if (getversion) {
 		m_appWindow->SetStatusText(wxT("Initializing..."));
-		wxString versioninfo = GetOpenMSXVersionInfo(cmd);
+		wxArrayString output;
+		int code = wxExecute(cmd + wxT(" -v"), output);
+		wxString versioninfo = ((code != -1) && !output.IsEmpty())
+			? output[0] : wxString();
 		retval = SetupOpenMSXParameters(versioninfo);
 		m_appWindow->SetStatusText(wxT("Ready"));
 	} else {
@@ -1020,27 +1022,6 @@ void openMSXController::HandleNativeEndProcess()
 #else
 	close(m_openMSXstdin);
 #endif
-}
-
-wxString openMSXController::GetOpenMSXVersionInfo(wxString openmsxCmd)
-{
-	wxString version;
-#ifdef __WXMSW__
-	wxArrayString output;
-	int code = wxExecute(openmsxCmd + wxT(" -v"), output);
-	if ((code != -1) && !output.IsEmpty()) {
-		version = output[0];
-	}
-#else
-	if (system((const char*)(wxConvUTF8.cWX2MB((openmsxCmd + wxT(" -v > /tmp/catapult.tmp"))))) == 0) {
-		wxTextFile tempfile(wxT("/tmp/catapult.tmp"));
-		if (tempfile.Open()) {
-			version = tempfile.GetFirstLine();
-			tempfile.Close();
-		}
-	}
-#endif
-	return version;
 }
 
 // windows or linus specific stuff

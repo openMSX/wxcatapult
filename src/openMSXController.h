@@ -62,7 +62,6 @@ private:
 	void commandError(const wxString& cmd, const wxString& result);
 	bool Launch(wxString cmdline);
 	void HandleNativeEndProcess();
-	wxString GetOpenMSXVersionInfo(wxString openmsxCmd);
 
 	void PostLaunch();
 	void InitLaunchScript();
