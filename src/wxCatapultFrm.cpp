@@ -446,7 +446,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 		}
 	}
 	m_sessionPage->UpdateSessionData();
-	m_statusPage->m_outputtext->Clear();
+	m_statusPage->Clear();
 
 	Enable(false); // Disable this frame only after getting the selections (so, also AFTER UpdateSessionData!)
 

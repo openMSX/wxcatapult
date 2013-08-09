@@ -16,7 +16,6 @@
 #include <wx/menu.h>
 #include <wx/msgdlg.h>
 #include <wx/notebook.h>
-#include <wx/textctrl.h>
 #include <wx/wxprec.h>
 #ifdef __WXMSW__
 #include <config.h>
@@ -132,11 +131,7 @@ void openMSXController::HandleStdErr(wxCommandEvent& event)
 			m_appWindow->m_tabControl->SetSelection(i);
 		}
 	}
-	m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
-		wxColour(255, 23, 23),
-		wxNullColour,
-		wxFont(10, wxMODERN, wxNORMAL, wxNORMAL)));
-	m_appWindow->m_statusPage->m_outputtext->AppendText(*data);
+	m_appWindow->m_statusPage->Add(wxColour(255, 23, 23), *data);
 	delete data;
 }
 
@@ -209,32 +204,16 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			break;
 		}
 		case CatapultXMLParser::REPLY_UNKNOWN:
-			m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
-				wxColour(174, 0, 0),
-				wxNullColour,
-				wxFont(10, wxMODERN, wxNORMAL, wxBOLD)));
-			m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: Unknown reply received!\n"));
+			m_appWindow->m_statusPage->Add(wxColour(174, 0, 0),
+				wxT("Warning: Unknown reply received!\n"));
 			break;
 		}
 		break;
-	case CatapultXMLParser::TAG_LOG:
-		switch (data->logLevel) {
-		case CatapultXMLParser::LOG_WARNING:
-			m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
-				wxColour(174, 0, 0),
-				wxNullColour,
-				wxFont(10, wxMODERN, wxNORMAL, wxNORMAL)));
-			break;
-		case CatapultXMLParser::LOG_INFO:
-		case CatapultXMLParser::LOG_UNKNOWN:
-			m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
-				wxColour(0, 0, 0),
-				wxNullColour,
-				wxFont(10, wxMODERN, wxNORMAL, wxNORMAL)));
-			break;
-		}
-		m_appWindow->m_statusPage->m_outputtext->AppendText(data->contents);
-		m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
+	case CatapultXMLParser::TAG_LOG: {
+		wxColour col = (data->logLevel == CatapultXMLParser::LOG_WARNING)
+		             ? wxColour(174, 0, 0) // warning
+			     : wxColour(0, 0, 0);  // info (or unknown)
+		m_appWindow->m_statusPage->Add(col, data->contents + wxT("\n"));
 		if (data->contents.Left(15) == wxT("Screen saved to")) {
 			int inhibit;
 			ConfigurationData::instance().GetParameter(ConfigurationData::CD_SCREENSHOTINFO, &inhibit);
@@ -244,6 +223,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			}
 		}
 		break;
+	}
 	default:
 		break;
 	}
@@ -279,18 +259,12 @@ void openMSXController::WriteCommand(
 
 void openMSXController::commandError(const wxString& cmd, const wxString& result)
 {
-	m_appWindow->m_statusPage->m_outputtext->SetDefaultStyle(wxTextAttr(
-		wxColour(174, 0, 0),
-		wxNullColour,
-		wxFont(10, wxMODERN, wxNORMAL, wxBOLD)));
-	m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("Warning: NOK received on command: "));
-	m_appWindow->m_statusPage->m_outputtext->AppendText(cmd);
-	m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
+	wxString msg = wxT("Warning: NOK received on command: ");
+	msg << cmd << wxT("\n");
 	if (!result.IsEmpty()) {
-		m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("contents = "));
-		m_appWindow->m_statusPage->m_outputtext->AppendText(result);
-		m_appWindow->m_statusPage->m_outputtext->AppendText(wxT("\n"));
+		msg << wxT("error = ") << result << wxT("\n");
 	}
+	m_appWindow->m_statusPage->Add(wxColour(174, 0, 0), msg);
 }
 
 bool openMSXController::CheckVersion(const wxString& cmd)
@@ -985,7 +959,7 @@ bool openMSXController::Launch(wxString cmdline)
 #endif
 }
 
-// windows or linus specific stuff
+// windows or linux specific stuff
 #ifdef __WXMSW__
 
 bool openMSXController::DetermenNamedPipeUsage()
