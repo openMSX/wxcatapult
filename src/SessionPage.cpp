@@ -1263,20 +1263,10 @@ void SessionPage::GetRomTypes()
 	SetupRomType(wxT("KeyboardMaster"), wxT("Konami Keyboard Master"));
 }
 
-void SessionPage::AddRomType(wxString type)
-{
-	m_romTypeDialog->AddRomType(type);
-}
-
-void SessionPage::SetRomTypeFullName(wxString type, wxString fullname)
-{
-	m_romTypeDialog->SetRomTypeFullName(type, fullname);
-}
-
 void SessionPage::SetupRomType(wxString type, wxString fullname)
 {
-	AddRomType(type);
-	SetRomTypeFullName(type, fullname);
+	m_romTypeDialog->AddRomType(type);
+	m_romTypeDialog->SetRomTypeFullName(type, fullname);
 }
 
 const wxArrayString& SessionPage::GetDetectedMachines() const

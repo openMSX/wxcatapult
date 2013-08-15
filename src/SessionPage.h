@@ -45,8 +45,6 @@ public:
 	void EnableCassettePort(wxString data);
 	void SetCassetteMode(wxString data);
 	void AutoPlugCassette();
-	void AddRomType(wxString romtype);
-	void SetRomTypeFullName(wxString romtype, wxString fullname);
 	const wxArrayString& GetDetectedMachines() const;
 	const wxArrayString& GetDetectedExtensions() const;
 	void RestoreHistory();
