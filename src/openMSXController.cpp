@@ -257,6 +257,14 @@ void openMSXController::WriteCommand(
 	xmlFree(buffer);
 }
 
+wxString errno_as_raw_int_delete_buffer(int errno_, char* buf)
+{
+	wxString str(wxT("errno="));
+	str << errno_;
+	delete[] buf;
+	return str;
+}
+
 wxString errno_to_wxString(int errno_)
 {
 	size_t SZ = 1000;
@@ -290,15 +298,11 @@ Otherwise, the GNU-specific version is provided.
 			{
 			case EINVAL:
 			default:
-			{
-				wxString str(wxT("errno="));
-				str << errno_;
-				delete[] buf;
-				return str;
-			}
+				return errno_as_raw_int_delete_buffer(errno_, buf);
 			case ERANGE:
-				delete[] buf;
 				SZ *= 2;
+				if (SZ > 32*1024) return errno_as_raw_int_delete_buffer(errno_, buf);
+				delete[] buf;
 				buf = new char[SZ];
 				continue;
 			} //end of switch
@@ -308,10 +312,7 @@ Otherwise, the GNU-specific version is provided.
 //GNU-specific version of strerror_r()
 	errCharPtr = strerror_r(errno_, buf, SZ * sizeof(char) - 1);
 	if (!errCharPtr){
-		wxString str(wxT("errno="));
-		str << errno_;
-		delete[] buf;
-		return str;
+		return errno_as_raw_int_delete_buffer(errno_, buf);
 	}
 	buf[SZ-1] = '\0';
 	wxString str(errCharPtr, wxConvUTF8);
