@@ -1065,38 +1065,7 @@ void SessionPage::AutoPlugCassette()
 	}
 }
 
-void SessionPage::OnClickDiskMenu(wxCommandEvent& event)
-{
-	bool enable = true;
-	int index;
-	m_lastUsedPopup = (wxButton*)event.GetEventObject();
-	if (m_lastUsedPopup == m_diskAButton) {
-		index = 0;
-	} else {
-		index = 1;
-	}
-	if (auto* target = GetLastMenuTarget()) {
-		if (target->contents.IsEmpty()){
-			enable = false;
-		}
-		m_diskMenu[index]->Enable(Disk_Browse_Ips, enable);
-	}
-	wxRect myRect = ((wxWindow*)event.GetEventObject())->GetRect();
-	PopupMenu(m_diskMenu[index], myRect.GetLeft(), myRect.GetBottom());
-}
-
-void SessionPage::OnClickCasMenu(wxCommandEvent& event)
-{
-	m_lastUsedPopup = (wxButton*)event.GetEventObject();
-	wxRect myRect = ((wxWindow*)event.GetEventObject())->GetRect();
-	m_casMenu->Enable(Cas_Rewind, m_rewindButton->IsEnabled());
-	m_casMenu->Enable(Cas_MotorControl, m_cassetteControlEnabled);
-	m_casMenu->Check(Cas_MotorControl, m_cassetteControl);
-	m_casMenu->Check(Cas_AutoCreateFile, m_cassetteAutoCreate);
-	PopupMenu(m_casMenu, myRect.GetLeft(), myRect.GetBottom());
-}
-
-SessionPage::MediaInfo* SessionPage::GetLastMenuTarget()
+SessionPage::MediaInfo* SessionPage::GetLastMenuTarget() const
 {
 	for (auto& m : media) {
 		if (m_lastUsedPopup == m->button) return m.get();
@@ -1104,17 +1073,38 @@ SessionPage::MediaInfo* SessionPage::GetLastMenuTarget()
 	return nullptr;
 }
 
+void SessionPage::OnClickDiskMenu(wxCommandEvent& event)
+{
+	m_lastUsedPopup = (wxButton*)event.GetEventObject();
+	auto* m = GetLastMenuTarget();
+	assert(m);
+	bool enable = !m->contents.IsEmpty();
+	m->menu.Enable(Disk_Browse_Ips, enable);
+	wxRect myRect = m_lastUsedPopup->GetRect();
+	PopupMenu(&m->menu, myRect.GetLeft(), myRect.GetBottom());
+}
+
 void SessionPage::OnClickCartMenu(wxCommandEvent& event)
 {
-	if (auto* target = GetLastMenuTarget()) {
-		m_lastUsedPopup = (wxButton*)event.GetEventObject();
-		wxRect myRect = ((wxWindow*)event.GetEventObject())->GetRect();
-		bool enable = !target->contents.IsEmpty();
-		int index = (m_lastUsedPopup == m_cartAButton) ? 0 : 1;
-		m_cartMenu[index]->Enable(Cart_Select_Mapper, enable);
-		m_cartMenu[index]->Enable(Cart_Browse_Ips, enable);
-		PopupMenu(m_cartMenu[index], myRect.GetLeft(), myRect.GetBottom());
-	}
+	m_lastUsedPopup = (wxButton*)event.GetEventObject();
+	auto* m = GetLastMenuTarget();
+	assert(m);
+	bool enable = !m->contents.IsEmpty();
+	m->menu.Enable(Cart_Select_Mapper, enable);
+	m->menu.Enable(Cart_Browse_Ips, enable);
+	wxRect myRect = m_lastUsedPopup->GetRect();
+	PopupMenu(&m->menu, myRect.GetLeft(), myRect.GetBottom());
+}
+
+void SessionPage::OnClickCasMenu(wxCommandEvent& event)
+{
+	m_lastUsedPopup = (wxButton*)event.GetEventObject();
+	m_casMenu->Enable(Cas_Rewind, m_rewindButton->IsEnabled());
+	m_casMenu->Enable(Cas_MotorControl, m_cassetteControlEnabled);
+	m_casMenu->Check(Cas_MotorControl, m_cassetteControl);
+	m_casMenu->Check(Cas_AutoCreateFile, m_cassetteAutoCreate);
+	wxRect myRect = m_lastUsedPopup->GetRect();
+	PopupMenu(m_casMenu, myRect.GetLeft(), myRect.GetBottom());
 }
 
 void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent& event)

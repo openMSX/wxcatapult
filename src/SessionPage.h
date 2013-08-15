@@ -129,7 +129,7 @@ private:
 	void OnSelectIPS(wxCommandEvent& event);
 
 	void SetupRomType(wxString romtype, wxString fullname);
-	MediaInfo* GetLastMenuTarget();
+	MediaInfo* GetLastMenuTarget() const;
 	void GetRomTypes();
 	void UpdateMenuMapperLabel(MediaInfo& media);
 	void BrowseDisk(MediaInfo& media);
