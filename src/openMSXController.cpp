@@ -263,7 +263,7 @@ wxString errno_to_wxString(int err)
 	char buf[SZ];
 	char * errCharPtr = (char *) buf;
 	if (err == 0){
-		return L"error code: 0";
+		return wxT("error code: 0");
 	}
 /*
 The XSI-compliant version of strerror_r() is provided if:
