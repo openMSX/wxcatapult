@@ -20,12 +20,15 @@ BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_COMBOBOX(      XRCID("ScalerAlgoSelector"),     CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(      XRCID("ScalerFactorSelector"),   CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(      XRCID("AccuracySelector"),       CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(      XRCID("VideoSourceSelector"),    CatapultPage::OnClickCombo)
 	EVT_TEXT(          XRCID("RendererSelector"),       VideoControlPage::OnChangeRenderer)
 	EVT_TEXT(          XRCID("ScalerAlgoSelector"),     VideoControlPage::OnChangeScalerAlgo)
 	EVT_TEXT(          XRCID("ScalerFactorSelector"),   VideoControlPage::OnChangeScalerFactor)
 	EVT_TEXT(          XRCID("AccuracySelector"),       VideoControlPage::OnChangeAccuracy)
+	EVT_TEXT(          XRCID("VideoSourceSelector"),    VideoControlPage::OnChangeVideoSource)
 	EVT_TOGGLEBUTTON(  XRCID("DeInterlaceButton"),      VideoControlPage::OnDeInterlace)
 	EVT_TOGGLEBUTTON(  XRCID("LimitSpriteButton"),      VideoControlPage::OnLimitSprites)
+	EVT_TOGGLEBUTTON(  XRCID("DisableSpritesButton"),   VideoControlPage::OnDisableSprites)
 	EVT_TOGGLEBUTTON(  XRCID("FullScreenButton"),       VideoControlPage::OnFullScreen)
 	EVT_COMMAND_SCROLL(XRCID("BlurSlider"),             VideoControlPage::OnChangeBlur)
 	EVT_COMMAND_SCROLL(XRCID("GlowSlider"),             VideoControlPage::OnChangeGlow)
@@ -53,8 +56,10 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController& controll
 	m_timesLabel     = (wxStaticText*)FindWindowByName(wxT("times"));
 	m_scalerFactorList = (wxComboBox*)FindWindowByName(wxT("ScalerFactorSelector"));
 	m_accuracyList     = (wxComboBox*)FindWindowByName(wxT("AccuracySelector"));
+	m_videoSourceList    = (wxComboBox*)FindWindowByName(wxT("VideoSourceSelector"));
 	m_deinterlaceButton  = (wxToggleButton*)FindWindowByName(wxT("DeInterlaceButton"));
 	m_limitSpritesButton = (wxToggleButton*)FindWindowByName(wxT("LimitSpriteButton"));
+	m_disableSpritesButton = (wxToggleButton*)FindWindowByName(wxT("DisableSpritesButton"));
 	m_fullscreenButton   = (wxToggleButton*)FindWindowByName(wxT("FullScreenButton"));
 	m_blurSlider     = (wxSlider*)FindWindowByName(wxT("BlurSlider"));
 	m_blurSlider->SetTickFreq(5, 1);
@@ -76,16 +81,18 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController& controll
 	m_screenShotCounter = (wxTextCtrl*)FindWindowByName(wxT("ScreenShotCounter"));
 	m_screenShotButton = (wxButton*)FindWindowByName(wxT("ScreenShotButton"));
 
-	m_rendererLabel     = (wxStaticText*)FindWindowByName(wxT("RendererLabel"));
-	m_scalerLabel       = (wxStaticText*)FindWindowByName(wxT("ScalerLabel"));
-	m_accuracyLabel     = (wxStaticText*)FindWindowByName(wxT("AccuracyLabel"));
-	m_deinterlaceLabel  = (wxStaticText*)FindWindowByName(wxT("DeInterlaceLabel"));
-	m_limitSpritesLabel = (wxStaticText*)FindWindowByName(wxT("LimitSpriteLabel"));
-	m_fullScreenLabel   = (wxStaticText*)FindWindowByName(wxT("FullScreenLabel"));
-	m_scanLineLabel     = (wxStaticText*)FindWindowByName(wxT("ScanLineLabel"));
-	m_blurLabel         = (wxStaticText*)FindWindowByName(wxT("BlurLabel"));
-	m_glowLabel         = (wxStaticText*)FindWindowByName(wxT("GlowLabel"));
-	m_gammaLabel        = (wxStaticText*)FindWindowByName(wxT("GammaLabel"));
+	m_rendererLabel      = (wxStaticText*)FindWindowByName(wxT("RendererLabel"));
+	m_scalerLabel        = (wxStaticText*)FindWindowByName(wxT("ScalerLabel"));
+	m_accuracyLabel      = (wxStaticText*)FindWindowByName(wxT("AccuracyLabel"));
+	m_videoSourceLabel   = (wxStaticText*)FindWindowByName(wxT("VideoSourceLabel"));
+	m_deinterlaceLabel   = (wxStaticText*)FindWindowByName(wxT("DeInterlaceLabel"));
+	m_limitSpritesLabel  = (wxStaticText*)FindWindowByName(wxT("LimitSpriteLabel"));
+	m_disableSpritesLabel= (wxStaticText*)FindWindowByName(wxT("DisableSpritesLabel"));
+	m_fullScreenLabel    = (wxStaticText*)FindWindowByName(wxT("FullScreenLabel"));
+	m_scanLineLabel      = (wxStaticText*)FindWindowByName(wxT("ScanLineLabel"));
+	m_blurLabel          = (wxStaticText*)FindWindowByName(wxT("BlurLabel"));
+	m_glowLabel          = (wxStaticText*)FindWindowByName(wxT("GlowLabel"));
+	m_gammaLabel         = (wxStaticText*)FindWindowByName(wxT("GammaLabel"));
 
 	setNewRenderersAndScalers();
 }
@@ -110,6 +117,11 @@ void VideoControlPage::OnChangeAccuracy(wxCommandEvent& event)
 	m_controller.WriteCommand(wxT("set accuracy ") + m_accuracyList->GetValue().Lower());
 }
 
+void VideoControlPage::OnChangeVideoSource(wxCommandEvent& event)
+{
+	m_controller.WriteCommand(wxT("set videosource ") + m_videoSourceList->GetValue().Lower());
+}
+
 void VideoControlPage::OnDeInterlace(wxCommandEvent& event)
 {
 	auto* button = (wxToggleButton*)event.GetEventObject();
@@ -130,6 +142,18 @@ void VideoControlPage::OnLimitSprites(wxCommandEvent& event)
 		button->SetLabel(wxT("On"));
 	} else {
 		m_controller.WriteCommand(wxT("set limitsprites off"));
+		button->SetLabel(wxT("Off"));
+	}
+}
+
+void VideoControlPage::OnDisableSprites(wxCommandEvent& event)
+{
+	auto* button = (wxToggleButton*)event.GetEventObject();
+	if (button->GetValue()) {
+		m_controller.WriteCommand(wxT("set disablesprites on"));
+		button->SetLabel(wxT("On"));
+	} else {
+		m_controller.WriteCommand(wxT("set disablesprites off"));
 		button->SetLabel(wxT("Off"));
 	}
 }
@@ -310,15 +334,19 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_timesLabel->Enable(true);
 	m_scalerFactorList->Enable(true);
 	m_accuracyList->Enable(true);
+	m_videoSourceList->Enable(true);
 	m_deinterlaceButton->Enable(true);
 	m_limitSpritesButton->Enable(true);
+	m_disableSpritesButton->Enable(true);
 	m_fullscreenButton->Enable(true);
 	m_screenShotButton->Enable(true);
 	m_rendererLabel->Enable(true);
 	m_scalerLabel->Enable(true);
 	m_accuracyLabel->Enable(true);
+	m_videoSourceLabel->Enable(true);
 	m_deinterlaceLabel->Enable(true);
 	m_limitSpritesLabel->Enable(true);
+	m_disableSpritesLabel->Enable(true);
 	m_fullScreenLabel->Enable(true);
 	m_scanLineLabel->Enable(true);
 	m_blurLabel->Enable(true);
@@ -351,15 +379,19 @@ void VideoControlPage::SetControlsOnEnd()
 	m_timesLabel->Enable(false);
 	m_scalerFactorList->Enable(false);
 	m_accuracyList->Enable(false);
+	m_videoSourceList->Enable(false);
 	m_deinterlaceButton->Enable(false);
 	m_limitSpritesButton->Enable(false);
+	m_disableSpritesButton->Enable(false);
 	m_fullscreenButton->Enable(false);
 	m_screenShotButton->Enable(false);
 	m_rendererLabel->Enable(false);
 	m_scalerLabel->Enable(false);
 	m_accuracyLabel->Enable(false);
+	m_videoSourceLabel->Enable(false);
 	m_deinterlaceLabel->Enable(false);
 	m_limitSpritesLabel->Enable(false);
+	m_disableSpritesLabel->Enable(false);
 	m_fullScreenLabel->Enable(false);
 	m_scanLineLabel->Enable(false);
 	m_blurLabel->Enable(false);
@@ -460,4 +492,5 @@ void VideoControlPage::setNewRenderersAndScalers()
 	m_scalerAlgoList->Clear();
 	m_scalerFactorList->Clear();
 	m_accuracyList->Clear();
+	m_videoSourceList->Clear();
 }

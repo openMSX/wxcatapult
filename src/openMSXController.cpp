@@ -435,6 +435,9 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("lindex [openmsx_info setting accuracy] 2"),
 		[&](const wxString&, const wxString& r) {
 			FillComboBox(wxT("AccuracySelector"), r); });
+	AddCommand(wxT("lindex [openmsx_info setting videosource] 2"),
+		[&](const wxString&, const wxString& r) {
+			FillComboBox(wxT("VideoSourceSelector"), r); });
 	AddCommand(wxT("openmsx_update enable media"));
 	AddCommand(wxT("info exist frontswitch"),
 		[&](const wxString& c, const wxString& r) {
@@ -454,10 +457,16 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("set accuracy"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
+	AddCommand(wxT("set videosource"),
+		[&](const wxString& c, const wxString& r) {
+			UpdateSetting(c, r); });
 	AddCommand(wxT("set deinterlace"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT("set limitsprites"),
+		[&](const wxString& c, const wxString& r) {
+			UpdateSetting(c, r); });
+	AddCommand(wxT("set disablesprites"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT("set fullscreen"),
@@ -566,12 +575,18 @@ void openMSXController::InitLaunchScript()
 	AddSetting(wxT("accuracy"),
 		[&](const wxString&, const wxString& v) {
 			UpdateCombo(v, wxT("AccuracySelector")); });
+	AddSetting(wxT("videosource"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("VideoSourceSelector")); });
 	AddSetting(wxT("deinterlace"),
 		[&](const wxString&, const wxString& v) {
 			UpdateToggle(v, wxT("DeInterlaceButton"), S_CONVERT); });
 	AddSetting(wxT("limitsprites"),
 		[&](const wxString&, const wxString& v) {
 			UpdateToggle(v, wxT("LimitSpriteButton"), S_CONVERT); });
+	AddSetting(wxT("disablesprites"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("DisableSpritesButton"), S_CONVERT); });
 	AddSetting(wxT("blur"),
 		[&](const wxString&, const wxString& v) {
 			UpdateIndicator(v, wxT("BlurIndicator")); });
