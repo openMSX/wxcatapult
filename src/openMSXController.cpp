@@ -257,14 +257,11 @@ void openMSXController::WriteCommand(
 	xmlFree(buffer);
 }
 
-wxString errno_to_wxString(int err)
+wxString errno_to_wxString(int errno_)
 {
-	const size_t SZ = 1000;
-	char buf[SZ];
-	char * errCharPtr = (char *) buf;
-	if (err == 0){
-		return wxT("error code: 0");
-	}
+	size_t SZ = 1000;
+	char * buf = new char[SZ];
+	char * errCharPtr = buf;
 /*
 The XSI-compliant version of strerror_r() is provided if:
 (_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE
@@ -272,26 +269,70 @@ Otherwise, the GNU-specific version is provided.
 */
 #if((_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE)
 //The XSI-compliant version of strerror_r()
-	int retcode = strerror_r(err, errCharPtr, sizeof(buf) - 1);
-	(void)retcode;//TODO
+
+	while(true)
+	{
+		int retcode = strerror_r(errno_, buf, SZ * sizeof(char) - 1);
+		if (retcode == 0)
+		{
+			//strerror_r returned 'success'
+			buf[SZ-1] = '\0';
+			wxString str(buf, wxConvUTF8);
+			delete[] buf;
+			return str;
+		}
+		else
+		{
+			int error_number = retcode;
+			if (error_number == -1) error_number = errno;
+
+			switch (error_number)
+			{
+			case EINVAL:
+			default:
+			{
+				wxString str(wxT("errno="));
+				str << errno_;
+				delete[] buf;
+				return str;
+			}
+			case ERANGE:
+				delete[] buf;
+				SZ *= 2;
+				buf = new char[SZ];
+				continue;
+			} //end of switch
+		} // end of else
+	} // end of while
 #else
 //GNU-specific version of strerror_r()
-	errCharPtr = strerror_r(err, (char *)buf, sizeof(buf) - 1);
-#endif
-	buf[SZ-1] = '\0';
+	errCharPtr = strerror_r(errno_, buf, SZ * sizeof(char) - 1);
 	if (!errCharPtr){
-		wxString str(wxT("errno: "));
-		str << err;
+		wxString str(wxT("errno="));
+		str << errno_;
+		delete[] buf;
 		return str;
 	}
+	buf[SZ-1] = '\0';
 	wxString str(errCharPtr, wxConvUTF8);
-	str << wxT(", errno: ") << err;
+	delete[] buf;
 	return str;
+#endif
 }
+
+#ifndef __WXMSW__
+
+wxString WriteMessageExceptionErrno::getErrorMessage()
+{
+	return errno_to_wxString(errno_);
+}
+
+#endif
+
 void openMSXController::HandleException(WriteMessageException& ex)
 {
-	wxString msg(wxT("Error writing commands: WriteMessageException, error: "));
-	msg << errno_to_wxString(ex.getErrorCode()) << wxT(", error details: ")+ex.getErrorMessage() << wxT("\n");
+	wxString msg(wxT("Error writing commands to openMSX process: "));
+	msg << ex.getErrorMessage() << wxT("\n");
 	m_appWindow->m_statusPage->Add(wxColour(174, 0, 0), msg);
 }
 
@@ -906,15 +947,16 @@ void openMSXController::WriteMessage(const xmlChar* msg, size_t length) throw(Wr
 #ifdef __WXMSW__
 	unsigned long BytesWritten;
 	::WriteFile(m_outputHandle, msg, length, &BytesWritten, nullptr);
-	// ignore return value, BytesWritten
+	if (length != (size_t) BytesWritten) {
+		throw WriteMessageException_wxString(wxT("Write failed: incomplete buffer was written"));
+	}
 #else
 	ssize_t r = write(m_openMSXstdin, msg, length);
 	if (r == (ssize_t) -1) {
-		int err=errno;
-		throw WriteMessageException(wxT("No details"),err);
+		throw WriteMessageExceptionErrno(errno);
 	}
-	if ((size_t) r != length) {
-		throw WriteMessageException(wxT("Write failed"),0);
+	if (length != (size_t) r) {
+		throw WriteMessageException_wxString(wxT("Write failed: incomplete buffer was written"));
 	}
 #endif
 }

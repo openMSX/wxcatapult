@@ -32,20 +32,38 @@ class CatapultXMLParser;
 class PipeConnectThread;
 class PipeReadThread;
 
-class WriteMessageException : public std::exception{
+class WriteMessageException : public std::exception
+{
 public:
-	WriteMessageException(wxString errorMessage_, int errorCode_):
-		std::exception(), errorMessage(errorMessage_), errorCode(errorCode_)
-	{}
+	WriteMessageException(): std::exception() {}
 	virtual ~WriteMessageException()throw(){}
-
-	wxString& getErrorMessage(){return errorMessage;}
-	int getErrorCode(){return errorCode;}
-private:
-	wxString errorMessage;
-	int errorCode;
+	virtual wxString getErrorMessage()=0;
 };
 
+class WriteMessageException_wxString : public WriteMessageException
+{
+public:
+	WriteMessageException_wxString(wxString errorMessage_):
+		WriteMessageException(), errorMessage(errorMessage_) {}
+	virtual ~WriteMessageException_wxString()throw(){}
+	virtual wxString getErrorMessage(){return errorMessage;}
+private:
+	wxString errorMessage;
+};
+
+#ifndef __WXMSW__
+
+class WriteMessageExceptionErrno : public WriteMessageException
+{
+public:
+	WriteMessageExceptionErrno(int errno__): WriteMessageException(), errno_(errno__) {}
+	virtual ~WriteMessageExceptionErrno()throw(){}
+	virtual wxString getErrorMessage();
+private:
+	int errno_;
+};
+
+#endif
 
 class openMSXController
 {
