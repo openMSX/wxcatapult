@@ -99,7 +99,11 @@ private:
 		std::function<void (const wxString&, const wxString&)> callback;
 	};
 
-	void WriteMessage(const xmlChar* msg, size_t length) throw(WriteMessageException&);
+	void WriteMessage(const xmlChar* msg, size_t length) throw(
+#ifndef __WXMSW__
+			WriteMessageException&
+#endif
+	);
 	void commandError(const wxString& cmd, const wxString& result);
 	bool Launch(wxString cmdline);
 

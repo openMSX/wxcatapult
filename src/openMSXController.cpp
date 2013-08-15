@@ -942,7 +942,12 @@ void openMSXController::RestoreOpenMSX()
 #endif
 }
 
-void openMSXController::WriteMessage(const xmlChar* msg, size_t length) throw(WriteMessageException&)
+void openMSXController::WriteMessage(const xmlChar* msg, size_t length)
+throw(
+#ifndef __WXMSW__
+	   WriteMessageException&
+#endif
+	  )
 {
 	if (!m_openMsxRunning) return;
 #ifdef __WXMSW__
