@@ -87,8 +87,12 @@ bool openMSXController::HandleMessage(wxCommandEvent& event)
 void openMSXController::PostLaunch()
 {
 	const char* initial = "<openmsx-control>\n";
-	WriteMessage((const xmlChar*)initial, strlen(initial));
-	ExecuteStart();
+	try{
+		WriteMessage((const xmlChar*)initial, strlen(initial));
+		ExecuteStart();
+	}catch(WriteMessageException& ex){
+		HandleException(ex);
+	}
 }
 
 void openMSXController::HandleEndProcess(wxCommandEvent& event)
@@ -244,9 +248,51 @@ void openMSXController::WriteCommand(
 	memcpy(cmd, "<command>", 9);
 	memcpy(cmd + 9, buffer, len);
 	memcpy(cmd + 9 + len, "</command>\n", 11);
-	WriteMessage((xmlChar*)cmd, len2);
+	try{
+		WriteMessage((xmlChar*)cmd, len2);
+	}catch(WriteMessageException& ex){
+		HandleException(ex);
+	}
 
 	xmlFree(buffer);
+}
+
+wxString errno_to_wxString(int err)
+{
+	const size_t SZ = 1000;
+	char buf[SZ];
+	char * errCharPtr = (char *) buf;
+	if (err == 0){
+		return L"error code: 0";
+	}
+/*
+The XSI-compliant version of strerror_r() is provided if:
+(_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE
+Otherwise, the GNU-specific version is provided.
+*/
+#if((_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE)
+//The XSI-compliant version of strerror_r()
+	int retcode = strerror_r(err, errCharPtr, sizeof(buf) - 1);
+	(void)retcode;//TODO
+#else
+//GNU-specific version of strerror_r()
+	errCharPtr = strerror_r(err, (char *)buf, sizeof(buf) - 1);
+#endif
+	buf[SZ-1] = '\0';
+	if (!errCharPtr){
+		wxString str(wxT("errno: "));
+		str << err;
+		return str;
+	}
+	wxString str(errCharPtr, wxConvUTF8);
+	str << wxT(", errno: ") << err;
+	return str;
+}
+void openMSXController::HandleException(WriteMessageException& ex)
+{
+	wxString msg(wxT("Error writing commands: WriteMessageException, error: "));
+	msg << errno_to_wxString(ex.getErrorCode()) << wxT(", error details: ")+ex.getErrorMessage() << wxT("\n");
+	m_appWindow->m_statusPage->Add(wxColour(174, 0, 0), msg);
 }
 
 void openMSXController::commandError(const wxString& cmd, const wxString& result)
@@ -854,7 +900,7 @@ void openMSXController::RestoreOpenMSX()
 #endif
 }
 
-void openMSXController::WriteMessage(const xmlChar* msg, size_t length)
+void openMSXController::WriteMessage(const xmlChar* msg, size_t length) throw(WriteMessageException&)
 {
 	if (!m_openMsxRunning) return;
 #ifdef __WXMSW__
@@ -863,8 +909,13 @@ void openMSXController::WriteMessage(const xmlChar* msg, size_t length)
 	// ignore return value, BytesWritten
 #else
 	ssize_t r = write(m_openMSXstdin, msg, length);
-	(void)r; // We really should check this return value, but for now
-	         // just silence the warning.
+	if (r == (ssize_t) -1) {
+		int err=errno;
+		throw WriteMessageException(wxT("No details"),err);
+	}
+	if ((size_t) r != length) {
+		throw WriteMessageException(wxT("Write failed"),0);
+	}
 #endif
 }
 

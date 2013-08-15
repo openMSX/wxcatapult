@@ -20,13 +20,32 @@
 #else
 #include <string>
 #endif
+#include <stdexcept>
+#include <errno.h>
 
+//for strerror_r
+#include <string.h>
 
 class wxCatapultFrame;
 class wxCommandEvent;
 class CatapultXMLParser;
 class PipeConnectThread;
 class PipeReadThread;
+
+class WriteMessageException : public std::exception{
+public:
+	WriteMessageException(wxString errorMessage_, int errorCode_):
+		std::exception(), errorMessage(errorMessage_), errorCode(errorCode_)
+	{}
+	virtual ~WriteMessageException()throw(){}
+
+	wxString& getErrorMessage(){return errorMessage;}
+	int getErrorCode(){return errorCode;}
+private:
+	wxString errorMessage;
+	int errorCode;
+};
+
 
 class openMSXController
 {
@@ -55,12 +74,14 @@ public:
 	bool IsOpenMSXRunning() const { return m_openMsxRunning; }
 
 private:
+	void HandleException(WriteMessageException& ex);
+
 	struct LaunchInstruction {
 		wxString command;
 		std::function<void (const wxString&, const wxString&)> callback;
 	};
 
-	void WriteMessage(const xmlChar* msg, size_t length);
+	void WriteMessage(const xmlChar* msg, size_t length) throw(WriteMessageException&);
 	void commandError(const wxString& cmd, const wxString& result);
 	bool Launch(wxString cmdline);
 
