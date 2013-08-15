@@ -257,6 +257,8 @@ void openMSXController::WriteCommand(
 	xmlFree(buffer);
 }
 
+#ifndef __WXMSW__
+
 wxString errno_as_raw_int_delete_buffer(int errno_, char* buf)
 {
 	wxString str(wxT("errno="));
@@ -320,8 +322,6 @@ Otherwise, the GNU-specific version is provided.
 	return str;
 #endif
 }
-
-#ifndef __WXMSW__
 
 wxString WriteMessageExceptionErrno::getErrorMessage()
 {
