@@ -27,38 +27,6 @@ class CatapultXMLParser;
 class PipeConnectThread;
 class PipeReadThread;
 
-class WriteMessageException
-{
-public:
-	virtual wxString getErrorMessage() const = 0;
-protected:
-	~WriteMessageException() {}
-};
-
-class WriteMessageException_wxString : public WriteMessageException
-{
-public:
-	WriteMessageException_wxString(const wxString& errorMessage_)
-		: errorMessage(errorMessage_) {}
-	virtual wxString getErrorMessage() const { return errorMessage; }
-private:
-	wxString errorMessage;
-};
-
-#ifndef __WXMSW__
-
-class WriteMessageExceptionErrno : public WriteMessageException
-{
-public:
-	WriteMessageExceptionErrno(int errno__)
-		: errno_(errno__) {}
-	virtual wxString getErrorMessage() const;
-private:
-	int errno_;
-};
-
-#endif
-
 class openMSXController
 {
 public:
@@ -86,8 +54,6 @@ public:
 	bool IsOpenMSXRunning() const { return m_openMsxRunning; }
 
 private:
-	void HandleException(const WriteMessageException& ex);
-
 	struct LaunchInstruction {
 		wxString command;
 		std::function<void (const wxString&, const wxString&)> callback;

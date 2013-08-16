@@ -88,13 +88,9 @@ bool openMSXController::HandleMessage(wxCommandEvent& event)
 
 void openMSXController::PostLaunch()
 {
-	try {
-		const char* initial = "<openmsx-control>\n";
-		WriteMessage((const xmlChar*)initial, strlen(initial));
-		ExecuteStart();
-	} catch (WriteMessageException& ex) {
-		HandleException(ex);
-	}
+	const char* initial = "<openmsx-control>\n";
+	WriteMessage((const xmlChar*)initial, strlen(initial));
+	ExecuteStart();
 }
 
 void openMSXController::HandleEndProcess(wxCommandEvent& event)
@@ -250,30 +246,9 @@ void openMSXController::WriteCommand(
 	memcpy(cmd, "<command>", 9);
 	memcpy(cmd + 9, buffer, len);
 	memcpy(cmd + 9 + len, "</command>\n", 11);
-	try {
-		WriteMessage((xmlChar*)cmd, len2);
-	} catch (WriteMessageException& ex) {
-		HandleException(ex);
-	}
+	WriteMessage((xmlChar*)cmd, len2);
 
 	xmlFree(buffer);
-}
-
-#ifndef __WXMSW__
-
-wxString WriteMessageExceptionErrno::getErrorMessage() const
-{
-	const char* msg = strerror(errno_);
-	return msg ? wxString(msg, wxConvUTF8) : wxT("Unknown error");
-}
-
-#endif
-
-void openMSXController::HandleException(const WriteMessageException& ex)
-{
-	wxString msg(wxT("Error writing commands to openMSX process: "));
-	msg << ex.getErrorMessage() << wxT("\n");
-	m_appWindow->m_statusPage->Add(wxColour(174, 0, 0), msg);
 }
 
 void openMSXController::commandError(const wxString& cmd, const wxString& result)
@@ -899,21 +874,28 @@ void openMSXController::RestoreOpenMSX()
 void openMSXController::WriteMessage(const xmlChar* msg, size_t length)
 {
 	if (!m_openMsxRunning) return;
+	wxString errMsg;
 #ifdef __WXMSW__
 	unsigned long BytesWritten;
 	::WriteFile(m_outputHandle, msg, length, &BytesWritten, nullptr);
+	// TODO print more specific error message?
 	if (length != size_t(BytesWritten)) {
-		throw WriteMessageException_wxString(wxT("Write failed: incomplete buffer was written"));
+		errMsg = wxT("incomplete buffer written");
 	}
 #else
 	ssize_t r = write(m_openMSXstdin, msg, length);
 	if (r == ssize_t(-1)) {
-		throw WriteMessageExceptionErrno(errno);
+		const char* msg = strerror(errno);
+		errMsg = msg ? wxString(msg, wxConvUTF8) : wxT("Unknown error");
 	}
 	if (length != size_t(r)) {
-		throw WriteMessageException_wxString(wxT("Write failed: incomplete buffer was written"));
+		errMsg = wxT("incomplete buffer written");
 	}
 #endif
+	if (!errMsg.IsEmpty()) {
+		m_appWindow->m_statusPage->Add(wxColour(174, 0, 0),
+			wxT("Error writing to openMSX process: ") + errMsg + wxT("\n"));
+	}
 }
 
 bool openMSXController::Launch(wxString cmdline)
