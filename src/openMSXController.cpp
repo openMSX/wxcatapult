@@ -11,6 +11,8 @@
 #include "PipeReadThread.h"
 #include "utils.h"
 #include <cassert>
+#include <cerrno>
+#include <cstring> // for strerror
 #include <wx/button.h>
 #include <wx/combobox.h>
 #include <wx/menu.h>
@@ -86,11 +88,11 @@ bool openMSXController::HandleMessage(wxCommandEvent& event)
 
 void openMSXController::PostLaunch()
 {
-	const char* initial = "<openmsx-control>\n";
-	try{
+	try {
+		const char* initial = "<openmsx-control>\n";
 		WriteMessage((const xmlChar*)initial, strlen(initial));
 		ExecuteStart();
-	}catch(WriteMessageException& ex){
+	} catch (WriteMessageException& ex) {
 		HandleException(ex);
 	}
 }
@@ -248,9 +250,9 @@ void openMSXController::WriteCommand(
 	memcpy(cmd, "<command>", 9);
 	memcpy(cmd + 9, buffer, len);
 	memcpy(cmd + 9 + len, "</command>\n", 11);
-	try{
+	try {
 		WriteMessage((xmlChar*)cmd, len2);
-	}catch(WriteMessageException& ex){
+	} catch (WriteMessageException& ex) {
 		HandleException(ex);
 	}
 
@@ -259,78 +261,15 @@ void openMSXController::WriteCommand(
 
 #ifndef __WXMSW__
 
-wxString errno_as_raw_int_delete_buffer(int errno_, char* buf)
+wxString WriteMessageExceptionErrno::getErrorMessage() const
 {
-	wxString str(wxT("errno="));
-	str << errno_;
-	delete[] buf;
-	return str;
-}
-
-wxString errno_to_wxString(int errno_)
-{
-	size_t SZ = 1000;
-	char * buf = new char[SZ];
-	char * errCharPtr = buf;
-/*
-The XSI-compliant version of strerror_r() is provided if:
-(_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE
-Otherwise, the GNU-specific version is provided.
-*/
-#if((_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE)
-//The XSI-compliant version of strerror_r()
-
-	while(true)
-	{
-		int retcode = strerror_r(errno_, buf, SZ * sizeof(char) - 1);
-		if (retcode == 0)
-		{
-			//strerror_r returned 'success'
-			buf[SZ-1] = '\0';
-			wxString str(buf, wxConvUTF8);
-			delete[] buf;
-			return str;
-		}
-		else
-		{
-			int error_number = retcode;
-			if (error_number == -1) error_number = errno;
-
-			switch (error_number)
-			{
-			case EINVAL:
-			default:
-				return errno_as_raw_int_delete_buffer(errno_, buf);
-			case ERANGE:
-				SZ *= 2;
-				if (SZ > 32*1024) return errno_as_raw_int_delete_buffer(errno_, buf);
-				delete[] buf;
-				buf = new char[SZ];
-				continue;
-			} //end of switch
-		} // end of else
-	} // end of while
-#else
-//GNU-specific version of strerror_r()
-	errCharPtr = strerror_r(errno_, buf, SZ * sizeof(char) - 1);
-	if (!errCharPtr){
-		return errno_as_raw_int_delete_buffer(errno_, buf);
-	}
-	buf[SZ-1] = '\0';
-	wxString str(errCharPtr, wxConvUTF8);
-	delete[] buf;
-	return str;
-#endif
-}
-
-wxString WriteMessageExceptionErrno::getErrorMessage()
-{
-	return errno_to_wxString(errno_);
+	const char* msg = strerror(errno_);
+	return msg ? wxString(msg, wxConvUTF8) : wxT("Unknown error");
 }
 
 #endif
 
-void openMSXController::HandleException(WriteMessageException& ex)
+void openMSXController::HandleException(const WriteMessageException& ex)
 {
 	wxString msg(wxT("Error writing commands to openMSX process: "));
 	msg << ex.getErrorMessage() << wxT("\n");
@@ -958,25 +897,20 @@ void openMSXController::RestoreOpenMSX()
 }
 
 void openMSXController::WriteMessage(const xmlChar* msg, size_t length)
-throw(
-#ifndef __WXMSW__
-	   WriteMessageException&
-#endif
-	  )
 {
 	if (!m_openMsxRunning) return;
 #ifdef __WXMSW__
 	unsigned long BytesWritten;
 	::WriteFile(m_outputHandle, msg, length, &BytesWritten, nullptr);
-	if (length != (size_t) BytesWritten) {
+	if (length != size_t(BytesWritten)) {
 		throw WriteMessageException_wxString(wxT("Write failed: incomplete buffer was written"));
 	}
 #else
 	ssize_t r = write(m_openMSXstdin, msg, length);
-	if (r == (ssize_t) -1) {
+	if (r == ssize_t(-1)) {
 		throw WriteMessageExceptionErrno(errno);
 	}
-	if (length != (size_t) r) {
+	if (length != size_t(r)) {
 		throw WriteMessageException_wxString(wxT("Write failed: incomplete buffer was written"));
 	}
 #endif

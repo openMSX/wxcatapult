@@ -20,11 +20,6 @@
 #else
 #include <string>
 #endif
-#include <stdexcept>
-#include <errno.h>
-
-//for strerror_r
-#include <string.h>
 
 class wxCatapultFrame;
 class wxCommandEvent;
@@ -32,21 +27,20 @@ class CatapultXMLParser;
 class PipeConnectThread;
 class PipeReadThread;
 
-class WriteMessageException : public std::exception
+class WriteMessageException
 {
 public:
-	WriteMessageException(): std::exception() {}
-	virtual ~WriteMessageException()throw(){}
-	virtual wxString getErrorMessage()=0;
+	virtual wxString getErrorMessage() const = 0;
+protected:
+	~WriteMessageException() {}
 };
 
 class WriteMessageException_wxString : public WriteMessageException
 {
 public:
-	WriteMessageException_wxString(wxString errorMessage_):
-		WriteMessageException(), errorMessage(errorMessage_) {}
-	virtual ~WriteMessageException_wxString()throw(){}
-	virtual wxString getErrorMessage(){return errorMessage;}
+	WriteMessageException_wxString(const wxString& errorMessage_)
+		: errorMessage(errorMessage_) {}
+	virtual wxString getErrorMessage() const { return errorMessage; }
 private:
 	wxString errorMessage;
 };
@@ -56,9 +50,9 @@ private:
 class WriteMessageExceptionErrno : public WriteMessageException
 {
 public:
-	WriteMessageExceptionErrno(int errno__): WriteMessageException(), errno_(errno__) {}
-	virtual ~WriteMessageExceptionErrno()throw(){}
-	virtual wxString getErrorMessage();
+	WriteMessageExceptionErrno(int errno__)
+		: errno_(errno__) {}
+	virtual wxString getErrorMessage() const;
 private:
 	int errno_;
 };
@@ -92,18 +86,14 @@ public:
 	bool IsOpenMSXRunning() const { return m_openMsxRunning; }
 
 private:
-	void HandleException(WriteMessageException& ex);
+	void HandleException(const WriteMessageException& ex);
 
 	struct LaunchInstruction {
 		wxString command;
 		std::function<void (const wxString&, const wxString&)> callback;
 	};
 
-	void WriteMessage(const xmlChar* msg, size_t length) throw(
-#ifndef __WXMSW__
-			WriteMessageException&
-#endif
-	);
+	void WriteMessage(const xmlChar* msg, size_t length);
 	void commandError(const wxString& cmd, const wxString& result);
 	bool Launch(wxString cmdline);
 
