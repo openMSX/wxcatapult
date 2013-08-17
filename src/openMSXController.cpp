@@ -104,7 +104,8 @@ void openMSXController::HandleEndProcess(wxCommandEvent& event)
 
 #ifdef __WXMSW__
 	if (!m_pipeActive) {
-		m_connectThread.reset();
+		// m_connectThread.reset(); // TODO why does this crash?
+		m_connectThread.release();  // this is a memory leak
 	}
 #else
 	close(m_openMSXstdin);
