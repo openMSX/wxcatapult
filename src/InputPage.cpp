@@ -28,7 +28,7 @@ InputPage::InputPage(wxWindow* parent, openMSXController& controller)
 
 void InputPage::OnTypeText(wxCommandEvent& event)
 {
-	wxString text = utils::tclEscapeWord(m_inputtext->GetValue());
+	wxString text = utils::tclAsEscapedStringWithQuotesAround(m_inputtext->GetValue());
 	m_controller.WriteCommand(wxT("type ") + text);
 }
 

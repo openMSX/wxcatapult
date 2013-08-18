@@ -136,4 +136,9 @@ wxString tclEscapeWord(wxString str)
 	return str;
 }
 
+wxString tclAsEscapedStringWithQuotesAround(wxString str)
+{
+	return wxString(wxT("\"")) + tclEscapeWord(str) + wxT("\"");
+}
+
 }
