@@ -25,7 +25,6 @@ wxString ConvertPathBack   (wxString path);
 
 wxArrayString parseTclList(const wxString& str);
 wxString tclEscapeWord(wxString str);
-wxString tclAsEscapedStringWithQuotesAround(wxString str);
 
 }
 

@@ -133,12 +133,8 @@ wxString tclEscapeWord(wxString str)
 	str.Replace(wxT("}"),  wxT("\\}"));
 	str.Replace(wxT("{"),  wxT("\\{"));
 	str.Replace(wxT(" "),  wxT("\\ "));
+	str.Replace(wxT(";"),  wxT("\\;"));
 	return str;
-}
-
-wxString tclAsEscapedStringWithQuotesAround(wxString str)
-{
-	return wxString(wxT("\"")) + tclEscapeWord(str) + wxT("\"");
 }
 
 }
