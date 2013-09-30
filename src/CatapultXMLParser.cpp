@@ -75,7 +75,7 @@ void CatapultXMLParser::cb_end_element(CatapultXMLParser* parser, const xmlChar*
 	case TAG_UPDATE:
 	case TAG_LOG:
 	case TAG_REPLY:
-		SendParsedData ();
+		SendParsedData();
 		parser->parseResult.parseState = TAG_OPENMSX;
 		break;
 	}

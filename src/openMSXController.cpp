@@ -640,14 +640,17 @@ void openMSXController::ExecuteNext()
 			HandleLauch(c, r, true); },
 		[&](const wxString& c, const wxString& r) {
 			HandleLauch(c, r, false); });
+	m_launchCallback.push_back(m_launchScript[sendStep].callback);
 }
 
 void openMSXController::HandleLauch(const wxString& command, const wxString& result, bool ok)
 {
 	// Handle received command
-	const auto& instruction = m_launchScript[sendStep];
-	if (ok && instruction.callback) {
-		instruction.callback(command, result);
+	assert(!m_launchCallback.empty());
+	auto callback = m_launchCallback.front();
+	m_launchCallback.pop_front();
+	if (ok && callback) {
+		callback(command, result);
 	}
 
 	// Execute next command

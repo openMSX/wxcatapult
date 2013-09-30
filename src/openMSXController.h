@@ -100,6 +100,7 @@ private:
 	std::vector<SettingElement> m_settingTable;
 
 	std::vector<LaunchInstruction> m_launchScript;
+	std::deque<std::function<void (const wxString&, const wxString&)>> m_launchCallback;
 	int sendStep;
 	int m_relaunch;
 
