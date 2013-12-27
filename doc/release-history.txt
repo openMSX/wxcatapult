@@ -3,6 +3,25 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 0.10.0 (2013-12-27)
+------------------------------------
+
+Catapult release to match openMSX 0.10.0.
+
+This release we mostly cleaned up the code and fixed some (minor) bugs.
+
+All highlights:
+- some updates to recognize the new openMSX machine/extension directory
+  structure
+- fixes for several small bugs
+- fixes for some memory leaks
+- updated to libxml 2.8.0
+- updated to wxWidgets 8.2.12
+- allow setting up multiple IPS files
+- added video source setting
+- added disable sprites setting
+- support DMK file extension in file filters
+
 openMSX Catapult 0.9.1 (2012-09-30)
 -----------------------------------
 

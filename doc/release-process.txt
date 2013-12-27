@@ -26,16 +26,14 @@ Creating a release candidate
 - Update build/version.py similar to build/version.mk.
 - Update the release date in "doc/release-notes.txt" and
   "doc/release-history.txt".
-- Tag the SVN archive:
-    svn copy \
-      https://openmsx.svn.sourceforge.net/svnroot/openmsx/wxcatapult/trunk \
-      https://<host>/svnroot/openmsx/wxcatapult/tags/RELEASE_1_2_3 \
-      -m "Tagging release 1.2.3."
+- Tag the git archive:
+  git tag -a RELEASE_1_2_3 -m "Tagging release 1.2.3."
+  git push
 - Export the tagged code:
-    svn export https://<host>/svnroot/openmsx/wxcatapult/tags/RELEASE_1_2_3 \
-        openmsx-catapult-1.2.3
+  git archive RELEASE_1_2_3 -o wxcatapult-1.2.3.tar.gz
   This step makes sure that exactly the tagged code will be released.
-  Export instead of checkout gets rid of the SVN admin directories.
+- Untar-gz this file somewhere outside of any development area and change
+  directory to it.
 - Create the distribution tar.gz file:
     make dist
 - Save the created file somewhere you can find it again:
@@ -63,5 +61,5 @@ testers.
 Post-release
 ------------
 
-- Put "Released openmsx-catapult-1.2.3." entry in the ChangeLog in SVN.
 - Set RELEASE_FLAG to false in build/version.mk and build/version.py.
+  Or don't bother, as we're not actively developing anyway.
