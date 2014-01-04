@@ -147,7 +147,6 @@ private:
 	HANDLE m_namedPipeHandle;
 	HWND m_catapultWindow;
 	PROCESS_INFORMATION m_openmsxProcInfo;
-	bool m_pipeActive;
 	unsigned long m_launchCounter;
 	wxString m_pipeName;
 #else

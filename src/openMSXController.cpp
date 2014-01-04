@@ -36,7 +36,6 @@ openMSXController::openMSXController(wxWindow* target)
 {
 #ifdef __WXMSW__
 	m_launchCounter = 0;
-	m_pipeActive = false;
 	m_openMsxRunning = false;
 	m_namedPipeHandle = INVALID_HANDLE_VALUE;
 #else
@@ -1101,7 +1100,6 @@ void openMSXController::CloseHandles(
 
 void openMSXController::HandlePipeCreated()
 {
-	m_pipeActive = false;
 	PostLaunch();
 }
 
