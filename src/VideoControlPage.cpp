@@ -253,10 +253,8 @@ void VideoControlPage::OnInputBlur(wxCommandEvent& event)
 			text = wxT("100");
 			m_blurIndicator->SetValue(text);
 		}
-		if (num >= 0) {
-			m_controller.WriteCommand(wxT("set blur ") + text);
-			m_blurSlider->SetValue(num);
-		}
+		m_controller.WriteCommand(wxT("set blur ") + text);
+		m_blurSlider->SetValue(num);
 	}
 }
 
@@ -271,10 +269,8 @@ void VideoControlPage::OnInputGlow(wxCommandEvent& event)
 			text = wxT("100");
 			m_glowIndicator->SetValue(text);
 		}
-		if (num >= 0) {
-			m_controller.WriteCommand(wxT("set glow ") + text);
-			m_glowSlider->SetValue(num);
-		}
+		m_controller.WriteCommand(wxT("set glow ") + text);
+		m_glowSlider->SetValue(num);
 	}
 }
 
@@ -308,10 +304,8 @@ void VideoControlPage::OnInputScanline(wxCommandEvent& event)
 			text = wxT("100");
 			m_scanlineIndicator->SetValue(text);
 		}
-		if (num >= 0) {
-			m_controller.WriteCommand(wxT("set scanline ") + text);
-			m_scanlineSlider->SetValue(num);
-		}
+		m_controller.WriteCommand(wxT("set scanline ") + text);
+		m_scanlineSlider->SetValue(num);
 	}
 }
 

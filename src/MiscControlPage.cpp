@@ -370,10 +370,8 @@ void MiscControlPage::OnInputMinFrameskip(wxCommandEvent& event)
 			text = wxT("100");
 			m_minFrameSkipIndicator->SetValue(text);
 		}
-		if (num >= 0) {
-			m_controller.WriteCommand(wxT("set minframeskip ") + text);
-			m_minFrameSkipSlider->SetValue(num);
-		}
+		m_controller.WriteCommand(wxT("set minframeskip ") + text);
+		m_minFrameSkipSlider->SetValue(num);
 	}
 }
 
@@ -388,10 +386,8 @@ void MiscControlPage::OnInputMaxFrameskip(wxCommandEvent& event)
 			text = wxT("100");
 			m_maxFrameSkipIndicator->SetValue(text);
 		}
-		if (num >= 0) {
-			m_controller.WriteCommand(wxT("set maxframeskip ") + text);
-			m_maxFrameSkipSlider->SetValue(num);
-		}
+		m_controller.WriteCommand(wxT("set maxframeskip ") + text);
+		m_maxFrameSkipSlider->SetValue(num);
 	}
 }
 
