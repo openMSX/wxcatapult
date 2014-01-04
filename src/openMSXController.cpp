@@ -919,6 +919,16 @@ bool openMSXController::Launch(wxString cmdline)
 	si.hStdError  = hErrorWrite;
 	si.wShowWindow = wStartupWnd;
 
+	if (useNamedPipes) {
+		// Note: m_pipeName is set by CreateControlParameter().
+		m_namedPipeHandle = CreateNamedPipe(m_pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
+		if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {
+			wxMessageBox(wxString::Format(
+				wxT("Error creating pipe: %ld"), GetLastError()));
+			return false;
+		}
+	}
+
 	LPTSTR szCmdLine = _tcsdup(cmdline.c_str());
 	if (szCmdLine) {
 		CreateProcess(
@@ -942,12 +952,6 @@ bool openMSXController::Launch(wxString cmdline)
 	::ResumeThread(m_openmsxProcInfo.hThread);
 
 	if (useNamedPipes) {
-		m_namedPipeHandle = CreateNamedPipe(m_pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
-		if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {
-			wxMessageBox(wxString::Format(
-				wxT("Error creating pipe: %ld"), GetLastError()));
-			return false;
-		}
 		PipeConnectThread *m_connectThread = new PipeConnectThread(m_appWindow);
 		m_connectThread->Create();
 		m_connectThread->SetHandle(m_namedPipeHandle);
