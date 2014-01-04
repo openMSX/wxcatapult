@@ -262,7 +262,7 @@ DEPEND_FLAGS+=-MP
 # Compiler flags
 # ==============
 
-CXXFLAGS+=-pipe -Wall --no-strict-aliasing
+CXXFLAGS+=-pipe -Wall -Wextra -Wno-unused-parameter --no-strict-aliasing
 CXXFLAGS+=-Wno-literal-suffix -Wno-unused-local-typedefs
 CXXFLAGS+=-I$(CONFIG_PATH)
 CXXFLAGS+=$(XRC_CFLAGS) $(XML_CFLAGS)
