@@ -102,12 +102,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent& event)
 	m_commands.clear();
 	m_appWindow->OpenMSXStopped();
 
-#ifdef __WXMSW__
-	if (!m_pipeActive) {
-		// m_connectThread.reset(); // TODO why does this crash?
-		m_connectThread.release();  // this is a memory leak
-	}
-#else
+#ifndef __WXMSW__
 	close(m_openMSXstdin);
 #endif
 }
@@ -948,11 +943,16 @@ bool openMSXController::Launch(wxString cmdline)
 	::ResumeThread(m_openmsxProcInfo.hThread);
 
 	if (useNamedPipes) {
-		if (!m_pipeActive) {
-			m_pipeActive = true;
-			m_connectThread->SetHandle(m_namedPipeHandle);
-			m_connectThread->Run();
+		m_namedPipeHandle = CreateNamedPipe(m_pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
+		if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {
+			wxMessageBox(wxString::Format(
+				wxT("Error creating pipe: %ld"), GetLastError()));
+			return false;
 		}
+		PipeConnectThread *m_connectThread = new PipeConnectThread(m_appWindow);
+		m_connectThread->Create();
+		m_connectThread->SetHandle(m_namedPipeHandle);
+		m_connectThread->Run();
 		m_outputHandle = m_namedPipeHandle;
 	} else {
 		m_openMsxRunning = true;
@@ -1011,23 +1011,10 @@ wxString openMSXController::CreateControlParameter(bool useNamedPipes)
 	wxString parameter = wxT(" -control");
 
 	if (useNamedPipes) {
-		if (!m_connectThread) {
-			m_launchCounter++;
-		}
-		auto pipeName = wxString::Format(
+		m_launchCounter++;
+		m_pipeName = wxString::Format(
 			wxT("\\\\.\\pipe\\Catapult-%u-%lu"), _getpid(), m_launchCounter);
-		parameter += wxT(" pipe:") + pipeName.Mid(9);
-		if (!m_connectThread) {
-			m_connectThread.reset(new PipeConnectThread(m_appWindow));
-			m_connectThread->Create();
-			m_namedPipeHandle = CreateNamedPipe(pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
-			if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {
-				wxMessageBox(wxString::Format(
-					wxT("Error creating pipe: %ld"), GetLastError()));
-			}
-		} else {
-			m_namedPipeHandle = m_outputHandle;
-		}
+		parameter += wxT(" pipe:") + m_pipeName.Mid(9);
 	} else {
 		parameter += wxT(" stdio:");
 	}

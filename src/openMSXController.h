@@ -149,7 +149,7 @@ private:
 	PROCESS_INFORMATION m_openmsxProcInfo;
 	bool m_pipeActive;
 	unsigned long m_launchCounter;
-	std::unique_ptr<PipeConnectThread> m_connectThread;
+	wxString m_pipeName;
 #else
 	bool execute(const std::string& command, int& fdIn, int& fdOut, int& fdErr);
 
