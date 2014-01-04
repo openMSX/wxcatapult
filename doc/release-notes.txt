@@ -11,11 +11,12 @@ All highlights:
 - fixes for several small bugs
 - fixes for some memory leaks
 - updated to libxml 2.8.0
-- updated to wxWidgets 8.2.12
+- updated to wxWidgets 2.8.12
 - allow setting up multiple IPS files
 - added video source setting
 - added disable sprites setting
 - support DMK file extension in file filters
+- fixed invalid PNG files (libpng 1.6 would refuse to load them)
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
