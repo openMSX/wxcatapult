@@ -1,9 +1,10 @@
-Release Notes for openMSX Catapult 0.10.0 (2013-12-27)
+Release Notes for openMSX Catapult 0.10.0 (2014-01-05)
 ======================================================
 
 Catapult release to match openMSX 0.10.0.
 
-This release we mostly cleaned up the code and fixed some (minor) bugs.
+This release we mostly cleaned up the code (so that other people can more
+easily help improving Catapult) and fixed some (minor) bugs.
 
 All highlights:
 - some updates to recognize the new openMSX machine/extension directory
@@ -14,14 +15,14 @@ All highlights:
 - updated to wxWidgets 2.8.12
 - allow setting up multiple IPS files
 - added video source setting
-- added disable sprites setting
+- added disable sprites setting (for easy map creating)
 - support DMK file extension in file filters
 - fixed invalid PNG files (libpng 1.6 would refuse to load them)
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
 - the select extension listbox doesn't work properly when using wxWidgets 2.6.x
-  (and later) Use the spacebar to deselect extensions!
+  (and later) Use the spacebar to deselect extensions! CTRL-click also works.
 - not feature complete, especially for newer features you will have to revert to
   the openMSX console (press F10) or the OSD menu (MENU key)
 
