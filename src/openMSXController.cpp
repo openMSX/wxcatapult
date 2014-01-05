@@ -99,6 +99,7 @@ void openMSXController::HandleEndProcess(wxCommandEvent& event)
 
 	m_parser.reset();
 	m_commands.clear();
+	m_launchCallback.clear();
 	m_appWindow->OpenMSXStopped();
 
 #ifndef __WXMSW__
