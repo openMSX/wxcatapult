@@ -129,7 +129,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 {
 	std::unique_ptr<CatapultXMLParser::ParseResult> data(
 		(CatapultXMLParser::ParseResult*)event.GetClientData());
-	if (data->openMSXID != m_openMSXID) {
+	if (!m_openMsxRunning || (data->openMSXID != m_openMSXID)) {
 		return; // another instance is already started, ignore this message
 	}
 	switch (data->parseState) {
@@ -176,6 +176,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 	case CatapultXMLParser::TAG_REPLY:
 		switch (data->replyState) {
 		case CatapultXMLParser::REPLY_OK: {
+			assert(!m_commands.empty());
 			auto cmd = m_commands.front();
 			m_commands.pop_front();
 			if (cmd.okCallback) {
@@ -184,6 +185,7 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			break;
 		}
 		case CatapultXMLParser::REPLY_NOK: {
+			assert(!m_commands.empty());
 			auto cmd = m_commands.front();
 			m_commands.pop_front();
 			if (cmd.errorCallback) {
