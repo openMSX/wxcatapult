@@ -63,8 +63,7 @@ private:
 			, mediaBits(bits)
 			, confId(id)
 			, button(button_)
-			, isCart(isCart_)
-			, avoid_evt(false) {}
+			, isCart(isCart_) {}
 		wxMenu& menu;
 		const wxString deviceName;
 		wxComboBox& control;
@@ -77,10 +76,8 @@ private:
 		wxString type; // only for carts at the moment
 		wxArrayString history;
 		wxArrayString typehistory;
-		wxString oldContents;
 		wxString lastContents;
 		const bool isCart;
-		bool avoid_evt;
 
 		void eject();
 	};
