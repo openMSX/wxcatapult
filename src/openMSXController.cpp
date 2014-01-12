@@ -586,6 +586,12 @@ void openMSXController::InitLaunchScript()
 	AddSetting(wxT("diskb"),
 		[&](const wxString&, const wxString& v) {
 			UpdateCombo(v, wxT("DiskBContents")); });
+	AddSetting(wxT("carta"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("CartAContents")); });
+	AddSetting(wxT("cartb"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("CartBContents")); });
 	AddSetting(wxT("cassetteplayer"),
 		[&](const wxString&, const wxString& v) {
 			UpdateCombo(v, wxT("CassetteContents")); });
