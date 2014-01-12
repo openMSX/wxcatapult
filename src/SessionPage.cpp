@@ -464,14 +464,12 @@ void SessionPage::ClickDiskCombo(wxCommandEvent& event, MediaInfo& m)
 	auto* box = (wxComboBox*)event.GetEventObject();
 	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
-	if (sel != box->GetString(box->GetSelection())) { // HACK to prevent crash
-		ChangeDiskContents(m);
-		if (m_controller.IsOpenMSXRunning()) {
-			if (!m.contents.IsEmpty()) {
-				m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
-			} else {
-				m_controller.WriteCommand(m.deviceName + wxT(" eject"));
-			}
+	ChangeDiskContents(m);
+	if (m_controller.IsOpenMSXRunning()) {
+		if (!m.contents.IsEmpty()) {
+			m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
+		} else {
+			m_controller.WriteCommand(m.deviceName + wxT(" eject"));
 		}
 	}
 }
@@ -513,15 +511,13 @@ void SessionPage::ClickCartCombo(wxCommandEvent& event, MediaInfo& m)
 	auto* box = (wxComboBox*)event.GetEventObject();
 	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
-	if (sel != box->GetString(box->GetSelection())) { // HACK to prevent crash
-		ChangeCartContents(m);
-		m.type = m.typehistory[event.GetInt()];
-		if (m_controller.IsOpenMSXRunning()) {
-			if (!m.contents.IsEmpty()) {
-				m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
-			} else {
-				m_controller.WriteCommand(m.deviceName + wxT(" eject"));
-			}
+	ChangeCartContents(m);
+	m.type = m.typehistory[event.GetInt()];
+	if (m_controller.IsOpenMSXRunning()) {
+		if (!m.contents.IsEmpty()) {
+			m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
+		} else {
+			m_controller.WriteCommand(m.deviceName + wxT(" eject"));
 		}
 	}
 }
@@ -743,7 +739,7 @@ void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
 }
 void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 {
-	if (oldFocus != &m.control) {
+	if (oldFocus == &m.control) {
 		wxString contents = m.contents;
 		if (contents != m.lastContents) {
 			if (!contents.IsEmpty()) {
