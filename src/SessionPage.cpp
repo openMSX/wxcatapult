@@ -461,8 +461,6 @@ void SessionPage::OnClickDiskBCombo(wxCommandEvent& event)
 }
 void SessionPage::ClickDiskCombo(wxCommandEvent& event, MediaInfo& m)
 {
-	auto* box = (wxComboBox*)event.GetEventObject();
-	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
 	ChangeDiskContents(m);
 	if (m_controller.IsOpenMSXRunning()) {
@@ -508,8 +506,6 @@ void SessionPage::OnClickCartBCombo(wxCommandEvent& event)
 }
 void SessionPage::ClickCartCombo(wxCommandEvent& event, MediaInfo& m)
 {
-	auto* box = (wxComboBox*)event.GetEventObject();
-	wxString sel = box->GetString(box->GetSelection());
 	OnClickCombo(event);
 	ChangeCartContents(m);
 	m.type = m.typehistory[event.GetInt()];
