@@ -113,9 +113,7 @@ private:
 	void OnChangeCartAContents(wxCommandEvent& event);
 	void OnChangeCartBContents(wxCommandEvent& event);
 	void OnChangeCassetteContents(wxCommandEvent& event);
-	void OnClickDiskMenu(wxCommandEvent& event);
-	void OnClickCartMenu(wxCommandEvent& event);
-	void OnClickCasMenu(wxCommandEvent& event);
+	void OnClickMediaMenu(wxCommandEvent& event);
 	void OnInsertEmptyDiskByMenu(wxCommandEvent& event);
 	void OnBrowseDiskByMenu(wxCommandEvent& event);
 	void OnBrowseDiskIps(wxCommandEvent& event);
