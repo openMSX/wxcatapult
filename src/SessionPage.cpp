@@ -245,10 +245,6 @@ void SessionPage::EjectMedia(MediaInfo& m)
 	m.control.SetValue(wxT(""));
 	m.control.SetSelection(wxNOT_FOUND);
 	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
-	if (m.mediaType == CASSETTE) {
-		SetCassetteControl();
-		SetCassetteMode(wxT("play"));
-	}
 	insertMedia(m);
 }
 
@@ -362,10 +358,6 @@ void SessionPage::BrowseMedia(MediaInfo& m, const wxString& path, const wxString
 		m.contents = filedlg.GetPath();
 		m.control.SetValue(m.contents);
 		if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
-		if (m.mediaType == CASSETTE) {
-			SetCassetteControl();
-			SetCassetteMode(wxT("play"));
-		}
 		insertMedia(m);
 	}
 }
@@ -396,10 +388,6 @@ void SessionPage::ClickMediaCombo(wxCommandEvent& event, MediaInfo& m)
 	m.contents = m.control.GetValue();
 	if (m.mediaType == CARTRIDGE) {
 		SetMapperType(m, m.typehistory[event.GetInt()]);
-	}
-	if (m.mediaType == CASSETTE) {
-		SetCassetteControl();
-		SetCassetteMode(wxT("play"));
 	}
 	insertMedia(m);
 }
@@ -627,6 +615,10 @@ void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 
 void SessionPage::insertMedia(MediaInfo& m)
 {
+	if (m.mediaType == CASSETTE) {
+		SetCassetteControl();
+		SetCassetteMode(wxT("play"));
+	}
 	if (m.ipsLabel) {
 		m.ips.Clear();
 		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
