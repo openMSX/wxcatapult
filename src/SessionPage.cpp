@@ -361,7 +361,6 @@ void SessionPage::BrowseDisk(MediaInfo& m)
 			m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
 			if (m_controller.IsOpenMSXRunning()) {
 				AddHistory(m);
-				SaveHistory();
 				m.ips.Clear();
 				m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 			}
@@ -392,7 +391,6 @@ void SessionPage::BrowseCart(MediaInfo& m)
 			m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
 			if (m_controller.IsOpenMSXRunning()) {
 				AddHistory(m);
-				SaveHistory();
 				m.ips.Clear();
 				m.type.Clear();
 				m.menu.SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
@@ -416,7 +414,6 @@ void SessionPage::OnBrowseCassette(wxCommandEvent& event)
 			m_controller.WriteCommand(wxT("cassetteplayer ") + utils::ConvertPath(media[CAS]->contents));
 			if (m_controller.IsOpenMSXRunning()) {
 				AddHistory(*media[CAS]);
-				SaveHistory();
 			}
 		} else {
 			m_controller.WriteCommand(wxT("cassetteplayer eject"));
@@ -706,7 +703,6 @@ void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
 	checkLooseFocus(oldFocus, *media[CARTA]);
 	checkLooseFocus(oldFocus, *media[CARTB]);
 	checkLooseFocus(oldFocus, *media[CAS]);
-	SaveHistory();
 }
 void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 {
@@ -833,7 +829,6 @@ void SessionPage::UpdateSessionData()
 	for (size_t i = 1; i < hardware.GetCount(); ++i) {
 		m_usedExtensions << hardware[i] << wxT("::");
 	}
-	SaveHistory();
 }
 
 void SessionPage::AddHistory(MediaInfo& m)
@@ -869,6 +864,8 @@ void SessionPage::AddHistory(MediaInfo& m)
 		m.control.Append(m.history[i]);
 	}
 	m.control.SetSelection(0);
+
+	SaveHistory();
 }
 
 void SessionPage::RestoreHistory()
@@ -1063,7 +1060,6 @@ void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent& event)
 					m_controller.WriteCommand(target->deviceName + wxT(" eject"));
 				}
 				AddHistory(*target);
-				SaveHistory();
 			}
 		}
 	}
