@@ -73,7 +73,6 @@ private:
 		const ConfigurationData::MediaBits mediaBits;
 		const ConfigurationData::ID confId;
 		wxButton* button;
-		wxString contents;
 		wxString ipsdir;
 		wxArrayString ips;
 		wxString type; // only for carts at the moment

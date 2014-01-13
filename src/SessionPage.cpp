@@ -241,7 +241,6 @@ void SessionPage::OnEjectByMenu(wxCommandEvent& event)
 
 void SessionPage::EjectMedia(MediaInfo& m)
 {
-	m.contents.Clear();
 	m.control.SetValue(wxT(""));
 	m.control.SetSelection(wxNOT_FOUND);
 	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
@@ -272,9 +271,10 @@ void SessionPage::OnModeRecord(wxCommandEvent& event)
 		changeMode = true;
 	} else {
 		wxString path = wxT("Cassette files (*.wav)|*.wav|All files|*.*||");
+		wxString defaultpath = ::wxPathOnly(media[CAS]->control.GetValue());
 		wxFileDialog filedlg(this, wxT("Select Cassettefile to save to"),
-		                     ::wxPathOnly(media[CAS]->contents), wxT(""),
-		                     path, wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+		                     defaultpath, wxT(""), path,
+		                     wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 		if (filedlg.ShowModal() == wxID_OK) {
 			changeMode = true;
 			tapeImage += wxT(" ");
@@ -352,11 +352,10 @@ void SessionPage::OnBrowseCassette(wxCommandEvent& event)
 
 void SessionPage::BrowseMedia(MediaInfo& m, const wxString& path, const wxString title)
 {
-	wxString defaultpath = ::wxPathOnly(m.contents);
+	wxString defaultpath = ::wxPathOnly(m.control.GetValue());
 	wxFileDialog filedlg(this, title, defaultpath, wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
-		m.contents = filedlg.GetPath();
-		m.control.SetValue(m.contents);
+		m.control.SetValue(filedlg.GetPath());
 		if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
 		insertMedia(m);
 	}
@@ -385,7 +384,6 @@ void SessionPage::OnClickCassetteCombo(wxCommandEvent& event)
 void SessionPage::ClickMediaCombo(wxCommandEvent& event, MediaInfo& m)
 {
 	OnClickCombo(event);
-	m.contents = m.control.GetValue();
 	if (m.mediaType == CARTRIDGE) {
 		SetMapperType(m, m.typehistory[event.GetInt()]);
 	}
@@ -414,7 +412,6 @@ void SessionPage::OnChangeCassetteContents(wxCommandEvent& event)
 }
 void SessionPage::ChangeMediaContents(MediaInfo& m)
 {
-	m.contents = m.control.GetValue();
 	if (m.ipsLabel) {
 		m.ips.Clear();
 		m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
@@ -608,7 +605,7 @@ void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
 void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 {
 	if (oldFocus != &m.control) return;
-	if (m.contents == m.lastContents) return;
+	if (m.control.GetValue() == m.lastContents) return;
 	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
 	insertMedia(m);
 }
@@ -623,10 +620,11 @@ void SessionPage::insertMedia(MediaInfo& m)
 		m.ips.Clear();
 		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
 	}
-	m.lastContents = m.contents;
+	wxString contents = m.control.GetValue();
+	m.lastContents = contents;
 	wxString cmd = m.deviceName + wxT(" ");
-	if (!m.contents.IsEmpty()) {
-		cmd += utils::ConvertPath(m.contents);
+	if (!contents.IsEmpty()) {
+		cmd += utils::ConvertPath(contents);
 		if (!m.type.IsEmpty()) {
 			assert(m.mediaType == CARTRIDGE);
 			cmd += wxT(" -romtype ") + m.type;
@@ -670,7 +668,7 @@ void SessionPage::SetCassetteControl()
 	bool enable1 = m_controller.IsOpenMSXRunning() && m_hasCassettePort;
 	m_recordButton->Enable(enable1 && !m_recordButton->GetValue());
 
-	bool enable2 = enable1 && !media[CAS]->contents.IsEmpty();
+	bool enable2 = enable1 && !media[CAS]->control.GetValue().IsEmpty();
 	m_playButton  ->Enable(enable2 && !m_playButton->GetValue());
 	m_rewindButton->Enable(enable2);
 
@@ -688,7 +686,7 @@ wxArrayString SessionPage::getMedia() const
 {
 	wxArrayString result;
 	for (auto& m : media) {
-		result.Add(m->contents);
+		result.Add(m->control.GetValue());
 	}
 	return result;
 }
@@ -733,9 +731,8 @@ void SessionPage::UpdateSessionData()
 {
 	m_InsertedMedia = 0;
 	for (auto& m : media) {
-		m->contents = m->control.GetValue();
-		m->lastContents = m->contents;
-		if (!m->contents.IsEmpty()) {
+		m->lastContents = m->control.GetValue();
+		if (!m->lastContents.IsEmpty()) {
 			AddHistory(*m);
 			m_InsertedMedia |= m->mediaBits;
 		}
@@ -753,7 +750,7 @@ void SessionPage::AddHistory(MediaInfo& m)
 {
 	// wxWindows 2.4 does not support insertion in a wxComboBox
 	// so this is gonna be replaced as soon as 2.6 is stable
-	wxString currentItem = m.contents;
+	wxString currentItem = m.control.GetValue();
 	wxString currentType = m.type;
 #ifdef __WXMSW__
 	currentItem.Replace(wxT("/"), wxT("\\"));
@@ -816,13 +813,11 @@ void SessionPage::RestoreHistory()
 		}
 		if ((m_InsertedMedia & m->mediaBits) && !m->history.IsEmpty()) {
 			m->control.SetSelection(0);
-			m->contents = m->history[0];
 			if (m->mediaType == CARTRIDGE) {
 				SetMapperType(*m, m->typehistory[0]);
 			}
 		} else {
 			m->control.SetValue(wxT(""));
-			m->contents.Clear();
 		}
 	}
 	config.GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
@@ -903,7 +898,7 @@ void SessionPage::EnableCassettePort(wxString data)
 void SessionPage::SetCassetteMode(wxString data)
 {
 	bool state = data == wxT("play");
-	if (!media[CAS]->contents.IsEmpty()) {
+	if (!media[CAS]->control.GetValue().IsEmpty()) {
 		m_playButton->SetValue(state);
 	} else {
 		m_playButton->SetValue(false);
@@ -924,7 +919,7 @@ void SessionPage::OnClickMediaMenu(wxCommandEvent& event)
 {
 	m_lastUsedPopup = (wxButton*)event.GetEventObject();
 	auto* m = GetLastMenuTarget(); assert(m);
-	bool enable = !m->contents.IsEmpty();
+	bool enable = !m->control.GetValue().IsEmpty();
 	if (m->ipsLabel)  m->menu.Enable(m->ipsLabel,  enable);
 	if (m->typeLabel) m->menu.Enable(m->typeLabel, enable);
 	if (m->mediaType == CASSETTE) {
@@ -941,12 +936,12 @@ void SessionPage::OnClickMediaMenu(wxCommandEvent& event)
 void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent& event)
 {
 	if (auto* target = GetLastMenuTarget()) {
+		wxString defaultpath = ::wxPathOnly(target->control.GetValue());
 		wxFileDialog filedlg(this, wxT("Create disk image"),
-		                     ::wxPathOnly(target->contents), wxT(""),
-		                     wxT("*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+		                     defaultpath, wxT(""), wxT("*.*"),
+		                     wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 		if (filedlg.ShowModal() == wxID_OK) {
-			target->contents = filedlg.GetPath();
-			target->control.SetValue(target->contents);
+			target->control.SetValue(filedlg.GetPath());
 			insertMedia(*target);
 		}
 	}
@@ -973,11 +968,10 @@ void SessionPage::OnBrowseDiskByMenu(wxCommandEvent& event)
 void SessionPage::OnBrowseDiskDirByMenu(wxCommandEvent& event)
 {
 	if (auto* target = GetLastMenuTarget()) {
-		wxString defaultpath = ::wxPathOnly(target->contents);
+		wxString defaultpath = ::wxPathOnly(target->control.GetValue());
 		wxDirDialog dirdlg(this, wxT("Select Directory to use as disk"), defaultpath);
 		if (dirdlg.ShowModal() == wxID_OK) {
-			target->contents = dirdlg.GetPath();
-			target->control.SetValue(target->contents);
+			target->control.SetValue(dirdlg.GetPath());
 		}
 	}
 }
@@ -1027,9 +1021,9 @@ void SessionPage::OnBrowseDiskIps(wxCommandEvent& event)
 			} else if (m_lastUsedPopup == m_diskBButton){
 				devicename = wxT("diskb ");
 			}
-			wxString command = devicename + wxT(" ") + utils::ConvertPath(target->contents) + wxT(" ");
+			wxString command = devicename + wxT(" ") + utils::ConvertPath(target->control.GetValue());
 			for (unsigned i = 0; i < target->ips.GetCount(); ++i) {
-				command += utils::ConvertPath(target->ips[i]);
+				command += wxT(" ") + utils::ConvertPath(target->ips[i]);
 			}
 			m_controller.WriteCommand(command);
 			target->ipsdir = m_ipsDialog->GetLastBrowseLocation();
