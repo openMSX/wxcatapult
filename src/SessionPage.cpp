@@ -516,6 +516,14 @@ void SessionPage::OnClickCassetteCombo(wxCommandEvent& event)
 {
 	OnClickCombo(event);
 	OnChangeCassetteContents(event);
+	MediaInfo& m = *media[CAS];
+	if (m_controller.IsOpenMSXRunning()) {
+		if (!m.contents.IsEmpty()) {
+			m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
+		} else {
+			m_controller.WriteCommand(m.deviceName + wxT(" eject"));
+		}
+	}
 }
 
 void SessionPage::OnChangeCassetteContents(wxCommandEvent& event)
@@ -526,15 +534,7 @@ void SessionPage::OnChangeCassetteContents(wxCommandEvent& event)
 void SessionPage::HandleCassetteChange()
 {
 	media[CAS]->contents = media[CAS]->control.GetValue();
-	if ((m_cassettePortState != wxT("disabled")) &&
-	    (m_cassettePortState != wxT("cassetteplayers")) &&
-	    (!media[CAS]->contents.IsEmpty())) {
-		m_rewindButton->Enable(true);
-		m_cassetteControlEnabled = true;
-	} else {
-		m_rewindButton->Enable(false);
-		m_cassetteControlEnabled = false;
-	}
+	SetCassetteControl();
 	SetCassetteMode(wxT("play"));
 }
 
