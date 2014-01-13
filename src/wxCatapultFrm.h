@@ -5,6 +5,7 @@
 #include <wx/timer.h>
 #include <wx/socket.h>
 #include <wx/frame.h>
+#include <wx/notebook.h> // forward declaration doesn't work on wx 3.0 for some reason
 #include <memory>
 
 class CatapultXMLParser;
@@ -15,7 +16,6 @@ class VideoControlPage;
 class AudioControlPage;
 class MiscControlPage;
 class openMSXController;
-class wxNotebook;
 class wxButton;
 class wxNotebookEvent;
 class wxStaticBitmap;

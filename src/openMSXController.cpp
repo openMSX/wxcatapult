@@ -694,7 +694,7 @@ void openMSXController::UpdateToggle(const wxString& data, const wxString& contr
 			wxCommandEvent event(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, button->GetId());
 			event.SetInt(active);
 			event.SetEventObject(button);
-			button->ProcessEvent(event);
+			button->GetEventHandler()->ProcessEvent(event);
 		}
 
 		if (flags & S_CONVERT) {

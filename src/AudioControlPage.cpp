@@ -256,7 +256,7 @@ void AudioControlPage::AddChannel(int channelnumber)
 	}
 	audioSizer->Add(sizer, 0, wxEXPAND | wxRIGHT, 10);
 
-	for (int i = wxEVT_SCROLL_TOP; i <= wxEVT_SCROLL_ENDSCROLL; ++i) {
+	for (int i = wxEVT_SCROLL_TOP; i <= wxEVT_SCROLL_CHANGED; ++i) {
 		Connect(FIRSTAUDIOSLIDER + channelnumber, i,
 		        (wxObjectEventFunction)(wxEventFunction)(wxCommandEventFunction)&AudioControlPage::OnChangeVolume);
 	}
@@ -282,20 +282,15 @@ void AudioControlPage::OnChangeMode(wxCommandEvent& event)
 	const wxString& channelname = m_audioChannels[id - FIRSTAUDIOCOMBO].name;
 	const wxString tempval = ((wxComboBox*)event.GetEventObject())->GetValue();
 	wxString value;
-	switch (tempval[0]) {
-	case 'M':
-		value = wxT("0");    break;
-	case 'L':
-		value = wxT("-100"); break;
-	case 'R':
-		value = wxT("100");  break;
-	case 'O':
-		value = wxT("mute"); break;
-	case 'S':
-		value = wxT("0");    break; // unmute
-	default:
-		break;
-	}
+	if (tempval[0] == wxT('M') || tempval[0] == wxT('S')) { // unmute
+		value = wxT("0");
+	} else if (tempval[0] == wxT('L')) {
+		value = wxT("-100");
+	} else if (tempval[0] == wxT('R')) {
+		value = wxT("100");
+	} else if (tempval[0] == wxT('O')) {
+		value = wxT("mute");
+	} else assert(false);
 	if (value.IsNumber()) {
 		m_controller.WriteCommand(wxString::Format(
 			wxT("set %s_balance %s"), channelname.c_str(), value.c_str()));
