@@ -408,11 +408,7 @@ void SessionPage::ClickDiskCombo(wxCommandEvent& event, MediaInfo& m)
 {
 	OnClickCombo(event);
 	ChangeDiskContents(m);
-	if (!m.contents.IsEmpty()) {
-		m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
-	} else {
-		m_controller.WriteCommand(m.deviceName + wxT(" eject"));
-	}
+	insertMedia(m);
 }
 
 void SessionPage::OnChangeDiskAContents(wxCommandEvent& event)
@@ -425,8 +421,8 @@ void SessionPage::OnChangeDiskBContents(wxCommandEvent& event)
 }
 void SessionPage::ChangeDiskContents(MediaInfo& m)
 {
-	m.ips.Clear();
 	m.contents = m.control.GetValue();
+	m.ips.Clear();
 	m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 }
 
@@ -452,11 +448,7 @@ void SessionPage::ClickCartCombo(wxCommandEvent& event, MediaInfo& m)
 	OnClickCombo(event);
 	ChangeCartContents(m);
 	m.type = m.typehistory[event.GetInt()];
-	if (!m.contents.IsEmpty()) {
-		m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
-	} else {
-		m_controller.WriteCommand(m.deviceName + wxT(" eject"));
-	}
+	insertMedia(m);
 }
 
 void SessionPage::OnChangeCartAContents(wxCommandEvent& event)
@@ -480,12 +472,7 @@ void SessionPage::OnClickCassetteCombo(wxCommandEvent& event)
 {
 	OnClickCombo(event);
 	OnChangeCassetteContents(event);
-	MediaInfo& m = *media[CAS];
-	if (!m.contents.IsEmpty()) {
-		m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
-	} else {
-		m_controller.WriteCommand(m.deviceName + wxT(" eject"));
-	}
+	insertMedia(*media[CAS]);
 }
 
 void SessionPage::OnChangeCassetteContents(wxCommandEvent& event)
