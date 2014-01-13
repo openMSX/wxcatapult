@@ -248,14 +248,13 @@ void SessionPage::MediaInfo::eject()
 	ips.Clear();
 	control.SetValue(wxT(""));
 	control.SetSelection(wxNOT_FOUND);
-	lastContents.Clear();
 }
 
 void SessionPage::EjectDisk(MediaInfo& m)
 {
 	m.eject();
 	m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
-	m_controller.WriteCommand(m.deviceName + wxT(" eject"));
+	insertMedia(m);
 }
 
 void SessionPage::EjectCart(MediaInfo& m)
@@ -264,13 +263,13 @@ void SessionPage::EjectCart(MediaInfo& m)
 	m.type.Clear();
 	m.menu.SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 	m.menu.SetLabel(Cart_Select_Mapper, wxT("Select cartridge type (AUTO)"));
-	m_controller.WriteCommand(m.deviceName + wxT(" eject"));
+	insertMedia(m);
 }
 
 void SessionPage::OnClearCassette(wxCommandEvent& event)
 {
 	media[CAS]->eject();
-	m_controller.WriteCommand(wxT("cassetteplayer eject"));
+	insertMedia(*media[CAS]);
 	OnChangeCassetteContents(event);
 }
 
