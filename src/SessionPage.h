@@ -50,12 +50,13 @@ public:
 	void FixLayout();
 
 private:
+	enum MediaType { DISKETTE, CARTRIDGE, CASSETTE };
 	struct MediaInfo {
 		MediaInfo(wxMenu& menu_, const wxString& deviceName_,
 		          const wxString& control_,
 			  ConfigurationData::MediaBits bits,
 			  ConfigurationData::ID id,
-			  wxButton* button_, bool isCart_,
+			  wxButton* button_, MediaType mediaType_,
 			  int ipsLabel_, int typeLabel_)
 			: menu(menu_)
 			, deviceName(deviceName_)
@@ -63,7 +64,7 @@ private:
 			, mediaBits(bits)
 			, confId(id)
 			, button(button_)
-			, isCart(isCart_)
+			, mediaType(mediaType_)
 			, ipsLabel(ipsLabel_)
 			, typeLabel(typeLabel_) {}
 		wxMenu& menu;
@@ -79,11 +80,9 @@ private:
 		wxArrayString history;
 		wxArrayString typehistory;
 		wxString lastContents;
-		const bool isCart;
+		const MediaType mediaType;
 		const int ipsLabel;
 		const int typeLabel;
-
-		void eject();
 	};
 
 	virtual void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
@@ -97,7 +96,6 @@ private:
 	void OnClearCassette(wxCommandEvent& event);
 	void OnEjectCartA(wxCommandEvent& event);
 	void OnEjectCartB(wxCommandEvent& event);
-	void OnEjectCartByMenu(wxCommandEvent& event);
 	void OnEjectDiskB(wxCommandEvent& event);
 	void OnEjectDiskA(wxCommandEvent& event);
 	void OnRewind(wxCommandEvent& event);
@@ -115,7 +113,6 @@ private:
 	void OnChangeCartAContents(wxCommandEvent& event);
 	void OnChangeCartBContents(wxCommandEvent& event);
 	void OnChangeCassetteContents(wxCommandEvent& event);
-	void HandleCassetteChange();
 	void OnClickDiskMenu(wxCommandEvent& event);
 	void OnClickCartMenu(wxCommandEvent& event);
 	void OnClickCasMenu(wxCommandEvent& event);
@@ -124,7 +121,7 @@ private:
 	void OnBrowseDiskIps(wxCommandEvent& event);
 	void OnBrowseDiskDirByMenu(wxCommandEvent& event);
 	void OnBrowseCartByMenu(wxCommandEvent& event);
-	void OnEjectDiskByMenu(wxCommandEvent& event);
+	void OnEjectByMenu(wxCommandEvent& event);
 	void OnSelectMapper(wxCommandEvent& event);
 	void OnSelectIPS(wxCommandEvent& event);
 
@@ -134,10 +131,9 @@ private:
 	void SetMapperType(MediaInfo& media, const wxString& type);
 	void BrowseDisk(MediaInfo& media);
 	void BrowseCart(MediaInfo& media);
-	void ClickDiskCombo(wxCommandEvent& event, MediaInfo& media);
-	void ClickCartCombo(wxCommandEvent& event, MediaInfo& media);
-	void ChangeDiskContents(MediaInfo& media);
-	void ChangeCartContents(MediaInfo& media);
+	void BrowseMedia(MediaInfo& m, const wxString& path, const wxString title);
+	void ClickMediaCombo(wxCommandEvent& event, MediaInfo& media);
+	void ChangeMediaContents(MediaInfo& media);
 	void prepareMachines(const wxString& sharepath,
 	                     wxArrayString& machineArray, bool optional = false);
 	void fillMachines(const wxArrayString& machineArray);
@@ -146,8 +142,7 @@ private:
 	void fillExtensions(const wxArrayString& extensionArray);
 	void AddHistory(MediaInfo& media);
 	void SaveHistory();
-	void EjectCart(MediaInfo& media);
-	void EjectDisk(MediaInfo& media);
+	void EjectMedia(MediaInfo& media);
 
 	wxComboBox* m_machineList;
 	wxListBox* m_extensionList;
