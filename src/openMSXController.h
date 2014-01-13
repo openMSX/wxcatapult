@@ -134,14 +134,13 @@ private:
 	HWND FindOpenMSXWindow();
 	static BOOL CALLBACK EnumWindowCallBack(HWND hwnd, LPARAM lParam);
 	void CloseHandles(
-		bool useNamedPipes, HANDLE hThread, HANDLE hInputRead,
+		HANDLE hThread, HANDLE hInputRead,
 		HANDLE hOutputWrite, HANDLE hErrorWrite);
 	void ShowError(const wxString& msg);
 	bool CreatePipes(
-		bool useNamedPipes, HANDLE* input, HANDLE* output, HANDLE* error,
+		HANDLE* input, HANDLE* output, HANDLE* error,
 		HANDLE* outputWrite, HANDLE* errorWrite);
-	wxString CreateControlParameter(bool useNamedPipes);
-	bool DetermenNamedPipeUsage();
+	wxString CreateControlParameter();
 
 	HANDLE m_outputHandle;
 	HANDLE m_namedPipeHandle;

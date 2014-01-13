@@ -2,7 +2,6 @@
 #define WXCATAPULTAPP_H
 
 #define wxUSE_CMDLINE_PARSER 1
-#define FORCE_UNNAMED_PIPES 0
 
 #include <wx/app.h>
 #include <wx/string.h>

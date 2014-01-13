@@ -910,10 +910,9 @@ bool openMSXController::Launch(wxString cmdline)
 	m_parser.reset(new CatapultXMLParser(m_appWindow));
 #ifdef __WXMSW__
 	m_catapultWindow = GetActiveWindow();
-	bool useNamedPipes = DetermenNamedPipeUsage();
-	cmdline += CreateControlParameter(useNamedPipes);
+	cmdline += CreateControlParameter();
 	HANDLE hInputRead, hOutputWrite, hErrorWrite, hErrorRead, hOutputRead;
-	CreatePipes(useNamedPipes, &hInputRead, &hOutputWrite, &hErrorWrite, &hOutputRead, &hErrorRead);
+	CreatePipes(&hInputRead, &hOutputWrite, &hErrorWrite, &hOutputRead, &hErrorRead);
 
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE | CREATE_SUSPENDED;
 	WORD wStartupWnd = SW_HIDE;
@@ -928,14 +927,12 @@ bool openMSXController::Launch(wxString cmdline)
 	si.hStdError  = hErrorWrite;
 	si.wShowWindow = wStartupWnd;
 
-	if (useNamedPipes) {
-		// Note: m_pipeName is set by CreateControlParameter().
-		m_namedPipeHandle = CreateNamedPipe(m_pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
-		if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {
-			wxMessageBox(wxString::Format(
-				wxT("Error creating pipe: %ld"), GetLastError()));
-			return false;
-		}
+	// Note: m_pipeName is set by CreateControlParameter().
+	m_namedPipeHandle = CreateNamedPipe(m_pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
+	if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {
+		wxMessageBox(wxString::Format(
+			wxT("Error creating pipe: %ld"), GetLastError()));
+		return false;
 	}
 
 	LPTSTR szCmdLine = _tcsdup(cmdline.c_str());
@@ -960,18 +957,13 @@ bool openMSXController::Launch(wxString cmdline)
 
 	::ResumeThread(m_openmsxProcInfo.hThread);
 
-	if (useNamedPipes) {
-		PipeConnectThread *m_connectThread = new PipeConnectThread(m_appWindow);
-		m_connectThread->Create();
-		m_connectThread->SetHandle(m_namedPipeHandle);
-		m_connectThread->Run();
-		m_outputHandle = m_namedPipeHandle;
-	} else {
-		m_openMsxRunning = true;
-		PostLaunch();
-	}
+	PipeConnectThread *m_connectThread = new PipeConnectThread(m_appWindow);
+	m_connectThread->Create();
+	m_connectThread->SetHandle(m_namedPipeHandle);
+	m_connectThread->Run();
+	m_outputHandle = m_namedPipeHandle;
 	m_openMsxRunning = true;
-	CloseHandles(useNamedPipes, m_openmsxProcInfo.hThread, hInputRead, hOutputWrite, hErrorWrite);
+	CloseHandles(m_openmsxProcInfo.hThread, hInputRead, hOutputWrite, hErrorWrite);
 
 	return true;
 #else
@@ -1000,71 +992,30 @@ bool openMSXController::Launch(wxString cmdline)
 // windows or linux specific stuff
 #ifdef __WXMSW__
 
-bool openMSXController::DetermenNamedPipeUsage()
-{
-	bool useNamedPipes = false;
-	if (!FORCE_UNNAMED_PIPES) {
-		OSVERSIONINFO info;
-		info.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-		if (!GetVersionEx(&info)) {
-			wxMessageBox(wxString::Format(
-				wxT("Error getting system info: %ld "), GetLastError()));
-		} else {
-			if (info.dwPlatformId == VER_PLATFORM_WIN32_NT) {
-				useNamedPipes = true; // nt-based only and only if the user wants it
-			}
-		}
-	}
-	return useNamedPipes;
-}
-
-wxString openMSXController::CreateControlParameter(bool useNamedPipes)
+wxString openMSXController::CreateControlParameter()
 {
 	wxString parameter = wxT(" -control");
 
-	if (useNamedPipes) {
-		m_launchCounter++;
-		m_pipeName = wxString::Format(
-			wxT("\\\\.\\pipe\\Catapult-%u-%lu"), _getpid(), m_launchCounter);
-		parameter += wxT(" pipe:") + m_pipeName.Mid(9);
-	} else {
-		parameter += wxT(" stdio:");
-	}
+	m_launchCounter++;
+	m_pipeName = wxString::Format(
+		wxT("\\\\.\\pipe\\Catapult-%u-%lu"), _getpid(), m_launchCounter);
+	parameter += wxT(" pipe:") + m_pipeName.Mid(9);
 	return parameter;
 }
 
 bool openMSXController::CreatePipes(
-	bool useNamedPipes, HANDLE* input, HANDLE* output, HANDLE* error,
+	HANDLE* input, HANDLE* output, HANDLE* error,
 	HANDLE* outputWrite, HANDLE* errorWrite)
 {
 	HANDLE hOutputReadTmp, hOutputWrite;
 	HANDLE hErrorReadTmp, hErrorWrite;
-	HANDLE hInputRead = 0, hInputWriteTmp, hInputWrite;
+	HANDLE hInputRead = 0;
 	HANDLE hInputHandle = GetStdHandle(STD_INPUT_HANDLE);
 
 	SECURITY_ATTRIBUTES sa;
 	sa.nLength= sizeof(SECURITY_ATTRIBUTES);
 	sa.lpSecurityDescriptor = nullptr;
 	sa.bInheritHandle = TRUE;
-
-	if (!useNamedPipes) {
-		if (!CreatePipe(&hInputRead, &hInputWriteTmp, &sa, 0)) {
-			ShowError(wxT("Error creating pipe for stdin"));
-			return false;
-		}
-		if (!DuplicateHandle(GetCurrentProcess(), hInputWriteTmp,
-		                     GetCurrentProcess(), &hInputWrite, 0,
-		                     FALSE, DUPLICATE_SAME_ACCESS)) {
-			ShowError(wxT("Error Duplicating InputWriteTmp Handle"));
-			return false;
-		}
-		if (!CloseHandle(hInputWriteTmp)) {
-			ShowError(wxT("Error Closing Input Temp Handle"));
-			return false;
-		}
-		m_outputHandle = hInputWrite;
-		hInputHandle = hInputRead;
-	}
 
 	if (!CreatePipe(&hOutputReadTmp, &hOutputWrite, &sa, 0)) {
 		ShowError(wxT("Error creating pipe for stdout"));
@@ -1088,7 +1039,7 @@ void openMSXController::ShowError(const wxString& msg)
 }
 
 void openMSXController::CloseHandles(
-	bool useNamedPipes, HANDLE hThread, HANDLE hInputRead,
+	HANDLE hThread, HANDLE hInputRead,
 	HANDLE hOutputWrite, HANDLE hErrorWrite)
 {
 	if (!CloseHandle(hThread)) {
@@ -1102,12 +1053,6 @@ void openMSXController::CloseHandles(
 	if (!CloseHandle(hErrorWrite)) {
 		wxMessageBox(wxT("Unable to close Error Write"));
 		return;
-	}
-	if (!useNamedPipes) {
-		if (!CloseHandle(hInputRead)) {
-			wxMessageBox(wxT("Unable to close Input Read"));
-			return;
-		}
 	}
 }
 
