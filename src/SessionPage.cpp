@@ -155,23 +155,23 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 	media[DISKA].reset(new MediaInfo(
 		*m_diskMenu[0], wxT("diska"), wxT("DiskAContents"),
 		ConfigurationData::MB_DISKA, ConfigurationData::CD_HISTDISKA,
-		m_diskAButton, false));
+		m_diskAButton, false, Disk_Browse_Ips, 0));
 	media[DISKB].reset(new MediaInfo(
 		*m_diskMenu[1], wxT("diskb"), wxT("DiskBContents"),
 		ConfigurationData::MB_DISKB, ConfigurationData::CD_HISTDISKB,
-		m_diskBButton, false));
+		m_diskBButton, false, Disk_Browse_Ips, 0));
 	media[CARTA].reset(new MediaInfo(
 		*m_cartMenu[0], wxT("carta"), wxT("CartAContents"),
 		ConfigurationData::MB_CARTA, ConfigurationData::CD_HISTCARTA,
-		m_cartAButton, true));
+		m_cartAButton, true, Cart_Browse_Ips, Cart_Select_Mapper));
 	media[CARTB].reset(new MediaInfo(
 		*m_cartMenu[1], wxT("cartb"), wxT("CartBContents"),
 		ConfigurationData::MB_CARTB, ConfigurationData::CD_HISTCARTB,
-		m_cartBButton, true));
+		m_cartBButton, true, Cart_Browse_Ips, Cart_Select_Mapper));
 	media[CAS].reset(new MediaInfo(
 		*m_casMenu, wxT("cassetteplayer"), wxT("CassetteContents"),
 		ConfigurationData::MB_CASSETTE, ConfigurationData::CD_HISTCASSETTE,
-		m_cassetteButton, false));
+		m_cassetteButton, false, 0, 0));
 	for (auto& m : media) {
 		m->control.SetDropTarget(new SessionDropTarget(&m->control));
 	}
@@ -245,7 +245,6 @@ void SessionPage::OnEjectCartByMenu(wxCommandEvent& event)
 void SessionPage::MediaInfo::eject()
 {
 	contents.Clear();
-	ips.Clear();
 	control.SetValue(wxT(""));
 	control.SetSelection(wxNOT_FOUND);
 }
@@ -253,16 +252,13 @@ void SessionPage::MediaInfo::eject()
 void SessionPage::EjectDisk(MediaInfo& m)
 {
 	m.eject();
-	m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 	insertMedia(m);
 }
 
 void SessionPage::EjectCart(MediaInfo& m)
 {
 	m.eject();
-	m.type.Clear();
-	m.menu.SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
-	m.menu.SetLabel(Cart_Select_Mapper, wxT("Select cartridge type (AUTO)"));
+	SetMapperType(m, wxT(""));
 	insertMedia(m);
 }
 
@@ -353,8 +349,6 @@ void SessionPage::BrowseDisk(MediaInfo& m)
 	if (filedlg.ShowModal() == wxID_OK) {
 		m.contents = filedlg.GetPath();
 		m.control.SetValue(m.contents);
-		m.ips.Clear();
-		m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 		insertMedia(m);
 	}
 }
@@ -375,10 +369,7 @@ void SessionPage::BrowseCart(MediaInfo& m)
 	if (filedlg.ShowModal() == wxID_OK) {
 		m.contents = filedlg.GetPath();
 		m.control.SetValue(m.contents);
-		m.ips.Clear();
-		m.type.Clear();
-		m.menu.SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
-		m.menu.SetLabel(Cart_Select_Mapper, wxT("Select cartridge type (AUTO)"));
+		SetMapperType(m, wxT(""));
 		insertMedia(m);
 	}
 }
@@ -407,7 +398,7 @@ void SessionPage::OnClickDiskBCombo(wxCommandEvent& event)
 void SessionPage::ClickDiskCombo(wxCommandEvent& event, MediaInfo& m)
 {
 	OnClickCombo(event);
-	ChangeDiskContents(m);
+	m.contents = m.control.GetValue();
 	insertMedia(m);
 }
 
@@ -426,13 +417,14 @@ void SessionPage::ChangeDiskContents(MediaInfo& m)
 	m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 }
 
-void SessionPage::UpdateMenuMapperLabel(MediaInfo& m)
+void SessionPage::SetMapperType(MediaInfo& m, const wxString& type)
 {
-	wxString item = wxT("Select cartridge type (AUTO)");
-	if (!m.type.IsEmpty() && (m.type.Upper() != wxT("AUTO"))) {
-		item = wxT("Select cartridge type (") + m.type + wxT(")");
+	m.type = type;
+	wxString s = wxT("Select cartridge type (AUTO)");
+	if (!type.IsEmpty() && (type.Upper() != wxT("AUTO"))) {
+		s = wxT("Select cartridge type (") + type + wxT(")");
 	}
-	m.menu.SetLabel(Cart_Select_Mapper, item);
+	m.menu.SetLabel(m.typeLabel, s);
 }
 
 void SessionPage::OnClickCartACombo(wxCommandEvent& event)
@@ -446,8 +438,8 @@ void SessionPage::OnClickCartBCombo(wxCommandEvent& event)
 void SessionPage::ClickCartCombo(wxCommandEvent& event, MediaInfo& m)
 {
 	OnClickCombo(event);
-	ChangeCartContents(m);
-	m.type = m.typehistory[event.GetInt()];
+	m.contents = m.control.GetValue();
+	SetMapperType(m, m.typehistory[event.GetInt()]);
 	insertMedia(m);
 }
 
@@ -461,11 +453,10 @@ void SessionPage::OnChangeCartBContents(wxCommandEvent& event)
 }
 void SessionPage::ChangeCartContents(MediaInfo& m)
 {
-	m.ips.Clear();
-	m.type.Clear();
 	m.contents = m.control.GetValue();
+	m.ips.Clear();
 	m.menu.SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
-	UpdateMenuMapperLabel(m);
+	SetMapperType(m, wxT(""));
 }
 
 void SessionPage::OnClickCassetteCombo(wxCommandEvent& event)
@@ -661,11 +652,18 @@ void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 {
 	if (oldFocus != &m.control) return;
 	if (m.contents == m.lastContents) return;
+	if (m.isCart) {
+		SetMapperType(m, wxT(""));
+	}
 	insertMedia(m);
 }
 
 void SessionPage::insertMedia(MediaInfo& m)
 {
+	if (m.ipsLabel) {
+		m.ips.Clear();
+		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
+	}
 	m.lastContents = m.contents;
 	if (!m.contents.IsEmpty()) {
 		m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
@@ -861,8 +859,7 @@ void SessionPage::RestoreHistory()
 			m->control.SetSelection(0);
 			m->contents = m->history[0];
 			if (m->isCart) {
-				m->type = m->typehistory[0];
-				UpdateMenuMapperLabel(*m);
+				SetMapperType(*m, m->typehistory[0]);
 			}
 		} else {
 			m->control.SetValue(wxT(""));
@@ -1049,8 +1046,7 @@ void SessionPage::OnSelectMapper(wxCommandEvent& event)
 		wxString value = target->type;
 		m_romTypeDialog->CenterOnParent();
 		if (m_romTypeDialog->ShowModal(value) == wxID_OK) {
-			target->type = m_romTypeDialog->GetSelectedType();
-			UpdateMenuMapperLabel(*target);
+			SetMapperType(*target, m_romTypeDialog->GetSelectedType());
 		}
 	}
 }

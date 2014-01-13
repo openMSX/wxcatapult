@@ -55,14 +55,17 @@ private:
 		          const wxString& control_,
 			  ConfigurationData::MediaBits bits,
 			  ConfigurationData::ID id,
-			  wxButton* button_, bool isCart_)
+			  wxButton* button_, bool isCart_,
+			  int ipsLabel_, int typeLabel_)
 			: menu(menu_)
 			, deviceName(deviceName_)
 			, control(*(wxComboBox*)FindWindowByName(control_))
 			, mediaBits(bits)
 			, confId(id)
 			, button(button_)
-			, isCart(isCart_) {}
+			, isCart(isCart_)
+			, ipsLabel(ipsLabel_)
+			, typeLabel(typeLabel_) {}
 		wxMenu& menu;
 		const wxString deviceName;
 		wxComboBox& control;
@@ -77,6 +80,8 @@ private:
 		wxArrayString typehistory;
 		wxString lastContents;
 		const bool isCart;
+		const int ipsLabel;
+		const int typeLabel;
 
 		void eject();
 	};
@@ -126,7 +131,7 @@ private:
 	void SetupRomType(wxString romtype, wxString fullname);
 	MediaInfo* GetLastMenuTarget() const;
 	void GetRomTypes();
-	void UpdateMenuMapperLabel(MediaInfo& media);
+	void SetMapperType(MediaInfo& media, const wxString& type);
 	void BrowseDisk(MediaInfo& media);
 	void BrowseCart(MediaInfo& media);
 	void ClickDiskCombo(wxCommandEvent& event, MediaInfo& media);
