@@ -271,10 +271,7 @@ void SessionPage::OnClearCassette(wxCommandEvent& event)
 {
 	media[CAS]->eject();
 	m_controller.WriteCommand(wxT("cassetteplayer eject"));
-#ifdef __WXMSW__
-	// Bug in wxMSW? On wxGTK this is not necessary
 	OnChangeCassetteContents(event);
-#endif
 }
 
 void SessionPage::OnRewind(wxCommandEvent& event)
