@@ -665,12 +665,18 @@ void SessionPage::insertMedia(MediaInfo& m)
 		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
 	}
 	m.lastContents = m.contents;
+	wxString cmd = m.deviceName + wxT(" ");
 	if (!m.contents.IsEmpty()) {
-		m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
+		cmd += utils::ConvertPath(m.contents);
+		if (!m.type.IsEmpty()) {
+			assert(m.isCart);
+			cmd += wxT(" -romtype ") + m.type;
+		}
 		AddHistory(m);
 	} else {
-		m_controller.WriteCommand(m.deviceName + wxT(" eject"));
+		cmd += wxT("eject");
 	}
+	m_controller.WriteCommand(cmd);
 }
 
 void SessionPage::SetControlsOnLaunch()
@@ -1043,10 +1049,10 @@ void SessionPage::OnBrowseDiskDirByMenu(wxCommandEvent& event)
 void SessionPage::OnSelectMapper(wxCommandEvent& event)
 {
 	if (auto* target = GetLastMenuTarget()) {
-		wxString value = target->type;
 		m_romTypeDialog->CenterOnParent();
-		if (m_romTypeDialog->ShowModal(value) == wxID_OK) {
+		if (m_romTypeDialog->ShowModal(target->type) == wxID_OK) {
 			SetMapperType(*target, m_romTypeDialog->GetSelectedType());
+			insertMedia(*target); // TODO this shouldn't clear IPS list
 		}
 	}
 }
