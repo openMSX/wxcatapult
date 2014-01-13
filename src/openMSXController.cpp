@@ -457,7 +457,7 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("set mute"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	AddCommand(wxT("plug cassetteport"),
+	AddCommand(wxT("catch {cassetteplayer}"),
 		[&](const wxString&, const wxString& r) {
 			m_appWindow->m_sessionPage->EnableCassettePort(r); });
 	AddCommand(wxT("cassetteplayer"),
@@ -468,10 +468,9 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("openmsx_update enable plug"));
 	AddCommand(wxT("openmsx_update enable unplug"));
 	AddCommand(wxT("openmsx_update enable status"));
+	AddCommand(wxT("plug cassetteport cassetteplayer")); // ignore possible error
 	AddCommand(wxT(""), // finish launch
 		[&](const wxString&, const wxString&) {
-			m_appWindow->m_sessionPage->AutoPlugCassette();
-			m_appWindow->m_sessionPage->SetCassetteControl();
 			m_appWindow->OpenMSXStarted();
 		});
 

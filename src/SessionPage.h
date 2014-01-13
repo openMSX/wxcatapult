@@ -44,7 +44,6 @@ public:
 	void UpdateSessionData();
 	void EnableCassettePort(wxString data);
 	void SetCassetteMode(wxString data);
-	void AutoPlugCassette();
 	const wxArrayString& GetDetectedMachines() const;
 	const wxArrayString& GetDetectedExtensions() const;
 	void RestoreHistory();
@@ -171,7 +170,7 @@ private:
 	wxBitmapButton* m_clearDiskA;
 	wxBitmapButton* m_clearDiskB;
 	wxBitmapButton* m_clearCassette;
-	wxString m_cassettePortState;
+	bool m_hasCassettePort;
 
 	wxStaticText* m_machineListLabel;
 	wxStaticText* m_extensionListLabel;
@@ -191,7 +190,6 @@ private:
 	std::unique_ptr<RomTypeDlg> m_romTypeDialog;
 	std::unique_ptr<IPSSelectionDlg> m_ipsDialog;
 	bool m_cassetteControl;
-	bool m_cassetteControlEnabled;
 	bool m_cassetteAutoCreate;
 
 	DECLARE_CLASS(SessionPage)

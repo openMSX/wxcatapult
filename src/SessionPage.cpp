@@ -147,7 +147,8 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 	m_extensionListLabel = (wxStaticText*)FindWindowByName(wxT("ExtensionLabel"));
 	//SetupHardware(true, false); // No need to do this, it's done in wxCatapultFrm's constructor
 
-	m_cassettePortState = wxT("disabled");
+	m_hasCassettePort = true; // avoid UMR
+	m_cassetteControl = true; // see comments in OnMotorControl()
 	m_romTypeDialog.reset(new RomTypeDlg(wxGetTopLevelParent(this)));
 	GetRomTypes();
 	m_ipsDialog.reset(new IPSSelectionDlg(wxGetTopLevelParent(this)));
@@ -178,6 +179,7 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 	int autorecord;
 	ConfigurationData::instance().GetParameter(ConfigurationData::CD_AUTORECORD, &autorecord);
 	m_cassetteAutoCreate = autorecord == 1;
+	SetCassetteControl();
 }
 
 void SessionPage::FixLayout()
@@ -286,10 +288,9 @@ void SessionPage::OnRewind(wxCommandEvent& event)
 void SessionPage::OnModePlay(wxCommandEvent& event)
 {
 	m_playButton->SetValue(true);
-	m_playButton->Enable(false);
-	m_recordButton->Enable(true);
 	m_recordButton->SetValue(false);
 	m_controller.WriteCommand(wxT("cassetteplayer play"));
+	SetCassetteControl();
 }
 
 void SessionPage::OnModeRecord(wxCommandEvent& event)
@@ -307,22 +308,23 @@ void SessionPage::OnModeRecord(wxCommandEvent& event)
 			changeMode = true;
 			tapeImage += wxT(" ");
 			tapeImage += utils::ConvertPath(filedlg.GetPath());
-		} else {
-			m_recordButton->SetValue(false);
 		}
-
 	}
 	if (changeMode) {
 		m_recordButton->SetValue(true);
-		m_recordButton->Enable(false);
-		m_playButton->Enable(true);
 		m_playButton->SetValue(false);
 		m_controller.WriteCommand(wxT("cassetteplayer new") + tapeImage);
+		SetCassetteControl();
 	}
 }
 
 void SessionPage::OnMotorControl(wxCommandEvent& event)
 {
+	// TODO m_cassetteControl should be queried from openmsx
+	//    -> before this patch it was not even initialized
+	//    -> if this is changed in openMSX itself catapult gets out-of-sync
+	// Would it be a good idea to just drop this function from catapult? Is
+	// this really something that's useful for typical catapult users?
 	m_cassetteControl = !m_cassetteControl;
 	if (m_cassetteControl) {
 		m_controller.WriteCommand(wxT("cassetteplayer motorcontrol on"));
@@ -411,10 +413,6 @@ void SessionPage::OnBrowseCassette(wxCommandEvent& event)
 		media[CAS]->contents = filedlg.GetPath();
 		media[CAS]->control.SetValue(media[CAS]->contents);
 		if (!media[CAS]->contents.IsEmpty()) {
-			if ((m_cassettePortState != wxT("disabled")) &&
-			    (m_cassettePortState != wxT("cassetteplayer"))) {
-				m_controller.WriteCommand(wxT("plug cassetteport cassetteplayer"));
-			}
 			m_controller.WriteCommand(wxT("cassetteplayer ") + utils::ConvertPath(media[CAS]->contents));
 			if (m_controller.IsOpenMSXRunning()) {
 				AddHistory(*media[CAS]);
@@ -738,51 +736,37 @@ void SessionPage::SetControlsOnEnd()
 {
 	m_machineList->Enable(true);
 	m_extensionList->Enable(true);
-	m_cassettePortState = wxT("disabled");
 	m_extensionListLabel->Enable(true);
 	m_machineListLabel->Enable(true);
-	m_rewindButton->Enable(false);
 	m_playButton->SetValue(false);
-	m_playButton->Enable(false);
 	m_recordButton->SetValue(false);
-	m_recordButton->Enable(false);
-	m_cassetteControlEnabled = false;
-	m_cassetteButton->Enable(true);
-	m_clearCassette->Enable(true);
-	m_browseCassette->Enable(true);
-	media[CAS]->control.Enable(true);
 	if (auto* temp = FindWindowByLabel(wxT("Cartridge Slots"))) {
 		temp->Enable(true);
 	}
-	if (auto* temp = FindWindowByLabel(wxT("Cassette Player"))) {
-		temp->Enable(true);
-	}
+	SetCassetteControl();
 }
 
+// This method should be called whenever one of these conditions changes:
+//  - m_controller.IsOpenMSXRunning()
+//  - m_hasCassettePort
+//  - media[CAS]->contents.IsEmpty()
+//  - play/record button changes state
 void SessionPage::SetCassetteControl()
 {
-	bool state;
-	if ((m_cassettePortState != wxT("disabled")) &&
-	    (m_cassettePortState != wxT("cassetteplayers"))) {
-		if (!media[CAS]->contents.IsEmpty()) {
-			m_rewindButton->Enable(true);
-			m_cassetteControlEnabled = true;
-		} else {
-			m_rewindButton->Enable(false);
-			m_cassetteControlEnabled = false;
-		}
-		state = true;
-	} else {
-		state = false;
-		m_rewindButton->Enable(false);
-		m_cassetteControlEnabled = false;
-	}
-	m_cassetteButton->Enable(state);
-	m_clearCassette->Enable(state);
-	m_browseCassette->Enable(state);
-	media[CAS]->control.Enable(state);
+	bool enable1 = m_controller.IsOpenMSXRunning() && m_hasCassettePort;
+	m_recordButton->Enable(enable1 && !m_recordButton->GetValue());
+
+	bool enable2 = enable1 && !media[CAS]->contents.IsEmpty();
+	m_playButton  ->Enable(enable2 && !m_playButton->GetValue());
+	m_rewindButton->Enable(enable2);
+
+	bool enable3 = !m_controller.IsOpenMSXRunning() || m_hasCassettePort;
+	m_cassetteButton  ->Enable(enable3);
+	m_clearCassette   ->Enable(enable3);
+	m_browseCassette  ->Enable(enable3);
+	media[CAS]->control.Enable(enable3);
 	if (auto* temp = FindWindowByLabel(wxT("Cassette Player"))) {
-		temp->Enable(state);
+		temp->Enable(enable3);
 	}
 }
 
@@ -1001,7 +985,11 @@ void SessionPage::SaveHistory()
 
 void SessionPage::EnableCassettePort(wxString data)
 {
-	m_cassettePortState = data;
+	// result of   catch {cassetteplayer}
+	//   0 -> cassetteplayer command exists,         enable  cassette stuff
+	//   1 -> cassetteplayer command does not exist, disbale cassette stuff
+	m_hasCassettePort = data == wxT("0");
+	SetCassetteControl();
 }
 
 void SessionPage::SetCassetteMode(wxString data)
@@ -1009,23 +997,11 @@ void SessionPage::SetCassetteMode(wxString data)
 	bool state = data == wxT("play");
 	if (!media[CAS]->contents.IsEmpty()) {
 		m_playButton->SetValue(state);
-		m_playButton->Enable (!state);
 	} else {
 		m_playButton->SetValue(false);
-		m_playButton->Enable(false);
 	}
 	state = data == wxT("record");
 	m_recordButton->SetValue(state);
-	m_recordButton->Enable(!state);
-}
-
-void SessionPage::AutoPlugCassette()
-{
-	if (!media[CAS]->contents.IsEmpty() &&
-	    (m_cassettePortState != wxT("disabled")) &&
-	    (m_cassettePortState != wxT("cassetteplayers"))) {
-		m_controller.WriteCommand(wxT("plug cassetteport cassetteplayer"));
-	}
 }
 
 SessionPage::MediaInfo* SessionPage::GetLastMenuTarget() const
@@ -1063,7 +1039,8 @@ void SessionPage::OnClickCasMenu(wxCommandEvent& event)
 {
 	m_lastUsedPopup = (wxButton*)event.GetEventObject();
 	m_casMenu->Enable(Cas_Rewind, m_rewindButton->IsEnabled());
-	m_casMenu->Enable(Cas_MotorControl, m_cassetteControlEnabled);
+	bool enable = m_controller.IsOpenMSXRunning() && m_hasCassettePort;
+	m_casMenu->Enable(Cas_MotorControl, enable);
 	m_casMenu->Check(Cas_MotorControl, m_cassetteControl);
 	m_casMenu->Check(Cas_AutoCreateFile, m_cassetteAutoCreate);
 	wxRect myRect = m_lastUsedPopup->GetRect();
