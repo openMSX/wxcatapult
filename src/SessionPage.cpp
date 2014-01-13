@@ -354,15 +354,9 @@ void SessionPage::BrowseDisk(MediaInfo& m)
 	if (filedlg.ShowModal() == wxID_OK) {
 		m.contents = filedlg.GetPath();
 		m.control.SetValue(m.contents);
-		if (!m.contents.IsEmpty()) {
-			m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
-			AddHistory(m);
-			m.ips.Clear();
-			m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
-		} else {
-			m_controller.WriteCommand(m.deviceName + wxT(" eject"));
-		}
-		m.lastContents = m.contents;
+		m.ips.Clear();
+		m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
+		insertMedia(m);
 	}
 }
 
@@ -382,16 +376,11 @@ void SessionPage::BrowseCart(MediaInfo& m)
 	if (filedlg.ShowModal() == wxID_OK) {
 		m.contents = filedlg.GetPath();
 		m.control.SetValue(m.contents);
-		if (!m.contents.IsEmpty()) {
-			m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
-			AddHistory(m);
-			m.ips.Clear();
-			m.type.Clear();
-			m.menu.SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
-			m.menu.SetLabel(Cart_Select_Mapper, wxT("Select cartridge type (AUTO)"));
-		} else {
-			m_controller.WriteCommand(m.deviceName + wxT(" eject"));
-		}
+		m.ips.Clear();
+		m.type.Clear();
+		m.menu.SetLabel(Cart_Browse_Ips, wxT("Select IPS Patches (None selected)"));
+		m.menu.SetLabel(Cart_Select_Mapper, wxT("Select cartridge type (AUTO)"));
+		insertMedia(m);
 	}
 }
 
@@ -403,13 +392,7 @@ void SessionPage::OnBrowseCassette(wxCommandEvent& event)
 	if (filedlg.ShowModal() == wxID_OK) {
 		media[CAS]->contents = filedlg.GetPath();
 		media[CAS]->control.SetValue(media[CAS]->contents);
-		if (!media[CAS]->contents.IsEmpty()) {
-			m_controller.WriteCommand(wxT("cassetteplayer ") + utils::ConvertPath(media[CAS]->contents));
-			AddHistory(*media[CAS]);
-		} else {
-			m_controller.WriteCommand(wxT("cassetteplayer eject"));
-		}
-		media[CAS]->lastContents = media[CAS]->contents;
+		insertMedia(*media[CAS]);
 		OnChangeCassetteContents(event);
 	}
 }
@@ -690,17 +673,19 @@ void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
 }
 void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 {
-	if (oldFocus == &m.control) {
-		wxString contents = m.contents;
-		if (contents != m.lastContents) {
-			if (!contents.IsEmpty()) {
-				m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
-				AddHistory(m);
-			} else {
-				m_controller.WriteCommand(m.deviceName + wxT(" eject"));
-			}
-			m.lastContents = contents;
-		}
+	if (oldFocus != &m.control) return;
+	if (m.contents == m.lastContents) return;
+	insertMedia(m);
+}
+
+void SessionPage::insertMedia(MediaInfo& m)
+{
+	m.lastContents = m.contents;
+	if (!m.contents.IsEmpty()) {
+		m_controller.WriteCommand(m.deviceName + wxT(" ") + utils::ConvertPath(m.contents));
+		AddHistory(m);
+	} else {
+		m_controller.WriteCommand(m.deviceName + wxT(" eject"));
 	}
 }
 
@@ -1037,12 +1022,7 @@ void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent& event)
 		if (filedlg.ShowModal() == wxID_OK) {
 			target->contents = filedlg.GetPath();
 			target->control.SetValue(target->contents);
-			if (!target->contents.IsEmpty()) {
-				m_controller.WriteCommand(target->deviceName + wxT(" ") + utils::ConvertPath(target->contents));
-				AddHistory(*target);
-			} else {
-				m_controller.WriteCommand(target->deviceName + wxT(" eject"));
-			}
+			insertMedia(*target);
 		}
 	}
 }

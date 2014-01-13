@@ -83,6 +83,7 @@ private:
 
 	virtual void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
 	void checkLooseFocus(wxWindow* oldFocus, MediaInfo& media);
+	void insertMedia(MediaInfo& m);
 	void OnBrowseCassette(wxCommandEvent& event);
 	void OnBrowseDiskA(wxCommandEvent& event);
 	void OnBrowseDiskB(wxCommandEvent& event);
