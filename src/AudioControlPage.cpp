@@ -537,7 +537,7 @@ void AudioControlPage::OnBrowseMidiInFile(wxCommandEvent& event)
 {
 	auto* miditext = (wxTextCtrl*)FindWindowByName (wxT("MidiInFileInput"));
 	wxString defaultpath = ::wxPathOnly(miditext->GetValue());
-	wxFileDialog filedlg(this, wxT("Select MIDI input file"), defaultpath, wxT(""), wxT("*.*"), wxOPEN);
+	wxFileDialog filedlg(this, wxT("Select MIDI input file"), defaultpath, wxT(""), wxT("*.*"), wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		miditext->SetValue (filedlg.GetPath());
 		if (!miditext->GetValue().IsEmpty()) {
@@ -550,7 +550,7 @@ void AudioControlPage::OnBrowseMidiOutFile(wxCommandEvent& event)
 {
 	auto* miditext = (wxTextCtrl*)FindWindowByName(wxT("MidiOutFileInput"));
 	wxString defaultpath = ::wxPathOnly(miditext->GetValue());
-	wxFileDialog filedlg(this, wxT("Select MIDI output file"), defaultpath, wxT(""), wxT("*.*"), wxSAVE | wxOVERWRITE_PROMPT);
+	wxFileDialog filedlg(this, wxT("Select MIDI output file"), defaultpath, wxT(""), wxT("*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK) {
 		miditext->SetValue(filedlg.GetPath());
 		if (!miditext->GetValue().IsEmpty()) {
@@ -563,7 +563,7 @@ void AudioControlPage::OnBrowseSampleInFile(wxCommandEvent& event)
 {
 	auto* sampletext = (wxTextCtrl*)FindWindowByName(wxT("SampleFileInput"));
 	wxString defaultpath = ::wxPathOnly(sampletext->GetValue());
-	wxFileDialog filedlg(this, wxT("Select PCM sample input file"), defaultpath, wxT(""), wxT("*.*"), wxOPEN);
+	wxFileDialog filedlg(this, wxT("Select PCM sample input file"), defaultpath, wxT(""), wxT("*.*"), wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		sampletext->SetValue(filedlg.GetPath());
 		if (!sampletext->GetValue().IsEmpty()) {

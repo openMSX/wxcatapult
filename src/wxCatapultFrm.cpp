@@ -294,7 +294,7 @@ void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent& event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this, wxT("Select configuration file"), wxT(""), wxT(""), path, wxOPEN);
+	wxFileDialog filedlg(this, wxT("Select configuration file"), wxT(""), wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString settingsfile = filedlg.GetPath();
 		if (m_controller->IsOpenMSXRunning()){
@@ -325,7 +325,7 @@ void wxCatapultFrame::OnMenuSaveSettingsAs(wxCommandEvent& event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this, wxT("Select file to save to"), wxT(""), wxT(""), path, wxSAVE | wxOVERWRITE_PROMPT);
+	wxFileDialog filedlg(this, wxT("Select file to save to"), wxT(""), wxT(""), path, wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString settingsfile = filedlg.GetPath();
 		m_controller->WriteCommand(wxT("save_settings ") + utils::ConvertPath(settingsfile));

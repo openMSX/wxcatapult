@@ -307,7 +307,7 @@ void SessionPage::OnModeRecord(wxCommandEvent& event)
 	} else {
 		wxFileDialog filedlg(this, wxT("Select Cassettefile to save to"),
 		                     ::wxPathOnly(media[CAS]->contents), wxT(""),
-		                     path, wxSAVE | wxOVERWRITE_PROMPT);
+		                     path, wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 		if (filedlg.ShowModal() == wxID_OK) {
 			changeMode = true;
 			tapeImage += wxT(" ");
@@ -362,7 +362,7 @@ void SessionPage::BrowseDisk(MediaInfo& m)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this, wxT("Select disk image"), defaultpath, wxT(""), path, wxOPEN);
+	wxFileDialog filedlg(this, wxT("Select disk image"), defaultpath, wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		m.contents = filedlg.GetPath();
 		m.control.SetValue(m.contents);
@@ -399,7 +399,7 @@ void SessionPage::BrowseCart(MediaInfo& m)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this, wxT("Select ROM image"), defaultpath, wxT(""), path, wxOPEN);
+	wxFileDialog filedlg(this, wxT("Select ROM image"), defaultpath, wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		m.contents = filedlg.GetPath();
 		m.control.SetValue(m.contents);
@@ -429,7 +429,7 @@ void SessionPage::OnBrowseCassette(wxCommandEvent& event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this, wxT("Select cassette image"), defaultpath, wxT(""), path, wxOPEN);
+	wxFileDialog filedlg(this, wxT("Select cassette image"), defaultpath, wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		media[CAS]->contents = filedlg.GetPath();
 		media[CAS]->control.SetValue(media[CAS]->contents);
@@ -1098,7 +1098,7 @@ void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent& event)
 	if (auto* target = GetLastMenuTarget()) {
 		wxFileDialog filedlg(this, wxT("Create disk image"),
 		                     ::wxPathOnly(target->contents), wxT(""),
-		                     wxT("*.*"), wxSAVE | wxOVERWRITE_PROMPT);
+		                     wxT("*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 		if (filedlg.ShowModal() == wxID_OK) {
 			target->contents = filedlg.GetPath();
 			target->control.SetValue(target->contents);

@@ -116,7 +116,7 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent& event)
 
 	wxFileDialog filedlg(
 		this, wxT("Select openMSX executable"), defaultpath,
-		wxT("openmsx") + executable, wxT("*") + executable, wxOPEN);
+		wxT("openmsx") + executable, wxT("*") + executable, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		m_ExecPath->SetValue(filedlg.GetPath());
 	}

@@ -72,7 +72,7 @@ void IPSSelectionDlg::OnAddIPS(wxCommandEvent& event)
 	path = wxT("*.*");
 #endif
 	wxFileDialog filedlg(this, wxT("Select ips patchfile"), m_lastBrowseLocation,
-	                     wxT(""), path, wxOPEN | wxMULTIPLE);
+	                     wxT(""), path, wxFD_OPEN | wxFD_MULTIPLE);
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxArrayString results;
 		filedlg.GetPaths(results);

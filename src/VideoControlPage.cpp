@@ -417,7 +417,7 @@ void VideoControlPage::OnBrowseScreenShot(wxCommandEvent& event)
 	path = wxT("*.*");
 #endif
 
-	wxFileDialog filedlg(this, wxT("Choose file to save screenshot to"), wxT(""), wxT(""), path, wxSAVE);
+	wxFileDialog filedlg(this, wxT("Choose file to save screenshot to"), wxT(""), wxT(""), path, wxFD_SAVE);
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString screenshotpath = filedlg.GetPath();
 		screenshotpath = screenshotpath.Left(screenshotpath.Length() - 4); // remove extension
