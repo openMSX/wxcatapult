@@ -105,11 +105,6 @@ private:
 	void OnClickCartACombo(wxCommandEvent& event);
 	void OnClickCartBCombo(wxCommandEvent& event);
 	void OnClickCassetteCombo(wxCommandEvent& event);
-	void OnChangeDiskAContents(wxCommandEvent& event);
-	void OnChangeDiskBContents(wxCommandEvent& event);
-	void OnChangeCartAContents(wxCommandEvent& event);
-	void OnChangeCartBContents(wxCommandEvent& event);
-	void OnChangeCassetteContents(wxCommandEvent& event);
 	void OnClickMediaMenu(wxCommandEvent& event);
 	void OnInsertEmptyDiskByMenu(wxCommandEvent& event);
 	void OnBrowseDiskByMenu(wxCommandEvent& event);
@@ -128,7 +123,6 @@ private:
 	void BrowseCart(MediaInfo& media);
 	void BrowseMedia(MediaInfo& m, const wxString& path, const wxString title);
 	void ClickMediaCombo(wxCommandEvent& event, MediaInfo& media);
-	void ChangeMediaContents(MediaInfo& media);
 	void prepareMachines(const wxString& sharepath,
 	                     wxArrayString& machineArray, bool optional = false);
 	void fillMachines(const wxArrayString& machineArray);

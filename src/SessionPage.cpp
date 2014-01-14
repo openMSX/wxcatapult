@@ -77,11 +77,6 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_BUTTON(XRCID("ClearCartB"), SessionPage::OnEjectCartB)
 	EVT_BUTTON(XRCID("ClearCassette"), SessionPage::OnClearCassette)
 	EVT_BUTTON(XRCID("RewindButton"), SessionPage::OnRewind)
-	EVT_TEXT(XRCID("DiskAContents"), SessionPage::OnChangeDiskAContents)
-	EVT_TEXT(XRCID("DiskBContents"), SessionPage::OnChangeDiskBContents)
-	EVT_TEXT(XRCID("CartAContents"), SessionPage::OnChangeCartAContents)
-	EVT_TEXT(XRCID("CartBContents"), SessionPage::OnChangeCartBContents)
-	EVT_TEXT(XRCID("CassetteContents"), SessionPage::OnChangeCassetteContents)
 	EVT_MENU(Disk_Insert_New, SessionPage::OnInsertEmptyDiskByMenu)
 	EVT_MENU(Disk_Browse_File, SessionPage::OnBrowseDiskByMenu)
 	EVT_MENU(Disk_Browse_Dir, SessionPage::OnBrowseDiskDirByMenu)
@@ -365,35 +360,6 @@ void SessionPage::ClickMediaCombo(wxCommandEvent& event, MediaInfo& m)
 		SetMapperType(m, static_cast<wxStringClientData*>(c)->GetData());
 	}
 	insertMedia(m);
-}
-
-void SessionPage::OnChangeDiskAContents(wxCommandEvent& event)
-{
-	ChangeMediaContents(*media[DISKA]);
-}
-void SessionPage::OnChangeDiskBContents(wxCommandEvent& event)
-{
-	ChangeMediaContents(*media[DISKB]);
-}
-void SessionPage::OnChangeCartAContents(wxCommandEvent& event)
-{
-	ChangeMediaContents(*media[CARTA]);
-}
-void SessionPage::OnChangeCartBContents(wxCommandEvent& event)
-{
-	ChangeMediaContents(*media[CARTB]);
-}
-void SessionPage::OnChangeCassetteContents(wxCommandEvent& event)
-{
-	ChangeMediaContents(*media[CAS]);
-}
-void SessionPage::ChangeMediaContents(MediaInfo& m)
-{
-	if (m.ipsLabel) {
-		m.ips.Clear();
-		m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
-	}
-	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
 }
 
 void SessionPage::SetMapperType(MediaInfo& m, const wxString& type)
