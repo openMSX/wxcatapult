@@ -243,43 +243,26 @@ void SessionPage::EjectMedia(MediaInfo& m)
 void SessionPage::OnRewind(wxCommandEvent& event)
 {
 	m_controller.WriteCommand(wxT("cassetteplayer rewind"));
-	if (m_recordButton->GetValue()) {
-		OnModePlay(event);
-	}
 }
 
 void SessionPage::OnModePlay(wxCommandEvent& event)
 {
-	m_playButton->SetValue(true);
-	m_recordButton->SetValue(false);
 	m_controller.WriteCommand(wxT("cassetteplayer play"));
-	SetCassetteControl();
 }
 
 void SessionPage::OnModeRecord(wxCommandEvent& event)
 {
-	wxString tapeImage;
-	bool changeMode = false;
-	if (m_cassetteAutoCreate) {
-		changeMode = true;
-	} else {
+	wxString cmd = wxT("cassetteplayer new");
+	if (!m_cassetteAutoCreate) {
 		wxString path = wxT("Cassette files (*.wav)|*.wav|All files|*.*||");
 		wxString defaultpath = ::wxPathOnly(media[CAS]->control.GetValue());
 		wxFileDialog filedlg(this, wxT("Select Cassettefile to save to"),
 		                     defaultpath, wxT(""), path,
 		                     wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-		if (filedlg.ShowModal() == wxID_OK) {
-			changeMode = true;
-			tapeImage += wxT(" ");
-			tapeImage += utils::ConvertPath(filedlg.GetPath());
-		}
+		if (filedlg.ShowModal() != wxID_OK) return;
+		cmd += wxT(" ") + utils::ConvertPath(filedlg.GetPath());
 	}
-	if (changeMode) {
-		m_recordButton->SetValue(true);
-		m_playButton->SetValue(false);
-		m_controller.WriteCommand(wxT("cassetteplayer new") + tapeImage);
-		SetCassetteControl();
-	}
+	m_controller.WriteCommand(cmd);
 }
 
 void SessionPage::OnMotorControl(wxCommandEvent& event)
@@ -603,7 +586,6 @@ void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 
 void SessionPage::insertMedia(MediaInfo& m)
 {
-	if (m.mediaType == CASSETTE) SetCassetteMode(wxT("play"));
 	if (m.ipsLabel) {
 		m.ips.Clear();
 		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
