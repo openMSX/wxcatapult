@@ -157,16 +157,7 @@ private:
 	wxButton* m_cartBButton;
 	wxButton* m_cassetteButton;
 
-	wxBitmapButton* m_browseCartA;
-	wxBitmapButton* m_browseCartB;
-	wxBitmapButton* m_clearCartA;
-	wxBitmapButton* m_clearCartB;
-
-	wxBitmapButton* m_browseDiskA;
-	wxBitmapButton* m_browseDiskB;
 	wxBitmapButton* m_browseCassette;
-	wxBitmapButton* m_clearDiskA;
-	wxBitmapButton* m_clearDiskB;
 	wxBitmapButton* m_clearCassette;
 	bool m_hasCassettePort;
 

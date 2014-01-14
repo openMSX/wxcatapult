@@ -125,15 +125,7 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 
 	m_extensionList  = (wxListBox*)FindWindowByName(wxT("ExtensionList"));
 	m_machineList    = (wxComboBox*)FindWindowByName(wxT("MachineList"));
-	m_browseDiskA    = (wxBitmapButton*)FindWindowByName(wxT("BrowseDiskA"));
-	m_browseDiskB    = (wxBitmapButton*)FindWindowByName(wxT("BrowseDiskB"));
-	m_browseCartA    = (wxBitmapButton*)FindWindowByName(wxT("BrowseCartA"));
-	m_browseCartB    = (wxBitmapButton*)FindWindowByName(wxT("BrowseCartB"));
 	m_browseCassette = (wxBitmapButton*)FindWindowByName(wxT("BrowseCassette"));
-	m_clearDiskA     = (wxBitmapButton*)FindWindowByName(wxT("ClearDiskA"));
-	m_clearDiskB     = (wxBitmapButton*)FindWindowByName(wxT("ClearDiskB"));
-	m_clearCartA     = (wxBitmapButton*)FindWindowByName(wxT("ClearCartA"));
-	m_clearCartB     = (wxBitmapButton*)FindWindowByName(wxT("ClearCartB"));
 	m_clearCassette  = (wxBitmapButton*)FindWindowByName(wxT("ClearCassette"));
 	m_playButton     = (wxToggleButton*)FindWindowByName(wxT("PlayButton"));
 	m_recordButton   = (wxToggleButton*)FindWindowByName(wxT("RecordButton"));
