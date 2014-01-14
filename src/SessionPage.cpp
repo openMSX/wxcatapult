@@ -740,8 +740,6 @@ void SessionPage::UpdateSessionData()
 
 void SessionPage::AddHistory(MediaInfo& m)
 {
-	// wxWindows 2.4 does not support insertion in a wxComboBox
-	// so this is gonna be replaced as soon as 2.6 is stable
 	wxString currentItem = m.control.GetValue();
 	wxString currentType = m.type;
 #ifdef __WXMSW__
@@ -749,20 +747,17 @@ void SessionPage::AddHistory(MediaInfo& m)
 #else
 	currentItem.Replace(wxT("\\"), wxT("/"));
 #endif
-	int pos = m.history.Index(currentItem);
+
+	int pos = m.control.FindString(currentItem);
 	if (pos != wxNOT_FOUND) {
-		m.history.RemoveAt(pos);
+		m.control.Delete(pos);
 		if (m.mediaType == CARTRIDGE) m.typehistory.RemoveAt(pos);
 	}
-	m.history.Insert(currentItem, 0);
+	m.control.Insert(currentItem, 0);
 	if (m.mediaType == CARTRIDGE) m.typehistory.Insert(currentType, 0);
-	while (m.history.GetCount() > HISTORY_SIZE) {
-		m.history.RemoveAt(HISTORY_SIZE);
-		if (m.mediaType == CARTRIDGE) m.history.RemoveAt(HISTORY_SIZE);
-	}
-	m.control.Clear();
-	for (unsigned i = 0; i < m.history.GetCount(); ++i) {
-		m.control.Append(m.history[i]);
+	while (m.control.GetCount() > HISTORY_SIZE) {
+		m.control.Delete(HISTORY_SIZE);
+		if (m.mediaType == CARTRIDGE) m.typehistory.RemoveAt(HISTORY_SIZE);
 	}
 	m.control.SetSelection(0);
 
@@ -785,7 +780,6 @@ void SessionPage::RestoreHistory()
 		while (true) {
 			int pos = value.Find(wxT("::"));
 			if (pos == wxNOT_FOUND) break;
-			m->history.Add(value.Left(pos));
 			m->control.Append(value.Left(pos));
 			value = value.Mid(pos + 2);
 		}
@@ -799,11 +793,11 @@ void SessionPage::RestoreHistory()
 				m->typehistory.Add(types.Left(pos));
 				types = types.Mid(pos + 2);
 			}
-			while (m->typehistory.GetCount() < m->history.GetCount()) {
+			while (m->typehistory.GetCount() < m->control.GetCount()) {
 				m->typehistory.Add(wxT("auto"));
 			}
 		}
-		if ((m_InsertedMedia & m->mediaBits) && !m->history.IsEmpty()) {
+		if ((m_InsertedMedia & m->mediaBits) && !m->control.IsEmpty()) {
 			m->control.SetSelection(0);
 			if (m->mediaType == CARTRIDGE) {
 				SetMapperType(*m, m->typehistory[0]);
@@ -852,8 +846,8 @@ void SessionPage::SaveHistory()
 	int hist = -1;
 	for (auto& m : media) {
 		wxString temp;
-		for (unsigned j = 0; j < m->history.GetCount(); ++j) {
-			temp << m->history[j] << wxT("::");
+		for (unsigned j = 0; j < m->control.GetCount(); ++j) {
+			temp << m->control.GetString(j) << wxT("::");
 		}
 		config.SetParameter(m->confId, temp);
 		if (m->mediaType == CARTRIDGE) {
