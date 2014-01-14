@@ -411,10 +411,7 @@ void SessionPage::ChangeMediaContents(MediaInfo& m)
 		m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 	}
 	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
-	if (m.mediaType == CASSETTE) {
-		SetCassetteControl();
-		SetCassetteMode(wxT("play"));
-	}
+	if (m.mediaType == CASSETTE) SetCassetteMode(wxT("play"));
 }
 
 void SessionPage::SetMapperType(MediaInfo& m, const wxString& type)
@@ -606,10 +603,7 @@ void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 
 void SessionPage::insertMedia(MediaInfo& m)
 {
-	if (m.mediaType == CASSETTE) {
-		SetCassetteControl();
-		SetCassetteMode(wxT("play"));
-	}
+	if (m.mediaType == CASSETTE) SetCassetteMode(wxT("play"));
 	if (m.ipsLabel) {
 		m.ips.Clear();
 		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
@@ -881,14 +875,10 @@ void SessionPage::EnableCassettePort(wxString data)
 
 void SessionPage::SetCassetteMode(wxString data)
 {
-	bool state = data == wxT("play");
-	if (!media[CAS]->control.GetValue().IsEmpty()) {
-		m_playButton->SetValue(state);
-	} else {
-		m_playButton->SetValue(false);
-	}
-	state = data == wxT("record");
-	m_recordButton->SetValue(state);
+	m_playButton->SetValue(!media[CAS]->control.GetValue().IsEmpty() &&
+	                       (data == wxT("play")));
+	m_recordButton->SetValue(data == wxT("record"));
+	SetCassetteControl();
 }
 
 SessionPage::MediaInfo* SessionPage::GetLastMenuTarget() const
