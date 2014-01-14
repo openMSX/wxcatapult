@@ -13,6 +13,7 @@
 #include <wx/xrc/xmlres.h>
 #include <wx/button.h>
 #include <wx/bmpbuttn.h>
+#include <wx/clntdata.h>
 #include <wx/combobox.h>
 #include <wx/dcmemory.h>
 #include <wx/dir.h>
@@ -377,7 +378,8 @@ void SessionPage::ClickMediaCombo(wxCommandEvent& event, MediaInfo& m)
 {
 	OnClickCombo(event);
 	if (m.mediaType == CARTRIDGE) {
-		SetMapperType(m, m.typehistory[event.GetInt()]);
+		auto* c = m.control.GetClientObject(event.GetInt());
+		SetMapperType(m, static_cast<wxStringClientData*>(c)->GetData());
 	}
 	insertMedia(m);
 }
@@ -741,7 +743,6 @@ void SessionPage::UpdateSessionData()
 void SessionPage::AddHistory(MediaInfo& m)
 {
 	wxString currentItem = m.control.GetValue();
-	wxString currentType = m.type;
 #ifdef __WXMSW__
 	currentItem.Replace(wxT("/"), wxT("\\"));
 #else
@@ -751,13 +752,11 @@ void SessionPage::AddHistory(MediaInfo& m)
 	int pos = m.control.FindString(currentItem);
 	if (pos != wxNOT_FOUND) {
 		m.control.Delete(pos);
-		if (m.mediaType == CARTRIDGE) m.typehistory.RemoveAt(pos);
 	}
-	m.control.Insert(currentItem, 0);
-	if (m.mediaType == CARTRIDGE) m.typehistory.Insert(currentType, 0);
+	auto* c = (m.mediaType == CARTRIDGE) ? new wxStringClientData(m.type) : 0;
+	m.control.Insert(currentItem, 0, c);
 	while (m.control.GetCount() > HISTORY_SIZE) {
 		m.control.Delete(HISTORY_SIZE);
-		if (m.mediaType == CARTRIDGE) m.typehistory.RemoveAt(HISTORY_SIZE);
 	}
 	m.control.SetSelection(0);
 
@@ -787,20 +786,23 @@ void SessionPage::RestoreHistory()
 			++hist;
 			wxString types;
 			config.GetParameter(typeID[hist], types);
-			while (true) {
+			for (unsigned i = 0; i < m->control.GetCount(); ++i) {
 				int pos = types.Find(wxT("::"));
-				if (pos == wxNOT_FOUND) break;
-				m->typehistory.Add(types.Left(pos));
-				types = types.Mid(pos + 2);
-			}
-			while (m->typehistory.GetCount() < m->control.GetCount()) {
-				m->typehistory.Add(wxT("auto"));
+				wxString s;
+				if (pos == wxNOT_FOUND) {
+					s = wxT("auto");
+				} else {
+					s = types.Left(pos);
+					types = types.Mid(pos + 2);
+				}
+				m->control.SetClientObject(i, new wxStringClientData(s));
 			}
 		}
 		if ((m_InsertedMedia & m->mediaBits) && !m->control.IsEmpty()) {
 			m->control.SetSelection(0);
 			if (m->mediaType == CARTRIDGE) {
-				SetMapperType(*m, m->typehistory[0]);
+				auto* c = m->control.GetClientObject(0);
+				SetMapperType(*m, static_cast<wxStringClientData*>(c)->GetData());
 			}
 		} else {
 			m->control.SetValue(wxT(""));
@@ -845,23 +847,19 @@ void SessionPage::SaveHistory()
 	auto& config = ConfigurationData::instance();
 	int hist = -1;
 	for (auto& m : media) {
-		wxString temp;
+		wxString temp, temp2;
 		for (unsigned j = 0; j < m->control.GetCount(); ++j) {
 			temp << m->control.GetString(j) << wxT("::");
+			if (m->mediaType == CARTRIDGE) {
+				auto* c = m->control.GetClientObject(j);
+				auto s = static_cast<wxStringClientData*>(c)->GetData();
+				temp2 << (s.IsEmpty() ? wxT("auto") : s) << wxT("::");
+			}
 		}
 		config.SetParameter(m->confId, temp);
 		if (m->mediaType == CARTRIDGE) {
 			++hist;
-			temp.Clear();
-			for (unsigned j = 0; j < m->typehistory.GetCount(); ++j) {
-				if (m->typehistory[j].IsEmpty()) {
-					temp += wxT("auto");
-				} else {
-					temp += m->typehistory[j];
-				}
-				temp += wxT("::");
-			}
-			config.SetParameter(typeID[hist], temp);
+			config.SetParameter(typeID[hist], temp2);
 		}
 	}
 	config.SetParameter(ConfigurationData::CD_MEDIAINSERTED, (long)m_InsertedMedia);

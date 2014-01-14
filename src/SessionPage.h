@@ -76,7 +76,6 @@ private:
 		wxString ipsdir;
 		wxArrayString ips;
 		wxString type; // only for carts at the moment
-		wxArrayString typehistory;
 		wxString lastContents;
 		const MediaType mediaType;
 		const int ipsLabel;
