@@ -394,7 +394,6 @@ void SessionPage::ChangeMediaContents(MediaInfo& m)
 		m.menu.SetLabel(Disk_Browse_Ips, wxT("Select IPS Patches (None selected)"));
 	}
 	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
-	if (m.mediaType == CASSETTE) SetCassetteMode(wxT("play"));
 }
 
 void SessionPage::SetMapperType(MediaInfo& m, const wxString& type)
