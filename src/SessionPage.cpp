@@ -381,23 +381,31 @@ static int CompareCaseInsensitive(const wxString& first, const wxString& second)
 	return first.Cmp(second);
 }
 
+static wxArrayString split(const wxString& str)
+{
+	wxArrayString result;
+	int pos = 0;
+	while (true) {
+		int pos2 = str.find(wxT("::"), pos);
+		if (pos2 == wxNOT_FOUND) return result;
+		result.Add(str.Mid(pos, pos2 - pos));
+		pos = pos2 + 2;
+	}
+}
+
 void SessionPage::SetupHardware(bool initial, bool reset)
 {
 	wxString currentMachine;
 	wxArrayString currentExtensions;
 	if (!initial) {
-		wxArrayInt sel;
 		currentMachine = m_machineList->GetValue();
-		currentExtensions.Clear();
-		if (m_extensionList->GetSelections(sel) > 0) {
-			for (unsigned i = 0; i < sel.GetCount(); ++i) {
-				currentExtensions.Add(m_extensionList->GetString(sel[i]));
-			}
+		wxArrayInt sel;
+		m_extensionList->GetSelections(sel);
+		for (int i : sel) {
+			currentExtensions.Add(m_extensionList->GetString(i));
 		}
 	}
 	auto& config = ConfigurationData::instance();
-	m_machineArray.Clear();
-	m_extensionArray.Clear();
 	m_machineList->Clear();
 	m_machineList->Append(wxT(" <default> "));
 	m_extensionList->Clear();
@@ -406,38 +414,35 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 	config.GetParameter(ConfigurationData::CD_MACHINES, checkedMachines);
 	config.GetParameter(ConfigurationData::CD_EXTENSIONS, checkedExtensions);
 	if (!checkedMachines.IsEmpty() && !checkedExtensions.IsEmpty() && !reset) {
-		while (true) {
-			int pos = checkedMachines.Find(wxT("::"));
-			if (pos == wxNOT_FOUND) break;
-			m_machineArray.Add(checkedMachines.Left(pos));
-			checkedMachines = checkedMachines.Mid(pos + 2);
-		}
-		while (true) {
-			int pos = checkedExtensions.Find(wxT("::"));
-			if (pos == wxNOT_FOUND) break;
-			m_extensionArray.Add(checkedExtensions.Left(pos));
-			checkedExtensions = checkedExtensions.Mid(pos + 2);
-		}
+		m_machineArray   = split(checkedMachines);
+		m_extensionArray = split(checkedExtensions);
 	} else {
+		m_machineArray.Clear();
+		m_extensionArray.Clear();
 		wxString sharepath;
 		config.GetParameter(ConfigurationData::CD_SHAREPATH, sharepath);
-		prepareExtensions(sharepath, m_extensionArray);
-		prepareMachines(sharepath, m_machineArray);
-		wxString personalShare;
+		prepareExtensions(sharepath);
+		prepareMachines(sharepath);
 #ifdef __UNIX__
-		personalShare = ::wxGetHomeDir() + wxT("/.openMSX/share");
+		wxString personalShare = ::wxGetHomeDir() + wxT("/.openMSX/share");
 #else
 		TCHAR temp[MAX_PATH + 1];
 		SHGetSpecialFolderPath(0, temp, CSIDL_PERSONAL, 1);
-		personalShare = wxString((const wxChar*)temp) + wxT("/openMSX/share");
+		wxString personalShare = wxString((const wxChar*)temp) + wxT("/openMSX/share");
 #endif
-		prepareExtensions(personalShare, m_extensionArray, true);
-		prepareMachines(personalShare, m_machineArray, true);
+		prepareExtensions(personalShare, true);
+		prepareMachines(personalShare, true);
 	}
 	m_extensionArray.Sort(CompareCaseInsensitive);
 	m_machineArray.Sort(CompareCaseInsensitive);
-	fillExtensions(m_extensionArray);
-	fillMachines(m_machineArray);
+	for (auto tmp : m_extensionArray) {
+		tmp.Replace(wxT("_"), wxT(" "));
+		m_extensionList->Append(tmp);
+	}
+	for (auto tmp : m_machineArray) {
+		tmp.Replace(wxT("_"), wxT(" "));
+		m_machineList->Append(tmp);
+	}
 	if (!initial) {
 		int sel = m_machineList->FindString(currentMachine);
 		if (sel != wxNOT_FOUND) {
@@ -445,8 +450,8 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 		} else {
 			m_machineList->SetSelection(0);
 		}
-		for (unsigned i = 0; i < currentExtensions.GetCount(); ++i) {
-			sel = m_extensionList->FindString(currentExtensions[i]);
+		for (auto& extension : currentExtensions) {
+			sel = m_extensionList->FindString(extension);
 			if (sel != wxNOT_FOUND) {
 				m_extensionList->SetSelection(sel);
 			}
@@ -454,7 +459,7 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 	}
 }
 
-void SessionPage::prepareExtensions(const wxString& sharepath, wxArrayString& extensionArray, bool optional)
+void SessionPage::prepareExtensions(const wxString& sharepath, bool optional)
 {
 	wxString extPath = sharepath + wxT("/extensions");
 	if (!::wxDirExists(extPath)) {
@@ -472,29 +477,20 @@ void SessionPage::prepareExtensions(const wxString& sharepath, wxArrayString& ex
 		wxString base;
 		if (extension.EndsWith(wxT(".xml"), &base)) {
 			if (::wxFileExists(fullPath)) {
-				if (extensionArray.Index(base, true) == wxNOT_FOUND) {
-					extensionArray.Add(base);
+				if (m_extensionArray.Index(base) == wxNOT_FOUND) {
+					m_extensionArray.Add(base);
 				}
 			}
 		} else if (::wxFileExists(fullPath + wxT("/hardwareconfig.xml"))) {
-			if (extensionArray.Index(extension, true) == wxNOT_FOUND) {
-				extensionArray.Add(extension);
+			if (m_extensionArray.Index(extension) == wxNOT_FOUND) {
+				m_extensionArray.Add(extension);
 			}
 		}
 		succes = sharedir.GetNext(&extension);
 	}
 }
 
-void SessionPage::fillExtensions(const wxArrayString& extensionArray)
-{
-	for (auto tmp : extensionArray) {
-		tmp.Replace(wxT("_"), wxT(" "));
-		m_extensionList->Append(tmp);
-	}
-}
-
-void SessionPage::prepareMachines(
-	const wxString& sharepath, wxArrayString& machineArray, bool optional)
+void SessionPage::prepareMachines(const wxString& sharepath, bool optional)
 {
 	wxString cmd;
 	ConfigurationData::instance().GetParameter(ConfigurationData::CD_EXECPATH, cmd);
@@ -514,26 +510,18 @@ void SessionPage::prepareMachines(
 		wxString base;
 		if (machine.EndsWith(wxT(".xml"), &base)) {
 			if (::wxFileExists(fullPath)) {
-				if (machineArray.Index(base, true) == wxNOT_FOUND) {
-					machineArray.Add(base);
+				if (m_machineArray.Index(base) == wxNOT_FOUND) {
+					m_machineArray.Add(base);
 				}
 			}
 		} else if (::wxFileExists(fullPath + wxT("/hardwareconfig.xml"))) {
-			if (machineArray.Index(machine, true) == wxNOT_FOUND) {
-				machineArray.Add(machine);
+			if (m_machineArray.Index(machine) == wxNOT_FOUND) {
+				m_machineArray.Add(machine);
 			}
 		}
 		succes = sharedir.GetNext(&machine);
 	}
 	m_machineList->SetSelection(0);
-}
-
-void SessionPage::fillMachines(const wxArrayString& machineArray)
-{
-	for (auto tmp : machineArray) {
-		tmp.Replace(wxT("_"), wxT(" "));
-		m_machineList->Append(tmp);
-	}
 }
 
 void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
@@ -576,8 +564,8 @@ void SessionPage::insertMedia(MediaInfo& m)
 			assert(m.mediaType == CARTRIDGE);
 			cmd += wxT(" -romtype ") + m.type;
 		}
-		for (unsigned i = 0; i < m.ips.GetCount(); ++i) {
-			cmd += wxT(" -ips ") + utils::ConvertPath(m.ips[i]);
+		for (auto& ips : m.ips) {
+			cmd += wxT(" -ips ") + utils::ConvertPath(ips);
 		}
 		AddHistory(m);
 	} else {
@@ -662,17 +650,14 @@ wxArrayString SessionPage::getHardware() const
 {
 	wxArrayString result;
 	int pos = m_machineList->GetSelection();
-	if (pos == 0) {
-		result.Add(wxT(" <default> "));
-	} else {
-		result.Add(utils::ConvertPathNoSlash(m_machineArray[pos - 1]));
-	}
+	result.Add(pos == 0
+		? wxT(" <default> ")
+		: utils::ConvertPathNoSlash(m_machineArray[pos - 1]));
 
 	wxArrayInt sel;
-	if (m_extensionList->GetSelections(sel) > 0) {
-		for (unsigned i = 0; i < sel.GetCount(); ++i) {
-			result.Add(m_extensionArray[sel[i]]);
-		}
+	m_extensionList->GetSelections(sel);
+	for (int i : sel) {
+		result.Add(m_extensionArray[i]);
 	}
 	return result;
 }
@@ -732,26 +717,15 @@ void SessionPage::RestoreHistory()
 		m->control.Clear();
 		wxString value;
 		config.GetParameter(m->confId, value);
-		while (true) {
-			int pos = value.Find(wxT("::"));
-			if (pos == wxNOT_FOUND) break;
-			m->control.Append(value.Left(pos));
-			value = value.Mid(pos + 2);
-		}
+		m->control.Append(split(value));
 		if (m->mediaType == CARTRIDGE) {
 			++hist;
-			wxString types;
-			config.GetParameter(typeID[hist], types);
+			wxString typesStr;
+			config.GetParameter(typeID[hist], typesStr);
+			wxArrayString types = split(typesStr);
 			for (unsigned i = 0; i < m->control.GetCount(); ++i) {
-				int pos = types.Find(wxT("::"));
-				wxString s;
-				if (pos == wxNOT_FOUND) {
-					s = wxT("auto");
-				} else {
-					s = types.Left(pos);
-					types = types.Mid(pos + 2);
-				}
-				m->control.SetClientObject(i, new wxStringClientData(s));
+				m->control.SetClientObject(i, new wxStringClientData(
+					(i < types.GetCount()) ? types[i] : wxT("auto")));
 			}
 		}
 		if ((m_InsertedMedia & m->mediaBits) && !m->control.IsEmpty()) {
@@ -779,18 +753,12 @@ void SessionPage::RestoreHistory()
 			// printf(" Can't find the machine\n");
 		}
 	}
-	wxString value;
-	config.GetParameter(ConfigurationData::CD_USEDEXTENSIONS, value);
-	m_usedExtensions = value;
-	while (true) {
-		int pos = value.Find(wxT("::"));
-		if (pos == wxNOT_FOUND) break;
-		wxString temp = value.Left(pos);
+	config.GetParameter(ConfigurationData::CD_USEDEXTENSIONS, m_usedExtensions);
+	for (auto& temp : split(m_usedExtensions)) {
 		temp.Replace(wxT("_"), wxT(" "));
 		if (m_extensionList->FindString(temp) != wxNOT_FOUND) {
 			m_extensionList->SetStringSelection(temp);
 		}
-		value = value.Mid(pos + 2);
 	}
 }
 
