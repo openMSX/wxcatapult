@@ -80,12 +80,12 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_MENU(Disk_Insert_New, SessionPage::OnInsertEmptyDiskByMenu)
 	EVT_MENU(Disk_Browse_File, SessionPage::OnBrowseDiskByMenu)
 	EVT_MENU(Disk_Browse_Dir, SessionPage::OnBrowseDiskDirByMenu)
-	EVT_MENU(Disk_Browse_Ips, SessionPage::OnBrowseDiskIps)
+	EVT_MENU(Disk_Browse_Ips, SessionPage::OnBrowseIps)
 	EVT_MENU(Disk_Eject, SessionPage::OnEjectByMenu)
 	EVT_MENU(Cart_Browse_File, SessionPage::OnBrowseCartByMenu)
 	EVT_MENU(Cart_Eject, SessionPage::OnEjectByMenu)
 	EVT_MENU(Cart_Select_Mapper, SessionPage::OnSelectMapper)
-	EVT_MENU(Cart_Browse_Ips, SessionPage::OnSelectIPS)
+	EVT_MENU(Cart_Browse_Ips, SessionPage::OnBrowseIps)
 	EVT_MENU(Cas_Browse_File, SessionPage::OnBrowseCassette)
 	EVT_MENU(Cas_Eject, SessionPage::OnClearCassette)
 	EVT_MENU(Cas_Rewind, SessionPage::OnRewind)
@@ -231,8 +231,7 @@ void SessionPage::EjectMedia(MediaInfo& m)
 {
 	m.control.SetValue(wxT(""));
 	m.control.SetSelection(wxNOT_FOUND);
-	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
-	insertMedia(m);
+	insertMediaClear(m);
 }
 
 void SessionPage::OnRewind(wxCommandEvent& event)
@@ -327,8 +326,7 @@ void SessionPage::BrowseMedia(MediaInfo& m, const wxString& path, const wxString
 	wxFileDialog filedlg(this, title, defaultpath, wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		m.control.SetValue(filedlg.GetPath());
-		if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
-		insertMedia(m);
+		insertMediaClear(m);
 	}
 }
 
@@ -358,6 +356,11 @@ void SessionPage::ClickMediaCombo(wxCommandEvent& event, MediaInfo& m)
 	if (m.mediaType == CARTRIDGE) {
 		auto* c = m.control.GetClientObject(event.GetInt());
 		SetMapperType(m, static_cast<wxStringClientData*>(c)->GetData());
+	}
+	if (m.ipsLabel) {
+		// TODO restore IPS from history
+		m.ips.Clear();
+		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
 	}
 	insertMedia(m);
 }
@@ -545,16 +548,25 @@ void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 {
 	if (oldFocus != &m.control) return;
 	if (m.control.GetValue() == m.lastContents) return;
-	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
-	insertMedia(m);
+	insertMediaClear(m);
 }
 
-void SessionPage::insertMedia(MediaInfo& m)
+// clear both IPS list and mapper-type (if appropriate)
+// before inserting media
+void SessionPage::insertMediaClear(MediaInfo& m)
 {
 	if (m.ipsLabel) {
 		m.ips.Clear();
 		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
 	}
+	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
+	insertMedia(m);
+}
+
+// insert media, but leave IPS list and mapper-type intact
+void SessionPage::insertMedia(MediaInfo& m)
+{
+	if (m.mediaType == CASSETTE) SetCassetteMode(wxT("play"));
 	wxString contents = m.control.GetValue();
 	m.lastContents = contents;
 	wxString cmd = m.deviceName + wxT(" ");
@@ -563,6 +575,9 @@ void SessionPage::insertMedia(MediaInfo& m)
 		if (!m.type.IsEmpty()) {
 			assert(m.mediaType == CARTRIDGE);
 			cmd += wxT(" -romtype ") + m.type;
+		}
+		for (unsigned i = 0; i < m.ips.GetCount(); ++i) {
+			cmd += wxT(" -ips ") + utils::ConvertPath(m.ips[i]);
 		}
 		AddHistory(m);
 	} else {
@@ -863,7 +878,7 @@ void SessionPage::OnInsertEmptyDiskByMenu(wxCommandEvent& event)
 		                     wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 		if (filedlg.ShowModal() == wxID_OK) {
 			target->control.SetValue(filedlg.GetPath());
-			insertMedia(*target);
+			insertMediaClear(*target);
 		}
 	}
 }
@@ -903,12 +918,12 @@ void SessionPage::OnSelectMapper(wxCommandEvent& event)
 		m_romTypeDialog->CenterOnParent();
 		if (m_romTypeDialog->ShowModal(target->type) == wxID_OK) {
 			SetMapperType(*target, m_romTypeDialog->GetSelectedType());
-			insertMedia(*target); // TODO this shouldn't clear IPS list
+			insertMedia(*target);
 		}
 	}
 }
 
-void SessionPage::OnSelectIPS(wxCommandEvent& event)
+void SessionPage::OnBrowseIps(wxCommandEvent& event)
 {
 	if (auto* target = GetLastMenuTarget()) {
 		m_ipsDialog->CenterOnParent();
@@ -918,36 +933,9 @@ void SessionPage::OnSelectIPS(wxCommandEvent& event)
 			wxString item = (count > 0)
 				? wxString::Format(wxT("Select IPS Patches (%d selected)"), count)
 				: wxString(wxT("Select IPS Patches (None selected)"));
-
-			target->menu.SetLabel(Cart_Browse_Ips, item);
+			target->menu.SetLabel(target->ipsLabel, item);
 			target->ipsdir = m_ipsDialog->GetLastBrowseLocation();
-		}
-	}
-}
-
-void SessionPage::OnBrowseDiskIps(wxCommandEvent& event)
-{
-	if (auto* target = GetLastMenuTarget()) {
-		m_ipsDialog->CenterOnParent();
-		if (m_ipsDialog->ShowModal(target->ips, target->ipsdir) == wxID_OK) {
-			target->ips = m_ipsDialog->GetIPSList();
-			int count = target->ips.GetCount();
-			wxString item = (count > 0)
-				? wxString::Format(wxT("Select IPS Patches (%d selected)"), count)
-				: wxString(wxT("Select IPS Patches (None selected)"));
-			target->menu.SetLabel(Disk_Browse_Ips, item);
-			wxString devicename;
-			if (m_lastUsedPopup == m_diskAButton) {
-				devicename = wxT("diska ");
-			} else if (m_lastUsedPopup == m_diskBButton){
-				devicename = wxT("diskb ");
-			}
-			wxString command = devicename + wxT(" ") + utils::ConvertPath(target->control.GetValue());
-			for (unsigned i = 0; i < target->ips.GetCount(); ++i) {
-				command += wxT(" ") + utils::ConvertPath(target->ips[i]);
-			}
-			m_controller.WriteCommand(command);
-			target->ipsdir = m_ipsDialog->GetLastBrowseLocation();
+			insertMedia(*target);
 		}
 	}
 }

@@ -85,6 +85,7 @@ private:
 	virtual void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
 	void checkLooseFocus(wxWindow* oldFocus, MediaInfo& media);
 	void insertMedia(MediaInfo& m);
+	void insertMediaClear(MediaInfo& m);
 	void OnBrowseCassette(wxCommandEvent& event);
 	void OnBrowseDiskA(wxCommandEvent& event);
 	void OnBrowseDiskB(wxCommandEvent& event);
@@ -108,12 +109,11 @@ private:
 	void OnClickMediaMenu(wxCommandEvent& event);
 	void OnInsertEmptyDiskByMenu(wxCommandEvent& event);
 	void OnBrowseDiskByMenu(wxCommandEvent& event);
-	void OnBrowseDiskIps(wxCommandEvent& event);
+	void OnBrowseIps(wxCommandEvent& event);
 	void OnBrowseDiskDirByMenu(wxCommandEvent& event);
 	void OnBrowseCartByMenu(wxCommandEvent& event);
 	void OnEjectByMenu(wxCommandEvent& event);
 	void OnSelectMapper(wxCommandEvent& event);
-	void OnSelectIPS(wxCommandEvent& event);
 
 	void SetupRomType(wxString romtype, wxString fullname);
 	MediaInfo* GetLastMenuTarget() const;
