@@ -572,13 +572,7 @@ void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent& event)
 
 void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent& event)
 {
-	wxString path;
-#ifndef __MOTIF__
-	path = wxT("All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
-
+	wxString path = wxT("All files|*.*||");
 	wxFileDialog filedlg(this, wxT("Choose file to save printer log to"), wxT(""), wxT(""), path, wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK) {
 		m_printerLogFile->SetValue(filedlg.GetPath());

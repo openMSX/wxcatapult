@@ -294,17 +294,12 @@ void SessionPage::OnModePlay(wxCommandEvent& event)
 
 void SessionPage::OnModeRecord(wxCommandEvent& event)
 {
-	wxString path;
 	wxString tapeImage;
-#ifndef __MOTIF__
-	path = wxT("Cassette files (*.wav)|*.wav|All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
 	bool changeMode = false;
 	if (m_cassetteAutoCreate) {
 		changeMode = true;
 	} else {
+		wxString path = wxT("Cassette files (*.wav)|*.wav|All files|*.*||");
 		wxFileDialog filedlg(this, wxT("Select Cassettefile to save to"),
 		                     ::wxPathOnly(media[CAS]->contents), wxT(""),
 		                     path, wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
@@ -355,13 +350,7 @@ void SessionPage::OnBrowseDiskB(wxCommandEvent& event)
 void SessionPage::BrowseDisk(MediaInfo& m)
 {
 	wxString defaultpath = ::wxPathOnly(m.contents);
-	wxString path;
-#ifndef __MOTIF__
-	path = wxT("All known disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.dmk;*.DMK;*.zip;*.ZIP;*.gz;*.GZ;*.di1;*.DI1;*.di2;*.DI2|Uncompressed disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.di1;*.DI1;*.di2;*.DI2|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
-
+	wxString path = wxT("All known disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.dmk;*.DMK;*.zip;*.ZIP;*.gz;*.GZ;*.di1;*.DI1;*.di2;*.DI2|Uncompressed disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.di1;*.DI1;*.di2;*.DI2|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 	wxFileDialog filedlg(this, wxT("Select disk image"), defaultpath, wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		m.contents = filedlg.GetPath();
@@ -392,13 +381,7 @@ void SessionPage::OnBrowseCartB(wxCommandEvent& event)
 void SessionPage::BrowseCart(MediaInfo& m)
 {
 	wxString defaultpath = ::wxPathOnly(m.contents);
-	wxString path;
-#ifndef __MOTIF__
-	path = wxT("All known cartridge files|*.rom;*.ROM;*.ri;*.RI;*.zip;*.ZIP;*.gz;*.GZ|Uncompressed cartridge files|*.rom;*.ROM;*.ri;*.RI|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
-
+	wxString path = wxT("All known cartridge files|*.rom;*.ROM;*.ri;*.RI;*.zip;*.ZIP;*.gz;*.GZ|Uncompressed cartridge files|*.rom;*.ROM;*.ri;*.RI|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 	wxFileDialog filedlg(this, wxT("Select ROM image"), defaultpath, wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		m.contents = filedlg.GetPath();
@@ -422,13 +405,7 @@ void SessionPage::BrowseCart(MediaInfo& m)
 void SessionPage::OnBrowseCassette(wxCommandEvent& event)
 {
 	wxString defaultpath = ::wxPathOnly(media[CAS]->contents);
-	wxString path;
-#ifndef __MOTIF__
-	path = wxT("All known cassette files|*.zip;*.ZIP;*.gz;*.GZ;*.wav;*.WAV;*.cas;*.CAS|Uncompressed cassette files|*.wav;*.WAV;*.cas;*.CAS|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
-
+	wxString path = wxT("All known cassette files|*.zip;*.ZIP;*.gz;*.GZ;*.wav;*.WAV;*.cas;*.CAS|Uncompressed cassette files|*.wav;*.WAV;*.cas;*.CAS|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 	wxFileDialog filedlg(this, wxT("Select cassette image"), defaultpath, wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		media[CAS]->contents = filedlg.GetPath();

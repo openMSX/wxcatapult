@@ -287,13 +287,7 @@ bool wxCatapultFrame::EditConfig(bool fatalIfFails)
 
 void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent& event)
 {
-	wxString path;
-#ifndef __MOTIF__
-	path = wxT("Configuration Files(*.xml)|*.xml;*.XML|All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
-
+	wxString path = wxT("Configuration Files(*.xml)|*.xml;*.XML|All files|*.*||");
 	wxFileDialog filedlg(this, wxT("Select configuration file"), wxT(""), wxT(""), path, wxFD_OPEN);
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString settingsfile = filedlg.GetPath();
@@ -318,13 +312,7 @@ void wxCatapultFrame::OnMenuSaveSettings(wxCommandEvent& event)
 
 void wxCatapultFrame::OnMenuSaveSettingsAs(wxCommandEvent& event)
 {
-	wxString path;
-#ifndef __MOTIF__
-	path = wxT("Configuration Files(*.xml)|*.xml;*.XML|All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
-
+	wxString path = wxT("Configuration Files(*.xml)|*.xml;*.XML|All files|*.*||");
 	wxFileDialog filedlg(this, wxT("Select file to save to"), wxT(""), wxT(""), path, wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString settingsfile = filedlg.GetPath();

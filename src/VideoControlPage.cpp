@@ -410,13 +410,7 @@ void VideoControlPage::SetSliderDefaults()
 void VideoControlPage::OnBrowseScreenShot(wxCommandEvent& event)
 {
 	int countersize = 0;
-	wxString path;
-#ifndef __MOTIF__
-	path = wxT("Screenshot Files(*.png)|*.png;*.PNG|All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
-
+	wxString path = wxT("Screenshot Files(*.png)|*.png;*.PNG|All files|*.*||");
 	wxFileDialog filedlg(this, wxT("Choose file to save screenshot to"), wxT(""), wxT(""), path, wxFD_SAVE);
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString screenshotpath = filedlg.GetPath();

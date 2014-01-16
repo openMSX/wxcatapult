@@ -65,12 +65,7 @@ void IPSSelectionDlg::OnOk(wxCommandEvent& event)
 
 void IPSSelectionDlg::OnAddIPS(wxCommandEvent& event)
 {
-	wxString path;
-#ifndef __MOTIF__
-	path = wxT("All known patchfiles|*.ips;*.IPS;*.gz;*.GZ;*.zip;*.ZIP|Uncompressed patchfiles (*.ips)|*.ips;*.IPS|Compressed patchfiles|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
-#else
-	path = wxT("*.*");
-#endif
+	wxString path = wxT("All known patchfiles|*.ips;*.IPS;*.gz;*.GZ;*.zip;*.ZIP|Uncompressed patchfiles (*.ips)|*.ips;*.IPS|Compressed patchfiles|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||");
 	wxFileDialog filedlg(this, wxT("Select ips patchfile"), m_lastBrowseLocation,
 	                     wxT(""), path, wxFD_OPEN | wxFD_MULTIPLE);
 	if (filedlg.ShowModal() == wxID_OK) {
