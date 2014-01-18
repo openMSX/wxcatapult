@@ -56,6 +56,8 @@ private:
 		          const wxString& control_,
 			  ConfigurationData::MediaBits bits,
 			  ConfigurationData::ID id,
+			  ConfigurationData::ID typeId_,
+			  ConfigurationData::ID ipsId_,
 			  wxButton* button_, MediaType mediaType_,
 			  int ipsLabel_, int typeLabel_)
 			: menu(menu_)
@@ -63,6 +65,8 @@ private:
 			, control(*(wxComboBox*)FindWindowByName(control_))
 			, mediaBits(bits)
 			, confId(id)
+			, typeId(typeId_)
+			, ipsId(ipsId_)
 			, button(button_)
 			, mediaType(mediaType_)
 			, ipsLabel(ipsLabel_)
@@ -72,6 +76,8 @@ private:
 		wxComboBox& control;
 		const ConfigurationData::MediaBits mediaBits;
 		const ConfigurationData::ID confId;
+		const ConfigurationData::ID typeId;
+		const ConfigurationData::ID ipsId;
 		wxButton* button;
 		wxString ipsdir;
 		wxArrayString ips;

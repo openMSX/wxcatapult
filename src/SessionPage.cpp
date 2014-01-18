@@ -143,22 +143,27 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 	media[DISKA].reset(new MediaInfo(
 		*m_diskMenu[0], wxT("diska"), wxT("DiskAContents"),
 		ConfigurationData::MB_DISKA, ConfigurationData::CD_HISTDISKA,
+		ConfigurationData::CD_NONE, ConfigurationData::CD_IPSDISKA,
 		m_diskAButton, DISKETTE, Disk_Browse_Ips, 0));
 	media[DISKB].reset(new MediaInfo(
 		*m_diskMenu[1], wxT("diskb"), wxT("DiskBContents"),
 		ConfigurationData::MB_DISKB, ConfigurationData::CD_HISTDISKB,
+		ConfigurationData::CD_NONE, ConfigurationData::CD_IPSDISKB,
 		m_diskBButton, DISKETTE, Disk_Browse_Ips, 0));
 	media[CARTA].reset(new MediaInfo(
 		*m_cartMenu[0], wxT("carta"), wxT("CartAContents"),
 		ConfigurationData::MB_CARTA, ConfigurationData::CD_HISTCARTA,
+		ConfigurationData::CD_TYPEHISTCARTA, ConfigurationData::CD_IPSCARTA,
 		m_cartAButton, CARTRIDGE, Cart_Browse_Ips, Cart_Select_Mapper));
 	media[CARTB].reset(new MediaInfo(
 		*m_cartMenu[1], wxT("cartb"), wxT("CartBContents"),
 		ConfigurationData::MB_CARTB, ConfigurationData::CD_HISTCARTB,
+		ConfigurationData::CD_TYPEHISTCARTB, ConfigurationData::CD_IPSCARTB,
 		m_cartBButton, CARTRIDGE, Cart_Browse_Ips, Cart_Select_Mapper));
 	media[CAS].reset(new MediaInfo(
 		*m_casMenu, wxT("cassetteplayer"), wxT("CassetteContents"),
 		ConfigurationData::MB_CASSETTE, ConfigurationData::CD_HISTCASSETTE,
+		ConfigurationData::CD_NONE, ConfigurationData::CD_NONE,
 		m_cassetteButton, CASSETTE, 0, 0));
 	for (auto& m : media) {
 		m->control.SetDropTarget(new SessionDropTarget(&m->control));
@@ -704,13 +709,8 @@ void SessionPage::AddHistory(MediaInfo& m)
 
 void SessionPage::RestoreHistory()
 {
-	ConfigurationData::ID typeID[] = {
-		ConfigurationData::CD_TYPEHISTCARTA,
-		ConfigurationData::CD_TYPEHISTCARTB
-	};
 	auto& config = ConfigurationData::instance();
 	config.GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
-	int hist = -1;
 	for (auto& m : media) {
 		m->control.Clear();
 		wxString value;
@@ -719,7 +719,7 @@ void SessionPage::RestoreHistory()
 
 		wxString typesStr;
 		if (m->mediaType == CARTRIDGE) {
-			config.GetParameter(typeID[++hist], typesStr);
+			config.GetParameter(m->typeId, typesStr);
 		}
 		wxArrayString types = split(typesStr);
 		wxArrayString ipsList; // TODO actually get from ConfigurationData
@@ -764,12 +764,7 @@ void SessionPage::RestoreHistory()
 
 void SessionPage::SaveHistory()
 {
-	ConfigurationData::ID typeID[] = {
-		ConfigurationData::CD_TYPEHISTCARTA,
-		ConfigurationData::CD_TYPEHISTCARTB
-	};
 	auto& config = ConfigurationData::instance();
-	int hist = -1;
 	for (auto& m : media) {
 		wxString temp, temp2;
 		// TODO also store IPS list
@@ -779,9 +774,8 @@ void SessionPage::SaveHistory()
 			if (m->mediaType == CARTRIDGE) temp2 << h->type << wxT("::");
 		}
 		config.SetParameter(m->confId, temp);
-		if (m->mediaType == CARTRIDGE) {
-			++hist;
-			config.SetParameter(typeID[hist], temp2);
+		if (m->typeId) {
+			config.SetParameter(m->typeId, temp2);
 		}
 	}
 	config.SetParameter(ConfigurationData::CD_MEDIAINSERTED, (long)m_InsertedMedia);
