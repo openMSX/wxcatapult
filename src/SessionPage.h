@@ -41,7 +41,6 @@ public:
 	wxArrayString getTypes() const;
 	void getPatches(wxArrayString* parameters) const;
 	wxArrayString getHardware() const;
-	void UpdateSessionData();
 	void EnableCassettePort(wxString data);
 	void SetCassetteMode(wxString data);
 	const wxArrayString& GetDetectedMachines() const;
@@ -167,9 +166,6 @@ private:
 	wxArrayString m_machineArray;
 	wxArrayString m_extensionArray;
 
-	int m_InsertedMedia;
-	wxString m_usedMachine;
-	wxString m_usedExtensions;
 	openMSXController& m_controller;
 
 	wxMenu* m_diskMenu[2];

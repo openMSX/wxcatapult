@@ -433,10 +433,9 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 			}
 		}
 	}
-	m_sessionPage->UpdateSessionData();
 	m_statusPage->Clear();
 
-	Enable(false); // Disable this frame only after getting the selections (so, also AFTER UpdateSessionData!)
+	Enable(false); // Disable this frame only after getting the selections
 
 	SetControlsOnLaunch();
 	m_controller->StartOpenMSX(cmd);

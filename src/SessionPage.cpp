@@ -576,6 +576,7 @@ void SessionPage::insertMedia(MediaInfo& m)
 		cmd += wxT("eject");
 	}
 	m_controller.WriteCommand(cmd);
+	SaveHistory();
 }
 
 void SessionPage::SetControlsOnLaunch()
@@ -666,25 +667,6 @@ wxArrayString SessionPage::getHardware() const
 	return result;
 }
 
-void SessionPage::UpdateSessionData()
-{
-	m_InsertedMedia = 0;
-	for (auto& m : media) {
-		m->lastContents = m->control.GetValue();
-		if (!m->lastContents.IsEmpty()) {
-			AddHistory(*m);
-			m_InsertedMedia |= m->mediaBits;
-		}
-	}
-
-	wxArrayString hardware = getHardware();
-	m_usedMachine = hardware[0];
-	m_usedExtensions.Clear();
-	for (size_t i = 1; i < hardware.GetCount(); ++i) {
-		m_usedExtensions << hardware[i] << wxT("::");
-	}
-}
-
 void SessionPage::AddHistory(MediaInfo& m)
 {
 	wxString currentItem = m.control.GetValue();
@@ -703,14 +685,13 @@ void SessionPage::AddHistory(MediaInfo& m)
 		m.control.Delete(HISTORY_SIZE);
 	}
 	m.control.SetSelection(0);
-
-	SaveHistory();
 }
 
 void SessionPage::RestoreHistory()
 {
 	auto& config = ConfigurationData::instance();
-	config.GetParameter(ConfigurationData::CD_MEDIAINSERTED, &m_InsertedMedia);
+	int insertedMedia;
+	config.GetParameter(ConfigurationData::CD_MEDIAINSERTED, &insertedMedia);
 	for (auto& m : media) {
 		m->control.Clear();
 		wxString value;
@@ -733,7 +714,7 @@ void SessionPage::RestoreHistory()
 				split(ips, wxT(";;")))); // 2nd-level
 		}
 
-		if ((m_InsertedMedia & m->mediaBits) && !m->control.IsEmpty()) {
+		if ((insertedMedia & m->mediaBits) && !m->control.IsEmpty()) {
 			m->control.SetSelection(0);
 			auto* h = static_cast<HistoryData*>(m->control.GetClientObject(0));
 			if (m->mediaType == CARTRIDGE) SetMapperType(*m, h->type);
@@ -742,23 +723,21 @@ void SessionPage::RestoreHistory()
 			m->control.SetValue(wxT(""));
 		}
 	}
-	config.GetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
-	// printf("Last used machine: %s....", (const char*)(wxConvUTF8.cWX2MB(m_usedMachine)));
-	if (!m_usedMachine.IsEmpty()) {
-		// printf ("OK, it's not empty\n");
-		wxString temp = m_usedMachine;
-		temp.Replace(wxT("_"), wxT(" "));
-		temp.Replace(wxT("\""), wxT(""));
-		int pos = m_machineList->FindString(temp);
+	wxString usedMachine;
+	config.GetParameter(ConfigurationData::CD_USEDMACHINE, usedMachine);
+	if (!usedMachine.IsEmpty()) {
+		usedMachine.Replace(wxT("_"), wxT(" "));
+		usedMachine.Replace(wxT("\""), wxT(""));
+		int pos = m_machineList->FindString(usedMachine);
 		if (pos != wxNOT_FOUND) {
 			m_machineList->SetSelection(pos);
 		} else {
 			m_machineList->SetSelection(0);
-			// printf(" Can't find the machine\n");
 		}
 	}
-	config.GetParameter(ConfigurationData::CD_USEDEXTENSIONS, m_usedExtensions);
-	for (auto& temp : split(m_usedExtensions)) {
+	wxString usedExtensions;
+	config.GetParameter(ConfigurationData::CD_USEDEXTENSIONS, usedExtensions);
+	for (auto& temp : split(usedExtensions)) {
 		temp.Replace(wxT("_"), wxT(" "));
 		if (m_extensionList->FindString(temp) != wxNOT_FOUND) {
 			m_extensionList->SetStringSelection(temp);
@@ -769,6 +748,7 @@ void SessionPage::RestoreHistory()
 void SessionPage::SaveHistory()
 {
 	auto& config = ConfigurationData::instance();
+	int insertedMedia = 0;
 	for (auto& m : media) {
 		wxString files, types, ipsLists;
 		for (unsigned j = 0; j < m->control.GetCount(); ++j) {
@@ -783,10 +763,17 @@ void SessionPage::SaveHistory()
 		config.SetParameter(m->confId, files);
 		if (m->typeId) config.SetParameter(m->typeId, types);
 		if (m->ipsId)  config.SetParameter(m->ipsId, ipsLists);
+		if (!m->control.GetValue().IsEmpty()) insertedMedia |= m->mediaBits;
 	}
-	config.SetParameter(ConfigurationData::CD_MEDIAINSERTED, (long)m_InsertedMedia);
-	config.SetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
-	config.SetParameter(ConfigurationData::CD_USEDEXTENSIONS, m_usedExtensions);
+	config.SetParameter(ConfigurationData::CD_MEDIAINSERTED, (long)insertedMedia);
+
+	wxArrayString hardware = getHardware();
+	wxString usedExtensions;
+	for (size_t i = 1; i < hardware.GetCount(); ++i) {
+		usedExtensions << hardware[i] << wxT("::");
+	}
+	config.SetParameter(ConfigurationData::CD_USEDMACHINE, hardware[0]);
+	config.SetParameter(ConfigurationData::CD_USEDEXTENSIONS, usedExtensions);
 	if (!config.SaveData()) {
 		wxMessageBox(wxT("Error saving configuration data"));
 	}

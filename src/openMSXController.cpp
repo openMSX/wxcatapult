@@ -169,7 +169,6 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			if ((lastCmd[0] != data->name) ||
 			    (lastCmd[1] != data->contents)) {
 				UpdateSetting2(data->name, data->contents);
-				m_appWindow->m_sessionPage->UpdateSessionData();
 			}
 		}
 		break;
