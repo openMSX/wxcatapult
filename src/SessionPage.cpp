@@ -389,12 +389,12 @@ static int CompareCaseInsensitive(const wxString& first, const wxString& second)
 	return first.Cmp(second);
 }
 
-static wxArrayString split(const wxString& str)
+static wxArrayString split(const wxString& str, wxString separator = wxT("::"))
 {
 	wxArrayString result;
 	int pos = 0;
 	while (true) {
-		int pos2 = str.find(wxT("::"), pos);
+		int pos2 = str.find(separator, pos);
 		if (pos2 == wxNOT_FOUND) return result;
 		result.Add(str.Mid(pos, pos2 - pos));
 		pos = pos2 + 2;
@@ -718,15 +718,19 @@ void SessionPage::RestoreHistory()
 		m->control.Append(split(value));
 
 		wxString typesStr;
-		if (m->mediaType == CARTRIDGE) {
-			config.GetParameter(m->typeId, typesStr);
-		}
+		if (m->typeId) config.GetParameter(m->typeId, typesStr);
 		wxArrayString types = split(typesStr);
-		wxArrayString ipsList; // TODO actually get from ConfigurationData
+
+		wxString ipsListStr;
+		if (m->ipsId) config.GetParameter(m->ipsId, ipsListStr);
+		wxArrayString ipsList = split(ipsListStr, wxT("::")); // 1st-level
+
 		for (unsigned i = 0; i < m->control.GetCount(); ++i) {
+			wxString type = (i < types  .GetCount()) ? types  [i] : wxT("");
+			wxString ips  = (i < ipsList.GetCount()) ? ipsList[i] : wxT("");
 			m->control.SetClientObject(i, new HistoryData(
-				(i < types.GetCount()) ? types[i] : wxT(""),
-				ipsList));
+				type,
+				split(ips, wxT(";;")))); // 2nd-level
 		}
 
 		if ((m_InsertedMedia & m->mediaBits) && !m->control.IsEmpty()) {
@@ -766,17 +770,19 @@ void SessionPage::SaveHistory()
 {
 	auto& config = ConfigurationData::instance();
 	for (auto& m : media) {
-		wxString temp, temp2;
-		// TODO also store IPS list
+		wxString files, types, ipsLists;
 		for (unsigned j = 0; j < m->control.GetCount(); ++j) {
-			temp << m->control.GetString(j) << wxT("::");
+			files << m->control.GetString(j) << wxT("::");
 			auto* h = static_cast<HistoryData*>(m->control.GetClientObject(j));
-			if (m->mediaType == CARTRIDGE) temp2 << h->type << wxT("::");
+			types << h->type << wxT("::");
+			for (auto& ips : h->ips) {
+				ipsLists << ips << wxT(";;"); // 2nd-level
+			}
+			ipsLists << wxT("::"); // 1st-level
 		}
-		config.SetParameter(m->confId, temp);
-		if (m->typeId) {
-			config.SetParameter(m->typeId, temp2);
-		}
+		config.SetParameter(m->confId, files);
+		if (m->typeId) config.SetParameter(m->typeId, types);
+		if (m->ipsId)  config.SetParameter(m->ipsId, ipsLists);
 	}
 	config.SetParameter(ConfigurationData::CD_MEDIAINSERTED, (long)m_InsertedMedia);
 	config.SetParameter(ConfigurationData::CD_USEDMACHINE, m_usedMachine);
