@@ -81,6 +81,12 @@ private:
 		const int ipsLabel;
 		const int typeLabel;
 	};
+	struct HistoryData : public wxClientData {
+		HistoryData(const wxString& type_, const wxArrayString& ips_)
+			: type(type_), ips(ips_) {}
+		wxString type;
+		wxArrayString ips;
+	};
 
 	virtual void HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus);
 	void checkLooseFocus(wxWindow* oldFocus, MediaInfo& media);
@@ -118,6 +124,7 @@ private:
 	void SetupRomType(wxString romtype, wxString fullname);
 	MediaInfo* GetLastMenuTarget() const;
 	void GetRomTypes();
+	void SetIpsList(MediaInfo& m, const wxArrayString& ips);
 	void SetMapperType(MediaInfo& media, const wxString& type);
 	void BrowseDisk(MediaInfo& media);
 	void BrowseCart(MediaInfo& media);

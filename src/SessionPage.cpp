@@ -353,16 +353,19 @@ void SessionPage::OnClickCassetteCombo(wxCommandEvent& event)
 void SessionPage::ClickMediaCombo(wxCommandEvent& event, MediaInfo& m)
 {
 	OnClickCombo(event);
-	if (m.mediaType == CARTRIDGE) {
-		auto* c = m.control.GetClientObject(event.GetInt());
-		SetMapperType(m, static_cast<wxStringClientData*>(c)->GetData());
-	}
-	if (m.ipsLabel) {
-		// TODO restore IPS from history
-		m.ips.Clear();
-		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
-	}
+	auto* h = static_cast<HistoryData*>(m.control.GetClientObject(event.GetInt()));
+	if (m.mediaType == CARTRIDGE) SetMapperType(m, h->type);
+	if (m.ipsLabel)               SetIpsList   (m, h->ips);
 	insertMedia(m);
+}
+
+void SessionPage::SetIpsList(MediaInfo& m, const wxArrayString& ips)
+{
+	m.ips = ips;
+	int count = m.ips.GetCount();
+	m.menu.SetLabel(m.ipsLabel, (count > 0)
+		? wxString::Format(wxT("Select IPS Patches (%d selected)"), count)
+		: wxString(wxT("Select IPS Patches (None selected)")));
 }
 
 void SessionPage::SetMapperType(MediaInfo& m, const wxString& type)
@@ -543,10 +546,7 @@ void SessionPage::checkLooseFocus(wxWindow* oldFocus, MediaInfo& m)
 // before inserting media
 void SessionPage::insertMediaClear(MediaInfo& m)
 {
-	if (m.ipsLabel) {
-		m.ips.Clear();
-		m.menu.SetLabel(m.ipsLabel, wxT("Select IPS Patches (None selected)"));
-	}
+	if (m.ipsLabel) SetIpsList(m, wxArrayString());
 	if (m.mediaType == CARTRIDGE) SetMapperType(m, wxT(""));
 	insertMedia(m);
 }
@@ -560,8 +560,7 @@ void SessionPage::insertMedia(MediaInfo& m)
 	wxString cmd = m.deviceName + wxT(" ");
 	if (!contents.IsEmpty()) {
 		cmd += utils::ConvertPath(contents);
-		if (!m.type.IsEmpty()) {
-			assert(m.mediaType == CARTRIDGE);
+		if (!m.mediaType == CARTRIDGE) {
 			cmd += wxT(" -romtype ") + m.type;
 		}
 		for (auto& ips : m.ips) {
@@ -694,8 +693,7 @@ void SessionPage::AddHistory(MediaInfo& m)
 	if (pos != wxNOT_FOUND) {
 		m.control.Delete(pos);
 	}
-	auto* c = (m.mediaType == CARTRIDGE) ? new wxStringClientData(m.type) : 0;
-	m.control.Insert(currentItem, 0, c);
+	m.control.Insert(currentItem, 0, new HistoryData(m.type, m.ips));
 	while (m.control.GetCount() > HISTORY_SIZE) {
 		m.control.Delete(HISTORY_SIZE);
 	}
@@ -718,22 +716,24 @@ void SessionPage::RestoreHistory()
 		wxString value;
 		config.GetParameter(m->confId, value);
 		m->control.Append(split(value));
+
+		wxString typesStr;
 		if (m->mediaType == CARTRIDGE) {
-			++hist;
-			wxString typesStr;
-			config.GetParameter(typeID[hist], typesStr);
-			wxArrayString types = split(typesStr);
-			for (unsigned i = 0; i < m->control.GetCount(); ++i) {
-				m->control.SetClientObject(i, new wxStringClientData(
-					(i < types.GetCount()) ? types[i] : wxT("auto")));
-			}
+			config.GetParameter(typeID[++hist], typesStr);
 		}
+		wxArrayString types = split(typesStr);
+		wxArrayString ipsList; // TODO actually get from ConfigurationData
+		for (unsigned i = 0; i < m->control.GetCount(); ++i) {
+			m->control.SetClientObject(i, new HistoryData(
+				(i < types.GetCount()) ? types[i] : wxT(""),
+				ipsList));
+		}
+
 		if ((m_InsertedMedia & m->mediaBits) && !m->control.IsEmpty()) {
 			m->control.SetSelection(0);
-			if (m->mediaType == CARTRIDGE) {
-				auto* c = m->control.GetClientObject(0);
-				SetMapperType(*m, static_cast<wxStringClientData*>(c)->GetData());
-			}
+			auto* h = static_cast<HistoryData*>(m->control.GetClientObject(0));
+			if (m->mediaType == CARTRIDGE) SetMapperType(*m, h->type);
+			if (m->ipsLabel)               SetIpsList   (*m, h->ips);
 		} else {
 			m->control.SetValue(wxT(""));
 		}
@@ -772,13 +772,11 @@ void SessionPage::SaveHistory()
 	int hist = -1;
 	for (auto& m : media) {
 		wxString temp, temp2;
+		// TODO also store IPS list
 		for (unsigned j = 0; j < m->control.GetCount(); ++j) {
 			temp << m->control.GetString(j) << wxT("::");
-			if (m->mediaType == CARTRIDGE) {
-				auto* c = m->control.GetClientObject(j);
-				auto s = static_cast<wxStringClientData*>(c)->GetData();
-				temp2 << (s.IsEmpty() ? wxT("auto") : s) << wxT("::");
-			}
+			auto* h = static_cast<HistoryData*>(m->control.GetClientObject(j));
+			if (m->mediaType == CARTRIDGE) temp2 << h->type << wxT("::");
 		}
 		config.SetParameter(m->confId, temp);
 		if (m->mediaType == CARTRIDGE) {
@@ -896,12 +894,7 @@ void SessionPage::OnBrowseIps(wxCommandEvent& event)
 	if (auto* target = GetLastMenuTarget()) {
 		m_ipsDialog->CenterOnParent();
 		if (m_ipsDialog->ShowModal(target->ips, target->ipsdir) == wxID_OK) {
-			target->ips = m_ipsDialog->GetIPSList();
-			int count = target->ips.GetCount();
-			wxString item = (count > 0)
-				? wxString::Format(wxT("Select IPS Patches (%d selected)"), count)
-				: wxString(wxT("Select IPS Patches (None selected)"));
-			target->menu.SetLabel(target->ipsLabel, item);
+			SetIpsList(*target, m_ipsDialog->GetIPSList());
 			target->ipsdir = m_ipsDialog->GetLastBrowseLocation();
 			insertMedia(*target);
 		}
