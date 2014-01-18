@@ -13,6 +13,10 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(wxT("/history/CartA"), &m_cartaHistory);
 	ConfigData->Read(wxT("/history/CartB"), &m_cartbHistory);
 	ConfigData->Read(wxT("/history/Cassette"), &m_cassetteHistory);
+	ConfigData->Read(wxT("/history/IpsDiskA"), &m_diskaIps);
+	ConfigData->Read(wxT("/history/IpsDiskB"), &m_diskbIps);
+	ConfigData->Read(wxT("/history/IpsCartA"), &m_cartaIps);
+	ConfigData->Read(wxT("/history/IpsCartB"), &m_cartbIps);
 	ConfigData->Read(wxT("/history/TypeCartA"), &m_typeHistCartA);
 	ConfigData->Read(wxT("/history/TypeCartB"), &m_typeHistCartB);
 	ConfigData->Read(wxT("/history/MediaInserted"), &m_mediaInserted);
@@ -74,6 +78,18 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 		break;
 	case CD_HISTCASSETTE:
 		m_cassetteHistory = p_data.GetString();
+		break;
+	case CD_IPSDISKA:
+		m_diskaIps = p_data.GetString();
+		break;
+	case CD_IPSDISKB:
+		m_diskbIps = p_data.GetString();
+		break;
+	case CD_IPSCARTA:
+		m_cartaIps = p_data.GetString();
+		break;
+	case CD_IPSCARTB:
+		m_cartbIps = p_data.GetString();
 		break;
 	case CD_TYPEHISTCARTA:
 		m_typeHistCartA = p_data.GetString();
@@ -150,6 +166,18 @@ bool ConfigurationData::GetParameter(int p_iId, wxString& p_data) const
 	case CD_HISTCASSETTE:
 		p_data = m_cassetteHistory;
 		break;
+	case CD_IPSDISKA:
+		p_data = m_diskaIps;
+		break;
+	case CD_IPSDISKB:
+		p_data = m_diskbIps;
+		break;
+	case CD_IPSCARTA:
+		p_data = m_cartaIps;
+		break;
+	case CD_IPSCARTB:
+		p_data = m_cartbIps;
+		break;
 	case CD_TYPEHISTCARTA:
 		p_data = m_typeHistCartA;
 		break;
@@ -216,6 +244,10 @@ bool ConfigurationData::SaveData() const
 	retVal &= ConfigData->Write(wxT("/history/CartA"), m_cartaHistory);
 	retVal &= ConfigData->Write(wxT("/history/CartB"), m_cartbHistory);
 	retVal &= ConfigData->Write(wxT("/history/Cassette"), m_cassetteHistory);
+	retVal &= ConfigData->Write(wxT("/history/IpsDiskA"), m_diskaIps);
+	retVal &= ConfigData->Write(wxT("/history/IpsDiskB"), m_diskbIps);
+	retVal &= ConfigData->Write(wxT("/history/IpsCartA"), m_cartaIps);
+	retVal &= ConfigData->Write(wxT("/history/IpsCartB"), m_cartbIps);
 	retVal &= ConfigData->Write(wxT("/history/TypeCartA"), m_typeHistCartA);
 	retVal &= ConfigData->Write(wxT("/history/TypeCartB"), m_typeHistCartB);
 	retVal &= ConfigData->Write(wxT("/history/MediaInserted"), m_mediaInserted);

@@ -10,9 +10,11 @@ class ConfigurationData
 {
 public:
 	enum ID {
+		CD_NONE = 0,
 		CD_EXECPATH, CD_SHAREPATH, CD_MACHINES, CD_EXTENSIONS,
 		CD_HISTDISKA, CD_HISTDISKB, CD_HISTCARTA, CD_HISTCARTB,
 		CD_HISTCASSETTE, CD_TYPEHISTCARTA, CD_TYPEHISTCARTB,
+		CD_IPSDISKA, CD_IPSDISKB, CD_IPSCARTA, CD_IPSCARTB,
 		CD_MEDIAINSERTED, CD_USEDMACHINE, CD_USEDEXTENSIONS,
 		CD_FULLSCREENWARN, CD_SCREENSHOTINFO, CD_JOYPORT1, CD_JOYPORT2,
 		CD_PRINTERPORT, CD_PRINTERFILE, CD_VIEWFLAGS, CD_AUTORECORD
@@ -52,6 +54,10 @@ private:
 	wxString m_diskbHistory;
 	wxString m_cartaHistory;
 	wxString m_cartbHistory;
+	wxString m_diskaIps;
+	wxString m_diskbIps;
+	wxString m_cartaIps;
+	wxString m_cartbIps;
 	wxString m_cassetteHistory;
 	wxString m_typeHistCartA;
 	wxString m_typeHistCartB;
