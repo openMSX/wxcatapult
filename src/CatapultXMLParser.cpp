@@ -131,7 +131,7 @@ void CatapultXMLParser::SendParsedData()
 void CatapultXMLParser::ParseXmlInput(wxString input, unsigned id)
 {
 	parseResult.openMSXID = id;
-	xmlParseChunk(context, (const char*)(wxConvUTF8.cWX2MB(input)), input.Len(), 0);
+	xmlParseChunk(context, (const char*)(input.mb_str(wxConvUTF8)), input.Len(), 0);
 }
 
 void CatapultXMLParser::parseReply(const char** attrs)

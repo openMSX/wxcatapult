@@ -212,7 +212,7 @@ bool CheckConfigsDlg::CheckConfigsThread::doCheckConfigs(wxString cmd)
 #ifndef __WXMSW__
 	char buffer[1000];
 	cmd += wxT(" > /dev/null 2>&1");
-	strcpy(buffer, (const char*)(wxConvUTF8.cWX2MB(cmd)));
+	strcpy(buffer, (const char*)(cmd.mb_str(wxConvUTF8)));
 	result = system(buffer);
 #else
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE;

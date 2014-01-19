@@ -229,7 +229,7 @@ void openMSXController::WriteCommand(
 {
 	if (!m_openMsxRunning) return;
 
-	xmlChar* buffer = xmlEncodeEntitiesReentrant(nullptr, (const xmlChar*)(const char*)(wxConvUTF8.cWX2MB(command)));
+	xmlChar* buffer = xmlEncodeEntitiesReentrant(nullptr, (const xmlChar*)(const char*)(command.mb_str(wxConvUTF8)));
 	if (!buffer) return;
 
 	CommandEntry temp;
@@ -968,7 +968,7 @@ bool openMSXController::Launch(wxString cmdline)
 	return true;
 #else
 	cmdline += wxT(" -control stdio");
-	if (!execute((const char*)(wxConvUTF8.cWX2MB((cmdline))),
+	if (!execute((const char*)(cmdline.mb_str(wxConvUTF8)),
 	             m_openMSXstdin, m_openMSXstdout, m_openMSXstderr)) {
 		return false;
 	}
