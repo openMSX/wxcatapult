@@ -3,7 +3,7 @@
 
 <application path="" name="" class="" option="0" language="python" top_window="" encoding="ISO-8859-1" use_gettext="0" overwrite="0" use_new_namespace="1">
     <object class="wxDialog" name="IPSSelectionDialog" base="EditDialog">
-        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU|wxTHICK_FRAME</style>
+        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU</style>
         <title>Select IPS Patch(es)</title>
         <size>500, 205</size>
         <object class="wxBoxSizer" name="MainSizer" base="EditBoxSizer">

@@ -3,7 +3,7 @@
 
 <application path="" name="" class="" option="0" language="python" top_window="" encoding="ISO-8859-1" use_gettext="0" overwrite="0" use_new_namespace="1">
     <object class="wxDialog" name="RomTypeDialog" base="EditDialog">
-        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU|wxTHICK_FRAME</style>
+        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU</style>
         <title>Select ROM Type</title>
         <size>200, 395</size>
         <object class="wxBoxSizer" name="MainSizer" base="EditBoxSizer">

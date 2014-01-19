@@ -33,7 +33,6 @@
                             <label>AboutProductNameLabel</label>
                             <font>
                                 <size>15</size>
-                                <family>default</family>
                                 <style>normal</style>
                                 <weight>bold</weight>
                                 <underlined>0</underlined>
@@ -59,7 +58,6 @@
                             <label>AboutProductDescriptionLabel</label>
                             <font>
                                 <size>12</size>
-                                <family>default</family>
                                 <style>normal</style>
                                 <weight>normal</weight>
                                 <underlined>0</underlined>
@@ -85,7 +83,6 @@
                             <label>AboutMessageLabel</label>
                             <font>
                                 <size>10</size>
-                                <family>default</family>
                                 <style>normal</style>
                                 <weight>normal</weight>
                                 <underlined>0</underlined>
