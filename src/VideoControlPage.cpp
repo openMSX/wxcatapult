@@ -119,7 +119,7 @@ void VideoControlPage::OnChangeAccuracy(wxCommandEvent& event)
 
 void VideoControlPage::OnChangeVideoSource(wxCommandEvent& event)
 {
-	m_controller.WriteCommand(wxT("set videosource ") + m_videoSourceList->GetValue().Lower());
+	m_controller.WriteCommand(wxT("set videosource ") + utils::tclEscapeWord(m_videoSourceList->GetValue().Lower()));
 }
 
 void VideoControlPage::OnDeInterlace(wxCommandEvent& event)
