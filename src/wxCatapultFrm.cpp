@@ -255,11 +255,7 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 	version->SetLabel(wxString(Version::FULL_VERSION.c_str(), wxConvUTF8));
 	description->SetLabel(wxT("The official GUI for openMSX"));
 	message->SetLabel(wxT("\251 2003-2014 The openMSX Team\n<openmsx-devel@lists.sourceforge.net>\n"));
-#ifdef __WXMSW__
-		dlg.SetSize(-1, -1, 400, 307, 0);
-#else
-		dlg.SetSize(-1, -1, 400, 300, 0);
-#endif
+	dlg.Fit();
 	dlg.CenterOnParent();
 	dlg.ShowModal();
 }
