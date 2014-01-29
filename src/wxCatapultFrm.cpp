@@ -122,7 +122,7 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 	settingsMenu->Append(Catapult_Save_OpenMSX_Settings_As, wxT("Save openMSX Settings &As..."), wxT("Save All openMSX settings to a specified file"));
 	settingsMenu->AppendCheckItem(Catapult_Save_On_Exit, wxT("Save openMSX Settings On &Exit"), wxT("Save All openMSX settings as soon as openMSX is closed"));
 	viewMenu->AppendCheckItem(Catapult_Display_Invalids, wxT("Display Broken Configurations"), wxT("Display all machines and extension even if they don't work"));
-	helpMenu->Append(Catapult_About, wxT("&About\tCtrl-A"), wxT("Show about dialog"));
+	helpMenu->Append(Catapult_About, wxT("About"), wxT("Show about dialog"));
 
 	auto& config = ConfigurationData::instance();
 
