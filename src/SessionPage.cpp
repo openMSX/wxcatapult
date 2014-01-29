@@ -54,42 +54,44 @@ enum {
 
 IMPLEMENT_CLASS(SessionPage, wxPanel)
 BEGIN_EVENT_TABLE(SessionPage, wxPanel)
-	EVT_COMBOBOX(XRCID("DiskAContents"), SessionPage::OnClickDiskACombo)
-	EVT_COMBOBOX(XRCID("DiskBContents"), SessionPage::OnClickDiskBCombo)
-	EVT_COMBOBOX(XRCID("CartAContents"), SessionPage::OnClickCartACombo)
-	EVT_COMBOBOX(XRCID("CartBContents"), SessionPage::OnClickCartBCombo)
-	EVT_COMBOBOX(XRCID("CassetteContents"), SessionPage::OnClickCassetteCombo)
-	EVT_TOGGLEBUTTON(XRCID("PlayButton"), SessionPage::OnModePlay)
-	EVT_TOGGLEBUTTON(XRCID("RecordButton"), SessionPage::OnModeRecord)
-	EVT_BUTTON(XRCID("DiskA_Button"), SessionPage::OnClickMediaMenu)
-	EVT_BUTTON(XRCID("DiskB_Button"), SessionPage::OnClickMediaMenu)
-	EVT_BUTTON(XRCID("CartA_Button"), SessionPage::OnClickMediaMenu)
-	EVT_BUTTON(XRCID("CartB_Button"), SessionPage::OnClickMediaMenu)
-	EVT_BUTTON(XRCID("CassetteButton"), SessionPage::OnClickMediaMenu)
-	EVT_BUTTON(XRCID("BrowseDiskA"), SessionPage::OnBrowseDiskA)
-	EVT_BUTTON(XRCID("BrowseDiskB"), SessionPage::OnBrowseDiskB)
-	EVT_BUTTON(XRCID("BrowseCartA"), SessionPage::OnBrowseCartA)
-	EVT_BUTTON(XRCID("BrowseCartB"), SessionPage::OnBrowseCartB)
-	EVT_BUTTON(XRCID("BrowseCassette"), SessionPage::OnBrowseCassette)
-	EVT_BUTTON(XRCID("ClearDiskA"), SessionPage::OnEjectDiskA)
-	EVT_BUTTON(XRCID("ClearDiskB"), SessionPage::OnEjectDiskB)
-	EVT_BUTTON(XRCID("ClearCartA"), SessionPage::OnEjectCartA)
-	EVT_BUTTON(XRCID("ClearCartB"), SessionPage::OnEjectCartB)
-	EVT_BUTTON(XRCID("ClearCassette"), SessionPage::OnClearCassette)
-	EVT_BUTTON(XRCID("RewindButton"), SessionPage::OnRewind)
-	EVT_MENU(Disk_Insert_New, SessionPage::OnInsertEmptyDiskByMenu)
-	EVT_MENU(Disk_Browse_File, SessionPage::OnBrowseDiskByMenu)
-	EVT_MENU(Disk_Browse_Dir, SessionPage::OnBrowseDiskDirByMenu)
-	EVT_MENU(Disk_Browse_Ips, SessionPage::OnBrowseIps)
-	EVT_MENU(Disk_Eject, SessionPage::OnEjectByMenu)
-	EVT_MENU(Cart_Browse_File, SessionPage::OnBrowseCartByMenu)
-	EVT_MENU(Cart_Eject, SessionPage::OnEjectByMenu)
+	EVT_COMBOBOX    (XRCID("DiskAContents"),    SessionPage::OnClickDiskACombo)
+	EVT_COMBOBOX    (XRCID("DiskBContents"),    SessionPage::OnClickDiskBCombo)
+	EVT_COMBOBOX    (XRCID("CartAContents"),    SessionPage::OnClickCartACombo)
+	EVT_COMBOBOX    (XRCID("CartBContents"),    SessionPage::OnClickCartBCombo)
+	EVT_COMBOBOX    (XRCID("CassetteContents"), SessionPage::OnClickCassetteCombo)
+	EVT_TOGGLEBUTTON(XRCID("PlayButton"),       SessionPage::OnModePlay)
+	EVT_TOGGLEBUTTON(XRCID("RecordButton"),     SessionPage::OnModeRecord)
+	EVT_BUTTON      (XRCID("DiskA_Button"),     SessionPage::OnClickMediaMenu)
+	EVT_BUTTON      (XRCID("DiskB_Button"),     SessionPage::OnClickMediaMenu)
+	EVT_BUTTON      (XRCID("CartA_Button"),     SessionPage::OnClickMediaMenu)
+	EVT_BUTTON      (XRCID("CartB_Button"),     SessionPage::OnClickMediaMenu)
+	EVT_BUTTON      (XRCID("CassetteButton"),   SessionPage::OnClickMediaMenu)
+	EVT_BUTTON      (XRCID("BrowseDiskA"),      SessionPage::OnBrowseDiskA)
+	EVT_BUTTON      (XRCID("BrowseDiskB"),      SessionPage::OnBrowseDiskB)
+	EVT_BUTTON      (XRCID("BrowseCartA"),      SessionPage::OnBrowseCartA)
+	EVT_BUTTON      (XRCID("BrowseCartB"),      SessionPage::OnBrowseCartB)
+	EVT_BUTTON      (XRCID("BrowseCassette"),   SessionPage::OnBrowseCassette)
+	EVT_BUTTON      (XRCID("ClearDiskA"),       SessionPage::OnEjectDiskA)
+	EVT_BUTTON      (XRCID("ClearDiskB"),       SessionPage::OnEjectDiskB)
+	EVT_BUTTON      (XRCID("ClearCartA"),       SessionPage::OnEjectCartA)
+	EVT_BUTTON      (XRCID("ClearCartB"),       SessionPage::OnEjectCartB)
+	EVT_BUTTON      (XRCID("ClearCassette"),    SessionPage::OnClearCassette)
+	EVT_BUTTON      (XRCID("RewindButton"),     SessionPage::OnRewind)
+	EVT_COMBOBOX    (XRCID("MachineList"),      SessionPage::OnMachineOrExtensionListChanged)
+	EVT_LISTBOX     (XRCID("ExtensionList"),    SessionPage::OnMachineOrExtensionListChanged)
+	EVT_MENU(Disk_Insert_New,    SessionPage::OnInsertEmptyDiskByMenu)
+	EVT_MENU(Disk_Browse_File,   SessionPage::OnBrowseDiskByMenu)
+	EVT_MENU(Disk_Browse_Dir,    SessionPage::OnBrowseDiskDirByMenu)
+	EVT_MENU(Disk_Browse_Ips,    SessionPage::OnBrowseIps)
+	EVT_MENU(Disk_Eject,         SessionPage::OnEjectByMenu)
+	EVT_MENU(Cart_Browse_File,   SessionPage::OnBrowseCartByMenu)
+	EVT_MENU(Cart_Eject,         SessionPage::OnEjectByMenu)
 	EVT_MENU(Cart_Select_Mapper, SessionPage::OnSelectMapper)
-	EVT_MENU(Cart_Browse_Ips, SessionPage::OnBrowseIps)
-	EVT_MENU(Cas_Browse_File, SessionPage::OnBrowseCassette)
-	EVT_MENU(Cas_Eject, SessionPage::OnClearCassette)
-	EVT_MENU(Cas_Rewind, SessionPage::OnRewind)
-	EVT_MENU(Cas_MotorControl, SessionPage::OnMotorControl)
+	EVT_MENU(Cart_Browse_Ips,    SessionPage::OnBrowseIps)
+	EVT_MENU(Cas_Browse_File,    SessionPage::OnBrowseCassette)
+	EVT_MENU(Cas_Eject,          SessionPage::OnClearCassette)
+	EVT_MENU(Cas_Rewind,         SessionPage::OnRewind)
+	EVT_MENU(Cas_MotorControl,   SessionPage::OnMotorControl)
 	EVT_MENU(Cas_AutoCreateFile, SessionPage::OnAutoCassettefile)
 END_EVENT_TABLE()
 
@@ -655,7 +657,7 @@ wxArrayString SessionPage::getHardware() const
 {
 	wxArrayString result;
 	int pos = m_machineList->GetSelection();
-	result.Add(pos == 0
+	result.Add(pos <= 0
 		? wxT(" <default> ")
 		: utils::ConvertPathNoSlash(m_machineArray[pos - 1]));
 
@@ -665,6 +667,11 @@ wxArrayString SessionPage::getHardware() const
 		result.Add(m_extensionArray[i]);
 	}
 	return result;
+}
+
+void SessionPage::OnMachineOrExtensionListChanged(wxCommandEvent& event)
+{
+	SaveHistory();
 }
 
 void SessionPage::AddHistory(MediaInfo& m)

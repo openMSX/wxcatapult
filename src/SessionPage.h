@@ -125,6 +125,7 @@ private:
 	void OnBrowseCartByMenu(wxCommandEvent& event);
 	void OnEjectByMenu(wxCommandEvent& event);
 	void OnSelectMapper(wxCommandEvent& event);
+	void OnMachineOrExtensionListChanged(wxCommandEvent& event);
 
 	void SetupRomType(wxString romtype, wxString fullname);
 	MediaInfo* GetLastMenuTarget() const;
