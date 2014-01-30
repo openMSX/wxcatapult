@@ -13,6 +13,7 @@ ConfigurationData::ConfigurationData()
 	ConfigData->Read(wxT("/history/CartA"), &m_cartaHistory);
 	ConfigData->Read(wxT("/history/CartB"), &m_cartbHistory);
 	ConfigData->Read(wxT("/history/Cassette"), &m_cassetteHistory);
+	ConfigData->Read(wxT("/history/Harddisk"), &m_hardDiskHistory);
 	ConfigData->Read(wxT("/history/IpsDiskA"), &m_diskaIps);
 	ConfigData->Read(wxT("/history/IpsDiskB"), &m_diskbIps);
 	ConfigData->Read(wxT("/history/IpsCartA"), &m_cartaIps);
@@ -78,6 +79,9 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 		break;
 	case CD_HISTCASSETTE:
 		m_cassetteHistory = p_data.GetString();
+		break;
+	case CD_HISTHDD:
+		m_hardDiskHistory = p_data.GetString();
 		break;
 	case CD_IPSDISKA:
 		m_diskaIps = p_data.GetString();
@@ -166,6 +170,9 @@ bool ConfigurationData::GetParameter(int p_iId, wxString& p_data) const
 	case CD_HISTCASSETTE:
 		p_data = m_cassetteHistory;
 		break;
+	case CD_HISTHDD:
+		p_data = m_hardDiskHistory;
+		break;
 	case CD_IPSDISKA:
 		p_data = m_diskaIps;
 		break;
@@ -244,6 +251,7 @@ bool ConfigurationData::SaveData() const
 	retVal &= ConfigData->Write(wxT("/history/CartA"), m_cartaHistory);
 	retVal &= ConfigData->Write(wxT("/history/CartB"), m_cartbHistory);
 	retVal &= ConfigData->Write(wxT("/history/Cassette"), m_cassetteHistory);
+	retVal &= ConfigData->Write(wxT("/history/Harddisk"), m_hardDiskHistory);
 	retVal &= ConfigData->Write(wxT("/history/IpsDiskA"), m_diskaIps);
 	retVal &= ConfigData->Write(wxT("/history/IpsDiskB"), m_diskbIps);
 	retVal &= ConfigData->Write(wxT("/history/IpsCartA"), m_cartaIps);

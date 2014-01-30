@@ -37,6 +37,13 @@ public:
 	void SetControlsOnLaunch();
 	void SetControlsOnEnd();
 	void SetCassetteControl();
+	/**
+	 * Set enabledness for hard disk controls.
+	 * @param forcedDisable Force disabling controls, instead of relying on
+	 * internal parameter evaluation. should only be used in very special
+	 * cases (see cpp file). This is a 'hack'.
+	 */
+	void SetHardDiskControl(bool forcedDisable = false);
 	wxArrayString getMedia() const;
 	wxArrayString getTypes() const;
 	void getPatches(wxArrayString* parameters) const;
@@ -49,7 +56,7 @@ public:
 	void FixLayout();
 
 private:
-	enum MediaType { DISKETTE, CARTRIDGE, CASSETTE };
+	enum MediaType { DISKETTE, CARTRIDGE, CASSETTE, HARDDISK };
 	struct MediaInfo {
 		MediaInfo(wxMenu& menu_, const wxString& deviceName_,
 		          const wxString& control_,
@@ -97,16 +104,18 @@ private:
 	void checkLooseFocus(wxWindow* oldFocus, MediaInfo& media);
 	void insertMedia(MediaInfo& m);
 	void insertMediaClear(MediaInfo& m);
-	void OnBrowseCassette(wxCommandEvent& event);
 	void OnBrowseDiskA(wxCommandEvent& event);
 	void OnBrowseDiskB(wxCommandEvent& event);
 	void OnBrowseCartA(wxCommandEvent& event);
 	void OnBrowseCartB(wxCommandEvent& event);
-	void OnClearCassette(wxCommandEvent& event);
-	void OnEjectCartA(wxCommandEvent& event);
-	void OnEjectCartB(wxCommandEvent& event);
+	void OnBrowseCassette(wxCommandEvent& event);
+	void OnBrowseHardDisk(wxCommandEvent& event);
 	void OnEjectDiskB(wxCommandEvent& event);
 	void OnEjectDiskA(wxCommandEvent& event);
+	void OnEjectCartA(wxCommandEvent& event);
+	void OnEjectCartB(wxCommandEvent& event);
+	void OnClearCassette(wxCommandEvent& event);
+	void OnEjectHardDisk(wxCommandEvent& event);
 	void OnRewind(wxCommandEvent& event);
 	void OnMotorControl(wxCommandEvent& event);
 	void OnModePlay(wxCommandEvent& event);
@@ -117,6 +126,7 @@ private:
 	void OnClickCartACombo(wxCommandEvent& event);
 	void OnClickCartBCombo(wxCommandEvent& event);
 	void OnClickCassetteCombo(wxCommandEvent& event);
+	void OnClickHardDiskCombo(wxCommandEvent& event);
 	void OnClickMediaMenu(wxCommandEvent& event);
 	void OnInsertEmptyDiskByMenu(wxCommandEvent& event);
 	void OnBrowseDiskByMenu(wxCommandEvent& event);
@@ -145,7 +155,7 @@ private:
 	wxComboBox* m_machineList;
 	wxListBox* m_extensionList;
 
-	enum { DISKA, DISKB, CARTA, CARTB, CAS, NUM_MEDIA };
+	enum { DISKA, DISKB, CARTA, CARTB, CAS, HDD, NUM_MEDIA };
 	std::unique_ptr<MediaInfo> media[NUM_MEDIA];
 
 	wxToggleButton* m_playButton;
@@ -157,10 +167,14 @@ private:
 	wxButton* m_cartAButton;
 	wxButton* m_cartBButton;
 	wxButton* m_cassetteButton;
+	wxButton* m_hardDiskButton;
 
 	wxBitmapButton* m_browseCassette;
 	wxBitmapButton* m_clearCassette;
 	bool m_hasCassettePort;
+	
+	wxBitmapButton* m_browseHardDisk;
+	wxBitmapButton* m_clearHardDisk;
 
 	wxStaticText* m_machineListLabel;
 	wxStaticText* m_extensionListLabel;
@@ -172,6 +186,7 @@ private:
 	wxMenu* m_diskMenu[2];
 	wxMenu* m_cartMenu[2];
 	wxMenu* m_casMenu;
+	wxMenu* m_hardDiskMenu;
 
 	wxButton* m_lastUsedPopup;
 	std::unique_ptr<RomTypeDlg> m_romTypeDialog;

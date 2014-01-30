@@ -49,7 +49,9 @@ enum {
 	Cas_Eject,
 	Cas_Rewind,
 	Cas_MotorControl,
-	Cas_AutoCreateFile
+	Cas_AutoCreateFile,
+	HardDisk_Browse_File,
+	HardDisk_Eject
 };
 
 IMPLEMENT_CLASS(SessionPage, wxPanel)
@@ -59,6 +61,7 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_COMBOBOX    (XRCID("CartAContents"),    SessionPage::OnClickCartACombo)
 	EVT_COMBOBOX    (XRCID("CartBContents"),    SessionPage::OnClickCartBCombo)
 	EVT_COMBOBOX    (XRCID("CassetteContents"), SessionPage::OnClickCassetteCombo)
+	EVT_COMBOBOX    (XRCID("HardDiskContents"), SessionPage::OnClickHardDiskCombo)
 	EVT_TOGGLEBUTTON(XRCID("PlayButton"),       SessionPage::OnModePlay)
 	EVT_TOGGLEBUTTON(XRCID("RecordButton"),     SessionPage::OnModeRecord)
 	EVT_BUTTON      (XRCID("DiskA_Button"),     SessionPage::OnClickMediaMenu)
@@ -66,33 +69,38 @@ BEGIN_EVENT_TABLE(SessionPage, wxPanel)
 	EVT_BUTTON      (XRCID("CartA_Button"),     SessionPage::OnClickMediaMenu)
 	EVT_BUTTON      (XRCID("CartB_Button"),     SessionPage::OnClickMediaMenu)
 	EVT_BUTTON      (XRCID("CassetteButton"),   SessionPage::OnClickMediaMenu)
+	EVT_BUTTON      (XRCID("HardDiskButton"),   SessionPage::OnClickMediaMenu)
 	EVT_BUTTON      (XRCID("BrowseDiskA"),      SessionPage::OnBrowseDiskA)
 	EVT_BUTTON      (XRCID("BrowseDiskB"),      SessionPage::OnBrowseDiskB)
 	EVT_BUTTON      (XRCID("BrowseCartA"),      SessionPage::OnBrowseCartA)
 	EVT_BUTTON      (XRCID("BrowseCartB"),      SessionPage::OnBrowseCartB)
 	EVT_BUTTON      (XRCID("BrowseCassette"),   SessionPage::OnBrowseCassette)
+	EVT_BUTTON      (XRCID("BrowseHardDisk"),   SessionPage::OnBrowseHardDisk)
 	EVT_BUTTON      (XRCID("ClearDiskA"),       SessionPage::OnEjectDiskA)
 	EVT_BUTTON      (XRCID("ClearDiskB"),       SessionPage::OnEjectDiskB)
 	EVT_BUTTON      (XRCID("ClearCartA"),       SessionPage::OnEjectCartA)
 	EVT_BUTTON      (XRCID("ClearCartB"),       SessionPage::OnEjectCartB)
 	EVT_BUTTON      (XRCID("ClearCassette"),    SessionPage::OnClearCassette)
+	EVT_BUTTON      (XRCID("ClearHardDisk"),    SessionPage::OnEjectHardDisk)
 	EVT_BUTTON      (XRCID("RewindButton"),     SessionPage::OnRewind)
 	EVT_COMBOBOX    (XRCID("MachineList"),      SessionPage::OnMachineOrExtensionListChanged)
 	EVT_LISTBOX     (XRCID("ExtensionList"),    SessionPage::OnMachineOrExtensionListChanged)
-	EVT_MENU(Disk_Insert_New,    SessionPage::OnInsertEmptyDiskByMenu)
-	EVT_MENU(Disk_Browse_File,   SessionPage::OnBrowseDiskByMenu)
-	EVT_MENU(Disk_Browse_Dir,    SessionPage::OnBrowseDiskDirByMenu)
-	EVT_MENU(Disk_Browse_Ips,    SessionPage::OnBrowseIps)
-	EVT_MENU(Disk_Eject,         SessionPage::OnEjectByMenu)
-	EVT_MENU(Cart_Browse_File,   SessionPage::OnBrowseCartByMenu)
-	EVT_MENU(Cart_Eject,         SessionPage::OnEjectByMenu)
-	EVT_MENU(Cart_Select_Mapper, SessionPage::OnSelectMapper)
-	EVT_MENU(Cart_Browse_Ips,    SessionPage::OnBrowseIps)
-	EVT_MENU(Cas_Browse_File,    SessionPage::OnBrowseCassette)
-	EVT_MENU(Cas_Eject,          SessionPage::OnClearCassette)
-	EVT_MENU(Cas_Rewind,         SessionPage::OnRewind)
-	EVT_MENU(Cas_MotorControl,   SessionPage::OnMotorControl)
-	EVT_MENU(Cas_AutoCreateFile, SessionPage::OnAutoCassettefile)
+	EVT_MENU(Disk_Insert_New,      SessionPage::OnInsertEmptyDiskByMenu)
+	EVT_MENU(Disk_Browse_File,     SessionPage::OnBrowseDiskByMenu)
+	EVT_MENU(Disk_Browse_Dir,      SessionPage::OnBrowseDiskDirByMenu)
+	EVT_MENU(Disk_Browse_Ips,      SessionPage::OnBrowseIps)
+	EVT_MENU(Disk_Eject,           SessionPage::OnEjectByMenu)
+	EVT_MENU(Cart_Browse_File,     SessionPage::OnBrowseCartByMenu)
+	EVT_MENU(Cart_Eject,           SessionPage::OnEjectByMenu)
+	EVT_MENU(Cart_Select_Mapper,   SessionPage::OnSelectMapper)
+	EVT_MENU(Cart_Browse_Ips,      SessionPage::OnBrowseIps)
+	EVT_MENU(Cas_Browse_File,      SessionPage::OnBrowseCassette)
+	EVT_MENU(Cas_Eject,            SessionPage::OnClearCassette)
+	EVT_MENU(Cas_Rewind,           SessionPage::OnRewind)
+	EVT_MENU(Cas_MotorControl,     SessionPage::OnMotorControl)
+	EVT_MENU(Cas_AutoCreateFile,   SessionPage::OnAutoCassettefile)
+	EVT_MENU(HardDisk_Browse_File, SessionPage::OnBrowseHardDisk)
+	EVT_MENU(HardDisk_Eject,       SessionPage::OnEjectByMenu)
 END_EVENT_TABLE()
 
 SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
@@ -121,10 +129,16 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 	m_casMenu->Append(Cas_MotorControl, wxT("Motor control"), wxT(""), wxITEM_CHECK);
 	m_casMenu->Append(Cas_AutoCreateFile, wxT("Auto create Cassette file for recording"), wxT(""), wxITEM_CHECK);
 
+	m_hardDiskMenu = new wxMenu(wxT(""), 0);
+	m_hardDiskMenu->Append(HardDisk_Browse_File, wxT("Browse for hard disk image"), wxT(""), wxITEM_NORMAL);
+	m_hardDiskMenu->Append(HardDisk_Eject, wxT("Eject hard disk"), wxT(""), wxITEM_NORMAL);
+
 	m_extensionList  = (wxListBox*)FindWindowByName(wxT("ExtensionList"));
 	m_machineList    = (wxComboBox*)FindWindowByName(wxT("MachineList"));
 	m_browseCassette = (wxBitmapButton*)FindWindowByName(wxT("BrowseCassette"));
 	m_clearCassette  = (wxBitmapButton*)FindWindowByName(wxT("ClearCassette"));
+	m_browseHardDisk = (wxBitmapButton*)FindWindowByName(wxT("BrowseHardDisk"));
+	m_clearHardDisk  = (wxBitmapButton*)FindWindowByName(wxT("ClearHardDisk"));
 	m_playButton     = (wxToggleButton*)FindWindowByName(wxT("PlayButton"));
 	m_recordButton   = (wxToggleButton*)FindWindowByName(wxT("RecordButton"));
 	m_rewindButton   = (wxButton*)FindWindowByName(wxT("RewindButton"));
@@ -133,6 +147,7 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 	m_cartAButton    = (wxButton*)FindWindowByName(wxT("CartA_Button"));
 	m_cartBButton    = (wxButton*)FindWindowByName(wxT("CartB_Button"));
 	m_cassetteButton = (wxButton*)FindWindowByName(wxT("CassetteButton"));
+	m_hardDiskButton = (wxButton*)FindWindowByName(wxT("HardDiskButton"));
 	m_machineListLabel   = (wxStaticText*)FindWindowByName(wxT("MachineListLabel"));
 	m_extensionListLabel = (wxStaticText*)FindWindowByName(wxT("ExtensionLabel"));
 	//SetupHardware(true, false); // No need to do this, it's done in wxCatapultFrm's constructor
@@ -167,6 +182,11 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 		ConfigurationData::MB_CASSETTE, ConfigurationData::CD_HISTCASSETTE,
 		ConfigurationData::CD_NONE, ConfigurationData::CD_NONE,
 		m_cassetteButton, CASSETTE, 0, 0));
+	media[HDD].reset(new MediaInfo(
+		*m_hardDiskMenu, wxT("hda"), wxT("HardDiskContents"),
+		ConfigurationData::MB_HDD, ConfigurationData::CD_HISTHDD,
+		ConfigurationData::CD_NONE, ConfigurationData::CD_NONE,
+		m_hardDiskButton, HARDDISK, 0, 0));
 	for (auto& m : media) {
 		m->control.SetDropTarget(new SessionDropTarget(&m->control));
 	}
@@ -175,6 +195,7 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 	ConfigurationData::instance().GetParameter(ConfigurationData::CD_AUTORECORD, &autorecord);
 	m_cassetteAutoCreate = autorecord == 1;
 	SetCassetteControl();
+	SetHardDiskControl();
 }
 
 void SessionPage::FixLayout()
@@ -226,6 +247,10 @@ void SessionPage::OnEjectCartB(wxCommandEvent& event)
 void SessionPage::OnClearCassette(wxCommandEvent& event)
 {
 	EjectMedia(*media[CAS]);
+}
+void SessionPage::OnEjectHardDisk(wxCommandEvent& event)
+{
+	EjectMedia(*media[HDD]);
 }
 void SessionPage::OnEjectByMenu(wxCommandEvent& event)
 {
@@ -327,6 +352,12 @@ void SessionPage::OnBrowseCassette(wxCommandEvent& event)
 		wxT("Select cassette image"));
 }
 
+void SessionPage::OnBrowseHardDisk(wxCommandEvent& event)
+{
+	BrowseMedia(*media[HDD],
+		wxT("All known hard disk files|*.dsk;*.DSK;*.zip;*.ZIP;*.gz;*.GZ;|Uncompressed disk files|*.dsk;*.DSK;|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||"),
+		wxT("Select hard disk image"));
+}
 void SessionPage::BrowseMedia(MediaInfo& m, const wxString& path, const wxString title)
 {
 	wxString defaultpath = ::wxPathOnly(m.control.GetValue());
@@ -356,6 +387,10 @@ void SessionPage::OnClickCartBCombo(wxCommandEvent& event)
 void SessionPage::OnClickCassetteCombo(wxCommandEvent& event)
 {
 	ClickMediaCombo(event, *media[CAS]);
+}
+void SessionPage::OnClickHardDiskCombo(wxCommandEvent& event)
+{
+	ClickMediaCombo(event, *media[HDD]);
 }
 void SessionPage::ClickMediaCombo(wxCommandEvent& event, MediaInfo& m)
 {
@@ -587,6 +622,10 @@ void SessionPage::SetControlsOnLaunch()
 	m_extensionList->Enable(false);
 	m_extensionListLabel->Enable(false);
 	m_machineListLabel->Enable(false);
+	// we have to call it explicitly with a parameter here,
+	// because the conditions that SetHardDiskControl relies
+	// on aren't properly set here (isOpenMsxRuning is not true yet)
+	SetHardDiskControl(true);
 }
 
 void SessionPage::SetControlsOnEnd()
@@ -601,6 +640,7 @@ void SessionPage::SetControlsOnEnd()
 		temp->Enable(true);
 	}
 	SetCassetteControl();
+	SetHardDiskControl();
 }
 
 // This method should be called whenever one of these conditions changes:
@@ -625,6 +665,14 @@ void SessionPage::SetCassetteControl()
 	if (auto* temp = FindWindowByLabel(wxT("Cassette Player"))) {
 		temp->Enable(enable3);
 	}
+}
+
+void SessionPage::SetHardDiskControl(bool forcedDisable)
+{
+	bool enable = (!m_controller.IsOpenMSXRunning()) && !forcedDisable;
+	m_clearHardDisk ->Enable(enable);
+	m_browseHardDisk->Enable(enable);
+	media[HDD]->control.Enable(enable);
 }
 
 wxArrayString SessionPage::getMedia() const
@@ -829,6 +877,10 @@ void SessionPage::OnClickMediaMenu(wxCommandEvent& event)
 		m->menu.Enable(Cas_MotorControl, enable);
 		m->menu.Check(Cas_MotorControl, m_cassetteControl);
 		m->menu.Check(Cas_AutoCreateFile, m_cassetteAutoCreate);
+	}
+	if (m->mediaType == HARDDISK) {
+		m->menu.Enable(HardDisk_Browse_File, !m_controller.IsOpenMSXRunning());
+		m->menu.Enable(HardDisk_Eject, !m_controller.IsOpenMSXRunning());
 	}
 	wxRect myRect = m_lastUsedPopup->GetRect();
 	PopupMenu(&m->menu, myRect.GetLeft(), myRect.GetBottom());

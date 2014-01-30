@@ -380,7 +380,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_launch_AbortButton->Enable(false);
 	m_safetyTimer.Start(2000, true); // max 2 seconds disable (whatever happens)
 
-	wxArrayString patches[5];
+	wxArrayString patches[6]; // TODO: arf, another hardcoded amount of media types
 	m_sessionPage->getPatches(patches);
 	wxArrayString hardware = m_sessionPage->getHardware();
 	wxArrayString media    = m_sessionPage->getMedia();
@@ -411,11 +411,12 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 			cmd += wxT(" -ext ") + hardware[i];
 		}
 	}
-	wxString parmname [5] = {
-		wxT("diska"), wxT("diskb"), wxT("cart"), wxT("cart"),
-		wxT("cassetteplayer")
+
+	wxString parmname [6] = { // TODO: arf, duplication of media names from SessionPage... get key/value from SessionPage!
+		wxT("diska"), wxT("diskb"), wxT("cart"), wxT("cart"), // why not carta/b?
+		wxT("cassetteplayer"), wxT("hda")
 	};
-	for (unsigned i = 0; i < 5; ++i) {
+	for (unsigned i = 0; i < 6; ++i) { // TODO: arf, hardcoded size of parmname and media list! use STL containers!
 		if (!media[i].IsEmpty()) {
 			cmd += wxT(" -") + parmname[i] + wxT(" \"") + media[i] + wxT("\"");
 			if (!types[i].IsEmpty()){

@@ -36,7 +36,6 @@ openMSXController::openMSXController(wxWindow* target)
 {
 #ifdef __WXMSW__
 	m_launchCounter = 0;
-	m_openMsxRunning = false;
 	m_namedPipeHandle = INVALID_HANDLE_VALUE;
 #else
 	m_openMSXstdin = m_openMSXstdout = m_openMSXstderr = -1;
@@ -593,6 +592,9 @@ void openMSXController::InitLaunchScript()
 	AddSetting(wxT("cassetteplayer"),
 		[&](const wxString&, const wxString& v) {
 			UpdateCombo(v, wxT("CassetteContents")); });
+	AddSetting(wxT("hda"),
+		[&](const wxString&, const wxString& v) {
+			UpdateCombo(v, wxT("HardDiskContents")); });
 	AddSetting(wxT("fullscreen"),
 		[&](const wxString&, const wxString& v) {
 			UpdateToggle(v, wxT("FullScreenButton"), S_CONVERT); });
