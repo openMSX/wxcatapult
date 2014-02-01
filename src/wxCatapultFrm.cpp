@@ -380,56 +380,13 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	m_launch_AbortButton->Enable(false);
 	m_safetyTimer.Start(2000, true); // max 2 seconds disable (whatever happens)
 
-	wxArrayString patches[6]; // TODO: arf, another hardcoded amount of media types
-	m_sessionPage->getPatches(patches);
-	wxArrayString hardware = m_sessionPage->getHardware();
-	wxArrayString media    = m_sessionPage->getMedia();
-	wxArrayString types    = m_sessionPage->getTypes();
-
 	wxString cmd;
 	config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	if (!m_settingsfile.IsEmpty()) {
 		cmd += wxT(" -setting ") + utils::ConvertPath(m_settingsfile);
 	}
-	if (hardware[0] != wxT(" <default> ")) { // Ooooww.... we're using representation here as useful data! :(
-		cmd += wxT(" -machine ") + hardware[0];
-	}
+	cmd += wxT(" ") + m_sessionPage->getStartupCommandLineOptions();
 
-	// EXTENSIONS start from index 1 in hardware!
-
-	// Here's a hack to make sure that slotexpander is always mentioned first. Note that this will break terribly if someone renames the slotexpander extension. Hence the 'hack' remark.
-	unsigned i = hardware.Index(wxT("slotexpander"), false);
-
-	if ((int)i != wxNOT_FOUND) {
-		// put it at item 1
-		hardware.RemoveAt(i);
-		hardware.Insert(wxT("slotexpander"), 1);
-	}
-
-	if (hardware.GetCount() > 1) {
-		for (i = 1; i < hardware.GetCount(); ++i) {
-			cmd += wxT(" -ext ") + hardware[i];
-		}
-	}
-
-	wxString parmname [6] = { // TODO: arf, duplication of media names from SessionPage... get key/value from SessionPage!
-		wxT("diska"), wxT("diskb"), wxT("cart"), wxT("cart"), // why not carta/b?
-		wxT("cassetteplayer"), wxT("hda")
-	};
-	for (unsigned i = 0; i < 6; ++i) { // TODO: arf, hardcoded size of parmname and media list! use STL containers!
-		if (!media[i].IsEmpty()) {
-			cmd += wxT(" -") + parmname[i] + wxT(" \"") + media[i] + wxT("\"");
-			if (!types[i].IsEmpty()){
-				cmd += wxT(" -romtype ") + types[i];
-			}
-			size_t count = patches[i].GetCount();
-			if (count != 0) {
-				for (size_t j = 0; j < count; ++j) {
-					cmd += wxT(" -ips \"") + patches[i].Item(j) + wxT("\"");
-				}
-			}
-		}
-	}
 	m_statusPage->Clear();
 
 	Enable(false); // Disable this frame only after getting the selections

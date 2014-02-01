@@ -675,32 +675,6 @@ void SessionPage::SetHardDiskControl(bool forcedDisable)
 	media[HDD]->control.Enable(enable);
 }
 
-wxArrayString SessionPage::getMedia() const
-{
-	wxArrayString result;
-	for (auto& m : media) {
-		result.Add(m->control.GetValue());
-	}
-	return result;
-}
-
-wxArrayString SessionPage::getTypes() const
-{
-	wxArrayString result;
-	for (auto& m : media) {
-		result.Add(m->type);
-	}
-	return result;
-}
-
-void SessionPage::getPatches(wxArrayString* parameters) const
-{
-	unsigned i = 0;
-	for (auto& m : media) {
-		parameters[i++] = m->ips;
-	}
-}
-
 wxArrayString SessionPage::getHardware() const
 {
 	wxArrayString result;
@@ -1025,4 +999,49 @@ bool SessionDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& f
 		m_target->Append(filenames[0]); // just the first for starters
 	}
 	return true;
+}
+
+wxString SessionPage::getStartupCommandLineOptions() const
+{
+	wxString result;
+
+	// EXTENSIONS start from index 1 in hardware!
+	wxArrayString hardware = getHardware();
+
+	// Ooooww.... we're using representation here as useful data! :(
+	if (hardware[0] != wxT(" <default> ")) {
+		result += wxT(" -machine ") + hardware[0];
+	}
+
+	// Here's a hack to make sure that slotexpander is always mentioned
+	// first. Note that this will break terribly if someone renames the
+	// slotexpander extension. Hence the 'hack' remark.
+	int pos = hardware.Index(wxT("slotexpander"), false);
+	if (pos != wxNOT_FOUND) {
+		// put it first (at item 1)
+		hardware.RemoveAt(pos);
+		hardware.Insert(wxT("slotexpander"), 1);
+	}
+	for (unsigned i = 1; i < hardware.GetCount(); ++i) {
+		result += wxT(" -ext ") + hardware[i];
+	}
+
+	for (auto& m : media) {
+		wxString image = m->control.GetValue();
+		if (image.IsEmpty()) continue;
+
+		wxString option = (m->mediaType != CARTRIDGE)
+		                ? m->deviceName
+		                : wxT("cart"); // HACK: 'cart' instead of 'carta/b'
+		result += wxT(" -") + option + wxT(" \"") + image + wxT("\"");
+
+		if (!m->type.IsEmpty()){
+			result += wxT(" -romtype ") + m->type;
+		}
+
+		for (auto& ips : m->ips) {
+			result += wxT(" -ips \"") + ips + wxT("\"");
+		}
+	}
+	return result;
 }

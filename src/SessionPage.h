@@ -44,16 +44,13 @@ public:
 	 * cases (see cpp file). This is a 'hack'.
 	 */
 	void SetHardDiskControl(bool forcedDisable = false);
-	wxArrayString getMedia() const;
-	wxArrayString getTypes() const;
-	void getPatches(wxArrayString* parameters) const;
-	wxArrayString getHardware() const;
 	void EnableCassettePort(wxString data);
 	void SetCassetteMode(wxString data);
 	const wxArrayString& GetDetectedMachines() const;
 	const wxArrayString& GetDetectedExtensions() const;
 	void RestoreHistory();
 	void FixLayout();
+	wxString getStartupCommandLineOptions() const;
 
 private:
 	enum MediaType { DISKETTE, CARTRIDGE, CASSETTE, HARDDISK };
@@ -151,6 +148,7 @@ private:
 	void AddHistory(MediaInfo& media);
 	void SaveHistory();
 	void EjectMedia(MediaInfo& media);
+	wxArrayString getHardware() const; // TODO rewrite this
 
 	wxComboBox* m_machineList;
 	wxListBox* m_extensionList;
