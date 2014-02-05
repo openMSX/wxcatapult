@@ -466,7 +466,6 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("openmsx_update enable plug"));
 	AddCommand(wxT("openmsx_update enable unplug"));
 	AddCommand(wxT("openmsx_update enable status"));
-	AddCommand(wxT("plug cassetteport cassetteplayer")); // ignore possible error
 	AddCommand(wxT(""), // finish launch
 		[&](const wxString&, const wxString&) {
 			m_appWindow->OpenMSXStarted();
