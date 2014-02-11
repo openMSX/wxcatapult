@@ -218,8 +218,8 @@ You will find links in this chapter to those detailed explanations.
 
 <p>
 This page lets you select which MSX machine you want to use, what extra 
-functionality that machine should have and what kind of media (disks, cassettes 
-and cartridges) you insert. This is the most used page of Catapult.
+functionality that machine should have and what kind of media (disks, cartridges,
+cassettes and hard drive images) you insert. This is the most used page of Catapult.
 [<a class="internal" href="#session">details</a>]
 </p>
 
@@ -331,6 +331,7 @@ the number of cartridge slots by also selecting the slot expander extension.</li
 I/O port conflicts in the MSX machine, which you will be warned for by openMSX 
 in the Status Page.</li> 
 <li>some extensions need system ROMs; the same counts here as for the machines, see above.</li>
+<li>inserting or removing cartridges at run time may remove inserted extensions; Catapult will not show this!</li>
 </ul>
 
 <p>
@@ -351,14 +352,13 @@ types of media you can use:
 Most MSX2 or higher machines are equipped with one or more disk drives.
 Moreover, openMSX supports a few external drive controllers as extensions. If a
 machine doesn't have a disk drive and no such extension was added, Catapult
-still lets you use these fields. openMSX, however, will in this case ignore the
-value filled in. Disks can be changed while openMSX is running (see below).
+still lets you use these fields. openMSX, however, will in this case give an error message.
+Disks can be changed while openMSX is running (see below).
 </dd>
 <dt>cartridges:</dt>
 <dd>
 Any MSX supports cartridges. These are simply put in before the MSX is started. 
-openMSX didn't support replacing cartridges, so while openMSX is running these 
-controls will be grayed out (disabled). (It is supportd now as of openMSX 0.6.1, but this Catapult is not developed anymore, so this will change in a new Catapult development.)
+openMSX also supports replacing cartridges while openMSX is running. Be careful: this will cause existing extensions in that slot to get removed, without Catapult showing that to you!
 </dd>
 <dt>cassettes (tapes):</dt>
 <dd>
@@ -372,6 +372,13 @@ are three more buttons. 'Rewind' simply lets you rewind the tape to the start. '
 In the cassette menu, you can also disable Motor Control. Normally, an MSX uses the 'remote control' system of a good MSX cassette recorder. This means that the tape is only played when the MSX is actually loading something from it. By disconnecting the 'remote' plug of such a cassette recorder, the recorder will always play if the play button is pressed.  If 'Motor Control' is disabled, this means that the 'remote' connector of the virtual cassette recorder is unplugged, making the tape run even if the emulated MSX is not loading something. See the 
 <a class="external" href="http://openmsx.sourceforge.net/manual/user.html#tape">openMSX User's Manual</a> 
 for more information about using cassettes.
+</dd>
+<dt>hard disk images:</dt>
+<dd>
+If you use an extension with the current machine that implements a hard disk drive, you can select the non-default hard disk image to be used here. If none is selected, the default will be used instead.
+If no hard disk extension is present, Catapult
+still lets you use these fields. openMSX, however, will in this case give an error message.
+Hard disk images are only safe to be changed while the emulated MSX is powered off. That's why Catapult will not allow you to change hard disk images while openMSX is running.
 </dd>
 </dl>
 
@@ -393,7 +400,7 @@ some extra options. Options shown in these pop-ups are:
 </p>
 
 <dl>
-<dt>Browse for disk/ROM/cassette image</dt>
+<dt>Browse for disk/ROM/cassette/harddisk image</dt>
 <dd>These options are the same as when you use the browse buttons on the right of the media fields</dd>
 <dt>Browse for disk folder (disks only)</dt>
 <dd>
@@ -402,7 +409,7 @@ This option is in openMSX known as DirAsDisk. Please check the
 <a class="external" href="http://openmsx.sourceforge.net/manual/user.html#dirasdisk">openMSX User's Manual</a> 
 for the limits using this feature.
 </dd>
-<dt>Eject disk/cartridge/cassette</dt>
+<dt>Eject disk/cartridge/cassette/harddisk</dt>
 <dd>These options are the same as when you use the eject buttons on the right of the media fields</dd>
 <dt>Select IPS Patches (disks and cartridges)</dt>
 <dd>
@@ -440,14 +447,18 @@ be updated according to the following criteria:
 </p>
 
 <ul>
-<li>when you select a disk or tape using history or the browse facility,
+<li>when you select a disk, cartridge or tape using history or the browse facility,
 openMSX updates immediately.</li>
-<li>when you type in the filename of a disk or tape, openMSX updates as soon as
+<li>when you type in the filename of a disk, cartridge or tape, openMSX updates as soon as
 the cursor leaves the media input box.</li> 
 </ul>
 
 <p>
 In both cases, the history is updated.
+</p>
+
+<p>
+Again, do note that updating cartridges while extensions are inserted, will mean that the extension in that slot will be removed and Catapult will not show this in the user interface!
 </p>
 
 <h2><a id="control">5. Using the Control Pages</a></h2>
@@ -537,7 +548,7 @@ algorithms are sometimes quite complex.
 </p>
 
 <p>
-The top-right control lets you select the accuracy level openMSX uses to draw 
+The Accuracy control lets you select the accuracy level openMSX uses to draw 
 the screen.
 </p>
 
@@ -547,14 +558,18 @@ See for an explanation of renderers, scalers and accuracy the
 </p>
 
 <p>
-The deinterlace button toggles the deinterlacing effect on or off. When a real 
+The Video Source control selects which video source is visible on the openMSX window. Usually it's just "MSX", but in some cases you might want to show the GFX9000 for instance (or Video9000, which has some features to superimpose the MSX image over the GFX9000 image).
+</p>
+
+<p>
+The Deinterlace button toggles the deinterlacing effect on or off. When a real 
 MSX is in interlace mode, you can see the screen flashing. When deinterlace is 
 off you get that same effect on openMSX. If this toggle is switched on, the 
 picture holds perfectly still.
 </p>
 
 <p>
-The limit sprites button allows you to let openMSX draw as many sprites on a 
+The Limit sprites button allows you to let openMSX draw as many sprites on a 
 horizontal line as necessary. With the sprite limit switched off, some games 
 will stop flashing their sprites. This feature is on by default since that's 
 closest to a real MSX. Some programs rely on the sprite flicker effect and may
@@ -562,10 +577,14 @@ thus look bad if you turn this off.
 </p>
 
 <p>
-The full screen button switches openMSX to full screen mode. The first time 
+The Full screen button switches openMSX to full screen mode. The first time 
 you do this, there will be a warning how to get back. You can disable this warning if 
 you want to. Windows users can also get back to windowed mode by switching back 
 to Catapult (using ALT-TAB) and simply deselecting full screen again.
+</p>
+
+<p>
+The Disable sprites button allows you to disable sprites in order to create screenshots of games without sprites, useful for making maps.
 </p>
 
 <p>
