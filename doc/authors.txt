@@ -1,11 +1,15 @@
-$Id$
-
 Prime Developers:
-Herman Oudejans      <hn.oudejans@quicknet.nl>
+None.
+
+Maintainers (minimal, keep it running):
 Manuel Bilderbeek    <manuel@msxnet.org>
+Wouter Vermaelen
 
 The other openMSX developers also contribute to openMSX Catapult every now and
 then :)
+
+Retired developers:
+Herman Oudejans      <hn.oudejans@quicknet.nl>
 
 With many thanks to:
 Michael Goettsche    <mail@tuxipuxi.de>
@@ -13,11 +17,11 @@ Patrick van Arkel    <vampier@vampier.net>
 Albert Beevendorp    <bifi@msxnet.org>
 
 And before altering (or completely rewriting) we
-used code from the following contributors: 
+used code from the following contributors:
 
 Finding a window by process ID:
 	Martin-Pierre Frenette  (www.codeproject.com)
-Openmsx XML parser:
+openMSX XML parser:
 	Wouter Vermaelen     <wouter.vermaelen@pi.be>
 Linux build system:
 	Maarten ter Huurne   <maarten@treewalker.org>
