@@ -602,7 +602,7 @@ void SessionPage::insertMedia(MediaInfo& m)
 	wxString cmd = m.deviceName + wxT(" ");
 	if (!contents.IsEmpty()) {
 		cmd += utils::ConvertPath(contents);
-		if (!m.mediaType == CARTRIDGE) {
+		if (m.mediaType == CARTRIDGE) {
 			cmd += wxT(" -romtype ") + m.type;
 		}
 		for (auto& ips : m.ips) {
@@ -899,6 +899,7 @@ void SessionPage::OnBrowseDiskDirByMenu(wxCommandEvent& event)
 		wxDirDialog dirdlg(this, wxT("Select Directory to use as disk"), defaultpath);
 		if (dirdlg.ShowModal() == wxID_OK) {
 			target->control.SetValue(dirdlg.GetPath());
+			insertMediaClear(*target);
 		}
 	}
 }
