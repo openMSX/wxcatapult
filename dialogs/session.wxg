@@ -428,7 +428,7 @@
                                         <option>0</option>
                                         <object class="wxBitmapButton" name="BrowseHardDisk" base="EditBitmapButton">
                                             <tooltip>Browse</tooltip>
-                                            <bitmap>../resources/bitmaps/diskimage.png</bitmap>
+                                            <bitmap>../resources/bitmaps/harddisk.png</bitmap>
                                             <size>23, 23</size>
                                         </object>
                                     </object>
