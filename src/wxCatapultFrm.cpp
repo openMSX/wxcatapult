@@ -27,6 +27,7 @@
 #include <wx/statusbr.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
+#include <sstream>
 
 // TODO: why is this define needed?
 #define unisprintf sprintf
@@ -460,11 +461,19 @@ void wxCatapultFrame::StopTimers()
 void wxCatapultFrame::OnUpdateFPS(wxTimerEvent& event)
 {
 	m_controller->WriteCommand(wxT("openmsx_info fps"),
-		[&](const wxString&, const wxString& r) {
+		[&](const wxString& c, const wxString& r) {
+			// convert wxString -> double using C locale
+			//  (so use '.' as decimal point)
+			// The wxString::ToDouble() method uses the current
+			// locale and for some reason wxWidgets changes the
+			// default locale (or doesn't use the C locale like
+			// most c/c++ programs).
 			double val;
-			if (r.ToDouble(&val)) {
+			std::stringstream ss(std::string(r.ToAscii()));
+			ss >> val;
+			//if (r.ToCDouble(&val)) { // requires wxWidgets-2.9
 				SetStatusText(wxString::Format(wxT("%2.1f fps"), val), 1);
-			}
+			//}
 		});
 }
 
