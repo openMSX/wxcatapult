@@ -14,8 +14,6 @@
 
 <h1>Catapult Compilation Guide</h1>
 
-<p><sub>note: throughout this guide we will refer to Catapult as wxCatapult. Both are the same in every case. The openMSX team used wxCatapult as an internal name where Catapult is the application name.</sub></p>
-
 <h2>Contents</h2>
 <ol class="toc">
 	<li><a class="internal" href="#intro">1. Introduction</a>
@@ -47,6 +45,10 @@
 </ol>
 
 <h2><a id="intro">1. Introduction</a></h2>
+
+<p>Note: throughout this guide we will refer to Catapult as wxCatapult. Both
+are the same in every case. The openMSX team used wxCatapult as an internal
+name where Catapult is the application name.</p>
 
 <h3><a id="newver">1.1. New Versions of this Document</a></h3>
 <p>
@@ -292,7 +294,12 @@ or right click on the openmsx-wxcatapult directory in Windows Explorer and selec
 </p>
 
 <h4>SSH Keys</h4>
-For more information on how to store you SSH project keys with SourceForge see: <a class="external" href="https://sourceforge.net/apps/trac/sourceforge/wiki/SSH%20keys">SSH Keys - sourceforge</a>
+<p>
+For more information on how to store you SSH project keys with SourceForge see:
+<a class="external"
+href="https://sourceforge.net/apps/trac/sourceforge/wiki/SSH%20keys">SSH Keys -
+sourceforge</a>
+</p>
 
 
 <h2><a id="compile">3. Compilation</a></h2>
@@ -424,11 +431,12 @@ For Windows the wxWidgets package is called wxMSW. Version <a href="http://sourc
 
 <p>For Windows, version <a href="http://www.xmlsoft.org/sources/libxml2-2.8.0.tar.gz">2.8.0</a> of libxml2 is recommended.</p>
 <p>Unpack the source packages into the derived\3rdparty\src directory. This will generate two subdirectories called libxml2-2.8.0 and wxMSW-2.8.12.</p>
-<p>In <code>wxMSW-2.8.12\lib\vc_lib\mswu\wx\setup.h</code> change <code>#define wxUSE_PRINTING_ARCHITECTURE  1</code> to <code>#define wxUSE_PRINTING_ARCHITECTURE  0</code> before attempting to compile
-<p>In <code>wxMSW-2.8.12\src\msw\windows.cpp</code> From line 109-110 remove:<br/><code>#if !defined __WXWINCE__ &amp;&amp; !defined NEED_PBT_H<br/>&nbsp;&nbsp;&nbsp;&nbsp;include &LT;pbt.h&gt;<br/>#endif</code></p>
-<p>In <code>wxMSW-2.8.12\src\msw\fontenum.cpp</code> on line 101 and 270 replace:<br><code>#ifndef __WXMICROWIN__<br/>int CALLBACK wxFontEnumeratorProc(LPLOGFONT lplf, LPTEXTMETRIC lptm,<br/>DWORD dwStyle, LONG lParam);<br/>#endif</code>
-<br>With<br>
+<p>In <code>wxMSW-2.8.12\lib\vc_lib\mswu\wx\setup.h</code> change <code>#define wxUSE_PRINTING_ARCHITECTURE  1</code> to <code>#define wxUSE_PRINTING_ARCHITECTURE  0</code> before attempting to compile</p>
+<p>In <code>wxMSW-2.8.12\src\msw\windows.cpp</code> From line 109-110 remove:<br/><code>#if !defined __WXWINCE__ &amp;&amp; !defined NEED_PBT_H<br/>&nbsp;&nbsp;&nbsp;&nbsp;include &lt;pbt.h&gt;<br/>#endif</code></p>
+<p>In <code>wxMSW-2.8.12\src\msw\fontenum.cpp</code> on line 101 and 270 replace:<br/><code>#ifndef __WXMICROWIN__<br/>int CALLBACK wxFontEnumeratorProc(LPLOGFONT lplf, LPTEXTMETRIC lptm,<br/>DWORD dwStyle, LONG lParam);<br/>#endif</code>
+<br/>With<br/>
 <code>#ifndef __WXMICROWIN__<br/>int CALLBACK wxFontEnumeratorProc(LPLOGFONT lplf, LPTEXTMETRIC lptm,<br/>DWORD dwStyle, LPARAM lParam);<br/>#endif</code>
+</p>
 
 
 <h3><a id="complibs">3.3. Compilation of the Libraries</a></h3>
@@ -532,13 +540,13 @@ Make sure you provide us with the error message(s) you got.
 
 <p>for Win32</p>	
 <ul>
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86</li>
+	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86</code></li>
 	<li><code>set PlatformToolset=v110</code></li>
 	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\msvc\wxCatapult.sln</code></li>
 </ul>
 <p>for Win64</p>
 <ul>		
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</li>
+	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</code></li>
 	<li><code>set PlatformToolset=v110</code></li>
 	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\msvc\wxCatapult.sln</code></li>
 </ul>
