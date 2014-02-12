@@ -80,28 +80,30 @@ if you printed out this manual.
 
 <h3><a id="purpose">1.2. Purpose</a></h3>
 <p>
-This manual is about Catapult, the (optional) GUI for openMSX. You can 
-find more information about openMSX on the
-<a class="external" href="http://openmsx.sourceforge.net/">openMSX home page</a>.
+This manual is about Catapult, the (optional) GUI for openMSX. You can find
+more information about openMSX on the <a class="external"
+href="http://openmsx.sourceforge.net/">openMSX home page</a>.
 You can also download Catapult and the emulator itself from there.
 </p>
 
 <p>
-openMSX is in alpha state, which means that some things work but not all 
-features are implemented yet. Many emulation features are implemented, but in 
-terms of user interface it is rather bare bones. However, since the emulation is 
-already pretty good, it would be nice if non-insiders would be able to play with 
-it, too. To allow people to use openMSX without having to find all options the 
-hard way, Catapult was created. Like openMSX, Catapult is still in development 
-and doesn't support all features we would like it to, but still it has become a 
-great addition to openMSX. This manual assumes that openMSX has already been set up. 
-For further details how to setup and use openMSX please refer to the 
-<a class="external" href="http://openmsx.sourceforge.net/manual/">openMSX manuals</a> .
+openMSX is in alpha state, which means that some things work but not all
+features are implemented yet. Many emulation features are implemented, but in
+terms of user interface it is rather bare bones. However, since the emulation
+is already pretty good, it would be nice if non-insiders would be able to play
+with it, too. To allow people to use openMSX without having to find all options
+the hard way, Catapult was created. Like openMSX, Catapult is still in
+development and doesn't support all features we would like it to, but still it
+has become a great addition to openMSX. This manual assumes that openMSX has
+already been set up.
+For further details how to setup and use openMSX please refer to the <a
+class="external" href="http://openmsx.sourceforge.net/manual/">openMSX
+manuals</a> .
 </p>
 
 <p>
-Although Catapult was designed to be self explanatory, we still decided to 
-create a comprehensive manual to familiarise people with the various pages and 
+Although Catapult was designed to be self explanatory, we still decided to
+create a comprehensive manual to familiarise people with the various pages and
 controls.
 </p>
 
@@ -139,7 +141,7 @@ only the big picture.
 
 <dt>2004-05-05: Herman Oudejans</dt>
 <dd>
-Initial version. 
+Initial version.
 </dd>
 <dt>2004-10-05: Herman Oudejans</dt>
 <dd>
@@ -153,7 +155,8 @@ Updated for version 0.5.1
 <dd>
 Updated for version 0.6.0
 </dd>
-
+<dt>2014-02-12 Manuel Bilderbeek</dt>
+<dd>Let's stop keeping this revision history, just look at the <a class="external" href="https://sourceforge.net/p/openmsx/wxcatapult/ci/HEAD/log/?path=doc/manual/user.html">Git Log</a>.</dd>
 </dl>
 
 <h2><a id="starting">2. Starting Catapult</a></h2>
@@ -169,28 +172,37 @@ by simply typing:
 </div>
 
 <p>
-Windows users can simply double-click on the Catapult icon in the start menu if 
-they have chosen to create it during setup. If not, simply find the executable 
+Windows users can simply double-click on the Catapult icon in the start menu if
+they have chosen to create it during setup. If not, simply find the executable
 and start it anyway you like.
 </p>
 
 <p>
-When you start Catapult for the first time it will ask where it can find openMSX 
-and where the so-called <code>share</code> directory can be found. To make it as easy as possible, Catapult 
-first checks the default locations for openMSX to see if the necessary files are 
-available. If they are, you only need to press the OK button. If they are not on 
-the default locations, you will need to locate them yourself. Be careful when 
-choosing the share directory. openMSX uses two share directories, the system 
-share (default: <code>/opt/openMSX/share</code> in Linux and the 
-<code>share</code> subdirectory where your openMSX executable resides 
-in Windows) and the personal share (default: <code> ~/.openMSX/share</code> 
-in Linux and <code>My Documents\openMSX\share</code> in Windows). 
-You'll need to fill in the system share directory, because the personal share directory is 
-scanned anyway.
+When you start Catapult for the first time it will ask where it can find
+openMSX and where the so-called <code>share</code> directory can be found. To
+make it as easy as possible, Catapult first checks the default locations for
+openMSX to see if the necessary files are available. If they are, you only need
+to press the OK button. If they are not on the default locations, you will need
+to locate them yourself. Be careful when choosing the share directory. openMSX
+uses two share directories, the system share (default:
+<code>/opt/openMSX/share</code> in Linux and the <code>share</code>
+subdirectory where your openMSX executable resides in Windows) and the personal
+share (default: <code> ~/.openMSX/share</code> in Linux and <code>My
+Documents\openMSX\share</code> in Windows). You'll need to fill in the system
+share directory, because the personal share directory is scanned anyway.
 </p>
 
-<p>At the bottom you can uncheck the check box if you don't want to run the hardware configuration test. We recommend to leave this on though: it will check which MSX systems will work with openMSX and which will not. The ones that are not working are probably missing some system ROMs. See the <a class="external" href="http://openmsx.sourceforge.net/manual/setup.html">openMSX Setup Guide</a> on how to deal with that. By default, the list of extensions and MSX machines that can be emulated, will only show hardware that is found to be working. You can change that in the View menu. After having installed more ROMs, you can always run the test again via the "File - Test MSX Hardware" menu option.
-</p>
+<p>
+At the bottom you can uncheck the check box if you don't want to run the
+hardware configuration test. We recommend to leave this on though: it will
+check which MSX systems will work with openMSX and which will not. The ones
+that are not working are probably missing some system ROMs. See the <a
+class="external"
+href="http://openmsx.sourceforge.net/manual/setup.html">openMSX Setup Guide</a>
+on how to deal with that. By default, the list of extensions and MSX machines
+that can be emulated, will only show hardware that is found to be working. You
+can change that in the View menu. After having installed more ROMs, you can
+always run the test again via the "File - Test MSX Hardware" menu option. </p>
 
 <p>
 After you press the OK button, Catapult's main screen appears, as shown in the picture below.
@@ -203,10 +215,10 @@ After you press the OK button, Catapult's main screen appears, as shown in the p
 <h2><a id="tour">3. A Quick Tour</a></h2>
 
 <p>
-The main screen of Catapult consists of 6 pages to separate different kinds 
-of functionality. This creates a much clearer interface than trying to put 
-everything on one page. This Section introduces the different pages and how they 
-can be used. It also tells about the global section of Catapult.
+The main screen of Catapult consists of 6 pages to separate different kinds of
+functionality. This creates a much clearer interface than trying to put
+everything on one page. This Section introduces the different pages and how
+they can be used. It also tells about the global section of Catapult.
 </p>
 
 <p>
@@ -217,23 +229,25 @@ You will find links in this chapter to those detailed explanations.
 <h3><a id="tour_session">3.1. Session Page</a></h3>
 
 <p>
-This page lets you select which MSX machine you want to use, what extra 
-functionality that machine should have and what kind of media (disks, cartridges,
-cassettes and hard drive images) you insert. This is the most used page of Catapult.
+This page lets you select which MSX machine you want to use, what extra
+functionality that machine should have and what kind of media (disks,
+cartridges, cassettes and hard drive images) you insert. This is the most used
+page of Catapult.
 [<a class="internal" href="#session">details</a>]
 </p>
 
 <h3><a id="tour_misc">3.2. Miscellaneous Control Page</a></h3>
 
 <p>
-The Miscellaneous Control Page ("Misc Controls") contains the 
-controls that can't easily be put in one category.
+The Miscellaneous Control Page ("Misc Controls") contains the controls that
+can't easily be put in one category.
 This page contains three types of controls:
 </p>
 
 <ul>
 <li>controls to set the speed and frame skip of openMSX.</li>
-<li>controls to push special buttons on the MSX within openMSX like power and reset.</li>
+<li>controls to push special buttons on the MSX within openMSX like power and
+reset.</li>
 <li>controls to plug devices into the ports of the MSX.</li>
 </ul>
 
@@ -244,8 +258,8 @@ This page contains three types of controls:
 <h3><a id="tour_video">3.3. Video Control Page</a></h3>
 
 <p>
-This page contains all controls to select how openMSX should display the MSX 
-screen. Some of this controls can cause openMSX to slow down. This page also 
+This page contains all controls to select how openMSX should display the MSX
+screen. Some of this controls can cause openMSX to slow down. This page also
 contains some controls to let openMSX make screen shots.
 [<a class="internal" href="#video">details</a>]
 </p>
@@ -253,48 +267,50 @@ contains some controls to let openMSX make screen shots.
 <h3><a id="tour_audio">3.4. Audio Control Page</a></h3>
 
 <p>
-When Catapult starts, this page looks completely empty, but once openMSX is 
-started, this page contains a mixer of each sound device available in the MSX. 
-This page also contains some controls specific to the MSXturboR machines 
-concerning MIDI and PCM wave input. These are grayed out when a different 
-MSX computer is emulated.
+When Catapult starts, this page looks completely empty, but once openMSX is
+started, this page contains a mixer of each sound device available in the MSX.
+This page also contains some controls specific to the MSXturboR machines
+concerning MIDI and PCM wave input. These are grayed out when a different MSX
+computer is emulated.
 [<a class="internal" href="#audio">details</a>]
 </p>
 
 <h3><a id="tour_input">3.5. Input Text</a></h3>
 <p>
-This page can be used to 'type' text in openMSX. Any text typed or copied into the text field
-can be typed into the emulated MSX including newlines.
+This page can be used to 'type' text in openMSX. Any text typed or copied into
+the text field can be typed into the emulated MSX including newlines.
 [<a class="internal" href="#input">input</a>]
 </p>
 
 <h3><a id="tour_status">3.6. Status Page</a></h3>
 
 <p>
-This page contains the messages Catapult gets from openMSX. This can be informational messages like where the screen shot has been saved, but it can also
-show warnings or errors that occur. In case of an error, Catapult automatically
-selects this page.
+This page contains the messages Catapult gets from openMSX. This can be
+informational messages like where the screen shot has been saved, but it can
+also show warnings or errors that occur. In case of an error, Catapult
+automatically selects this page.
 [<a class="internal" href="#status">status</a>]
 </p>
 
 <h3><a id="tour_global">3.7. Global Section</a></h3>
 
 <p>
-The global section can be found in the bottom of the Catapult screen. It 
-contains the Start/Stop button to start or stop openMSX. It also contains a 
-representation of the LEDs of the MSX. Not all MSX machines have these LEDs, so 
-don't be alarmed if some LEDs don't appear to be working. At the bottom of this 
-section, you can find the status bar. It displays information about whether or 
-not openMSX is running and the number of frames openMSX displayed per second (fps).
+The global section can be found in the bottom of the Catapult screen. It
+contains the Start/Stop button to start or stop openMSX. It also contains a
+representation of the LEDs of the MSX. Not all MSX machines have these LEDs, so
+don't be alarmed if some LEDs don't appear to be working. At the bottom of this
+section, you can find the status bar. It displays information about whether or
+not openMSX is running and the number of frames openMSX displayed per second
+(fps).
 </p>
 
 <h2><a id="session">4. Using the Session Page</a></h2>
 
 <p>
-Below, you can see a screen shot of the Session Page. The left side is used to 
-select the hardware of the MSX and the right side specifies which software 
-should be inserted into the MSX. All screen shots in this manual were taken in 
-Windows XP. In other systems, controls might look a little different but should 
+Below, you can see a screen shot of the Session Page. The left side is used to
+select the hardware of the MSX and the right side specifies which software
+should be inserted into the MSX. All screen shots in this manual were taken in
+Windows XP. In other systems, controls might look a little different but should
 still be easily recognisable.
 </p>
 
@@ -305,45 +321,58 @@ still be easily recognisable.
 <h3><a id="hardware">4.1. Selecting Hardware</a></h3>
 
 <p>
-In the top-left corner, you can select which machine openMSX should emulate. 
-Catapult checks both share directories (system and personal) for any machine 
-configurations that exist. This means that a directory in <code>share/machines</code> 
-should exist and that it should contain the <code>hardwareconfig.xml</code> file. 
-Directories not containing that file, will not appear in the list. This doesn't
-mean that each machine actually runs. If a machine needs system ROM images and they are not available,
-that particular machine just won't run. Catapult won't detect this
-lack of ROMs. You will see the error message showing up in the Status Page. However, you can let Catapult run a test on all found hardware configurations via the "File - Test MSX Hardware" menu option. After testing, only working configurations will be shown, unless you change this in the "View - Display Broken Configurations" menu option.
+In the top-left corner, you can select which machine openMSX should emulate.
+Catapult checks both share directories (system and personal) for any machine
+configurations that exist. This doesn't mean that each machine actually runs.
+If a machine needs system ROM images and they are not available, that
+particular machine just won't run. Catapult won't detect this lack of ROMs. You
+will see the error message showing up in the Status Page. However, you can let
+Catapult run a test on all found hardware configurations via the "File - Test
+MSX Hardware" menu option. After testing, only working configurations will be
+shown, unless you change this in the "View - Display Broken Configurations"
+menu option.
 </p>
 
 <p>
-Below that, you can select one or more extensions. Extensions are simply MSX 
-cartridges (extensions to the MSX system) that you can plug into the emulated 
-MSX. This can be e.g. sound chips, memory mappers or drive 
-controllers. You can select as many extensions as you would like in Catapult, 
-but openMSX might make a problem. Some problems that can occur are: 
+More about machines and how to set them up <a class="external" href="http://openmsx.sourceforge.net/manual/user.html#machines">in the openMSX manual</a>.
+</p>
+
+<p>
+Below that, you can select one or more extensions. Extensions are simply MSX
+cartridges (extensions to the MSX system) that you can plug into the emulated
+MSX. This can be e.g. sound chips, memory mappers or drive controllers. You can
+select as many extensions as you would like in Catapult, but openMSX might make
+a problem. Some problems that can occur are:
 </p>
 
 <ul>
 <li>too many extensions need a cartridge slot. There are a limited amount of
-such slots available (most machines have only two of them). You can increase 
-the number of cartridge slots by also selecting the slot expander extension.</li>
-<li>two or more selected extensions are basically the same. This will cause 
-I/O port conflicts in the MSX machine, which you will be warned for by openMSX 
-in the Status Page.</li> 
-<li>some extensions need system ROMs; the same counts here as for the machines, see above.</li>
-<li>inserting or removing cartridges at run time may remove inserted extensions; Catapult will not show this!</li>
+such slots available (most machines have only two of them). You can increase
+the number of cartridge slots by also selecting the slot expander
+extension.</li>
+<li>two or more selected extensions are basically the same. This will cause I/O
+port conflicts in the MSX machine, which you will be warned for by openMSX in
+the Status Page.</li>
+<li>some extensions need system ROMs; the same counts here as for the machines,
+see above.</li>
+<li>inserting or removing cartridges at run time may remove inserted
+extensions; Catapult will not show this!</li>
 </ul>
 
 <p>
 Note that with Catapult it is not possible to select one extension multiple
-times. We don't expect this to be a problem, however. 
+times. We don't expect this to be a problem, however.
+</p>
+
+<p>
+More about extensions <a class="external" href="http://openmsx.sourceforge.net/manual/user.html#extensions">in the openMSX manual</a>.
 </p>
 
 <h3><a id="software">4.2. Selecting Software</a></h3>
 
 <p>
-The rest of this page is used for inserting media into your MSX. There are three 
-types of media you can use:
+The rest of this page is used for inserting media into your MSX. There are
+three types of media you can use:
 </p>
 
 <dl>
@@ -352,33 +381,59 @@ types of media you can use:
 Most MSX2 or higher machines are equipped with one or more disk drives.
 Moreover, openMSX supports a few external drive controllers as extensions. If a
 machine doesn't have a disk drive and no such extension was added, Catapult
-still lets you use these fields. openMSX, however, will in this case give an error message.
-Disks can be changed while openMSX is running (see below).
+still lets you use these fields. openMSX, however, will in this case give an
+error message.
+Disks can be changed while openMSX is running (see below). See the <a
+class="external" href="http://openmsx.sourceforge.net/manual/user.html#disks">openMSX User's Manual</a> for more information about using disks.
 </dd>
 <dt>cartridges:</dt>
 <dd>
 Any MSX supports cartridges. These are simply put in before the MSX is started. 
-openMSX also supports replacing cartridges while openMSX is running. Be careful: this will cause existing extensions in that slot to get removed, without Catapult showing that to you!
+openMSX also supports replacing cartridges while openMSX is running. Be
+careful: this will cause existing extensions in that slot to get removed,
+without Catapult showing that to you!<br/>See the <a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#roms">openMSX User's
+Manual</a> for more information about using ROM cartridges.
 </dd>
 <dt>cassettes (tapes):</dt>
 <dd>
-Most MSX1 computers depend on a tape recorder (or data recorder) and almost 
-all other MSX computers support cassette as well. Like using disks, when a machine
+Most MSX1 computers depend on a tape recorder (or data recorder) and almost all
+other MSX computers support cassette as well. Like using disks, when a machine
 doesn't support cassette you can still fill in this field. openMSX will just
 ignore it. In this field you can input wav-files (cassette sounds) or cas-files
-(a binary representation of the cassette). Below the cassette input, there 
-are three more buttons. 'Rewind' simply lets you rewind the tape to the start. 'Record' will set the cassette recorder in recording mode. Currently, openMSX only supports recording to a fresh WAV image, so you will be prompted to input a new file name. You can also let openMSX generate a name automatically via the menu under the 'Cassette' button. The 'Play' button switches the cassette recorder back to play mode. This will end any recording and close the recorded WAV file, if any. It will also rewind the current cassette, so that you can load from it, if you like. You can of course also select another cassette image.
+(a binary representation of the cassette). Below the cassette input, there are
+three more buttons. 'Rewind' simply lets you rewind the tape to the start.
+'Record' will set the cassette recorder in recording mode. Currently, openMSX
+only supports recording to a fresh WAV image, so you will be prompted to input
+a new file name. You can also let openMSX generate a name automatically via the
+menu under the 'Cassette' button. The 'Play' button switches the cassette
+recorder back to play mode. This will end any recording and close the recorded
+WAV file, if any. It will also rewind the current cassette, so that you can
+load from it, if you like. You can of course also select another cassette
+image.
 <br/>
-In the cassette menu, you can also disable Motor Control. Normally, an MSX uses the 'remote control' system of a good MSX cassette recorder. This means that the tape is only played when the MSX is actually loading something from it. By disconnecting the 'remote' plug of such a cassette recorder, the recorder will always play if the play button is pressed.  If 'Motor Control' is disabled, this means that the 'remote' connector of the virtual cassette recorder is unplugged, making the tape run even if the emulated MSX is not loading something. See the 
-<a class="external" href="http://openmsx.sourceforge.net/manual/user.html#tape">openMSX User's Manual</a> 
-for more information about using cassettes.
-</dd>
+In the cassette menu, you can also disable Motor Control. Normally, an MSX uses
+the 'remote control' system of a good MSX cassette recorder. This means that
+the tape is only played when the MSX is actually loading something from it. By
+disconnecting the 'remote' plug of such a cassette recorder, the recorder will
+always play if the play button is pressed.  If 'Motor Control' is disabled,
+this means that the 'remote' connector of the virtual cassette recorder is
+unplugged, making the tape run even if the emulated MSX is not loading
+something. See the <a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#tape">openMSX User's
+Manual</a> for more information about using cassettes. </dd>
 <dt>hard disk images:</dt>
 <dd>
-If you use an extension with the current machine that implements a hard disk drive, you can select the non-default hard disk image to be used here. If none is selected, the default will be used instead.
-If no hard disk extension is present, Catapult
-still lets you use these fields. openMSX, however, will in this case give an error message.
-Hard disk images are only safe to be changed while the emulated MSX is powered off. That's why Catapult will not allow you to change hard disk images while openMSX is running.
+If you use an extension with the current machine that implements a hard disk
+drive, you can select the non-default hard disk image to be used here. If none
+is selected, the default will be used instead. If no hard disk extension is
+present, Catapult still lets you use these fields. openMSX, however, will in
+this case give an error message. Hard disk images are only safe to be changed
+while the emulated MSX is powered off. That's why Catapult will not allow you
+to change hard disk images while openMSX is running. See the <a
+class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#harddisks">openMSX User's
+Manual</a> for more information about using harddisks.
 </dd>
 </dl>
 
@@ -389,43 +444,49 @@ Catapult remembers the last 25 items of each media field.
 </p>
 
 <p>
-The button groups on the far right are to insert or remove the various types of 
-media. The buttons on the left of these groups present a file selection window, 
-in which you can select which media file should be used. The buttons on the 
+The button groups on the far right are to insert or remove the various types of
+media. The buttons on the left of these groups present a file selection window,
+in which you can select which media file should be used. The buttons on the
 right are to eject media. No conformation is asked for this.
 </p>
 
-<p>The buttons left of the media field can be used to show a pop-up menu with 
+<p>
+The buttons left of the media field can be used to show a pop-up menu with
 some extra options. Options shown in these pop-ups are:
 </p>
 
 <dl>
 <dt>Browse for disk/ROM/cassette/harddisk image</dt>
-<dd>These options are the same as when you use the browse buttons on the right of the media fields</dd>
+<dd>These options are the same as when you use the browse buttons on the right
+of the media fields</dd>
 <dt>Browse for disk folder (disks only)</dt>
 <dd>
-Instead of selecting a specific disk file, you can also select a complete directory.
-This option is in openMSX known as DirAsDisk. Please check the 
-<a class="external" href="http://openmsx.sourceforge.net/manual/user.html#dirasdisk">openMSX User's Manual</a> 
-for the limits using this feature.
+Instead of selecting a specific disk file, you can also select a complete
+directory.
+This option is in openMSX known as DirAsDisk. Please check the <a
+class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#dirasdisk">openMSX User's
+Manual</a> for the limits using this feature.
 </dd>
 <dt>Eject disk/cartridge/cassette/harddisk</dt>
-<dd>These options are the same as when you use the eject buttons on the right of the media fields</dd>
+<dd>These options are the same as when you use the eject buttons on the right
+of the media fields</dd>
 <dt>Select IPS Patches (disks and cartridges)</dt>
 <dd>
-Instead of inserting a trained or translated disk or ROM image, you can also select
-one or more patches which will be applied after loading the image. Choosing this option
-results in a special dialog in which you can add or remove patches and change the order
-of the patches. The patches are always applied in the order shown. If openMSX is running,
-disk patches are immediately applied when selected. This menu item will show the number of
-patches selected.
+Instead of inserting a trained or translated disk or ROM image, you can also
+select one or more patches which will be applied after loading the image.
+Choosing this option results in a special dialog in which you can add or remove
+patches and change the order of the patches. The patches are always applied in
+the order shown. If openMSX is running, disk patches are immediately applied
+when selected. This menu item will show the number of patches selected.
 </dd>
 <dt>Selected cartridge type (cartridges only)</dt>
 <dd>
-If a cartridge is not available in the ROM databases and openMSX can't detect the type
-properly, you can use this option to force a cartridge type. Please contact us if you find 
-ROM images that are incorrectly detected. See <a class="internal" href="#contact">9. Contact Info</a>
-for this. This menu item always shows a short representation of the type selected.
+If a cartridge is not available in the ROM databases and openMSX can't detect
+the type properly, you can use this option to force a cartridge type. Please
+contact us if you find ROM images that are incorrectly detected. See <a
+class="internal" href="#contact">9. Contact Info</a> for this. This menu item
+always shows a short representation of the type selected.
 </dd>
 <dt>Rewind cassette (cassette only)</dt>
 <dd>Choosing this option is the same as pressing the 'Rewind' button</dd>
@@ -438,19 +499,20 @@ for this. This menu item always shows a short representation of the type selecte
 <h3><a id="updating">4.3. Updating Media</a></h3>
 
 <p>
-Catapult uses two different kinds of updating schemes. When openMSX is not 
-running and you change some of the media input boxes, nothing really happens until 
-you actually start openMSX. At that moment, the used values are added to the 
-history and the history is saved. Of course, these values are then used in openMSX. 
-If openMSX is already running and you change a disk or tape, this will 
-be updated according to the following criteria:
+Catapult uses two different kinds of updating schemes. When openMSX is not
+running and you change some of the media input boxes, nothing really happens
+until you actually start openMSX. At that moment, the used values are added to
+the history and the history is saved. Of course, these values are then used in
+openMSX.
+If openMSX is already running and you change a disk or tape, this will be
+updated according to the following criteria:
 </p>
 
 <ul>
-<li>when you select a disk, cartridge or tape using history or the browse facility,
-openMSX updates immediately.</li>
-<li>when you type in the filename of a disk, cartridge or tape, openMSX updates as soon as
-the cursor leaves the media input box.</li> 
+<li>when you select a disk, cartridge or tape using history or the browse
+facility, openMSX updates immediately.</li>
+<li>when you type in the filename of a disk, cartridge or tape, openMSX updates
+as soon as the cursor leaves the media input box.</li>
 </ul>
 
 <p>
@@ -458,25 +520,28 @@ In both cases, the history is updated.
 </p>
 
 <p>
-Again, do note that updating cartridges while extensions are inserted, will mean that the extension in that slot will be removed and Catapult will not show this in the user interface!
+Again, do note that updating cartridges while extensions are inserted, will
+mean that the extension in that slot will be removed and Catapult will not show
+this in the user interface!
 </p>
 
 <h2><a id="control">5. Using the Control Pages</a></h2>
 
 <p>
-This section explains what you can do to control many aspects of openMSX. 
-Catapult is using the so-called CliComm interface. This interface allows you to 
-send messages to openMSX to change a number of settings and parameters. openMSX, 
-in its turn, can also send messages to Catapult telling if any setting or 
-parameter has been changed and if requested commands have been processed without 
-problems.
+This section explains what you can do to control many aspects of openMSX.
+Catapult is using the so-called CliComm interface. This interface allows you to
+send messages to openMSX to change a number of settings and parameters.
+openMSX, in its turn, can also send messages to Catapult telling if any setting
+or parameter has been changed and if requested commands have been processed
+without problems.
 </p>
 
 <h3><a id="misc">5.1. Miscellaneous Control Page</a></h3>
 
 <p>
-Below you see a picture of the Miscellaneous Control Page while openMSX is running. If 
-openMSX is not running, most controls will be disabled. (You can still set up what's in the joystick ports.)
+Below you see a picture of the Miscellaneous Control Page while openMSX is
+running. If openMSX is not running, most controls will be disabled. (You can
+still set up what's in the joystick ports.)
 </p>
 
 <p class="image">
@@ -484,51 +549,72 @@ openMSX is not running, most controls will be disabled. (You can still set up wh
 </p>
 
 <p>
-The top section of this page consists of a number of controls with which you can
-influence the speed and frame skip setting of openMSX. The upper row controls
-the speed percentage of openMSX. You can use the slider to select a speed
-between 1 and 500%. You can also directly input the speed into the input box.
-Finally, the buttons on the right are to set the speed to respectively 100% and
-the maximum. If the Max Speed Button is used, all limits are removed. Very useful
-to fast forward demos or loading screens. If the selected speed is higher than your 
-PC can manage, openMSX will try to go as fast as possible. The next rows selects how 
-many frames may be maximally skipped to maintain the chosen speed and how many frames 
-are minimally skipped.
+The top section of this page consists of a number of controls with which you
+can influence the speed and frame skip setting of openMSX. The upper row
+controls the <a class="external"
+href="http://openmsx.sourceforge.net/manual/commands.html#speed">speed
+percentage</a> of openMSX. You can use the slider to select a speed between 1
+and 500%. You can also directly input the speed into the input box. Finally,
+the buttons on the right are to set the speed to respectively 100% and the
+maximum. If the Max Speed Button is used, all limits are removed. Very useful
+to fast forward demos or loading screens. If the selected speed is higher than
+your PC can manage, openMSX will try to go as fast as possible. The next rows
+selects how many frames may be <a class="external"
+href="http://openmsx.sourceforge.net/manual/commands.html#maxframeskip">maximally
+skipped</a> to maintain the chosen speed and how many frames are <a
+class="external"
+href="http://openmsx.sourceforge.net/manual/commands.html#minframeskip">minimally
+skipped</a>.
 </p>
 
 <p>
-In the centre of this page, you can find the so-called action controls. These 
-control the behaviour of the MSX directly. The power control can turn the MSX on 
-or off. When Catapult starts openMSX, the power is always on. The Reset button 
-resets the MSX. There's not much more that can be said about that. The Pause 
-button pauses the emulation completely. Finally, the firmware button lets you 
-choose whether or not you want to enable the firmware in the MSX you are
-emulating (if available).
+In the centre of this page, you can find the so-called action controls. These
+control the behaviour of the MSX directly. The power control can turn the MSX
+on or off. When Catapult starts openMSX, the power is always on. The Reset
+button <a class="external"
+href="http://openmsx.sourceforge.net/manual/commands.html#reset">resets</a> the
+MSX. The Pause button pauses the emulation completely. Finally, the <a
+class="external"
+href="http://openmsx.sourceforge.net/manual/commands.html#firmwareswitch">firmware
+button</a> lets you choose whether or not you want to enable the firmware in
+the MSX you are emulating (if available).
 </p>
 
-<p> 
-The bottom of the page allows you to hook devices to the MSX connectors. 
+<p>
+The bottom of the page allows you to hook devices to the MSX connectors.
 </p>
 <p>
-For each joystick port, you can choose between a mouse, keyjoysticks, some dongles and any joysticks 
-hooked up to the PC. If you select the same device for both ports, you get a 
-warning and a request for confirmation. This allows you to choose which port the 
-selected device should be in. These are the only controls that can be modified 
-before openMSX is started. You can also adjust the Ren Sha Turbo speed (joystick auto fire)
-if the current MSX supports it (MSXturboR, e.g.).
-</p>
+For each <a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#joystick">joystick
+port</a>, you can choose between a <a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#mouse">mouse</a>,
+keyjoysticks, the <a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#arkanoidpad">Arkanoid
+pad</a>, a <a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#trackball">track
+ball</a>, a <a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#touchpad">touch pad</a>,
+some dongles and any joysticks hooked up to the PC. If you select the same
+device for both ports, you get a warning and a request for confirmation. This
+allows you to choose which port the selected device should be in. These are the
+only controls that can be modified before openMSX is started. You can also
+adjust the <a class="external"
+href="http://openmsx.sourceforge.net/manual/commands.html#renshaturbo">Ren Sha
+Turbo speed</a> (joystick auto fire) if the current MSX supports it (MSXturboR,
+for instance). </p>
 <p>
-You can hook a Printer logger or SIMPL in the printer port. When you choose the Printer logger,
-you can also choose which file to use for the log by either typing it directly or browsing for it.
-If you plug SIMPL (a very simple Digital to Analog Converter) into the printer port, openMSX
-supports it as an extra audio device. You can also see a slider for it appearing it the Audio Controls
+You can hook a Printer logger or SIMPL in the printer port. When you choose the
+Printer logger, you can also choose which file to use for the log by either
+typing it directly or browsing for it. If you plug SIMPL (a very simple Digital
+to Analog Converter) into the printer port, openMSX supports it as an extra
+audio device. You can also see a slider for it appearing it the Audio Controls
 page.
 </p>
 
 <h3><a id="video">5.2. Video Control Page</a></h3>
 
 <p>
-Below you see a picture of the Video Control Page while openMSX is running. 
+Below you see a picture of the Video Control Page while openMSX is running.
 If openMSX is not running, most controls will be disabled.
 </p>
 
@@ -541,83 +627,99 @@ In the top-left corner, you can select which renderer is used by openMSX.
 </p>
 
 <p>
-With the top-centre controls you can select which scaler should be used. You can select both the scaling factor and the scaling algorithm.
-Scalers only work if the renderer is set to SDL and determine how the picture 
-is scaled to higher resolutions than 320&times;240 (if you use a factor greater than 1). Beware that some scalers can be really slow. The 
+With the top-centre controls you can select which scaler should be used. You
+can select both the scaling factor and the scaling algorithm. Scalers determine
+how the picture is scaled to higher resolutions than 320&times;240 (if you use
+a factor greater than 1). Beware that some scalers can be really slow. The
 algorithms are sometimes quite complex.
 </p>
 
 <p>
-The Accuracy control lets you select the accuracy level openMSX uses to draw 
+The Accuracy control lets you select the accuracy level openMSX uses to draw
 the screen.
 </p>
 
 <p>
 See for an explanation of renderers, scalers and accuracy the
-<a class="external" href="http://openmsx.sourceforge.net/manual/user.html#renderers">openMSX User's Manual</a>.
+<a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#renderers">openMSX
+User's Manual</a>.
 </p>
 
 <p>
-The Video Source control selects which video source is visible on the openMSX window. Usually it's just "MSX", but in some cases you might want to show the GFX9000 for instance (or Video9000, which has some features to superimpose the MSX image over the GFX9000 image).
+The Video Source control selects which video source is visible on the openMSX
+window. Usually it's just "MSX", but in some cases you might want to show the
+GFX9000 for instance (or Video9000, which has some features to superimpose the
+MSX image over the GFX9000 image). More info in the <a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#gfx9000">openMSX User's
+Manual</a>.
 </p>
 
 <p>
-The Deinterlace button toggles the deinterlacing effect on or off. When a real 
-MSX is in interlace mode, you can see the screen flashing. When deinterlace is 
-off you get that same effect on openMSX. If this toggle is switched on, the 
+The Deinterlace button toggles the deinterlacing effect on or off. When a real
+MSX is in interlace mode, you can see the screen flashing. When deinterlace is
+off you get that same effect on openMSX. If this toggle is switched on, the
 picture holds perfectly still.
 </p>
 
 <p>
-The Limit sprites button allows you to let openMSX draw as many sprites on a 
-horizontal line as necessary. With the sprite limit switched off, some games 
-will stop flashing their sprites. This feature is on by default since that's 
+The Limit sprites button allows you to let openMSX draw as many sprites on a
+horizontal line as necessary. With the sprite limit switched off, some games
+will stop flashing their sprites. This feature is on by default since that's
 closest to a real MSX. Some programs rely on the sprite flicker effect and may
 thus look bad if you turn this off.
 </p>
 
 <p>
-The Full screen button switches openMSX to full screen mode. The first time 
-you do this, there will be a warning how to get back. You can disable this warning if 
-you want to. Windows users can also get back to windowed mode by switching back 
-to Catapult (using ALT-TAB) and simply deselecting full screen again.
+The Full screen button switches openMSX to full screen mode. The first time you
+do this, there will be a warning how to get back. You can disable this warning
+if you want to. Windows users can also get back to windowed mode by switching
+back to Catapult (using ALT-TAB) and simply deselecting full screen again.
 </p>
 
 <p>
-The Disable sprites button allows you to disable sprites in order to create screenshots of games without sprites, useful for making maps.
+The Disable sprites button allows you to disable sprites in order to create
+screenshots of games without sprites, useful for making maps.
 </p>
 
 <p>
-The centre part of this page allows you to modify the openMSX screen. All of 
-these settings can be controlled by using the slider, typing the value directly 
-into the edit field or using the reset button to revert to the default state. 
-These settings are pretty much self-explanatory, or otherwise explained in the <a class="external" href="http://openmsx.sourceforge.net/manual/user.html#gamma">openMSX User's Manual</a>. Glow is only supported in the SDLGL renderer.
+The centre part of this page allows you to modify the openMSX screen. All of
+these settings can be controlled by using the slider, typing the value directly
+into the edit field or using the reset button to revert to the default state.
+These settings are pretty much self-explanatory, or otherwise explained in the
+<a class="external"
+href="http://openmsx.sourceforge.net/manual/user.html#videoeffects">openMSX
+User's Manual</a>. Glow is only supported in the SDLGL-PP renderer.
 </p>
 
 <p>
-The bottom line of the page can be used to create screen shots from openMSX. As soon as 
-a filename is available in the first box, the second box will show a counter. This counter is
-based on the number of files that already exist. So if <code>test</code> is 
-typed and <code>test0001</code>, <code>test0002</code> and <code>test0003</code>
-exists, then the counter will show <code>0004</code>. The browse button can also be used
-to set a filename, however the counter part will recalculated. So even if you browse and try
-to open <code>test0002</code> the result will still be <code>test0004</code>.
-You can also override the counter by just typing another number, but as soon as you change the name
-again, the counter will be recalculated. Normally, there is no reason to override the counter.
+The bottom line of the page can be used to create screen shots from openMSX. As
+soon as a filename is available in the first box, the second box will show a
+counter. This counter is
+based on the number of files that already exist. So if <code>test</code> is
+typed and <code>test0001</code>, <code>test0002</code> and
+<code>test0003</code> exists, then the counter will show <code>0004</code>. The
+browse button can also be used to set a filename, however the counter part will
+recalculated. So even if you browse and try to open <code>test0002</code> the
+result will still be <code>test0004</code>. You can also override the counter
+by just typing another number, but as soon as you change the name again, the
+counter will be recalculated. Normally, there is no reason to override the
+counter.
 </p>
 <p>
-Finally, pressing the Grab button takes the screen shot. If the filename and counter fields are empty,
-openMSX will take a screen shot with the default settings. The first time, there will be a message that
-the shot has been taken and that the location is shown in the Status Page, since no further changes
-are noticeable. You can disable this message when it pops up. So, again, the location of the screen shot taken 
-will be shown in the Status Page.
+Finally, pressing the Grab button takes the screen shot. If the filename and
+counter fields are empty, openMSX will take a screen shot with the default
+settings. The first time, there will be a message that the shot has been taken
+and that the location is shown in the Status Page, since no further changes
+are noticeable. You can disable this message when it pops up. So, again, the
+location of the screen shot taken will be shown in the Status Page.
 </p>
 
 <h3><a id="audio">5.3. Audio Control Page</a></h3>
 
 <p>
-Below you see a picture of the audio control page while openMSX is running. 
-If openMSX is not running, the controls will be disabled and instead of the mixer 
+Below you see a picture of the audio control page while openMSX is running. If
+openMSX is not running, the controls will be disabled and instead of the mixer
 a simple message will be displayed stating: "No audio channel data available".
 </p>
 
@@ -628,16 +730,16 @@ a simple message will be displayed stating: "No audio channel data available".
 <p>
 The top half of this page is used to adjust the volume and channel mode of the
 sound devices present in openMSX. When a slider is all the way up, volume is set
-to maximum and if it's all the way down that specific device is muted. The mode 
-selector below each slider lets you choose between L(eft), R(ight), M(ono) and (O)ff. 
-However, some sound devices only support S(tereo) (and Off, of course).
+to maximum and if it's all the way down that specific device is muted. The mode
+selector below each slider lets you choose between L(eft), R(ight), M(ono) and
+(O)ff. However, some sound devices only support S(tereo) (and Off, of course).
 </p>
 
 <p>
-The bottom part of this page can be used to select where the sound I/O 
-devices are redirected to. These controls are only enabled if you're emulating an 
-MSXturboR. The top of this section lets you choose what is plugged into the MIDI-IN 
-port. You can choose between <code>--empty--</code> and
+The bottom part of this page can be used to select where the sound I/O devices
+are redirected to. These controls are only enabled if you're emulating an
+MSXturboR. The top of this section lets you choose what is plugged into the
+MIDI-IN port. You can choose between <code>--empty--</code> and
 <code>midi-in-reader</code>. Windows users also have the choice to use one of
 the native MIDI devices. The field besides the selector is only used when
 <code>midi-in-reader</code> is selected. In this case, this allows you to select
@@ -645,12 +747,13 @@ from which file the MIDI input is taken.
 </p>
 
 <p>
-The second row of controls is to select what is plugged into the MIDI-OUT 
-port. Possibilities are <code>--empty--</code> and <code>midi-out-logger</code>. Windows users can, again, 
-also select native MIDI devices. The field right of it allows you to select in 
-which file the MIDI output is stored in case <code>midi-out-logger</code> is
-chosen. In UNIX systems you might want to choose <code>/dev/midi</code> to
-route the MIDI data to a MIDI device you have connected to your system.
+The second row of controls is to select what is plugged into the MIDI-OUT port.
+Possibilities are <code>--empty--</code> and <code>midi-out-logger</code>.
+Windows users can, again, also select native MIDI devices. The field right of
+it allows you to select in which file the MIDI output is stored in case
+<code>midi-out-logger</code> is chosen. In UNIX systems you might want to
+choose <code>/dev/midi</code> to route the MIDI data to a MIDI device you have
+connected to your system.
 </p>
 
 <p>
@@ -658,10 +761,10 @@ Again: MIDI-IN and MIDI-OUT are only available on the MSXturboR GT.
 </p>
 
 <p>
-Finally, the last row is to select the PCM wave input, which is also only available on the MSXturboR GT. You can choose
-<code>--empty--</code>
-or <code>wavinput</code>. In case of <code>wavinput</code>, the field besides it selects from which file 
-the PCM input is taken.
+Finally, the last row is to select the PCM wave input, which is also only
+available on the MSXturboR GT. You can choose <code>--empty--</code>
+or <code>wavinput</code>. In case of <code>wavinput</code>, the field besides
+it selects from which file the PCM input is taken.
 </p>
 
 <h2><a id="input">6. Input Text</a></h2>
@@ -672,14 +775,16 @@ Below, there's a picture of the Input Text page.
 <img src="input.png" width="545" height="334" alt="Audio Controls Page"></img>
 </p>
 <p>
-This page contains only three controls. The big text field can be used to type or paste any text you want
-typed out in the emulated MSX. Please be advised that typing special characters like German or Spanish 
-specific characters, the communication between openMSX and Catapult can be lost. All characters typed in 
-this field will be typed in the MSX, so it could take a while when there's a large text.
+This page contains only three controls. The big text field can be used to type
+or paste any text you want typed out in the emulated MSX. All characters typed
+in this field will be typed in the MSX, so it could take a while when there's a
+large text.
 Any newlines within this field will result in an <code>enter</code> in the MSX.
-The text is transmitted to the MSX as soon as the type button is used. The text will not be automatically cleared,
-so the same text can be used multiple times. 
-Finally, the clear button clears the text, so you can start over. A final note: this feature only works correctly on MSX machines with European/International keyboards, for now.
+The text is transmitted to the MSX as soon as the type button is used. The text
+will not be automatically cleared, so the same text can be used multiple times.
+Finally, the clear button clears the text, so you can start over. A final note:
+this feature may not work entirely correctly for Japanese and not at all for
+Korean characters.
 </p>
 
 <h2><a id="status">7. Status Display</a></h2>
@@ -700,12 +805,15 @@ The status display of Catapult consists of four different elements:
 </ul>
 
 <p>
-The Status Page displays all messages given by openMSX. This includes informational messages, but also warnings and errors and output from the debug device
-(see the
+The Status Page displays all messages given by openMSX. This includes
+informational messages, but also warnings and errors and output from the debug
+device (see the
 <a class="external"
-href="http://openmsx.sourceforge.net/manual/user.html#debugdevice">openMSX User's Manual</a>
-for more information) if it is configured to output to <code>stderr</code>. Informational texts are displayed in black, warnings are displayed
-in dark red while errors can be recognised by their bright red colour. This display is cleared whenever openMSX is started.
+href="http://openmsx.sourceforge.net/manual/user.html#debugdevice">openMSX
+User's Manual</a> for more information) if it is configured to output to
+<code>stderr</code>. Informational texts are displayed in black, warnings are
+displayed in dark red while errors can be recognised by their bright red
+colour. This display is cleared whenever openMSX is started.
 </p>
 
 <p class="image">
@@ -713,92 +821,104 @@ in dark red while errors can be recognised by their bright red colour. This disp
 </p>
 
 <p>
-The LED status display in the Global Section shows the status of the MSX LEDs at any given time. 
-Which LEDs are used depends on the type of MSX computer openMSX is emulating. 
+The LED status display in the Global Section shows the status of the MSX LEDs
+at any given time. Which LEDs are used depends on the type of MSX computer
+openMSX is emulating.
 </p>
 
 <p>
-The final part of the Global Section is the status bar, at the bottom of the Catapult window.
+The final part of the Global Section is the status bar, at the bottom of the
+Catapult window.
 </p>
 
 <p>
-On the left side of the status bar you can see whether or not the emulator is 
-running. This can be convenient if you have multiple Catapults in use. It will also tell you if openMSX is paused.
+On the left side of the status bar you can see whether or not the emulator is
+running. This can be convenient if you have multiple Catapults in use. It will
+also tell you if openMSX is paused.
 </p>
 
 <p>
-Finally, on the right side of the status bar, you'll find the frame rate 
+Finally, on the right side of the status bar, you'll find the frame rate
 display, which shows you how many frames openMSX is displaying per
-second. When the emulator runs at 100% speed, this should be 50 or 60 fps 
-(depending on the current display frequency of the MSX). When you increase the speed of 
-openMSX, the fps count should also be increased. Bear in mind that when using 
-SDLGL (OpenGL), your video driver may force the fps to your monitor refresh rate 
-to avoid disturbance while drawing. Also, if this display shows a frame rate
-below 50 fps, your computer is actually a bit to slow to generate all frames in
-time with the current settings and thus frames are being skipped.
+second. When the emulator runs at 100% speed, this should be 50 or 60 fps
+(depending on the current display frequency of the MSX). When you increase the
+speed of openMSX, the fps count should also be increased. Bear in mind that
+when using SDLGL-PP (OpenGL), your video driver may force the fps to your
+monitor refresh rate to avoid disturbance while drawing. Also, if this display
+shows a frame rate below 50 fps, your computer is actually a bit to slow to
+generate all frames in time with the current settings and thus frames are being
+skipped.
 </p>
 
 <h2><a id="menu">8. Using the menu</a></h2>
 <p>
-Although most of the Catapult action is done using the various pages mentioned above, there
-are a few options only available through the pull down menu. These options are described briefly 
-in this section.</p>
+Although most of the Catapult action is done using the various pages mentioned
+above, there are a few options only available through the pull down menu. These
+options are described briefly in this section.
+</p>
 <dl>
 <dt>
 Test MSX Hardware
 </dt>
 <dd>
-This will start the hardware configuration test. Use it to check which openMSX hardware configurations are actually working. See also 
-<a href="#starting">2. Starting Catapult</a> and <a href="#hardware">4.1. Selecting Hardware</a>.
+This will start the hardware configuration test. Use it to check which openMSX
+hardware configurations are actually working. See also <a href="#starting">2.
+Starting Catapult</a> and <a href="#hardware">4.1. Selecting Hardware</a>.
 </dd>
 <dt>
 Quit
 </dt>
 <dd>
-This closes Catapult. If there is a running openMSX (started by this instance of Catapult) it will be
-closed also. 
+This closes Catapult. If there is a running openMSX (started by this instance
+of Catapult) it will be closed also.
 </dd>
 <dt>
 Edit Configuration
 </dt>
 <dd>
-Here you can change which openMSX version Catapult is to start, if you installed more than one. It also lets you choose were the 
-shared openMSX settings can be found. See also 
-<a href="#starting">2. Starting Catapult</a>.
+Here you can change which openMSX version Catapult is to start, if you
+installed more than one. It also lets you choose were the shared openMSX
+settings can be found. See also <a href="#starting">2. Starting Catapult</a>.
 </dd>
 <dt>
 Load openMSX Settings
 </dt>
 <dd>
-Here you can browse for an openMSX settings file to be used. This settings file will be used the next
-time you start openMSX. This option is not saved when you close Catapult.
+Here you can browse for an openMSX settings file to be used. This settings file
+will be used the next time you start openMSX. This option is not saved when you
+close Catapult.
 </dd>
 <dt>
 Save openMSX Settings
 </dt>	
 <dd>
-This option is only available when openMSX is running. You can ask openMSX to save its settings to
-the default location (which <code>share/settings.xml</code>).
+This option is only available when openMSX is running. You can ask openMSX to
+save its settings to the default location (which
+<code>share/settings.xml</code>).
 </dd>
 <dt>
 Save openMSX Settings As
-</dt>	
+</dt>
 <dd>
-This option is only available when openMSX is running. You can ask openMSX to save its settings to
-a specified file.
+This option is only available when openMSX is running. You can ask openMSX to
+save its settings to a specified file.
 </dd>
 <dt>
 Save openMSX Settings On Exit
 </dt>
 <dd>
-When is option is on (indicated by a check mark in front of it), openMSX will save its settings as 
-soon as it closes. Keep in mind that Full Speed and Mute settings e.g., will also be saved!
+When is option is on (indicated by a check mark in front of it), openMSX will
+save its settings as soon as it closes. Keep in mind that Full Speed and Mute
+settings e.g., will also be saved!
 </dd>
 <dt>
 Display Broken Configurations
 </dt>
 <dd>
-Check this if you want Catapult to display openMSX hardware configurations (machines and extensions) which were found to be not working when the Test MSX Hardware feature was last used. By default it is unchecked, which means the broken configurations are hidden, so that you cannot accidentally select one.
+Check this if you want Catapult to display openMSX hardware configurations
+(machines and extensions) which were found to be not working when the Test MSX
+Hardware feature was last used. By default it is unchecked, which means the
+broken configurations are hidden, so that you cannot accidentally select one.
 </dd>
 <dt>
 About
@@ -822,32 +942,36 @@ If you encounter problems, you have several options:
 
 <ol>
 <li>
-If you're a regular user and want to discuss openMSX and Catapult and possible problems,
-join our <code>openmsx-user</code> mailing list.
-More info on the
-<a class="external" href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing lists</a>,
-including an archive of old messages, can be found at SourceForge.
+Go to our IRC channel: <code>#openMSX</code> on <code>irc.freenode.net</code>
+and ask your question there. Also reachable via <a class="external" href="http:/
+/webchat.freenode.net/?channels=openMSX">webchat</a>! If you don't get a reply i
+mmediately, please stick around for a while, or use one of the other contact opt
+ions. The majority of the developers lives in time zone GMT+1. You may get no re
+sponse if you contact them in the middle of the night...
 </li>
 <li>
-Go to our IRC channel: <code>#openMSX</code> on <code>irc.freenode.net</code>
-and ask your question there.
+If you're a regular user and want to discuss openMSX and Catapult and possible
+problems, join our <code>openmsx-user</code> mailing list.
+More info on the <a class="external"
+href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing
+lists</a>, including an archive of old messages, can be found at SourceForge.
 </li>
 <li>
 If you want to address the openMSX developers directly,
 post a message to the <code>openmsx-devel</code> mailing list.
-More info on the
-<a class="external" href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing lists</a>,
-including an archive of old messages, can be found at SourceForge.
+More info on the <a class="external"
+href="http://sourceforge.net/mail/?group_id=38274">openMSX mailing
+lists</a>, including an archive of old messages, can be found at SourceForge.
 </li>
 <li>
 Use one of the
-<a class="external" href="http://sourceforge.net/tracker/?group_id=38274">openMSX trackers</a>
+<a class="external" href="https://sourceforge.net/p/openmsx/_list/tickets">openMSX ticket trackers</a>
 at SourceForge.
-At the moment of writing, there are four trackers:
-Bugs, Support Requests, Patches and Feature Requests.
+At the moment of writing, there are four ticket trackers:
+Bugs, Support Requests, Patches and Feature Requests. You need a (free) log-in on SourceForge to get access.
 </li>
 <li>
-Post a message on the <a class="external" href="http://sourceforge.net/forum/?group_id=38274">openMSX forums</a> at SourceForge.
+Post a message on <a class="external" href="http://www.msx.org/forum/semi-msx-talk/openmsx">the openMSX forum on MRC</a> or the <a class="external" href="http://sourceforge.net/forum/?group_id=38274">openMSX forums</a> at SourceForge.
 </li>
 </ol>
 
@@ -855,10 +979,5 @@ Post a message on the <a class="external" href="http://sourceforge.net/forum/?gr
 In any case, try to give as much information as possible when you describe your
 bug or request.
 </p>
-
-<p class="version">
-$Id$
-</p>
-
 </body>
 </html>
