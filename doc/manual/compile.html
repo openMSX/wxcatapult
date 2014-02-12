@@ -14,7 +14,7 @@
 
 <h1>Catapult Compilation Guide</h1>
 
-<p><sub>note: throughout this guide we will refer to Catapult as wxCatapult. Both are the same in every case. The openMSX team used wxCatapult as an internal name where Catapult is the application name.</sub></p> 
+<p><sub>note: throughout this guide we will refer to Catapult as wxCatapult. Both are the same in every case. The openMSX team used wxCatapult as an internal name where Catapult is the application name.</sub></p>
 
 <h2>Contents</h2>
 <ol class="toc">
@@ -107,7 +107,7 @@ Catapult was compiled successfully on FreeBSD 4 and 5. FreeBSD is not a platform
 </dd>
 <dt>Mac OS X</dt>
 <dd>
-Unfortunately, we have not been able to get Catapult working on Mac OS X. There is a port of wxWidgets (the base of Catapult), but version 2.4 doesn't support toggle buttons yet and we did not get the menu working (amongst other things) with version 2.6.
+Unfortunately, we have not been able to get Catapult working on Mac OS X. There is a port of wxWidgets (the base of Catapult), but version 2.4 doesn't support toggle buttons yet and we did not get the menu working (amongst other things) with version 2.6 and after that we gave up. It may work just fine with 2.8 or 3.0, we don't know.
 </dd>
 <dt>Other operating systems</dt>
 <dd>
@@ -168,6 +168,8 @@ only the big picture.
 	<dd>Updates for compilation with Visual C++ 2010.</dd>
 	<dt>2013-08-05 Patrick van Arkel</dt>
 	<dd>Updates for compilation with Visual Studio 2012 and the use of Git.</dd>
+	<dt>2014-02-12 Manuel Bilderbeek</dt>
+	<dd>Let's stop keeping this revision history, just look at the <a class="external" href="https://sourceforge.net/p/openmsx/wxcatapult/ci/HEAD/log/?path=doc/manual/compile.html">Git Log</a>.</dd>
 </dl>
 
 <h2><a id="getsource">2. Getting the Source Code</a></h2>
@@ -393,7 +395,7 @@ for a few hints about compiling them from their sources.
 <p>Catapult depends on the following libraries: </p>
 <dl>
 	<dt><a class="external" href="http://www.wxwidgets.org/">wxWidgets</a></dt>
-	<dd>Formerly known as wxWindows, this is a cross-platform C++ GUI toolkit (GTK+ runtime). </dd>
+	<dd>Formerly known as wxWindows, this is a cross-platform C++ GUI toolkit. </dd>
 	<dt><a class="external" href="http://www.xmlsoft.org/">libxml2</a></dt>
 	<dd>XML C library, originally developed for GNOME.</dd>
 </dl>
@@ -403,27 +405,27 @@ On a Debian testing system, the packages are called:
 </p>
 
 <dl>
-<dt>libwxgtk2.6-0</dt>
+<dt>libwxgtk2.8-0</dt>
 <dd>This is the main runtime wxWidgets library</dd>
 
-<dt>libwxgtk2.6-dev</dt>
+<dt>libwxgtk2.8-dev</dt>
 <dd>This package contains the necessary headers to compile.</dd>
 <dt>libxml2 and libxml2-dev</dt>
 <dd>XML C library, originally developed for GNOME.</dd>
 </dl>
 
 <p>
-Although other versions are available, we recommend to use wxWidgets 2.6 (but 2.8 will probably also work).</p>
+Although other versions are available, we recommend to use wxWidgets 2.8 or 3.0, as we haven't tested with other versions.</p>
 
 <h4>Microsoft Windows</h4>
 <p>
-For Windows the wxWidgets package is called wxMSW. Version <a href="http://sourceforge.net/projects/wxwindows/files/2.8.12/">2.8.12</a> is recommended (it's compatible with 2.6). Please read the next section for instructions for compiling wxWidgets from source.
+For Windows the wxWidgets package is called wxMSW. Version <a href="http://sourceforge.net/projects/wxwindows/files/2.8.12/">2.8.12</a> is recommended. Please read the next section for instructions for compiling wxWidgets from source.
 </p>
 
 <p>For Windows, version <a href="http://www.xmlsoft.org/sources/libxml2-2.8.0.tar.gz">2.8.0</a> of libxml2 is recommended.</p>
 <p>Unpack the source packages into the derived\3rdparty\src directory. This will generate two subdirectories called libxml2-2.8.0 and wxMSW-2.8.12.</p>
 <p>In <code>wxMSW-2.8.12\lib\vc_lib\mswu\wx\setup.h</code> change <code>#define wxUSE_PRINTING_ARCHITECTURE  1</code> to <code>#define wxUSE_PRINTING_ARCHITECTURE  0</code> before attempting to compile
-<p>In <code>wxMSW-2.8.12\src\msw\windows.cpp</code> From line 109-110 remove:<br/><code>#if !defined __WXWINCE__ && !defined NEED_PBT_H<br/>&nbsp;&nbsp;&nbsp;&nbsp;include &LT;pbt.h&gt;<br/>#endif</code></p>
+<p>In <code>wxMSW-2.8.12\src\msw\windows.cpp</code> From line 109-110 remove:<br/><code>#if !defined __WXWINCE__ &amp;&amp; !defined NEED_PBT_H<br/>&nbsp;&nbsp;&nbsp;&nbsp;include &LT;pbt.h&gt;<br/>#endif</code></p>
 <p>In <code>wxMSW-2.8.12\src\msw\fontenum.cpp</code> on line 101 and 270 replace:<br><code>#ifndef __WXMICROWIN__<br/>int CALLBACK wxFontEnumeratorProc(LPLOGFONT lplf, LPTEXTMETRIC lptm,<br/>DWORD dwStyle, LONG lParam);<br/>#endif</code>
 <br>With<br>
 <code>#ifndef __WXMICROWIN__<br/>int CALLBACK wxFontEnumeratorProc(LPLOGFONT lplf, LPTEXTMETRIC lptm,<br/>DWORD dwStyle, LPARAM lParam);<br/>#endif</code>
@@ -445,7 +447,7 @@ wxWidgets Home</a> and the libxml2 sources are available at
 <h4>gcc</h4>
 <p>Compilation of wxWidgets couldn't be more straightforward. The docs provided
 are easy to follow and it takes only a few steps. There is no need to give
-any pointers here about this library as its documentation says exaclty how to compile it. 
+any pointers here about this library as its documentation says exaclty how to compile it.
 We do give the proper <code>configure</code> command line here (although some options might be already default):
 </p>
 
