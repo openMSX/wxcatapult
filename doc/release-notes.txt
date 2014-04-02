@@ -3,7 +3,7 @@ Release Notes for openMSX Catapult 0.10.1 (2014-04-xx)
 
 Catapult release to match openMSX 0.10.1.
 
-This release we cleaned up some more code (mostly of the session page), and
+This release we cleaned up some more code (most of the session page), and
 therewith fixed even more bugs. We also added a few new features, most
 importantly support for hard disks and support for changing cartridges at run
 time. Be careful though, the latter will cause extensions inserted in that slot
@@ -22,18 +22,19 @@ All highlights:
   MA-20)
 - removed annoying CTRL-A short cut for the About dialog
 - fixed layout of About dialog
-- added support for hard disk images (of course only when such an extension is
-  present)
+- added support for hard disk images (works of course only when such an
+  extension is present)
 - fixed Catapult interrupting a replay because it plugged in the cassette
   player
 - fixed fps-display in the Catapult status bar
+- added build support for 64-bit ARM
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
 - the select extension listbox doesn't work properly when using wxWidgets 2.6.x
   (and later) Use the spacebar to deselect extensions! CTRL-click also works.
 - not feature complete, especially for newer features you will have to revert to
-  the openMSX console (press F10) or the OSD menu (MENU key)
+  the openMSX console (press F10/Cmd+L) or the OSD menu (MENU key/Cmd+O)
 
 openMSX Home Page:
   http://openmsx.sourceforge.net/
