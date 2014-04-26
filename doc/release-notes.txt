@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.10.1 (2014-04-xx)
+Release Notes for openMSX Catapult 0.10.1 (2014-04-26)
 ======================================================
 
 Catapult release to match openMSX 0.10.1.

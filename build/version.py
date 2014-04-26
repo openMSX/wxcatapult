@@ -13,10 +13,10 @@ import re
 packageName = 'catapult'
 
 # Version number.
-packageVersion = '0.10.0'
+packageVersion = '0.10.1-rc1'
 
 # Is this a release version ("True") or development version ("False").
-releaseFlag = False
+releaseFlag = True
 
 # TODO: Before extraction of SVN or git-SVN revision number can be done, we
 #       should figure out a way to avoid rewriting Version.ii on every build.
