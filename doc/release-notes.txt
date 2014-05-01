@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.10.1 (2014-04-26)
+Release Notes for openMSX Catapult 0.10.1 (2014-05-01)
 ======================================================
 
 Catapult release to match openMSX 0.10.1.
@@ -28,6 +28,7 @@ All highlights:
   player
 - fixed fps-display in the Catapult status bar
 - added build support for 64-bit ARM
+- added higher resolution Windows icon and logo in about box
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems

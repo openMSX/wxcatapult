@@ -3,7 +3,7 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
-openMSX Catapult 0.10.1 (2014-04-26)
+openMSX Catapult 0.10.1 (2014-05-01)
 ------------------------------------
 
 This release we cleaned up some more code (most of the session page), and
@@ -31,6 +31,7 @@ All highlights:
   player
 - fixed fps-display in the Catapult status bar
 - added build support for 64-bit ARM
+- added higher resolution Windows icon and logo in about box
 
 openMSX Catapult 0.10.0 (2014-01-05)
 ------------------------------------
