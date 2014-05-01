@@ -13,7 +13,7 @@ import re
 packageName = 'catapult'
 
 # Version number.
-packageVersion = '0.10.1-rc1'
+packageVersion = '0.10.1'
 
 # Is this a release version ("True") or development version ("False").
 releaseFlag = True
@@ -23,7 +23,7 @@ releaseFlag = True
 #       Option 1: Read Version.ii and do not write if new contents are the same.
 #       Option 2: Persist the extracted revision number.
 #       I prefer option 2, since it is more modular (separate extraction and
-#       include generation steps) but option 1 might be easier to imlement at
+#       include generation steps) but option 1 might be easier to implement at
 #       first (no need to persist anything).
 
 def _extractRevisionFromStdout(log, command, regex):
