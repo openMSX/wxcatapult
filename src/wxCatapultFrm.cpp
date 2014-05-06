@@ -86,8 +86,9 @@ BEGIN_EVENT_TABLE(wxCatapultFrame, wxFrame)
 	EVT_MENU_HIGHLIGHT_ALL(wxCatapultFrame::OnMenuHighlight)
 END_EVENT_TABLE()
 
-	// include icon if we're not compiling with Visual Studio
-#if !defined(_MSC_VER)
+	// include icon only if we're compiling for Windows (but not with
+	// Visual Studio)
+#if !defined(_MSC_VER) && defined(_WIN32)
 #include "catapult.xpm"
 #endif
 
@@ -101,9 +102,13 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 	m_controller.reset(new openMSXController(this));
 
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("CatapultFrame"));
-	// use icon resources for MS Visual Studio, else the XPM
+	// use icon resources for MS Visual Studio,
+	// and the PNG for other cases, except
+	// for other Windows builds (e.g. MinGW) use XPM
 #if defined (_MSC_VER)
 	SetIcon(wxIcon(wxT("catapult")));
+#elif !defined (_WIN32) // for Windows, a 32x32 MUST be supplied, the docs say
+	SetIcon(wxIcon(((wxCatapultApp&)wxGetApp()).GetResourceDir() + wxT("/bitmaps/about.png")));
 #else
 	SetIcon(catapult_xpm);
 #endif
