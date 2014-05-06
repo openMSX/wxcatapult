@@ -603,7 +603,9 @@ void SessionPage::insertMedia(MediaInfo& m)
 	if (!contents.IsEmpty()) {
 		cmd += utils::ConvertPath(contents);
 		if (m.mediaType == CARTRIDGE) {
-			cmd += wxT(" -romtype ") + m.type;
+			if (!m.type.IsEmpty()) {
+				cmd += wxT(" -romtype ") + m.type;
+			}
 		}
 		for (auto& ips : m.ips) {
 			cmd += wxT(" -ips ") + utils::ConvertPath(ips);
