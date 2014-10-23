@@ -5,9 +5,19 @@
 #include <wx/textctrl.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
+#include <vector>
+#include <algorithm>
 
 #define MSGID_SETCURRENTOBJECT 0
 #define MSGID_UPDATESTATS 1
+
+// this is for an ugly hack: these extensions only work on certain machines and
+// typically it's not the machine that Catapult is using to test the extension
+// with. However, the goal of the testing was almost exclusively to find out
+// about missing/uninstalled system ROMs. As these extensions do not have
+// system ROMs, we treat them specially (see below where this vector is
+// used)... TODO: implement a better solution.
+static const std::vector<std::string> extensionsWithoutROMs = { "advram", "Casio_KB-7", "Casio_KB-10"  };
 
 IMPLEMENT_CLASS(CheckConfigsDlg, wxDialog)
 BEGIN_EVENT_TABLE(CheckConfigsDlg, wxDialog)
@@ -148,20 +158,26 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		}
 
 	}
-	int extension = 0;
+	int extIndex = 0;
 	config = 0;
-	while ((extension < (int)m_extensions->Count()) && m_running) {
+	while ((extIndex < (int)m_extensions->Count()) && m_running) {
 		wxString fullCommand;
+		wxString extension = m_extensions->Item(extIndex);
 		fullCommand << m_cmd << wxT(" -testconfig -machine \"")
 		            << m_workingmachine << wxT("\" -ext \"")
-		            << m_extensions->Item(extension) << wxT("\"");
-		SetCurrentObject(m_extensions->Item(extension));
+		            << extension << wxT("\"");
+		SetCurrentObject(extension);
 		int progress = ((50 * (config + 1)) / numberOfExtensions) + 50;
-		bool success = doCheckConfigs(fullCommand);
-		if (!success) {
-			m_extensions->RemoveAt(extension);
+		bool success;
+		if (std::find(extensionsWithoutROMs.begin(), extensionsWithoutROMs.end(), std::string(extension.mb_str())) == extensionsWithoutROMs.end()) {
+			success = doCheckConfigs(fullCommand);
 		} else {
-			++extension;
+			success = true;
+		}
+		if (!success) {
+			m_extensions->RemoveAt(extIndex);
+		} else {
+			++extIndex;
 		}
 		++config;
 		if (m_running) {
