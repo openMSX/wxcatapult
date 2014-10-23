@@ -1,34 +1,14 @@
-Release Notes for openMSX Catapult 0.10.1 (2014-05-01)
+Release Notes for openMSX Catapult 0.11.0 (2014-10-xx)
 ======================================================
 
-Catapult release to match openMSX 0.10.1.
+Catapult release to match openMSX 0.11.0.
 
-This release we cleaned up some more code (most of the session page), and
-therewith fixed even more bugs. We also added a few new features, most
-importantly support for hard disks and support for changing cartridges at run
-time. Be careful though, the latter will cause extensions inserted in that slot
-to get removed, without Catapult showing you that!
-
-All highlights:
-- fixed disk image file not shown on UI when inserting a disk twice
-- made behaviour the same for all media (was inconsistent at places)
-- added support for changing cartridges at run time
-- add DESTDIR support (for packagers)
-- made Catapult code compatible with wxWidgets 3.0. It requires 2.8 or 3.0 now.
-- fixed several bugs on the session page
-- in the history of previously used media, now also store the accompanying IPS
-  patches
-- fixed setting the video source when there's a space in its name (e.g. Neos
-  MA-20)
-- removed annoying CTRL-A short cut for the About dialog
-- fixed layout of About dialog
-- added support for hard disk images (works of course only when such an
-  extension is present)
-- fixed Catapult interrupting a replay because it plugged in the cassette
-  player
-- fixed fps-display in the Catapult status bar
-- added build support for 64-bit ARM
-- added higher resolution Windows icon and logo in about box
+This release we didn't change much, so here is the full list:
+- fixed inserting cartridges from Catapult at run time when browsing for a new
+  cartridge (it did work when choosing one from history)
+- added higher resolution PNG icon for non-Windows systems
+- added workaround for Catapult telling that certain extensions are not
+  working, although they're working fine
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
