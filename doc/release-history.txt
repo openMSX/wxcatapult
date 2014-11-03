@@ -3,6 +3,16 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 0.11.0 (2014-11-03)
+------------------------------------
+
+This release we didn't change much, so here is the full list:
+- fixed inserting cartridges from Catapult at run time when browsing for a new
+  cartridge (it did work when choosing one from history)
+- added higher resolution PNG icon for non-Windows systems
+- added workaround for Catapult telling that certain extensions are not
+  working, although they're working fine
+
 openMSX Catapult 0.10.1 (2014-05-01)
 ------------------------------------
 
