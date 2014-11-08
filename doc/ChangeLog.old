@@ -1,4 +1,11 @@
-$Id$
+!!!
+!!! This file is no longer updated (and hasn't been for a while).
+!!! Instead we prefer to put changelog messages in the git commit
+!!! messages. The only reason to keep this file around is that in
+!!! the old days the messages in this file were more detailed than
+!!! the commit messages, so this file may still contain useful info
+!!! when you're investigating old changes.
+!!!
 
 2009-02-20 Max Feingold <maf6@cornell.edu>
 	* Added VC++ 2008 projects.

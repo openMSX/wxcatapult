@@ -1,0 +1,11 @@
+We don't maintain a traditional ChangeLog file anymore. Instead we try to write
+detailed (git) commit messages. If you have a clone of the wxCatapult git
+repository, you can see the commit messages with the command:
+    git log
+
+Historically we did maintain a ChangeLog file:
+pre-2009:  Change entries are stored in the ChangeLog file (now renamed to
+           ChangeLog.old).
+2009:      Transition period. We switched from ChangeLog to commit messages.
+           Unfortunately not all developers switched at the same time :(
+post-2009: All change entries are written as commit messages.
