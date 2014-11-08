@@ -7,12 +7,12 @@ emulator that aims for perfection. With Catapult you can control openMSX via
 a graphical user interface. A release of Catapult is compatible with the
 current release of openMSX. The project is not being developed anymore, but we
 will try to keep it working to make working with openMSX more convenient. We do
-have plans to create a brand new openMSX control program.
+have plans to migrate openMSX to a set of libraries that support a native GUI.
 
 Although the program should be self explanatory, we included a set of HTML
 manuals, that tell how you can compile the program (if you want or need to)
 and how to use Catapult with openMSX. To understand what all options mean
-and to get a better feeling of what openMSX is, we also recommend to read the 
+and to get a better feeling of what openMSX is, we also recommend to read the
 documentation of openMSX.
 
 You can read what has changed in this and the previous releases in the
