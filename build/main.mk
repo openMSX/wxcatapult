@@ -1,5 +1,3 @@
-# $Id$
-#
 # Makefile for openMSX Catapult
 # =============================
 #

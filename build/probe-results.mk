@@ -1,5 +1,3 @@
-# $Id$
-#
 # Display probe results, so user can decide whether to start the build,
 # or to change system configuration and rerun "configure".
 

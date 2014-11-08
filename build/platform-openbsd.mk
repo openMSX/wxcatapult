@@ -1,5 +1,3 @@
-# $Id$
-#
 # Configuration for OpenBSD.
 
 # Assume OpenBSD is a lot like FreeBSD.

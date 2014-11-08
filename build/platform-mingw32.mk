@@ -1,5 +1,3 @@
-# $Id$
-#
 # Configuration for MinGW.
 
 # Does platform support symlinks?

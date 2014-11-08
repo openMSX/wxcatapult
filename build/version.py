@@ -1,4 +1,3 @@
-# $Id$
 # Contains the Catapult version number and versioning related functions.
 
 from executils import captureStdout

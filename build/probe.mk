@@ -1,5 +1,3 @@
-# $Id$
-#
 # Replacement for "configure".
 # Performs some test compiles, to check for headers and functions.
 # Unlike configure, it does not run any test code, so it is more friendly for

@@ -1,5 +1,3 @@
-# $Id$
-#
 # Configuration for Darwin.
 
 # Does platform support symlinks?

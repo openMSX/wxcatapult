@@ -1,5 +1,3 @@
-# $Id$
-#
 # Configuration for NetBSD.
 
 # Assume NetBSD is a lot like FreeBSD.

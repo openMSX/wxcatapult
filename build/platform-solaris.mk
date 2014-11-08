@@ -1,5 +1,3 @@
-# $Id$
-#
 # Configuration for Solaris machines.
 
 # Does platform support symlinks?

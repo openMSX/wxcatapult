@@ -1,4 +1,3 @@
-# $Id$
 # Defines the building blocks of Catapult and their dependencies.
 
 ifneq ($(PROBE_MAKE_INCLUDED),true)

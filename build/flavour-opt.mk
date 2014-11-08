@@ -1,5 +1,3 @@
-# $Id$
-#
 # Generic optimisation flavour:
 # does not target any specific CPU.
 

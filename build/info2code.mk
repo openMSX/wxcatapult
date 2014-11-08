@@ -1,5 +1,3 @@
-# $Id$
-#
 # Write build info to C++ constants, so source can access it.
 # Advantages of this approach:
 # - file dates used for dependency checks (as opposed to "-D" compile flag)

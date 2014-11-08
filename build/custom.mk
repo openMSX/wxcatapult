@@ -1,5 +1,3 @@
-# $Id$
-#
 # This file contains user-adjustable settings for the build and installation
 # process.
 
