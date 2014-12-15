@@ -9,6 +9,7 @@
 #include "IPSSelectionDlg.h"
 #include "utils.h"
 #include <algorithm>
+#include <map>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/button.h>
@@ -881,49 +882,71 @@ void SessionPage::OnBrowseIps(wxCommandEvent& event)
 
 void SessionPage::GetRomTypes()
 {
-	// TODO get it from openMSX
-	// NOTE: this list is incomplete! REALLY GET IT FROM OPENMSX!
-	SetupRomType(wxT(""), wxT("Autodetect type"));
-	SetupRomType(wxT("AUTO"), wxT("Autodetect type"));
-	SetupRomType(wxT("Page0"), wxT("Plain 16 kB Page 0"));
-	SetupRomType(wxT("Page1"), wxT("Plain 16 kB Page 1"));
-	SetupRomType(wxT("Page2"), wxT("Plain 16 kB Page 2 (Basic)"));
-	SetupRomType(wxT("Normal8000"), wxT("Plain 16 kB Page 2 (Basic)"));
-	SetupRomType(wxT("Page3"), wxT("Plain 16 kB Page 3"));
-	SetupRomType(wxT("Page01"), wxT("Plain 32 kB Page 0-1"));
-	SetupRomType(wxT("Page12"), wxT("Plain 32 kB Page 1-2"));
-	SetupRomType(wxT("Page23"), wxT("Plain 32 kB Page 2-3"));
-	SetupRomType(wxT("Page012"), wxT("Plain 48 kB Page 0-2"));
-	SetupRomType(wxT("Page123"), wxT("Plain 48 kB Page 1-3"));
-	SetupRomType(wxT("Page0123"), wxT("Plain 64 kB"));
-	SetupRomType(wxT("Mirrored"), wxT("Plain (Any size)"));
-	SetupRomType(wxT("8kB"), wxT("Generic 8kB"));
-	SetupRomType(wxT("MSXDOS2"), wxT("MSX-DOS 2"));
-	SetupRomType(wxT("Konami"), wxT("Konami without SCC"));
-	SetupRomType(wxT("KonamiSCC"), wxT("Konami with SCC"));
-	SetupRomType(wxT("ASCII8"), wxT("Ascii 8kB"));
-	SetupRomType(wxT("ASCII16"), wxT("Ascii 16kB"));
-	SetupRomType(wxT("Padial8"), wxT("Padial 8kB"));
-	SetupRomType(wxT("Padial16"), wxT("Padial 16kB"));
-	SetupRomType(wxT("R-Type"), wxT("R-Type"));
-	SetupRomType(wxT("CrossBlaim"), wxT("Cross Blaim"));
-	SetupRomType(wxT("MSX-AUDIO"), wxT("MSX-Audio"));
-	SetupRomType(wxT("HarryFox"), wxT("Harry Fox"));
-	SetupRomType(wxT("Halnote"), wxT("Halnote"));
-	SetupRomType(wxT("Playball"), wxT("Playball"));
-	SetupRomType(wxT("Zemina80in1"), wxT("Zemina Multigame (80 in 1)"));
-	SetupRomType(wxT("Zemina90in1"), wxT("Zemina Multigame (90 in 1)"));
-	SetupRomType(wxT("Zemina126in1"), wxT("Zemina Multigame (126 in 1)"));
-	SetupRomType(wxT("HolyQuran"), wxT("Holy Qu'ran"));
-	SetupRomType(wxT("ASCII16SRAM2"), wxT("Ascii 16kB with SRAM"));
-	SetupRomType(wxT("ASCII8SRAM8"), wxT("Ascii 8kB with SRAM"));
-	SetupRomType(wxT("KoeiSRAM8"), wxT("Koei with 8kB SRAM"));
-	SetupRomType(wxT("KoeiSRAM32"), wxT("Koei with 32kB SRAM"));
-	SetupRomType(wxT("Wizardry"), wxT("Wizardry"));
-	SetupRomType(wxT("GameMaster2"), wxT("Konami Game Master 2"));
-	SetupRomType(wxT("Synthesizer"), wxT("Konami Synthesizer"));
-	SetupRomType(wxT("Majutsushi"), wxT("Hai no Majutsushi"));
-	SetupRomType(wxT("KeyboardMaster"), wxT("Konami Keyboard Master"));
+	// TODO get the descriptions from openMSX
+
+	wxString cmd;
+	ConfigurationData::instance().GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+
+	wxArrayString output;
+	int code = wxExecute(cmd + wxT(" -bash -romtype"), output);
+	assert(code != -1);
+
+	output.Sort(CompareCaseInsensitive);
+	output.Insert("", 0);
+	output.Insert("AUTO", 1);
+
+	std::map<std::string, std::string> descriptions = {
+		{"", "Autodetect type"},
+		{"AUTO", "Autodetect type"},
+		{"Page0", "Plain 16 kB Page 0"},
+		{"Page1", "Plain 16 kB Page 1"},
+		{"Page2", "Plain 16 kB Page 2 (Basic)"},
+		{"Normal8000", "Plain 16 kB Page 2 (Basic)"},
+		{"Page3", "Plain 16 kB Page 3"},
+		{"Page01", "Plain 32 kB Page 0-1"},
+		{"Page12", "Plain 32 kB Page 1-2"},
+		{"Page23", "Plain 32 kB Page 2-3"},
+		{"Page012", "Plain 48 kB Page 0-2"},
+		{"Page123", "Plain 48 kB Page 1-3"},
+		{"Page0123", "Plain 64 kB"},
+		{"Mirrored", "Plain (Any size)"},
+		{"8kB", "Generic 8kB"},
+		{"MSXDOS2", "MSX-DOS 2"},
+		{"Konami", "Konami without SCC"},
+		{"KonamiSCC", "Konami with SCC"},
+		{"ASCII8", "Ascii 8kB"},
+		{"ASCII16", "Ascii 16kB"},
+		{"Padial8", "Padial 8kB"},
+		{"Padial16", "Padial 16kB"},
+		{"R-Type", "R-Type"},
+		{"CrossBlaim", "Cross Blaim"},
+		{"MSX-AUDIO", "MSX-Audio"},
+		{"HarryFox", "Harry Fox"},
+		{"Halnote", "Halnote"},
+		{"Playball", "Playball"},
+		{"Zemina80in1", "Zemina Multigame (80 in 1)"},
+		{"Zemina90in1", "Zemina Multigame (90 in 1)"},
+		{"Zemina126in1", "Zemina Multigame (126 in 1)"},
+		{"HolyQuran", "Holy Qu'ran"},
+		{"ASCII16SRAM2", "Ascii 16kB with SRAM"},
+		{"ASCII8SRAM8", "Ascii 8kB with SRAM"},
+		{"KoeiSRAM8", "Koei with 8kB SRAM"},
+		{"KoeiSRAM32", "Koei with 32kB SRAM"},
+		{"Wizardry", "Wizardry"},
+		{"GameMaster2", "Konami Game Master 2"},
+		{"Synthesizer", "Konami Synthesizer"},
+		{"Majutsushi", "Hai no Majutsushi"},
+		{"KeyboardMaster", "Konami Keyboard Master"}
+	};
+
+	for (wxString& type : output) {
+		wxString description = type;
+		std::string stdType = std::string(type.mb_str());
+		if (descriptions.find(stdType) != descriptions.end()) {
+			description = descriptions[stdType];
+		}
+		SetupRomType(type, description);
+	}
 }
 
 void SessionPage::SetupRomType(wxString type, wxString fullname)
