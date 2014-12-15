@@ -14,12 +14,10 @@ public:
 
 private:
 	void OnBrowseExec(wxCommandEvent& event);
-	void OnBrowseShare(wxCommandEvent& event);
 	void OnCancel(wxCommandEvent& event);
 	void OnOk(wxCommandEvent& event);
 
 	wxTextCtrl* m_ExecPath;
-	wxTextCtrl* m_SharePath;
 	wxCheckBox* m_ConfigCheck;
 	wxWindow* m_parent;
 	openMSXController& m_controller;

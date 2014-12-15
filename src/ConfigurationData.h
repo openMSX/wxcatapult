@@ -11,7 +11,7 @@ class ConfigurationData
 public:
 	enum ID {
 		CD_NONE = 0,
-		CD_EXECPATH, CD_SHAREPATH, CD_MACHINES, CD_EXTENSIONS,
+		CD_EXECPATH, CD_MACHINES, CD_EXTENSIONS,
 		CD_HISTDISKA, CD_HISTDISKB, CD_HISTCARTA, CD_HISTCARTB,
 		CD_HISTCASSETTE, CD_HISTHDD, CD_TYPEHISTCARTA,
 		CD_TYPEHISTCARTB, CD_IPSDISKA, CD_IPSDISKB, CD_IPSCARTA,
@@ -48,7 +48,6 @@ private:
 	int m_showFullScreenWarning;
 	int m_showScreenshotInfo;
 	int m_cassetteAutoCreate;
-	wxString m_openMSXSharePath;
 	wxString m_openMSXExecPath;
 	wxString m_installedMachines;
 	wxString m_installedExtensions;

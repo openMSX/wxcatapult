@@ -283,13 +283,13 @@ bool openMSXController::CheckVersion(const wxString& cmd)
 	}
 	if (ver == -1) {
 		wxMessageBox(
-			wxT("Unable to determine openMSX version!\nPlease upgrade to 0.6.2 or higher.\n(Or contact the authors.)"),
+			wxT("Unable to determine openMSX version!\nPlease upgrade to 0.10.0 or higher.\n(Or contact the authors.)"),
 			wxT("Error"));
 		return false;
 	}
-	if (ver < 602) {
+	if (ver < 100) {
 		wxMessageBox(
-			wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.6.2 or higher."),
+			wxT("The openMSX version you are using is too old!\nPlease upgrade to 0.10.0 or higher."),
 			wxT("Error"));
 		return false;
 	}

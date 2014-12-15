@@ -5,7 +5,6 @@ ConfigurationData::ConfigurationData()
 {
 	ConfigData = wxConfigBase::Create();
 	ConfigData->Read(wxT("/openMSXpaths/ExecPath"), &m_openMSXExecPath);
-	ConfigData->Read(wxT("/openMSXpaths/SharePath"), &m_openMSXSharePath);
 	ConfigData->Read(wxT("/configuration/InstalledMachines"), &m_installedMachines);
 	ConfigData->Read(wxT("/configuration/InstalledExtensions"), &m_installedExtensions);
 	ConfigData->Read(wxT("/history/DiskA"), &m_diskaHistory);
@@ -44,9 +43,6 @@ bool ConfigurationData::HaveRequiredSettings() const
 	if (m_openMSXExecPath.IsEmpty() || !::wxFileExists(m_openMSXExecPath)) {
 		return false;
 	}
-	if (m_openMSXSharePath.IsEmpty() || !::wxDirExists(m_openMSXSharePath)) {
-		return false;
-	}
 	return true;
 }
 
@@ -55,9 +51,6 @@ bool ConfigurationData::SetParameter(int p_iId, wxVariant p_data)
 	switch (p_iId) {
 	case CD_EXECPATH:
 		m_openMSXExecPath = p_data.GetString();
-		break;
-	case CD_SHAREPATH:
-		m_openMSXSharePath = p_data.GetString();
 		break;
 	case CD_MACHINES:
 		m_installedMachines = p_data.GetString();
@@ -145,9 +138,6 @@ bool ConfigurationData::GetParameter(int p_iId, wxString& p_data) const
 	switch (p_iId) {
 	case CD_EXECPATH:
 		p_data = m_openMSXExecPath;
-		break;
-	case CD_SHAREPATH:
-		p_data = m_openMSXSharePath;
 		break;
 	case CD_MACHINES:
 		p_data = m_installedMachines;
@@ -243,7 +233,6 @@ bool ConfigurationData::SaveData() const
 {
 	bool retVal = true;
 	retVal &= ConfigData->Write(wxT("/openMSXpaths/ExecPath"), m_openMSXExecPath);
-	retVal &= ConfigData->Write(wxT("/openMSXpaths/SharePath"), m_openMSXSharePath);
 	retVal &= ConfigData->Write(wxT("/configuration/InstalledMachines"), m_installedMachines);
 	retVal &= ConfigData->Write(wxT("/configuration/InstalledExtensions"), m_installedExtensions);
 	retVal &= ConfigData->Write(wxT("/history/DiskA"), m_diskaHistory);

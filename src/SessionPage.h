@@ -143,8 +143,8 @@ private:
 	void BrowseCart(MediaInfo& media);
 	void BrowseMedia(MediaInfo& m, const wxString& path, const wxString title);
 	void ClickMediaCombo(wxCommandEvent& event, MediaInfo& media);
-	void prepareMachines  (const wxString& sharepath, bool optional = false);
-	void prepareExtensions(const wxString& sharepath, bool optional = false);
+	void prepareMachines  ();
+	void prepareExtensions();
 	void AddHistory(MediaInfo& media);
 	void SaveHistory();
 	void EjectMedia(MediaInfo& media);

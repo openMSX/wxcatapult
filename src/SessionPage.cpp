@@ -462,21 +462,8 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 		m_machineArray   = split(checkedMachines);
 		m_extensionArray = split(checkedExtensions);
 	} else {
-		m_machineArray.Clear();
-		m_extensionArray.Clear();
-		wxString sharepath;
-		config.GetParameter(ConfigurationData::CD_SHAREPATH, sharepath);
-		prepareExtensions(sharepath);
-		prepareMachines(sharepath);
-#ifdef __UNIX__
-		wxString personalShare = ::wxGetHomeDir() + wxT("/.openMSX/share");
-#else
-		TCHAR temp[MAX_PATH + 1];
-		SHGetSpecialFolderPath(0, temp, CSIDL_PERSONAL, 1);
-		wxString personalShare = wxString((const wxChar*)temp) + wxT("/openMSX/share");
-#endif
-		prepareExtensions(personalShare, true);
-		prepareMachines(personalShare, true);
+		prepareExtensions();
+		prepareMachines();
 	}
 	m_extensionArray.Sort(CompareCaseInsensitive);
 	m_machineArray.Sort(CompareCaseInsensitive);
@@ -504,69 +491,32 @@ void SessionPage::SetupHardware(bool initial, bool reset)
 	}
 }
 
-void SessionPage::prepareExtensions(const wxString& sharepath, bool optional)
+void SessionPage::prepareExtensions()
 {
-	wxString extPath = sharepath + wxT("/extensions");
-	if (!::wxDirExists(extPath)) {
-		if (!optional) {
-			wxMessageBox(wxT("Directory: ") + extPath +
-			             wxT(" does not exist"));
-		}
-		return;
-	}
-	wxDir sharedir(extPath);
-	wxString extension;
-	bool succes = sharedir.GetFirst(&extension);
-	while (succes) {
-		wxString fullPath = extPath + wxT("/") + extension;
-		wxString base;
-		if (extension.EndsWith(wxT(".xml"), &base)) {
-			if (::wxFileExists(fullPath)) {
-				if (m_extensionArray.Index(base) == wxNOT_FOUND) {
-					m_extensionArray.Add(base);
-				}
-			}
-		} else if (::wxFileExists(fullPath + wxT("/hardwareconfig.xml"))) {
-			if (m_extensionArray.Index(extension) == wxNOT_FOUND) {
-				m_extensionArray.Add(extension);
-			}
-		}
-		succes = sharedir.GetNext(&extension);
+	m_extensionArray.Clear();
+
+	wxString cmd;
+	ConfigurationData::instance().GetParameter(ConfigurationData::CD_EXECPATH, cmd);
+
+	wxArrayString output;
+	int code = wxExecute(cmd + wxT(" -bash -ext"), output);
+	if (code != -1) {
+		m_extensionArray = output;
 	}
 }
 
-void SessionPage::prepareMachines(const wxString& sharepath, bool optional)
+void SessionPage::prepareMachines()
 {
+	m_machineArray.Clear();
+
 	wxString cmd;
 	ConfigurationData::instance().GetParameter(ConfigurationData::CD_EXECPATH, cmd);
-	wxString machPath = sharepath + wxT("/machines");
-	if (!::wxDirExists(machPath)) {
-		if (!optional) {
-			wxMessageBox(wxT("Directory: ") + machPath +
-			             wxT(" does not exist"));
-		}
-		return;
+
+	wxArrayString output;
+	int code = wxExecute(cmd + wxT(" -bash -machine"), output);
+	if (code != -1) {
+		m_machineArray = output;
 	}
-	wxDir sharedir(machPath);
-	wxString machine;
-	bool succes = sharedir.GetFirst(&machine);
-	while (succes) {
-		wxString fullPath = machPath + wxT("/") + machine;
-		wxString base;
-		if (machine.EndsWith(wxT(".xml"), &base)) {
-			if (::wxFileExists(fullPath)) {
-				if (m_machineArray.Index(base) == wxNOT_FOUND) {
-					m_machineArray.Add(base);
-				}
-			}
-		} else if (::wxFileExists(fullPath + wxT("/hardwareconfig.xml"))) {
-			if (m_machineArray.Index(machine) == wxNOT_FOUND) {
-				m_machineArray.Add(machine);
-			}
-		}
-		succes = sharedir.GetNext(&machine);
-	}
-	m_machineList->SetSelection(0);
 }
 
 void SessionPage::HandleFocusChange(wxWindow* oldFocus, wxWindow* newFocus)
