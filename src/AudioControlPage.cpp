@@ -139,7 +139,7 @@ void AudioControlPage::DestroyAudioMixer()
 		auto* audioSizer = m_audioPanel->GetSizer();
 		for (size_t i = m_audioChannels.size(); i > 0; --i) {
 			audioSizer->Remove(i - 1);
-			auto number = wxString::Format(wxT("%u"), i - 1);
+			auto number = wxString::Format(wxT("%u"), unsigned(i - 1));
 			delete FindWindowByName(wxT("AudioLabel_")  + number);
 			delete FindWindowByName(wxT("AudioSlider_") + number);
 			delete FindWindowByName(wxT("AudioMode_")   + number);
