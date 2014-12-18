@@ -405,7 +405,7 @@ void SessionPage::ClickMediaCombo(wxCommandEvent& event, MediaInfo& m)
 void SessionPage::SetIpsList(MediaInfo& m, const wxArrayString& ips)
 {
 	m.ips = ips;
-	int count = m.ips.GetCount();
+	size_t count = m.ips.GetCount();
 	m.menu.SetLabel(m.ipsLabel, (count > 0)
 		? wxString::Format(wxT("Select IPS Patches (%d selected)"), count)
 		: wxString(wxT("Select IPS Patches (None selected)")));
@@ -432,8 +432,8 @@ static wxArrayString split(const wxString& str, wxString separator = wxT("::"))
 	wxArrayString result;
 	int pos = 0;
 	while (true) {
-		int pos2 = str.find(separator, pos);
-		if (pos2 == wxNOT_FOUND) return result;
+		size_t pos2 = str.find(separator, pos);
+		if (pos2 == wxString::npos) return result;
 		result.Add(str.Mid(pos, pos2 - pos));
 		pos = pos2 + 2;
 	}
@@ -892,8 +892,8 @@ void SessionPage::GetRomTypes()
 	assert(code != -1);
 
 	output.Sort(CompareCaseInsensitive);
-	output.Insert("", 0);
-	output.Insert("AUTO", 1);
+	output.Insert(wxT(""), 0);
+	output.Insert(wxT("AUTO"), 1);
 
 	std::map<std::string, std::string> descriptions = {
 		{"", "Autodetect type"},
@@ -943,7 +943,7 @@ void SessionPage::GetRomTypes()
 		wxString description = type;
 		std::string stdType = std::string(type.mb_str());
 		if (descriptions.find(stdType) != descriptions.end()) {
-			description = descriptions[stdType];
+			description = wxString(descriptions[stdType].c_str(), wxConvUTF8);
 		}
 		SetupRomType(type, description);
 	}
