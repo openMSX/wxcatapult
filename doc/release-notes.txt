@@ -1,14 +1,17 @@
-Release Notes for openMSX Catapult 0.11.0 (2014-11-03)
+Release Notes for openMSX Catapult 0.11.1 (2015-xx-xx)
 ======================================================
 
-Catapult release to match openMSX 0.11.0.
+Catapult release to match openMSX 0.11.1.
 
-This release we didn't change much, so here is the full list:
-- fixed inserting cartridges from Catapult at run time when browsing for a new
-  cartridge (it did work when choosing one from history)
-- added higher resolution PNG icon for non-Windows systems
-- added workaround for Catapult telling that certain extensions are not
-  working, although they're working fine
+This release we again didn't change much, so here is the full list:
+- Query machine and extension list directly from openMSX. This also eliminates
+  the share dir setting, which was confusing our users, as they thought they
+  could use it to configure openMSX, while it was only meant to let Catapult
+  find the list of extensions and machines.
+- Query ROM mapper type list from openMSX. This makes sure that Catapult will
+  always offer all possible mapper types that are supported by openMSX. It also
+  means not all have a full description, as that is not queried (yet) from
+  openMSX.
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
