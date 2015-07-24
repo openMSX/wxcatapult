@@ -38,6 +38,7 @@ public:
 
 	void UpdateMixer();
 	wxString GetConnectorClass(const wxString& name) const;
+	wxString GetConnectorPlugged(const wxString& name) const;
 	const wxArrayString& GetConnectors() const { return m_connectors; }
 	const wxArrayString& GetPluggables() const { return m_pluggables; }
 	const wxArrayString& GetPluggableDescriptions() const { return m_pluggabledescriptions; }
@@ -107,6 +108,7 @@ private:
 	unsigned m_openMSXID;
 	wxArrayString m_connectors;
 	wxArrayString m_connectorclasses;
+	wxArrayString m_connectorpluggeds;
 	wxArrayString m_pluggables;
 	wxArrayString m_pluggabledescriptions;
 	wxArrayString m_pluggableclasses;

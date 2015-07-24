@@ -382,7 +382,7 @@ void AudioControlPage::InitAudioIO()
 						}
 					}
 				}
-				child->SetValue(wxT("--empty--"));
+				child->SetValue(m_controller.GetConnectorPlugged(connector));
 			}
 		}
 		if (m_controller.GetConnectorClass(connector) == wxT("midi out")) {
@@ -407,7 +407,7 @@ void AudioControlPage::InitAudioIO()
 						}
 					}
 				}
-				child->SetValue(wxT("--empty--"));
+				child->SetValue(m_controller.GetConnectorPlugged(connector));
 			}
 		}
 		if (connector == wxT("pcminput")) {
@@ -427,7 +427,7 @@ void AudioControlPage::InitAudioIO()
 						child->Append(pluggables[j]);
 					}
 				}
-				child->SetValue(wxT("--empty--"));
+				child->SetValue(m_controller.GetConnectorPlugged(connector));
 			}
 		}
 	}

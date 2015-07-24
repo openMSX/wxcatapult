@@ -320,6 +320,18 @@ wxString openMSXController::GetConnectorClass(const wxString& name) const
 	assert(false); return wxString();
 }
 
+wxString openMSXController::GetConnectorPlugged(const wxString& name) const
+{
+	if (m_connectorpluggeds.IsEmpty()) return wxString();
+
+	for (unsigned i = 0; i < m_connectors.GetCount(); ++i) {
+		if (m_connectors[i] == name) {
+			return m_connectorpluggeds[i];
+		}
+	}
+	assert(false); return wxString();
+}
+
 static bool isTclTrue(const wxString& str)
 {
 	return (str == wxT("on"))   ||
@@ -817,11 +829,17 @@ void openMSXController::HandleConnectors(const wxString& result)
 {
 	m_connectors = utils::parseTclList(result);
 	m_connectorclasses.Clear();
+	m_connectorpluggeds.Clear();
 	for (auto& con : m_connectors) {
 		WriteCommand(wxT("machine_info connectionclass ") +
 		             utils::tclEscapeWord(con),
 			[&](const wxString&, const wxString& r) {
 				m_connectorclasses.Add(r); });
+		WriteCommand(wxT("plug ") + utils::tclEscapeWord(con),
+			[&](const wxString&, const wxString& r) {
+				int pos = r.Find(": ");
+				wxString pluggable = r.Right(r.Length() - pos - 2); // remove "connector: "
+				m_connectorpluggeds.Add(pluggable); });
 	}
 }
 
