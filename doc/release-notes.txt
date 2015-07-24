@@ -12,6 +12,8 @@ This release we again didn't change much, so here is the full list:
   always offer all possible mapper types that are supported by openMSX. It also
   means not all have a full description, as that is not queried (yet) from
   openMSX.
+- Fix handling of MIDI connectors: it only supported MSX-MIDI, now it is
+  generic.
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
