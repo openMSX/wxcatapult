@@ -399,12 +399,10 @@ void MiscControlPage::InitConnectorPanel()
 			InitJoystickPort(connector, wxT("Joyport1Selector"), currentClass);
 		} else if (connector == wxT("joyportb")) {
 			InitJoystickPort(connector, wxT("Joyport2Selector"), currentClass);
-//		} else if (connector] == wxT("printerport")) {
-//			InitJoystickPort(connector, wxT("PrinterportSelector"), currentClass);
+		} else if (connector == wxT("printerport")) {
+			InitJoystickPort(connector, wxT("PrinterportSelector"), currentClass);
 		}
 	}
-//	auto* text = (wxTextCtrl*)FindWindowByName("PrinterLogFile");
-//	m_controller.WriteCommand(wxString("set printerlogfilename ") + utils::ConvertPath(text->GetValue()));
 }
 
 void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxString connectorClass)
