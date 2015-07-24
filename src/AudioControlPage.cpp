@@ -489,7 +489,6 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 	m_controller.WriteCommand(wxT("plug \"" + m_midiOutConnector + "\" ") + value,
 		nullptr,
 		[&](const wxString& c, const wxString& err) {
-			wxMessageBox(err);
 			if (c == wxT("plug \"" + m_midiOutConnector + "\" midi-out-logger")) {
 				InvalidMidiOutLogger();
 			}
@@ -572,7 +571,6 @@ void AudioControlPage::OnBrowseSampleInFile(wxCommandEvent& event)
 
 void AudioControlPage::UpdateMidiPlug(const wxString& connector, const wxString& data)
 {
-	wxMessageBox(wxT("Update") + connector + wxT(" with ") + data);
 	const wxArrayString& pluggables = m_controller.GetPluggables();
 	if (pluggables.IsEmpty()) return;
 
@@ -601,8 +599,6 @@ void AudioControlPage::UpdateMidiPlug(const wxString& connector, const wxString&
 		}
 	}
 	if (auto* box = (wxComboBox*)FindWindowByName(connector)) {
-		wxString dest = data.IsEmpty() ? wxT("--empty--") : value;
-		wxMessageBox(dest);
-		box->SetValue(dest);
+		box->SetValue(data.IsEmpty() ? wxT("--empty--") : value);
 	}
 }
