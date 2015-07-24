@@ -37,8 +37,10 @@ public:
 		UPDATE_PLUG,
 		UPDATE_UNPLUG,
 		UPDATE_MEDIA,
-		UPDATE_STATE
-
+		UPDATE_STATE,
+		UPDATE_HARDWARE,
+		UPDATE_EXTENSION,
+		UPDATE_CONNECTOR
 	};
 	struct ParseResult {
 		ParseState parseState;

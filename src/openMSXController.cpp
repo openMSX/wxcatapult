@@ -156,14 +156,20 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 			if ((lastCmd[0] != wxT("plug")) ||
 			    (lastCmd[1] != data->name)) {
 				UpdateSetting2(data->name, data->contents);
-				ExecuteStart(m_relaunch); // why?
+				ExecuteStart(m_relaunch); // reinit stuff now
 			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG) {
 			if ((lastCmd[0] != wxT("unplug")) ||
 			    (lastCmd[1] != data->name)) {
 				UpdateSetting2(data->name, data->contents);
-				ExecuteStart(m_relaunch); // why?
+				ExecuteStart(m_relaunch); // reinit stuff now
 			}
+		} else if (data->updateType == CatapultXMLParser::UPDATE_HARDWARE) {
+			ExecuteStart(m_relaunch); // reinit stuff now
+		} else if (data->updateType == CatapultXMLParser::UPDATE_EXTENSION) {
+			ExecuteStart(m_relaunch); // reinit stuff now
+		} else if (data->updateType == CatapultXMLParser::UPDATE_CONNECTOR) {
+			ExecuteStart(m_relaunch); // reinit stuff now
 		} else if (data->updateType == CatapultXMLParser::UPDATE_MEDIA) {
 			if ((lastCmd[0] != data->name) ||
 			    (lastCmd[1] != data->contents)) {
@@ -427,6 +433,7 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("set cmdtiming"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
+	m_relaunch = m_launchScript.size(); // !!HACK!!
 	AddCommand(wxT("machine_info pluggable"),
 		[&](const wxString&, const wxString& r) {
 			HandlePluggables(r); });
@@ -445,7 +452,6 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT(""),
 		[&](const wxString&, const wxString&) {
 			m_appWindow->m_miscControlPage->InitConnectorPanel(); });
-	m_relaunch = m_launchScript.size(); // !!HACK!!
 	AddCommand(wxT(""),
 		[&](const wxString&, const wxString&) {
 			m_appWindow->m_audioControlPage->InitAudioIO(); });
@@ -465,6 +471,9 @@ void openMSXController::InitLaunchScript()
 		});
 	AddCommand(wxT("openmsx_update enable plug"));
 	AddCommand(wxT("openmsx_update enable unplug"));
+	AddCommand(wxT("openmsx_update enable connector"));
+	AddCommand(wxT("openmsx_update enable hardware"));
+	AddCommand(wxT("openmsx_update enable extension"));
 	AddCommand(wxT("openmsx_update enable status"));
 	AddCommand(wxT(""), // finish launch
 		[&](const wxString&, const wxString&) {

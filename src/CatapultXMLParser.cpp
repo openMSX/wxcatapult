@@ -180,8 +180,14 @@ void CatapultXMLParser::parseUpdate(const char** attrs)
 				parseResult.updateType = UPDATE_UNPLUG;
 			} else if (strcmp(attrs[1], "media") == 0) {
 				parseResult.updateType = UPDATE_MEDIA;
-			} else if (strcmp(attrs[1], "status") == 0){
+			} else if (strcmp(attrs[1], "status") == 0) {
 				parseResult.updateType = UPDATE_STATE;
+			} else if (strcmp(attrs[1], "hardware") == 0) {
+				parseResult.updateType = UPDATE_HARDWARE;
+			} else if (strcmp(attrs[1], "extension") == 0) {
+				parseResult.updateType = UPDATE_EXTENSION;
+			} else if (strcmp(attrs[1], "connector") == 0) {
+				parseResult.updateType = UPDATE_CONNECTOR;
 			}
 		} else if (strcmp(attrs[0], "name") == 0) {
 			parseResult.name = wxString(attrs[1], wxConvUTF8);
