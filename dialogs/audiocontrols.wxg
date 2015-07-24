@@ -63,7 +63,7 @@
                                 <option>1</option>
                                 <object class="wxStaticText" name="MidiInLabel" base="EditStaticText">
                                     <attribute>1</attribute>
-                                    <label>Midi in:</label>
+                                    <label>MIDI in:</label>
                                     <disabled>1</disabled>
                                 </object>
                             </object>
@@ -73,7 +73,7 @@
                                 <option>1</option>
                                 <object class="wxStaticText" name="MidiOutLabel" base="EditStaticText">
                                     <attribute>1</attribute>
-                                    <label>Midi out:</label>
+                                    <label>MIDI out:</label>
                                     <disabled>1</disabled>
                                 </object>
                             </object>
