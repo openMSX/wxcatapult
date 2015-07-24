@@ -48,6 +48,8 @@ private:
 		wxString displayType; // includes 2-char sort-id
 	};
 	std::vector<ChannelInfo> m_audioChannels;
+	wxString m_midiInConnector;
+	wxString m_midiOutConnector;
 
 	wxStaticText* m_midiInLabel;
 	wxStaticText* m_midiOutLabel;

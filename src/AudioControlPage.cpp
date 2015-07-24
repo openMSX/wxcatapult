@@ -355,12 +355,14 @@ void AudioControlPage::SetChannelMode(const wxString& name, const wxString& valu
 
 void AudioControlPage::InitAudioIO()
 {
+	// TODO: handle multiple connectors of the same class ("midi in"/"midi out")
 	bool available = false;
 	for (auto& connector : m_controller.GetConnectors()) {
 		const wxArrayString& pluggables   = m_controller.GetPluggables();
 		const wxArrayString& descriptions = m_controller.GetPluggableDescriptions();
-		if (connector == wxT("msx-midi-in")) {
+		if (m_controller.GetConnectorClass(connector) == wxT("midi in")) {
 			available = true;
+			m_midiInConnector = connector;
 			if (auto* child = (wxComboBox*)FindWindowByName(wxT("MidiInSelector"))) {
 				child->Enable(true);
 				child->Clear();
@@ -381,11 +383,11 @@ void AudioControlPage::InitAudioIO()
 					}
 				}
 				child->SetValue(wxT("--empty--"));
-
 			}
 		}
-		if (connector == wxT("msx-midi-out")) {
+		if (m_controller.GetConnectorClass(connector) == wxT("midi out")) {
 			available = true;
+			m_midiOutConnector = connector;
 			if (auto* child = (wxComboBox *)FindWindowByName (wxT("MidiOutSelector"))) {
 				child->Enable(true);
 				child->Clear();
@@ -429,7 +431,7 @@ void AudioControlPage::InitAudioIO()
 			}
 		}
 	}
-	if (available){
+	if (available) {
 		if (auto* temp = FindWindowByLabel(wxT("Sound I/O"))) {
 			temp->Enable(true);
 		}
@@ -441,7 +443,7 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent& event)
 	auto* box = (wxComboBox*)event.GetEventObject();
 	wxString value = box->GetValue();
 	if (value == wxT("--empty--")) {
-		m_controller.WriteCommand(wxT("unplug msx-midi-in"));
+		m_controller.WriteCommand(wxT("unplug \"" + m_midiInConnector + "\""));
 		return;
 	}
 	const wxArrayString& pluggables   = m_controller.GetPluggables();
@@ -451,10 +453,10 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent& event)
 			value = pluggables[i];
 		}
 	}
-	m_controller.WriteCommand(wxT("plug msx-midi-in ") + value,
+	m_controller.WriteCommand(wxT("plug \"" + m_midiInConnector + "\" " + value),
 		nullptr,
 		[&](const wxString& c, const wxString&) {
-			if (c == wxT("plug msx-midi-in midi-in-reader")) {
+			if (c == wxT("plug \"" + m_midiInConnector + "\" midi-in-reader")) {
 				InvalidMidiInReader();
 			}
 		});
@@ -466,7 +468,7 @@ void AudioControlPage::InvalidMidiInReader()
 	             wxT("Error"));
 	auto* box = (wxComboBox*)FindWindowByName(wxT("MidiInSelector"));
 	box->SetValue(wxT("--empty--"));
-	m_controller.WriteCommand(wxT("unplug msx-midi-in"));
+	m_controller.WriteCommand(wxT("unplug \"" + m_midiInConnector + "\""));
 }
 
 void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
@@ -474,7 +476,7 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 	auto* box = (wxComboBox*)event.GetEventObject();
 	wxString value = box->GetValue();
 	if (value == wxT("--empty--")) {
-		m_controller.WriteCommand(wxT("unplug msx-midi-out"));
+		m_controller.WriteCommand(wxT("unplug \"" + m_midiOutConnector + "\""));
 		return;
 	}
 	const wxArrayString& pluggables   = m_controller.GetPluggables();
@@ -484,10 +486,11 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 			value = pluggables[i];
 		}
 	}
-	m_controller.WriteCommand(wxT("plug msx-midi-out ") + value,
+	m_controller.WriteCommand(wxT("plug \"" + m_midiOutConnector + "\" ") + value,
 		nullptr,
-		[&](const wxString& c, const wxString&) {
-			if (c == wxT("plug msx-midi-out midi-out-logger")) {
+		[&](const wxString& c, const wxString& err) {
+			wxMessageBox(err);
+			if (c == wxT("plug \"" + m_midiOutConnector + "\" midi-out-logger")) {
 				InvalidMidiOutLogger();
 			}
 		});
@@ -499,7 +502,7 @@ void AudioControlPage::InvalidMidiOutLogger()
 	             wxT("Error"));
 	auto* box = (wxComboBox*)FindWindowByName(wxT("MidiOutSelector"));
 	box->SetValue(wxT("--empty--"));
-	m_controller.WriteCommand(wxT("unplug msx-midi-out"));
+	m_controller.WriteCommand(wxT("unplug \"" + m_midiOutConnector + "\""));
 }
 
 void AudioControlPage::OnChangeSampleInPlug(wxCommandEvent& event)
@@ -569,6 +572,7 @@ void AudioControlPage::OnBrowseSampleInFile(wxCommandEvent& event)
 
 void AudioControlPage::UpdateMidiPlug(const wxString& connector, const wxString& data)
 {
+	wxMessageBox(wxT("Update") + connector + wxT(" with ") + data);
 	const wxArrayString& pluggables = m_controller.GetPluggables();
 	if (pluggables.IsEmpty()) return;
 
@@ -597,6 +601,8 @@ void AudioControlPage::UpdateMidiPlug(const wxString& connector, const wxString&
 		}
 	}
 	if (auto* box = (wxComboBox*)FindWindowByName(connector)) {
-		box->SetValue(data.IsEmpty() ? wxT("--empty--") : value);
+		wxString dest = data.IsEmpty() ? wxT("--empty--") : value;
+		wxMessageBox(dest);
+		box->SetValue(dest);
 	}
 }

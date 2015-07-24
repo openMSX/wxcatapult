@@ -553,11 +553,13 @@ void openMSXController::InitLaunchScript()
 			wxString channel = n.Mid(0, n.Length() - 8); // remove "_balance"
 			m_appWindow->m_audioControlPage->SetChannelMode(channel, v);
 		});
-	AddSetting(wxT("msx-midi-in"),
+	// TODO: other MIDI-in connectors won't get updated... :( or I would have to hardcode them here
+	AddSetting(wxT("*-in"),
 		[&](const wxString& n, const wxString& v) {
 			m_appWindow->m_audioControlPage->UpdateMidiPlug(
 				wxT("MidiInSelector"), v); });
-	AddSetting(wxT("msx-midi-out"),
+	// TODO: other MIDI-out connectors won't get updated... :( or I would have to hardcode them here
+	AddSetting(wxT("*-out"),
 		[&](const wxString& n, const wxString& v) {
 			m_appWindow->m_audioControlPage->UpdateMidiPlug(
 				wxT("MidiOutSelector"), v); });
