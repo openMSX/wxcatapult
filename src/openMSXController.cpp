@@ -837,7 +837,7 @@ void openMSXController::HandleConnectors(const wxString& result)
 				m_connectorclasses.Add(r); });
 		WriteCommand(wxT("plug ") + utils::tclEscapeWord(con),
 			[&](const wxString&, const wxString& r) {
-				int pos = r.Find(": ");
+				int pos = r.Find(wxT(": "));
 				wxString pluggable = r.Right(r.Length() - pos - 2); // remove "connector: "
 				m_connectorpluggeds.Add(pluggable); });
 	}

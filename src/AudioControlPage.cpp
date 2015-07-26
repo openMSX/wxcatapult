@@ -489,7 +489,7 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 	m_controller.WriteCommand(wxT("plug \"") + m_midiOutConnector + wxT("\" ") + value,
 		nullptr,
 		[&](const wxString& c, const wxString& err) {
-			if (c == wxT("plug \"" + m_midiOutConnector + "\" midi-out-logger")) {
+			if (c == (wxT("plug \"") + m_midiOutConnector + wxT("\" midi-out-logger"))) {
 				InvalidMidiOutLogger();
 			}
 		});
@@ -501,7 +501,7 @@ void AudioControlPage::InvalidMidiOutLogger()
 	             wxT("Error"));
 	auto* box = (wxComboBox*)FindWindowByName(wxT("MidiOutSelector"));
 	box->SetValue(wxT("--empty--"));
-	m_controller.WriteCommand(wxT("unplug \"" + m_midiOutConnector + "\""));
+	m_controller.WriteCommand(wxT("unplug \"") + m_midiOutConnector + wxT("\""));
 }
 
 void AudioControlPage::OnChangeSampleInPlug(wxCommandEvent& event)
