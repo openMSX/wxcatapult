@@ -443,7 +443,7 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent& event)
 	auto* box = (wxComboBox*)event.GetEventObject();
 	wxString value = box->GetValue();
 	if (value == wxT("--empty--")) {
-		m_controller.WriteCommand(wxT("unplug \"" + m_midiInConnector + "\""));
+		m_controller.WriteCommand(wxT("unplug \"") + m_midiInConnector + wxT("\""));
 		return;
 	}
 	const wxArrayString& pluggables   = m_controller.GetPluggables();
@@ -453,10 +453,10 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent& event)
 			value = pluggables[i];
 		}
 	}
-	m_controller.WriteCommand(wxT("plug \"" + m_midiInConnector + "\" " + value),
+	m_controller.WriteCommand(wxT("plug \"") + m_midiInConnector + wxT("\" ") + value,
 		nullptr,
 		[&](const wxString& c, const wxString&) {
-			if (c == wxT("plug \"" + m_midiInConnector + "\" midi-in-reader")) {
+			if (c == (wxT("plug \"") + m_midiInConnector + wxT("\" midi-in-reader"))) {
 				InvalidMidiInReader();
 			}
 		});
@@ -468,7 +468,7 @@ void AudioControlPage::InvalidMidiInReader()
 	             wxT("Error"));
 	auto* box = (wxComboBox*)FindWindowByName(wxT("MidiInSelector"));
 	box->SetValue(wxT("--empty--"));
-	m_controller.WriteCommand(wxT("unplug \"" + m_midiInConnector + "\""));
+	m_controller.WriteCommand(wxT("unplug \"") + m_midiInConnector + wxT("\""));
 }
 
 void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
@@ -476,7 +476,7 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 	auto* box = (wxComboBox*)event.GetEventObject();
 	wxString value = box->GetValue();
 	if (value == wxT("--empty--")) {
-		m_controller.WriteCommand(wxT("unplug \"" + m_midiOutConnector + "\""));
+		m_controller.WriteCommand(wxT("unplug \"") + m_midiOutConnector + wxT("\""));
 		return;
 	}
 	const wxArrayString& pluggables   = m_controller.GetPluggables();
@@ -486,7 +486,7 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 			value = pluggables[i];
 		}
 	}
-	m_controller.WriteCommand(wxT("plug \"" + m_midiOutConnector + "\" ") + value,
+	m_controller.WriteCommand(wxT("plug \"") + m_midiOutConnector + wxT("\" ") + value,
 		nullptr,
 		[&](const wxString& c, const wxString& err) {
 			if (c == wxT("plug \"" + m_midiOutConnector + "\" midi-out-logger")) {
