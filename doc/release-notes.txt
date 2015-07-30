@@ -14,6 +14,10 @@ This release we again didn't change much, so here is the full list:
   openMSX.
 - Fix handling of MIDI connectors: it only supported MSX-MIDI, now it is
   generic.
+- Fixed some update bugs. Now Catapult should be properly updated when changing
+  hardware in openMSX itself, like plugging connectors or changing machine.
+- Fixed initial value of the printer port's plug: now shows --empty-- instead
+  of blank.
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
