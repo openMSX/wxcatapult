@@ -192,6 +192,7 @@ wxCatapultFrame::wxCatapultFrame(wxWindow* parent)
 		throw NoOpenMSXBinaryException();
 	}
 
+	m_sessionPage->GetRomTypes();
 	m_miscControlPage->FillInitialJoystickPortValues();
 	m_launch_AbortButton->Enable(true);
 	m_sessionPage->SetupHardware(true, viewMenu->IsChecked(Catapult_Display_Invalids));

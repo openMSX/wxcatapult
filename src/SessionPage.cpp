@@ -156,7 +156,6 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 	m_hasCassettePort = true; // avoid UMR
 	m_cassetteControl = true; // see comments in OnMotorControl()
 	m_romTypeDialog.reset(new RomTypeDlg(wxGetTopLevelParent(this)));
-	GetRomTypes();
 	m_ipsDialog.reset(new IPSSelectionDlg(wxGetTopLevelParent(this)));
 	media[DISKA].reset(new MediaInfo(
 		*m_diskMenu[0], wxT("diska"), wxT("DiskAContents"),

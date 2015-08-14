@@ -48,6 +48,7 @@ public:
 	void SetCassetteMode(wxString data);
 	const wxArrayString& GetDetectedMachines() const;
 	const wxArrayString& GetDetectedExtensions() const;
+	void GetRomTypes();
 	void RestoreHistory();
 	void FixLayout();
 	wxString getStartupCommandLineOptions() const;
@@ -136,7 +137,6 @@ private:
 
 	void SetupRomType(wxString romtype, wxString fullname);
 	MediaInfo* GetLastMenuTarget() const;
-	void GetRomTypes();
 	void SetIpsList(MediaInfo& m, const wxArrayString& ips);
 	void SetMapperType(MediaInfo& media, const wxString& type);
 	void BrowseDisk(MediaInfo& media);
