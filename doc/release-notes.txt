@@ -1,7 +1,7 @@
-Release Notes for openMSX Catapult 0.11.1 (2015-xx-xx)
+Release Notes for openMSX Catapult 0.12.0 (2015-09-xx)
 ======================================================
 
-Catapult release to match openMSX 0.11.1.
+Catapult release to match openMSX 0.12.0.
 
 This release we again didn't change much, so here is the full list:
 - Query machine and extension list directly from openMSX. This also eliminates
@@ -27,14 +27,13 @@ Known issues / caveats:
   the openMSX console (press F10/Cmd+L) or the OSD menu (MENU key/Cmd+O)
 
 openMSX Home Page:
-  http://openmsx.sourceforge.net/
-Project page on SourceForge:
-  http://sourceforge.net/projects/openmsx/
+  http://openmsx.org/
+Project page on GitHub:
+  http://github.com/openMSX/
 Contact options:
 - Talk to us on #openmsx on irc.freenode.net.
 - Use the forum on http://www.msx.org/forum/semi-msx-talk/openmsx
-- Send a message to the openmsx-user mailing list.
-  Go to the SourceForge project page and look under "Lists".
+- File a ticket on https://github.com/openMSX/openMSX/issues
 
 Have fun with your emulated MSX!
                                         the openMSX developers
