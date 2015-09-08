@@ -28,12 +28,11 @@ Creating a release candidate
 - Tag the git archive:
   git tag -a RELEASE_1_2_3 -m "Tagging release 1.2.3."
   git push --tags
-- Export the tagged code:
-  git archive RELEASE_1_2_3 --remote \
-    git://git.code.sf.net/p/openmsx/wxcatapult --prefix wxcatapult-1.2.3/ \
-    | tar -x -C .
+- Get the tagged code from this URL:
+  https://github.com/openMSX/wxcatapult/archive/RELEASE_1_2_3.tar.gz
   This step makes sure that exactly the tagged code will be released.
-- Change directory to the just created wxcatapult-1.2.3/
+- Extract this archive and chdir to the herewith created
+  wxcatapult-RELEASE_1_2_3 directory
 - Create the distribution tar.gz file:
     make dist
 - Save the created file somewhere you can find it again:
@@ -62,4 +61,3 @@ Post-release
 ------------
 
 - Set RELEASE_FLAG to false in build/version.mk and build/version.py.
-  Or don't bother, as we're not actively developing anyway.
