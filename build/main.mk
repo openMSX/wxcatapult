@@ -430,7 +430,7 @@ DIST_BASE:=$(BUILD_BASE)/dist
 DIST_PATH:=$(DIST_BASE)/$(PACKAGE_FULL)
 
 DIST_FULL:= \
-	GNUmakefile ChangeLog README
+	GNUmakefile README
 DIST_FULL+=$(addprefix $(SOURCES_PATH)/, \
 	*.h *.cpp *.rc *.ico *.xpm \
 	)
