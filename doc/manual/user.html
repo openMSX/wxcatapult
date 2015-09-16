@@ -179,17 +179,11 @@ and start it anyway you like.
 
 <p>
 When you start Catapult for the first time it will ask where it can find
-openMSX and where the so-called <code>share</code> directory can be found. To
+openMSX. To
 make it as easy as possible, Catapult first checks the default locations for
-openMSX to see if the necessary files are available. If they are, you only need
-to press the OK button. If they are not on the default locations, you will need
-to locate them yourself. Be careful when choosing the share directory. openMSX
-uses two share directories, the system share (default:
-<code>/opt/openMSX/share</code> in Linux and the <code>share</code>
-subdirectory where your openMSX executable resides in Windows) and the personal
-share (default: <code> ~/.openMSX/share</code> in Linux and <code>My
-Documents\openMSX\share</code> in Windows). You'll need to fill in the system
-share directory, because the personal share directory is scanned anyway.
+openMSX to see if the executable is there. If it is, you only need
+to press the OK button. If it is not on the default location, you will need
+to locate it yourself.
 </p>
 
 <p>
@@ -269,9 +263,10 @@ contains some controls to let openMSX make screen shots.
 <p>
 When Catapult starts, this page looks completely empty, but once openMSX is
 started, this page contains a mixer of each sound device available in the MSX.
-This page also contains some controls specific to the MSXturboR machines
-concerning MIDI and PCM wave input. These are grayed out when a different MSX
-computer is emulated.
+This page also contains some controls
+concerning MIDI and PCM wave input. These are only enabled when MIDI ports are
+available in the currently emulated machine and/or extensions or when the
+Panasonic FS-A1GT MSXturboR is being emulated, respectively.
 [<a class="internal" href="#audio">details</a>]
 </p>
 
@@ -322,8 +317,7 @@ still be easily recognisable.
 
 <p>
 In the top-left corner, you can select which machine openMSX should emulate.
-Catapult checks both share directories (system and personal) for any machine
-configurations that exist. This doesn't mean that each machine actually runs.
+The fact that a machine is listed, doesn't mean that it actually runs.
 If a machine needs system ROM images and they are not available, that
 particular machine just won't run. Catapult won't detect this lack of ROMs. You
 will see the error message showing up in the Status Page. However, you can let
@@ -737,9 +731,8 @@ selector below each slider lets you choose between L(eft), R(ight), M(ono) and
 
 <p>
 The bottom part of this page can be used to select where the sound I/O devices
-are redirected to. These controls are only enabled if you're emulating an
-MSXturboR. The top of this section lets you choose what is plugged into the
-MIDI-IN port. You can choose between <code>--empty--</code> and
+are redirected to. The top of this section lets you choose what is plugged into the
+MIDI-IN port. You can at least choose between <code>--empty--</code> and
 <code>midi-in-reader</code>. Windows users also have the choice to use one of
 the native MIDI devices. The field besides the selector is only used when
 <code>midi-in-reader</code> is selected. In this case, this allows you to select
@@ -757,11 +750,13 @@ connected to your system.
 </p>
 
 <p>
-Again: MIDI-IN and MIDI-OUT are only available on the MSXturboR GT.
+MIDI-IN and MIDI-OUT are only available when you're emulating a machine or
+extension with MIDI ports. If there are multiple MIDI ports available, only one
+can be controlled with Catapult.
 </p>
 
 <p>
-Finally, the last row is to select the PCM wave input, which is also only
+Finally, the last row is to select the PCM wave input, which is only
 available on the MSXturboR GT. You can choose <code>--empty--</code>
 or <code>wavinput</code>. In case of <code>wavinput</code>, the field besides
 it selects from which file the PCM input is taken.
@@ -877,8 +872,7 @@ Edit Configuration
 </dt>
 <dd>
 Here you can change which openMSX version Catapult is to start, if you
-installed more than one. It also lets you choose were the shared openMSX
-settings can be found. See also <a href="#starting">2. Starting Catapult</a>.
+installed more than one. See also <a href="#starting">2. Starting Catapult</a>.
 </dd>
 <dt>
 Load openMSX Settings
@@ -893,7 +887,7 @@ Save openMSX Settings
 </dt>	
 <dd>
 This option is only available when openMSX is running. You can ask openMSX to
-save its settings to the default location (which
+save its settings to the default location (which is
 <code>share/settings.xml</code>).
 </dd>
 <dt>
