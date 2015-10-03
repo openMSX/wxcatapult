@@ -5,6 +5,11 @@
 /*.log
 *.swp
 *~
+*.suo
+*.sdf
+*.opensdf
+*.ipch
+build/3rdparty/vc_mswd/*
 core.*
 core
 *.pyc
