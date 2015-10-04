@@ -396,16 +396,16 @@ void MiscControlPage::InitConnectorPanel()
 	for (auto& connector : m_controller.GetConnectors()) {
 		wxString currentClass = m_controller.GetConnectorClass(connector);
 		if (connector == wxT("joyporta")) {
-			InitJoystickPort(connector, wxT("Joyport1Selector"), currentClass);
+			InitJoystickOrPrinterPort(connector, wxT("Joyport1Selector"), currentClass);
 		} else if (connector == wxT("joyportb")) {
-			InitJoystickPort(connector, wxT("Joyport2Selector"), currentClass);
+			InitJoystickOrPrinterPort(connector, wxT("Joyport2Selector"), currentClass);
 		} else if (connector == wxT("printerport")) {
-			InitJoystickPort(connector, wxT("PrinterportSelector"), currentClass);
+			InitJoystickOrPrinterPort(connector, wxT("PrinterportSelector"), currentClass);
 		}
 	}
 }
 
-void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxString connectorClass)
+void MiscControlPage::InitJoystickOrPrinterPort(wxString connector, wxString control, wxString connectorClass)
 {
 	const wxArrayString& classes = m_controller.GetPluggableClasses();
 	if (classes.IsEmpty()) return;
@@ -426,11 +426,9 @@ void MiscControlPage::InitJoystickPort(wxString connector, wxString control, wxS
 	}
 	box->SetValue(currentval);
 	wxString cmd = wxT("plug");
-	if (currentval == wxT("--empty--")) {
-		cmd = wxT("unplug");
-		currentval.Clear();
+	if (currentval != wxT("--empty--")) {
+		m_controller.WriteCommand(cmd + wxT(" ") + connector + wxT(" ") + currentval);
 	}
-	m_controller.WriteCommand(cmd + wxT(" ") + connector + wxT(" ") + currentval);
 }
 
 void MiscControlPage::OnChangeJoystick(wxCommandEvent& event)
