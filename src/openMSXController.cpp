@@ -445,10 +445,10 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("set cmdtiming"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	m_relaunch = m_launchScript.size(); // !!HACK!!
 	AddCommand(wxT("machine_info pluggable"),
 		[&](const wxString&, const wxString& r) {
 			HandlePluggables(r); });
+	m_relaunch = m_launchScript.size(); // !!HACK!!
 	AddCommand(wxT("machine_info connector"),
 		[&](const wxString&, const wxString& r) {
 			HandleConnectors(r); });
