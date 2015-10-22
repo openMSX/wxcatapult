@@ -971,7 +971,7 @@ SessionDropTarget::SessionDropTarget(wxComboBox* target)
 bool SessionDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
 	if (!filenames.IsEmpty()) {
-		m_target->Append(filenames[0]); // just the first for starters
+		m_target->SetValue(filenames[0]); // just the first for starters
 	}
 	return true;
 }
