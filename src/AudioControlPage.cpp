@@ -135,25 +135,16 @@ void AudioControlPage::DestroyAudioMixer()
 	if (auto* temp = FindWindowByLabel(wxT("Mixer"))) {
 		temp->Enable(false);
 	}
-	if (!m_audioChannels.empty()) {
-		auto* audioSizer = m_audioPanel->GetSizer();
-		for (size_t i = m_audioChannels.size(); i > 0; --i) {
-			audioSizer->Remove(i - 1);
-			auto number = wxString::Format(wxT("%u"), unsigned(i - 1));
-			delete FindWindowByName(wxT("AudioLabel_")  + number);
-			delete FindWindowByName(wxT("AudioSlider_") + number);
-			delete FindWindowByName(wxT("AudioMode_")   + number);
-		}
-		delete FindWindowByName(wxT("MuteButton"));
+	auto* audioSizer = m_audioPanel->GetSizer();
+	audioSizer->Clear(true);
 
-		auto* noAudio = new wxStaticText(
-			m_audioPanel, -1, wxT("No audio channel data available"),
-			wxDefaultPosition, wxDefaultSize,wxALIGN_CENTRE,
-			wxT("NoAudioText"));
-		audioSizer->Add(noAudio, 1, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 0);
-		audioSizer->Layout();
-		m_audioChannels.clear();
-	}
+	auto* noAudio = new wxStaticText(
+		m_audioPanel, -1, wxT("No audio channel data available"),
+		wxDefaultPosition, wxDefaultSize,wxALIGN_CENTRE,
+		wxT("NoAudioText"));
+	audioSizer->Add(noAudio, 1, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 0);
+	audioSizer->Layout();
+	m_audioChannels.clear();
 }
 
 void AudioControlPage::DisableAudioPanel()
