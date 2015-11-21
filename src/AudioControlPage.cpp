@@ -316,6 +316,7 @@ void AudioControlPage::SetChannelVolume(const wxString& name, const wxString& va
 
 	long intvalue;
 	auto* slider = (wxSlider*)FindWindowById(channel + FIRSTAUDIOSLIDER, this);
+	assert(slider != nullptr);
 	value.ToLong(&intvalue);
 	slider->SetValue(100 - intvalue);
 }
@@ -341,6 +342,7 @@ void AudioControlPage::SetChannelMode(const wxString& name, const wxString& valu
 	//if (value == wxT("off"))    val = wxT("O"); // mute
 	//if (value == wxT("stereo")) val = wxT("S");
 	auto* combo = (wxComboBox*)FindWindowById(channel + FIRSTAUDIOCOMBO, this);
+	assert(combo != nullptr);
 	combo->SetSelection(combo->FindString(val));
 }
 
