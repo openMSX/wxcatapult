@@ -467,7 +467,7 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT(""),
 		[&](const wxString&, const wxString&) {
 			m_appWindow->m_audioControlPage->InitAudioIO(); });
-	AddCommand(wxT("machine_info sounddevice"),
+	AddCommand(wxT("set catapult_result [dict create] ; foreach dev [machine_info sounddevice] { dict append catapult_result $dev [machine_info sounddevice $dev]} ; set catapult_result"),
 		[&](const wxString&, const wxString& r) {
 			HandleSoundDevices(r); });
 	AddCommand(wxT("set mute"),
@@ -845,27 +845,20 @@ void openMSXController::HandleConnectors(const wxString& result)
 
 void openMSXController::HandleSoundDevices(const wxString& result)
 {
-	auto devices = utils::parseTclList(result);
-	for (auto& dev : devices) {
-		dev = utils::tclEscapeWord(dev);
-	}
 	m_appWindow->m_audioControlPage->DestroyAudioMixer();
 	m_appWindow->m_audioControlPage->InitAudioChannels();
-	for (auto& dev : devices) {
-		WriteCommand(wxT("machine_info sounddevice " + dev),
-			[&](const wxString& c, const wxString& r) {
-				auto tokens = utils::parseTclList(c);
-				assert(tokens.GetCount() == 3);
-				m_appWindow->m_audioControlPage->AddChannelType(tokens[2], r);
-			});
+	auto devInfos = utils::parseTclList(result);
+	assert((devInfos.size() % 2) == 0);
+	for (auto it = devInfos.begin(); it != devInfos.end(); it += 2) {
+		m_appWindow->m_audioControlPage->AddChannelType(*it, *(it + 1));
 	}
-	WriteCommand(wxT(""),
-		[&](const wxString&, const wxString&) {
-			m_appWindow->m_audioControlPage->SetupAudioMixer(); });
+	m_appWindow->m_audioControlPage->SetupAudioMixer();
+
 	WriteCommand(wxT("set master_volume"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	for (auto& dev : devices) {
+	for (auto it = devInfos.begin(); it != devInfos.end(); it += 2) {
+		auto dev = utils::tclEscapeWord(*it);
 		WriteCommand(wxT("set ") + dev + wxT("_volume"),
 			[&](const wxString& c, const wxString& r) {
 				UpdateSetting(c, r); });
