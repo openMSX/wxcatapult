@@ -188,7 +188,7 @@ SessionPage::SessionPage(wxWindow* parent, openMSXController& controller)
 		ConfigurationData::CD_NONE, ConfigurationData::CD_NONE,
 		m_hardDiskButton, HARDDISK, 0, 0));
 	for (auto& m : media) {
-		m->control.SetDropTarget(new SessionDropTarget(&m->control));
+		m->control.SetDropTarget(new SessionDropTarget(m.get(), this));
 	}
 
 	int autorecord;
@@ -963,15 +963,17 @@ const wxArrayString& SessionPage::GetDetectedExtensions() const
 	return m_extensionArray;
 }
 
-SessionDropTarget::SessionDropTarget(wxComboBox* target)
+SessionDropTarget::SessionDropTarget(SessionPage::MediaInfo* target, SessionPage* sessionPage)
+	: m_target(target)
+	, m_sessionPage(sessionPage)
 {
-	m_target = target;
 }
 
 bool SessionDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
 	if (!filenames.IsEmpty()) {
-		m_target->SetValue(filenames[0]); // just the first for starters
+		m_target->control.SetValue(filenames[0]); // just the first for starters
+		m_sessionPage->insertMediaClear(*m_target);
 	}
 	return true;
 }

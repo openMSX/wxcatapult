@@ -17,16 +17,6 @@ class wxStaticText;
 class wxToggleButton;
 class wxListBox;
 
-class SessionDropTarget : public wxFileDropTarget
-{
-public:
-	SessionDropTarget(wxComboBox* target);
-	bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
-
-private:
-	wxComboBox* m_target;
-};
-
 
 class SessionPage : public CatapultPage
 {
@@ -52,6 +42,8 @@ public:
 	void RestoreHistory();
 	void FixLayout();
 	wxString getStartupCommandLineOptions() const;
+
+	friend class SessionDropTarget;
 
 private:
 	enum MediaType { DISKETTE, CARTRIDGE, CASSETTE, HARDDISK };
@@ -195,5 +187,17 @@ private:
 	DECLARE_CLASS(SessionPage)
 	DECLARE_EVENT_TABLE()
 };
+
+class SessionDropTarget : public wxFileDropTarget
+{
+public:
+	SessionDropTarget(SessionPage::MediaInfo* target, SessionPage* sessionPage);
+	bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
+
+private:
+	SessionPage::MediaInfo* m_target;
+	SessionPage* m_sessionPage;
+};
+
 
 #endif
