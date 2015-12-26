@@ -950,7 +950,7 @@ bool openMSXController::Launch(wxString cmdline)
 	m_namedPipeHandle = CreateNamedPipe(m_pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
 	if (m_namedPipeHandle == INVALID_HANDLE_VALUE) {
 		wxMessageBox(wxString::Format(
-			wxT("Error creating pipe: %ld"), GetLastError()));
+			wxT("Error creating pipe: %ld"), long(GetLastError())));
 		return false;
 	}
 
@@ -1054,7 +1054,7 @@ bool openMSXController::CreatePipes(
 
 void openMSXController::ShowError(const wxString& msg)
 {
-	wxMessageBox(msg + wxString::Format(wxT(": error %ld"), GetLastError()));
+	wxMessageBox(msg + wxString::Format(wxT(": error %ld"), long(GetLastError())));
 }
 
 void openMSXController::CloseHandles(

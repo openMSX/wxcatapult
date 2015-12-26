@@ -175,7 +175,7 @@ void MiscControlPage::OnFirmware(wxCommandEvent& event)
 
 void MiscControlPage::OnSpeedChange(wxScrollEvent& event)
 {
-	auto speedText = wxString::Format(wxT("%ld"), event.GetInt());
+	auto speedText = wxString::Format(wxT("%d"), event.GetInt());
 	m_speedIndicator->SetValue(speedText);
 	m_controller.WriteCommand(wxT("set speed ") + speedText);
 	m_controller.WriteCommand(wxT("set throttle on"));
@@ -206,14 +206,14 @@ void MiscControlPage::OnSetMaxSpeed(wxCommandEvent& event)
 
 void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent& event)
 {
-	auto skipText = wxString::Format(wxT("%ld"), event.GetInt());
+	auto skipText = wxString::Format(wxT("%d"), event.GetInt());
 	m_maxFrameSkipIndicator->SetValue(skipText);
 	m_controller.WriteCommand(wxT("set maxframeskip ") + skipText);
 }
 
 void MiscControlPage::OnMinFrameSkipChange(wxScrollEvent& event)
 {
-	auto skipText = wxString::Format(wxT("%ld"), event.GetInt());
+	auto skipText = wxString::Format(wxT("%d"), event.GetInt());
 	m_minFrameSkipIndicator->SetValue(skipText);
 	m_controller.WriteCommand(wxT("set minframeskip ") + skipText);
 }
@@ -528,7 +528,7 @@ void MiscControlPage::OnJoystickChanged()
 void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent& event)
 {
 	m_controller.WriteCommand(wxString::Format(
-		wxT("set renshaturbo %ld"), event.GetInt()));
+		wxT("set renshaturbo %d"), event.GetInt()));
 }
 
 void MiscControlPage::OnChangePrinterPort(wxCommandEvent& event)

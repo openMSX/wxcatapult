@@ -196,14 +196,14 @@ void VideoControlPage::OnFullScreen(wxCommandEvent& event)
 
 void VideoControlPage::OnChangeBlur(wxScrollEvent& event)
 {
-	auto text = wxString::Format(wxT("%ld"), event.GetInt());
+	auto text = wxString::Format(wxT("%d"), event.GetInt());
 	m_blurIndicator->SetValue(text);
 	m_controller.WriteCommand(wxT("set blur ") + text);
 }
 
 void VideoControlPage::OnChangeGlow(wxScrollEvent& event)
 {
-	auto text = wxString::Format(wxT("%ld"), event.GetInt());
+	auto text = wxString::Format(wxT("%d"), event.GetInt());
 	m_glowIndicator->SetValue(text);
 	m_controller.WriteCommand(wxT("set glow ") + text);
 }
@@ -217,7 +217,7 @@ void VideoControlPage::OnChangeGamma(wxScrollEvent& event)
 
 void VideoControlPage::OnChangeScanlines(wxScrollEvent& event)
 {
-	auto text = wxString::Format(wxT("%ld"), event.GetInt());
+	auto text = wxString::Format(wxT("%d"), event.GetInt());
 	m_scanlineIndicator->SetValue(text);
 	m_controller.WriteCommand(wxT("set scanline ") + text);
 }
