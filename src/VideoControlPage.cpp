@@ -436,7 +436,7 @@ void VideoControlPage::OnTakeScreenShot(wxCommandEvent& event)
 	wxString counter = m_screenShotCounter->GetValue();
 	wxString cmd = wxT("screenshot");
 	if (!screenshotfile.IsEmpty() || !counter.IsEmpty()) {
-		cmd << wxT(" ") << utils::ConvertPath(screenshotfile) << counter << wxT(".png");
+		cmd << wxT(" ") << utils::ConvertPath(screenshotfile + counter + wxT(".png"));
 	}
 	m_controller.WriteCommand(cmd,
 		[&](const wxString&, const wxString&) { UpdateScreenshotCounter(); });
