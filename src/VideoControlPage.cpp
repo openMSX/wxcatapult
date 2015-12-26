@@ -13,6 +13,7 @@
 #include <wx/textctrl.h>
 #include <wx/wxprec.h>
 #include <wx/xrc/xmlres.h>
+#include <wx/filefn.h>
 
 IMPLEMENT_CLASS(VideoControlPage, wxPanel)
 BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
@@ -95,6 +96,8 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController& controll
 	m_gammaLabel         = (wxStaticText*)FindWindowByName(wxT("GammaLabel"));
 
 	setNewRenderersAndScalers();
+	wxCommandEvent event;
+	OnChangeScreenshotFilename(event);
 }
 
 void VideoControlPage::OnChangeRenderer(wxCommandEvent& event)
@@ -435,8 +438,12 @@ void VideoControlPage::OnTakeScreenShot(wxCommandEvent& event)
 	wxString screenshotfile = m_screenShotFile->GetValue();
 	wxString counter = m_screenShotCounter->GetValue();
 	wxString cmd = wxT("screenshot");
-	if (!screenshotfile.IsEmpty() || !counter.IsEmpty()) {
-		cmd << wxT(" ") << utils::ConvertPath(screenshotfile + counter + wxT(".png"));
+	if (!screenshotfile.IsEmpty()) {
+		if (wxIsAbsolutePath(screenshotfile)) {
+			cmd << wxT(" ") << utils::ConvertPath(screenshotfile + counter + wxT(".png"));
+		} else {
+			cmd << wxT(" -prefix ") << screenshotfile;
+		}
 	}
 	m_controller.WriteCommand(cmd,
 		[&](const wxString&, const wxString&) { UpdateScreenshotCounter(); });
@@ -457,17 +464,23 @@ static int FindFirstFreeScreenshotFile(wxString prefix)
 
 void VideoControlPage::OnChangeScreenshotFilename(wxCommandEvent& event)
 {
+	m_screenShotCounter->Enable(false);
 	if (m_screenShotFile->GetValue().IsEmpty()) {
 		m_screenShotCounter->Clear();
 	} else {
-		UpdateScreenshotCounter();
+		if (wxIsAbsolutePath(m_screenShotFile->GetValue())) {
+			m_screenShotCounter->Enable(true);
+			UpdateScreenshotCounter();
+		} else {
+			m_screenShotCounter->Clear();
+		}
 	}
 }
 
 void VideoControlPage::UpdateScreenshotCounter()
 {
 	wxString prefix = m_screenShotFile->GetValue();
-	if (!prefix.IsEmpty()) {
+	if (!prefix.IsEmpty() && wxIsAbsolutePath(prefix)) {
 		auto count = wxString::Format(
 			wxT("%04d"), FindFirstFreeScreenshotFile(prefix));
 		m_screenShotCounter->SetValue(count);

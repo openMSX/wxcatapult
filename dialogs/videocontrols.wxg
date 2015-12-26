@@ -692,6 +692,7 @@
                                         <border>0</border>
                                         <option>0</option>
                                         <object class="wxTextCtrl" name="ScreenShotCounter" base="EditTextCtrl">
+                                            <style>wxTE_READONLY</style>
                                             <tooltip>Screen shot number with current prefix</tooltip>
                                         </object>
                                     </object>
