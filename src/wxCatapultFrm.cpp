@@ -295,7 +295,7 @@ void wxCatapultFrame::OnMenuLoadSettings(wxCommandEvent& event)
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString settingsfile = filedlg.GetPath();
 		if (m_controller->IsOpenMSXRunning()){
-			m_controller->WriteCommand(wxT("load_settings ") + utils::ConvertPath(settingsfile));
+			m_controller->WriteCommand(wxT("load_settings ") + utils::ConvertPathForCommand(settingsfile));
 		} else {
 			m_settingsfile = settingsfile;
 		}
@@ -319,7 +319,7 @@ void wxCatapultFrame::OnMenuSaveSettingsAs(wxCommandEvent& event)
 	wxFileDialog filedlg(this, wxT("Select file to save to"), wxT(""), wxT(""), path, wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 	if (filedlg.ShowModal() == wxID_OK) {
 		wxString settingsfile = filedlg.GetPath();
-		m_controller->WriteCommand(wxT("save_settings ") + utils::ConvertPath(settingsfile));
+		m_controller->WriteCommand(wxT("save_settings ") + utils::ConvertPathForCommand(settingsfile));
 	}
 }
 
@@ -390,7 +390,7 @@ void wxCatapultFrame::OnLaunch(wxCommandEvent& event)
 	wxString cmd;
 	config.GetParameter(ConfigurationData::CD_EXECPATH, cmd);
 	if (!m_settingsfile.IsEmpty()) {
-		cmd += wxT(" -setting ") + utils::ConvertPath(m_settingsfile);
+		cmd += wxT(" -setting ") + utils::ConvertPathForCommand(m_settingsfile);
 	}
 	cmd += wxT(" ") + m_sessionPage->getStartupCommandLineOptions();
 

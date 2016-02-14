@@ -563,7 +563,7 @@ void MiscControlPage::OnChangePrinterLogFile(wxCommandEvent& event)
 	wxString current = ((wxTextCtrl*)event.GetEventObject())->GetValue();
 	ConfigurationData::instance().SetParameter(ConfigurationData::CD_PRINTERFILE, current);
 	ConfigurationData::instance().SaveData();
-	m_controller.WriteCommand(wxT("set printerlogfilename ") + utils::ConvertPath(current));
+	m_controller.WriteCommand(wxT("set printerlogfilename ") + utils::ConvertPathForCommand(current));
 }
 
 void MiscControlPage::OnBrowsePrinterLogFile(wxCommandEvent& event)

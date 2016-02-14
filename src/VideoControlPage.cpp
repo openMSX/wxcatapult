@@ -440,7 +440,7 @@ void VideoControlPage::OnTakeScreenShot(wxCommandEvent& event)
 	wxString cmd = wxT("screenshot");
 	if (!screenshotfile.IsEmpty()) {
 		if (wxIsAbsolutePath(screenshotfile)) {
-			cmd << wxT(" ") << utils::ConvertPath(screenshotfile + counter + wxT(".png"));
+			cmd << wxT(" ") << utils::ConvertPathForCommand(screenshotfile + counter + wxT(".png"));
 		} else {
 			cmd << wxT(" -prefix ") << screenshotfile;
 		}

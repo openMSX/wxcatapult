@@ -286,7 +286,7 @@ void SessionPage::OnModeRecord(wxCommandEvent& event)
 		                     defaultpath, wxT(""), path,
 		                     wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 		if (filedlg.ShowModal() != wxID_OK) return;
-		cmd += wxT(" ") + utils::ConvertPath(filedlg.GetPath());
+		cmd += wxT(" ") + utils::ConvertPathForCommand(filedlg.GetPath());
 	}
 	m_controller.WriteCommand(cmd);
 }
@@ -551,14 +551,14 @@ void SessionPage::insertMedia(MediaInfo& m)
 	m.lastContents = contents;
 	wxString cmd = m.deviceName + wxT(" ");
 	if (!contents.IsEmpty()) {
-		cmd += utils::ConvertPath(contents);
+		cmd += utils::ConvertPathForCommand(contents);
 		if (m.mediaType == CARTRIDGE) {
 			if (!m.type.IsEmpty()) {
 				cmd += wxT(" -romtype ") + m.type;
 			}
 		}
 		for (auto& ips : m.ips) {
-			cmd += wxT(" -ips ") + utils::ConvertPath(ips);
+			cmd += wxT(" -ips ") + utils::ConvertPathForCommand(ips);
 		}
 		AddHistory(m);
 	} else {

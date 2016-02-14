@@ -531,7 +531,7 @@ void AudioControlPage::OnBrowseMidiInFile(wxCommandEvent& event)
 	if (filedlg.ShowModal() == wxID_OK) {
 		miditext->SetValue (filedlg.GetPath());
 		if (!miditext->GetValue().IsEmpty()) {
-			m_controller.WriteCommand(wxT("set midi-in-readfilename ") + utils::ConvertPath(miditext->GetValue()));
+			m_controller.WriteCommand(wxT("set midi-in-readfilename ") + utils::ConvertPathForCommand(miditext->GetValue()));
 		}
 	}
 }
@@ -544,7 +544,7 @@ void AudioControlPage::OnBrowseMidiOutFile(wxCommandEvent& event)
 	if (filedlg.ShowModal() == wxID_OK) {
 		miditext->SetValue(filedlg.GetPath());
 		if (!miditext->GetValue().IsEmpty()) {
-			m_controller.WriteCommand(wxT("set midi-out-logfilename ") + utils::ConvertPath(miditext->GetValue()));
+			m_controller.WriteCommand(wxT("set midi-out-logfilename ") + utils::ConvertPathForCommand(miditext->GetValue()));
 		}
 	}
 }
@@ -557,7 +557,7 @@ void AudioControlPage::OnBrowseSampleInFile(wxCommandEvent& event)
 	if (filedlg.ShowModal() == wxID_OK) {
 		sampletext->SetValue(filedlg.GetPath());
 		if (!sampletext->GetValue().IsEmpty()) {
-			m_controller.WriteCommand(wxT("set audio-inputfilename ") + utils::ConvertPath(sampletext->GetValue()));
+			m_controller.WriteCommand(wxT("set audio-inputfilename ") + utils::ConvertPathForCommand(sampletext->GetValue()));
 		}
 	}
 }

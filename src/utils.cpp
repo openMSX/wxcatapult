@@ -8,10 +8,10 @@ using namespace std;
 
 namespace utils {
 
-wxString ConvertPath(wxString path)
+wxString ConvertPathForCommand(wxString path)
 {
-	path.Prepend(wxT("\""));
-	path.Append(wxT("\""));
+	path.Prepend(wxT("{"));
+	path.Append(wxT("}"));
 	path.Replace(wxT("\\"), wxT("/"));
 	return path;
 }

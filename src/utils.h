@@ -19,9 +19,9 @@
 
 namespace utils {
 
-wxString ConvertPath       (wxString path);
-wxString ConvertPathNoSlash(wxString path);
-wxString ConvertPathBack   (wxString path);
+wxString ConvertPathForCommand(wxString path);
+wxString ConvertPathNoSlash   (wxString path);
+wxString ConvertPathBack      (wxString path);
 
 wxArrayString parseTclList(const wxString& str);
 wxString tclEscapeWord(wxString str);
