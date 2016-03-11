@@ -889,6 +889,7 @@ void SessionPage::GetRomTypes()
 	wxArrayString output;
 	int code = wxExecute(cmd + wxT(" -bash -romtype"), output);
 	assert(code != -1);
+	if (code) {}; // avoid warning in build with asserts disabled
 
 	output.Sort(CompareCaseInsensitive);
 	output.Insert(wxT(""), 0);
