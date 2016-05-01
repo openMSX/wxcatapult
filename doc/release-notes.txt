@@ -1,30 +1,23 @@
-Release Notes for openMSX Catapult 0.12.0 (2015-09-12)
+Release Notes for openMSX Catapult 0.12.1 (2016-0x-yz)
 ======================================================
 
-Catapult release to match openMSX 0.12.0.
+Catapult release to match openMSX 0.12.1.
 
 This release we again didn't change much, so here is the full list:
-- Query machine and extension list directly from openMSX. This also eliminates
-  the share dir setting, which was confusing our users, as they thought they
-  could use it to configure openMSX, while it was only meant to let Catapult
-  find the list of extensions and machines.
-- Query ROM mapper type list from openMSX. This makes sure that Catapult will
-  always offer all possible mapper types that are supported by openMSX. It also
-  means not all have a full description, as that is not queried (yet) from
-  openMSX.
-- Fix handling of MIDI connectors: it only supported MSX-MIDI, now it is
-  generic.
-- Fixed some update bugs. Now Catapult should be properly updated when changing
-  hardware in openMSX itself, like plugging connectors or changing machine.
-- Fixed initial value of the printer port's plug: now shows --empty-- instead
-  of blank.
+- Fixed Catapult interrupting a replay directly after loading it
+- Fixed drag-and-drop: put dropped file's path in input box, not in history
+- Fixed memory leak noticable when reversing
+- Fixed performance when reversing
+- Fixed failure of handling files with quotes and with [] in their path
+- Improved screenshot controls
+- Upgraded Visual Studio files to 2015
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
-- the select extension listbox doesn't work properly when using wxWidgets 2.6.x
-  (and later) Use the spacebar to deselect extensions! CTRL-click also works.
-- not feature complete, especially for newer features you will have to revert to
-  the openMSX console (press F10/Cmd+L) or the OSD menu (MENU key/Cmd+O)
+- the select extension listbox doesn't work properly. Use the spacebar to
+  deselect extensions! CTRL-click also works.
+- not feature complete, especially for newer features you will have to revert
+  to the openMSX console (press F10/Cmd+L) or the OSD menu (MENU key/Cmd+O)
 
 openMSX Home Page:
   http://openmsx.org/
