@@ -1,7 +1,7 @@
-Release Notes for openMSX Catapult 0.12.1 (2016-07-24)
+Release Notes for openMSX Catapult 0.13.0 (2016-07-24)
 ======================================================
 
-Catapult release to match openMSX 0.12.1.
+Catapult release to match openMSX 0.13.0.
 
 This release we again didn't change much, so here is the full list:
 - Fixed Catapult interrupting a replay directly after loading it

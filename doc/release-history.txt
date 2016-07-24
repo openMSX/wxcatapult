@@ -3,6 +3,18 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 0.13.0 (2016-07-24)
+------------------------------------
+
+This release we again didn't change much, so here is the full list:
+- Fixed Catapult interrupting a replay directly after loading it
+- Fixed drag-and-drop: put dropped file's path in input box, not in history
+- Fixed memory leak noticable when reversing
+- Fixed performance when reversing
+- Fixed failure of handling files with quotes and with [] in their path
+- Improved screenshot controls
+- Upgraded Visual Studio files to 2015
+
 openMSX Catapult 0.12.0 (2015-09-12)
 ------------------------------------
 

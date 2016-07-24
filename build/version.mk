@@ -4,7 +4,7 @@
 PACKAGE_NAME:=openmsx-catapult
 
 # Version number.
-PACKAGE_VERSION:=0.12.0
+PACKAGE_VERSION:=0.13.0-rc1
 
 # Is this a release version ("true") or development version ("false").
-RELEASE_FLAG:=false
+RELEASE_FLAG:=true
