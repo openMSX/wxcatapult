@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.12.1 (2016-0x-yz)
+Release Notes for openMSX Catapult 0.12.1 (2016-07-24)
 ======================================================
 
 Catapult release to match openMSX 0.12.1.
@@ -26,7 +26,8 @@ Project page on GitHub:
 Contact options:
 - Talk to us on #openmsx on irc.freenode.net.
 - Use the forum on http://www.msx.org/forum/semi-msx-talk/openmsx
-- File a ticket on https://github.com/openMSX/openMSX/issues
+- File a ticket on https://github.com/openMSX/wxCatapult/issues (for Catapult)
+- File a ticket on https://github.com/openMSX/openMSX/issues (for openMSX)
 
 Have fun with your emulated MSX!
                                         the openMSX developers
