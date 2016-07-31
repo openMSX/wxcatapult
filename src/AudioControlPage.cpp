@@ -369,10 +369,12 @@ void AudioControlPage::InitAudioIO()
 				child->Append(wxT("--empty--"));
 				for (unsigned j = 0; j < pluggables.GetCount(); ++j) {
 					if (pluggableClasses[j] == wxT("midi in")) {
-						if (pluggables[j] == wxT("midi-in-reader")) {
-							child->Append(pluggables[j]);
-						} else {
+						// use descriptions instead of names if names are meaningless (Windows?)
+						if (pluggables[j].Lower().StartsWith(wxT("midi-in")) &&
+								pluggables[j] != wxT("midi-in-reader")) {
 							child->Append(descriptions[j]);
+						} else {
+							child->Append(pluggables[j]);
 						}
 					}
 				}
@@ -394,10 +396,12 @@ void AudioControlPage::InitAudioIO()
 				child->Append(wxT("--empty--"));
 				for (unsigned j = 0; j < pluggables.GetCount(); ++j) {
 					if (pluggableClasses[j] == wxT("midi out")) {
-						if (pluggables[j] == wxT("midi-out-logger")) {
-							child->Append(pluggables[j]);
-						} else {
+						// use descriptions instead of names if names are meaningless (Windows Soft Synths)
+						if (pluggables[j].Lower().StartsWith(wxT("midi-out")) &&
+								pluggables[j] != wxT("midi-out-logger")) {
 							child->Append(descriptions[j]);
+						} else {
+							child->Append(pluggables[j]);
 						}
 					}
 				}
