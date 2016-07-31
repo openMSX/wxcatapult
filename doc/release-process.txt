@@ -29,6 +29,7 @@ Creating a release candidate
 - Update build/version.py similar to build/version.mk.
 - Update the release date in "doc/release-notes.txt" and
   "doc/release-history.txt".
+- Don't forget to commit and push all these last changes before tagging!
 - Tag the git archive:
   git tag -a RELEASE_1_2_3 -m "Tagging release 1.2.3."
   git push --tags
