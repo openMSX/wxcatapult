@@ -440,8 +440,9 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent& event)
 {
 	auto* box = (wxComboBox*)event.GetEventObject();
 	wxString value = box->GetValue();
+	const wxString connectorName = utils::tclEscapeWord(m_midiInConnector);
 	if (value == wxT("--empty--")) {
-		m_controller.WriteCommand(wxT("unplug \"") + m_midiInConnector + wxT("\""));
+		m_controller.WriteCommand(wxT("unplug ") + connectorName);
 		return;
 	}
 	const wxArrayString& pluggables   = m_controller.GetPluggables();
@@ -452,10 +453,11 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent& event)
 			value = pluggables[i];
 		}
 	}
-	m_controller.WriteCommand(wxT("plug \"") + m_midiInConnector + wxT("\" ") + value,
+	const wxString pluggableName = utils::tclEscapeWord(value);
+	m_controller.WriteCommand(wxT("plug ") + connectorName + wxT(" ") + pluggableName,
 		nullptr,
 		[&](const wxString& c, const wxString&) {
-			if (c == (wxT("plug \"") + m_midiInConnector + wxT("\" midi-in-reader"))) {
+			if (c == (wxT("plug ") + utils::tclEscapeWord(m_midiInConnector) + wxT(" midi-in-reader"))) {
 				InvalidMidiInReader();
 			}
 		});
@@ -467,15 +469,17 @@ void AudioControlPage::InvalidMidiInReader()
 	             wxT("Error"));
 	auto* box = (wxComboBox*)FindWindowByName(wxT("MidiInSelector"));
 	box->SetValue(wxT("--empty--"));
-	m_controller.WriteCommand(wxT("unplug \"") + m_midiInConnector + wxT("\""));
+	const wxString connectorName = utils::tclEscapeWord(m_midiInConnector);
+	m_controller.WriteCommand(wxT("unplug ") + connectorName);
 }
 
 void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 {
 	auto* box = (wxComboBox*)event.GetEventObject();
 	wxString value = box->GetValue();
+	const wxString connectorName = utils::tclEscapeWord(m_midiOutConnector);
 	if (value == wxT("--empty--")) {
-		m_controller.WriteCommand(wxT("unplug \"") + m_midiOutConnector + wxT("\""));
+		m_controller.WriteCommand(wxT("unplug ") + connectorName);
 		return;
 	}
 	const wxArrayString& pluggables   = m_controller.GetPluggables();
@@ -486,10 +490,11 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 			value = pluggables[i];
 		}
 	}
-	m_controller.WriteCommand(wxT("plug \"") + m_midiOutConnector + wxT("\" ") + value,
+	const wxString pluggableName = utils::tclEscapeWord(value);
+	m_controller.WriteCommand(wxT("plug ") + connectorName + wxT(" ") + pluggableName,
 		nullptr,
 		[&](const wxString& c, const wxString& err) {
-			if (c == (wxT("plug \"") + m_midiOutConnector + wxT("\" midi-out-logger"))) {
+			if (c == (wxT("plug ") + utils::tclEscapeWord(m_midiOutConnector) + wxT(" midi-out-logger"))) {
 				InvalidMidiOutLogger();
 			}
 		});
@@ -501,7 +506,8 @@ void AudioControlPage::InvalidMidiOutLogger()
 	             wxT("Error"));
 	auto* box = (wxComboBox*)FindWindowByName(wxT("MidiOutSelector"));
 	box->SetValue(wxT("--empty--"));
-	m_controller.WriteCommand(wxT("unplug \"") + m_midiOutConnector + wxT("\""));
+	const wxString connectorName = utils::tclEscapeWord(m_midiOutConnector);
+	m_controller.WriteCommand(wxT("unplug ") + connectorName);
 }
 
 void AudioControlPage::OnChangeSampleInPlug(wxCommandEvent& event)
