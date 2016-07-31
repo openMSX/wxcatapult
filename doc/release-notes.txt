@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.13.0 (2016-07-24)
+Release Notes for openMSX Catapult 0.13.0 (2016-07-31)
 ======================================================
 
 Catapult release to match openMSX 0.13.0.
@@ -9,6 +9,7 @@ This release we again didn't change much, so here is the full list:
 - Fixed memory leak noticable when reversing
 - Fixed performance when reversing
 - Fixed failure of handling files with quotes and with [] in their path
+- Fixed plugging MIDI devices on non-Windows platforms
 - Improved screenshot controls
 - Upgraded Visual Studio files to 2015
 
