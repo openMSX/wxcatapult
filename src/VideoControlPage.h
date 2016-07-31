@@ -25,14 +25,17 @@ private:
 	void UpdateScreenshotCounter();
 	void OnInputScanline(wxCommandEvent& event);
 	void OnInputGamma(wxCommandEvent& event);
+	void OnInputNoise(wxCommandEvent& event);
 	void OnInputGlow(wxCommandEvent& event);
 	void OnInputBlur(wxCommandEvent& event);
 	void OnDefaultScanlines(wxCommandEvent& event);
 	void OnDefaultGamma(wxCommandEvent& event);
+	void OnDefaultNoise(wxCommandEvent& event);
 	void OnDefaultGlow(wxCommandEvent& event);
 	void OnDefaultBlur(wxCommandEvent& event);
 	void OnChangeScanlines(wxScrollEvent& event);
 	void OnChangeGamma(wxScrollEvent& event);
+	void OnChangeNoise(wxScrollEvent& event);
 	void OnChangeGlow(wxScrollEvent& event);
 	void OnChangeBlur(wxScrollEvent& event);
 	void OnLimitSprites(wxCommandEvent& event);
@@ -58,6 +61,7 @@ private:
 	wxComboBox* m_scalerFactorList;
 
 	wxButton* m_defaultGammaButton;
+	wxButton* m_defaultNoiseButton;
 	wxButton* m_defaultBlurButton;
 	wxButton* m_defaultGlowButton;
 	wxButton* m_defaultScanlineButton;
@@ -75,6 +79,7 @@ private:
 	wxStaticText* m_blurLabel;
 	wxStaticText* m_glowLabel;
 	wxStaticText* m_gammaLabel;
+	wxStaticText* m_noiseLabel;
 	wxStaticText* m_timesLabel;
 
 	wxToggleButton* m_limitSpritesButton;
@@ -85,11 +90,13 @@ private:
 	wxSlider* m_blurSlider;
 	wxSlider* m_glowSlider;
 	wxSlider* m_gammaSlider;
+	wxSlider* m_noiseSlider;
 	wxSlider* m_scanlineSlider;
 
 	wxTextCtrl* m_blurIndicator;
 	wxTextCtrl* m_glowIndicator;
 	wxTextCtrl* m_gammaIndicator;
+	wxTextCtrl* m_noiseIndicator;
 	wxTextCtrl* m_scanlineIndicator;
 	wxTextCtrl* m_screenShotFile;
 	wxTextCtrl* m_screenShotCounter;
@@ -97,6 +104,7 @@ private:
 	wxString m_defaultBlur;
 	wxString m_defaultGlow;
 	wxString m_defaultGamma;
+	wxString m_defaultNoise;
 	wxString m_defaultScanline;
 
 	DECLARE_CLASS(VideoControlPage)

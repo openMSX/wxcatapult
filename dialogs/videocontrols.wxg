@@ -326,19 +326,19 @@
                     <label>Monitor Simulation Controls</label>
                     <object class="sizeritem">
                         <flag>wxRIGHT|wxEXPAND</flag>
-                        <border>5</border>
+                        <border>3</border>
                         <option>0</option>
                         <object class="wxBoxSizer" name="VideoAdjustLabelSizer" base="EditBoxSizer">
                             <orient>wxVERTICAL</orient>
                             <object class="sizeritem">
                                 <flag>wxEXPAND</flag>
-                                <border>5</border>
+                                <border>3</border>
                                 <option>1</option>
                                 <object class="wxBoxSizer" name="ScanlinesLabelSizer" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxStaticText" name="ScanLineLabel" base="EditStaticText">
                                             <attribute>1</attribute>
@@ -349,13 +349,13 @@
                             </object>
                             <object class="sizeritem">
                                 <flag>wxEXPAND</flag>
-                                <border>5</border>
+                                <border>3</border>
                                 <option>1</option>
                                 <object class="wxBoxSizer" name="BlurLabelSizer" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxStaticText" name="BlurLabel" base="EditStaticText">
                                             <attribute>1</attribute>
@@ -366,13 +366,13 @@
                             </object>
                             <object class="sizeritem">
                                 <flag>wxEXPAND</flag>
-                                <border>5</border>
+                                <border>3</border>
                                 <option>1</option>
                                 <object class="wxBoxSizer" name="GlowLabelSizer" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxStaticText" name="GlowLabel" base="EditStaticText">
                                             <attribute>1</attribute>
@@ -383,17 +383,34 @@
                             </object>
                             <object class="sizeritem">
                                 <flag>wxEXPAND</flag>
-                                <border>5</border>
+                                <border>3</border>
                                 <option>1</option>
                                 <object class="wxBoxSizer" name="GammaLabelSizer" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxStaticText" name="GammaLabel" base="EditStaticText">
                                             <attribute>1</attribute>
                                             <label>Gamma:</label>
+                                        </object>
+                                    </object>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxEXPAND</flag>
+                                <border>3</border>
+                                <option>1</option>
+                                <object class="wxBoxSizer" name="NoiseLabelSizer" base="EditBoxSizer">
+                                    <orient>wxHORIZONTAL</orient>
+                                    <object class="sizeritem">
+                                        <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
+                                        <border>3</border>
+                                        <option>0</option>
+                                        <object class="wxStaticText" name="NoiseLabel" base="EditStaticText">
+                                            <attribute>1</attribute>
+                                            <label>Noise:</label>
                                         </object>
                                     </object>
                                 </object>
@@ -414,7 +431,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>1</option>
                                         <object class="wxSlider" name="ScanLineSlider" base="EditSlider">
                                             <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS</style>
@@ -426,13 +443,13 @@
                             </object>
                             <object class="sizeritem">
                                 <flag>wxEXPAND</flag>
-                                <border>5</border>
+                                <border>3</border>
                                 <option>1</option>
                                 <object class="wxBoxSizer" name="BlurSizer" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>1</option>
                                         <object class="wxSlider" name="BlurSlider" base="EditSlider">
                                             <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS</style>
@@ -444,13 +461,13 @@
                             </object>
                             <object class="sizeritem">
                                 <flag>wxEXPAND</flag>
-                                <border>5</border>
+                                <border>3</border>
                                 <option>1</option>
                                 <object class="wxBoxSizer" name="GlowSizer" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>1</option>
                                         <object class="wxSlider" name="GlowSlider" base="EditSlider">
                                             <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS</style>
@@ -463,19 +480,38 @@
                             </object>
                             <object class="sizeritem">
                                 <flag>wxEXPAND</flag>
-                                <border>5</border>
+                                <border>3</border>
                                 <option>1</option>
                                 <object class="wxBoxSizer" name="GammaSizer" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>1</option>
                                         <object class="wxSlider" name="GammaSlider" base="EditSlider">
                                             <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS</style>
                                             <tooltip>Gamma setting</tooltip>
                                             <range>10, 500</range>
                                             <value>10</value>
+                                        </object>
+                                    </object>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxEXPAND</flag>
+                                <border>3</border>
+                                <option>1</option>
+                                <object class="wxBoxSizer" name="NoiseSizer" base="EditBoxSizer">
+                                    <orient>wxHORIZONTAL</orient>
+                                    <object class="sizeritem">
+                                        <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
+                                        <border>3</border>
+                                        <option>1</option>
+                                        <object class="wxSlider" name="NoiseSlider" base="EditSlider">
+                                            <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS</style>
+                                            <tooltip>Noise setting</tooltip>
+                                            <range>0, 1000</range>
+                                            <value>0</value>
                                         </object>
                                     </object>
                                 </object>
@@ -496,7 +532,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxTextCtrl" name="ScanlineIndicator" base="EditTextCtrl">
                                             <tooltip>Scanline effect level</tooltip>
@@ -513,7 +549,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxTextCtrl" name="BlurIndicator" base="EditTextCtrl">
                                             <tooltip>Blur effect level</tooltip>
@@ -530,7 +566,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxTextCtrl" name="GlowIndicator" base="EditTextCtrl">
                                             <tooltip>Afterglow effect level</tooltip>
@@ -547,10 +583,27 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxTextCtrl" name="GammaIndicator" base="EditTextCtrl">
                                             <tooltip>Gamma setting</tooltip>
+                                            <size>45, -1</size>
+                                        </object>
+                                    </object>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxEXPAND</flag>
+                                <border>0</border>
+                                <option>1</option>
+                                <object class="wxBoxSizer" name="sizer_9copy" base="EditBoxSizer">
+                                    <orient>wxHORIZONTAL</orient>
+                                    <object class="sizeritem">
+                                        <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
+                                        <border>3</border>
+                                        <option>0</option>
+                                        <object class="wxTextCtrl" name="NoiseIndicator" base="EditTextCtrl">
+                                            <tooltip>Noise setting</tooltip>
                                             <size>45, -1</size>
                                         </object>
                                     </object>
@@ -572,7 +625,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxButton" name="ZeroScanlineButton" base="EditButton">
                                             <label>Reset</label>
@@ -589,7 +642,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxButton" name="ZeroBlurButton" base="EditButton">
                                             <label>Reset</label>
@@ -606,7 +659,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxButton" name="ZeroGlowButton" base="EditButton">
                                             <label>Reset</label>
@@ -623,9 +676,26 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxButton" name="DefaultGammaButton" base="EditButton">
+                                            <label>Reset</label>
+                                            <tooltip>Set to initial value</tooltip>
+                                        </object>
+                                    </object>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxEXPAND</flag>
+                                <border>0</border>
+                                <option>1</option>
+                                <object class="wxBoxSizer" name="sizer_13copy" base="EditBoxSizer">
+                                    <orient>wxHORIZONTAL</orient>
+                                    <object class="sizeritem">
+                                        <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_VERTICAL</flag>
+                                        <border>3</border>
+                                        <option>0</option>
+                                        <object class="wxButton" name="DefaultNoiseButton" base="EditButton">
                                             <label>Reset</label>
                                             <tooltip>Set to initial value</tooltip>
                                         </object>

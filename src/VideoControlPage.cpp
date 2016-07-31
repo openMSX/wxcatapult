@@ -34,12 +34,15 @@ BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_COMMAND_SCROLL(XRCID("BlurSlider"),             VideoControlPage::OnChangeBlur)
 	EVT_COMMAND_SCROLL(XRCID("GlowSlider"),             VideoControlPage::OnChangeGlow)
 	EVT_COMMAND_SCROLL(XRCID("GammaSlider"),            VideoControlPage::OnChangeGamma)
+	EVT_COMMAND_SCROLL(XRCID("NoiseSlider"),            VideoControlPage::OnChangeNoise)
 	EVT_COMMAND_SCROLL(XRCID("ScanLineSlider"),         VideoControlPage::OnChangeScanlines)
 	EVT_BUTTON(        XRCID("ZeroBlurButton"),         VideoControlPage::OnDefaultBlur)
 	EVT_BUTTON(        XRCID("ZeroGlowButton"),         VideoControlPage::OnDefaultGlow)
 	EVT_BUTTON(        XRCID("DefaultGammaButton"),     VideoControlPage::OnDefaultGamma)
+	EVT_BUTTON(        XRCID("DefaultNoiseButton"),     VideoControlPage::OnDefaultNoise)
 	EVT_BUTTON(        XRCID("ZeroScanlineButton"),     VideoControlPage::OnDefaultScanlines)
 	EVT_TEXT(          XRCID("GammaIndicator"),         VideoControlPage::OnInputGamma)
+	EVT_TEXT(          XRCID("NoiseIndicator"),         VideoControlPage::OnInputNoise)
 	EVT_TEXT(          XRCID("BlurIndicator"),          VideoControlPage::OnInputBlur)
 	EVT_TEXT(          XRCID("GlowIndicator"),          VideoControlPage::OnInputGlow)
 	EVT_TEXT(          XRCID("ScanlineIndicator"),      VideoControlPage::OnInputScanline)
@@ -68,15 +71,19 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController& controll
 	m_glowSlider->SetTickFreq(5, 1);
 	m_gammaSlider    = (wxSlider*)FindWindowByName(wxT("GammaSlider"));
 	m_gammaSlider->SetTickFreq(25, 1);
+	m_noiseSlider    = (wxSlider*)FindWindowByName(wxT("NoiseSlider"));
+	m_noiseSlider->SetTickFreq(25, 1);
 	m_scanlineSlider = (wxSlider*)FindWindowByName(wxT("ScanLineSlider"));
 	m_scanlineSlider->SetTickFreq(5, 1);
 	m_blurIndicator     = (wxTextCtrl*)FindWindowByName(wxT("BlurIndicator"));
 	m_glowIndicator     = (wxTextCtrl*)FindWindowByName(wxT("GlowIndicator"));
 	m_gammaIndicator    = (wxTextCtrl*)FindWindowByName(wxT("GammaIndicator"));
+	m_noiseIndicator    = (wxTextCtrl*)FindWindowByName(wxT("NoiseIndicator"));
 	m_scanlineIndicator = (wxTextCtrl*)FindWindowByName(wxT("ScanlineIndicator"));
 	m_defaultBlurButton = (wxButton*)FindWindowByName(wxT("ZeroBlurButton"));
 	m_defaultGlowButton     = (wxButton*)FindWindowByName(wxT("ZeroGlowButton"));
 	m_defaultGammaButton    = (wxButton*)FindWindowByName(wxT("DefaultGammaButton"));
+	m_defaultNoiseButton    = (wxButton*)FindWindowByName(wxT("DefaultNoiseButton"));
 	m_defaultScanlineButton = (wxButton*)FindWindowByName(wxT("ZeroScanlineButton"));
 	m_screenShotFile    = (wxTextCtrl*)FindWindowByName(wxT("ScreenShotFilename"));
 	m_screenShotCounter = (wxTextCtrl*)FindWindowByName(wxT("ScreenShotCounter"));
@@ -94,6 +101,7 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController& controll
 	m_blurLabel          = (wxStaticText*)FindWindowByName(wxT("BlurLabel"));
 	m_glowLabel          = (wxStaticText*)FindWindowByName(wxT("GlowLabel"));
 	m_gammaLabel         = (wxStaticText*)FindWindowByName(wxT("GammaLabel"));
+	m_noiseLabel         = (wxStaticText*)FindWindowByName(wxT("NoiseLabel"));
 
 	setNewRenderersAndScalers();
 	wxCommandEvent event;
@@ -218,6 +226,13 @@ void VideoControlPage::OnChangeGamma(wxScrollEvent& event)
 	m_controller.WriteCommand(wxT("set gamma ") + text);
 }
 
+void VideoControlPage::OnChangeNoise(wxScrollEvent& event)
+{
+	auto text = wxString::Format(wxT("%.1f"), event.GetInt() / 10.0);
+	m_noiseIndicator->SetValue(text);
+	m_controller.WriteCommand(wxT("set noise ") + text);
+}
+
 void VideoControlPage::OnChangeScanlines(wxScrollEvent& event)
 {
 	auto text = wxString::Format(wxT("%d"), event.GetInt());
@@ -238,6 +253,11 @@ void VideoControlPage::OnDefaultGlow(wxCommandEvent& event)
 void VideoControlPage::OnDefaultGamma(wxCommandEvent& event)
 {
 	m_gammaIndicator->SetValue(m_defaultGamma);
+}
+
+void VideoControlPage::OnDefaultNoise(wxCommandEvent& event)
+{
+	m_noiseIndicator->SetValue(m_defaultNoise);
 }
 
 void VideoControlPage::OnDefaultScanlines(wxCommandEvent& event)
@@ -296,6 +316,23 @@ void VideoControlPage::OnInputGamma(wxCommandEvent& event)
 	}
 }
 
+void VideoControlPage::OnInputNoise(wxCommandEvent& event)
+{
+	wxString text = m_noiseIndicator->GetValue();
+	double floatNumber;
+	unsigned long num = 0;
+	if (text.ToDouble(&floatNumber) && (text[text.Len() - 1] != '.')) {
+		num = (int)(floatNumber * 10);
+		if (num > 1000) {
+			num = 1000;
+			text = wxT("100.0");
+			m_noiseIndicator->SetValue(text);
+		}
+		m_controller.WriteCommand(wxT("set noise ") + text);
+		m_noiseSlider->SetValue(num);
+	}
+}
+
 void VideoControlPage::OnInputScanline(wxCommandEvent& event)
 {
 	wxString text = m_scanlineIndicator->GetValue();
@@ -323,6 +360,9 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_gammaSlider->Enable(true);
 	m_gammaIndicator->Enable(true);
 	m_defaultGammaButton->Enable(true);
+	m_noiseSlider->Enable(true);
+	m_noiseIndicator->Enable(true);
+	m_defaultNoiseButton->Enable(true);
 	m_scanlineSlider->Enable(true);
 	m_scanlineIndicator->Enable(true);
 	m_defaultScanlineButton->Enable(true);
@@ -349,6 +389,7 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_blurLabel->Enable(true);
 	m_glowLabel->Enable(true);
 	m_gammaLabel->Enable(true);
+	m_noiseLabel->Enable(true);
 	if (auto* temp = FindWindowByLabel(wxT("Switches"))) {
 		temp->Enable(true);
 	}
@@ -368,6 +409,9 @@ void VideoControlPage::SetControlsOnEnd()
 	m_gammaSlider->Enable(false);
 	m_gammaIndicator->Enable(false);
 	m_defaultGammaButton->Enable(false);
+	m_noiseSlider->Enable(false);
+	m_noiseIndicator->Enable(false);
+	m_defaultNoiseButton->Enable(false);
 	m_scanlineSlider->Enable(false);
 	m_scanlineIndicator->Enable(false);
 	m_defaultScanlineButton->Enable(false);
@@ -394,6 +438,7 @@ void VideoControlPage::SetControlsOnEnd()
 	m_blurLabel->Enable(false);
 	m_glowLabel->Enable(false);
 	m_gammaLabel->Enable(false);
+	m_noiseLabel->Enable(false);
 	if (auto* temp = FindWindowByLabel(wxT("Switches"))) {
 		temp->Enable(false);
 	}
@@ -407,6 +452,7 @@ void VideoControlPage::SetSliderDefaults()
 	m_defaultBlur = m_blurIndicator->GetValue();
 	m_defaultGlow = m_glowIndicator->GetValue();
 	m_defaultGamma = m_gammaIndicator->GetValue();
+	m_defaultNoise = m_noiseIndicator->GetValue();
 	m_defaultScanline = m_scanlineIndicator->GetValue();
 }
 

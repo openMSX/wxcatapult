@@ -409,6 +409,9 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("set gamma"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
+	AddCommand(wxT("set noise"),
+		[&](const wxString& c, const wxString& r) {
+			UpdateSetting(c, r); });
 	AddCommand(wxT("set scanline"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
@@ -525,6 +528,9 @@ void openMSXController::InitLaunchScript()
 	AddSetting(wxT("gamma"),
 		[&](const wxString&, const wxString& v) {
 			UpdateIndicator(v, wxT("GammaIndicator")); });
+	AddSetting(wxT("noise"),
+		[&](const wxString&, const wxString& v) {
+			UpdateIndicator(v, wxT("NoiseIndicator")); });
 	AddSetting(wxT("scanline"),
 		[&](const wxString&, const wxString& v) {
 			UpdateIndicator(v, wxT("ScanlineIndicator")); });
