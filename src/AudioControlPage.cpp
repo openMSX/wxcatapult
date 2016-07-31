@@ -353,6 +353,7 @@ void AudioControlPage::InitAudioIO()
 	for (auto& connector : m_controller.GetConnectors()) {
 		const wxArrayString& pluggables   = m_controller.GetPluggables();
 		const wxArrayString& descriptions = m_controller.GetPluggableDescriptions();
+		const wxArrayString& pluggableClasses = m_controller.GetPluggableClasses();
 		if (m_controller.GetConnectorClass(connector) == wxT("midi in")) {
 			available = true;
 			m_midiInConnector = connector;
@@ -367,7 +368,7 @@ void AudioControlPage::InitAudioIO()
 				midibutton->Enable(true);
 				child->Append(wxT("--empty--"));
 				for (unsigned j = 0; j < pluggables.GetCount(); ++j) {
-					if (pluggables[j].Lower().StartsWith(wxT("midi-in"))) {
+					if (pluggableClasses[j] == wxT("midi in")) {
 						if (pluggables[j] == wxT("midi-in-reader")) {
 							child->Append(pluggables[j]);
 						} else {
@@ -392,7 +393,7 @@ void AudioControlPage::InitAudioIO()
 				midibutton->Enable(true);
 				child->Append(wxT("--empty--"));
 				for (unsigned j = 0; j < pluggables.GetCount(); ++j) {
-					if (pluggables[j].Lower().StartsWith(wxT("midi-out"))) {
+					if (pluggableClasses[j] == wxT("midi out")) {
 						if (pluggables[j] == wxT("midi-out-logger")) {
 							child->Append(pluggables[j]);
 						} else {
@@ -441,8 +442,9 @@ void AudioControlPage::OnChangeMidiInPlug(wxCommandEvent& event)
 	}
 	const wxArrayString& pluggables   = m_controller.GetPluggables();
 	const wxArrayString& descriptions = m_controller.GetPluggableDescriptions();
+	const wxArrayString& pluggableClasses = m_controller.GetPluggableClasses();
 	for (unsigned i = 0; i < pluggables.GetCount(); ++i) {
-		if ((value == descriptions[i]) && pluggables[i].Contains(wxT("midi-in"))) {
+		if ((value == descriptions[i]) && (pluggableClasses[i] == wxT("midi in"))) {
 			value = pluggables[i];
 		}
 	}
@@ -474,8 +476,9 @@ void AudioControlPage::OnChangeMidiOutPlug(wxCommandEvent& event)
 	}
 	const wxArrayString& pluggables   = m_controller.GetPluggables();
 	const wxArrayString& descriptions = m_controller.GetPluggableDescriptions();
+	const wxArrayString& pluggableClasses = m_controller.GetPluggableClasses();
 	for (unsigned i = 0; i < pluggables.GetCount(); ++i) {
-		if ((value == descriptions[i]) && pluggables[i].Contains(wxT("midi-out"))) {
+		if ((value == descriptions[i]) && (pluggableClasses[i] == wxT("midi out"))) {
 			value = pluggables[i];
 		}
 	}
