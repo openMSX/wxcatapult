@@ -37,6 +37,7 @@ BOOLCHECK=$(strip \
 #       compiler in the link phase.
 CXXFLAGS:=
 LDFLAGS:=
+LDADD:=
 LINK_FLAGS:=
 SOURCES:=
 
@@ -249,7 +250,7 @@ CXXFLAGS+=-pipe -Wall -Wextra -Wno-unused-parameter --no-strict-aliasing
 CXXFLAGS+=-Wno-literal-suffix -Wno-unused-local-typedefs
 CXXFLAGS+=-I$(CONFIG_PATH)
 CXXFLAGS+=$(XRC_CFLAGS) $(XML_CFLAGS)
-LINK_FLAGS+=$(XRC_LDFLAGS) $(XML_LDFLAGS)
+LDADD+=$(XRC_LDFLAGS) $(XML_LDFLAGS)
 LINK_FLAGS_PREFIX:=-Wl,
 LINK_FLAGS+=$(addprefix $(LINK_FLAGS_PREFIX),$(LDFLAGS))
 
@@ -304,7 +305,7 @@ config:
 $(BINARY_FULL): $(OBJECTS_FULL) $(RESOURCE_OBJ)
 	@echo "Linking $(BINARY_FILE)..."
 	@mkdir -p $(@D)
-	@$(CXX) -o $@ $^ $(LINK_FLAGS)
+	@$(CXX) $(LINK_FLAGS) -o $@ $^ $(LDADD)
 
 # Compile and generate dependency files in one go.
 DEPEND_SUBST=$(patsubst $(SOURCES_PATH)/%.cpp,$(DEPEND_PATH)/%.d,$<)
