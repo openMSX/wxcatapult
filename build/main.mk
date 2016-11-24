@@ -3,6 +3,25 @@
 #
 # Uses a similar approach as the openMSX build system.
 
+# Verbosity
+# =========
+
+# V=0: Summary only
+# V=1: Command only
+# V=2: Summary + command
+V?=0
+SUM:=@echo
+ifeq ($V,0)
+CMD:=@
+else
+CMD:=
+ifeq ($V,1)
+SUM:=@\#
+else ifneq ($V,2)
+$(warning Unsupported value for verbosity flag "V": $V)
+endif
+endif
+
 # Python Interpreter
 # ==================
 
@@ -105,9 +124,9 @@ DETECTSYS_SCRIPT:=$(MAKE_PATH)/detectsys.py
 -include $(DETECTSYS_MAKE)
 
 $(DETECTSYS_MAKE): $(DETECTSYS_SCRIPT)
-	@echo "Autodetecting native system:"
-	@mkdir -p $(@D)
-	@$(PYTHON) $< > $@
+	$(SUM) "Autodetecting native system:"
+	$(CMD)mkdir -p $(@D)
+	$(CMD)$(PYTHON) $< > $@
 
 endif # CATAPULT_TARGET_OS
 endif # CATAPULT_TARGET_CPU
@@ -288,9 +307,9 @@ endif
 # TODO: It would be cleaner to include probe.mk and probe-results.mk,
 #       instead of executing them in a sub-make.
 $(PROBE_MAKE): $(PROBE_SCRIPT)
-	@OUTDIR=$(@D) COMPILE=g++ MAKE_LOCATION=$(MAKE_PATH) CURRENT_OS=$(CATAPULT_TARGET_OS)\
+	$(CMD)OUTDIR=$(@D) COMPILE=g++ MAKE_LOCATION=$(MAKE_PATH) CURRENT_OS=$(CATAPULT_TARGET_OS)\
 		$(MAKE) --no-print-directory -f $<
-	@PROBE_MAKE=$(PROBE_MAKE) MAKE_PATH=$(MAKE_PATH) \
+	$(CMD)PROBE_MAKE=$(PROBE_MAKE) MAKE_PATH=$(MAKE_PATH) \
 		$(MAKE) --no-print-directory -f $(MAKE_PATH)/probe-results.mk
 
 # TODO: Relying on CONFIG_HEADER being built before BINARY_FULL,
@@ -303,41 +322,41 @@ config:
 	@echo "  Flavour:  $(CATAPULT_FLAVOUR)"
 
 $(BINARY_FULL): $(OBJECTS_FULL) $(RESOURCE_OBJ)
-	@echo "Linking $(BINARY_FILE)..."
-	@mkdir -p $(@D)
-	@$(CXX) $(LINK_FLAGS) -o $@ $^ $(LDADD)
+	$(SUM) "Linking $(BINARY_FILE)..."
+	$(CMD)mkdir -p $(@D)
+	$(CMD)$(CXX) $(LINK_FLAGS) -o $@ $^ $(LDADD)
 
 # Compile and generate dependency files in one go.
 DEPEND_SUBST=$(patsubst $(SOURCES_PATH)/%.cpp,$(DEPEND_PATH)/%.d,$<)
 $(OBJECTS_FULL): $(OBJECTS_PATH)/%.o: $(SOURCES_PATH)/%.cpp $(DEPEND_PATH)/%.d
-	@echo "Compiling $(<:$(SOURCES_PATH)/%.cpp=%)..."
-	@mkdir -p $(@D)
-	@mkdir -p $(patsubst $(OBJECTS_PATH)%,$(DEPEND_PATH)%,$(@D))
-	@$(CXX) $(DEPEND_FLAGS) -MMD -MF $(DEPEND_SUBST) \
+	$(SUM) "Compiling $(<:$(SOURCES_PATH)/%.cpp=%)..."
+	$(CMD)mkdir -p $(@D)
+	$(CMD)mkdir -p $(patsubst $(OBJECTS_PATH)%,$(DEPEND_PATH)%,$(@D))
+	$(CMD)$(CXX) $(DEPEND_FLAGS) -MMD -MF $(DEPEND_SUBST) \
 		-o $@ $(CXXFLAGS) -c $<
-	@touch $@ # Force .o file to be newer than .d file.
+	$(CMD)touch $@ # Force .o file to be newer than .d file.
 
 ifeq ($(CATAPULT_TARGET_OS),mingw32)
 $(RESOURCE_HEADER): $(VERSION_MAKE) forceversionextraction
 	$(PYTHON) $(BUILD_PATH)/win_resource.py $@
 $(RESOURCE_OBJ): $(RESOURCE_SRC) $(RESOURCE_HEADER)
-	@echo "Compiling resources..."
-	@windres $(addprefix --include-dir=,$(^D)) -o $@ -i $<
+	$(SUM) "Compiling resources..."
+	$(CMD)windres $(addprefix --include-dir=,$(^D)) -o $@ -i $<
 endif
 
 $(XRC_FULL): $(XRC_PATH)/%.xrc: $(DIALOGS_PATH)/%.wxg $(SEDSCRIPT)
-	@echo "Converting $(@:$(XRC_PATH)/%=%)..."
-	@mkdir -p $(@D)
-	@sed -f $(SEDSCRIPT) $< > $@
+	$(SUM) "Converting $(@:$(XRC_PATH)/%=%)..."
+	$(CMD)mkdir -p $(@D)
+	$(CMD)sed -f $(SEDSCRIPT) $< > $@
 
 $(BITMAPS): $(BUILD_PATH)/%: %
-	@echo "Copying $(<:$(BITMAPS_PATH)/%=%)..."
-	@mkdir -p $(@D)
-	@cp $< $@
+	$(SUM) "Copying $(<:$(BITMAPS_PATH)/%=%)..."
+	$(CMD)mkdir -p $(@D)
+	$(CMD)cp $< $@
 
 clean:
-	@echo "Cleaning up..."
-	@rm -rf $(BUILD_PATH)
+	$(SUM) "Cleaning up..."
+	$(CMD)rm -rf $(BUILD_PATH)
 
 
 # Installation and Binary Packaging
@@ -368,30 +387,30 @@ INSTALL_PREFIX:=$(if $(DESTDIR),$(DESTDIR)/,)
 
 install: all
 endif
-	@echo "Installing to $(INSTALL_PREFIX)$(CATAPULT_INSTALL):"
-	@echo "  Executable..."
-	@mkdir -p $(INSTALL_PREFIX)$(INSTALL_BINARY_DIR)
+	$(SUM) "Installing to $(INSTALL_PREFIX)$(CATAPULT_INSTALL):"
+	$(SUM) "  Executable..."
+	$(CMD)mkdir -p $(INSTALL_PREFIX)$(INSTALL_BINARY_DIR)
 ifeq ($(CATAPULT_PREBUILT),true)
-	@cp -f $(BINARY_FULL) $(INSTALL_PREFIX)$(INSTALL_BINARY_DIR)/$(BINARY_FILE)
+	$(CMD)cp -f $(BINARY_FULL) $(INSTALL_PREFIX)$(INSTALL_BINARY_DIR)/$(BINARY_FILE)
 else
-	@strip -o $(INSTALL_PREFIX)$(INSTALL_BINARY_DIR)/$(BINARY_FILE) $(BINARY_FULL)
+	$(CMD)strip -o $(INSTALL_PREFIX)$(INSTALL_BINARY_DIR)/$(BINARY_FILE) $(BINARY_FULL)
 endif
-	@echo "  Data files..."
-	@mkdir -p $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)
-	@cp -rf $(RESOURCES_PATH) $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)/
-	@echo "  Documentation..."
-	@mkdir -p $(INSTALL_PREFIX)$(INSTALL_DOC_DIR)
-	@cp -f README $(INSTALL_PREFIX)$(INSTALL_DOC_DIR)
-	@cp -f $(addprefix doc/,$(INSTALL_DOCS)) $(INSTALL_PREFIX)$(INSTALL_DOC_DIR)
-	@mkdir -p $(INSTALL_PREFIX)$(INSTALL_DOC_DIR)/manual
-	@cp -f $(addprefix doc/manual/,*.html *.css *.png) \
+	$(SUM) "  Data files..."
+	$(CMD)mkdir -p $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)
+	$(CMD)cp -rf $(RESOURCES_PATH) $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)/
+	$(SUM) "  Documentation..."
+	$(CMD)mkdir -p $(INSTALL_PREFIX)$(INSTALL_DOC_DIR)
+	$(CMD)cp -f README $(INSTALL_PREFIX)$(INSTALL_DOC_DIR)
+	$(CMD)cp -f $(addprefix doc/,$(INSTALL_DOCS)) $(INSTALL_PREFIX)$(INSTALL_DOC_DIR)
+	$(CMD)mkdir -p $(INSTALL_PREFIX)$(INSTALL_DOC_DIR)/manual
+	$(CMD)cp -f $(addprefix doc/manual/,*.html *.css *.png) \
 		$(INSTALL_PREFIX)$(INSTALL_DOC_DIR)/manual
 ifeq ($(CATAPULT_PREBUILT),false)
 ifneq ($(CATAPULT_NO_DESKTOP_HOOKS),true)
-	@echo "  Desktop hooks..."
-	@mkdir -p $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)/resources/icons
-	@cp -rf src/catapult.xpm $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)/resources/icons
-	@if [ -d $(INSTALL_PREFIX)/usr/share/applications -a -w $(INSTALL_PREFIX)/usr/share/applications ]; \
+	$(SUM) "  Desktop hooks..."
+	$(CMD)mkdir -p $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)/resources/icons
+	$(CMD)cp -rf src/catapult.xpm $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)/resources/icons
+	$(CMD)if [ -d $(INSTALL_PREFIX)/usr/share/applications -a -w $(INSTALL_PREFIX)/usr/share/applications ]; \
 		then sed -e "s|%INSTALL_BASE%|$(INSTALL_SHARE_DIR)|" \
 			desktop/openMSX-Catapult.desktop \
 			> $(INSTALL_PREFIX)/usr/share/applications/openMSX-Catapult.desktop; \
@@ -402,8 +421,8 @@ ifneq ($(CATAPULT_NO_DESKTOP_HOOKS),true)
 		fi
 endif
 ifeq ($(SYMLINK_FOR_BINARY),true)
-	@echo "  Creating symlink..."
-	@if [ -d /usr/local/bin -a -w /usr/local/bin ]; \
+	$(SUM) "  Creating symlink..."
+	$(CMD)if [ -d /usr/local/bin -a -w /usr/local/bin ]; \
 		then ln -sf $(INSTALL_BINARY_DIR)/$(BINARY_FILE) \
 			/usr/local/bin/$(BINARY_FILE); \
 		else if [ -d ~/bin ]; \
@@ -412,10 +431,10 @@ ifeq ($(SYMLINK_FOR_BINARY),true)
 			fi; \
 		fi
 endif
-	@echo "  Setting permissions..."
-	@chmod -R a+rX $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)
+	$(SUM) "  Setting permissions..."
+	$(CMD)chmod -R a+rX $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)
 endif # CATAPULT_PREBUILT
-	@echo "Installation complete... have fun!"
+	$(SUM) "Installation complete... have fun!"
 
 TARGET_CATAPULT:=$(wildcard $(BINARY_PATH)/$(BINARY_FILE))
 
@@ -454,13 +473,13 @@ DIST_FULL+=$(addprefix desktop/, \
 	)
 
 dist:
-	@echo "Removing any old distribution files..."
-	@rm -rf $(DIST_PATH)
-	@echo "Gathering files for distribution..."
-	@mkdir -p $(DIST_PATH)
-	@cp -p --parents $(DIST_FULL) $(DIST_PATH)
-	@echo "Creating tarball..."
-	@cd $(DIST_BASE) ; GZIP=--best tar zcf $(PACKAGE_FULL).tar.gz $(PACKAGE_FULL)
+	$(SUM) "Removing any old distribution files..."
+	$(CMD)rm -rf $(DIST_PATH)
+	$(SUM) "Gathering files for distribution..."
+	$(CMD)mkdir -p $(DIST_PATH)
+	$(CMD)cp -p --parents $(DIST_FULL) $(DIST_PATH)
+	$(SUM) "Creating tarball..."
+	$(CMD)cd $(DIST_BASE) ; GZIP=--best tar zcf $(PACKAGE_FULL).tar.gz $(PACKAGE_FULL)
 
 
 # Dependencies
