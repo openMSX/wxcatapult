@@ -83,10 +83,10 @@ void CatapultConfigDlg::OnBrowseExec(wxCommandEvent& event)
 {
 	wxString defaultpath = ::wxPathOnly(m_ExecPath->GetValue());
 
-#ifndef __UNIX__
-	wxString executable;
-#else
+#if defined(_WIN32)
 	wxString executable = wxT(".exe");
+#else
+	wxString executable;
 #endif
 
 	wxFileDialog filedlg(
