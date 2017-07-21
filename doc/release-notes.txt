@@ -1,17 +1,14 @@
-Release Notes for openMSX Catapult 0.13.0 (2016-07-31)
+Release Notes for openMSX Catapult 0.14.0 (2017-07-xx)
 ======================================================
 
-Catapult release to match openMSX 0.13.0.
+Catapult release to match openMSX 0.14.0.
 
 This release we again didn't change much, so here is the full list:
-- Fixed Catapult interrupting a replay directly after loading it
-- Fixed drag-and-drop: put dropped file's path in input box, not in history
-- Fixed memory leak noticable when reversing
-- Fixed performance when reversing
-- Fixed failure of handling files with quotes and with [] in their path
-- Fixed plugging MIDI devices on non-Windows platforms
-- Improved screenshot controls
-- Upgraded Visual Studio files to 2015
+- Added noise control to Video Control Page
+- Improved customization of build for distros
+- Added support for showing build commands
+- Fixed browse extension for openMSX executable
+- Upgraded Visual Studio files to 2017
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
