@@ -192,7 +192,7 @@ There are several options for getting the source code:
 
 <dt><a class="internal" href="#getrelease">Released Version</a></dt>
 <dd>
-These are tested versions, which should give you little problem compiling and running. However, as Catapult development is often quite fast, they may not have all the latest features. Also there could be bugs that have been fixed since the last release. </dd>
+These are tested versions, which should give you little problem compiling and running. However, they may not have all the latest features. Also there could be bugs that have been fixed since the last release. </dd>
 <dt><a class="internal" href="#getgit">Git Clone</a></dt>
 <dd>
 Through Git you can get the same development version the Catapult developers are using. This is the bleeding edge: the latest stuff, which may be great or may be horribly broken. Usually Catapult Git compiles and runs fine, but we're only human, so once in a while it breaks. Also there may be changes that are not documented yet. </dd>
@@ -339,23 +339,15 @@ Although compilation works, the generated executable will be larger than the
 binary released version (which is compiled with Visual C++) and will also need the MinGW runtime DLL.
 </p>
 
-<h4>Visual Studio Express 2012</h4>
-<p>There are two different ways to obtain the Visual C++ compiler:</p>
+<h4>Visual Studio Community 2017</h4>
+<p>Use this way to obtain the Visual C++ compiler:</p>
 <dl>
-	<dt><a class="external" href="http://msdn.microsoft.com/en-us/vstudio/default.aspx">
-        Visual C++ 20</a><a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx"><span 
-            class="style1">12</span></a></dt>
+    <dt><a class="external" href="https://www.visualstudio.com/downloads/">Visual Studio Community 2017</a></dt>
     <dd>
-        This is the professional IDE and development environment that comes with Visual 
-        Studio, as a standalone purchase or via an MSDN subscription.</dd>
-
-    <dt><a class="external" href="http://www.microsoft.com/visualstudio/eng/downloads">Visual Studio Express 2012 
-		for Desktop</a></dt>
-    <dd>
-        This is a free (as in beer) IDE and development environment. It builds 32 and 64-bit 
+        This is a free (as in beer) IDE and development environment. It builds 32 and 64-bit
         binaries out of the box. This is the best option for developers looking to browse
-		the source code or use other benefits of an IDE.</dd>
-    </dl>
+        the source code or use other benefits of an IDE.</dd>
+</dl>
 	<p>To build with Visual C++ from the command line, you need to open a Visual Studio command prompt. A shortcut for this can usually be found in your start menu.</p>
 <p>When building with Visual C++, the result is a static executable with minimal dynamic library dependencies. Two platforms are supported:</p>
 <ul>
@@ -456,28 +448,29 @@ cd build-openmsx-catapult<br/>
 make<br/>
 make install</div>
 
-<h4>Visual Studio 2012</h4>
+<h4>Visual Studio</h4>
 	<p>The following steps build third-party libraries with Visual C++:</p>
 
 		<ul>
 			<li>Open a Visual Studio command prompt.</li>
 			<li>Go to the <em>top of the Catapult source tree</em></li>
 		</ul>
-	<p>for Win32</p>	
+	<p>for 32-bit</p>	
 		<ul>
-			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86</code></li>
-			<li><code>set PlatformToolset=v110</code></li>
-			<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
+			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86</code></li>
+			<li><code>msbuild -p:Configuration=&quot;<strong>Unipre Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
 		</ul>
-	<p>for Win64</p>
+	<p>for 64-bit</p>
 		<ul>		
-			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</code></li>
-			<li><code>set PlatformToolset=v110</code></li>
-			<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\3rdparty\3rdparty.sln</code></li>
+			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64</code></li>
+			<li><code>msbuild -p:Configuration=&quot;<strong>Unipre Release</strong>&quot;;Platform=<strong>x64</strong> build\3rdparty\3rdparty.sln</code></li>
 		</ul>
 
-<p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options, which are explained above.</p>
-<p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual Studio 2012 and compiling the projects inside them using the IDE.</p>
+<p>To build for other platforms or configurations, simply replace &quot;Unipre Release&quot; and &quot;Win32&quot; in the command lines above with the desired options, which are explained above.</p>
+<p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual Studio and compiling the projects inside them using the IDE.</p>
+<p>Note that there seems to be confusion on where the <code>vcvarsall.bat</code> is located... Microsoft documented it in <a href="https://docs.microsoft.com/nl-nl/cpp/build/setting-the-path-and-environment-variables-for-command-line-builds">this help page</a>, but <a href="https://stackoverflow.com/questions/43372235/vcvarsall-bat-for-visual-studio-2017">other people seem to disagree</a>... Please check what is applicable for your case.</p>
+
+
 <h3><a id="compilenow">3.4. Compilation of Catapult Itself</a></h3>
 
 <h4>gcc</h4>
@@ -498,19 +491,12 @@ The following values are supported:
 <dd>No optimization and full debug symbols</dd>
 <dt>devel</dt>
 <dd>Some optimization but still full debug symbols available (this is the recommended flavour for testing)</dd>
-<dt>i686</dt>
-<dd>Fully optimized and no debug symbols (this is the default flavour)</dd>
 <dt>opt</dt>
-<dd>Basically the same as i686, but also for non Intel targets</dd>
-<dt>ppc</dt>
-<dd>Specifically for Power PC processors</dd>
-<dt>win32</dt>
-<dd>Optimised for PIII but runnable with Pentium MMX and higher</dd>
+<dd>Fully optimized and no debug symbols (this is the default flavour)</dd>
 </dl>
 
 <p>
-Depending on how fast your system is,
-this may take several seconds to several minutes.
+Depending on how fast your system is, this may take several seconds to several minutes.
 </p>
 
 <p>
@@ -522,8 +508,8 @@ class="internal" href="#contact">contact the openMSX developers</a>.
 Make sure you provide us with the error message(s) you got.
 </p>
 
-<h4>Visual Studio 2012</h4>
-<p>The following steps build Catapult with Visual Studio 2012:</p>
+<h4>Visual Studio</h4>
+<p>The following steps build Catapult with Visual Studio:</p>
 <ul>
 	<li>Open a Visual Studio command prompt.</li>
 	<li>Go to the <em>top of the Catapult source tree</em></li>
@@ -531,19 +517,18 @@ Make sure you provide us with the error message(s) you got.
 
 <p>for Win32</p>	
 <ul>
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86</code></li>
-	<li><code>set PlatformToolset=v110</code></li>
+	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86</code></li>
 	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\msvc\wxCatapult.sln</code></li>
 </ul>
 <p>for Win64</p>
 <ul>		
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64</code></li>
-	<li><code>set PlatformToolset=v110</code></li>
+	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64</code></li>
 	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\msvc\wxCatapult.sln</code></li>
 </ul>
 
 <p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options. Note: the options should be consistent with the ones you provided for the 3rdparty libraries build, see above!</p>
-<p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual Studio 2012 and compiling the projects inside them using the IDE.</p>
+<p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual Studio and compiling the projects inside them using the IDE.</p>
+<p>Note that there seems to be confusion on where the <code>vcvarsall.bat</code> is located... Microsoft documented it in <a href="https://docs.microsoft.com/nl-nl/cpp/build/setting-the-path-and-environment-variables-for-command-line-builds">this help page</a>, but <a href="https://stackoverflow.com/questions/43372235/vcvarsall-bat-for-visual-studio-2017">other people seem to disagree</a>... Please check what is applicable for your case.</p>
 
 <h2><a id="install">4. Installation</a></h2>
 
@@ -604,8 +589,7 @@ contact us. The next chapter will tell you how.
 <h2><a id="contact">6. Contact Info</a></h2>
 
 <p>
-Since Catapult is still under heavy development, feedback and bug reports are very
-welcome!
+Feedback and bug reports are always very welcome!
 </p>
 
 <p>
