@@ -3,6 +3,16 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 0.14.0 (2017-07-30)
+------------------------------------
+
+This release we again didn't change much, so here is the full list:
+- Added noise control to Video Control Page
+- Improved customization of build for distros
+- Added support for showing build commands
+- Fixed browse extension for openMSX executable
+- Upgraded Visual Studio files to 2017
+
 openMSX Catapult 0.13.0 (2016-07-31)
 ------------------------------------
 
