@@ -1,6 +1,0 @@
-openMSX catapult package for Debian
-
-Please note that this package uses a slightly different directory layout then
-the default Catapult installation. If you used to have a source install,
-remove the file ".Catapult" in your homedirectory before you run catapult
-the first time after installing.

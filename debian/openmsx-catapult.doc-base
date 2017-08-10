@@ -1,9 +1,0 @@
-Document: openmsx-catapult
-Title: openMSX Catapult Manual
-Author: <openmsx-devel@lists.sourceforge.net>
-Abstract: A detailed description of configuring and using openMSX Catapult
-Section: Apps/Emulators
-
-Format: HTML
-Index: /usr/share/doc/openmsx-catapult/manual/index.html
-Files: /usr/share/doc/openmsx-catapult/manual/*.html
