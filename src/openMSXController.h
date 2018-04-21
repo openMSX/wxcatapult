@@ -37,6 +37,7 @@ public:
 	void RestoreOpenMSX();
 
 	void UpdateMixer();
+	bool IsRelaunching() const { return m_isRelaunching; }
 	wxString GetConnectorClass(const wxString& name) const;
 	wxString GetConnectorPlugged(const wxString& name) const;
 	const wxArrayString& GetConnectors() const { return m_connectors; }
@@ -123,6 +124,7 @@ private:
 	wxCatapultFrame* m_appWindow;
 	bool m_openMsxRunning;
 	std::unique_ptr<CatapultXMLParser> m_parser;
+	bool m_isRelaunching;
 
 	// windows or linux specific stuff
 #ifdef __WXMSW__

@@ -426,13 +426,21 @@ void MiscControlPage::InitJoystickOrPrinterPort(wxString connector, wxString con
 			box->Append(pluggables[i]);
 		}
 	}
-	if (box->FindString(currentval) == wxNOT_FOUND) {
-		currentval = box->GetString(0);
-	}
-	box->SetValue(currentval);
-	wxString cmd = wxT("plug");
-	if (currentval != wxT("--empty--")) {
-		m_controller.WriteCommand(cmd + wxT(" ") + connector + wxT(" ") + currentval);
+	if (m_controller.IsRelaunching()) {
+		// if relaunching, then just update the values
+		wxString currentlyPlugged = m_controller.GetConnectorPlugged(connector);
+		box->SetValue(currentlyPlugged.IsEmpty() ? "--empty--" : currentlyPlugged);
+	} else {
+		// Initializing (initial launch)
+		if (box->FindString(currentval) == wxNOT_FOUND) {
+			currentval = box->GetString(0);
+		}
+		box->SetValue(currentval);
+		if (currentval != wxT("--empty--")) {
+			m_controller.WriteCommand(wxT("plug ") + connector + wxT(" ") + currentval);
+		} else {
+			m_controller.WriteCommand(wxT("unplug ") + connector);
+		}
 	}
 }
 

@@ -44,6 +44,7 @@ openMSXController::openMSXController(wxWindow* target)
 	m_openMSXID = 0;
 	m_appWindow = (wxCatapultFrame*)target;
 	m_openMsxRunning = false;
+	m_isRelaunching = false;
 	InitLaunchScript();
 }
 
@@ -651,6 +652,7 @@ void openMSXController::AddSetting(
 
 void openMSXController::ExecuteStart(int startLine)
 {
+	m_isRelaunching = (startLine > 0);
 	sendStep = startLine;
 	ExecuteNext();
 }
