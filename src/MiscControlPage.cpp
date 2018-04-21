@@ -486,23 +486,23 @@ void MiscControlPage::OnJoystickChanged()
 		cmd = wxT("plug ");
 	}
 
-	bool flag1=false;
-	if (box->GetValue() != wxT("--empty--")){
-		assert(box2!=0);
-		if(!box2)throw "box2 must not be null, but it is null.";
+	bool sameDevicePluggedInTwoPorts = false;
+	if (box->GetValue() != wxT("--empty--")) {
+		assert(box2 != 0);
+		if (!box2) throw "box2 must not be null, but it is null.";
 
-		if(box->GetValue() == box2->GetValue()){
-			flag1=true;
-			assert(oldValue1!=0);
-			if(!oldValue1)throw "oldValue1 must not be null, but it is null.";
+		if (box->GetValue() == box2->GetValue()) {
+			sameDevicePluggedInTwoPorts = true;
+			assert(oldValue1 != 0);
+			if (!oldValue1) throw "oldValue1 must not be null, but it is null.";
 			MessageActive = true;
 			int result = wxMessageBox(wxT("Unable to plug a device in more than one port!\n\nDo you still want to plug it into this port?\nThis device will then be removed from any other port(s)."),
 				wxT("Warning"),
 				wxOK | wxCANCEL);
 			MessageActive = false;
 			if (result == wxOK) {
-				assert(oldValue2!=0);
-				if(!oldValue2)throw "oldValue2 must not be null, but it is null.";
+				assert(oldValue2 != 0);
+				if (!oldValue2) throw "oldValue2 must not be null, but it is null.";
 
 				box2->SetSelection(0);
 				*oldValue2 = wxT("--empty--");
@@ -515,7 +515,7 @@ void MiscControlPage::OnJoystickChanged()
 			}
 		}
 	}
-	if(!flag1){
+	if (!sameDevicePluggedInTwoPorts) {
 		// no collision
 		m_controller.WriteCommand(cmd + connector + value);
 		assert(oldValue1!=0);
@@ -527,7 +527,6 @@ void MiscControlPage::OnJoystickChanged()
 	ConfigurationData::instance().SetParameter(ConfigurationData::CD_JOYPORT1, joy1->GetValue());
 	ConfigurationData::instance().SetParameter(ConfigurationData::CD_JOYPORT2, joy2->GetValue());
 	ConfigurationData::instance().SaveData();
-
 }
 
 void MiscControlPage::OnChangeRenShaTurbo(wxScrollEvent& event)
