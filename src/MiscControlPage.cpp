@@ -273,9 +273,9 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_powerButton->Enable(true);
 	m_resetButton->Enable(true);
 	m_pauseButton->Enable(true);
-	m_printerportSelector->Enable(true);
 	m_pauseButton->SetValue(false);
 	m_firmwareButton->SetValue(false);
+	m_printerportSelector->Enable(true);
 	m_printerLogFile->Enable(true);
 	m_browsePrinterLog->Enable(true);
 	m_printerportFileLabel->Enable(true);
@@ -393,6 +393,10 @@ void MiscControlPage::OnInputMaxFrameskip(wxCommandEvent& event)
 
 void MiscControlPage::InitConnectorPanel()
 {
+	// first disable them all, for cases where we don't have that whole connector present
+	FindWindowByName(wxT("PrinterportSelector"))->Enable(false);
+	FindWindowByName(wxT("Joyport1Selector"))->Enable(false);
+	FindWindowByName(wxT("Joyport2Selector"))->Enable(false);
 	for (auto& connector : m_controller.GetConnectors()) {
 		wxString currentClass = m_controller.GetConnectorClass(connector);
 		if (connector == wxT("joyporta")) {
@@ -411,6 +415,7 @@ void MiscControlPage::InitJoystickOrPrinterPort(wxString connector, wxString con
 	if (classes.IsEmpty()) return;
 
 	auto* box = (wxComboBox*)FindWindowByName(control);
+	box->Enable(true);
 	wxString currentval = box->GetValue();
 	box->Clear();
 	box->Append(wxT("--empty--"));
