@@ -659,13 +659,13 @@ void openMSXController::ExecuteNext()
 {
 	WriteCommand(m_launchScript[sendStep].command,
 		[&](const wxString& c, const wxString& r) {
-			HandleLauch(c, r, true); },
+			HandleLaunch(c, r, true); },
 		[&](const wxString& c, const wxString& r) {
-			HandleLauch(c, r, false); });
+			HandleLaunch(c, r, false); });
 	m_launchCallback.push_back(m_launchScript[sendStep].callback);
 }
 
-void openMSXController::HandleLauch(const wxString& command, const wxString& result, bool ok)
+void openMSXController::HandleLaunch(const wxString& command, const wxString& result, bool ok)
 {
 	// Handle received command
 	assert(!m_launchCallback.empty());

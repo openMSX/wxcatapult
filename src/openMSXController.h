@@ -74,7 +74,7 @@ private:
 	void HandleStdErr(wxCommandEvent& event);
 	void HandleStdOut(wxCommandEvent& event);
 	void ExecuteStart(int startLine = 0);
-	void HandleLauch(const wxString& command, const wxString& result, bool ok);
+	void HandleLaunch(const wxString& command, const wxString& result, bool ok);
 	void ExecuteNext();
 	void UpdateSetting2   (const wxString& name,    const wxString& result);
 	void UpdateSetting    (const wxString& cmd,     const wxString& result);
