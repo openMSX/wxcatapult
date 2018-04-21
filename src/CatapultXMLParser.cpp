@@ -176,8 +176,6 @@ void CatapultXMLParser::parseUpdate(const char** attrs)
 				parseResult.updateType = UPDATE_SETTING;
 			} else if (strcmp(attrs[1], "plug") == 0) {
 				parseResult.updateType = UPDATE_PLUG;
-			} else if (strcmp(attrs[1], "unplug") == 0) {
-				parseResult.updateType = UPDATE_UNPLUG;
 			} else if (strcmp(attrs[1], "media") == 0) {
 				parseResult.updateType = UPDATE_MEDIA;
 			} else if (strcmp(attrs[1], "status") == 0) {

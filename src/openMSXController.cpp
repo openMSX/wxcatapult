@@ -158,12 +158,6 @@ void openMSXController::HandleParsedOutput(wxCommandEvent& event)
 				UpdateSetting2(data->name, data->contents);
 				ExecuteStart(m_relaunch); // reinit stuff now
 			}
-		} else if (data->updateType == CatapultXMLParser::UPDATE_UNPLUG) {
-			if ((lastCmd[0] != wxT("unplug")) ||
-			    (lastCmd[1] != data->name)) {
-				UpdateSetting2(data->name, data->contents);
-				ExecuteStart(m_relaunch); // reinit stuff now
-			}
 		} else if (data->updateType == CatapultXMLParser::UPDATE_HARDWARE) {
 			ExecuteStart(m_relaunch); // reinit stuff now
 		} else if (data->updateType == CatapultXMLParser::UPDATE_EXTENSION) {
@@ -485,7 +479,6 @@ void openMSXController::InitLaunchScript()
 			m_appWindow->m_sessionPage->SetCassetteMode(info.Last());
 		});
 	AddCommand(wxT("openmsx_update enable plug"));
-	AddCommand(wxT("openmsx_update enable unplug"));
 	AddCommand(wxT("openmsx_update enable connector"));
 	AddCommand(wxT("openmsx_update enable hardware"));
 	AddCommand(wxT("openmsx_update enable extension"));
