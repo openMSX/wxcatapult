@@ -429,7 +429,7 @@ void MiscControlPage::InitJoystickOrPrinterPort(wxString connector, wxString con
 	if (m_controller.IsRelaunching()) {
 		// if relaunching, then just update the values
 		wxString currentlyPlugged = m_controller.GetConnectorPlugged(connector);
-		box->SetValue(currentlyPlugged.IsEmpty() ? "--empty--" : currentlyPlugged);
+		box->SetValue(currentlyPlugged.IsEmpty() ? wxT("--empty--") : currentlyPlugged);
 	} else {
 		// Initializing (initial launch)
 		if (box->FindString(currentval) == wxNOT_FOUND) {
