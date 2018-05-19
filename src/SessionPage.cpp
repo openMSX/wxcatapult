@@ -355,7 +355,7 @@ void SessionPage::OnBrowseCassette(wxCommandEvent& event)
 void SessionPage::OnBrowseHardDisk(wxCommandEvent& event)
 {
 	BrowseMedia(*media[HDD],
-		wxT("All known hard disk files|*.dsk;*.DSK;*.zip;*.ZIP;*.gz;*.GZ;|Uncompressed disk files|*.dsk;*.DSK;|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||"),
+		wxT("All known hard disk files|*.dsk;*.DSK;*.zip;*.ZIP;*.gz;*.GZ;*.hdd;*.HDD;|Uncompressed disk files|*.dsk;*.DSK;*.hdd;*.HDD;|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||"),
 		wxT("Select hard disk image"));
 }
 void SessionPage::BrowseMedia(MediaInfo& m, const wxString& path, const wxString title)
