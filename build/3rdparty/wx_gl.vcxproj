@@ -133,6 +133,7 @@
   <PropertyGroup Label="Globals">
     <ProjectName>gl</ProjectName>
     <ProjectGuid>{B8C9761E-C870-4499-BE4D-70C55701324D}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Universal Release|Win32'" Label="Configuration">

@@ -134,6 +134,7 @@
     <ProjectName>adv</ProjectName>
     <ProjectGuid>{6B630968-F9BA-4DFC-A7E4-5A3FCF271D58}</ProjectGuid>
     <RootNamespace>adv</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Universal Unicode Release|Win32'" Label="Configuration">

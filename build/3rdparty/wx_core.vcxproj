@@ -133,6 +133,7 @@
   <PropertyGroup Label="Globals">
     <ProjectName>core</ProjectName>
     <ProjectGuid>{EF18889F-A6F2-467B-B375-CA78D1CC4B11}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Universal Unicode Debug|Win32'" Label="Configuration">

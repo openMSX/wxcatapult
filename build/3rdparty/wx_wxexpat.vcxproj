@@ -133,6 +133,7 @@
   <PropertyGroup Label="Globals">
     <ProjectName>wxexpat</ProjectName>
     <ProjectGuid>{127DA921-5E93-48FA-97F4-668F8E23FCB8}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

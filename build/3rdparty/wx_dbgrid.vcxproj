@@ -134,6 +134,7 @@
     <ProjectName>dbgrid</ProjectName>
     <ProjectGuid>{56F32290-4F21-4F81-BE0B-1D558B668EC0}</ProjectGuid>
     <RootNamespace>dbgrid</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Universal Debug|Win32'" Label="Configuration">
