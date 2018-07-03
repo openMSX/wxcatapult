@@ -46,7 +46,6 @@ private:
 		wxString m_cmd;
 		wxArrayString* m_machines;
 		wxArrayString* m_extensions;
-		wxString m_workingmachine;
 	};
 	friend class CheckConfigsThread;
 

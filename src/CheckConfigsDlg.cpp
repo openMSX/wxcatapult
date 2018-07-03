@@ -132,25 +132,24 @@ CheckConfigsDlg::CheckConfigsThread::CheckConfigsThread(CheckConfigsDlg* target)
 wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 {
 	m_running = true;
-	m_workingmachine.Clear();
+	std::vector<wxString> workingMachines;
 	int numberOfMachines = m_machines->Count();
 	int numberOfExtensions = m_extensions->Count();
 	int config = 0;
-	int machine = 0;
-	while ((machine < (int)m_machines->Count()) && m_running) {
+	size_t machineIndex = 0;
+	while ((machineIndex < m_machines->Count()) && m_running) {
+		wxString machine(m_machines->Item(machineIndex));
 		wxString fullCommand;
 		fullCommand << m_cmd << wxT(" -testconfig -machine \"")
-		            << m_machines->Item(machine) << wxT("\"");
-		SetCurrentObject(m_machines->Item(machine));
+		            << machine << wxT("\"");
+		SetCurrentObject(machine);
 		int progress = (50 * (config + 1)) / numberOfMachines;
 		bool success = doCheckConfigs(fullCommand);
 		if (success) {
-			if (m_workingmachine.IsEmpty()) {
-				m_workingmachine = m_machines->Item(machine);
-			}
-			++machine;
+			workingMachines.push_back(machine);
+			++machineIndex;
 		} else {
-			m_machines->RemoveAt(machine);
+			m_machines->RemoveAt(machineIndex);
 		}
 		++config;
 		if (m_running) {
@@ -158,30 +157,39 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 		}
 
 	}
-	int extIndex = 0;
 	config = 0;
-	while ((extIndex < (int)m_extensions->Count()) && m_running) {
-		wxString fullCommand;
-		wxString extension = m_extensions->Item(extIndex);
-		fullCommand << m_cmd << wxT(" -testconfig -machine \"")
-		            << m_workingmachine << wxT("\" -ext \"")
-		            << extension << wxT("\"");
-		SetCurrentObject(extension);
-		int progress = ((50 * (config + 1)) / numberOfExtensions) + 50;
-		bool success;
-		if (std::find(extensionsWithoutROMs.begin(), extensionsWithoutROMs.end(), std::string(extension.mb_str())) == extensionsWithoutROMs.end()) {
-			success = doCheckConfigs(fullCommand);
-		} else {
-			success = true;
+	if (!workingMachines.empty()) {
+		wxString workingMachine(workingMachines[0]);
+		// check if this machine is working. If so, prefer that.
+		const wxString preferredMachine("C-BIOS_MSX2+");
+		if (std::find(workingMachines.begin(), workingMachines.end(), preferredMachine) != workingMachines.end()) {
+			workingMachine = preferredMachine;
 		}
-		if (!success) {
-			m_extensions->RemoveAt(extIndex);
-		} else {
-			++extIndex;
-		}
-		++config;
-		if (m_running) {
-			UpdateStats(false, success, progress);
+		// note that all of this won't work for non-MSX extensions...
+		size_t extIndex = 0;
+		while ((extIndex < m_extensions->Count()) && m_running) {
+			wxString fullCommand;
+			wxString extension = m_extensions->Item(extIndex);
+			fullCommand << m_cmd << wxT(" -testconfig -machine \"")
+				    << workingMachine << wxT("\" -ext \"")
+				    << extension << wxT("\"");
+			SetCurrentObject(extension);
+			int progress = ((50 * (config + 1)) / numberOfExtensions) + 50;
+			bool success;
+			if (std::find(extensionsWithoutROMs.begin(), extensionsWithoutROMs.end(), std::string(extension.mb_str())) == extensionsWithoutROMs.end()) {
+				success = doCheckConfigs(fullCommand);
+			} else {
+				success = true;
+			}
+			if (!success) {
+				m_extensions->RemoveAt(extIndex);
+			} else {
+				++extIndex;
+			}
+			++config;
+			if (m_running) {
+				UpdateStats(false, success, progress);
+			}
 		}
 	}
 	if (m_running) {
