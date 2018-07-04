@@ -161,7 +161,7 @@ wxThread::ExitCode CheckConfigsDlg::CheckConfigsThread::Entry()
 	if (!workingMachines.empty()) {
 		wxString workingMachine(workingMachines[0]);
 		// check if this machine is working. If so, prefer that.
-		const wxString preferredMachine("C-BIOS_MSX2+");
+		const wxString preferredMachine(wxT("C-BIOS_MSX2+"));
 		if (std::find(workingMachines.begin(), workingMachines.end(), preferredMachine) != workingMachines.end()) {
 			workingMachine = preferredMachine;
 		}
