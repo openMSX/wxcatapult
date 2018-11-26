@@ -1,14 +1,13 @@
-Release Notes for openMSX Catapult 0.14.0 (2017-08-03)
+Release Notes for openMSX Catapult 0.15.0 (2018-12-xx)
 ======================================================
 
-Catapult release to match openMSX 0.14.0.
+Catapult release to match openMSX 0.15.0.
 
 This release we again didn't change much, so here is the full list:
-- Added noise control to Video Control Page
-- Improved customization of build for distros
-- Added support for showing build commands
-- Fixed browse extension for openMSX executable
-- Upgraded Visual Studio files to 2017
+- Disable controls for joystick/printer port if the machine doesn't have them
+- Fix Catapult trashing the replay at time 0 (when reversing back to time 0)
+- Added .hdd extension when browsing for harddisk images
+- The test hardware for extensions is now done with C-BIOS_MSX2+ (if available)
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
