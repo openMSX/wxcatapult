@@ -487,6 +487,7 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT(""), // finish launch
 		[&](const wxString&, const wxString&) {
 			m_appWindow->OpenMSXStarted();
+			m_isRelaunching = false;
 		});
 
 	AddSetting(wxT("renderer"),
@@ -652,6 +653,10 @@ void openMSXController::AddSetting(
 
 void openMSXController::ExecuteStart(int startLine)
 {
+	if (m_isRelaunching && (startLine > 0)) {
+		// Canceling relaunch, already relaunching
+		return;
+	}
 	m_isRelaunching = (startLine > 0);
 	sendStep = startLine;
 	ExecuteNext();
