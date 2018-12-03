@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult 0.15.0 (2018-12-xx)
+Release Notes for openMSX Catapult 0.15.0 (2018-12-05)
 ======================================================
 
 Catapult release to match openMSX 0.15.0.
@@ -7,7 +7,7 @@ This release we again didn't change much, so here is the full list:
 - Disable controls for joystick/printer port if the machine doesn't have them
 - Fix Catapult trashing the replay at time 0 (when reversing back to time 0)
 - Added .hdd extension when browsing for harddisk images
-- The test hardware for extensions is now done with C-BIOS_MSX2+ (if available)
+- The test machine for extensions is now C-BIOS_MSX2+ (if available)
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
