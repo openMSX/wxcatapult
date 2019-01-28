@@ -940,17 +940,15 @@ bool openMSXController::Launch(wxString cmdline)
 	CreatePipes(&hInputRead, &hOutputWrite, &hErrorWrite, &hOutputRead, &hErrorRead);
 
 	DWORD dwProcessFlags = CREATE_NO_WINDOW | CREATE_DEFAULT_ERROR_MODE | CREATE_SUSPENDED;
-	WORD wStartupWnd = SW_HIDE;
 
 	STARTUPINFO si;
-	DWORD dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+	DWORD dwFlags = STARTF_USESTDHANDLES;
 	ZeroMemory(&si, sizeof(si));
 	si.cb = sizeof(si);
 	si.dwFlags = dwFlags;
 	si.hStdInput = hInputRead;
 	si.hStdOutput = hOutputWrite;
 	si.hStdError  = hErrorWrite;
-	si.wShowWindow = wStartupWnd;
 
 	// Note: m_pipeName is set by CreateControlParameter().
 	m_namedPipeHandle = CreateNamedPipe(m_pipeName, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE, 1, 10000, 0, 100, nullptr);
