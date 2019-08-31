@@ -26,5 +26,5 @@ if __name__ == '__main__':
 		rewriteIfChanged(sys.argv[1], iterResourceHeader())
 	else:
 		print >> sys.stderr, \
-			'Usage: python win-resource.py RESOURCE_HEADER'
+			'Usage: python3 win-resource.py RESOURCE_HEADER'
 		sys.exit(2)
