@@ -169,7 +169,7 @@ BINARY_PATH:=$(BUILD_PATH)/bin
 BINARY_FILE:=catapult$(EXEEXT)
 BINARY_FULL=$(BINARY_PATH)/$(BINARY_FILE) # allow override
 REVISION:=$(shell PYTHONPATH=build $(PYTHON) -c \
-     "import version; print version.extractRevisionString()" \
+     "import version; print(version.extractRevisionString())" \
      )
 
 LOG_PATH:=$(BUILD_PATH)/log
