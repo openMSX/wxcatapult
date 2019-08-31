@@ -997,7 +997,7 @@ set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
 rem echo PYTHONPATH=%PYTHONPATH%
 
 pushd %ROOT_DIR%
-python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+python3 "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
 popd</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">resource-info.h;Version.ii;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating config headers...</Message>
@@ -1017,7 +1017,7 @@ set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
 rem echo PYTHONPATH=%PYTHONPATH%
 
 pushd %ROOT_DIR%
-python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+python3 "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
 popd</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">resource-info.h;Version.ii;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating config headers...</Message>
@@ -1037,7 +1037,7 @@ set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
 rem echo PYTHONPATH=%PYTHONPATH%
 
 pushd %ROOT_DIR%
-python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+python3 "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
 popd</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">resource-info.h;Version.ii;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating config headers...</Message>
@@ -1057,7 +1057,7 @@ set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
 rem echo PYTHONPATH=%PYTHONPATH%
 
 pushd %ROOT_DIR%
-python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+python3 "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
 popd</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">resource-info.h;Version.ii;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Generating config headers...</Message>
@@ -1077,7 +1077,7 @@ set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
 rem echo PYTHONPATH=%PYTHONPATH%
 
 pushd %ROOT_DIR%
-python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+python3 "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
 popd</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">resource-info.h;Version.ii;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Generating config headers...</Message>
@@ -1097,7 +1097,7 @@ set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
 rem echo PYTHONPATH=%PYTHONPATH%
 
 pushd %ROOT_DIR%
-python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+python3 "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
 popd</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">resource-info.h;Version.ii;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Generating config headers...</Message>
@@ -1117,7 +1117,7 @@ set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
 rem echo PYTHONPATH=%PYTHONPATH%
 
 pushd %ROOT_DIR%
-python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+python3 "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
 popd</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">resource-info.h;Version.ii;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Generating config headers...</Message>
@@ -1137,7 +1137,7 @@ set PYTHONPATH=%PYTHONPATH%;%BUILD_DIR%
 rem echo PYTHONPATH=%PYTHONPATH%
 
 pushd %ROOT_DIR%
-python "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
+python3 "%MSVC_DIR%\genconfig.py" $(Platform) "$(Configuration)" "%CONFIG_DIR%"
 popd</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">resource-info.h;Version.ii;%(Outputs)</Outputs>
     </CustomBuild>

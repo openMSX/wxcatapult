@@ -36,5 +36,5 @@ def genConfig(platform, configuration, outputPath):
 if len(sys.argv) == 4:
 	genConfig(sys.argv[1], sys.argv[2], sys.argv[3])
 else:
-	print >> sys.stderr, 'Usage: python genconfig.py platform configuration outputPath'
+	print('Usage: python3 genconfig.py platform configuration outputPath', file=sys.stderr)
 	sys.exit(2)

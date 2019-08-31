@@ -19,9 +19,9 @@ def _determineMounts():
 	stdoutdata, stderrdata = proc.communicate()
 	if stderrdata or proc.returncode:
 		if stderrdata:
-			print >> sys.stderr, 'Error determining MSYS root:', stderrdata
+			print('Error determining MSYS root:', stderrdata, file=sys.stderr)
 		if proc.returncode:
-			print >> sys.stderr, 'Exit code %d' % proc.returncode
+			print('Exit code %d' % proc.returncode, file=sys.stderr)
 		raise IOError('Error determining MSYS root')
 	msysRoot = stdoutdata.strip()
 
@@ -41,10 +41,10 @@ def _determineMounts():
 						mounts[mountPoint] = nativePath
 			finally:
 				inp.close()
-		except IOError, ex:
-			print >> sys.stderr, 'Failed to read MSYS fstab:', ex
-		except ValueError, ex:
-			print >> sys.stderr, 'Failed to parse MSYS fstab:', ex
+		except IOError as ex:
+			print('Failed to read MSYS fstab:', ex, file=sys.stderr)
+		except ValueError as ex:
+			print('Failed to parse MSYS fstab:', ex, file=sys.stderr)
 	return mounts
 
 def msysPathToNative(path):
@@ -53,7 +53,7 @@ def msysPathToNative(path):
 			# Support drive letters as top-level dirs.
 			return '%s:/%s' % (path[1], path[3 : ])
 		longestMatch = ''
-		for mountPoint in msysMounts.iterkeys():
+		for mountPoint in msysMounts.keys():
 			if path.startswith(mountPoint):
 				if len(mountPoint) > len(longestMatch):
 					longestMatch = mountPoint
@@ -73,4 +73,4 @@ else:
 	msysMounts = None
 
 if __name__ == '__main__':
-	print 'MSYS mounts:', msysMounts
+	print('MSYS mounts:', msysMounts)

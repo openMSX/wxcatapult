@@ -25,12 +25,7 @@ endif
 # Python Interpreter
 # ==================
 
-# We need Python from the 2.x series, version 2.5 or higher.
-# Usually this executable is available as just "python", but on some systems
-# you might have to be more specific, for example "python2" or "python2.6".
-# Or if the Python interpreter is not in the search path, you can specify its
-# full path.
-PYTHON?=python
+PYTHON?=python3
 
 # Functions
 # =========
@@ -174,7 +169,7 @@ BINARY_PATH:=$(BUILD_PATH)/bin
 BINARY_FILE:=catapult$(EXEEXT)
 BINARY_FULL=$(BINARY_PATH)/$(BINARY_FILE) # allow override
 REVISION:=$(shell PYTHONPATH=build $(PYTHON) -c \
-     "import version; print version.extractRevisionString()" \
+     "import version; print(version.extractRevisionString())" \
      )
 
 LOG_PATH:=$(BUILD_PATH)/log
