@@ -71,10 +71,10 @@ MiscControlPage::MiscControlPage(wxWindow* parent, openMSXController& controller
 	m_defaultMaxFrameSkipButton = (wxButton*)FindWindowByName(wxT("DefaultMaxFrameSkipButton"));
 	m_defaultMinFrameSkipButton = (wxButton*)FindWindowByName(wxT("DefaultMinFrameSkipButton"));
 
-	m_speedSlider->SetTickFreq(25, 1);
-	m_maxFrameSkipSlider->SetTickFreq(5, 1);
-	m_minFrameSkipSlider->SetTickFreq(5, 1);
-	m_renshaTurboSlider->SetTickFreq(5, 1);
+	m_speedSlider->SetTickFreq(25);
+	m_maxFrameSkipSlider->SetTickFreq(5);
+	m_minFrameSkipSlider->SetTickFreq(5);
+	m_renshaTurboSlider->SetTickFreq(5);
 
 	m_printerportFileLabel = (wxStaticText*)FindWindowByName(wxT("PrinterLogFileLabel"));
 	m_printerportLabel     = (wxStaticText*)FindWindowByName(wxT("PrinterLabel"));
