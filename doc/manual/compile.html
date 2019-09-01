@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN"
-"http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<link title="Purple" rel="stylesheet" href="manual-purple.css" type="text/css" />
-<link title="Minty" rel="alternate stylesheet" href="manual-minty.css" type="text/css" />
-<link title="Plain" rel="alternate stylesheet" href="manual.css" type="text/css" />
-<title>openMSX Catapult Compilation Guide</title>
+	<meta charset="utf-8">
+	<link title="Purple" rel="stylesheet" href="manual-purple.css" type="text/css">
+	<link title="Minty" rel="alternate stylesheet" href="manual-minty.css" type="text/css">
+	<link title="Plain" rel="alternate stylesheet" href="manual.css" type="text/css">
+	<title>openMSX Catapult Compilation Guide</title>
 </head>
 
 <body>
@@ -415,10 +413,10 @@ For Windows the wxWidgets package is called wxMSW. Version <a href="http://sourc
 <p>For Windows, version <a href="http://www.xmlsoft.org/sources/libxml2-2.8.0.tar.gz">2.8.0</a> of libxml2 is recommended.</p>
 <p>Unpack the source packages into the derived\3rdparty\src directory. This will generate two subdirectories called libxml2-2.8.0 and wxMSW-2.8.12.</p>
 <p>In <code>wxMSW-2.8.12\lib\vc_lib\mswu\wx\setup.h</code> change <code>#define wxUSE_PRINTING_ARCHITECTURE  1</code> to <code>#define wxUSE_PRINTING_ARCHITECTURE  0</code> before attempting to compile</p>
-<p>In <code>wxMSW-2.8.12\src\msw\windows.cpp</code> From line 109-110 remove:<br/><code>#if !defined __WXWINCE__ &amp;&amp; !defined NEED_PBT_H<br/>&nbsp;&nbsp;&nbsp;&nbsp;include &lt;pbt.h&gt;<br/>#endif</code></p>
-<p>In <code>wxMSW-2.8.12\src\msw\fontenum.cpp</code> on line 101 and 270 replace:<br/><code>#ifndef __WXMICROWIN__<br/>int CALLBACK wxFontEnumeratorProc(LPLOGFONT lplf, LPTEXTMETRIC lptm,<br/>DWORD dwStyle, LONG lParam);<br/>#endif</code>
-<br/>With<br/>
-<code>#ifndef __WXMICROWIN__<br/>int CALLBACK wxFontEnumeratorProc(LPLOGFONT lplf, LPTEXTMETRIC lptm,<br/>DWORD dwStyle, LPARAM lParam);<br/>#endif</code>
+<p>In <code>wxMSW-2.8.12\src\msw\windows.cpp</code> From line 109-110 remove:<br><code>#if !defined __WXWINCE__ &amp;&amp; !defined NEED_PBT_H<br>&nbsp;&nbsp;&nbsp;&nbsp;include &lt;pbt.h&gt;<br>#endif</code></p>
+<p>In <code>wxMSW-2.8.12\src\msw\fontenum.cpp</code> on line 101 and 270 replace:<br><code>#ifndef __WXMICROWIN__<br>int CALLBACK wxFontEnumeratorProc(LPLOGFONT lplf, LPTEXTMETRIC lptm,<br>DWORD dwStyle, LONG lParam);<br>#endif</code>
+<br>With<br>
+<code>#ifndef __WXMICROWIN__<br>int CALLBACK wxFontEnumeratorProc(LPLOGFONT lplf, LPTEXTMETRIC lptm,<br>DWORD dwStyle, LPARAM lParam);<br>#endif</code>
 </p>
 
 
@@ -442,10 +440,10 @@ any pointers here about this library as its documentation says exaclty how to co
 We do give the proper <code>configure</code> command line here (although some options might be already default):
 </p>
 
-<div class="commandline">mkdir build-openmsx-catapult<br/>
-cd build-openmsx-catapult<br/>
-../configure --disable-shared --disable-unicode --enable-xrc --enable-controls --with-msw<br/>
-make<br/>
+<div class="commandline">mkdir build-openmsx-catapult<br>
+cd build-openmsx-catapult<br>
+../configure --disable-shared --disable-unicode --enable-xrc --enable-controls --with-msw<br>
+make<br>
 make install</div>
 
 <h4>Visual Studio</h4>
