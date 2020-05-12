@@ -334,14 +334,14 @@ void SessionPage::OnBrowseCartB(wxCommandEvent& event)
 void SessionPage::BrowseDisk(MediaInfo& m)
 {
 	BrowseMedia(m,
-		wxT("All known disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.dmk;*.DMK;*.zip;*.ZIP;*.gz;*.GZ;*.di1;*.DI1;*.di2;*.DI2|Uncompressed disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.di1;*.DI1;*.di2;*.DI2|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||"),
+		wxT("All known disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.dmk;*.DMK;*.zip;*.ZIP;*.gz;*.GZ;*.di1;*.DI1;*.di2;*.DI2;*.fd1;*.FD1;*.fd2;*.FD2|Uncompressed disk files|*.dsk;*.DSK;*.xsa;*.XSA;*.di1;*.DI1;*.di2;*.DI2;*.fd1;*.FD1;*.fd2;*.FD2|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||"),
 		wxT("Select disk image"));
 }
 
 void SessionPage::BrowseCart(MediaInfo& m)
 {
 	BrowseMedia(m,
-		wxT("All known cartridge files|*.rom;*.ROM;*.ri;*.RI;*.zip;*.ZIP;*.gz;*.GZ|Uncompressed cartridge files|*.rom;*.ROM;*.ri;*.RI|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||"),
+		wxT("All known cartridge files|*.rom;*.ROM;*.ri;*.RI;*.mx1;*.MX1;*.mx2;*.MX2;*.zip;*.ZIP;*.gz;*.GZ|Uncompressed cartridge files|*.rom;*.ROM;*.ri;*.RI;*.mx1;*.MX1;*.mx2;*.MX2|Compressed files (*.zip;*.gz)|*.gz;*.GZ;*.zip;*.ZIP|All files|*.*||"),
 		wxT("Select ROM image"));
 }
 
