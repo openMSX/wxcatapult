@@ -1,13 +1,13 @@
-Release Notes for openMSX Catapult 0.15.0 (2018-12-05)
-======================================================
+Release Notes for openMSX Catapult for openMSX 16.0 (2020-xx-xx)
+================================================================
 
-Catapult release to match openMSX 0.15.0.
+Catapult release to match openMSX 16.0.
 
 This release we again didn't change much, so here is the full list:
-- Disable controls for joystick/printer port if the machine doesn't have them
-- Fix Catapult trashing the replay at time 0 (when reversing back to time 0)
-- Added .hdd extension when browsing for harddisk images
-- The test machine for extensions is now C-BIOS_MSX2+ (if available)
+- Fix hidden openMSX window when launching from Catapult
+- Migrated build to Python 3
+- Migrate to wxWidgets 3
+- Make supported extensions consistent with openMSX command line
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
