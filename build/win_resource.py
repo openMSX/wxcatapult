@@ -11,7 +11,7 @@ def iterResourceHeader():
 	else:
 		versionNumber = packageVersion
 	versionComponents = versionNumber.split('.') + [ str(extractRevisionNumber()) ]
-	assert len(versionComponents) == 4, versionComponents
+	assert len(versionComponents) == 3, versionComponents
 
 	versionStr = packageVersion
 	extractedRevision = extractRevision()
