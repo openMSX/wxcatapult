@@ -13,7 +13,6 @@
     <CatapultOutDir>$(BuildDir)\install</CatapultOutDir>
     <CatapultConfigDir>$(BuildDir)\config</CatapultConfigDir>
     <LibNameLibXml>libxml2-2.8.0</LibNameLibXml>
-    <LibNameWx>wxWidgets-3.0.4</LibNameWx>
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
@@ -66,10 +65,6 @@
     </BuildMacro>
     <BuildMacro Include="LibNameLibXml">
       <Value>$(LibNameLibXml)</Value>
-      <EnvironmentVariable>true</EnvironmentVariable>
-    </BuildMacro>
-    <BuildMacro Include="LibNameWx">
-      <Value>$(LibNameWx)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
   </ItemGroup>
