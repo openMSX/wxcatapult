@@ -6,7 +6,7 @@ Catapult release to match openMSX 16.0.
 This release we again didn't change much, so here is the full list:
 - Fix hidden openMSX window when launching from Catapult
 - Migrated build to Python 3
-- Migrate to wxWidgets 3
+- Migrated to wxWidgets 3.0
 - Make supported extensions consistent with openMSX command line
 
 Known issues / caveats:
