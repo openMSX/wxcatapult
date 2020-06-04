@@ -694,13 +694,7 @@ void SessionPage::RestoreHistory()
 				type,
 				split(ips, wxT(";;")))); // 2nd-level
 		}
-		if ((insertedMedia & m->mediaBits) &&
-#if wxVERSION_NUMBER < 2903
-				!m->control.IsEmpty()
-#else
-				!m->control.IsTextEmpty()
-#endif
-				) {
+		if ((insertedMedia & m->mediaBits) && !m->control.IsListEmpty()) {
 			m->control.SetSelection(0);
 			auto* h = static_cast<HistoryData*>(m->control.GetClientObject(0));
 			if (m->mediaType == CARTRIDGE) SetMapperType(*m, h->type);
