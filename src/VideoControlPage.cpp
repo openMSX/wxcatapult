@@ -20,12 +20,12 @@ BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_COMBOBOX(      XRCID("RendererSelector"),       CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(      XRCID("ScalerAlgoSelector"),     CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(      XRCID("ScalerFactorSelector"),   CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(      XRCID("AccuracySelector"),       CatapultPage::OnClickCombo)
+	EVT_COMBOBOX(      XRCID("VSyncSelector"),          CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(      XRCID("VideoSourceSelector"),    CatapultPage::OnClickCombo)
 	EVT_TEXT(          XRCID("RendererSelector"),       VideoControlPage::OnChangeRenderer)
 	EVT_TEXT(          XRCID("ScalerAlgoSelector"),     VideoControlPage::OnChangeScalerAlgo)
 	EVT_TEXT(          XRCID("ScalerFactorSelector"),   VideoControlPage::OnChangeScalerFactor)
-	EVT_TEXT(          XRCID("AccuracySelector"),       VideoControlPage::OnChangeAccuracy)
+	EVT_TEXT(          XRCID("VSyncSelector"),          VideoControlPage::OnChangeVSync)
 	EVT_TEXT(          XRCID("VideoSourceSelector"),    VideoControlPage::OnChangeVideoSource)
 	EVT_TOGGLEBUTTON(  XRCID("DeInterlaceButton"),      VideoControlPage::OnDeInterlace)
 	EVT_TOGGLEBUTTON(  XRCID("LimitSpriteButton"),      VideoControlPage::OnLimitSprites)
@@ -57,9 +57,9 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController& controll
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("VideoControlPage"));
 	m_rendererList     = (wxComboBox*)FindWindowByName(wxT("RendererSelector"));;
 	m_scalerAlgoList   = (wxComboBox*)FindWindowByName(wxT("ScalerAlgoSelector"));
-	m_timesLabel     = (wxStaticText*)FindWindowByName(wxT("times"));
-	m_scalerFactorList = (wxComboBox*)FindWindowByName(wxT("ScalerFactorSelector"));
-	m_accuracyList     = (wxComboBox*)FindWindowByName(wxT("AccuracySelector"));
+	m_timesLabel       = (wxStaticText*)FindWindowByName(wxT("times"));
+	m_scalerFactorList   = (wxComboBox*)FindWindowByName(wxT("ScalerFactorSelector"));
+	m_vSyncList          = (wxComboBox*)FindWindowByName(wxT("VSyncSelector"));
 	m_videoSourceList    = (wxComboBox*)FindWindowByName(wxT("VideoSourceSelector"));
 	m_deinterlaceButton  = (wxToggleButton*)FindWindowByName(wxT("DeInterlaceButton"));
 	m_limitSpritesButton = (wxToggleButton*)FindWindowByName(wxT("LimitSpriteButton"));
@@ -91,7 +91,7 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController& controll
 
 	m_rendererLabel      = (wxStaticText*)FindWindowByName(wxT("RendererLabel"));
 	m_scalerLabel        = (wxStaticText*)FindWindowByName(wxT("ScalerLabel"));
-	m_accuracyLabel      = (wxStaticText*)FindWindowByName(wxT("AccuracyLabel"));
+	m_vSyncLabel         = (wxStaticText*)FindWindowByName(wxT("VSyncLabel"));
 	m_videoSourceLabel   = (wxStaticText*)FindWindowByName(wxT("VideoSourceLabel"));
 	m_deinterlaceLabel   = (wxStaticText*)FindWindowByName(wxT("DeInterlaceLabel"));
 	m_limitSpritesLabel  = (wxStaticText*)FindWindowByName(wxT("LimitSpriteLabel"));
@@ -123,9 +123,9 @@ void VideoControlPage::OnChangeScalerFactor(wxCommandEvent& event)
 	m_controller.WriteCommand(wxT("set scale_factor ") + m_scalerFactorList->GetValue().Lower());
 }
 
-void VideoControlPage::OnChangeAccuracy(wxCommandEvent& event)
+void VideoControlPage::OnChangeVSync(wxCommandEvent& event)
 {
-	m_controller.WriteCommand(wxT("set accuracy ") + m_accuracyList->GetValue().Lower());
+	m_controller.WriteCommand(wxT("set sync_to_vblank_mode ") + m_vSyncList->GetValue().Lower());
 }
 
 void VideoControlPage::OnChangeVideoSource(wxCommandEvent& event)
@@ -370,7 +370,7 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_scalerAlgoList->Enable(true);
 	m_timesLabel->Enable(true);
 	m_scalerFactorList->Enable(true);
-	m_accuracyList->Enable(true);
+	m_vSyncList->Enable(true);
 	m_videoSourceList->Enable(true);
 	m_deinterlaceButton->Enable(true);
 	m_limitSpritesButton->Enable(true);
@@ -379,7 +379,7 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_screenShotButton->Enable(true);
 	m_rendererLabel->Enable(true);
 	m_scalerLabel->Enable(true);
-	m_accuracyLabel->Enable(true);
+	m_vSyncLabel->Enable(true);
 	m_videoSourceLabel->Enable(true);
 	m_deinterlaceLabel->Enable(true);
 	m_limitSpritesLabel->Enable(true);
@@ -419,7 +419,7 @@ void VideoControlPage::SetControlsOnEnd()
 	m_scalerAlgoList->Enable(false);
 	m_timesLabel->Enable(false);
 	m_scalerFactorList->Enable(false);
-	m_accuracyList->Enable(false);
+	m_vSyncList->Enable(false);
 	m_videoSourceList->Enable(false);
 	m_deinterlaceButton->Enable(false);
 	m_limitSpritesButton->Enable(false);
@@ -428,7 +428,7 @@ void VideoControlPage::SetControlsOnEnd()
 	m_screenShotButton->Enable(false);
 	m_rendererLabel->Enable(false);
 	m_scalerLabel->Enable(false);
-	m_accuracyLabel->Enable(false);
+	m_vSyncLabel->Enable(false);
 	m_videoSourceLabel->Enable(false);
 	m_deinterlaceLabel->Enable(false);
 	m_limitSpritesLabel->Enable(false);
@@ -538,6 +538,6 @@ void VideoControlPage::setNewRenderersAndScalers()
 	m_rendererList->Clear();
 	m_scalerAlgoList->Clear();
 	m_scalerFactorList->Clear();
-	m_accuracyList->Clear();
+	m_vSyncList->Clear();
 	m_videoSourceList->Clear();
 }

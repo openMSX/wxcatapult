@@ -355,9 +355,9 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("lindex [openmsx_info setting scale_factor] 2"),
 		[&](const wxString&, const wxString& r) {
 			FillRangeComboBox(wxT("ScalerFactorSelector"), r); });
-	AddCommand(wxT("lindex [openmsx_info setting accuracy] 2"),
+	AddCommand(wxT("lindex [openmsx_info setting sync_to_vblank_mode] 2"),
 		[&](const wxString&, const wxString& r) {
-			FillComboBox(wxT("AccuracySelector"), r); });
+			FillComboBox(wxT("VSyncSelector"), r); });
 	AddCommand(wxT("lindex [openmsx_info setting videosource] 2"),
 		[&](const wxString&, const wxString& r) {
 			FillComboBox(wxT("VideoSourceSelector"), r); });
@@ -377,7 +377,7 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("set scale_factor"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	AddCommand(wxT("set accuracy"),
+	AddCommand(wxT("set sync_to_vblank_mode"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT("set videosource"),
@@ -499,9 +499,9 @@ void openMSXController::InitLaunchScript()
 	AddSetting(wxT("scale_factor"),
 		[&](const wxString&, const wxString& v) {
 			UpdateCombo(v, wxT("ScalerFactorSelector")); });
-	AddSetting(wxT("accuracy"),
+	AddSetting(wxT("sync_to_vblank_mode"),
 		[&](const wxString&, const wxString& v) {
-			UpdateCombo(v, wxT("AccuracySelector")); });
+			UpdateCombo(v, wxT("VSyncSelector")); });
 	AddSetting(wxT("videosource"),
 		[&](const wxString&, const wxString& v) {
 			UpdateCombo(v, wxT("VideoSourceSelector")); });
