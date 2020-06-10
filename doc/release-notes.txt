@@ -8,6 +8,7 @@ This release we again didn't change much, so here is the full list:
 - Migrated build to Python 3
 - Migrated to wxWidgets 3.0
 - Make supported extensions consistent with openMSX command line
+- Replaced Accuracy control with VSync button
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
