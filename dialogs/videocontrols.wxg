@@ -210,13 +210,9 @@
                                                 <flag>wxALIGN_CENTER_VERTICAL</flag>
                                                 <border>0</border>
                                                 <option>0</option>
-                                                <object class="wxComboBox" name="VSyncSelector" base="EditComboBox">
-                                                    <style>wxCB_READONLY</style>
-                                                    <selection>0</selection>
+                                                <object class="wxToggleButton" name="VSyncButton" base="EditToggleButton">
+                                                    <label>Off</label>
                                                     <tooltip>VSync mode (SDLGL-PP only) - immediate means no vsync</tooltip>
-                                                    <choices>
-                                                    </choices>
-                                                    <size>100, -1</size>
                                                 </object>
                                             </object>
                                         </object>

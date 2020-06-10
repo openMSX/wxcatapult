@@ -20,13 +20,12 @@ BEGIN_EVENT_TABLE(VideoControlPage, wxPanel)
 	EVT_COMBOBOX(      XRCID("RendererSelector"),       CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(      XRCID("ScalerAlgoSelector"),     CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(      XRCID("ScalerFactorSelector"),   CatapultPage::OnClickCombo)
-	EVT_COMBOBOX(      XRCID("VSyncSelector"),          CatapultPage::OnClickCombo)
 	EVT_COMBOBOX(      XRCID("VideoSourceSelector"),    CatapultPage::OnClickCombo)
 	EVT_TEXT(          XRCID("RendererSelector"),       VideoControlPage::OnChangeRenderer)
 	EVT_TEXT(          XRCID("ScalerAlgoSelector"),     VideoControlPage::OnChangeScalerAlgo)
 	EVT_TEXT(          XRCID("ScalerFactorSelector"),   VideoControlPage::OnChangeScalerFactor)
-	EVT_TEXT(          XRCID("VSyncSelector"),          VideoControlPage::OnChangeVSync)
 	EVT_TEXT(          XRCID("VideoSourceSelector"),    VideoControlPage::OnChangeVideoSource)
+	EVT_TOGGLEBUTTON(  XRCID("VSyncButton"),            VideoControlPage::OnVSync)
 	EVT_TOGGLEBUTTON(  XRCID("DeInterlaceButton"),      VideoControlPage::OnDeInterlace)
 	EVT_TOGGLEBUTTON(  XRCID("LimitSpriteButton"),      VideoControlPage::OnLimitSprites)
 	EVT_TOGGLEBUTTON(  XRCID("DisableSpritesButton"),   VideoControlPage::OnDisableSprites)
@@ -55,11 +54,11 @@ VideoControlPage::VideoControlPage(wxWindow* parent, openMSXController& controll
 	: m_controller(controller)
 {
 	wxXmlResource::Get()->LoadPanel(this, parent, wxT("VideoControlPage"));
-	m_rendererList     = (wxComboBox*)FindWindowByName(wxT("RendererSelector"));;
+	m_rendererList     = (wxComboBox*)FindWindowByName(wxT("RendererSelector"));
 	m_scalerAlgoList   = (wxComboBox*)FindWindowByName(wxT("ScalerAlgoSelector"));
 	m_timesLabel       = (wxStaticText*)FindWindowByName(wxT("times"));
 	m_scalerFactorList   = (wxComboBox*)FindWindowByName(wxT("ScalerFactorSelector"));
-	m_vSyncList          = (wxComboBox*)FindWindowByName(wxT("VSyncSelector"));
+	m_vSyncButton        = (wxToggleButton*)FindWindowByName(wxT("VSyncButton"));
 	m_videoSourceList    = (wxComboBox*)FindWindowByName(wxT("VideoSourceSelector"));
 	m_deinterlaceButton  = (wxToggleButton*)FindWindowByName(wxT("DeInterlaceButton"));
 	m_limitSpritesButton = (wxToggleButton*)FindWindowByName(wxT("LimitSpriteButton"));
@@ -123,9 +122,16 @@ void VideoControlPage::OnChangeScalerFactor(wxCommandEvent& event)
 	m_controller.WriteCommand(wxT("set scale_factor ") + m_scalerFactorList->GetValue().Lower());
 }
 
-void VideoControlPage::OnChangeVSync(wxCommandEvent& event)
+void VideoControlPage::OnVSync(wxCommandEvent& event)
 {
-	m_controller.WriteCommand(wxT("set sync_to_vblank_mode ") + m_vSyncList->GetValue().Lower());
+	auto* button = (wxToggleButton*)event.GetEventObject();
+	if (button->GetValue()) {
+		m_controller.WriteCommand(wxT("set vsync on"));
+		button->SetLabel(wxT("On"));
+	} else {
+		m_controller.WriteCommand(wxT("set vsync off"));
+		button->SetLabel(wxT("Off"));
+	}
 }
 
 void VideoControlPage::OnChangeVideoSource(wxCommandEvent& event)
@@ -370,7 +376,7 @@ void VideoControlPage::SetControlsOnLaunch()
 	m_scalerAlgoList->Enable(true);
 	m_timesLabel->Enable(true);
 	m_scalerFactorList->Enable(true);
-	m_vSyncList->Enable(true);
+	m_vSyncButton->Enable(true);
 	m_videoSourceList->Enable(true);
 	m_deinterlaceButton->Enable(true);
 	m_limitSpritesButton->Enable(true);
@@ -419,7 +425,7 @@ void VideoControlPage::SetControlsOnEnd()
 	m_scalerAlgoList->Enable(false);
 	m_timesLabel->Enable(false);
 	m_scalerFactorList->Enable(false);
-	m_vSyncList->Enable(false);
+	m_vSyncButton->Enable(false);
 	m_videoSourceList->Enable(false);
 	m_deinterlaceButton->Enable(false);
 	m_limitSpritesButton->Enable(false);
@@ -538,6 +544,5 @@ void VideoControlPage::setNewRenderersAndScalers()
 	m_rendererList->Clear();
 	m_scalerAlgoList->Clear();
 	m_scalerFactorList->Clear();
-	m_vSyncList->Clear();
 	m_videoSourceList->Clear();
 }
