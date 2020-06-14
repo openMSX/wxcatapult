@@ -466,7 +466,7 @@ make install</div>
 <p>Note that there seems to be confusion on where the <code>vcvarsall.bat</code> is located... Microsoft documented it in <a href="https://docs.microsoft.com/nl-nl/cpp/build/setting-the-path-and-environment-variables-for-command-line-builds">this help page</a>, but <a href="https://stackoverflow.com/questions/43372235/vcvarsall-bat-for-visual-studio-2017">other people seem to disagree</a>... Please check what is applicable for your case.</p>
 
 <p>
-For now, wxWidgets has to be built outside the 3rdparty tree and the results have to be copied back into it. Here are the steps with a Visual Studio command prompt in the location where the wxWidgets source files were unzipped.
+For now, wxWidgets has to extracted to <code>derived\3rdparty\src\wxWidgets-3.0.4</code> (yes, that version and that specific location, otherwise the compiler won't find the include files for the library) and be built manually, after which the results must be manually copied to the proper place in the 3rdparty tree. Here are the steps with a Visual Studio command prompt in the location where the wxWidgets source files were unzipped (<code>derived\3rdparty\src\wxWidgets-3.0.4</code>).
 </p>
 	<p>For 32-bit</p>	
 		<ul>
@@ -479,7 +479,7 @@ For now, wxWidgets has to be built outside the 3rdparty tree and the results hav
 			<li><code>nmake /f makefile.vc BUILD=release TARGET_CPU=X64 RUNTIME_LIBS=static</code></li>
 		</ul>
 <p>
-Then copy the results to the 3rdparty folder, after going back to the folder where you unzipped. E.g. for 64-bit, copy the contents of <code>lib\vc_x64_lib</code> to your 3rdparty folder in <code>derived\x64-VC-Unicode Release\3rdparty\install\lib\</code>.
+Then copy the results to the Catapult build specific 3rdparty folder. E.g. for 64-bit, copy the contents of <code>lib\vc_x64_lib</code> to <code>derived\x64-VC-Unicode Release\3rdparty\install\lib\</code>.
 </p>
 
 <h3><a id="compilenow">3.4. Compilation of Catapult Itself</a></h3>
