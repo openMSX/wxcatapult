@@ -28,7 +28,6 @@ public:
 private:
 	void InvalidPrinterLogFilename();
 	void InitJoystickOrPrinterPort(wxString connector, wxString control, wxString connectorClass);
-	void OnSetThrottle(wxCommandEvent& event);
 	void OnSetCmdTiming(wxCommandEvent& event);
 	void OnSetNormalSpeed(wxCommandEvent& event);
 	void OnSetMaxSpeed(wxCommandEvent& event);
