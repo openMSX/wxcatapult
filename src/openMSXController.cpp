@@ -434,7 +434,7 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("set minframeskip"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	AddCommand(wxT("set turbo"),
+	AddCommand(wxT("set throttle"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT("set cmdtiming"),
@@ -535,9 +535,9 @@ void openMSXController::InitLaunchScript()
 	AddSetting(wxT("maxframeskip"),
 		[&](const wxString&, const wxString& v) {
 			UpdateIndicator(v, wxT("MaxFrameSkipIndicator")); });
-	AddSetting(wxT("turbo"),
+	AddSetting(wxT("throttle"),
 		[&](const wxString&, const wxString& v) {
-			UpdateToggle(v, wxT("MaxSpeedButton"), S_EVENT); });
+			UpdateToggle(v, wxT("MaxSpeedButton"), S_INVERT | S_EVENT); });
 	AddSetting(wxT("power"),
 		[&](const wxString&, const wxString& v) {
 			UpdateToggle(v, wxT("PowerButton")); });

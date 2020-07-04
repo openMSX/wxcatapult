@@ -28,6 +28,7 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_COMMAND_SCROLL(XRCID("MaxFrameSkipSlider"),       MiscControlPage::OnMaxFrameSkipChange)
 	EVT_BUTTON        (XRCID("DefaultMinFrameSkipButton"),MiscControlPage::OnSetDefaultMinFrameSkip)
 	EVT_BUTTON        (XRCID("DefaultMaxFrameSkipButton"),MiscControlPage::OnSetDefaultMaxFrameSkip)
+	EVT_TOGGLEBUTTON  (XRCID("ThrottleButton"),           MiscControlPage::OnSetThrottle)
 	EVT_TOGGLEBUTTON  (XRCID("CmdTimingButton"),          MiscControlPage::OnSetCmdTiming)
 	EVT_TEXT          (XRCID("MinFrameSkipIndicator"),    MiscControlPage::OnInputMinFrameskip)
 	EVT_TEXT          (XRCID("MaxFrameSkipIndicator"),    MiscControlPage::OnInputMaxFrameskip)
@@ -177,7 +178,7 @@ void MiscControlPage::OnSpeedChange(wxScrollEvent& event)
 	auto speedText = wxString::Format(wxT("%d"), event.GetInt());
 	m_speedIndicator->SetValue(speedText);
 	m_controller.WriteCommand(wxT("set speed ") + speedText);
-	m_controller.WriteCommand(wxT("set throttle on; set turbo off"));
+	m_controller.WriteCommand(wxT("set throttle on"));
 }
 
 void MiscControlPage::OnSetNormalSpeed(wxCommandEvent& event)
@@ -185,7 +186,7 @@ void MiscControlPage::OnSetNormalSpeed(wxCommandEvent& event)
 	m_controller.WriteCommand(wxT("set speed 100"));
 	m_speedIndicator->SetValue(wxT("100"));
 	m_speedSlider->SetValue(100);
-	m_controller.WriteCommand(wxT("set throttle on; set turbo off"));
+	m_controller.WriteCommand(wxT("set throttle on"));
 }
 
 void MiscControlPage::OnSetMaxSpeed(wxCommandEvent& event)
@@ -194,12 +195,12 @@ void MiscControlPage::OnSetMaxSpeed(wxCommandEvent& event)
 		m_speedSlider->Disable();
 		m_speedIndicator->Disable();
 		m_speedNormalButton->Disable();
-		m_controller.WriteCommand(wxT("set turbo on"));
+		m_controller.WriteCommand(wxT("set throttle off"));
 	} else {
 		m_speedSlider->Enable();
 		m_speedIndicator->Enable();
 		m_speedNormalButton->Enable();
-		m_controller.WriteCommand(wxT("set turbo off"));
+		m_controller.WriteCommand(wxT("set throttle on"));
 	}
 }
 
@@ -229,6 +230,18 @@ void MiscControlPage::OnSetDefaultMinFrameSkip(wxCommandEvent& event)
 	m_controller.WriteCommand(wxT("unset minframeskip"));
 	m_minFrameSkipIndicator->Enable();
 	m_minFrameSkipSlider->Enable();
+}
+
+void MiscControlPage::OnSetThrottle(wxCommandEvent& event)
+{
+	auto* button = (wxToggleButton*)event.GetEventObject();
+	if (button->GetValue()) {
+		m_controller.WriteCommand(wxT("set throttle on"));
+		button->SetLabel(wxT("On"));
+	} else {
+		m_controller.WriteCommand(wxT("set throttle off"));
+		button->SetLabel(wxT("Off"));
+	}
 }
 
 void MiscControlPage::OnSetCmdTiming(wxCommandEvent& event)
