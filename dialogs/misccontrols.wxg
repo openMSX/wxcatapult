@@ -311,8 +311,8 @@
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
                                         <border>5</border>
                                         <option>0</option>
-                                        <object class="wxToggleButton" name="MaxSpeedButton" base="EditToggleButton">
-                                            <label>Max speed</label>
+                                        <object class="wxToggleButton" name="FastForwardButton" base="EditToggleButton">
+                                            <label>Fast Fwd</label>
                                         </object>
                                     </object>
                                 </object>

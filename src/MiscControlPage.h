@@ -28,10 +28,9 @@ public:
 private:
 	void InvalidPrinterLogFilename();
 	void InitJoystickOrPrinterPort(wxString connector, wxString control, wxString connectorClass);
-	void OnSetThrottle(wxCommandEvent& event);
 	void OnSetCmdTiming(wxCommandEvent& event);
 	void OnSetNormalSpeed(wxCommandEvent& event);
-	void OnSetMaxSpeed(wxCommandEvent& event);
+	void OnSetFastForward(wxCommandEvent& event);
 	void OnSpeedChange(wxScrollEvent& event);
 	void OnSetDefaultMinFrameSkip(wxCommandEvent& event);
 	void OnSetDefaultMaxFrameSkip(wxCommandEvent& event);
@@ -58,7 +57,7 @@ private:
 
 	wxButton* m_resetButton;
 	wxButton* m_speedNormalButton;
-	wxToggleButton* m_speedMaxButton;
+	wxToggleButton* m_fastForwardButton;
 	wxButton* m_defaultMinFrameSkipButton;
 	wxButton* m_defaultMaxFrameSkipButton;
 

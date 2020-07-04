@@ -23,12 +23,11 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_TOGGLEBUTTON  (XRCID("FirmwareButton"),           MiscControlPage::OnFirmware)
 	EVT_COMMAND_SCROLL(XRCID("SpeedSlider"),              MiscControlPage::OnSpeedChange)
 	EVT_BUTTON        (XRCID("NormalSpeedButton"),        MiscControlPage::OnSetNormalSpeed)
-	EVT_TOGGLEBUTTON  (XRCID("MaxSpeedButton"),           MiscControlPage::OnSetMaxSpeed)
+	EVT_TOGGLEBUTTON  (XRCID("FastForwardButton"),        MiscControlPage::OnSetFastForward)
 	EVT_COMMAND_SCROLL(XRCID("MinFrameSkipSlider"),       MiscControlPage::OnMinFrameSkipChange)
 	EVT_COMMAND_SCROLL(XRCID("MaxFrameSkipSlider"),       MiscControlPage::OnMaxFrameSkipChange)
 	EVT_BUTTON        (XRCID("DefaultMinFrameSkipButton"),MiscControlPage::OnSetDefaultMinFrameSkip)
 	EVT_BUTTON        (XRCID("DefaultMaxFrameSkipButton"),MiscControlPage::OnSetDefaultMaxFrameSkip)
-	EVT_TOGGLEBUTTON  (XRCID("ThrottleButton"),           MiscControlPage::OnSetThrottle)
 	EVT_TOGGLEBUTTON  (XRCID("CmdTimingButton"),          MiscControlPage::OnSetCmdTiming)
 	EVT_TEXT          (XRCID("MinFrameSkipIndicator"),    MiscControlPage::OnInputMinFrameskip)
 	EVT_TEXT          (XRCID("MaxFrameSkipIndicator"),    MiscControlPage::OnInputMaxFrameskip)
@@ -58,7 +57,7 @@ MiscControlPage::MiscControlPage(wxWindow* parent, openMSXController& controller
 	m_speedIndicator = (wxTextCtrl*)FindWindowByName(wxT("SpeedIndicator"));
 	m_speedSlider = (wxSlider*)FindWindowByName(wxT("SpeedSlider"));
 	m_speedNormalButton = (wxButton*)FindWindowByName (wxT("NormalSpeedButton"));
-	m_speedMaxButton = (wxToggleButton*)FindWindowByName (wxT("MaxSpeedButton"));
+	m_fastForwardButton = (wxToggleButton*)FindWindowByName (wxT("FastForwardButton"));
 	m_minFrameSkipIndicator = (wxTextCtrl*)FindWindowByName(wxT("MinFrameSkipIndicator"));
 	m_maxFrameSkipIndicator = (wxTextCtrl*)FindWindowByName(wxT("MaxFrameSkipIndicator"));
 	m_maxFrameSkipSlider = (wxSlider*)FindWindowByName(wxT("MaxFrameSkipSlider"));
@@ -178,7 +177,7 @@ void MiscControlPage::OnSpeedChange(wxScrollEvent& event)
 	auto speedText = wxString::Format(wxT("%d"), event.GetInt());
 	m_speedIndicator->SetValue(speedText);
 	m_controller.WriteCommand(wxT("set speed ") + speedText);
-	m_controller.WriteCommand(wxT("set throttle on"));
+	m_controller.WriteCommand(wxT("set throttle on; set fastforward off"));
 }
 
 void MiscControlPage::OnSetNormalSpeed(wxCommandEvent& event)
@@ -186,21 +185,21 @@ void MiscControlPage::OnSetNormalSpeed(wxCommandEvent& event)
 	m_controller.WriteCommand(wxT("set speed 100"));
 	m_speedIndicator->SetValue(wxT("100"));
 	m_speedSlider->SetValue(100);
-	m_controller.WriteCommand(wxT("set throttle on"));
+	m_controller.WriteCommand(wxT("set throttle on; set fastforward off"));
 }
 
-void MiscControlPage::OnSetMaxSpeed(wxCommandEvent& event)
+void MiscControlPage::OnSetFastForward(wxCommandEvent& event)
 {
-	if (m_speedMaxButton->GetValue()) {
+	if (m_fastForwardButton->GetValue()) {
 		m_speedSlider->Disable();
 		m_speedIndicator->Disable();
 		m_speedNormalButton->Disable();
-		m_controller.WriteCommand(wxT("set throttle off"));
+		m_controller.WriteCommand(wxT("set fastforward on"));
 	} else {
 		m_speedSlider->Enable();
 		m_speedIndicator->Enable();
 		m_speedNormalButton->Enable();
-		m_controller.WriteCommand(wxT("set throttle on"));
+		m_controller.WriteCommand(wxT("set fastforward off"));
 	}
 }
 
@@ -232,18 +231,6 @@ void MiscControlPage::OnSetDefaultMinFrameSkip(wxCommandEvent& event)
 	m_minFrameSkipSlider->Enable();
 }
 
-void MiscControlPage::OnSetThrottle(wxCommandEvent& event)
-{
-	auto* button = (wxToggleButton*)event.GetEventObject();
-	if (button->GetValue()) {
-		m_controller.WriteCommand(wxT("set throttle on"));
-		button->SetLabel(wxT("On"));
-	} else {
-		m_controller.WriteCommand(wxT("set throttle off"));
-		button->SetLabel(wxT("Off"));
-	}
-}
-
 void MiscControlPage::OnSetCmdTiming(wxCommandEvent& event)
 {
 	auto* button = (wxToggleButton*)event.GetEventObject();
@@ -261,7 +248,7 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_speedSlider->Enable(true);
 	m_speedIndicator->Enable(true);
 	m_speedNormalButton->Enable(true);
-	m_speedMaxButton->Enable(true);
+	m_fastForwardButton->Enable(true);
 
 	m_maxFrameSkipSlider->Enable(true);
 	m_minFrameSkipSlider->Enable(true);
@@ -309,7 +296,7 @@ void MiscControlPage::SetControlsOnEnd()
 	m_speedSlider->Enable(false);
 	m_speedIndicator->Enable(false);
 	m_speedNormalButton->Enable(false);
-	m_speedMaxButton->Enable(false);
+	m_fastForwardButton->Enable(false);
 
 	m_maxFrameSkipSlider->Enable(false);
 	m_minFrameSkipSlider->Enable(false);
