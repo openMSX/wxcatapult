@@ -32,15 +32,15 @@ private:
 	void OnSetNormalSpeed(wxCommandEvent& event);
 	void OnSetFastForward(wxCommandEvent& event);
 	void OnSpeedChange(wxScrollEvent& event);
-	void OnSetDefaultMinFrameSkip(wxCommandEvent& event);
+	void OnSetDefaultFastForwardSpeed(wxCommandEvent& event);
 	void OnSetDefaultMaxFrameSkip(wxCommandEvent& event);
-	void OnMinFrameSkipChange(wxScrollEvent& event);
+	void OnFastForwardSpeedChange(wxScrollEvent& event);
 	void OnMaxFrameSkipChange(wxScrollEvent& event);
 	void OnFirmware(wxCommandEvent& event);
 	void OnPower(wxCommandEvent& event);
 	void OnPause(wxCommandEvent& event);
 	void OnReset(wxCommandEvent& event);
-	void OnInputMinFrameskip(wxCommandEvent& event);
+	void OnInputFastForwardSpeed(wxCommandEvent& event);
 	void OnInputMaxFrameskip(wxCommandEvent& event);
 	void OnChangeJoystick(wxCommandEvent& event);
 	void OnChangePrinterPort(wxCommandEvent& event);
@@ -58,12 +58,11 @@ private:
 	wxButton* m_resetButton;
 	wxButton* m_speedNormalButton;
 	wxToggleButton* m_fastForwardButton;
-	wxButton* m_defaultMinFrameSkipButton;
+	wxButton* m_defaultFastForwardSpeedButton;
 	wxButton* m_defaultMaxFrameSkipButton;
 
 	wxStaticText* m_emulationSpeedLabel;
-	wxStaticText* m_frameskipLabel;
-	wxStaticText* m_frameskipMinLabel;
+	wxStaticText* m_fastForwardSpeedLabel;
 	wxStaticText* m_frameskipMaxLabel;
 	wxStaticText* m_printerportLabel;
 	wxStaticText* m_renshaLabel;
@@ -74,10 +73,10 @@ private:
 	wxToggleButton* m_firmwareButton;
 	wxSlider* m_speedSlider;
 	wxSlider* m_maxFrameSkipSlider;
-	wxSlider* m_minFrameSkipSlider;
+	wxSlider* m_fastForwardSpeedSlider;
 	wxSlider* m_renshaTurboSlider;
 	wxTextCtrl* m_speedIndicator;
-	wxTextCtrl* m_minFrameSkipIndicator;
+	wxTextCtrl* m_fastForwardSpeedIndicator;
 	wxTextCtrl* m_maxFrameSkipIndicator;
 	wxTextCtrl* m_printerLogFile;
 	wxString m_oldJoy1;

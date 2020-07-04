@@ -24,12 +24,12 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_COMMAND_SCROLL(XRCID("SpeedSlider"),              MiscControlPage::OnSpeedChange)
 	EVT_BUTTON        (XRCID("NormalSpeedButton"),        MiscControlPage::OnSetNormalSpeed)
 	EVT_TOGGLEBUTTON  (XRCID("FastForwardButton"),        MiscControlPage::OnSetFastForward)
-	EVT_COMMAND_SCROLL(XRCID("MinFrameSkipSlider"),       MiscControlPage::OnMinFrameSkipChange)
+	EVT_COMMAND_SCROLL(XRCID("FastForwardSpeedSlider"),   MiscControlPage::OnFastForwardSpeedChange)
 	EVT_COMMAND_SCROLL(XRCID("MaxFrameSkipSlider"),       MiscControlPage::OnMaxFrameSkipChange)
-	EVT_BUTTON        (XRCID("DefaultMinFrameSkipButton"),MiscControlPage::OnSetDefaultMinFrameSkip)
+	EVT_BUTTON        (XRCID("DefaultFastForwardSpeedButton"),MiscControlPage::OnSetDefaultFastForwardSpeed)
 	EVT_BUTTON        (XRCID("DefaultMaxFrameSkipButton"),MiscControlPage::OnSetDefaultMaxFrameSkip)
 	EVT_TOGGLEBUTTON  (XRCID("CmdTimingButton"),          MiscControlPage::OnSetCmdTiming)
-	EVT_TEXT          (XRCID("MinFrameSkipIndicator"),    MiscControlPage::OnInputMinFrameskip)
+	EVT_TEXT          (XRCID("FastForwardSpeedIndicator"), MiscControlPage::OnInputFastForwardSpeed)
 	EVT_TEXT          (XRCID("MaxFrameSkipIndicator"),    MiscControlPage::OnInputMaxFrameskip)
 	EVT_TEXT          (XRCID("SpeedIndicator"),           MiscControlPage::OnInputSpeed)
 	EVT_TEXT          (XRCID("Joyport1Selector"),         MiscControlPage::OnChangeJoystick)
@@ -58,29 +58,28 @@ MiscControlPage::MiscControlPage(wxWindow* parent, openMSXController& controller
 	m_speedSlider = (wxSlider*)FindWindowByName(wxT("SpeedSlider"));
 	m_speedNormalButton = (wxButton*)FindWindowByName (wxT("NormalSpeedButton"));
 	m_fastForwardButton = (wxToggleButton*)FindWindowByName (wxT("FastForwardButton"));
-	m_minFrameSkipIndicator = (wxTextCtrl*)FindWindowByName(wxT("MinFrameSkipIndicator"));
+	m_fastForwardSpeedIndicator = (wxTextCtrl*)FindWindowByName(wxT("FastForwardSpeedIndicator"));
 	m_maxFrameSkipIndicator = (wxTextCtrl*)FindWindowByName(wxT("MaxFrameSkipIndicator"));
 	m_maxFrameSkipSlider = (wxSlider*)FindWindowByName(wxT("MaxFrameSkipSlider"));
-	m_minFrameSkipSlider = (wxSlider*)FindWindowByName(wxT("MinFrameSkipSlider"));
+	m_fastForwardSpeedSlider = (wxSlider*)FindWindowByName(wxT("FastForwardSpeedSlider"));
 	m_renshaTurboSlider  = (wxSlider*)FindWindowByName(wxT("RenshaTurboSlider"));
 	m_browsePrinterLog = (wxBitmapButton*)FindWindowByName(wxT("BrowsePrinterLog"));
 	m_printerLogFile = (wxTextCtrl*)FindWindowByName(wxT("PrinterLogFile"));
 	m_printerportSelector = (wxComboBox*)FindWindowByName(wxT("PrinterportSelector"));
 
 	m_defaultMaxFrameSkipButton = (wxButton*)FindWindowByName(wxT("DefaultMaxFrameSkipButton"));
-	m_defaultMinFrameSkipButton = (wxButton*)FindWindowByName(wxT("DefaultMinFrameSkipButton"));
+	m_defaultFastForwardSpeedButton = (wxButton*)FindWindowByName(wxT("DefaultFastForwardSpeedButton"));
 
 	m_speedSlider->SetTickFreq(25);
 	m_maxFrameSkipSlider->SetTickFreq(5);
-	m_minFrameSkipSlider->SetTickFreq(5);
+	m_fastForwardSpeedSlider->SetTickFreq(5);
 	m_renshaTurboSlider->SetTickFreq(5);
 
 	m_printerportFileLabel = (wxStaticText*)FindWindowByName(wxT("PrinterLogFileLabel"));
 	m_printerportLabel     = (wxStaticText*)FindWindowByName(wxT("PrinterLabel"));
 	m_renshaLabel          = (wxStaticText*)FindWindowByName(wxT("RenShaTurboLabel"));
-	m_frameskipLabel       = (wxStaticText*)FindWindowByName(wxT("FrameSkipLabel"));
 	m_frameskipMaxLabel    = (wxStaticText*)FindWindowByName(wxT("FrameSkipMaxLabel"));
-	m_frameskipMinLabel    = (wxStaticText*)FindWindowByName(wxT("FrameSkipMinLabel"));
+	m_fastForwardSpeedLabel= (wxStaticText*)FindWindowByName(wxT("FastForwardSpeedLabel"));
 	m_emulationSpeedLabel  = (wxStaticText*)FindWindowByName(wxT("EmulationSpeedLabel"));
 
 	auto* box = (wxComboBox*)FindWindowByName(wxT("PrinterportSelector"));
@@ -210,11 +209,11 @@ void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent& event)
 	m_controller.WriteCommand(wxT("set maxframeskip ") + skipText);
 }
 
-void MiscControlPage::OnMinFrameSkipChange(wxScrollEvent& event)
+void MiscControlPage::OnFastForwardSpeedChange(wxScrollEvent& event)
 {
 	auto skipText = wxString::Format(wxT("%d"), event.GetInt());
-	m_minFrameSkipIndicator->SetValue(skipText);
-	m_controller.WriteCommand(wxT("set minframeskip ") + skipText);
+	m_fastForwardSpeedIndicator->SetValue(skipText);
+	m_controller.WriteCommand(wxT("set fastforwardspeed ") + skipText);
 }
 
 void MiscControlPage::OnSetDefaultMaxFrameSkip(wxCommandEvent& event)
@@ -224,11 +223,11 @@ void MiscControlPage::OnSetDefaultMaxFrameSkip(wxCommandEvent& event)
 	m_maxFrameSkipSlider->Enable();
 }
 
-void MiscControlPage::OnSetDefaultMinFrameSkip(wxCommandEvent& event)
+void MiscControlPage::OnSetDefaultFastForwardSpeed(wxCommandEvent& event)
 {
-	m_controller.WriteCommand(wxT("unset minframeskip"));
-	m_minFrameSkipIndicator->Enable();
-	m_minFrameSkipSlider->Enable();
+	m_controller.WriteCommand(wxT("unset fastforwardspeed"));
+	m_fastForwardSpeedIndicator->Enable();
+	m_fastForwardSpeedSlider->Enable();
 }
 
 void MiscControlPage::OnSetCmdTiming(wxCommandEvent& event)
@@ -250,11 +249,12 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_speedNormalButton->Enable(true);
 	m_fastForwardButton->Enable(true);
 
+	m_fastForwardSpeedSlider->Enable(true);
+	m_fastForwardSpeedIndicator->Enable(true);
+	m_defaultFastForwardSpeedButton->Enable(true);
+
 	m_maxFrameSkipSlider->Enable(true);
-	m_minFrameSkipSlider->Enable(true);
-	m_minFrameSkipIndicator->Enable(true);
 	m_maxFrameSkipIndicator->Enable(true);
-	m_defaultMinFrameSkipButton->Enable(true);
 	m_defaultMaxFrameSkipButton->Enable(true);
 
 	m_powerButton->Enable(true);
@@ -267,9 +267,7 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_browsePrinterLog->Enable(true);
 	m_printerportFileLabel->Enable(true);
 	m_printerportLabel->Enable(true);
-	m_frameskipLabel->Enable(true);
-	m_frameskipMaxLabel->Enable(true);
-	m_frameskipMinLabel->Enable(true);
+	m_fastForwardSpeedLabel->Enable(true);
 	m_emulationSpeedLabel->Enable(true);
 	if (auto* temp = FindWindowByLabel(wxT("Performance Controls"))) {
 		temp->Enable(true);
@@ -298,11 +296,12 @@ void MiscControlPage::SetControlsOnEnd()
 	m_speedNormalButton->Enable(false);
 	m_fastForwardButton->Enable(false);
 
+	m_fastForwardSpeedSlider->Enable(false);
+	m_fastForwardSpeedIndicator->Enable(false);
+	m_defaultFastForwardSpeedButton->Enable(false);
+
 	m_maxFrameSkipSlider->Enable(false);
-	m_minFrameSkipSlider->Enable(false);
-	m_minFrameSkipIndicator->Enable(false);
 	m_maxFrameSkipIndicator->Enable(false);
-	m_defaultMinFrameSkipButton->Enable(false);
 	m_defaultMaxFrameSkipButton->Enable(false);
 
 	m_powerButton->Enable(false);
@@ -316,9 +315,8 @@ void MiscControlPage::SetControlsOnEnd()
 	m_printerportFileLabel->Enable(false);
 	m_printerportLabel->Enable(false);
 	m_renshaLabel->Enable(false);
-	m_frameskipLabel->Enable(false);
 	m_frameskipMaxLabel->Enable(false);
-	m_frameskipMinLabel->Enable(false);
+	m_fastForwardSpeedLabel->Enable(false);
 	m_emulationSpeedLabel->Enable(false);
 	if (auto* temp = FindWindowByLabel(wxT("Performance Controls"))) {
 		temp->Enable(false);
@@ -346,19 +344,19 @@ void MiscControlPage::OnInputSpeed(wxCommandEvent& event)
 	}
 }
 
-void MiscControlPage::OnInputMinFrameskip(wxCommandEvent& event)
+void MiscControlPage::OnInputFastForwardSpeed(wxCommandEvent& event)
 {
-	wxString text = m_minFrameSkipIndicator->GetValue();
+	wxString text = m_fastForwardSpeedIndicator->GetValue();
 	if (text.IsNumber()) {
 		unsigned long num;
 		text.ToULong(&num);
-		if (num > 100) {
-			num = 100;
-			text = wxT("100");
-			m_minFrameSkipIndicator->SetValue(text);
+		if (num > 10000) {
+			num = 10000;
+			text = wxT("10000");
+			m_fastForwardSpeedIndicator->SetValue(text);
 		}
-		m_controller.WriteCommand(wxT("set minframeskip ") + text);
-		m_minFrameSkipSlider->SetValue(num);
+		m_controller.WriteCommand(wxT("set fastforwardspeed ") + text);
+		m_fastForwardSpeedSlider->SetValue(num);
 	}
 }
 

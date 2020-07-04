@@ -428,13 +428,13 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("set speed"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
-	AddCommand(wxT("set maxframeskip"),
-		[&](const wxString& c, const wxString& r) {
-			UpdateSetting(c, r); });
-	AddCommand(wxT("set minframeskip"),
+	AddCommand(wxT("set fastforwardspeed"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT("set fastforward"),
+		[&](const wxString& c, const wxString& r) {
+			UpdateSetting(c, r); });
+	AddCommand(wxT("set maxframeskip"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
 	AddCommand(wxT("set cmdtiming"),
@@ -529,9 +529,9 @@ void openMSXController::InitLaunchScript()
 	AddSetting(wxT("speed"),
 		[&](const wxString&, const wxString& v) {
 			UpdateIndicator(v, wxT("SpeedIndicator")); });
-	AddSetting(wxT("minframeskip"),
+	AddSetting(wxT("fastforwardspeed"),
 		[&](const wxString&, const wxString& v) {
-			UpdateIndicator(v, wxT("MinFrameSkipIndicator")); });
+			UpdateIndicator(v, wxT("FastForwardSpeedIndicator")); });
 	AddSetting(wxT("maxframeskip"),
 		[&](const wxString&, const wxString& v) {
 			UpdateIndicator(v, wxT("MaxFrameSkipIndicator")); });

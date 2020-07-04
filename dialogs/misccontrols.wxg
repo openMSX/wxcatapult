@@ -52,26 +52,9 @@
                                                 <flag>wxLEFT|wxALIGN_CENTER_VERTICAL</flag>
                                                 <border>5</border>
                                                 <option>0</option>
-                                                <object class="wxStaticText" name="FrameSkipLabel" base="EditStaticText">
+                                                <object class="wxStaticText" name="FastForwardSpeedLabel" base="EditStaticText">
                                                     <attribute>1</attribute>
-                                                    <label>Frame skip</label>
-                                                </object>
-                                            </object>
-                                        </object>
-                                    </object>
-                                    <object class="sizeritem">
-                                        <flag>wxEXPAND</flag>
-                                        <border>0</border>
-                                        <option>1</option>
-                                        <object class="wxBoxSizer" name="sizer_20" base="EditBoxSizer">
-                                            <orient>wxHORIZONTAL</orient>
-                                            <object class="sizeritem">
-                                                <flag>wxLEFT|wxALIGN_CENTER_VERTICAL</flag>
-                                                <border>5</border>
-                                                <option>0</option>
-                                                <object class="wxStaticText" name="FrameSkipMinLabel" base="EditStaticText">
-                                                    <attribute>1</attribute>
-                                                    <label>min.:</label>
+                                                    <label>Fast forward speed:</label>
                                                 </object>
                                             </object>
                                         </object>
@@ -104,7 +87,7 @@
                                                 <option>0</option>
                                                 <object class="wxStaticText" name="FrameSkipMaxLabel" base="EditStaticText">
                                                     <attribute>1</attribute>
-                                                    <label>max.:</label>
+                                                    <label>Max. Frame Skip:</label>
                                                 </object>
                                             </object>
                                         </object>
@@ -148,11 +131,11 @@
                                         <flag>wxALIGN_CENTER_VERTICAL</flag>
                                         <border>5</border>
                                         <option>1</option>
-                                        <object class="wxSlider" name="MinFrameSkipSlider" base="EditSlider">
+                                        <object class="wxSlider" name="FastForwardSpeedSlider" base="EditSlider">
                                             <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS</style>
-                                            <tooltip>Minimum number of frames to skip</tooltip>
-                                            <range>0, 100</range>
-                                            <value>0</value>
+                                            <tooltip>Percentage of normal MSX speed when fast forwarding</tooltip>
+                                            <range>1, 10000</range>
+                                            <value>1</value>
                                         </object>
                                     </object>
                                 </object>
@@ -196,7 +179,7 @@
                                         <option>0</option>
                                         <object class="wxTextCtrl" name="SpeedIndicator" base="EditTextCtrl">
                                             <tooltip>Percentage of normal MSX speed</tooltip>
-                                            <size>40, -1</size>
+                                            <size>50, -1</size>
                                         </object>
                                     </object>
                                 </object>
@@ -211,9 +194,9 @@
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
                                         <border>5</border>
                                         <option>0</option>
-                                        <object class="wxTextCtrl" name="MinFrameSkipIndicator" base="EditTextCtrl">
-                                            <tooltip>Minimum number of frames to skip</tooltip>
-                                            <size>40, -1</size>
+                                        <object class="wxTextCtrl" name="FastForwardSpeedIndicator" base="EditTextCtrl">
+                                            <tooltip>Percentage of normal MSX speed when fast forwarding</tooltip>
+                                            <size>50, -1</size>
                                         </object>
                                     </object>
                                 </object>
@@ -230,7 +213,7 @@
                                         <option>0</option>
                                         <object class="wxTextCtrl" name="MaxFrameSkipIndicator" base="EditTextCtrl">
                                             <tooltip>Maximum number of frames that may be skipped</tooltip>
-                                            <size>40, -1</size>
+                                            <size>50, -1</size>
                                         </object>
                                     </object>
                                 </object>
@@ -269,7 +252,7 @@
                                         <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
                                         <border>5</border>
                                         <option>0</option>
-                                        <object class="wxButton" name="DefaultMinFrameSkipButton" base="EditButton">
+                                        <object class="wxButton" name="DefaultFastForwardSpeedButton" base="EditButton">
                                             <label>Reset</label>
                                             <tooltip>Set to default</tooltip>
                                         </object>
@@ -308,7 +291,7 @@
                                 <object class="wxBoxSizer" name="sizer_37" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
-                                        <flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
+                                        <flag>wxALL|wxALIGN_TOP</flag>
                                         <border>5</border>
                                         <option>0</option>
                                         <object class="wxToggleButton" name="FastForwardButton" base="EditToggleButton">
