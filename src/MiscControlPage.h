@@ -31,6 +31,7 @@ private:
 	void OnSetCmdTiming(wxCommandEvent& event);
 	void OnSetNormalSpeed(wxCommandEvent& event);
 	void OnSetFastForward(wxCommandEvent& event);
+	void OnSetFastLoading(wxCommandEvent& event);
 	void OnSpeedChange(wxScrollEvent& event);
 	void OnSetDefaultFastForwardSpeed(wxCommandEvent& event);
 	void OnSetDefaultMaxFrameSkip(wxCommandEvent& event);
@@ -59,6 +60,7 @@ private:
 	wxButton* m_speedNormalButton;
 	wxToggleButton* m_fastForwardButton;
 	wxButton* m_defaultFastForwardSpeedButton;
+	wxToggleButton* m_fastLoadingButton;
 	wxButton* m_defaultMaxFrameSkipButton;
 
 	wxStaticText* m_emulationSpeedLabel;

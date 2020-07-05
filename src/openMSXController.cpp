@@ -434,6 +434,9 @@ void openMSXController::InitLaunchScript()
 	AddCommand(wxT("set fastforward"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
+	AddCommand(wxT("set fullspeedwhenloading"),
+		[&](const wxString& c, const wxString& r) {
+			UpdateSetting(c, r); });
 	AddCommand(wxT("set maxframeskip"),
 		[&](const wxString& c, const wxString& r) {
 			UpdateSetting(c, r); });
@@ -538,6 +541,9 @@ void openMSXController::InitLaunchScript()
 	AddSetting(wxT("fastforward"),
 		[&](const wxString&, const wxString& v) {
 			UpdateToggle(v, wxT("FastForwardButton"), S_EVENT); });
+	AddSetting(wxT("fullspeedwhenloading"),
+		[&](const wxString&, const wxString& v) {
+			UpdateToggle(v, wxT("FastLoadingButton"), S_EVENT); });
 	AddSetting(wxT("power"),
 		[&](const wxString&, const wxString& v) {
 			UpdateToggle(v, wxT("PowerButton")); });

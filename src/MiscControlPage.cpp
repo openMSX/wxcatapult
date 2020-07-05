@@ -25,6 +25,7 @@ BEGIN_EVENT_TABLE(MiscControlPage, wxPanel)
 	EVT_BUTTON        (XRCID("NormalSpeedButton"),        MiscControlPage::OnSetNormalSpeed)
 	EVT_TOGGLEBUTTON  (XRCID("FastForwardButton"),        MiscControlPage::OnSetFastForward)
 	EVT_COMMAND_SCROLL(XRCID("FastForwardSpeedSlider"),   MiscControlPage::OnFastForwardSpeedChange)
+	EVT_TOGGLEBUTTON  (XRCID("FastLoadingButton"),        MiscControlPage::OnSetFastLoading)
 	EVT_COMMAND_SCROLL(XRCID("MaxFrameSkipSlider"),       MiscControlPage::OnMaxFrameSkipChange)
 	EVT_BUTTON        (XRCID("DefaultFastForwardSpeedButton"),MiscControlPage::OnSetDefaultFastForwardSpeed)
 	EVT_BUTTON        (XRCID("DefaultMaxFrameSkipButton"),MiscControlPage::OnSetDefaultMaxFrameSkip)
@@ -59,6 +60,7 @@ MiscControlPage::MiscControlPage(wxWindow* parent, openMSXController& controller
 	m_speedNormalButton = (wxButton*)FindWindowByName (wxT("NormalSpeedButton"));
 	m_fastForwardButton = (wxToggleButton*)FindWindowByName (wxT("FastForwardButton"));
 	m_fastForwardSpeedIndicator = (wxTextCtrl*)FindWindowByName(wxT("FastForwardSpeedIndicator"));
+	m_fastLoadingButton = (wxToggleButton*)FindWindowByName (wxT("FastLoadingButton"));
 	m_maxFrameSkipIndicator = (wxTextCtrl*)FindWindowByName(wxT("MaxFrameSkipIndicator"));
 	m_maxFrameSkipSlider = (wxSlider*)FindWindowByName(wxT("MaxFrameSkipSlider"));
 	m_fastForwardSpeedSlider = (wxSlider*)FindWindowByName(wxT("FastForwardSpeedSlider"));
@@ -202,6 +204,15 @@ void MiscControlPage::OnSetFastForward(wxCommandEvent& event)
 	}
 }
 
+void MiscControlPage::OnSetFastLoading(wxCommandEvent& event)
+{
+	if (m_fastLoadingButton->GetValue()) {
+		m_controller.WriteCommand(wxT("set fullspeedwhenloading on"));
+	} else {
+		m_controller.WriteCommand(wxT("set fullspeedwhenloading off"));
+	}
+}
+
 void MiscControlPage::OnMaxFrameSkipChange(wxScrollEvent& event)
 {
 	auto skipText = wxString::Format(wxT("%d"), event.GetInt());
@@ -248,6 +259,7 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_speedIndicator->Enable(true);
 	m_speedNormalButton->Enable(true);
 	m_fastForwardButton->Enable(true);
+	m_fastLoadingButton->Enable(true);
 
 	m_fastForwardSpeedSlider->Enable(true);
 	m_fastForwardSpeedIndicator->Enable(true);
@@ -295,6 +307,7 @@ void MiscControlPage::SetControlsOnEnd()
 	m_speedIndicator->Enable(false);
 	m_speedNormalButton->Enable(false);
 	m_fastForwardButton->Enable(false);
+	m_fastLoadingButton->Enable(false);
 
 	m_fastForwardSpeedSlider->Enable(false);
 	m_fastForwardSpeedIndicator->Enable(false);
