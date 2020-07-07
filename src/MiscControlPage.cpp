@@ -74,7 +74,7 @@ MiscControlPage::MiscControlPage(wxWindow* parent, openMSXController& controller
 
 	m_speedSlider->SetTickFreq(25);
 	m_maxFrameSkipSlider->SetTickFreq(5);
-	m_fastForwardSpeedSlider->SetTickFreq(5);
+	m_fastForwardSpeedSlider->SetTickFreq(250);
 	m_renshaTurboSlider->SetTickFreq(5);
 
 	m_printerportFileLabel = (wxStaticText*)FindWindowByName(wxT("PrinterLogFileLabel"));
