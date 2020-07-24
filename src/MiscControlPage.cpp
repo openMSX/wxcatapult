@@ -279,6 +279,7 @@ void MiscControlPage::SetControlsOnLaunch()
 	m_browsePrinterLog->Enable(true);
 	m_printerportFileLabel->Enable(true);
 	m_printerportLabel->Enable(true);
+	m_frameskipMaxLabel->Enable(true);
 	m_fastForwardSpeedLabel->Enable(true);
 	m_emulationSpeedLabel->Enable(true);
 	if (auto* temp = FindWindowByLabel(wxT("Performance Controls"))) {
