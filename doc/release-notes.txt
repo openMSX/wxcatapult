@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult for openMSX 16.0 (2020-xx-xx)
+Release Notes for openMSX Catapult for openMSX 16.0 (2020-08-xx)
 ================================================================
 
 Catapult release to match openMSX 16.0.
@@ -9,6 +9,8 @@ This release we again didn't change much, so here is the full list:
 - Migrated to wxWidgets 3.0
 - Make supported extensions consistent with openMSX command line
 - Replaced Accuracy control with VSync button
+- Replaced Min and Max Frameskip controls with fast forward speed controls
+- Added button to enable full speed when loading ("Fast Load")
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
