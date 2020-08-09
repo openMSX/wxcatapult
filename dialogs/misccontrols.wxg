@@ -27,7 +27,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>5</border>
+                                        <border>3</border>
                                         <option>0</option>
                                         <object class="wxStaticText" name="EmulationSpeedLabel" base="EditStaticText">
                                             <attribute>1</attribute>
@@ -44,7 +44,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>0</border>
+                                        <border>3</border>
                                         <option>2</option>
                                         <object class="wxStaticText" name="FastForwardSpeedLabel" base="EditStaticText">
                                             <attribute>1</attribute>
@@ -61,7 +61,7 @@
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxLEFT|wxALIGN_CENTER_VERTICAL</flag>
-                                        <border>0</border>
+                                        <border>3</border>
                                         <option>1</option>
                                         <object class="wxStaticText" name="FrameSkipMaxLabel" base="EditStaticText">
                                             <attribute>1</attribute>
