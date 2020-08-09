@@ -10,8 +10,12 @@ def iterResourceHeader():
 		versionNumber = packageVersion[ : packageVersion.index('-')]
 	else:
 		versionNumber = packageVersion
-	versionComponents = versionNumber.split('.') + [ str(extractRevisionNumber()) ]
-	assert len(versionComponents) == 3, versionComponents
+	versionComponents = versionNumber.split('.')
+	assert len(versionComponents) in [2, 3], versionComponents
+	versionComponents = versionComponents + (4 - len(versionComponents)) * ['0']
+	revisionNumber = extractRevisionNumber()
+	if revisionNumber:
+		versionComponents[3] = str(revisionNumber)
 
 	versionStr = packageVersion
 	extractedRevision = extractRevision()

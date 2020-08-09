@@ -37,16 +37,18 @@ def _extractRevisionFromStdout(log, command, regex):
 		return revision
 	else:
 		print('Revision number not found in "%s" output:' % command, file=log)
-		print(text, file=log)
+		print(str(text), file=log)
 		return None
 
 def extractGitRevision(log):
 	return _extractRevisionFromStdout(
-		log, 'git describe', r'\S+?-(\S+)$'
+		log, 'git describe --dirty', r'\S+?-(\S+)$'
 		)
 
 def extractNumberFromGitRevision(revisionStr):
 	if revisionStr is None:
+		return None
+	if revisionStr == 'dirty':
 		return None
 	return re.match(r'(\d+)+', revisionStr).group(0)
 
@@ -56,18 +58,17 @@ def extractRevision():
 		return None
 	if not isdir('derived'):
 		makedirs('derived')
-	log = open('derived/version.log', 'w')
-	print('Extracting revision info...', file=log)
-	try:
+	with open('derived/version.log', 'w', encoding='utf-8') as log:
+		print('Extracting revision info...', file=log)
 		revision = extractGitRevision(log)
 		print('Revision string: %s' % revision, file=log)
-		print('Revision number: %s' % extractNumberFromGitRevision(revision), file=log)
-	finally:
-		log.close()
+		revisionNumber = extractNumberFromGitRevision(revision)
+		print('Revision number: %s' % revisionNumber, file=log)
 	return revision
 
 def extractRevisionNumber():
-	return int(extractNumberFromGitRevision(extractRevision()) or 1)
+	revision = extractRevision()
+	return int(extractNumberFromGitRevision(revision)) if revision else None
 
 def extractRevisionString():
 	return extractRevision() or 'unknown'
@@ -76,4 +77,18 @@ def getVersionedPackageName():
 	if releaseFlag:
 		return '%s-%s' % (packageName, packageVersion)
 	else:
-		return '%s-%s-%s' % (packageName, packageVersion, extractRevision())
+		return '%s-%s-%s' % (
+			packageName, packageVersion, extractRevisionString()
+			)
+
+def countGitCommits():
+	if not isdir('derived'):
+		makedirs('derived')
+	with open('derived/commitCountVersion.log', 'w', encoding='utf-8') as log:
+		print('Extracting commit count...', file=log)
+		commitCount = captureStdout(log, 'git rev-list HEAD --count')
+		print('Commit count: %s' % commitCount, file=log)
+	return commitCount
+
+if __name__ == '__main__':
+	print(packageVersion)
