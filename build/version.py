@@ -67,19 +67,19 @@ def extractRevision():
 	return revision
 
 def extractRevisionNumber():
-	revision = extractRevision()
-	return int(extractNumberFromGitRevision(revision)) if revision else None
+	return int(extractNumberFromGitRevision(extractRevision()) or 0)
 
 def extractRevisionString():
 	return extractRevision() or 'unknown'
 
-def getVersionedPackageName():
+def getDetailedVersion():
 	if releaseFlag:
-		return '%s-%s' % (packageName, packageVersion)
+		return packageVersion
 	else:
-		return '%s-%s-%s' % (
-			packageName, packageVersion, extractRevisionString()
-			)
+		return '%s-%s' % (packageVersion, extractRevisionString())
+
+def getVersionedPackageName():
+	return '%s-%s' % (packageName, getDetailedVersion())
 
 def countGitCommits():
 	if not isdir('derived'):
