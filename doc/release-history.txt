@@ -3,6 +3,18 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 16.0 (2020-08-12)
+----------------------------------
+
+This release we again didn't change much, so here is the full list:
+- Fix hidden openMSX window when launching from Catapult
+- Migrated build to Python 3
+- Migrated to wxWidgets 3.0
+- Make supported extensions consistent with openMSX command line
+- Replaced Accuracy control with VSync button
+- Replaced Min and Max Frameskip controls with fast forward speed controls
+- Added button to enable full speed when loading ("Fast Load")
+
 openMSX Catapult 0.15.0 (2018-12-05)
 ------------------------------------
 
