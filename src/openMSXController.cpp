@@ -266,9 +266,9 @@ bool openMSXController::CheckVersion(const wxString& cmd)
 		? output[0] : wxString();
 
 	long ver = -1;
-	long majver;
-	long minver;
-	long subver;
+	long majver = 0;
+	long minver = 0;
+	long subver = 0;
 	if (version.StartsWith(wxT("openMSX "))) {
 		int pos = version.Find('.');
 		if (pos != wxNOT_FOUND) {
@@ -278,11 +278,11 @@ bool openMSXController::CheckVersion(const wxString& cmd)
 			if (pos != wxNOT_FOUND) {
 				version.Mid(0, pos).ToLong(&minver);
 				version.Mid(pos + 1).ToLong(&subver);
-				ver = (((majver * 100) + minver) * 100) + subver;
 			}
 		}
+		ver = (((majver * 100) + minver) * 100) + subver;
 	}
-	if (ver == -1) {
+	if (ver <= 0) {
 		wxMessageBox(
 			wxT("Unable to determine openMSX version!\nPlease upgrade to 0.10.0 or higher.\n(Or contact the authors.)"),
 			wxT("Error"));
