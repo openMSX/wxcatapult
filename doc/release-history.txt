@@ -3,7 +3,7 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
-openMSX Catapult 16.0 (2020-08-12)
+openMSX Catapult 16.0 (2020-08-13)
 ----------------------------------
 
 This release we again didn't change much, so here is the full list:

@@ -1,4 +1,4 @@
-Release Notes for openMSX Catapult for openMSX 16.0 (2020-08-12)
+Release Notes for openMSX Catapult for openMSX 16.0 (2020-08-13)
 ================================================================
 
 Catapult release to match openMSX 16.0.
