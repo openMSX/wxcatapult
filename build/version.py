@@ -12,7 +12,7 @@ import re
 packageName = 'catapult'
 
 # Version number.
-packageVersion = '16.0'
+packageVersion = '16.0-rc2'
 
 # Is this a release version ("True") or development version ("False").
 releaseFlag = True
