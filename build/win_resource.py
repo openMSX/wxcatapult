@@ -8,7 +8,7 @@ from version import (
 import sys
 
 def iterResourceHeader():
-	versionComponents = packageVersion.split('.')
+	versionComponents = packageVersion.split('-')[0].split('.')
 	versionComponents += ['0'] * (3 - len(versionComponents))
 	versionComponents.append(str(extractRevisionNumber()))
 	assert len(versionComponents) == 4, versionComponents
