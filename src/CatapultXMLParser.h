@@ -53,7 +53,6 @@ public:
 	};
 
 private:
-	unsigned m_openMSXID;
 	static wxWindow* m_target;
 	static xmlSAXHandler handler;
 	static xmlParserCtxt* context;
