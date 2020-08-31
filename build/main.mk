@@ -178,6 +178,11 @@ $(call BOOLCHECK,COMPONENT_CORE)
 endif
 endif
 
+ifeq ($(PROBE_MAKE_INCLUDED),true)
+# If probe was succesful, it's safe to use wx-config.
+CXX:=$(shell wx-config --cxx)
+endif
+
 
 # Filesets
 # ========
@@ -246,7 +251,22 @@ DEPEND_FLAGS+=-MP
 # ==============
 
 CXXFLAGS+=-pipe -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing
-CXXFLAGS+=-Wno-literal-suffix -Wno-unused-local-typedefs
+# Suppress warnings triggered by wx headers:
+CXXFLAGS+=$(shell \
+  echo | $(CXX) -E -Wno-deprecated-copy - >/dev/null 2>&1 \
+  && echo -Wno-deprecated-copy \
+  )
+ifneq ($(filter %clang++,$(CXX))$(filter clang++%,$(CXX)),)
+# Clang-specific flags go here.
+else
+ifneq ($(filter %g++,$(CXX))$(filter g++%,$(CXX))$(findstring /g++-,$(CXX)),)
+# GCC-specific flags go here.
+CXXFLAGS+=$(shell \
+  echo | $(CXX) -E -Wno-cast-function-type - >/dev/null 2>&1 \
+  && echo -Wno-cast-function-type \
+  )
+endif # GCC
+endif # not-Clang
 CXXFLAGS+=-I$(CONFIG_PATH)
 CXXFLAGS+=$(XRC_CFLAGS) $(XML_CFLAGS)
 LDADD+=$(XRC_LDFLAGS) $(XML_LDFLAGS)
@@ -268,11 +288,6 @@ ifeq ($(COMPONENT_CORE),false)
 DUMMY:=$(shell rm -f $(PROBE_MAKE))
 $(error Cannot build Catapult because essential libraries are unavailable. \
 Please install the needed libraries and rerun (g)make)
-endif
-
-ifeq ($(PROBE_MAKE_INCLUDED),true)
-# If probe was succesful, it's safe to use wx-config.
-CXX:=$(shell wx-config --cxx)
 endif
 
 # Force a probe if "probe" target is passed explicitly.
