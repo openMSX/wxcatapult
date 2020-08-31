@@ -854,7 +854,7 @@ void SessionPage::OnSelectMapper(wxCommandEvent& event)
 {
 	if (auto* target = GetLastMenuTarget()) {
 		m_romTypeDialog->CenterOnParent();
-		if (m_romTypeDialog->ShowModal(target->type) == wxID_OK) {
+		if (m_romTypeDialog->Present(target->type) == wxID_OK) {
 			SetMapperType(*target, m_romTypeDialog->GetSelectedType());
 			insertMedia(*target);
 		}
@@ -865,7 +865,7 @@ void SessionPage::OnBrowseIps(wxCommandEvent& event)
 {
 	if (auto* target = GetLastMenuTarget()) {
 		m_ipsDialog->CenterOnParent();
-		if (m_ipsDialog->ShowModal(target->ips, target->ipsdir) == wxID_OK) {
+		if (m_ipsDialog->Present(target->ips, target->ipsdir) == wxID_OK) {
 			SetIpsList(*target, m_ipsDialog->GetIPSList());
 			target->ipsdir = m_ipsDialog->GetLastBrowseLocation();
 			insertMedia(*target);

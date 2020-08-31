@@ -13,7 +13,7 @@ public:
 
 	wxArrayString GetIPSList() const;
 	wxString GetLastBrowseLocation();
-	int ShowModal(const wxArrayString& patches, const wxString& targetDir);
+	int Present(const wxArrayString& patches, const wxString& targetDir);
 
 private:
 	void CheckSelections();

@@ -20,7 +20,7 @@ RomTypeDlg::RomTypeDlg(wxWindow* parent)
 	m_romTypeList->Clear();
 }
 
-int RomTypeDlg::ShowModal(wxString type)
+int RomTypeDlg::Present(wxString type)
 {
 	wxMemoryDC tempDC;
 	tempDC.SetFont(m_romTypeList->GetFont());
@@ -44,7 +44,7 @@ int RomTypeDlg::ShowModal(wxString type)
 		m_romTypeList->SetSelection(0, true);
 	}
 	Fit();
-	return wxDialog::ShowModal();
+	return ShowModal();
 }
 
 void RomTypeDlg::OnCancel(wxCommandEvent& event)

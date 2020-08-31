@@ -43,13 +43,13 @@ CheckConfigsDlg::CheckConfigsDlg(wxWindow* parent)
 	m_invalidextensioncount = 0;
 }
 
-int CheckConfigsDlg::ShowModal(wxString cmd, wxArrayString& machines, wxArrayString& extensions)
+int CheckConfigsDlg::Present(wxString cmd, wxArrayString& machines, wxArrayString& extensions)
 {
 	m_auditThread.reset(new CheckConfigsDlg::CheckConfigsThread(this));
 	m_auditThread->Create();
 	m_auditThread->SetParameters(cmd, &machines, &extensions);
 	m_auditThread->Run();
-	return wxDialog::ShowModal();
+	return ShowModal();
 }
 
 void CheckConfigsDlg::EndModal(int retCode) // TODO: check if this is also called for posix systems

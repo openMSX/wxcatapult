@@ -14,7 +14,7 @@ class CheckConfigsDlg : public wxDialog
 public:
 	CheckConfigsDlg(wxWindow* parent);
 
-	int ShowModal(wxString cmd, wxArrayString& machines, wxArrayString& extensions);
+	int Present(wxString cmd, wxArrayString& machines, wxArrayString& extensions);
 
 private:
 	void HandleUpdateStats(bool checkmachine, bool succes, int progress);

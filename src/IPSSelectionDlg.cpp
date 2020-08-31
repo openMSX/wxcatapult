@@ -32,7 +32,7 @@ IPSSelectionDlg::IPSSelectionDlg(wxWindow* parent)
 	m_ipsRemoveButton  ->Enable(false);
 }
 
-int IPSSelectionDlg::ShowModal(const wxArrayString& patches, const wxString& targetDir)
+int IPSSelectionDlg::Present(const wxArrayString& patches, const wxString& targetDir)
 {
 	m_lastBrowseLocation = targetDir;
 	m_ipsDisplay->Clear();
@@ -49,8 +49,8 @@ int IPSSelectionDlg::ShowModal(const wxArrayString& patches, const wxString& tar
 		wMax = std::max(wMax, w);
 	}
 	m_ipsDisplay->SetSizeHints(wMax + wxSystemSettings::GetMetric(wxSYS_VSCROLL_X), 118);
-	this->Fit();
-	return wxDialog::ShowModal();
+	Fit();
+	return ShowModal();
 }
 
 void IPSSelectionDlg::OnCancel(wxCommandEvent& event)

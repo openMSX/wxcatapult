@@ -229,7 +229,7 @@ void wxCatapultFrame::CheckConfigs()
 	wxArrayString extensions = m_sessionPage->GetDetectedExtensions();
 	CheckConfigsDlg dlg(this);
 	dlg.CenterOnParent();
-	if (dlg.ShowModal(cmd, machines, extensions) == wxID_OK) {
+	if (dlg.Present(cmd, machines, extensions) == wxID_OK) {
 		wxString machineString;
 		for (unsigned j = 0; j < machines.GetCount(); ++j) {
 			machineString += machines[j];

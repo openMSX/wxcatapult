@@ -13,7 +13,7 @@ public:
 	wxString GetSelectedType();
 	void AddRomType(wxString type);
 	void SetRomTypeFullName(wxString type, wxString name);
-	int ShowModal(wxString type);
+	int Present(wxString type);
 
 private:
 	void OnCancel(wxCommandEvent& event);
