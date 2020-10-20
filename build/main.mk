@@ -413,8 +413,6 @@ ifneq ($(CATAPULT_NO_DESKTOP_HOOKS),true)
 	$(CMD)cp -rf desktop/catapult-logo-64.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/64x64/apps/openmsx-catapult.png
 	$(CMD)mkdir -p $(INSTALL_PREFIX)/usr/share/icons/hicolor/128x128/apps
 	$(CMD)cp -rf desktop/catapult-logo-128.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/128x128/apps/openmsx-catapult.png
-	$(CMD)mkdir -p $(INSTALL_PREFIX)/usr/share/icons/hicolor/128x128/apps
-	$(CMD)cp -rf desktop/catapult-logo-128.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/128x128/apps/openmsx-catapult.png
 	$(CMD)mkdir -p $(INSTALL_PREFIX)/usr/share/icons/hicolor/192x192/apps
 	$(CMD)cp -rf desktop/catapult-logo-192.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/192x192/apps/openmsx-catapult.png
 	$(CMD)if [ -d $(INSTALL_PREFIX)/usr/share/applications -a -w $(INSTALL_PREFIX)/usr/share/applications ]; \
