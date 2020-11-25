@@ -4,6 +4,7 @@
 ConfigurationData::ConfigurationData()
 {
 	ConfigData = wxConfigBase::Create();
+	ConfigData->SetExpandEnvVars(false); // we will not write env vars
 	ConfigData->Read(wxT("/openMSXpaths/ExecPath"), &m_openMSXExecPath);
 	ConfigData->Read(wxT("/configuration/InstalledMachines"), &m_installedMachines);
 	ConfigData->Read(wxT("/configuration/InstalledExtensions"), &m_installedExtensions);
