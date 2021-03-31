@@ -62,7 +62,7 @@ BEGIN
             VALUE "FileDescription", "openMSX Catapult\0"
             VALUE "FileVersion", CATAPULT_VERSION_STR
             VALUE "InternalName", "catapult\0"
-            VALUE "LegalCopyright", "Copyright 2003-2020\0"
+            VALUE "LegalCopyright", "Copyright 2003-2021\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "catapult.exe\0"
             VALUE "PrivateBuild", "\0"

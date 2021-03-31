@@ -261,7 +261,7 @@ void wxCatapultFrame::OnMenuAbout(wxCommandEvent& event)
 	auto* message     = (wxStaticText*)FindWindowByName(wxT("AboutMessageLabel"));
 	version->SetLabel(wxString(Version::FULL_VERSION.c_str(), wxConvUTF8));
 	description->SetLabel(wxT("The official GUI for openMSX"));
-	message->SetLabel(wxT("\251 2003-2020 The openMSX Team\nhttp://openmsx.org/\n"));
+	message->SetLabel(wxT("\251 2003-2021 The openMSX Team\nhttp://openmsx.org/\n"));
 	dlg.Fit();
 	dlg.CenterOnParent();
 	dlg.ShowModal();
