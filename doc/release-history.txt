@@ -3,6 +3,17 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
+openMSX Catapult 17.0 (2021-03-31)
+----------------------------------
+
+This release we hardly changed anything, so here is the full list:
+- Do not expand environment variables in the config strings. This probably
+  fixes settings with paths that contain special characters
+- Build:
+  - Fixed build warnings under Clang
+  - Updated build warning flags
+  - Removed CPU detection, as it wasn't useful for Catapult
+
 openMSX Catapult 16.0 (2020-08-25)
 ----------------------------------
 
