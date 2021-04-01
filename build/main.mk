@@ -253,7 +253,7 @@ DEPEND_FLAGS+=-MP
 CXXFLAGS+=-pipe -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing
 # Suppress warnings triggered by wx headers:
 CXXFLAGS+=$(shell \
-  echo | $(CXX) -E -Wno-deprecated-copy - >/dev/null 2>&1 \
+  echo | $(CXX) -E -Werror -Wno-deprecated-copy -x c++ - >/dev/null 2>&1 \
   && echo -Wno-deprecated-copy \
   )
 ifneq ($(filter %clang++,$(CXX))$(filter clang++%,$(CXX)),)
