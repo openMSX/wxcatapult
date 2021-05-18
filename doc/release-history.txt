@@ -3,7 +3,7 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
-openMSX Catapult 17.0 (2021-03-31)
+openMSX Catapult 17.0 (2021-05-18)
 ----------------------------------
 
 This release we hardly changed anything, so here is the full list:
