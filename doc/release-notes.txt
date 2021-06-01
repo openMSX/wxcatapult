@@ -23,7 +23,7 @@ openMSX Home Page:
 Project page on GitHub:
   http://github.com/openMSX/
 Contact options:
-- Talk to us on #openmsx on irc.freenode.net.
+- Talk to us on #openmsx on irc.libera.chat.
 - Use the forum on http://www.msx.org/forum/semi-msx-talk/openmsx
 - File a ticket on https://github.com/openMSX/wxCatapult/issues (for Catapult)
 - File a ticket on https://github.com/openMSX/openMSX/issues (for openMSX)
