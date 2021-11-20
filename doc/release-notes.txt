@@ -1,16 +1,15 @@
-Release Notes for openMSX Catapult for openMSX 16.0 (2020-08-25)
+Release Notes for openMSX Catapult for openMSX 17.0 (2021-05-18)
 ================================================================
 
-Catapult release to match openMSX 16.0.
+Catapult release to match openMSX 17.0.
 
-This release we again didn't change much, so here is the full list:
-- Fix hidden openMSX window when launching from Catapult
-- Migrated build to Python 3
-- Migrated to wxWidgets 3.0
-- Make supported extensions consistent with openMSX command line
-- Replaced Accuracy control with VSync button
-- Replaced Min and Max Frameskip controls with fast forward speed controls
-- Added button to enable full speed when loading ("Fast Load")
+This release we hardly changed anything, so here is the full list:
+- Do not expand environment variables in the config strings. This probably
+  fixes settings with paths that contain special characters
+- Build:
+  - Fixed build warnings under Clang
+  - Updated build warning flags
+  - Removed CPU detection, as it wasn't useful for Catapult
 
 Known issues / caveats:
 - comboboxes behave a bit strangely sometimes on non-Windows systems
@@ -24,7 +23,7 @@ openMSX Home Page:
 Project page on GitHub:
   http://github.com/openMSX/
 Contact options:
-- Talk to us on #openmsx on irc.freenode.net.
+- Talk to us on #openmsx on irc.libera.chat.
 - Use the forum on http://www.msx.org/forum/semi-msx-talk/openmsx
 - File a ticket on https://github.com/openMSX/wxCatapult/issues (for Catapult)
 - File a ticket on https://github.com/openMSX/openMSX/issues (for openMSX)
