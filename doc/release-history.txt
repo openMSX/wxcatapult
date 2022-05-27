@@ -3,7 +3,7 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
-openMSX Catapult 18.0 (2022-05-26)
+openMSX Catapult 18.0 (2022-05-27)
 ----------------------------------
 
 This release we didn't change the source code, but is the full list of news:
