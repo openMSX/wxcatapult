@@ -28,7 +28,7 @@ jobs:
 
     - name: Create 3rdparty src folder
       shell: cmd
-      run: mkdir derived/3rdparty/src
+      run: mkdir derived\3rdparty\src
 
     - name: Extract 3rdparty source code
       run: |
