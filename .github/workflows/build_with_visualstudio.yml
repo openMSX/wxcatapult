@@ -33,8 +33,8 @@ jobs:
     - name: Extract 3rdparty source code
       run: |
         cd derived\3rdparty\src
-        7z x %GITHUB_WORKSPACE%\wxWidgets-3.0.4.7z
-        7z x %GITHUB_WORKSPACE%\libxml2-v2.8.0.zip
+        7z x ${{ github.workspace }}\wxWidgets-3.0.4.7z
+        7z x ${{ github.workspace }}\libxml2-v2.8.0.zip
         
     - name: Build 3rdparty stuff
       run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\3rdparty\3rdparty.sln
@@ -50,7 +50,7 @@ jobs:
       run: |
         mkdir derived\x64-VC-Unicode Release\3rdparty\install\lib\
         cd derived\x64-VC-Unicode Release\3rdparty\install\lib\
-        xcopy "%GITHUB_WORKSPACE%\derived\3rdparty\src\wxWidgets-3.0.4\lib\vc_x64_lib" . /y
+        xcopy "${{ github.workspace }}\derived\3rdparty\src\wxWidgets-3.0.4\lib\vc_x64_lib" . /y
 
     - name: Build Catapult
       run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\msvc\wxCatapult.sln /m
