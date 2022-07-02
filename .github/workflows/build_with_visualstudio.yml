@@ -16,7 +16,7 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.3
 
-    - name: Get prerequisites
+    - name: Install prerequisites (wget)
       run: choco install wget
 
     - name: Get wxWidgets source code
@@ -27,13 +27,13 @@ jobs:
       run: wget https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.8.0/libxml2-v2.8.0.zip
 
     - name: Create 3rdparty src folder
-      shell: bash
-      run: mkdir -p derived/3rdparty/src
+      shell: cmd
+      run: mkdir derived/3rdparty/src
 
     - name: Extract 3rdparty source code
       run: |
         cd derived\3rdparty\src
-        7z x %GITHUB_WORKSPACE%\wxWidgets-3.0.5.7z
+        7z x %GITHUB_WORKSPACE%\wxWidgets-3.0.4.7z
         7z x %GITHUB_WORKSPACE%\libxml2-v2.8.0.zip
         
     - name: Build 3rdparty stuff
