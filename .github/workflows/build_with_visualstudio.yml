@@ -1,0 +1,56 @@
+name: Visual Studio build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.3
+
+    - name: Get prerequisites
+      run: choco install wget
+
+    - name: Get wxWidgets source code
+#      run: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.7z
+      run: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.7z
+
+    - name: Get libxml2 source code
+      run: wget https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.8.0/libxml2-v2.8.0.zip
+
+    - name: Create 3rdparty src folder
+      shell: bash
+      run: mkdir -p derived/3rdparty/src
+
+    - name: Extract 3rdparty source code
+      run: |
+        cd derived\3rdparty\src
+        7z x %GITHUB_WORKSPACE%\wxWidgets-3.0.5.7z
+        7z x %GITHUB_WORKSPACE%\libxml2-v2.8.0.zip
+        
+    - name: Build 3rdparty stuff
+      run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\3rdparty\3rdparty.sln
+  
+    - name: Build wxWidgets libs
+      shell: cmd
+      run: |
+        cd derived\3rdparty\src\wxWidgets-3.0.4\build\msw\
+        nmake /f makefile.vc BUILD=release TARGET_CPU=X64 RUNTIME_LIBS=static
+
+    - name: Install wxWidgets libs
+      shell: cmd
+      run: |
+        mkdir derived\x64-VC-Unicode Release\3rdparty\install\lib\
+        cd derived\x64-VC-Unicode Release\3rdparty\install\lib\
+        xcopy "%GITHUB_WORKSPACE%\derived\3rdparty\src\wxWidgets-3.0.4\lib\vc_x64_lib" . /y
+
+    - name: Build Catapult
+      run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\msvc\wxCatapult.sln /m
