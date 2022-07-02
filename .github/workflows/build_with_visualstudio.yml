@@ -19,12 +19,11 @@ jobs:
     - name: Install prerequisites (wget)
       run: choco install wget
 
-    - name: Get wxWidgets source code
-#      run: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.7z
-      run: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.7z
-
-    - name: Get libxml2 source code
-      run: wget https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.8.0/libxml2-v2.8.0.zip
+    - name: Get 3rdparty source code
+      run: |
+        wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.7z
+        wget https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.8.0/libxml2-v2.8.0.zip
+#        wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.7z
 
     - name: Create 3rdparty src folder
       shell: cmd
@@ -35,6 +34,7 @@ jobs:
         cd derived\3rdparty\src
         7z x ${{ github.workspace }}\wxWidgets-3.0.4.7z
         7z x ${{ github.workspace }}\libxml2-v2.8.0.zip
+        ren libxml2-v2.8.0 libxml2-2.8.0
         
     - name: Build 3rdparty stuff
       run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\3rdparty\3rdparty.sln
