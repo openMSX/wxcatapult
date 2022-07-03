@@ -11,6 +11,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\buf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\c14n.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -145,10 +148,22 @@
     <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\acconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\buf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\elfgcchack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\enc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\libxml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\save.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\timsort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\trio.h">
