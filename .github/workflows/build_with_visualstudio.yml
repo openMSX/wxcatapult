@@ -38,10 +38,14 @@ jobs:
     - name: Build 3rdparty stuff
       run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\3rdparty\3rdparty.sln
 
+
+    - name: Set up developer prompt for nmake use to build wxWidgets libs
+      uses: ilammy/msvc-dev-cmd@v1
+
     - name: Build wxWidgets libs
       shell: cmd
       run: |
-        cd derived\3rdparty\src\wxWidgets-3.0.4\build\msw\
+        cd derived\3rdparty\src\wxWidgets-3.0.4\build\msw
         nmake /f makefile.vc BUILD=release TARGET_CPU=X64 RUNTIME_LIBS=static
 
     - name: Install wxWidgets libs
