@@ -32,8 +32,8 @@ jobs:
     - name: Extract 3rdparty source code
       run: |
         cd derived\3rdparty\src
-        7z x ${{ github.workspace }}\wxWidgets-3.0.4.7z
         7z x ${{ github.workspace }}\libxml2-v2.9.3.zip
+        7z x ${{ github.workspace }}\wxWidgets-3.0.4.7z -owxWidgets-3.0.4
 
     - name: Build 3rdparty stuff
       run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\3rdparty\3rdparty.sln
