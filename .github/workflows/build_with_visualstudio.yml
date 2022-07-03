@@ -62,8 +62,8 @@ jobs:
       shell: cmd
       run: |
         mkdir derived\dist\Catapult
-        xcopy "derived\x64-VC-Unicode Release\install\catapult.exe" derived\dist\Catapult\ /i
-        xcopy doc derived\dist\Catapult\doc\ /i
+        xcopy "derived\x64-VC-Unicode Release\install\catapult.exe" derived\dist\Catapult\bin\Catapult.exe /i
+        xcopy doc\*.* derived\dist\Catapult\doc\ /i
         xcopy resources\bitmaps derived\dist\Catapult\resources\bitmaps\ /i
         xcopy "derived\x64-VC-Unicode Release\install\dialogs" derived\dist\Catapult\resources\dialogs\
         xcopy src\catapult.xpm derived\dist\Catapult\resources\icons\ /i
@@ -73,4 +73,10 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Catapult.zip
-        path: derived/dist/Catapult
+        path: derived/dist/*
+
+    - name: Upload Windows VC debug symbols
+      uses: actions/upload-artifact@v3
+      with:
+        name: Catapult-pdb.zip
+        path: derived/**/*.pdb
