@@ -58,25 +58,36 @@ jobs:
     - name: Build Catapult
       run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\msvc\wxCatapult.sln /m
 
-    - name: Prepare redistributable
-      shell: cmd
+    - name: Determine version and redistributable paths and names
+      shell: bash
+      id: catapult
       run: |
-        mkdir derived\dist\Catapult
-        xcopy "derived\x64-VC-Unicode Release\install\catapult.exe" derived\dist\Catapult\bin\Catapult.exe /i
-        xcopy doc\*.* derived\dist\Catapult\doc\ /i
-        xcopy resources\bitmaps derived\dist\Catapult\resources\bitmaps\ /i
-        xcopy "derived\x64-VC-Unicode Release\install\dialogs" derived\dist\Catapult\resources\dialogs\
-        xcopy src\catapult.xpm derived\dist\Catapult\resources\icons\ /i
-        xcopy README derived\dist\Catapult\doc\ /i
+        CATAPULT_VERSION=`python3 build/version.py`
+        echo "::set-output name=version::$CATAPULT_VERSION"
+        echo "::set-output name=target_file::catapult-$CATAPULT_VERSION-Windows-VC-x64-bin"
+        echo "::set-output name=target_file_pdb::catapult-$CATAPULT_VERSION-Windows-VC-x64-pdb"        
+
+    - name: Prepare redistributable
+      shell: bash
+      run: |
+        mkdir derived/dist/Catapult
+        mkdir derived/dist/Catapult/bin
+        cp "derived/x64-VC-Unicode Release/install/catapult.exe" derived/dist/Catapult/bin
+        cp -r doc derived/dist/Catapult
+        cp -r resources derived/dist/Catapult
+        cp -r "derived/x64-VC-Unicode Release/install/dialogs" derived/dist/Catapult/resources
+        mkdir derived/dist/Catapult/resources/icons
+        cp src/catapult.xpm derived/dist/Catapult/resources/icons
+        cp README derived/dist/Catapult/doc
 
     - name: Upload Windows VC redistributable
       uses: actions/upload-artifact@v3
       with:
-        name: Catapult.zip
-        path: derived/dist/*
+        name: ${{ steps.catapult.outputs.target_file }}.zip
+        path: derived/dist
 
     - name: Upload Windows VC debug symbols
       uses: actions/upload-artifact@v3
       with:
-        name: Catapult-pdb.zip
+        name: ${{ steps.catapult.outputs.target_file_pdb }}.zip
         path: derived/**/*.pdb
