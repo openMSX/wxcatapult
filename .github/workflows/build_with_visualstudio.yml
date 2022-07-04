@@ -70,7 +70,7 @@ jobs:
     - name: Prepare redistributable
       shell: bash
       run: |
-        mkdir derived/dist/Catapult
+        mkdir -p derived/dist/Catapult
         mkdir derived/dist/Catapult/bin
         cp "derived/x64-VC-Unicode Release/install/catapult.exe" derived/dist/Catapult/bin
         cp -r doc derived/dist/Catapult
