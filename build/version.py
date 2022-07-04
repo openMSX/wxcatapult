@@ -12,7 +12,11 @@ import re
 packageName = 'catapult'
 
 # Version number.
-packageVersion = '18.0'
+packageVersionNumber = '18.0'
+
+# Note: suffix should be empty or with dash, like "-rc2" or "-test1"
+packageVersionSuffix = ''
+packageVersion = packageVersionNumber + packageVersionSuffix
 
 # Is this a release version ("True") or development version ("False").
 releaseFlag = False
@@ -52,7 +56,12 @@ def extractNumberFromGitRevision(revisionStr):
 		return None
 	return re.match(r'(\d+)+', revisionStr).group(0)
 
+_cachedRevision = False # because None is a valid result
+
 def extractRevision():
+	global _cachedRevision
+	if _cachedRevision is not False:
+		return _cachedRevision
 	if releaseFlag:
 		# Not necessary, we do not append revision for a release build.
 		return None
@@ -64,6 +73,7 @@ def extractRevision():
 		print('Revision string: %s' % revision, file=log)
 		revisionNumber = extractNumberFromGitRevision(revision)
 		print('Revision number: %s' % revisionNumber, file=log)
+	_cachedRevision = revision
 	return revision
 
 def extractRevisionNumber():
@@ -71,6 +81,10 @@ def extractRevisionNumber():
 
 def extractRevisionString():
 	return extractRevision() or 'unknown'
+
+def getVersionTripleString():
+	"""Version in "x.y.z" format."""
+	return '%s.%d' % (packageVersionNumber, extractRevisionNumber())
 
 def getDetailedVersion():
 	if releaseFlag:
@@ -90,5 +104,25 @@ def countGitCommits():
 		print('Commit count: %s' % commitCount, file=log)
 	return commitCount
 
+formatMap = dict(
+	main=lambda: packageVersionNumber,
+	plain=lambda: packageVersion,
+	triple=getVersionTripleString,
+	detailed=getDetailedVersion,
+	)
+
 if __name__ == '__main__':
-	print(packageVersion)
+	import sys
+	badFormat = False
+	for fmt in sys.argv[1:] or ['detailed']:
+		try:
+			formatter = formatMap[fmt]
+		except KeyError:
+			print('Unknown version format "%s"' % fmt, file=sys.stderr)
+			badFormat = True
+		else:
+			print(formatter())
+	if badFormat:
+		print('Supported version formats:', ', '.join(sorted(formatMap.keys())),
+			file=sys.stderr)
+		sys.exit(2)
