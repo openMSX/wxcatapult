@@ -111,9 +111,3 @@ jobs:
       with:
         name: ${{ steps.catapult.outputs.target_file_pdb }}.zip
         path: derived/**/*.pdb
-
-    - name: Upload version.log
-      uses: actions/upload-artifact@v3
-      with:
-        name: versionlog.zip
-        path: derived/version.log
