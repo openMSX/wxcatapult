@@ -24,8 +24,8 @@ jobs:
       uses: actions/cache@v3
       with:
         path: |
-              derived/3rdparty
-              "derived/x64-VC-Unicode Release/3rdparty"
+          derived/3rdparty
+          derived/*/3rdparty
         key: wx-3.0.4_libxml2-v2.9.3
 
     - name: Install prerequisites (wget)
