@@ -26,7 +26,7 @@ jobs:
         path: |
           derived/3rdparty
           derived/*/3rdparty
-        key: wx-3.0.4_libxml2-v2.9.3
+        key: ${{ github.ref }}-${{ hashFiles('build/3rdparty/3rdparty.props') }}
 
     - name: Install prerequisites (wget)
       if: steps.cache-3rdparty.outputs.cache-hit != 'true'
