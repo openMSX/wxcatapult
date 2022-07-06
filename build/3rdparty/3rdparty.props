@@ -12,7 +12,7 @@
     <CatapultIntDir>$(BuildDir)\build</CatapultIntDir>
     <CatapultOutDir>$(BuildDir)\install</CatapultOutDir>
     <CatapultConfigDir>$(BuildDir)\config</CatapultConfigDir>
-    <LibNameLibXml>libxml2-v2.9.3</LibNameLibXml>
+    <LibNameLibXml>libxml2-v2.9.14</LibNameLibXml>
     <LibNameWx>wxWidgets-3.0.5</LibNameWx>
   </PropertyGroup>
   <PropertyGroup>
