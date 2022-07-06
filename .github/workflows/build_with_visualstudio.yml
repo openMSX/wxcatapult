@@ -35,9 +35,8 @@ jobs:
     - name: Get 3rdparty source code
       if: steps.cache-3rdparty.outputs.cache-hit != 'true'
       run: |
-        wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.7z
+        wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.7z
         wget https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.9.3/libxml2-v2.9.3.zip
-#        wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.7z
 
     - name: Create 3rdparty src folder
       if: steps.cache-3rdparty.outputs.cache-hit != 'true'
@@ -50,7 +49,7 @@ jobs:
       run: |
         cd derived\3rdparty\src
         7z x ${{ github.workspace }}\libxml2-v2.9.3.zip
-        7z x ${{ github.workspace }}\wxWidgets-3.0.4.7z -o"wxWidgets-3.0.4"
+        7z x ${{ github.workspace }}\wxWidgets-3.0.5.7z -o"wxWidgets-3.0.5"
 
     - name: Build 3rdparty stuff
       if: steps.cache-3rdparty.outputs.cache-hit != 'true'
@@ -64,7 +63,7 @@ jobs:
       if: steps.cache-3rdparty.outputs.cache-hit != 'true'
       shell: cmd
       run: |
-        cd derived\3rdparty\src\wxWidgets-3.0.4\build\msw
+        cd derived\3rdparty\src\wxWidgets-3.0.5\build\msw
         nmake /f makefile.vc BUILD=release TARGET_CPU=X64 RUNTIME_LIBS=static
 
     - name: Install wxWidgets libs
@@ -73,7 +72,7 @@ jobs:
       run: |
         mkdir derived\x64-VC-Unicode Release\3rdparty\install\lib\
         cd derived\x64-VC-Unicode Release\3rdparty\install\lib\
-        xcopy "${{ github.workspace }}\derived\3rdparty\src\wxWidgets-3.0.4\lib\vc_x64_lib" . /y
+        xcopy "${{ github.workspace }}\derived\3rdparty\src\wxWidgets-3.0.5\lib\vc_x64_lib" . /y
 
     - name: Build Catapult
       run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\msvc\wxCatapult.sln /m
