@@ -176,6 +176,7 @@ popd
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\buf.c" />
     <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\c14n.c" />
     <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\catalog.c" />
     <ClCompile Include="$(ThirdPartySrcDir)\$(LibNameLibXml)\chvalid.c" />

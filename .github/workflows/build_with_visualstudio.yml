@@ -1,0 +1,108 @@
+name: Visual Studio build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name:  Get current code from Git repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.3
+
+    - name: Cache 3rdparty libs
+      id: cache-3rdparty
+      uses: actions/cache@v3
+      with:
+        path: |
+          derived/3rdparty
+          derived/*/3rdparty
+        key: ${{ github.ref }}-${{ hashFiles('build/3rdparty/3rdparty.props') }}
+
+    - name: Install prerequisites (wget)
+      if: steps.cache-3rdparty.outputs.cache-hit != 'true'
+      run: choco install wget
+
+    - name: Get 3rdparty source code
+      if: steps.cache-3rdparty.outputs.cache-hit != 'true'
+      run: |
+        wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.7z
+        wget https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.9.14/libxml2-v2.9.14.zip
+
+    - name: Extract 3rdparty source code
+      if: steps.cache-3rdparty.outputs.cache-hit != 'true'
+      shell: cmd
+      run: |
+        mkdir derived\3rdparty\src
+        cd derived\3rdparty\src
+        7z x ${{ github.workspace }}\libxml2-v2.9.14.zip
+        7z x ${{ github.workspace }}\wxWidgets-3.0.5.7z -o"wxWidgets-3.0.5"
+
+    - name: Build 3rdparty stuff
+      if: steps.cache-3rdparty.outputs.cache-hit != 'true'
+      run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\3rdparty\3rdparty.sln
+
+    - name: Set up developer prompt for nmake use to build wxWidgets libs
+      if: steps.cache-3rdparty.outputs.cache-hit != 'true'
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Build wxWidgets libs
+      if: steps.cache-3rdparty.outputs.cache-hit != 'true'
+      shell: cmd
+      run: |
+        cd derived\3rdparty\src\wxWidgets-3.0.5\build\msw
+        nmake /f makefile.vc BUILD=release TARGET_CPU=X64 RUNTIME_LIBS=static
+
+    - name: Install wxWidgets libs
+      if: steps.cache-3rdparty.outputs.cache-hit != 'true'
+      shell: cmd
+      run: |
+        mkdir derived\x64-VC-Unicode Release\3rdparty\install\lib\
+        cd derived\x64-VC-Unicode Release\3rdparty\install\lib\
+        xcopy "${{ github.workspace }}\derived\3rdparty\src\wxWidgets-3.0.5\lib\vc_x64_lib" . /y
+
+    - name: Build Catapult
+      run: msbuild -p:Configuration="Unicode Release" -p:Platform=x64 build\msvc\wxCatapult.sln /m
+
+    - name: Determine version and redistributable paths and names
+      shell: bash
+      id: catapult
+      run: |
+        CATAPULT_VERSION=`python3 build/version.py`
+        echo "::set-output name=version::$CATAPULT_VERSION"
+        echo "::set-output name=target_file::catapult-$CATAPULT_VERSION-Windows-VC-x64-bin"
+        echo "::set-output name=target_file_pdb::catapult-$CATAPULT_VERSION-Windows-VC-x64-pdb"
+
+    - name: Prepare redistributable
+      shell: bash
+      run: |
+        mkdir -p derived/dist/Catapult
+        mkdir derived/dist/Catapult/bin
+        cp "derived/x64-VC-Unicode Release/install/catapult.exe" derived/dist/Catapult/bin
+        cp -r doc derived/dist/Catapult
+        cp -r resources derived/dist/Catapult
+        cp -r "derived/x64-VC-Unicode Release/install/dialogs" derived/dist/Catapult/resources
+        mkdir derived/dist/Catapult/resources/icons
+        cp src/catapult.xpm derived/dist/Catapult/resources/icons
+        cp README derived/dist/Catapult/doc
+
+    - name: Upload Windows VC redistributable
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ steps.catapult.outputs.target_file }}.zip
+        path: derived/dist
+
+    - name: Upload Windows VC debug symbols
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ steps.catapult.outputs.target_file_pdb }}.zip
+        path: derived/**/*.pdb
