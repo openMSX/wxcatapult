@@ -338,10 +338,10 @@ Although compilation works, the generated executable will be larger than the
 binary released version (which is compiled with Visual C++) and will also need the MinGW runtime DLL.
 </p>
 
-<h4>Visual Studio Community 2017</h4>
+<h4>Visual Studio Community</h4>
 <p>Use this way to obtain the Visual C++ compiler:</p>
 <dl>
-    <dt><a class="external" href="https://www.visualstudio.com/downloads/">Visual Studio Community 2017</a></dt>
+    <dt><a class="external" href="https://www.visualstudio.com/downloads/">Visual Studio Community 2022</a></dt>
     <dd>
         This is a free (as in beer) IDE and development environment. It builds 32 and 64-bit
         binaries out of the box. This is the best option for developers looking to browse
@@ -408,11 +408,11 @@ Although other versions are available, we recommend to use wxWidgets 3.0, as we 
 
 <h4>Microsoft Windows</h4>
 <p>
-Get the source code for wxWidgets. Version <a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.zip">3.0.4</a> is what we used, so that's recommended. Please read the next section for instructions for compiling wxWidgets from source.
+Get the source code for wxWidgets. Version <a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.zip">3.0.5</a> is what we used, so that's recommended. Please read the next section for instructions for compiling wxWidgets from source.
 </p>
 
-<p>For Windows, version <a href="http://www.xmlsoft.org/sources/libxml2-2.8.0.tar.gz">2.8.0</a> of libxml2 is recommended.</p>
-<p>Unpack the source packages into the derived\3rdparty\src directory. This will generate a subdirectory called libxml2-2.8.0.</p>
+<p>For Windows, version <a href="ttps://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.9.14/libxml2-v2.9.14.tar.gz">2.9.14</a> of libxml2 is recommended.</p>
+<p>Unpack the source packages into the derived\3rdparty\src directory. This will generate a subdirectory called libxml2-v2.9.14.</p>
 <p>For wxWidgets, unzip the sources somewhere else. For Windows, the compilation inside the 3rdparty folder is not supported at the moment.
 </p>
 
@@ -452,30 +452,32 @@ make install</div>
 		</ul>
 	<p>for 32-bit</p>	
 		<ul>
-			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86</code></li>
-			<li><code>msbuild -p:Configuration=&quot;<strong>Unipre Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
+			<li><code>call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x86</code></li>
+			<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\3rdparty\3rdparty.sln</code></li>
 		</ul>
 	<p>for 64-bit</p>
 		<ul>		
-			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64</code></li>
-			<li><code>msbuild -p:Configuration=&quot;<strong>Unipre Release</strong>&quot;;Platform=<strong>x64</strong> build\3rdparty\3rdparty.sln</code></li>
+			<li><code>call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64</code></li>
+			<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\3rdparty\3rdparty.sln</code></li>
 		</ul>
 
-<p>To build for other platforms or configurations, simply replace &quot;Unipre Release&quot; and &quot;Win32&quot; in the command lines above with the desired options, which are explained above.</p>
+<p>To build for other platforms or configurations, simply replace &quot;Unicode Release&quot; and &quot;Win32&quot; in the command lines above with the desired options, which are explained above.</p>
 <p>It is worth noting that running <code>msbuild</code> from a command line is exactly equivalent to opening the respective solution files in Visual Studio and compiling the projects inside them using the IDE.</p>
 <p>Note that there seems to be confusion on where the <code>vcvarsall.bat</code> is located... Microsoft documented it in <a href="https://docs.microsoft.com/nl-nl/cpp/build/setting-the-path-and-environment-variables-for-command-line-builds">this help page</a>, but <a href="https://stackoverflow.com/questions/43372235/vcvarsall-bat-for-visual-studio-2017">other people seem to disagree</a>... Please check what is applicable for your case.</p>
 
 <p>
-For now, wxWidgets has to extracted to <code>derived\3rdparty\src\wxWidgets-3.0.4</code> (yes, that version and that specific location, otherwise the compiler won't find the include files for the library) and be built manually, after which the results must be manually copied to the proper place in the 3rdparty tree. Here are the steps with a Visual Studio command prompt in the location where the wxWidgets source files were unzipped (<code>derived\3rdparty\src\wxWidgets-3.0.4</code>).
+For now, wxWidgets has to extracted to <code>derived\3rdparty\src\wxWidgets-3.0.5</code> (yes, that version and that specific location, otherwise the compiler won't find the include files for the library) and be built manually, after which the results must be manually copied to the proper place in the 3rdparty tree. Here are the steps with a Visual Studio command prompt in the location where the wxWidgets source files were unzipped (<code>derived\3rdparty\src\wxWidgets-3.0.5</code>).
 </p>
 	<p>For 32-bit</p>	
 		<ul>
-			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86</code></li>
+			<li><code>call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x86</code></li>
+			<li><code>cd build\msw</code></li>
 			<li><code>nmake /f makefile.vc BUILD=release TARGET_CPU=x86 RUNTIME_LIBS=static</code></li>
 		</ul>
 	<p>For 64-bit</p>
 		<ul>		
-			<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64</code></li>
+			<li><code>call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64</code></li>
+			<li><code>cd build\msw</code></li>
 			<li><code>nmake /f makefile.vc BUILD=release TARGET_CPU=X64 RUNTIME_LIBS=static</code></li>
 		</ul>
 <p>
@@ -528,12 +530,12 @@ Make sure you provide us with the error message(s) you got.
 
 <p>for Win32</p>	
 <ul>
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86</code></li>
+	<li><code>call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x86</code></li>
 	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>Win32</strong> build\msvc\wxCatapult.sln</code></li>
 </ul>
 <p>for Win64</p>
 <ul>		
-	<li><code>call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64</code></li>
+	<li><code>call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64</code></li>
 	<li><code>msbuild -p:Configuration=&quot;<strong>Unicode Release</strong>&quot;;Platform=<strong>x64</strong> build\msvc\wxCatapult.sln</code></li>
 </ul>
 
