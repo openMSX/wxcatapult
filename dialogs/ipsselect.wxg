@@ -69,7 +69,7 @@
                 </object>
             </object>
             <object class="sizeritem">
-                <flag>wxRIGHT|wxBOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                <flag>wxRIGHT|wxBOTTOM|wxALIGN_CENTER_HORIZONTAL</flag>
                 <border>5</border>
                 <option>0</option>
                 <object class="wxBoxSizer" name="ButtonSizer" base="EditBoxSizer">
