@@ -41,6 +41,7 @@
                                                 </object>
                                             </object>
                                             <object class="sizeritem">
+                                                <flag>wxALIGN_CENTER_VERTICAL</flag>
                                                 <border>0</border>
                                                 <option>0</option>
                                                 <object class="wxComboBox" name="RendererSelector" base="EditComboBox">
@@ -70,7 +71,7 @@
                                                 </object>
                                             </object>
                                             <object class="sizeritem">
-                                                <flag>wxTOP|wxBOTTOM</flag>
+                                                <flag>wxTOP|wxBOTTOM|wxALIGN_CENTER_VERTICAL</flag>
                                                 <border>5</border>
                                                 <option>0</option>
                                                 <object class="wxToggleButton" name="DeInterlaceButton" base="EditToggleButton">
