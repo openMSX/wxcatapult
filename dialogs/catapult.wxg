@@ -8,7 +8,7 @@
         <object class="wxBoxSizer" name="TopSizer" base="EditBoxSizer">
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">
-                <flag>wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                <flag>wxEXPAND</flag>
                 <border>0</border>
                 <option>1</option>
                 <object class="wxPanel" name="MainWindowPanel" base="EditPanel">
@@ -49,7 +49,7 @@
                                     <object class="wxBoxSizer" name="PowerLedSizer" base="EditBoxSizer">
                                         <orient>wxVERTICAL</orient>
                                         <object class="sizeritem">
-                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>0</border>
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="PowerLed" base="EditStaticBitmap">
@@ -58,7 +58,7 @@
                                             </object>
                                         </object>
                                         <object class="sizeritem">
-                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxStaticText" name="PowerLedLabel" base="EditStaticText">
@@ -75,7 +75,7 @@
                                     <object class="wxBoxSizer" name="CapsLedSizer" base="EditBoxSizer">
                                         <orient>wxVERTICAL</orient>
                                         <object class="sizeritem">
-                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>0</border>
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="CapsLockLed" base="EditStaticBitmap">
@@ -84,7 +84,7 @@
                                             </object>
                                         </object>
                                         <object class="sizeritem">
-                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxStaticText" name="CapsLockLedLabel" base="EditStaticText">
@@ -102,7 +102,7 @@
                                     <object class="wxBoxSizer" name="KanaLedSizer" base="EditBoxSizer">
                                         <orient>wxVERTICAL</orient>
                                         <object class="sizeritem">
-                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>0</border>
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="KanaLed" base="EditStaticBitmap">
@@ -111,7 +111,7 @@
                                             </object>
                                         </object>
                                         <object class="sizeritem">
-                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxStaticText" name="KanaLedLabel" base="EditStaticText">
@@ -128,7 +128,7 @@
                                     <object class="wxBoxSizer" name="PauseLedSizer" base="EditBoxSizer">
                                         <orient>wxVERTICAL</orient>
                                         <object class="sizeritem">
-                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>0</border>
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="PauseLed" base="EditStaticBitmap">
@@ -137,7 +137,7 @@
                                             </object>
                                         </object>
                                         <object class="sizeritem">
-                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxStaticText" name="PauseLedLabel" base="EditStaticText">
@@ -154,7 +154,7 @@
                                     <object class="wxBoxSizer" name="TurboLedSizer" base="EditBoxSizer">
                                         <orient>wxVERTICAL</orient>
                                         <object class="sizeritem">
-                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>0</border>
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="TurboLed" base="EditStaticBitmap">
@@ -163,7 +163,7 @@
                                             </object>
                                         </object>
                                         <object class="sizeritem">
-                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxStaticText" name="TurboLedLabel" base="EditStaticText">
@@ -180,7 +180,7 @@
                                     <object class="wxBoxSizer" name="FDDLedSizer" base="EditBoxSizer">
                                         <orient>wxVERTICAL</orient>
                                         <object class="sizeritem">
-                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>0</border>
                                             <option>0</option>
                                             <object class="wxStaticBitmap" name="FDDLed" base="EditStaticBitmap">
@@ -189,7 +189,7 @@
                                             </object>
                                         </object>
                                         <object class="sizeritem">
-                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+                                            <flag>wxTOP|wxALIGN_CENTER_HORIZONTAL</flag>
                                             <border>2</border>
                                             <option>0</option>
                                             <object class="wxStaticText" name="FDDLedLabel" base="EditStaticText">

@@ -30,7 +30,6 @@
                         <object class="wxBoxSizer" name="sizer_5" base="EditBoxSizer">
                             <orient>wxHORIZONTAL</orient>
                             <object class="sizeritem">
-                                <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                 <border>0</border>
                                 <option>1</option>
                                 <object class="wxStaticText" name="AboutProductNameLabel" base="EditStaticText">
@@ -55,7 +54,6 @@
                         <object class="wxBoxSizer" name="AboutProductSizer" base="EditBoxSizer">
                             <orient>wxHORIZONTAL</orient>
                             <object class="sizeritem">
-                                <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                 <border>0</border>
                                 <option>1</option>
                                 <object class="wxStaticText" name="AboutProductDescriptionLabel" base="EditStaticText">
@@ -80,7 +78,6 @@
                         <object class="wxBoxSizer" name="AboutMessageSizer" base="EditBoxSizer">
                             <orient>wxHORIZONTAL</orient>
                             <object class="sizeritem">
-                                <flag>wxALIGN_CENTER_HORIZONTAL</flag>
                                 <border>0</border>
                                 <option>2</option>
                                 <object class="wxStaticText" name="AboutMessageLabel" base="EditStaticText">
