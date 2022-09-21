@@ -87,7 +87,7 @@
                 </object>
             </object>
             <object class="sizeritem">
-                <flag>wxEXPAND|wxALIGN_RIGHT</flag>
+                <flag>wxEXPAND</flag>
                 <border>0</border>
                 <option>1</option>
                 <object class="wxBoxSizer" name="sizer_9" base="EditBoxSizer">

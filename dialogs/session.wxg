@@ -371,7 +371,7 @@
                                                         </object>
                                                     </object>
                                                     <object class="sizeritem">
-                                                        <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL</flag>
+                                                        <flag>wxLEFT|wxRIGHT</flag>
                                                         <border>3</border>
                                                         <option>0</option>
                                                         <object class="wxButton" name="RewindButton" base="EditButton">

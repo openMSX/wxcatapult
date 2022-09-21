@@ -1,20 +1,13 @@
-Release Notes for openMSX Catapult for openMSX 17.0 (2021-05-18)
+Release Notes for openMSX Catapult for openMSX 18.0 (2022-06-12)
 ================================================================
 
-Catapult release to match openMSX 17.0.
+Catapult release to match openMSX 18.0.
 
-This release we hardly changed anything, so here is the full list:
-- Do not expand environment variables in the config strings. This probably
-  fixes settings with paths that contain special characters
-- Build:
-  - Fixed build warnings under Clang
-  - Updated build warning flags
-  - Removed CPU detection, as it wasn't useful for Catapult
+This release we didn't change the source code, but is the full list of news:
+- Updated IRC links in documentation, as we moved to Libera.Chat
+- Build: updated Windows build files for Visual Studio 2022
 
 Known issues / caveats:
-- comboboxes behave a bit strangely sometimes on non-Windows systems
-- the select extension listbox doesn't work properly. Use the spacebar to
-  deselect extensions! CTRL-click also works.
 - not feature complete, especially for newer features you will have to revert
   to the openMSX console (press F10/Cmd+L) or the OSD menu (MENU key/Cmd+O)
 
