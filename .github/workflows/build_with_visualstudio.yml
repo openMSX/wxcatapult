@@ -78,9 +78,9 @@ jobs:
       id: catapult
       run: |
         CATAPULT_VERSION=`python3 build/version.py`
-        echo "::set-output name=version::$CATAPULT_VERSION"
-        echo "::set-output name=target_file::catapult-$CATAPULT_VERSION-Windows-VC-x64-bin"
-        echo "::set-output name=target_file_pdb::catapult-$CATAPULT_VERSION-Windows-VC-x64-pdb"
+        echo "version=$CATAPULT_VERSION" >> $GITHUB_OUTPUT
+        echo "target_file=catapult-$CATAPULT_VERSION-Windows-VC-x64-bin" >> $GITHUB_OUTPUT
+        echo "target_file_pdb=catapult-$CATAPULT_VERSION-Windows-VC-x64-pdb" >> $GITHUB_OUTPUT
 
     - name: Prepare redistributable
       shell: bash
