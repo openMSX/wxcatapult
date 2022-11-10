@@ -45,7 +45,7 @@ jobs:
         mkdir derived\3rdparty\src
         cd derived\3rdparty\src
         7z x ${{ github.workspace }}\libxml2-v2.9.14.zip
-        7z x ${{ github.workspace }}\wxWidgets-3.2.1 -o"wxWidgets-3.2.1"
+        7z x ${{ github.workspace }}\wxWidgets-3.2.1.7z -o"wxWidgets-3.2.1"
 
     - name: Build 3rdparty stuff
       if: steps.cache-3rdparty.outputs.cache-hit != 'true'
