@@ -1,11 +1,11 @@
-Release Notes for openMSX Catapult for openMSX 18.0 (2022-06-12)
+Release Notes for openMSX Catapult for openMSX 19.0 (2023-07-xx)
 ================================================================
 
-Catapult release to match openMSX 18.0.
+Catapult release to match openMSX 19.0.
 
-This release we didn't change the source code, but is the full list of news:
-- Updated IRC links in documentation, as we moved to Libera.Chat
-- Build: updated Windows build files for Visual Studio 2022
+This release we again didn't change much, but is the full list of news:
+- migrated to wxWidgets 3.2.1 and libxml2 2.9.14 (latest stable releases)
+- adjusted code for changes in the openMSX type command
 
 Known issues / caveats:
 - not feature complete, especially for newer features you will have to revert
