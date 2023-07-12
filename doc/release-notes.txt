@@ -1,5 +1,5 @@
-Release Notes for openMSX Catapult for openMSX 19.0 (2023-07-xx)
-================================================================
+Release Notes for openMSX Catapult for openMSX 19.0-RC1 (2023-07-12)
+====================================================================
 
 Catapult release to match openMSX 19.0.
 
