@@ -3,8 +3,8 @@ Release History
 
 This is an overview of the changes that were incorporated into past releases.
 
-openMSX Catapult 19.0-RC1 (2023-07-12)
---------------------------------------
+openMSX Catapult 19.0 (2023-07-25)
+----------------------------------
 
 This release we again didn't change much, but is the full list of news:
 - migrated to wxWidgets 3.2.1 and libxml2 2.9.14 (latest stable releases)
