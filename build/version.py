@@ -19,7 +19,7 @@ packageVersionSuffix = ''
 packageVersion = packageVersionNumber + packageVersionSuffix
 
 # Is this a release version ("True") or development version ("False").
-releaseFlag = True
+releaseFlag = False
 
 # TODO: Before extraction of SVN or git-SVN revision number can be done, we
 #       should figure out a way to avoid rewriting Version.ii on every build.
