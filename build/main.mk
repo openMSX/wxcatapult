@@ -403,16 +403,26 @@ endif
 ifeq ($(CATAPULT_PREBUILT),false)
 ifneq ($(CATAPULT_NO_DESKTOP_HOOKS),true)
 	$(SUM) "  Desktop hooks..."
-	$(CMD)mkdir -p $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)/resources/icons
-	$(CMD)cp -rf src/catapult.xpm $(INSTALL_PREFIX)$(INSTALL_SHARE_DIR)/resources/icons
+	$(CMD)mkdir -p $(INSTALL_PREFIX)/usr/share/icons/hicolor/16x16/apps
+	$(CMD)cp -rf desktop/catapult-logo-16.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/16x16/apps/openmsx-catapult.png
+	$(CMD)mkdir -p $(INSTALL_PREFIX)/usr/share/icons/hicolor/32x32/apps
+	$(CMD)cp -rf desktop/catapult-logo-32.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/32x32/apps/openmsx-catapult.png
+	$(CMD)mkdir -p $(INSTALL_PREFIX)/usr/share/icons/hicolor/48x48/apps
+	$(CMD)cp -rf desktop/catapult-logo-48.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/48x48/apps/openmsx-catapult.png
+	$(CMD)mkdir -p $(INSTALL_PREFIX)/usr/share/icons/hicolor/64x64/apps
+	$(CMD)cp -rf desktop/catapult-logo-64.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/64x64/apps/openmsx-catapult.png
+	$(CMD)mkdir -p $(INSTALL_PREFIX)/usr/share/icons/hicolor/128x128/apps
+	$(CMD)cp -rf desktop/catapult-logo-128.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/128x128/apps/openmsx-catapult.png
+	$(CMD)mkdir -p $(INSTALL_PREFIX)/usr/share/icons/hicolor/192x192/apps
+	$(CMD)cp -rf desktop/catapult-logo-192.png $(INSTALL_PREFIX)/usr/share/icons/hicolor/192x192/apps/openmsx-catapult.png
 	$(CMD)if [ -d $(INSTALL_PREFIX)/usr/share/applications -a -w $(INSTALL_PREFIX)/usr/share/applications ]; \
 		then sed -e "s|%INSTALL_BASE%|$(INSTALL_SHARE_DIR)|" \
-			desktop/openMSX-Catapult.desktop \
-			> $(INSTALL_PREFIX)/usr/share/applications/openMSX-Catapult.desktop; \
+			desktop/org.openmsx.openMSX.Catapult.desktop \
+			> $(INSTALL_PREFIX)/usr/share/applications/org.openmsx.openMSX.Catapult.desktop; \
 		else mkdir -p ~/.local/share/applications && \
 			sed -e "s|%INSTALL_BASE%|$(INSTALL_SHARE_DIR)|" \
-			desktop/openMSX-Catapult.desktop \
-			> ~/.local/share/applications/openMSX-Catapult.desktop; \
+			desktop/org.openmsx.openMSX.Catapult.desktop \
+			> ~/.local/share/applications/org.openmsx.openMSX.Catapult.desktop; \
 		fi
 endif
 ifeq ($(SYMLINK_FOR_BINARY),true)
