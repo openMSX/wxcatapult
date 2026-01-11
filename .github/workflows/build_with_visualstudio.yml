@@ -110,6 +110,21 @@ jobs:
         name: ${{ steps.catapult.outputs.target_file_pdb }}.zip
         path: derived/**/*.pdb
 
+    - name: Create Catapult release zip
+      shell: pwsh
+      env:
+        CATAPULT_BASENAME: ${{ steps.catapult.outputs.target_file }}
+      run: |
+        $zipName = "$env:CATAPULT_BASENAME.zip"
+
+        if (Test-Path $zipName) {
+          Remove-Item $zipName
+        }
+
+        Compress-Archive `
+          -Path derived/dist/Catapult `
+          -DestinationPath $zipName
+
     - name: Create / update CI snapshot release
       uses: softprops/action-gh-release@v2
       with:
