@@ -109,3 +109,14 @@ jobs:
       with:
         name: ${{ steps.catapult.outputs.target_file_pdb }}.zip
         path: derived/**/*.pdb
+
+    - name: Create / update CI snapshot release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: wxcatapult-ci-latest
+        name: wxCatapult CI snapshot
+        body: |
+          Automatically generated build.
+          Not an official wxcatapult release.
+        files: catapult-windows-vc-x64.zip
+        prerelease: true
