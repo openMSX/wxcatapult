@@ -99,13 +99,13 @@ jobs:
         cp README derived/dist/Catapult/doc
 
     - name: Upload Windows VC redistributable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ steps.catapult.outputs.target_file }}.zip
         path: derived/dist
 
     - name: Upload Windows VC debug symbols
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ steps.catapult.outputs.target_file_pdb }}.zip
         path: derived/**/*.pdb
