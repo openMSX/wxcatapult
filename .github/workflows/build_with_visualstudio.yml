@@ -118,5 +118,5 @@ jobs:
         body: |
           Automatically generated build.
           Not an official wxcatapult release.
-        files: catapult-windows-vc-x64.zip
+        files: catapult-19.0.*-Windows-VC-x64-bin.zip
         prerelease: true
